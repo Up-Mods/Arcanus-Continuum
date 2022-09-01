@@ -10,7 +10,7 @@ import net.minecraft.nbt.NbtCompound;
 
 public class ManaComponent implements AutoSyncedComponent, ServerTickingComponent {
 	private final LivingEntity entity;
-	private int mana = 0;
+	private double mana = 0;
 
 	public ManaComponent(LivingEntity entity) {
 		this.entity = entity;
@@ -27,34 +27,34 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 
 	@Override
 	public void readFromNbt(NbtCompound tag) {
-		mana = tag.getInt("Mana");
+		mana = tag.getDouble("Mana");
 	}
 
 	@Override
 	public void writeToNbt(NbtCompound tag) {
-		tag.putInt("Mana", mana);
+		tag.putDouble("Mana", mana);
 	}
 
-	public int getMana() {
+	public double getMana() {
 		return mana;
 	}
 
-	public void setMana(int mana) {
+	public void setMana(double mana) {
 		this.mana = mana;
 		ArcanusComponents.MANA_COMPONENT.sync(entity);
 	}
 
-	public int getMaxMana() {
+	public double getMaxMana() {
 		EntityAttributeInstance maxManaAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MAX_MANA);
 		EntityAttributeInstance manaLockAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MANA_LOCK);
 
 		if(maxManaAttr != null && manaLockAttr != null)
-			return (int) (maxManaAttr.getValue() - ArcanusComponents.getBurnout(entity) - manaLockAttr.getValue());
+			return maxManaAttr.getValue() - ArcanusComponents.getBurnout(entity) - manaLockAttr.getValue();
 		else
 			return 0;
 	}
 
-	public boolean addMana(int amount, boolean simulate) {
+	public boolean addMana(double amount, boolean simulate) {
 		if(getMana() < getMaxMana()) {
 			if(!simulate)
 				setMana(getMana() + amount);
@@ -68,10 +68,14 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 		return false;
 	}
 
-	public boolean drainMana(int amount, boolean simulate) {
-		if(getMana() - amount >= 0) {
-			if(!simulate)
+	public boolean drainMana(double amount, boolean simulate) {
+		if(getMana() >= 0) {
+			if(!simulate) {
 				setMana(getMana() - amount);
+
+				if(getMana() - amount < 0)
+					ArcanusComponents.addBurnout(entity, amount - getMana(), false);
+			}
 
 			return true;
 		}

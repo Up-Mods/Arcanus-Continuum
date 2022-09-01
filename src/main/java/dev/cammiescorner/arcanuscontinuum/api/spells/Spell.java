@@ -19,7 +19,7 @@ public abstract class Spell {
 	}
 
 	public double getSlowdown() {
-		return weight.getSlowdown();
+		return -weight.getSlowdown();
 	}
 
 	public double getManaCost() {

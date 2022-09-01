@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum;
 import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
+import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.CastSpellPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SetCastingPacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusItems;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpells;
@@ -39,10 +40,12 @@ public class Arcanus implements ModInitializer {
 		Registry.register(Registry.ATTRIBUTE, id("mana_regen"), ArcanusEntityAttributes.MANA_REGEN);
 		Registry.register(Registry.ATTRIBUTE, id("burnout_regen"), ArcanusEntityAttributes.BURNOUT_REGEN);
 		Registry.register(Registry.ATTRIBUTE, id("mana_lock"), ArcanusEntityAttributes.MANA_LOCK);
+		Registry.register(Registry.ATTRIBUTE, id("spell_potency"), ArcanusEntityAttributes.SPELL_POTENCY);
 
 		ArcanusSpells.register();
 		ArcanusItems.register();
 
+		ServerPlayNetworking.registerGlobalReceiver(CastSpellPacket.ID, CastSpellPacket::handler);
 		ServerPlayNetworking.registerGlobalReceiver(SetCastingPacket.ID, SetCastingPacket::handler);
 	}
 
@@ -63,6 +66,20 @@ public class Arcanus implements ModInitializer {
 			case "RLR" -> 6;
 			case "RLL" -> 7;
 			default -> 0;
+		};
+	}
+
+	public static List<Pattern> getSpellPattern(int index) {
+		return switch(index) {
+			case 0 -> List.of(Pattern.LEFT, Pattern.LEFT, Pattern.LEFT);
+			case 1 -> List.of(Pattern.LEFT, Pattern.LEFT, Pattern.RIGHT);
+			case 2 -> List.of(Pattern.LEFT, Pattern.RIGHT, Pattern.LEFT);
+			case 3 -> List.of(Pattern.LEFT, Pattern.RIGHT, Pattern.RIGHT);
+			case 4 -> List.of(Pattern.RIGHT, Pattern.RIGHT, Pattern.RIGHT);
+			case 5 -> List.of(Pattern.RIGHT, Pattern.RIGHT, Pattern.LEFT);
+			case 6 -> List.of(Pattern.RIGHT, Pattern.LEFT, Pattern.RIGHT);
+			case 7 -> List.of(Pattern.RIGHT, Pattern.LEFT, Pattern.LEFT);
+			default -> List.of(Pattern.LEFT, Pattern.LEFT, Pattern.LEFT);
 		};
 	}
 

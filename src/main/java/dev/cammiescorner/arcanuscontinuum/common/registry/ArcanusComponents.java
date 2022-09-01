@@ -35,39 +35,39 @@ public class ArcanusComponents implements EntityComponentInitializer {
 
 	// ----- Helper Methods ----- //
 
-	public static int getMana(LivingEntity entity) {
+	public static double getMana(LivingEntity entity) {
 		return MANA_COMPONENT.get(entity).getMana();
 	}
 
-	public static void setMana(LivingEntity entity, int amount) {
+	public static void setMana(LivingEntity entity, double amount) {
 		MANA_COMPONENT.get(entity).setMana(amount);
 	}
 
-	public static int getMaxMana(LivingEntity entity) {
+	public static double getMaxMana(LivingEntity entity) {
 		return MANA_COMPONENT.get(entity).getMaxMana();
 	}
 
-	public static boolean addMana(LivingEntity entity, int amount, boolean simulate) {
+	public static boolean addMana(LivingEntity entity, double amount, boolean simulate) {
 		return MANA_COMPONENT.get(entity).addMana(amount, simulate);
 	}
 
-	public static boolean drainMana(LivingEntity entity, int amount, boolean simulate) {
+	public static boolean drainMana(LivingEntity entity, double amount, boolean simulate) {
 		return MANA_COMPONENT.get(entity).drainMana(amount, simulate);
 	}
 
-	public static int getBurnout(LivingEntity entity) {
+	public static double getBurnout(LivingEntity entity) {
 		return BURNOUT_COMPONENT.get(entity).getBurnout();
 	}
 
-	public static void setBurnout(LivingEntity entity, int amount) {
+	public static void setBurnout(LivingEntity entity, double amount) {
 		BURNOUT_COMPONENT.get(entity).setBurnout(amount);
 	}
 
-	public static boolean addBurnout(LivingEntity entity, int amount, boolean simulate) {
+	public static boolean addBurnout(LivingEntity entity, double amount, boolean simulate) {
 		return BURNOUT_COMPONENT.get(entity).addBurnout(amount, simulate);
 	}
 
-	public static boolean drainBurnout(LivingEntity entity, int amount, boolean simulate) {
+	public static boolean drainBurnout(LivingEntity entity, double amount, boolean simulate) {
 		return BURNOUT_COMPONENT.get(entity).drainBurnout(amount, simulate);
 	}
 
@@ -79,16 +79,16 @@ public class ArcanusComponents implements EntityComponentInitializer {
 		CASTING_COMPONENT.get(entity).setCasting(casting);
 	}
 
-	public static List<Pattern> getList(LivingEntity entity) {
-		return PATTERN_COMPONENT.get(entity).getList();
+	public static List<Pattern> getPattern(LivingEntity entity) {
+		return PATTERN_COMPONENT.get(entity).getPattern();
 	}
 
-	public static void addPattern(LivingEntity entity, Pattern pattern) {
-		PATTERN_COMPONENT.get(entity).addPattern(pattern);
+	public static void setPattern(LivingEntity entity, List<Pattern> pattern) {
+		PATTERN_COMPONENT.get(entity).setPattern(pattern);
 	}
 
-	public static void clearList(LivingEntity entity) {
-		PATTERN_COMPONENT.get(entity).clearList();
+	public static void clearPattern(LivingEntity entity) {
+		PATTERN_COMPONENT.get(entity).clearPattern();
 	}
 
 	public static long getLastCastTime(LivingEntity entity) {

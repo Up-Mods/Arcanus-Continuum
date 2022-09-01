@@ -4,6 +4,7 @@ import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.client.utils.ClientUtils;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
+import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.CastSpellPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SetCastingPacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.client.MinecraftClient;
@@ -46,22 +47,25 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 		ItemStack stack = player.getMainHandStack();
 
-		if(timer == 0 && (pattern.size() < 3 || !(stack.getItem() instanceof StaffItem) || (lastMouseDown != null && !lastMouseDown.isPressed()))) {
+		if(timer == 0) {
 			if(!pattern.isEmpty())
 				pattern.clear();
 
-			lastMouseDown = null;
+			if(lastMouseDown != null)
+				lastMouseDown = null;
+
 			isCasting = false;
 		}
 
-		if(stack.getItem() instanceof StaffItem) {
+		if(stack.getItem() instanceof StaffItem staff) {
 			isCasting = lastMouseDown != null && lastMouseDown.isPressed();
 
 			if(timer > 0 && pattern.size() == 3) {
 				if(isCasting) {
-					// TODO handle the spell shenanigans
-					if(stack.getCooldown() == 0) {
+					if(player.getItemCooldownManager().getCooldownProgress(staff, 1F) == 0) {
 						int index = Arcanus.getSpellIndex(pattern);
+						CastSpellPacket.send(index);
+						timer = 20;
 					}
 				}
 				else {
@@ -73,12 +77,12 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 			timer = 0;
 		}
 
-		if(isCasting && !ArcanusComponents.isCasting(player))
+		if(isCasting() && !ArcanusComponents.isCasting(player))
 			SetCastingPacket.send(true);
-		if(!isCasting && ArcanusComponents.isCasting(player))
+		if(!isCasting() && ArcanusComponents.isCasting(player))
 			SetCastingPacket.send(false);
 
-		if(timer > 0 && player.getAttackCooldownProgress(getTickDelta()) == 1F)
+		if(timer > 0 && player.getAttackCooldownProgress(getTickDelta()) == 1F && player.getItemCooldownManager().getCooldownProgress(stack.getItem(), 1F) == 0)
 			timer--;
 	}
 
@@ -98,7 +102,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 		if(isCasting)
 			info.cancel();
 
-		if(player != null && !player.isSpectator() && player.getMainHandStack().getItem() instanceof StaffItem && player.getMainHandStack().getCooldown() == 0 && !isCasting) {
+		if(player != null && !player.isSpectator() && player.getMainHandStack().getItem() instanceof StaffItem staff && player.getItemCooldownManager().getCooldownProgress(staff, 1F) == 0 && !isCasting) {
 			if(player.getAttackCooldownProgress(getTickDelta()) == 1F) {
 				doAttack();
 				timer = 20;
@@ -123,7 +127,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 		if(isCasting)
 			info.cancel();
 
-		if(player != null && !player.isSpectator() && player.getMainHandStack().getItem() instanceof StaffItem && player.getMainHandStack().getCooldown() == 0 && !isCasting) {
+		if(player != null && !player.isSpectator() && player.getMainHandStack().getItem() instanceof StaffItem staff && player.getItemCooldownManager().getCooldownProgress(staff, 1F) == 0 && !isCasting) {
 			if(player.getAttackCooldownProgress(getTickDelta()) == 1F) {
 				timer = 20;
 				pattern.add(Pattern.RIGHT);
@@ -143,6 +147,6 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 	@Override
 	public boolean isCasting() {
-		return isCasting;
+		return isCasting && timer > 0;
 	}
 }

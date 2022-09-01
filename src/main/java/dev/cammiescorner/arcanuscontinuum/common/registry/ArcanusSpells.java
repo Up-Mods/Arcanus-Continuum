@@ -17,7 +17,7 @@ public class ArcanusSpells {
 	public static final LinkedHashMap<Spell, Identifier> SPELLS = new LinkedHashMap<>();
 
 	//-----Spells-----//
-	public static final Spell EMPTY = create("empty", new Spell(Weight.VERY_LIGHT, 0, 0) { @Override public void cast(LivingEntity caster, World world, StaffItem staff) { } });
+	public static final Spell EMPTY = create("empty", new Spell(Weight.VERY_LIGHT, 0, 10) { @Override public void cast(LivingEntity caster, World world, StaffItem staff) { } });
 
 	//-----Registry-----//
 	public static void register() {

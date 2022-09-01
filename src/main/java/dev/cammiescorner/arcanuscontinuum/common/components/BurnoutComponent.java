@@ -15,7 +15,7 @@ import java.util.UUID;
 public class BurnoutComponent implements AutoSyncedComponent, ServerTickingComponent {
 	public static final UUID uUID = UUID.fromString("c2223d02-f2f0-4fa9-b9d8-5b2c265a8195");
 	private final LivingEntity entity;
-	private int burnout;
+	private double burnout;
 
 	public BurnoutComponent(LivingEntity entity) {
 		this.entity = entity;
@@ -40,27 +40,27 @@ public class BurnoutComponent implements AutoSyncedComponent, ServerTickingCompo
 
 	@Override
 	public void readFromNbt(NbtCompound tag) {
-		burnout = tag.getInt("Burnout");
+		burnout = tag.getDouble("Burnout");
 	}
 
 	@Override
 	public void writeToNbt(NbtCompound tag) {
-		tag.putInt("Burnout", burnout);
+		tag.putDouble("Burnout", burnout);
 	}
 
-	public int getBurnout() {
+	public double getBurnout() {
 		return burnout;
 	}
 
-	public void setBurnout(int burnout) {
+	public void setBurnout(double burnout) {
 		this.burnout = burnout;
 		ArcanusComponents.BURNOUT_COMPONENT.sync(entity);
 	}
 
-	public boolean addBurnout(int amount, boolean simulate) {
+	public boolean addBurnout(double amount, boolean simulate) {
 		if(getBurnout() < ArcanusComponents.getMaxMana(entity)) {
 			if(!simulate)
-				setBurnout(getBurnout() + amount);
+				setBurnout(Math.min(ArcanusComponents.getMaxMana(entity), getBurnout() + amount));
 
 			return true;
 		}
@@ -68,7 +68,7 @@ public class BurnoutComponent implements AutoSyncedComponent, ServerTickingCompo
 		return false;
 	}
 
-	public boolean drainBurnout(int amount, boolean simulate) {
+	public boolean drainBurnout(double amount, boolean simulate) {
 		if(getBurnout() - amount >= 0) {
 			if(!simulate)
 				setBurnout(getBurnout() - amount);

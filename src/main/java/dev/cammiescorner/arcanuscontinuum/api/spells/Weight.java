@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.api.spells;
 
 public enum Weight {
-	VERY_LIGHT(0.1), LIGHT(0.2), MEDIUM(0.3), HEAVY(0.4), VERY_HEAVY(0.5);
+	VERY_LIGHT(0.15), LIGHT(0.3), MEDIUM(0.45), HEAVY(0.6), VERY_HEAVY(0.75);
 
 	private final double speed;
 

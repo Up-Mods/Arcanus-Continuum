@@ -12,7 +12,7 @@ import org.quiltmc.qsl.networking.api.PacketSender;
 import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 
 public class SetCastingPacket {
-	public static final Identifier ID = Arcanus.id("cast_spell");
+	public static final Identifier ID = Arcanus.id("set_casting");
 
 	public static void send(boolean casting) {
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
@@ -23,6 +23,11 @@ public class SetCastingPacket {
 	public static void handler(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender sender) {
 		boolean isCasting = buf.readBoolean();
 
-		server.execute(() -> ArcanusComponents.setCasting(player, isCasting));
+		server.execute(() -> {
+			if(!isCasting)
+				ArcanusComponents.clearPattern(player);
+
+			ArcanusComponents.setCasting(player, isCasting);
+		});
 	}
 }
