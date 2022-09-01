@@ -57,7 +57,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 			isCasting = false;
 		}
 
-		if(stack.getItem() instanceof StaffItem staff) {
+		if(stack.getItem() instanceof StaffItem staff && (ArcanusComponents.getMana(player) > 0 || player.isCreative())) {
 			isCasting = lastMouseDown != null && lastMouseDown.isPressed();
 
 			if(timer > 0 && pattern.size() == 3) {

@@ -7,6 +7,7 @@ import net.minecraft.util.Util;
 import net.minecraft.world.World;
 
 public abstract class Spell {
+	public static final Spell EMPTY = new Spell(Weight.VERY_LIGHT, 0, 10) { @Override public void cast(LivingEntity caster, World world, StaffItem staff) { } };
 	private final Weight weight;
 	private final double manaCost;
 	private final int cooldown;

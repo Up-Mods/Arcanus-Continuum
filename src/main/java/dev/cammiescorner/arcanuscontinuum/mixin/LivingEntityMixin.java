@@ -35,26 +35,28 @@ public abstract class LivingEntityMixin {
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void arcanuscontinuum$tick(CallbackInfo info) {
-		EntityAttributeInstance speedAttr = getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-		List<Pattern> pattern = ArcanusComponents.getPattern(self);
-		ItemStack stack = getMainHandStack();
+		if(!self.world.isClient()) {
+			EntityAttributeInstance speedAttr = getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+			List<Pattern> pattern = ArcanusComponents.getPattern(self);
+			ItemStack stack = getMainHandStack();
 
-		if(speedAttr != null) {
-			if(stack.getItem() instanceof StaffItem && ArcanusComponents.isCasting(self) && pattern.size() == 3) {
-				int index = Arcanus.getSpellIndex(pattern);
-				NbtCompound tag = stack.getOrCreateSubNbt(Arcanus.MOD_ID);
-				NbtList list = tag.getList("Spells", NbtElement.STRING_TYPE);
+			if(speedAttr != null) {
+				if(stack.getItem() instanceof StaffItem && ArcanusComponents.isCasting(self) && pattern.size() == 3) {
+					int index = Arcanus.getSpellIndex(pattern);
+					NbtCompound tag = stack.getOrCreateSubNbt(Arcanus.MOD_ID);
+					NbtList list = tag.getList("Spells", NbtElement.STRING_TYPE);
 
-				if(!list.isEmpty() && index < list.size()) {
-					Spell spell = Arcanus.SPELLS.get(new Identifier(list.getString(index)));
-					EntityAttributeModifier speedMod = new EntityAttributeModifier(uUID, "Spell Speed Modifier", spell.getSlowdown(), EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+					if(!list.isEmpty() && index < list.size()) {
+						Spell spell = Arcanus.SPELLS.get(new Identifier(list.getString(index)));
+						EntityAttributeModifier speedMod = new EntityAttributeModifier(uUID, "Spell Speed Modifier", spell.getSlowdown(), EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
 
-					if(!speedAttr.hasModifier(speedMod))
-						speedAttr.addTemporaryModifier(speedMod);
+						if(!speedAttr.hasModifier(speedMod))
+							speedAttr.addTemporaryModifier(speedMod);
+					}
 				}
+				else if(speedAttr.getModifier(uUID) != null)
+					speedAttr.removeModifier(uUID);
 			}
-			else if(speedAttr.getModifier(uUID) != null)
-				speedAttr.removeModifier(uUID);
 		}
 	}
 

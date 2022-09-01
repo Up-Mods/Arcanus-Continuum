@@ -49,23 +49,25 @@ public class StaffItem extends Item implements DyeableItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		NbtCompound tag = stack.getOrCreateSubNbt(Arcanus.MOD_ID);
+		if(!world.isClient()) {
+			NbtCompound tag = stack.getOrCreateSubNbt(Arcanus.MOD_ID);
 
-		if(tag.isEmpty()) {
-			NbtList list = new NbtList();
+			if(tag.isEmpty()) {
+				NbtList list = new NbtList();
 
-			for(int i = 0; i < 8; i++)
-				list.add(0, NbtString.of(Arcanus.SPELLS.getId(ArcanusSpells.EMPTY).toString()));
+				for(int i = 0; i < 8; i++)
+					list.add(0, NbtString.of(Arcanus.SPELLS.getId(ArcanusSpells.EMPTY).toString()));
 
-			tag.put("Spells", list);
+				tag.put("Spells", list);
+			}
 		}
 	}
 
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-		NbtCompound tag = stack.getOrCreateSubNbt(Arcanus.MOD_ID);
+		NbtCompound tag = stack.getSubNbt(Arcanus.MOD_ID);
 
-		if(!tag.isEmpty()) {
+		if(tag != null && !tag.isEmpty()) {
 			NbtList list = tag.getList("Spells", NbtElement.STRING_TYPE);
 
 			for(int i = 0; i < list.size(); i++) {

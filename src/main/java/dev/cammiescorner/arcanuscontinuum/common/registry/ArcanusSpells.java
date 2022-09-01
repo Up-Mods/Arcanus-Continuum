@@ -2,13 +2,9 @@ package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
-import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
 import dev.cammiescorner.arcanuscontinuum.common.items.SpellBookItem;
-import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
 
 import java.util.LinkedHashMap;
 
@@ -17,7 +13,7 @@ public class ArcanusSpells {
 	public static final LinkedHashMap<Spell, Identifier> SPELLS = new LinkedHashMap<>();
 
 	//-----Spells-----//
-	public static final Spell EMPTY = create("empty", new Spell(Weight.VERY_LIGHT, 0, 10) { @Override public void cast(LivingEntity caster, World world, StaffItem staff) { } });
+	public static final Spell EMPTY = create("empty", Spell.EMPTY);
 
 	//-----Registry-----//
 	public static void register() {
