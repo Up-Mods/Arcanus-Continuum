@@ -1,0 +1,74 @@
+{
+	"schema_version": 1,
+	"quilt_loader": {
+		"group": "dev.cammiescorner",
+		"id": "arcanuscontinuum",
+		"version": "${version}",
+		"metadata": {
+			"name": "Arcanus Continuum",
+			"description": "A simple magic mod based on EB Wizardry & Wynncraft",
+			"contributors": {
+				"Cammie": "Owner",
+				"Arathain": "Artist",
+				"SleepySheepy (Kelly)": "Mod Namer"
+			},
+			"contact": {
+				"homepage": "https://cammiescorner.dev/",
+				"issues": "https://github.com/CammiePone/Arcanus-Continuum/issues",
+				"sources": "https://github.com/CammiePone/Arcanus-Continuum"
+			},
+			"license": {
+				"name": "Custom License",
+				"id": "Custom License",
+				"url": "https://github.com/CammiePone/Arcanus-Continuum/blob/1.19-dev/LICENSE",
+				"description": "This license permits small portions of the code to be used without prior permission, but not large parts."
+			},
+			"icon": "assets/arcanuscontinuum/icon.png"
+		},
+		"intermediate_mappings": "net.fabricmc:intermediary",
+		"entrypoints": {
+			"init": "dev.cammiescorner.arcanuscontinuum.Arcanus",
+			"client_init": "dev.cammiescorner.arcanuscontinuum.client.ArcanusClient",
+			"pre_launch": "dev.cammiescorner.arcanuscontinuum.common.ArcanusPreLaunch",
+			"cardinal-components": "dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents"
+		},
+		"depends": [
+			{
+				"id": "quilt_loader",
+				"versions": ">=0.17.0-"
+			},
+			{
+				"id": "quilted_fabric_api",
+				"versions": ">=4.0.0-"
+			},
+			{
+				"id": "minecraft",
+				"versions": ">=1.19.2"
+			},
+			{
+				"id": "midnightlib",
+				"versions": ">=0.6.0"
+			},
+			{
+				"id": "blabber",
+				"versions": ">=0.4.0"
+			},
+			{
+				"id": "cardinal-components-base",
+				"versions": ">=5.0.2"
+			},
+			{
+				"id": "cardinal-components-entity",
+				"versions": ">=5.0.2"
+			}
+		]
+	},
+	"mixin": "arcanuscontinuum.mixins.json",
+	"cardinal-components": [
+		"arcanuscontinuum:mana",
+		"arcanuscontinuum:burnout",
+		"arcanuscontinuum:casting",
+		"arcanuscontinuum:casting_pattern",
+		"arcanuscontinuum:last_cast_time"
+	]
+}

@@ -1,0 +1,16 @@
+{
+  "itemGroup.arcanuscontinuum.general": "Arcanus: Continuum",
+
+  "item.arcanuscontinuum.wooden_staff": "Wooden Staff",
+  "item.arcanuscontinuum.amethyst_shard_staff": "Amethyst Shard Staff",
+  "item.arcanuscontinuum.quartz_shard_staff": "Quartz Shard Staff",
+  "item.arcanuscontinuum.ender_shard_staff": "Ender Shard Staff",
+  "item.arcanuscontinuum.echo_shard_staff": "Echo Shard Staff",
+
+  "spell.arcanuscontinuum.empty": "Empty",
+
+  "attribute.name.generic.arcanuscontinuum.max_mana": "Max Mana",
+  "attribute.name.generic.arcanuscontinuum.mana_regen": "Mana Regen",
+  "attribute.name.generic.arcanuscontinuum.burnout_regen": "Burnout Regen",
+  "attribute.name.generic.arcanuscontinuum.mana_lock": "Mana Lock"
+}

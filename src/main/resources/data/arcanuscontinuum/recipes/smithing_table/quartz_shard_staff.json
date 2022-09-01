@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "arcanuscontinuum:wooden_staff"
+  },
+  "addition": {
+    "item": "minecraft:quartz"
+  },
+  "result": {
+    "item": "arcanuscontinuum:quartz_shard_staff"
+  }
+}
