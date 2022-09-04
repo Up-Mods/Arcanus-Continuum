@@ -27,6 +27,10 @@ public abstract class Spell {
 		return parent;
 	}
 
+	public Weight getWeight() {
+		return weight;
+	}
+
 	public double getSlowdown() {
 		return -weight.getSlowdown();
 	}

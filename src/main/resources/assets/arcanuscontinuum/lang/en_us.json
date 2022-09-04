@@ -58,6 +58,12 @@
 
   "item.arcanuscontinuum.compendium_arcanus.landing_text": "Sample Landing Text",
 
+  "spell_book.arcanuscontinuum.weight": "Weight",
+  "spell_book.arcanuscontinuum.weight.very_light": "Very Light",
+  "spell_book.arcanuscontinuum.weight.light": "Light",
+  "spell_book.arcanuscontinuum.weight.medium": "Medium",
+  "spell_book.arcanuscontinuum.weight.heavy": "Heavy",
+  "spell_book.arcanuscontinuum.weight.very_heavy": "Very Heavy",
   "spell_book.arcanuscontinuum.mana_cost": "Mana Cost",
   "spell_book.arcanuscontinuum.cooldown": "Cooldown",
   "spell_book.arcanuscontinuum.seconds": "s",

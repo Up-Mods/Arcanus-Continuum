@@ -53,6 +53,24 @@ public class StaffItem extends Item implements DyeableItem {
 	}
 
 	@Override
+	public void onCraft(ItemStack stack, World world, PlayerEntity player) {
+		if(!world.isClient()) {
+			NbtCompound tag = stack.getOrCreateSubNbt(Arcanus.MOD_ID);
+
+			if(tag.isEmpty()) {
+				NbtList list = new NbtList();
+
+				for(int i = 0; i < 8; i++)
+					list.add(i, NbtString.of(Arcanus.SPELLS.getId(ArcanusSpells.EMPTY).toString()));
+
+				tag.put("Spells", list);
+			}
+		}
+		
+		super.onCraft(stack, world, player);
+	}
+
+	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
 		if(!world.isClient()) {
 			NbtCompound tag = stack.getOrCreateSubNbt(Arcanus.MOD_ID);
@@ -61,7 +79,7 @@ public class StaffItem extends Item implements DyeableItem {
 				NbtList list = new NbtList();
 
 				for(int i = 0; i < 8; i++)
-					list.add(0, NbtString.of(Arcanus.SPELLS.getId(ArcanusSpells.EMPTY).toString()));
+					list.add(i, NbtString.of(Arcanus.SPELLS.getId(ArcanusSpells.EMPTY).toString()));
 
 				tag.put("Spells", list);
 			}

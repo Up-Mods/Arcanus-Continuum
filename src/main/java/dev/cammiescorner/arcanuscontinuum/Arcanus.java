@@ -6,6 +6,7 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.CastSpellPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SetCastingPacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusItems;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusRecipes;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpells;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.item.ItemGroup;
@@ -38,6 +39,7 @@ public class Arcanus implements ModInitializer {
 
 		ArcanusItems.register();
 		ArcanusSpells.register();
+		ArcanusRecipes.register();
 
 		ServerPlayNetworking.registerGlobalReceiver(CastSpellPacket.ID, CastSpellPacket::handler);
 		ServerPlayNetworking.registerGlobalReceiver(SetCastingPacket.ID, SetCastingPacket::handler);
