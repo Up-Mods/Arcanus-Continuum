@@ -6,6 +6,6 @@
   "filler_texture": "arcanuscontinuum:textures/gui/patchouli/filler.png",
   "dont_generate_book": true,
   "link_color": "0000ff",
-  "link_hover_color": "00ffff",
-  "progress_bar_color": "8500b9"
+  "link_hover_color": "0066ff",
+  "progress_bar_color": "00ffff"
 }

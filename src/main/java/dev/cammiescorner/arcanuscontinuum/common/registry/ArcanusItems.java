@@ -3,6 +3,8 @@ package dev.cammiescorner.arcanuscontinuum.common.registry;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.items.CompendiumItem;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
+import dev.cammiescorner.arcanuscontinuum.common.items.WizardArmorItem;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -20,6 +22,10 @@ public class ArcanusItems {
 	public static final Item QUARTZ_SHARD_STAFF = create("quartz_shard_staff", new StaffItem());
 	public static final Item ENDER_SHARD_STAFF = create("ender_shard_staff", new StaffItem());
 	public static final Item ECHO_SHARD_STAFF = create("echo_shard_staff", new StaffItem());
+	public static final Item WIZARD_HAT = create("wizard_hat", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.HEAD, -0.16));
+	public static final Item WIZARD_ROBES = create("wizard_robes", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.CHEST, -0.2));
+	public static final Item WIZARD_PANTS = create("wizard_pants", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.LEGS, -0.18));
+	public static final Item WIZARD_BOOTS = create("wizard_boots", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.FEET, -0.12));
 
 	//-----Registry-----//
 	public static void register() {

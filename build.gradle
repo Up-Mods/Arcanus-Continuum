@@ -15,6 +15,8 @@ repositories {
 	maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 	maven { url "https://api.modrinth.com/maven" }
 	maven { url "https://maven.blamejared.com" }
+	maven { url "https://maven.kosmx.dev/" }
+	maven { url "https://maven.jamieswhiteshirt.com/libs-release" }
 }
 
 dependencies {
@@ -27,9 +29,11 @@ dependencies {
 	modImplementation libs.quilted.fabric.api
 	modImplementation libs.cca.base
 	modImplementation libs.cca.entity
+	modImplementation libs.playeranimator
 	modImplementation libs.patchouli
 	modImplementation libs.midnightlib
 	modImplementation libs.blabber
+	modImplementation libs.reach.attr
 	modImplementation libs.modmenu
 
 	implementation libs.mixinextras

@@ -40,10 +40,10 @@ public class ArcanusSpells {
 	public static final Spell INCINERATE = create("incinerate", new IncinerateSpell(null, Weight.LIGHT, 0.75, 10));
 	public static final Spell IMMOLATE = create("immolate", new ImmolateSpell(INCINERATE, Weight.MEDIUM, 0.25, 0));
 	public static final Spell FIREBALL = create("fireball", new FireballSpell(INCINERATE, Weight.HEAVY, 5, 60));
-	public static final Spell FLAME_PILLAR = create("flame_pillar", new FlamePillarSpell(INCINERATE, Weight.HEAVY, 10, 100));
+	public static final Spell FLAME_PILLAR = create("flame_pillar", new FlamePillarSpell(INCINERATE, Weight.HEAVY, 15, 100));
 
 	public static final Spell SPARK = create("spark", new SparkSpell(null, Weight.MEDIUM, 1, 15));
-	public static final Spell LIGHTNING_BOLT = create("lightning_bolt", new LightningBoltSpell(SPARK, Weight.HEAVY, 10, 80));
+	public static final Spell LIGHTNING_BOLT = create("lightning_bolt", new LightningBoltSpell(SPARK, Weight.HEAVY, 15, 80));
 	public static final Spell CHAIN_LIGHTNING = create("chain_lightning", new ChainLightningSpell(SPARK, Weight.LIGHT, 4, 30));
 	public static final Spell LIGHTNING_SPEED = create("lightning_speed", new LightningSpeedSpell(SPARK, Weight.VERY_LIGHT, 10, 200));
 
@@ -53,14 +53,14 @@ public class ArcanusSpells {
 	public static final Spell VAMPIRIC_ORB = create("vampiric_orb", new VampiricOrbSpell(HEALING_TOUCH, Weight.HEAVY, 20, 200));
 
 	public static final Spell WITHERING_BEAM = create("withering_beam", new WitheringBeamSpell(null, Weight.HEAVY, 2, 0));
-	public static final Spell HELLISH_SKULL = create("hellish_skull", new HellishSkullSpell(WITHERING_BEAM, Weight.VERY_HEAVY, 10, 2));
+	public static final Spell HELLISH_SKULL = create("hellish_skull", new HellishSkullSpell(WITHERING_BEAM, Weight.VERY_HEAVY, 12, 2));
 	public static final Spell WITHER_ARMOUR = create("wither_armor", new WitherArmorSpell(WITHERING_BEAM, Weight.HEAVY, 25, 400));
 	public static final Spell CONDEMNED_BONES = create("condemned_bones", new CondemnedBonesSpell(WITHERING_BEAM, Weight.HEAVY, 10, 100));
 
-	public static final Spell MANA_BURST = create("mana_burst", new ManaBurstSpell(null, Weight.VERY_HEAVY, 10, 160));
+	public static final Spell MANA_BURST = create("mana_burst", new ManaBurstSpell(null, Weight.VERY_HEAVY, 20, 160));
 	public static final Spell MANA_STRIKE = create("mana_strike", new ManaStrikeSpell(MANA_BURST, Weight.VERY_HEAVY, 50, 400));
-	public static final Spell MANA_SPHERE = create("mana_sphere", new ManaSphereSpell(MANA_BURST, Weight.MEDIUM, 5, 60));
-	public static final Spell MANA_BOLT = create("mana_bolt", new ManaBurstSpell(MANA_BURST, Weight.MEDIUM, 5, 70));
+	public static final Spell MANA_SPHERE = create("mana_sphere", new ManaSphereSpell(MANA_BURST, Weight.MEDIUM, 7, 60));
+	public static final Spell MANA_BOLT = create("mana_bolt", new ManaBurstSpell(MANA_BURST, Weight.MEDIUM, 5, 40));
 
 	//-----Registry-----//
 	public static void register() {
@@ -72,7 +72,7 @@ public class ArcanusSpells {
 		SPELLS.put(spell, Arcanus.id(name));
 
 		if(!name.equals("empty"))
-			SPELL_BOOKS.put(new SpellBookItem(spell), Arcanus.id("spell_book_" + name));
+			SPELL_BOOKS.put(new SpellBookItem(spell), Arcanus.id(name + "_spell_book"));
 
 		return spell;
 	}

@@ -6,11 +6,13 @@ quilt_loader = "0.17.5-beta.1"
 
 quilted_fabric_api = "4.0.0-beta.10+0.60.0-1.19.2"
 cca = "5.0.2"
+playeranimator = "0.3.5"
 patchouli = "1.19.2-76-FABRIC"
 midnightlib = "0.6.0"
 blabber = "0.4.0"
 mixinextras = "0.0.12"
 lucko_perms = "0.1-SNAPSHOT"
+reach_attr = "2.3.0"
 modmenu = "4.0.6"
 
 [libraries]
@@ -22,11 +24,13 @@ quilted_fabric_api = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-a
 quilted_fabric_api_deprecated = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api-deprecated", version.ref = "quilted_fabric_api" }
 cca_base = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-base", version.ref = "cca" }
 cca_entity = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-entity", version.ref = "cca" }
+playeranimator = { module = "dev.kosmx.player-anim:player-animation-lib-fabric", version.ref = "playeranimator" }
 patchouli = { module = "vazkii.patchouli:Patchouli", version.ref = "patchouli" }
 midnightlib = { module = "maven.modrinth:midnightlib", version.ref = "midnightlib" }
 blabber = { module = "io.github.ladysnake:blabber", version.ref = "blabber" }
 mixinextras = { module = "com.github.LlamaLad7:MixinExtras", version.ref = "mixinextras" }
 lucko_perms = { module = "me.lucko:fabric-permissions-api", version.ref = "lucko_perms" }
+reach_attr = { module = "com.jamieswhiteshirt:reach-entity-attributes", version.ref = "reach_attr" }
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
 
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
