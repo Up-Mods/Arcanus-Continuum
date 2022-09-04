@@ -41,7 +41,7 @@ public class ArcanusSpells {
 	public static final Spell FLAME_PILLAR = create("flame_pillar", new FlamePillarSpell(INCINERATE, Weight.HEAVY, 10, 100));
 
 	public static final Spell SPARK = create("spark", new SparkSpell(null, Weight.MEDIUM, 1, 15));
-	public static final Spell LIGHTNING_BOLT = create("lightning_bold", new LightningBoltSpell(SPARK, Weight.HEAVY, 10, 80));
+	public static final Spell LIGHTNING_BOLT = create("lightning_bolt", new LightningBoltSpell(SPARK, Weight.HEAVY, 10, 80));
 	public static final Spell CHAIN_LIGHTNING = create("chain_lightning", new ChainLightningSpell(SPARK, Weight.LIGHT, 4, 30));
 	public static final Spell LIGHTNING_SPEED = create("lightning_speed", new LightningSpeedSpell(SPARK, Weight.VERY_LIGHT, 10, 200));
 
