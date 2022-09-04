@@ -6,17 +6,25 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Util;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
 public abstract class Spell {
-	public static final Spell EMPTY = new Spell(Weight.VERY_LIGHT, 0, 10) { @Override public void cast(LivingEntity caster, World world, StaffItem staff) { } };
+	public static final Spell EMPTY = new Spell(null, Weight.VERY_LIGHT, 0, 10) { @Override public void cast(LivingEntity caster, World world, StaffItem staff) { } };
+	private final Spell parent;
 	private final Weight weight;
 	private final double manaCost;
 	private final int cooldown;
 	private String translationKey;
 
-	public Spell(Weight weight, double manaCost, int cooldown) {
+	public Spell(@Nullable Spell parent, Weight weight, double manaCost, int cooldown) {
+		this.parent = parent;
 		this.weight = weight;
 		this.manaCost = manaCost;
 		this.cooldown = cooldown;
+	}
+
+	public Spell getParent() {
+		return parent;
 	}
 
 	public double getSlowdown() {
