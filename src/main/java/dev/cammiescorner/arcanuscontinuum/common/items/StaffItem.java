@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.common.items;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpells;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
@@ -71,7 +72,8 @@ public class StaffItem extends Item implements DyeableItem {
 			NbtList list = tag.getList("Spells", NbtElement.STRING_TYPE);
 
 			for(int i = 0; i < list.size(); i++) {
-				MutableText text = Text.translatable(Arcanus.SPELLS.get(new Identifier(list.getString(i))).getTranslationKey()).formatted(Formatting.GRAY);
+				Spell spell = Arcanus.SPELLS.get(new Identifier(list.getString(i)));
+				MutableText text = Text.translatable(spell.getTranslationKey()).formatted(spell == Spell.EMPTY ? Formatting.GRAY : Formatting.GREEN);
 				tooltip.add(text.append(Text.literal(" (").formatted(Formatting.DARK_GRAY)).append(Arcanus.getSpellPatternAsText(i)).append(Text.literal(")").formatted(Formatting.DARK_GRAY)));
 			}
 		}

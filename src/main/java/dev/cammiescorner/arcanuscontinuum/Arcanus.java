@@ -20,30 +20,24 @@ import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.quiltmc.qsl.item.group.api.QuiltItemGroup;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class Arcanus implements ModInitializer {
 	public static final String MOD_ID = "arcanuscontinuum";
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
 	public static final ItemGroup ITEM_GROUP = QuiltItemGroup.createWithIcon(id("general"), () -> new ItemStack(ArcanusItems.WOODEN_STAFF));
 	public static final DefaultedRegistry<Spell> SPELLS = FabricRegistryBuilder.createDefaulted(Spell.class, id("spells"), id("empty")).buildAndRegister();
 
 	@Override
 	public void onInitialize(ModContainer mod) {
-		LOGGER.info("Magic Mod 2: Electric Boogaloo");
-
 		Registry.register(Registry.ATTRIBUTE, id("max_mana"), ArcanusEntityAttributes.MAX_MANA);
 		Registry.register(Registry.ATTRIBUTE, id("mana_regen"), ArcanusEntityAttributes.MANA_REGEN);
 		Registry.register(Registry.ATTRIBUTE, id("burnout_regen"), ArcanusEntityAttributes.BURNOUT_REGEN);
 		Registry.register(Registry.ATTRIBUTE, id("mana_lock"), ArcanusEntityAttributes.MANA_LOCK);
 		Registry.register(Registry.ATTRIBUTE, id("spell_potency"), ArcanusEntityAttributes.SPELL_POTENCY);
 
-		ArcanusSpells.register();
 		ArcanusItems.register();
+		ArcanusSpells.register();
 
 		ServerPlayNetworking.registerGlobalReceiver(CastSpellPacket.ID, CastSpellPacket::handler);
 		ServerPlayNetworking.registerGlobalReceiver(SetCastingPacket.ID, SetCastingPacket::handler);

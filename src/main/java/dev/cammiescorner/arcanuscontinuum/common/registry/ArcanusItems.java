@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.common.items.CompendiumItem;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -13,6 +14,7 @@ public class ArcanusItems {
 	public static final LinkedHashMap<Item, Identifier> ITEMS = new LinkedHashMap<>();
 
 	//-----Items-----//
+	public static final Item COMPENDIUM_ARCANUS = create("compendium_arcanus", new CompendiumItem());
 	public static final Item WOODEN_STAFF = create("wooden_staff", new StaffItem());
 	public static final Item AMETHYST_SHARD_STAFF = create("amethyst_shard_staff", new StaffItem());
 	public static final Item QUARTZ_SHARD_STAFF = create("quartz_shard_staff", new StaffItem());

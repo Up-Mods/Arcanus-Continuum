@@ -23,6 +23,7 @@ import dev.cammiescorner.arcanuscontinuum.common.spells.withering_beam.Condemned
 import dev.cammiescorner.arcanuscontinuum.common.spells.withering_beam.HellishSkullSpell;
 import dev.cammiescorner.arcanuscontinuum.common.spells.withering_beam.WitherArmorSpell;
 import dev.cammiescorner.arcanuscontinuum.common.spells.withering_beam.WitheringBeamSpell;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -31,6 +32,7 @@ import java.util.LinkedHashMap;
 public class ArcanusSpells {
 	//-----Spell Map-----//
 	public static final LinkedHashMap<Spell, Identifier> SPELLS = new LinkedHashMap<>();
+	public static final LinkedHashMap<Item, Identifier> SPELL_BOOKS = new LinkedHashMap<>();
 
 	//-----Spells-----//
 	public static final Spell EMPTY = create("empty", Spell.EMPTY);
@@ -63,13 +65,14 @@ public class ArcanusSpells {
 	//-----Registry-----//
 	public static void register() {
 		SPELLS.keySet().forEach(item -> Registry.register(Arcanus.SPELLS, SPELLS.get(item), item));
+		SPELL_BOOKS.keySet().forEach(item -> Registry.register(Registry.ITEM, SPELL_BOOKS.get(item), item));
 	}
 
 	private static <T extends Spell> T create(String name, T spell) {
 		SPELLS.put(spell, Arcanus.id(name));
 
 		if(!name.equals("empty"))
-			ArcanusItems.ITEMS.put(new SpellBookItem(spell), Arcanus.id("spell_book_" + name));
+			SPELL_BOOKS.put(new SpellBookItem(spell), Arcanus.id("spell_book_" + name));
 
 		return spell;
 	}

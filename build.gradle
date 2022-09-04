@@ -14,6 +14,7 @@ repositories {
 	maven { url "https://jitpack.io" }
 	maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 	maven { url "https://api.modrinth.com/maven" }
+	maven { url "https://maven.blamejared.com" }
 }
 
 dependencies {
@@ -26,9 +27,10 @@ dependencies {
 	modImplementation libs.quilted.fabric.api
 	modImplementation libs.cca.base
 	modImplementation libs.cca.entity
-	modImplementation libs.modmenu
+	modImplementation libs.patchouli
 	modImplementation libs.midnightlib
 	modImplementation libs.blabber
+	modImplementation libs.modmenu
 
 	implementation libs.mixinextras
 	annotationProcessor libs.mixinextras
