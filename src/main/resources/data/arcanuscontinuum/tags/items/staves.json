@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "arcanuscontinuum:wooden_staff",
+    "arcanuscontinuum:amethyst_shard_staff",
+    "arcanuscontinuum:quartz_shard_staff",
+    "arcanuscontinuum:ender_shard_staff",
+    "arcanuscontinuum:echo_shard_staff"
+  ]
+}

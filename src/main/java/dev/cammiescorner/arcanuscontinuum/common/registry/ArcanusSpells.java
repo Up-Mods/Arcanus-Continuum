@@ -12,6 +12,10 @@ import dev.cammiescorner.arcanuscontinuum.common.spells.incinerate.FireballSpell
 import dev.cammiescorner.arcanuscontinuum.common.spells.incinerate.FlamePillarSpell;
 import dev.cammiescorner.arcanuscontinuum.common.spells.incinerate.ImmolateSpell;
 import dev.cammiescorner.arcanuscontinuum.common.spells.incinerate.IncinerateSpell;
+import dev.cammiescorner.arcanuscontinuum.common.spells.magic_missile.ArcaneBarrageSpell;
+import dev.cammiescorner.arcanuscontinuum.common.spells.magic_missile.BlinkSpell;
+import dev.cammiescorner.arcanuscontinuum.common.spells.magic_missile.MagicMissileSpell;
+import dev.cammiescorner.arcanuscontinuum.common.spells.magic_missile.PiercingArrowSpell;
 import dev.cammiescorner.arcanuscontinuum.common.spells.mana_burst.ManaBurstSpell;
 import dev.cammiescorner.arcanuscontinuum.common.spells.mana_burst.ManaSphereSpell;
 import dev.cammiescorner.arcanuscontinuum.common.spells.mana_burst.ManaStrikeSpell;
@@ -37,9 +41,14 @@ public class ArcanusSpells {
 	//-----Spells-----//
 	public static final Spell EMPTY = create("empty", Spell.EMPTY);
 
+	public static final Spell MAGIC_MISSILE = create("magic_missile", new MagicMissileSpell(null, Weight.VERY_LIGHT, 1, 20));
+	public static final Spell PIERCING_ARROW = create("piercing_arrow", new PiercingArrowSpell(MAGIC_MISSILE, Weight.MEDIUM, 5, 40));
+	public static final Spell ARCANE_BARRAGE = create("arcane_barrage", new ArcaneBarrageSpell(MAGIC_MISSILE, Weight.HEAVY, 20, 100));
+	public static final Spell BLINK = create("blink", new BlinkSpell(MAGIC_MISSILE, Weight.MEDIUM, 15, 60));
+
 	public static final Spell INCINERATE = create("incinerate", new IncinerateSpell(null, Weight.LIGHT, 0.75, 10));
-	public static final Spell IMMOLATE = create("immolate", new ImmolateSpell(INCINERATE, Weight.MEDIUM, 0.25, 0));
-	public static final Spell FIREBALL = create("fireball", new FireballSpell(INCINERATE, Weight.HEAVY, 5, 60));
+	public static final Spell IMMOLATE = create("immolate", new ImmolateSpell(INCINERATE, Weight.VERY_LIGHT, 0.25, 0));
+	public static final Spell FIREBALL = create("fireball", new FireballSpell(INCINERATE, Weight.MEDIUM, 5, 60));
 	public static final Spell FLAME_PILLAR = create("flame_pillar", new FlamePillarSpell(INCINERATE, Weight.HEAVY, 15, 100));
 
 	public static final Spell SPARK = create("spark", new SparkSpell(null, Weight.MEDIUM, 1, 15));

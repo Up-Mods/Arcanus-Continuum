@@ -28,13 +28,13 @@ public class SpellBindingRecipe extends SpecialCraftingRecipe {
 
 	@Override
 	public DefaultedList<ItemStack> getRemainder(CraftingInventory inventory) {
-		DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(inventory.size(), ItemStack.EMPTY);
+		DefaultedList<ItemStack> list = DefaultedList.ofSize(inventory.size(), ItemStack.EMPTY);
 
-		for(int i = 0; i < defaultedList.size(); ++i)
+		for(int i = 0; i < list.size(); ++i)
 			if(inventory.getStack(i).getItem() instanceof SpellBookItem)
-				defaultedList.set(i, inventory.getStack(i));
+				list.set(i, inventory.getStack(i).copy());
 
-		return defaultedList;
+		return list;
 	}
 
 	@Override
@@ -114,12 +114,18 @@ public class SpellBindingRecipe extends SpecialCraftingRecipe {
 		if(tag == null || tag.isEmpty())
 			return ItemStack.EMPTY;
 
-		for(int i = 0; i < spells.size(); i++) {
-			NbtList list = tag.getList("Spells", NbtElement.STRING_TYPE);
+		NbtList list = tag.getList("Spells", NbtElement.STRING_TYPE);
 
-			list.set(i, NbtString.of(Arcanus.SPELLS.getId(spells.get(i)).toString()));
-			tag.put("Spells", list);
+		for(int i = 0; i < spells.size(); i++) {
+			Spell spell = spells.get(i);
+
+			if(spell == Spell.EMPTY)
+				continue;
+
+			list.set(i, NbtString.of(Arcanus.SPELLS.getId(spell).toString()));
 		}
+
+		tag.put("Spells", list);
 
 		return stack;
 	}

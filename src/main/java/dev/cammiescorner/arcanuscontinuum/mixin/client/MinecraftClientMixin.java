@@ -31,6 +31,7 @@ import java.util.List;
 public abstract class MinecraftClientMixin implements ClientUtils {
 	@Unique private boolean isCasting = false;
 	@Unique private int timer = 0;
+	@Unique private int mouseDownTimer = 0;
 	@Unique private KeyBind lastMouseDown = null;
 	@Unique private final List<Pattern> pattern = new ArrayList<>(3);
 
@@ -62,6 +63,8 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 			if(timer > 0 && pattern.size() == 3) {
 				if(isCasting) {
+					mouseDownTimer++;
+
 					if(player.getItemCooldownManager().getCooldownProgress(staff, 1F) == 0) {
 						int index = Arcanus.getSpellIndex(pattern);
 						CastSpellPacket.send(index);
@@ -70,6 +73,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 				}
 				else {
 					timer = 0;
+					mouseDownTimer = 0;
 				}
 			}
 		}
@@ -77,7 +81,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 			timer = 0;
 		}
 
-		if(isCasting() && !ArcanusComponents.isCasting(player))
+		if(isCasting() && !ArcanusComponents.isCasting(player) && mouseDownTimer > 2)
 			SetCastingPacket.send(true);
 		if(!isCasting() && ArcanusComponents.isCasting(player))
 			SetCastingPacket.send(false);

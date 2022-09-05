@@ -13,6 +13,10 @@
   "item.arcanuscontinuum.wizard_boots": "Wizard Boots",
 
   "item.arcanuscontinuum.empty_spell_book": "Spell Book: Empty",
+  "item.arcanuscontinuum.magic_missile_spell_book": "Spell Book: Magic Missile",
+  "item.arcanuscontinuum.piercing_arrow_spell_book": "Spell Book: Piercing Arrow",
+  "item.arcanuscontinuum.arcane_barrage_spell_book": "Spell Book: Arcane Barrage",
+  "item.arcanuscontinuum.blink_spell_book": "Spell Book: Blink",
   "item.arcanuscontinuum.incinerate_spell_book": "Spell Book: Incinerate",
   "item.arcanuscontinuum.immolate_spell_book": "Spell Book: Immolate",
   "item.arcanuscontinuum.fireball_spell_book": "Spell Book: Fireball",
@@ -35,6 +39,10 @@
   "item.arcanuscontinuum.mana_bolt_spell_book": "Spell Book: Mana Bolt",
 
   "spell.arcanuscontinuum.empty": "Empty",
+  "spell.arcanuscontinuum.magic_missile": "Magic Missile",
+  "spell.arcanuscontinuum.piercing_arrow": "Piercing Arrow",
+  "spell.arcanuscontinuum.arcane_barrage": "Arcane Barrage",
+  "spell.arcanuscontinuum.blink": "Blink",
   "spell.arcanuscontinuum.incinerate": "Incinerate",
   "spell.arcanuscontinuum.immolate": "Immolate",
   "spell.arcanuscontinuum.fireball": "Fireball",
