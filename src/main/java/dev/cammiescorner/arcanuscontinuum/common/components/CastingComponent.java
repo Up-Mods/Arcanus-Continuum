@@ -29,6 +29,7 @@ public class CastingComponent implements AutoSyncedComponent {
 
 	public void setCasting(boolean casting) {
 		this.casting = casting;
+
 		ArcanusComponents.CASTING_COMPONENT.sync(entity);
 	}
 }

@@ -48,24 +48,21 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 		ItemStack stack = player.getMainHandStack();
 
-		if(timer == 0) {
-			if(!pattern.isEmpty())
-				pattern.clear();
-
-			if(lastMouseDown != null)
-				lastMouseDown = null;
-
+		if(timer == 0 || (lastMouseDown != null && !lastMouseDown.isPressed())) {
+			pattern.clear();
+			lastMouseDown = null;
 			isCasting = false;
+			timer = 0;
 		}
 
 		if(stack.getItem() instanceof StaffItem staff && (ArcanusComponents.getMana(player) > 0 || player.isCreative())) {
-			isCasting = lastMouseDown != null && lastMouseDown.isPressed();
+			if(timer > 0 && pattern.size() >= 3) {
+				isCasting = lastMouseDown != null && lastMouseDown.isPressed();
 
-			if(timer > 0 && pattern.size() == 3) {
 				if(isCasting) {
 					mouseDownTimer++;
 
-					if(player.getItemCooldownManager().getCooldownProgress(staff, 1F) == 0) {
+					if(player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0) {
 						int index = Arcanus.getSpellIndex(pattern);
 						CastSpellPacket.send(index);
 						timer = 20;
@@ -81,12 +78,12 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 			timer = 0;
 		}
 
-		if(isCasting() && !ArcanusComponents.isCasting(player) && mouseDownTimer > 2)
+		if(isCasting() && !ArcanusComponents.isCasting(player) && mouseDownTimer > 3)
 			SetCastingPacket.send(true);
-		if(!isCasting() && ArcanusComponents.isCasting(player))
+		if((!isCasting() || ArcanusComponents.getMana(player) <= 0) && ArcanusComponents.isCasting(player))
 			SetCastingPacket.send(false);
 
-		if(timer > 0 && player.getAttackCooldownProgress(getTickDelta()) == 1F && player.getItemCooldownManager().getCooldownProgress(stack.getItem(), 1F) == 0)
+		if(timer > 0 && player.getAttackCooldownProgress(getTickDelta()) == 1F && player.getItemCooldownManager().getCooldownProgress(stack.getItem(), getTickDelta()) == 0)
 			timer--;
 	}
 
@@ -106,15 +103,15 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 		if(isCasting)
 			info.cancel();
 
-		if(player != null && !player.isSpectator() && player.getMainHandStack().getItem() instanceof StaffItem staff && player.getItemCooldownManager().getCooldownProgress(staff, 1F) == 0 && !isCasting) {
-			if(player.getAttackCooldownProgress(getTickDelta()) == 1F) {
+		if(player != null && !player.isSpectator() && player.getMainHandStack().getItem() instanceof StaffItem staff) {
+			if(player.getAttackCooldownProgress(getTickDelta()) == 1F && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
 				doAttack();
 				timer = 20;
 				pattern.add(Pattern.LEFT);
 				player.swingHand(Hand.MAIN_HAND);
 				player.world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1F, 1.3F);
 
-				if(pattern.size() == 3)
+				if(pattern.size() >= 3)
 					lastMouseDown = options.attackKey;
 
 				player.sendMessage(Arcanus.getSpellInputs(pattern), true);
@@ -131,15 +128,15 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 		if(isCasting)
 			info.cancel();
 
-		if(player != null && !player.isSpectator() && player.getMainHandStack().getItem() instanceof StaffItem staff && player.getItemCooldownManager().getCooldownProgress(staff, 1F) == 0 && !isCasting) {
-			if(player.getAttackCooldownProgress(getTickDelta()) == 1F) {
+		if(player != null && !player.isSpectator() && player.getMainHandStack().getItem() instanceof StaffItem staff) {
+			if(player.getAttackCooldownProgress(getTickDelta()) == 1F && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
 				timer = 20;
 				pattern.add(Pattern.RIGHT);
 				player.swingHand(Hand.MAIN_HAND);
 				player.resetLastAttackedTicks();
 				player.world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1F, 1.1F);
 
-				if(pattern.size() == 3)
+				if(pattern.size() >= 3)
 					lastMouseDown = options.useKey;
 
 				player.sendMessage(Arcanus.getSpellInputs(pattern), true);

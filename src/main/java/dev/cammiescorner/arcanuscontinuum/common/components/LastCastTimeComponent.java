@@ -1,11 +1,10 @@
 package dev.cammiescorner.arcanuscontinuum.common.components;
 
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
-import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
+import dev.onyxstudios.cca.api.v3.component.Component;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 
-public class LastCastTimeComponent implements AutoSyncedComponent {
+public class LastCastTimeComponent implements Component {
 	private final LivingEntity entity;
 	private long lastCastTime = 0;
 
@@ -29,6 +28,5 @@ public class LastCastTimeComponent implements AutoSyncedComponent {
 
 	public void setLastCastTime(long lastCastTime) {
 		this.lastCastTime = lastCastTime;
-		ArcanusComponents.LAST_CAST_TIME_COMPONENT.sync(entity);
 	}
 }

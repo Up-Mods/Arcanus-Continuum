@@ -47,6 +47,7 @@ public class CastSpellPacket {
 
 					if(ArcanusComponents.drainMana(player, spell.getManaCost(), player.isCreative())) {
 						ArcanusComponents.setPattern(player, Arcanus.getSpellPattern(index));
+						ArcanusComponents.setLastCastTime(player, player.world.getTime());
 						spell.cast(player, player.getWorld(), staff);
 						player.sendMessage(Text.translatable(spell.getTranslationKey()).formatted(Formatting.GREEN), true);
 

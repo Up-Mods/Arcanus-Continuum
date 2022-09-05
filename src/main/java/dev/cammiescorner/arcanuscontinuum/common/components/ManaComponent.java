@@ -6,6 +6,7 @@ import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 
 public class ManaComponent implements AutoSyncedComponent, ServerTickingComponent {
@@ -21,7 +22,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 		EntityAttributeInstance manaRegenAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MANA_REGEN);
 		long timer = entity.world.getTime() - ArcanusComponents.getLastCastTime(entity);
 
-		if(manaRegenAttr != null && addMana(1, true) && timer % (manaRegenAttr.getValue() * 20) == 0)
+		if(manaRegenAttr != null && addMana(1, true) && timer % (int) (manaRegenAttr.getValue() * 20) == 0)
 			addMana(1, false);
 	}
 
@@ -41,29 +42,43 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 
 	public void setMana(double mana) {
 		this.mana = mana;
-		ArcanusComponents.MANA_COMPONENT.sync(entity);
+
+		if(entity instanceof PlayerEntity)
+			ArcanusComponents.MANA_COMPONENT.sync(entity);
+	}
+
+	public double getTrueMaxMana() {
+		return (getMaxMana() - getManaLock()) - ArcanusComponents.getBurnout(entity);
 	}
 
 	public double getMaxMana() {
 		EntityAttributeInstance maxManaAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MAX_MANA);
+
+		if(maxManaAttr != null)
+			return maxManaAttr.getValue();
+
+		return 0;
+	}
+
+	public double getManaLock() {
 		EntityAttributeInstance manaLockAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MANA_LOCK);
 
-		if(maxManaAttr != null && manaLockAttr != null)
-			return maxManaAttr.getValue() - ArcanusComponents.getBurnout(entity) - manaLockAttr.getValue();
-		else
-			return 0;
+		if(manaLockAttr != null)
+			return manaLockAttr.getValue();
+
+		return 0;
 	}
 
 	public boolean addMana(double amount, boolean simulate) {
-		if(getMana() < getMaxMana()) {
+		if(getMana() < getTrueMaxMana()) {
 			if(!simulate)
-				setMana(getMana() + amount);
+				setMana(Math.min(getTrueMaxMana(), getMana() + amount));
 
 			return true;
 		}
 
-		if(getMana() > getMaxMana())
-			setMana(getMaxMana());
+		if(getMana() > getTrueMaxMana())
+			setMana(getTrueMaxMana());
 
 		return false;
 	}
@@ -71,10 +86,10 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	public boolean drainMana(double amount, boolean simulate) {
 		if(getMana() >= 0) {
 			if(!simulate) {
-				setMana(getMana() - amount);
-
-				if(getMana() - amount < 0)
+				if(amount > getMana())
 					ArcanusComponents.addBurnout(entity, amount - getMana(), false);
+
+				setMana(Math.max(0, getMana() - amount));
 			}
 
 			return true;

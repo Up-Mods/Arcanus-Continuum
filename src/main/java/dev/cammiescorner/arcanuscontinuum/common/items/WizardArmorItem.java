@@ -29,7 +29,7 @@ public class WizardArmorItem extends ArmorItem {
 		UUID uUID = MODIFIERS[equipmentSlot.getEntitySlotId()];
 		builder.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(uUID, "Armor modifier", armorMaterial.getProtectionAmount(equipmentSlot), EntityAttributeModifier.Operation.ADDITION));
 		builder.put(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, new EntityAttributeModifier(uUID, "Armor toughness", armorMaterial.getToughness(), EntityAttributeModifier.Operation.ADDITION));
-		builder.put(ArcanusEntityAttributes.MANA_REGEN, new EntityAttributeModifier(uUID, "Armor modifier", manaRegen, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+		builder.put(ArcanusEntityAttributes.MANA_REGEN, new EntityAttributeModifier(uUID, "Armor modifier", manaRegen, EntityAttributeModifier.Operation.MULTIPLY_BASE));
 		attributeModifiers = builder.build();
 	}
 

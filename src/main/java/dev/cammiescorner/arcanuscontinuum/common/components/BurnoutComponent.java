@@ -8,6 +8,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 
 import java.util.UUID;
@@ -54,13 +55,17 @@ public class BurnoutComponent implements AutoSyncedComponent, ServerTickingCompo
 
 	public void setBurnout(double burnout) {
 		this.burnout = burnout;
-		ArcanusComponents.BURNOUT_COMPONENT.sync(entity);
+
+		if(entity instanceof PlayerEntity)
+			ArcanusComponents.BURNOUT_COMPONENT.sync(entity);
 	}
 
 	public boolean addBurnout(double amount, boolean simulate) {
-		if(getBurnout() < ArcanusComponents.getMaxMana(entity)) {
+		double maxMana = ArcanusComponents.getMaxMana(entity) - ArcanusComponents.getManaLock(entity);
+
+		if(getBurnout() < maxMana) {
 			if(!simulate)
-				setBurnout(Math.min(ArcanusComponents.getMaxMana(entity), getBurnout() + amount));
+				setBurnout(Math.min(maxMana, getBurnout() + amount));
 
 			return true;
 		}
@@ -69,9 +74,9 @@ public class BurnoutComponent implements AutoSyncedComponent, ServerTickingCompo
 	}
 
 	public boolean drainBurnout(double amount, boolean simulate) {
-		if(getBurnout() - amount >= 0) {
+		if(getBurnout() > 0) {
 			if(!simulate)
-				setBurnout(getBurnout() - amount);
+				setBurnout(Math.max(0, getBurnout() - amount));
 
 			return true;
 		}

@@ -47,7 +47,7 @@ public class ArcanusSpells {
 	public static final Spell BLINK = create("blink", new BlinkSpell(MAGIC_MISSILE, Weight.MEDIUM, 15, 60));
 
 	public static final Spell INCINERATE = create("incinerate", new IncinerateSpell(null, Weight.LIGHT, 0.75, 10));
-	public static final Spell IMMOLATE = create("immolate", new ImmolateSpell(INCINERATE, Weight.VERY_LIGHT, 0.25, 0));
+	public static final Spell IMMOLATE = create("immolate", new ImmolateSpell(INCINERATE, Weight.VERY_LIGHT, 0.25, 1));
 	public static final Spell FIREBALL = create("fireball", new FireballSpell(INCINERATE, Weight.MEDIUM, 5, 60));
 	public static final Spell FLAME_PILLAR = create("flame_pillar", new FlamePillarSpell(INCINERATE, Weight.HEAVY, 15, 100));
 
@@ -61,7 +61,7 @@ public class ArcanusSpells {
 	public static final Spell REJUVENATION_ORB = create("rejuvenation_orb", new RejuvenationOrbSpell(HEALING_TOUCH, Weight.HEAVY, 20, 300));
 	public static final Spell VAMPIRIC_ORB = create("vampiric_orb", new VampiricOrbSpell(HEALING_TOUCH, Weight.HEAVY, 20, 200));
 
-	public static final Spell WITHERING_BEAM = create("withering_beam", new WitheringBeamSpell(null, Weight.HEAVY, 2, 0));
+	public static final Spell WITHERING_BEAM = create("withering_beam", new WitheringBeamSpell(null, Weight.HEAVY, 2, 1));
 	public static final Spell HELLISH_SKULL = create("hellish_skull", new HellishSkullSpell(WITHERING_BEAM, Weight.VERY_HEAVY, 12, 2));
 	public static final Spell WITHER_ARMOUR = create("wither_armor", new WitherArmorSpell(WITHERING_BEAM, Weight.HEAVY, 25, 400));
 	public static final Spell CONDEMNED_BONES = create("condemned_bones", new CondemnedBonesSpell(WITHERING_BEAM, Weight.HEAVY, 10, 100));

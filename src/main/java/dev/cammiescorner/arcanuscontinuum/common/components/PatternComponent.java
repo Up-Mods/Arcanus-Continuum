@@ -4,6 +4,7 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtInt;
@@ -46,11 +47,15 @@ public class PatternComponent implements AutoSyncedComponent {
 	public void setPattern(List<Pattern> pattern) {
 		list.clear();
 		list.addAll(pattern);
-		ArcanusComponents.PATTERN_COMPONENT.sync(entity);
+
+		if(entity instanceof PlayerEntity)
+			ArcanusComponents.PATTERN_COMPONENT.sync(entity);
 	}
 
 	public void clearPattern() {
 		list.clear();
-		ArcanusComponents.PATTERN_COMPONENT.sync(entity);
+
+		if(entity instanceof PlayerEntity)
+			ArcanusComponents.PATTERN_COMPONENT.sync(entity);
 	}
 }

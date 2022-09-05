@@ -35,16 +35,24 @@ public class ArcanusComponents implements EntityComponentInitializer {
 
 	// ----- Helper Methods ----- //
 
+	public static double getMaxMana(LivingEntity entity) {
+		return MANA_COMPONENT.get(entity).getMaxMana();
+	}
+
+	public static double getManaLock(LivingEntity entity) {
+		return MANA_COMPONENT.get(entity).getManaLock();
+	}
+
+	public static double getTrueMaxMana(LivingEntity entity) {
+		return MANA_COMPONENT.get(entity).getTrueMaxMana();
+	}
+
 	public static double getMana(LivingEntity entity) {
 		return MANA_COMPONENT.get(entity).getMana();
 	}
 
 	public static void setMana(LivingEntity entity, double amount) {
 		MANA_COMPONENT.get(entity).setMana(amount);
-	}
-
-	public static double getMaxMana(LivingEntity entity) {
-		return MANA_COMPONENT.get(entity).getMaxMana();
 	}
 
 	public static boolean addMana(LivingEntity entity, double amount, boolean simulate) {
