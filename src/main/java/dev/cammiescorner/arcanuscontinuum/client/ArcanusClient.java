@@ -12,11 +12,12 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeableItem;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 
 public class ArcanusClient implements ClientModInitializer {
-	private static final Identifier HUD_ELEMENTS = Arcanus.id("textures/gui/hud/mana_and_spells.png");
+	private static final Identifier HUD_ELEMENTS = Arcanus.id("textures/gui/hud/mana_bar.png");
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
@@ -26,62 +27,49 @@ public class ArcanusClient implements ClientModInitializer {
 		);
 
 		final MinecraftClient client = MinecraftClient.getInstance();
-		var manaTimer = new Object() {
-			int value;
-		};
+		var obj = new Object() { int timer; };
 
 		HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
 			PlayerEntity player = client.player;
 
 			if(player != null && !player.isSpectator()) {
 				double maxMana = ArcanusComponents.getMaxMana(player);
-				double halfMaxMana = maxMana * 0.5;
 				double mana = ArcanusComponents.getMana(player);
+				double burnout = ArcanusComponents.getBurnout(player);
 				double manaLock = ArcanusComponents.getManaLock(player);
-				double burnout = ArcanusComponents.getBurnout(player) + manaLock;
 
-				if(player.getMainHandStack().getItem() instanceof StaffItem || mana < maxMana)
-					manaTimer.value = Math.min(manaTimer.value + 1, 40);
+				double timer = player.world.getTime() - ArcanusComponents.getLastCastTime(player);
+				double lerpMana = mana < maxMana ? MathHelper.lerp((timer % 20D) / 20D, ArcanusComponents.getPrevMana(player), mana) : mana;
+				double lerpBurnout = (burnout > 0 ? MathHelper.lerp((timer % 40D) / 40D, ArcanusComponents.getPrevBurnout(player), burnout) : burnout) + manaLock;
+
+				if(player.getMainHandStack().getItem() instanceof StaffItem || lerpMana < maxMana)
+					obj.timer = Math.min(obj.timer + 1, 40);
 				else
-					manaTimer.value = Math.max(manaTimer.value - 1, 0);
+					obj.timer = Math.max(obj.timer - 1, 0);
 
-				if(manaTimer.value > 0) {
-					int scaledWidth = client.getWindow().getScaledWidth();
-					int scaledHeight = client.getWindow().getScaledHeight();
-					int x = scaledWidth - 64;
-					int y = scaledHeight - 64;
-					float alpha = manaTimer.value > 20 ? 1F : manaTimer.value / 20F;
+				if(obj.timer > 0) {
+					int x = 0;
+					int y = client.getWindow().getScaledHeight() - 28;
+					int width = 96;
+					float alpha = obj.timer > 20 ? 1F : obj.timer / 20F;
 
 					RenderSystem.enableBlend();
 					RenderSystem.setShaderTexture(0, HUD_ELEMENTS);
 					RenderSystem.setShaderColor(1F, 1F, 1F, alpha);
 
-					// render background
-					DrawableHelper.drawTexture(matrices, x, y, 64, 0, 64, 64, 256, 256);
-
 					// render mana
-					int m = (int) (63 * (Math.min(mana, halfMaxMana) / halfMaxMana));
-					DrawableHelper.drawTexture(matrices, x + 1, y + 1 + (63 - m), 128, 1 + (63 - m), 8, m, 256, 256);
-
-					if(mana > halfMaxMana)
-						DrawableHelper.drawTexture(matrices, x + 1, y + 1, 1, 64, (int) (63 * ((mana - halfMaxMana) / halfMaxMana)), 8, 256, 256);
+					DrawableHelper.drawTexture(matrices, x, y + 5, 0, 32, (int) (width * (lerpMana / maxMana)), 23, 256, 256);
 
 					// render burnout
-					int b = (int) Math.ceil(63 * (Math.min(burnout, halfMaxMana) / halfMaxMana));
-					DrawableHelper.drawTexture(matrices, x + 1 + (63 - b), y + 1, 65 + (63 - b), 64, b, 8, 256, 256);
-
-					if(burnout > halfMaxMana)
-						DrawableHelper.drawTexture(matrices, x + 1, y + 1, 136, 1, 8, (int) Math.ceil(63 * ((burnout - halfMaxMana) / halfMaxMana)), 256, 256);
+					int i = (int) Math.ceil(width * (lerpBurnout / maxMana));
+					DrawableHelper.drawTexture(matrices, x + (width - i), y + 5, width - i, 56, i, 23, 256, 256);
 
 					// render mana lock
-					int l = (int) Math.ceil(63 * (Math.min(manaLock, halfMaxMana) / halfMaxMana));
-					DrawableHelper.drawTexture(matrices, x + 1 + (63 - l), y + 1, 129 + (63 - l), 64, l, 8, 256, 256);
-
-					if(manaLock > halfMaxMana)
-						DrawableHelper.drawTexture(matrices, x + 1, y + 1, 144, 1, 8, (int) Math.ceil(63 * ((manaLock - halfMaxMana) / halfMaxMana)), 256, 256);
+					i = (int) Math.ceil(width * (manaLock / maxMana));
+					DrawableHelper.drawTexture(matrices, x + (width - i), y + 5, width - i, 80, i, 23, 256, 256);
 
 					// render frame
-					DrawableHelper.drawTexture(matrices, x, y, 0, 0, 64, 64, 256, 256);
+					DrawableHelper.drawTexture(matrices, x, y, 0, 0, 97, 28, 256, 256);
 				}
 			}
 		});

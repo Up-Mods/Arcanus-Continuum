@@ -78,7 +78,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 			timer = 0;
 		}
 
-		if(isCasting() && !ArcanusComponents.isCasting(player) && mouseDownTimer > 3)
+		if(isCasting() && !ArcanusComponents.isCasting(player) && mouseDownTimer > 5)
 			SetCastingPacket.send(true);
 		if((!isCasting() || ArcanusComponents.getMana(player) <= 0) && ArcanusComponents.isCasting(player))
 			SetCastingPacket.send(false);

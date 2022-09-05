@@ -11,7 +11,7 @@ import net.minecraft.nbt.NbtCompound;
 
 public class ManaComponent implements AutoSyncedComponent, ServerTickingComponent {
 	private final LivingEntity entity;
-	private double mana = 0;
+	private double mana = 0, prevMana;
 
 	public ManaComponent(LivingEntity entity) {
 		this.entity = entity;
@@ -22,18 +22,24 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 		EntityAttributeInstance manaRegenAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MANA_REGEN);
 		long timer = entity.world.getTime() - ArcanusComponents.getLastCastTime(entity);
 
-		if(manaRegenAttr != null && addMana(1, true) && timer % (int) (manaRegenAttr.getValue() * 20) == 0)
-			addMana(1, false);
+		if(manaRegenAttr != null && addMana(1, true) && timer % 20 == 0)
+			addMana(manaRegenAttr.getValue(), false);
 	}
 
 	@Override
 	public void readFromNbt(NbtCompound tag) {
 		mana = tag.getDouble("Mana");
+		prevMana = tag.getDouble("PrevMana");
 	}
 
 	@Override
 	public void writeToNbt(NbtCompound tag) {
 		tag.putDouble("Mana", mana);
+		tag.putDouble("PrevMana", prevMana);
+	}
+
+	public double getPrevMana() {
+		return prevMana;
 	}
 
 	public double getMana() {
@@ -41,6 +47,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	}
 
 	public void setMana(double mana) {
+		this.prevMana = this.mana;
 		this.mana = mana;
 
 		if(entity instanceof PlayerEntity)
