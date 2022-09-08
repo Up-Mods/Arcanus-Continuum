@@ -39,8 +39,8 @@ public class ArcanusClient implements ClientModInitializer {
 				double manaLock = ArcanusComponents.getManaLock(player);
 
 				double timer = player.world.getTime() - ArcanusComponents.getLastCastTime(player);
-				double lerpMana = mana < maxMana ? MathHelper.lerp((timer % 20D) / 20D, ArcanusComponents.getPrevMana(player), mana) : mana;
-				double lerpBurnout = (burnout > 0 ? MathHelper.lerp((timer % 40D) / 40D, ArcanusComponents.getPrevBurnout(player), burnout) : burnout) + manaLock;
+				double lerpMana = MathHelper.lerp((timer % 20D) / 20D, ArcanusComponents.getPrevMana(player), mana);
+				double lerpBurnout = MathHelper.lerp((timer % 40D) / 40D, ArcanusComponents.getPrevBurnout(player), burnout) + manaLock;
 
 				if(player.getMainHandStack().getItem() instanceof StaffItem || lerpMana < maxMana)
 					obj.timer = Math.min(obj.timer + 1, 40);
