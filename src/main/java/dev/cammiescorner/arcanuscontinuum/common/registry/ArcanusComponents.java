@@ -47,10 +47,6 @@ public class ArcanusComponents implements EntityComponentInitializer {
 		return MANA_COMPONENT.get(entity).getTrueMaxMana();
 	}
 
-	public static double getPrevMana(LivingEntity entity) {
-		return MANA_COMPONENT.get(entity).getPrevMana();
-	}
-
 	public static double getMana(LivingEntity entity) {
 		return MANA_COMPONENT.get(entity).getMana();
 	}
@@ -65,10 +61,6 @@ public class ArcanusComponents implements EntityComponentInitializer {
 
 	public static boolean drainMana(LivingEntity entity, double amount, boolean simulate) {
 		return MANA_COMPONENT.get(entity).drainMana(amount, simulate);
-	}
-
-	public static double getPrevBurnout(LivingEntity entity) {
-		return BURNOUT_COMPONENT.get(entity).getPrevBurnout();
 	}
 
 	public static double getBurnout(LivingEntity entity) {

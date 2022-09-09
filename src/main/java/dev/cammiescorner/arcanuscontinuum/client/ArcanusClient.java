@@ -12,7 +12,6 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeableItem;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 
@@ -38,11 +37,7 @@ public class ArcanusClient implements ClientModInitializer {
 				double burnout = ArcanusComponents.getBurnout(player);
 				double manaLock = ArcanusComponents.getManaLock(player);
 
-				double timer = player.world.getTime() - ArcanusComponents.getLastCastTime(player);
-				double lerpMana = MathHelper.lerp((timer % 20D) / 20D, ArcanusComponents.getPrevMana(player), mana);
-				double lerpBurnout = MathHelper.lerp((timer % 40D) / 40D, ArcanusComponents.getPrevBurnout(player), burnout) + manaLock;
-
-				if(player.getMainHandStack().getItem() instanceof StaffItem || lerpMana < maxMana)
+				if(player.getMainHandStack().getItem() instanceof StaffItem || mana < maxMana)
 					obj.timer = Math.min(obj.timer + 1, 40);
 				else
 					obj.timer = Math.max(obj.timer - 1, 0);
@@ -58,10 +53,10 @@ public class ArcanusClient implements ClientModInitializer {
 					RenderSystem.setShaderColor(1F, 1F, 1F, alpha);
 
 					// render mana
-					DrawableHelper.drawTexture(matrices, x, y + 5, 0, 32, (int) (width * (lerpMana / maxMana)), 23, 256, 256);
+					DrawableHelper.drawTexture(matrices, x, y + 5, 0, 32, (int) (width * (mana / maxMana)), 23, 256, 256);
 
 					// render burnout
-					int i = (int) Math.ceil(width * (lerpBurnout / maxMana));
+					int i = (int) Math.ceil(width * ((burnout + manaLock) / maxMana));
 					DrawableHelper.drawTexture(matrices, x + (width - i), y + 5, width - i, 56, i, 23, 256, 256);
 
 					// render mana lock

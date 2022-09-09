@@ -16,7 +16,7 @@ import java.util.UUID;
 public class BurnoutComponent implements AutoSyncedComponent, ServerTickingComponent {
 	public static final UUID uUID = UUID.fromString("c2223d02-f2f0-4fa9-b9d8-5b2c265a8195");
 	private final LivingEntity entity;
-	private double burnout, prevBurnout;
+	private double burnout;
 
 	public BurnoutComponent(LivingEntity entity) {
 		this.entity = entity;
@@ -28,8 +28,12 @@ public class BurnoutComponent implements AutoSyncedComponent, ServerTickingCompo
 		EntityAttributeInstance attackSpeedAttr = entity.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_SPEED);
 		long timer = entity.world.getTime() - ArcanusComponents.getLastCastTime(entity);
 
-		if(burnoutRegenAttr != null && drainBurnout(burnoutRegenAttr.getValue(), true) && timer % 40 == 0)
+		if(burnoutRegenAttr != null && drainBurnout(burnoutRegenAttr.getValue(), true) && timer % 60 == 0) {
 			drainBurnout(burnoutRegenAttr.getValue(), false);
+
+			if(entity instanceof PlayerEntity player)
+				player.addExhaustion(5F);
+		}
 
 		if(attackSpeedAttr != null) {
 			if(burnout > 0 && attackSpeedAttr.getModifier(uUID) == null)
@@ -42,17 +46,11 @@ public class BurnoutComponent implements AutoSyncedComponent, ServerTickingCompo
 	@Override
 	public void readFromNbt(NbtCompound tag) {
 		burnout = tag.getDouble("Burnout");
-		prevBurnout = tag.getDouble("PrevBurnout");
 	}
 
 	@Override
 	public void writeToNbt(NbtCompound tag) {
 		tag.putDouble("Burnout", burnout);
-		tag.putDouble("PrevBurnout", prevBurnout);
-	}
-
-	public double getPrevBurnout() {
-		return prevBurnout;
 	}
 
 	public double getBurnout() {
@@ -60,7 +58,6 @@ public class BurnoutComponent implements AutoSyncedComponent, ServerTickingCompo
 	}
 
 	public void setBurnout(double burnout) {
-		this.prevBurnout = this.burnout;
 		this.burnout = burnout;
 
 		if(entity instanceof PlayerEntity)
