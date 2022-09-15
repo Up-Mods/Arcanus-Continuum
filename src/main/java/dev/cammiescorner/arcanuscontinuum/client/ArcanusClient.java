@@ -64,7 +64,7 @@ public class ArcanusClient implements ClientModInitializer {
 					DrawableHelper.drawTexture(matrices, x + (width - i), y + 5, width - i, 80, i, 23, 256, 256);
 
 					// render frame
-					DrawableHelper.drawTexture(matrices, x, y, 0, 0, 97, 28, 256, 256);
+					DrawableHelper.drawTexture(matrices, x, y, 0, 0, 101, 28, 256, 256);
 				}
 			}
 		});
