@@ -8,13 +8,13 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.DyeableArmorItem;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
 import java.util.UUID;
 
-public class WizardArmorItem extends ArmorItem {
+public class WizardArmorItem extends DyeableArmorItem {
 	private static final UUID[] MODIFIERS = new UUID[]{
 			UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"),
 			UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"),

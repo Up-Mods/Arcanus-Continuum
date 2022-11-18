@@ -1,0 +1,51 @@
+package dev.cammiescorner.arcanuscontinuum.client.renderer.armour;
+
+import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.client.models.armour.WizardArmourModel;
+import dev.cammiescorner.arcanuscontinuum.common.items.WizardArmorItem;
+import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
+
+public class WizardArmourRenderer implements ArmorRenderer {
+	private final MinecraftClient client = MinecraftClient.getInstance();
+	private final Identifier mainTexture = Arcanus.id("textures/entity/armor/wizard_robes.png");
+	private final Identifier overlayTexture = Arcanus.id("textures/entity/armor/wizard_robes_overlay.png");
+	private WizardArmourModel<LivingEntity> model;
+
+	@Override
+	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, BipedEntityModel<LivingEntity> contextModel) {
+		if(model == null)
+			model = new WizardArmourModel<>(client.getEntityModelLoader().getModelPart(WizardArmourModel.MODEL_LAYER));
+
+		if(stack.getItem() instanceof WizardArmorItem wizardArmour) {
+			int hexColour = wizardArmour.getColor(stack);
+			float r = (hexColour >> 16 & 255) / 255F;
+			float g = (hexColour >> 8 & 255) / 255F;
+			float b = (hexColour & 255) / 255F;
+
+			contextModel.setAttributes(model);
+			model.setVisible(true);
+			model.wizardHat.visible = slot == EquipmentSlot.HEAD;
+			model.robes.visible = slot == EquipmentSlot.CHEST;
+			model.rightSleeve.visible = slot == EquipmentSlot.CHEST;
+			model.leftSleeve.visible = slot == EquipmentSlot.CHEST;
+			model.rightPants.visible = slot == EquipmentSlot.LEGS;
+			model.leftPants.visible = slot == EquipmentSlot.LEGS;
+			model.rightBoot.visible = slot == EquipmentSlot.FEET;
+			model.leftBoot.visible = slot == EquipmentSlot.FEET;
+
+			model.render(matrices, ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(mainTexture), false, stack.hasGlint()), light, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
+			ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, overlayTexture);
+		}
+	}
+}
