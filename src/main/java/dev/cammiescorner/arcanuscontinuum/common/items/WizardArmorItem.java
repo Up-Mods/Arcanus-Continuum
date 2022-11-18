@@ -10,6 +10,8 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.DyeableArmorItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
 import java.util.UUID;
@@ -31,6 +33,12 @@ public class WizardArmorItem extends DyeableArmorItem {
 		builder.put(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, new EntityAttributeModifier(uUID, "Armor toughness", armorMaterial.getToughness(), EntityAttributeModifier.Operation.ADDITION));
 		builder.put(ArcanusEntityAttributes.MANA_REGEN, new EntityAttributeModifier(uUID, "Armor modifier", manaRegen, EntityAttributeModifier.Operation.MULTIPLY_BASE));
 		attributeModifiers = builder.build();
+	}
+
+	@Override
+	public int getColor(ItemStack stack) {
+		NbtCompound nbtCompound = stack.getSubNbt("display");
+		return nbtCompound != null && nbtCompound.contains("color", 99) ? nbtCompound.getInt("color") : 0x52392a;
 	}
 
 	@Override

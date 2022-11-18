@@ -13,7 +13,9 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
 public class WizardArmourRenderer implements ArmorRenderer {
@@ -32,6 +34,18 @@ public class WizardArmourRenderer implements ArmorRenderer {
 			float r = (hexColour >> 16 & 255) / 255F;
 			float g = (hexColour >> 8 & 255) / 255F;
 			float b = (hexColour & 255) / 255F;
+
+			if(stack.hasCustomName() && stack.getName().getString().equals("jeb_")) {
+				int m = 25;
+				int n = entity.age / m + entity.getId();
+				int o = DyeColor.values().length;
+				float f = ((entity.age % m) + client.getTickDelta()) / 25F;
+				float[] fs = SheepEntity.getRgbColor(DyeColor.byId(n % o));
+				float[] gs = SheepEntity.getRgbColor(DyeColor.byId((n + 1) % o));
+				r = fs[0] * (1F - f) + gs[0] * f;
+				g = fs[1] * (1F - f) + gs[1] * f;
+				b = fs[2] * (1F - f) + gs[2] * f;
+			}
 
 			contextModel.setAttributes(model);
 			model.setVisible(true);

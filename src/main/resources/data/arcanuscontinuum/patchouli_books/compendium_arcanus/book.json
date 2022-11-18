@@ -2,7 +2,7 @@
   "name": "item.arcanuscontinuum.compendium_arcanus",
   "landing_text": "item.arcanuscontinuum.compendium_arcanus.landing_text",
   "custom_book_item": "arcanuscontinuum:compendium_arcanus",
-  "book_texture": "arcanuscontinuum:textures/item/compendium_arcanus.png",
+  "book_texture": "arcanuscontinuum:textures/gui/patchouli/book.png",
   "filler_texture": "arcanuscontinuum:textures/gui/patchouli/filler.png",
   "dont_generate_book": true,
   "link_color": "0000ff",
