@@ -55,9 +55,6 @@ public class SpellBookItem extends Item {
 	}
 
 	public Spell getSpell(ItemStack stack) {
-		Spell spell = new Spell(stack.getOrCreateNbt().getCompound("Spell"));
-		spell.getComponents();
-		spell.getName();
-		return spell;
+		return new Spell(stack.getOrCreateNbt().getCompound("Spell"));
 	}
 }

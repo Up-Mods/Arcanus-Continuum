@@ -66,12 +66,9 @@ public class Spell {
 		List<SpellComponent> components = getComponents();
 		double averageManaCost = 0;
 
-		if(!components.isEmpty()) {
+		if(!components.isEmpty())
 			for(SpellComponent component : components)
-				averageManaCost += component.getWeight().ordinal();
-
-			averageManaCost /= components.size();
-		}
+				averageManaCost += component.getManaCost();
 
 		return averageManaCost;
 	}
@@ -80,12 +77,9 @@ public class Spell {
 		List<SpellComponent> components = getComponents();
 		int averageCoolDown = 0;
 
-		if(!components.isEmpty()) {
+		if(!components.isEmpty())
 			for(SpellComponent component : components)
-				averageCoolDown += component.getWeight().ordinal();
-
-			averageCoolDown = Math.round(averageCoolDown / (float) components.size());
-		}
+				averageCoolDown += component.getCoolDown();
 
 		return averageCoolDown;
 	}
