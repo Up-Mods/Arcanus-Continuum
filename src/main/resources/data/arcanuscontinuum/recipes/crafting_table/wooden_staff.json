@@ -2,15 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "  L",
-    " S ",
-    "S  "
+    " L ",
+    "L  "
   ],
   "key": {
     "L": {
       "tag": "minecraft:logs"
-    },
-    "S": {
-      "item": "minecraft:stick"
     }
   },
   "result": {

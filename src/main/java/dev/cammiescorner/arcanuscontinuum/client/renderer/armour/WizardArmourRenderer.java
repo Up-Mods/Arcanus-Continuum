@@ -36,10 +36,10 @@ public class WizardArmourRenderer implements ArmorRenderer {
 			float b = (hexColour & 255) / 255F;
 
 			if(stack.hasCustomName() && stack.getName().getString().equals("jeb_")) {
-				int m = 25;
+				int m = 15;
 				int n = entity.age / m + entity.getId();
 				int o = DyeColor.values().length;
-				float f = ((entity.age % m) + client.getTickDelta()) / 25F;
+				float f = ((entity.age % m) + client.getTickDelta()) / 15F;
 				float[] fs = SheepEntity.getRgbColor(DyeColor.byId(n % o));
 				float[] gs = SheepEntity.getRgbColor(DyeColor.byId((n + 1) % o));
 				r = fs[0] * (1F - f) + gs[0] * f;

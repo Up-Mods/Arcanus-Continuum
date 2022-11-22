@@ -5,7 +5,7 @@ import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpells;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -20,11 +20,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.nbt.NbtString;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -61,12 +59,12 @@ public class StaffItem extends Item implements DyeableItem {
 				NbtList list = new NbtList();
 
 				for(int i = 0; i < 8; i++)
-					list.add(i, NbtString.of(Arcanus.SPELLS.getId(ArcanusSpells.EMPTY).toString()));
+					list.add(i, new Spell().getNbtCompound());
 
 				tag.put("Spells", list);
 			}
 		}
-		
+
 		super.onCraft(stack, world, player);
 	}
 
@@ -79,7 +77,7 @@ public class StaffItem extends Item implements DyeableItem {
 				NbtList list = new NbtList();
 
 				for(int i = 0; i < 8; i++)
-					list.add(i, NbtString.of(Arcanus.SPELLS.getId(ArcanusSpells.EMPTY).toString()));
+					list.add(i, new Spell().getNbtCompound());
 
 				tag.put("Spells", list);
 			}
@@ -91,11 +89,11 @@ public class StaffItem extends Item implements DyeableItem {
 		NbtCompound tag = stack.getSubNbt(Arcanus.MOD_ID);
 
 		if(tag != null && !tag.isEmpty()) {
-			NbtList list = tag.getList("Spells", NbtElement.STRING_TYPE);
+			NbtList list = tag.getList("Spells", NbtElement.COMPOUND_TYPE);
 
 			for(int i = 0; i < list.size(); i++) {
-				Spell spell = Arcanus.SPELLS.get(new Identifier(list.getString(i)));
-				MutableText text = Text.translatable(spell.getTranslationKey()).formatted(spell == Spell.EMPTY ? Formatting.GRAY : Formatting.GREEN);
+				Spell spell = new Spell(list.getCompound(i));
+				MutableText text = Text.literal(spell.getName()).formatted(spell.getComponents().get(0) == SpellComponent.EMPTY ? Formatting.GRAY : Formatting.GREEN);
 				tooltip.add(text.append(Text.literal(" (").formatted(Formatting.DARK_GRAY)).append(Arcanus.getSpellPatternAsText(i)).append(Text.literal(")").formatted(Formatting.DARK_GRAY)));
 			}
 		}

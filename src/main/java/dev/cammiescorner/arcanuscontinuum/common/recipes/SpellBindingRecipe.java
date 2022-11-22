@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.common.recipes;
 import com.google.common.collect.Lists;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import dev.cammiescorner.arcanuscontinuum.common.items.SpellBookItem;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusRecipes;
@@ -12,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.nbt.NbtString;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.util.Identifier;
@@ -68,7 +68,7 @@ public class SpellBindingRecipe extends SpecialCraftingRecipe {
 
 	@Override
 	public ItemStack craft(CraftingInventory inv) {
-		DefaultedList<Spell> spells = DefaultedList.ofSize(8, Spell.EMPTY);
+		DefaultedList<Spell> spells = DefaultedList.ofSize(8, new Spell());
 		ItemStack result = ItemStack.EMPTY;
 
 		if(inv.getStack(4).getItem() instanceof StaffItem) {
@@ -85,11 +85,11 @@ public class SpellBindingRecipe extends SpecialCraftingRecipe {
 			ItemStack stack = inv.getStack(i);
 
 			if(!stack.isEmpty()) {
-				Spell spell = Spell.EMPTY;
+				Spell spell = new Spell();
 				int[] indices = new int[] { 7, 0, 1, 6, 0, 2, 5, 4, 3 };
 
 				if(stack.getItem() instanceof SpellBookItem book)
-					spell = book.getSpell();
+					spell = book.getSpell(stack);
 
 				spells.set(indices[i], spell);
 			}
@@ -114,15 +114,15 @@ public class SpellBindingRecipe extends SpecialCraftingRecipe {
 		if(tag == null || tag.isEmpty())
 			return ItemStack.EMPTY;
 
-		NbtList list = tag.getList("Spells", NbtElement.STRING_TYPE);
+		NbtList list = tag.getList("Spells", NbtElement.COMPOUND_TYPE);
 
 		for(int i = 0; i < spells.size(); i++) {
 			Spell spell = spells.get(i);
 
-			if(spell == Spell.EMPTY)
+			if(spell.getComponents().get(0) == SpellComponent.EMPTY)
 				continue;
 
-			list.set(i, NbtString.of(Arcanus.SPELLS.getId(spell).toString()));
+			list.set(i, spell.getNbtCompound());
 		}
 
 		tag.put("Spells", list);

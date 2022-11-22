@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanuscontinuum.common.packets.c2s;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusTags;
@@ -40,19 +41,28 @@ public class CastSpellPacket {
 			NbtCompound tag = stack.getOrCreateSubNbt(Arcanus.MOD_ID);
 
 			if(stack.getItem() instanceof StaffItem staff) {
-				NbtList list = tag.getList("Spells", NbtElement.STRING_TYPE);
+				NbtList list = tag.getList("Spells", NbtElement.COMPOUND_TYPE);
 
 				if(!list.isEmpty()) {
-					Spell spell = Arcanus.SPELLS.get(new Identifier(list.getString(index)));
+					Spell spell = new Spell(list.getCompound(index));
+					int minLevel = 0;
+
+					for(SpellComponent component : spell.getComponents()) {
+						if(minLevel == 10)
+							break;
+
+						if(component.getMinLevel() > minLevel)
+							minLevel = component.getMinLevel();
+					}
 
 					if(ArcanusComponents.drainMana(player, spell.getManaCost(), player.isCreative())) {
 						ArcanusComponents.setPattern(player, Arcanus.getSpellPattern(index));
 						ArcanusComponents.setLastCastTime(player, player.world.getTime());
 						spell.cast(player, player.getWorld(), staff);
-						player.sendMessage(Text.translatable(spell.getTranslationKey()).formatted(Formatting.GREEN), true);
+						player.sendMessage(Text.translatable(spell.getName()).formatted(Formatting.GREEN), true);
 
 						for(Holder<Item> holder : TagRegistry.getTag(ArcanusTags.STAVES))
-							player.getItemCooldownManager().set(holder.value(), spell.getCooldown());
+							player.getItemCooldownManager().set(holder.value(), spell.getCoolDown());
 					}
 				}
 			}

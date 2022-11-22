@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -44,11 +43,11 @@ public abstract class LivingEntityMixin {
 				if(stack.getItem() instanceof StaffItem && ArcanusComponents.isCasting(self) && pattern.size() == 3) {
 					int index = Arcanus.getSpellIndex(pattern);
 					NbtCompound tag = stack.getOrCreateSubNbt(Arcanus.MOD_ID);
-					NbtList list = tag.getList("Spells", NbtElement.STRING_TYPE);
+					NbtList list = tag.getList("Spells", NbtElement.COMPOUND_TYPE);
 
 					if(!list.isEmpty() && index < list.size()) {
-						Spell spell = Arcanus.SPELLS.get(new Identifier(list.getString(index)));
-						EntityAttributeModifier speedMod = new EntityAttributeModifier(uUID, "Spell Speed Modifier", spell.getSlowdown(), EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+						Spell spell = new Spell(list.getCompound(index));
+						EntityAttributeModifier speedMod = new EntityAttributeModifier(uUID, "Spell Speed Modifier", spell.getWeight().getSlowdown(), EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
 
 						if(!speedAttr.hasModifier(speedMod))
 							speedAttr.addTemporaryModifier(speedMod);

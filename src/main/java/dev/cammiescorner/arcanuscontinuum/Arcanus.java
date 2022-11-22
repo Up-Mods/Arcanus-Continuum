@@ -2,12 +2,12 @@ package dev.cammiescorner.arcanuscontinuum;
 
 import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
-import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.CastSpellPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SetCastingPacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusItems;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusRecipes;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpells;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -27,7 +27,7 @@ import java.util.List;
 public class Arcanus implements ModInitializer {
 	public static final String MOD_ID = "arcanuscontinuum";
 	public static final ItemGroup ITEM_GROUP = QuiltItemGroup.createWithIcon(id("general"), () -> new ItemStack(ArcanusItems.WOODEN_STAFF));
-	public static final DefaultedRegistry<Spell> SPELLS = FabricRegistryBuilder.createDefaulted(Spell.class, id("spells"), id("empty")).buildAndRegister();
+	public static final DefaultedRegistry<SpellComponent> SPELL_COMPONENTS = FabricRegistryBuilder.createDefaulted(SpellComponent.class, id("spell_components"), id("empty")).buildAndRegister();
 
 	@Override
 	public void onInitialize(ModContainer mod) {
@@ -38,7 +38,7 @@ public class Arcanus implements ModInitializer {
 		Registry.register(Registry.ATTRIBUTE, id("spell_potency"), ArcanusEntityAttributes.SPELL_POTENCY);
 
 		ArcanusItems.register();
-		ArcanusSpells.register();
+		ArcanusSpellComponents.register();
 		ArcanusRecipes.register();
 
 		ServerPlayNetworking.registerGlobalReceiver(CastSpellPacket.ID, CastSpellPacket::handler);
