@@ -69,6 +69,7 @@
 		"arcanuscontinuum:burnout",
 		"arcanuscontinuum:casting",
 		"arcanuscontinuum:casting_pattern",
-		"arcanuscontinuum:last_cast_time"
+		"arcanuscontinuum:last_cast_time",
+		"arcanuscontinuum:known_components"
 	]
 }

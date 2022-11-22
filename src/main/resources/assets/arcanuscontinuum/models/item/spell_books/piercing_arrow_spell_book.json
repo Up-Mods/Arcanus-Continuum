@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "arcanuscontinuum:item/spell_book",
-    "layer1": "arcanuscontinuum:item/spell/piercing_arrow"
-  }
-}
