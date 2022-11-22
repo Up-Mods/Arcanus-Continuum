@@ -55,7 +55,7 @@ public class CastSpellPacket {
 							minLevel = component.getMinLevel();
 					}
 
-					if(ArcanusComponents.drainMana(player, spell.getManaCost(), player.isCreative())) {
+					if(ArcanusComponents.WIZARD_LEVEL_COMPONENT.get(player).getLevel() >= minLevel && ArcanusComponents.drainMana(player, spell.getManaCost(), player.isCreative())) {
 						ArcanusComponents.setPattern(player, Arcanus.getSpellPattern(index));
 						ArcanusComponents.setLastCastTime(player, player.world.getTime());
 						spell.cast(player, player.getWorld(), staff);

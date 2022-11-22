@@ -15,59 +15,59 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class KnownComponentsComponent implements AutoSyncedComponent {
+public class ReadComponentsComponent implements AutoSyncedComponent {
 	private final LivingEntity entity;
-	private final Set<SpellComponent> knownComponents = new HashSet<>();
+	private final Set<SpellComponent> readComponennts = new HashSet<>();
 
-	public KnownComponentsComponent(LivingEntity entity) {
+	public ReadComponentsComponent(LivingEntity entity) {
 		this.entity = entity;
 	}
 
 	@Override
 	public void readFromNbt(NbtCompound tag) {
-		NbtList listTag = tag.getList("KnownSpellComponents", NbtType.STRING);
+		NbtList listTag = tag.getList("ReadSpellComponents", NbtType.STRING);
 
 		for(int i = 0; i < listTag.size(); i++)
-			Arcanus.SPELL_COMPONENTS.getOrEmpty(new Identifier(listTag.getString(i))).ifPresent(knownComponents::add);
+			Arcanus.SPELL_COMPONENTS.getOrEmpty(new Identifier(listTag.getString(i))).ifPresent(readComponennts::add);
 	}
 
 	@Override
 	public void writeToNbt(NbtCompound tag) {
 		NbtList listTag = new NbtList();
 
-		knownComponents.forEach(componentId -> listTag.add(NbtString.of(Arcanus.SPELL_COMPONENTS.getId(componentId).toString())));
-		tag.put("KnownSpellComponents", listTag);
+		readComponennts.forEach(componentId -> listTag.add(NbtString.of(Arcanus.SPELL_COMPONENTS.getId(componentId).toString())));
+		tag.put("ReadSpellComponents", listTag);
 	}
 
-	public Set<SpellComponent> getKnownComponents() {
-		return knownComponents;
+	public Set<SpellComponent> getReadComponennts() {
+		return readComponennts;
 	}
 
 	public boolean hasComponent(SpellComponent component) {
-		return knownComponents.contains(component);
+		return readComponennts.contains(component);
 	}
 
 	public boolean hasAllComponents(SpellComponent... components) {
-		return knownComponents.containsAll(List.of(components));
+		return readComponennts.containsAll(List.of(components));
 	}
 
 	public void addComponent(SpellComponent component) {
-		knownComponents.add(component);
+		readComponennts.add(component);
 		ArcanusComponents.KNOWN_COMPONENTS_COMPONENT.sync(entity);
 	}
 
 	public void addAllComponents(SpellComponent... components) {
-		knownComponents.addAll(List.of(components));
+		readComponennts.addAll(List.of(components));
 		ArcanusComponents.KNOWN_COMPONENTS_COMPONENT.sync(entity);
 	}
 
 	public void removeComponent(SpellComponent component) {
-		knownComponents.remove(component);
+		readComponennts.remove(component);
 		ArcanusComponents.KNOWN_COMPONENTS_COMPONENT.sync(entity);
 	}
 
 	public void removeAllComponents(SpellComponent... components) {
-		List.of(components).forEach(knownComponents::remove);
+		List.of(components).forEach(readComponennts::remove);
 		ArcanusComponents.KNOWN_COMPONENTS_COMPONENT.sync(entity);
 	}
 }

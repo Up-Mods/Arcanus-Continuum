@@ -2,7 +2,8 @@ package dev.cammiescorner.arcanuscontinuum.common.items;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
-import dev.cammiescorner.arcanuscontinuum.common.components.KnownComponentsComponent;
+import dev.cammiescorner.arcanuscontinuum.common.components.ReadComponentsComponent;
+import dev.cammiescorner.arcanuscontinuum.common.components.WizardLevelComponent;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,10 +37,12 @@ public class ComponentScrollItem extends Item {
 
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-		KnownComponentsComponent knownComponentsComponent = ArcanusComponents.KNOWN_COMPONENTS_COMPONENT.get(user);
+		ReadComponentsComponent readComponents = ArcanusComponents.READ_COMPONENTS_COMPONENT.get(user);
+		WizardLevelComponent wizardLevel = ArcanusComponents.WIZARD_LEVEL_COMPONENT.get(user);
 
-		if(!knownComponentsComponent.hasComponent(component)) {
-			knownComponentsComponent.addComponent(component);
+		if(wizardLevel.getLevel() >= component.getMinLevel() && !readComponents.hasComponent(component)) {
+			readComponents.addComponent(component);
+
 			return TypedActionResult.success(user.getStackInHand(hand));
 		}
 

@@ -1,7 +1,9 @@
 package dev.cammiescorner.arcanuscontinuum.api.spells;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.common.components.KnownComponentsComponent;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -86,6 +88,11 @@ public class Spell {
 
 	public void cast(LivingEntity caster, World world, StaffItem staff) {
 		List<SpellComponent> nextComponents = getComponents();
+		KnownComponentsComponent knownComponents = ArcanusComponents.KNOWN_COMPONENTS_COMPONENT.get(caster);
+
+		for(SpellComponent nextComponent : nextComponents)
+			if(!knownComponents.hasComponent(nextComponent))
+				knownComponents.addComponent(nextComponent);
 
 		if(getComponents().get(0) instanceof SpellShape form) {
 			List<SpellEffect> effects = new ArrayList<>();

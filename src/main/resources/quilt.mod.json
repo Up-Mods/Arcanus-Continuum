@@ -65,11 +65,13 @@
 	},
 	"mixin": "arcanuscontinuum.mixins.json",
 	"cardinal-components": [
+		"arcanuscontinuum:wizard_level",
 		"arcanuscontinuum:mana",
 		"arcanuscontinuum:burnout",
 		"arcanuscontinuum:casting",
 		"arcanuscontinuum:casting_pattern",
 		"arcanuscontinuum:last_cast_time",
+		"arcanuscontinuum:read_components",
 		"arcanuscontinuum:known_components"
 	]
 }
