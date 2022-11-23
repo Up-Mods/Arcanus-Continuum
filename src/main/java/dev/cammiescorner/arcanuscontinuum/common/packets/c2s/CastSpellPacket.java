@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.common.packets.c2s;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusTags;
@@ -44,16 +45,8 @@ public class CastSpellPacket {
 				NbtList list = tag.getList("Spells", NbtElement.COMPOUND_TYPE);
 
 				if(!list.isEmpty()) {
-					Spell spell = new Spell(list.getCompound(index));
-					int minLevel = 0;
-
-					for(SpellComponent component : spell.getComponents()) {
-						if(minLevel == 10)
-							break;
-
-						if(component.getMinLevel() > minLevel)
-							minLevel = component.getMinLevel();
-					}
+					Spell spell = Spell.fromNbt(list.getCompound(index));
+					int minLevel = spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).mapToInt(SpellComponent::getMinLevel).max().orElse(1);
 
 					if(ArcanusComponents.WIZARD_LEVEL_COMPONENT.get(player).getLevel() >= minLevel && ArcanusComponents.drainMana(player, spell.getManaCost(), player.isCreative())) {
 						ArcanusComponents.setPattern(player, Arcanus.getSpellPattern(index));

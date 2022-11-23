@@ -1,16 +1,20 @@
 package dev.cammiescorner.arcanuscontinuum.api.spells;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
-public class SpellComponent {
-	public static final SpellComponent EMPTY = new SpellComponent(Weight.NONE, 0, 20, 0);
+import javax.annotation.Nullable;
 
+public class SpellComponent {
 	private final Weight weight;
 	private final double manaCost;
 	private final int coolDown;
 	private final int minLevel;
-	private String translationKey;
+	private String knownTranslationKey;
+	private String unknownTranslationKey;
 
 	public SpellComponent(Weight weight, double manaCost, int coolDown, int minLevel) {
 		this.weight = weight;
@@ -35,10 +39,14 @@ public class SpellComponent {
 		return minLevel;
 	}
 
-	public String getTranslationKey() {
-		if(translationKey == null)
-			translationKey = Util.createTranslationKey("spell_component", Arcanus.SPELL_COMPONENTS.getId(this));
+	public String getTranslationKey(@Nullable PlayerEntity player) {
+		Identifier id = Arcanus.SPELL_COMPONENTS.getId(this);
 
-		return translationKey;
+		if(unknownTranslationKey == null) {
+			unknownTranslationKey = Util.createTranslationKey("spell_component", id) + ".unknown";
+			knownTranslationKey = Util.createTranslationKey("spell_component", id);
+		}
+
+		return player != null && ArcanusComponents.KNOWN_COMPONENTS_COMPONENT.get(player).hasComponent(this) ? knownTranslationKey : unknownTranslationKey;
 	}
 }

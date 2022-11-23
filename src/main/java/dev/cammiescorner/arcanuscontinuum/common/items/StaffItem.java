@@ -5,7 +5,7 @@ import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -59,7 +59,7 @@ public class StaffItem extends Item implements DyeableItem {
 				NbtList list = new NbtList();
 
 				for(int i = 0; i < 8; i++)
-					list.add(i, new Spell().getNbtCompound());
+					list.add(i, new Spell().toNbt());
 
 				tag.put("Spells", list);
 			}
@@ -77,7 +77,7 @@ public class StaffItem extends Item implements DyeableItem {
 				NbtList list = new NbtList();
 
 				for(int i = 0; i < 8; i++)
-					list.add(i, new Spell().getNbtCompound());
+					list.add(i, new Spell().toNbt());
 
 				tag.put("Spells", list);
 			}
@@ -92,8 +92,14 @@ public class StaffItem extends Item implements DyeableItem {
 			NbtList list = tag.getList("Spells", NbtElement.COMPOUND_TYPE);
 
 			for(int i = 0; i < list.size(); i++) {
-				Spell spell = new Spell(list.getCompound(i));
-				MutableText text = Text.literal(spell.getName()).formatted(spell.getComponents().get(0) == SpellComponent.EMPTY ? Formatting.GRAY : Formatting.GREEN);
+				Spell spell = Spell.fromNbt(list.getCompound(i));
+
+				if(spell.getComponentGroups().isEmpty()) {
+					tooltip.add(Text.translatable("staff." + Arcanus.MOD_ID + ".invalid_data").formatted(Formatting.DARK_RED));
+					return;
+				}
+
+				MutableText text = Text.literal(spell.getName()).formatted(spell.getComponentGroups().get(0).shape() == SpellShape.EMPTY ? Formatting.GRAY : Formatting.GREEN);
 				tooltip.add(text.append(Text.literal(" (").formatted(Formatting.DARK_GRAY)).append(Arcanus.getSpellPatternAsText(i)).append(Text.literal(")").formatted(Formatting.DARK_GRAY)));
 			}
 		}

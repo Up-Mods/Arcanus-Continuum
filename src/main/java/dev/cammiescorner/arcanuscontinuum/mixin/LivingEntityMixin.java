@@ -46,7 +46,7 @@ public abstract class LivingEntityMixin {
 					NbtList list = tag.getList("Spells", NbtElement.COMPOUND_TYPE);
 
 					if(!list.isEmpty() && index < list.size()) {
-						Spell spell = new Spell(list.getCompound(index));
+						Spell spell = Spell.fromNbt(list.getCompound(index));
 						EntityAttributeModifier speedMod = new EntityAttributeModifier(uUID, "Spell Speed Modifier", spell.getWeight().getSlowdown(), EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
 
 						if(!speedAttr.hasModifier(speedMod))

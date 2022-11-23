@@ -1,9 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.spellcomponents.shapes;
 
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
-import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
+import dev.cammiescorner.arcanuscontinuum.api.spells.*;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.Vec3d;
@@ -17,7 +14,7 @@ public class TouchSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(LivingEntity caster, Vec3d castFrom, World world, StaffItem staffItem, List<SpellEffect> effects, List<SpellComponent> nextComponents) {
+	public void cast(LivingEntity caster, Vec3d castFrom, World world, StaffItem staffItem, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex) {
 
 	}
 }

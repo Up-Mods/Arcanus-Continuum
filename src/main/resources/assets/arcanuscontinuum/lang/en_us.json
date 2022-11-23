@@ -12,16 +12,17 @@
   "item.arcanuscontinuum.wizard_pants": "Wizard Pants",
   "item.arcanuscontinuum.wizard_boots": "Wizard Boots",
   "item.arcanuscontinuum.spell_book": "Spell Book",
+  "item.arcanuscontinuum.scroll_of_knowledge": "Scroll of Knowledge",
 
-  "item.arcanuscontinuum.self_shape_scroll_known": "Shape Scroll: Self",
-  "item.arcanuscontinuum.touch_shape_scroll_known": "Shape Scroll: Touch",
-  "item.arcanuscontinuum.damage_effect_scroll_known": "Effect Scroll: Damage",
-  "item.arcanuscontinuum.heal_effect_scroll_known": "Effect Scroll: Heal",
+  "item.arcanuscontinuum.self_shape": "Self Shape",
+  "item.arcanuscontinuum.touch_shape": "Touch Shape",
+  "item.arcanuscontinuum.damage_effect": "Damage Effect",
+  "item.arcanuscontinuum.heal_effect": "Heal Effect",
 
-  "item.arcanuscontinuum.self_shape_scroll_unknown": "sitelen selo e jan mi",
-  "item.arcanuscontinuum.touch_shape_scroll_unknown": "sitelen selo e luka",
-  "item.arcanuscontinuum.damage_effect_scroll_unknown": "sitelen wawa e sijelo",
-  "item.arcanuscontinuum.heal_effect_scroll_unknown": "sitelen wawa e misikeke",
+  "item.arcanuscontinuum.self_shape.unknown": "selo pi jan mi",
+  "item.arcanuscontinuum.touch_shape.unknown": "selo pi luka",
+  "item.arcanuscontinuum.damage_effect.unknown": "wawa pi sijelo",
+  "item.arcanuscontinuum.heal_effect.unknown": "wawa pi misikeke",
 
   "item.arcanuscontinuum.compendium_arcanus.landing_text": "Sample Landing Text",
 
@@ -35,6 +36,8 @@
   "spell_book.arcanuscontinuum.mana_cost": "Mana Cost",
   "spell_book.arcanuscontinuum.cooldown": "Cooldown",
   "spell_book.arcanuscontinuum.seconds": "s",
+
+  "staff.arcanuscontinuum.invalid_data": "!!! INVALID DATA !!!",
 
   "attribute.name.generic.arcanuscontinuum.max_mana": "Max Mana",
   "attribute.name.generic.arcanuscontinuum.mana_regen": "Mana Regen",
