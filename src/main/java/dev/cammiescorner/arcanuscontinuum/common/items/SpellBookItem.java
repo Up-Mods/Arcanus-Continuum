@@ -54,7 +54,7 @@ public class SpellBookItem extends Item {
 		return TypedActionResult.success(user.getStackInHand(hand));
 	}
 
-	public Spell getSpell(ItemStack stack) {
-		return Spell.fromNbt(stack.getOrCreateNbt().getCompound("Spell"));
+	public static Spell getSpell(ItemStack stack) {
+		return stack.hasNbt() ? Spell.fromNbt(stack.getNbt().getCompound("Spell")) : new Spell();
 	}
 }

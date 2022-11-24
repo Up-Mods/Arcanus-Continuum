@@ -43,7 +43,7 @@ public class Spell {
 			nbtList.add(group.toNbt());
 
 		nbt.put("ComponentGroups", nbtList);
-		nbt.putString("Name", name);
+		nbt.putString("Name", name != null ? name : "Empty");
 
 		return nbt;
 	}
