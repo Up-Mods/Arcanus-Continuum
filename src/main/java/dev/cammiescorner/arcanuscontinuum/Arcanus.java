@@ -5,10 +5,7 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.CastSpellPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SetCastingPacket;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusItems;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusRecipes;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusScreenHandlers;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
+import dev.cammiescorner.arcanuscontinuum.common.registry.*;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -38,6 +35,7 @@ public class Arcanus implements ModInitializer {
 		Registry.register(Registry.ATTRIBUTE, id("mana_lock"), ArcanusEntityAttributes.MANA_LOCK);
 		Registry.register(Registry.ATTRIBUTE, id("spell_potency"), ArcanusEntityAttributes.SPELL_POTENCY);
 
+		ArcanusEntities.register();
 		ArcanusItems.register();
 		ArcanusSpellComponents.register();
 		ArcanusRecipes.register();
