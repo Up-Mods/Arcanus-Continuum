@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.models.armour.WizardArmourModel;
 import dev.cammiescorner.arcanuscontinuum.client.models.entity.OpossumEntityModel;
-import dev.cammiescorner.arcanuscontinuum.client.models.feature.OpossumHatModel;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.armour.WizardArmourRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.OpossumEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.screens.SpellcraftScreen;
@@ -33,7 +32,6 @@ public class ArcanusClient implements ClientModInitializer {
 
 		EntityModelLayerRegistry.registerModelLayer(WizardArmourModel.MODEL_LAYER, WizardArmourModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(OpossumEntityModel.MODEL_LAYER, OpossumEntityModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(OpossumHatModel.MODEL_LAYER, OpossumHatModel::getTexturedModelData);
 
 		ArmorRenderer.register(new WizardArmourRenderer(), ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS);
 		EntityRendererRegistry.register(ArcanusEntities.OPOSSUM, OpossumEntityRenderer::new);
