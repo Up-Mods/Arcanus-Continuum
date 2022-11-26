@@ -2,13 +2,13 @@ package dev.cammiescorner.arcanuscontinuum.client.models.entity;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.common.entities.OpossumEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
 
-public class OpossumEntityModel<T extends Entity> extends EntityModel<T> {
+public class OpossumEntityModel extends EntityModel<OpossumEntity> {
 	public static final EntityModelLayer MODEL_LAYER = new EntityModelLayer(Arcanus.id("opossum"), "main");
 	public final ModelPart head;
 	public final ModelPart body;
@@ -30,7 +30,7 @@ public class OpossumEntityModel<T extends Entity> extends EntityModel<T> {
 		this.tailEnd = tailBase.getChild("tailEnd");
 	}
 
-	public static TexturedModelData getTexturedModelData() {
+	public static ModelData getModelData() {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
 
@@ -47,12 +47,11 @@ public class OpossumEntityModel<T extends Entity> extends EntityModel<T> {
 		ModelPartData tailBase = modelPartData.addChild("tailBase", ModelPartBuilder.create().uv(20, 8).cuboid(-1.5F, -1.0F, 0.0F, 3.0F, 3.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 19.0F, 3.0F));
 		ModelPartData tailEnd = tailBase.addChild("tailEnd", ModelPartBuilder.create().uv(16, 0).cuboid(-1.0F, -1.0F, 0.0F, 2.0F, 2.0F, 6.0F, new Dilation(-0.1F)), ModelTransform.pivot(0.0F, 0.5F, 3.0F));
 
-		return TexturedModelData.of(modelData, 32, 32);
+		return modelData;
 	}
 
-	@Override
-	public void setAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
+	public static TexturedModelData getTexturedModelData() {
+		return TexturedModelData.of(getModelData(), 32, 32);
 	}
 
 	@Override
@@ -64,5 +63,10 @@ public class OpossumEntityModel<T extends Entity> extends EntityModel<T> {
 		leftHindleg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
 		rightHindleg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
 		tailBase.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+	}
+
+	@Override
+	public void setAngles(OpossumEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+
 	}
 }
