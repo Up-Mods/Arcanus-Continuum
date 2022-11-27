@@ -54,6 +54,10 @@
 				"versions": ">=0.4.0"
 			},
 			{
+				"id": "smartbrainlib",
+				"versions": ">=1.2"
+			},
+			{
 				"id": "cardinal-components-base",
 				"versions": ">=5.0.2"
 			},

@@ -17,13 +17,13 @@ repositories {
 	maven { url "https://maven.blamejared.com" }
 	maven { url "https://maven.kosmx.dev/" }
 	maven { url "https://maven.jamieswhiteshirt.com/libs-release" }
+	maven { url "https://cursemaven.com" }
 }
 
 dependencies {
 	minecraft libs.minecraft
-	mappings loom.layered {
-		addLayer quiltMappings.mappings("org.quiltmc:quilt-mappings:${libs.versions.quilt.mappings.get()}:v2")
-	}
+
+	mappings variantOf(libs.quilt.mappings) { classifier "intermediary-v2" }
 
 	modImplementation libs.quilt.loader
 	modImplementation libs.quilted.fabric.api
@@ -35,6 +35,7 @@ dependencies {
 	modImplementation libs.blabber
 	modImplementation libs.reach.attr
 	modImplementation libs.modmenu
+	modImplementation libs.smartbrainlib
 
 	implementation libs.mixinextras
 	annotationProcessor libs.mixinextras

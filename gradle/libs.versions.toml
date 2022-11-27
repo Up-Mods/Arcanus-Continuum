@@ -1,10 +1,10 @@
 [versions]
 # The latest versions are available at https://lambdaurora.dev/tools/import_quilt.html
 minecraft = "1.19.2"
-quilt_mappings = "1.19.2+build.14"
-quilt_loader = "0.17.5-beta.1"
+quilt_mappings = "1.19.2+build.21"
+quilt_loader = "0.18.1-beta.18"
 
-quilted_fabric_api = "4.0.0-beta.10+0.60.0-1.19.2"
+quilted_fabric_api = "4.0.0-beta.21+0.67.0-1.19.2"
 cca = "5.0.2"
 playeranimator = "0.3.5"
 patchouli = "1.19.2-76-FABRIC"
@@ -14,6 +14,7 @@ mixinextras = "0.0.12"
 lucko_perms = "0.1-SNAPSHOT"
 reach_attr = "2.3.0"
 modmenu = "4.0.6"
+smartbrainlib = "4013266"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -32,6 +33,7 @@ mixinextras = { module = "com.github.LlamaLad7:MixinExtras", version.ref = "mixi
 lucko_perms = { module = "me.lucko:fabric-permissions-api", version.ref = "lucko_perms" }
 reach_attr = { module = "com.jamieswhiteshirt:reach-entity-attributes", version.ref = "reach_attr" }
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
+smartbrainlib = { module = "curse.maven:smartbrainlib-661293", version.ref = "smartbrainlib" }
 
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]
