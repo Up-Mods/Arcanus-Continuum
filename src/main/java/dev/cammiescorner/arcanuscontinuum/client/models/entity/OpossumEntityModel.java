@@ -7,6 +7,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.MathHelper;
 
 public class OpossumEntityModel extends EntityModel<OpossumEntity> {
 	public static final EntityModelLayer MODEL_LAYER = new EntityModelLayer(Arcanus.id("opossum"), "main");
@@ -68,6 +69,15 @@ public class OpossumEntityModel extends EntityModel<OpossumEntity> {
 
 	@Override
 	public void setAngles(OpossumEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+		head.pitch = headPitch * 0.017453292F;
+		head.yaw = headYaw * 0.017453292F;
 
+		leftHindleg.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
+		rightHindleg.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
+		leftForeleg.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
+		rightForeleg.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
+
+		tailBase.pitch = (float) Math.toRadians(-35);
+		tailEnd.pitch = (float) Math.toRadians(15);
 	}
 }

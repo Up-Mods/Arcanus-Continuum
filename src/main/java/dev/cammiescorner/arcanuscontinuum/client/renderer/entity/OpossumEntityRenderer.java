@@ -11,10 +11,12 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 
 public class OpossumEntityRenderer extends MobEntityRenderer<OpossumEntity, OpossumEntityModel> {
 	public static final Identifier TEXTURE = Arcanus.id("textures/entity/living/opossum.png");
@@ -26,7 +28,7 @@ public class OpossumEntityRenderer extends MobEntityRenderer<OpossumEntity, Opos
 
 	@Override
 	public void render(OpossumEntity opossum, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertecies, int i) {
-		ItemStack hatStack = opossum.getHatStack();
+		ItemStack hatStack = opossum.getEquippedStack(EquipmentSlot.HEAD);
 		model.hat.visible = !hatStack.isEmpty();
 
 		super.render(opossum, yaw, tickDelta, matrices, vertecies, i);
@@ -50,8 +52,10 @@ public class OpossumEntityRenderer extends MobEntityRenderer<OpossumEntity, Opos
 			}
 
 			matrices.push();
-			matrices.scale(1.0F, -1.0F, -1.0F);
-			matrices.translate(0.0, -1.501F, 0.0);
+			setupTransforms(opossum, matrices, 0, MathHelper.lerpAngleDegrees(g, opossum.prevBodyYaw, opossum.bodyYaw), tickDelta);
+			matrices.scale(-1.0F, -1.0F, 1.0F);
+			scale(opossum, matrices, tickDelta);
+			matrices.translate(0.0, -1.5010000467300415, 0.0);
 			model.render(matrices, vertecies.getBuffer(RenderLayer.getEntityCutout(HAT_TEXTURE)), i, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
 			matrices.pop();
 		}

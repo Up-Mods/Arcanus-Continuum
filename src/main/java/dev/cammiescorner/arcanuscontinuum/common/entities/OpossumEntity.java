@@ -4,25 +4,25 @@ import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusItems;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.tslat.smartbrainlib.api.SmartBrainOwner;
+import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
 import net.tslat.smartbrainlib.api.core.SmartBrainProvider;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.look.LookAtTarget;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.move.MoveToWalkTarget;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.HurtBySensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.NearbyLivingEntitySensor;
@@ -34,8 +34,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class OpossumEntity extends TameableEntity implements SmartBrainOwner<OpossumEntity> {
-	private static final TrackedData<ItemStack> HAT_TRACKER = DataTracker.registerData(OpossumEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
-
 	public OpossumEntity(EntityType<? extends TameableEntity> entityType, World world) {
 		super(entityType, world);
 	}
@@ -46,14 +44,18 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 
 	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
+		ItemStack handStack = player.getStackInHand(hand);
+		ItemStack stack = handStack.copy();
+		ItemStack hatStack = getEquippedStack(EquipmentSlot.HEAD).copy();
 
-		if(stack.isOf(ArcanusItems.WIZARD_HAT) && getHatStack().isEmpty()) {
+		if(handStack.isOf(ArcanusItems.WIZARD_HAT)) {
 			if(!this.world.isClient) {
-				setHatStack(stack.copy());
+				equipStack(EquipmentSlot.HEAD, stack);
 
 				if(!player.isCreative())
-					stack.decrement(1);
+					handStack.decrement(1);
+				if(!getEquippedStack(EquipmentSlot.HEAD).isEmpty() && !player.isCreative())
+					player.setStackInHand(hand, hatStack);
 
 				return ActionResult.SUCCESS;
 			}
@@ -61,9 +63,9 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 				return ActionResult.CONSUME;
 			}
 		}
-		else if(stack.isEmpty() && !getHatStack().isEmpty()) {
-			player.giveItemStack(getHatStack());
-			setHatStack(ItemStack.EMPTY);
+		else if(player.isSneaking() && handStack.isEmpty() && !getEquippedStack(EquipmentSlot.HEAD).isEmpty()) {
+			player.setStackInHand(hand, hatStack);
+			equipStack(EquipmentSlot.HEAD, ItemStack.EMPTY);
 			return ActionResult.SUCCESS;
 		}
 		else {
@@ -86,24 +88,6 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 	}
 
 	@Override
-	protected void initDataTracker() {
-		super.initDataTracker();
-		dataTracker.startTracking(HAT_TRACKER, ItemStack.EMPTY);
-	}
-
-	@Override
-	public void readNbt(NbtCompound nbt) {
-		super.readNbt(nbt);
-		dataTracker.set(HAT_TRACKER, ItemStack.fromNbt(nbt.getCompound("OpossumHat")));
-	}
-
-	@Override
-	public NbtCompound writeNbt(NbtCompound nbt) {
-		nbt.put("OpossumHat", dataTracker.get(HAT_TRACKER).writeNbt(new NbtCompound()));
-		return super.writeNbt(nbt);
-	}
-
-	@Override
 	public boolean removeStatusEffect(@NotNull StatusEffect type, @NotNull StatusEffectRemovalReason reason) {
 		return false;
 	}
@@ -116,14 +100,6 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 	@Override
 	public void onStatusEffectRemoved(@NotNull StatusEffectInstance effect, @NotNull StatusEffectRemovalReason reason) {
 
-	}
-
-	public ItemStack getHatStack() {
-		return dataTracker.get(HAT_TRACKER);
-	}
-
-	public void setHatStack(ItemStack stack) {
-		dataTracker.set(HAT_TRACKER, stack);
 	}
 
 	@Override
@@ -142,6 +118,14 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 		return ObjectArrayList.of(
 				new NearbyLivingEntitySensor<>(),
 				new HurtBySensor<>()
+		);
+	}
+
+	@Override
+	public BrainActivityGroup<OpossumEntity> getCoreTasks() {
+		return BrainActivityGroup.coreTasks(
+				new LookAtTarget<>(),
+				new MoveToWalkTarget<>()
 		);
 	}
 }

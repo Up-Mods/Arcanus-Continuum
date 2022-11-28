@@ -13,16 +13,19 @@
   "item.arcanuscontinuum.wizard_boots": "Wizard Boots",
   "item.arcanuscontinuum.spell_book": "Spell Book",
   "item.arcanuscontinuum.scroll_of_knowledge": "Scroll of Knowledge",
+  "item.arcanuscontinuum.opossum_spawn_egg": "Opossum Spawn Egg",
 
-  "item.arcanuscontinuum.self_shape": "Self Shape",
-  "item.arcanuscontinuum.touch_shape": "Touch Shape",
-  "item.arcanuscontinuum.damage_effect": "Damage Effect",
-  "item.arcanuscontinuum.heal_effect": "Heal Effect",
+  "entity.arcanuscontinuum.opossum": "Opossum",
 
-  "item.arcanuscontinuum.self_shape.unknown": "selo pi jan mi",
-  "item.arcanuscontinuum.touch_shape.unknown": "selo pi luka",
-  "item.arcanuscontinuum.damage_effect.unknown": "wawa pi sijelo",
-  "item.arcanuscontinuum.heal_effect.unknown": "wawa pi misikeke",
+  "spell_component.arcanuscontinuum.self_shape": "Self Shape",
+  "spell_component.arcanuscontinuum.touch_shape": "Touch Shape",
+  "spell_component.arcanuscontinuum.damage_effect": "Damage Effect",
+  "spell_component.arcanuscontinuum.heal_effect": "Heal Effect",
+
+  "spell_component.arcanuscontinuum.self_shape.unknown": "selo pi jan mi",
+  "spell_component.arcanuscontinuum.touch_shape.unknown": "selo pi luka",
+  "spell_component.arcanuscontinuum.damage_effect.unknown": "wawa pi sijelo",
+  "spell_component.arcanuscontinuum.heal_effect.unknown": "wawa pi misikeke",
 
   "item.arcanuscontinuum.compendium_arcanus.landing_text": "Sample Landing Text",
 

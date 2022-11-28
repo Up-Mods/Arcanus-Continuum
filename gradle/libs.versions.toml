@@ -14,7 +14,7 @@ mixinextras = "0.0.12"
 lucko_perms = "0.1-SNAPSHOT"
 reach_attr = "2.3.0"
 modmenu = "4.0.6"
-smartbrainlib = "4013266"
+smartbrainlib = "4013262"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -40,4 +40,4 @@ smartbrainlib = { module = "curse.maven:smartbrainlib-661293", version.ref = "sm
 quilted_fabric_api = ["quilted_fabric_api", "quilted_fabric_api_deprecated"]
 
 [plugins]
-quilt_loom = { id = "org.quiltmc.loom", version = "0.12.+" }
+quilt_loom = { id = "org.quiltmc.loom", version = "1.0.+" }
