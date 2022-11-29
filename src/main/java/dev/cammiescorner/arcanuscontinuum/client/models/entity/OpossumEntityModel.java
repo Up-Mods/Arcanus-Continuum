@@ -77,7 +77,19 @@ public class OpossumEntityModel extends EntityModel<OpossumEntity> {
 		leftForeleg.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
 		rightForeleg.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
 
-		tailBase.pitch = (float) Math.toRadians(-35);
-		tailEnd.pitch = (float) Math.toRadians(15);
+		if(entity.isSitting()) {
+			head.pivotY = 21;
+			body.pivotY = 21;
+			tailBase.pivotY = 21;
+			tailBase.pitch = (float) Math.toRadians(-15);
+			tailEnd.pitch = (float) Math.toRadians(7);
+		}
+		else {
+			head.pivotY = 19;
+			body.pivotY = 19;
+			tailBase.pivotY = 19;
+			tailBase.pitch = (float) Math.toRadians(-35);
+			tailEnd.pitch = (float) Math.toRadians(15);
+		}
 	}
 }

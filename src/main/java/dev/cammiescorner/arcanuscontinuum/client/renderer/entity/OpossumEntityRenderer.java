@@ -52,10 +52,10 @@ public class OpossumEntityRenderer extends MobEntityRenderer<OpossumEntity, Opos
 			}
 
 			matrices.push();
-			setupTransforms(opossum, matrices, 0, MathHelper.lerpAngleDegrees(g, opossum.prevBodyYaw, opossum.bodyYaw), tickDelta);
+			setupTransforms(opossum, matrices, 0, MathHelper.lerpAngleDegrees(tickDelta, opossum.prevBodyYaw, opossum.bodyYaw), tickDelta);
 			matrices.scale(-1.0F, -1.0F, 1.0F);
 			scale(opossum, matrices, tickDelta);
-			matrices.translate(0.0, -1.5010000467300415, 0.0);
+			matrices.translate(0.0, -1.5, 0.0);
 			model.render(matrices, vertecies.getBuffer(RenderLayer.getEntityCutout(HAT_TEXTURE)), i, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
 			matrices.pop();
 		}
