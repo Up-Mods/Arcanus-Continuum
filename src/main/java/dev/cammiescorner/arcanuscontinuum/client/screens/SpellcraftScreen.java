@@ -1,25 +1,46 @@
 package dev.cammiescorner.arcanuscontinuum.client.screens;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.screens.SpellcraftScreenHandler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.text.ScreenTexts;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 import java.util.List;
 
 public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
+	private static final Identifier BG_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
+
 	public SpellcraftScreen(SpellcraftScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
-		super(screenHandler, playerInventory, text);
+		super(screenHandler, playerInventory, Text.empty());
+	}
+
+	@Override
+	protected void init() {
+		super.init();
+		x = (width - 256) / 2;
+		y = (height - 256) / 2;
+		playerInventoryTitleY = -10000;
+		addCloseButton();
 	}
 
 	@Override
 	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+		RenderSystem.setShaderTexture(0, BG_TEXTURE);
+		DrawableHelper.drawTexture(matrices, x, y, 0, 0, 256, 180, 256, 256);
 	}
 
 	@Override
@@ -40,5 +61,10 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	@Override
 	public MinecraftClient getClient() {
 		return MinecraftClient.getInstance();
+	}
+
+	protected void addCloseButton() {
+		addDrawableChild(new ButtonWidget(width / 2 - 100, 208, 98, 20, ScreenTexts.DONE, (button) -> closeScreen()));
+		addDrawableChild(new ButtonWidget(width / 2 + 2, 208, 98, 20, Text.translatable("lectern.take_book"), (button) -> client.interactionManager.clickButton(handler.syncId, 0)));
 	}
 }

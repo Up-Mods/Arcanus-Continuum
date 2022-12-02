@@ -34,6 +34,8 @@ public class SpellcraftScreenHandler extends ScreenHandler {
 		if(!player.getInventory().insertStack(stack))
 			player.dropItem(stack, false);
 
+		close(player);
+
 		return true;
 	}
 

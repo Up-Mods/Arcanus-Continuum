@@ -14,7 +14,7 @@ mixinextras = "0.0.12"
 lucko_perms = "0.1-SNAPSHOT"
 reach_attr = "2.3.0"
 modmenu = "4.0.6"
-smartbrainlib = "4013262"
+smartbrainlib = "4125900"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }

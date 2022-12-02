@@ -6,6 +6,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.ai.brain.task.ForgetAttackTargetTask;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
@@ -23,9 +24,14 @@ import net.tslat.smartbrainlib.api.SmartBrainOwner;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
 import net.tslat.smartbrainlib.api.core.SmartBrainProvider;
 import net.tslat.smartbrainlib.api.core.behaviour.FirstApplicableBehaviour;
-import net.tslat.smartbrainlib.api.core.behaviour.custom.move.FloatToSurfaceOfFluid;
+import net.tslat.smartbrainlib.api.core.behaviour.OneRandomBehaviour;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.look.LookAtTarget;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.misc.Idle;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.move.*;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.path.SetRandomWalkTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.target.SetPlayerLookTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.target.SetRandomLookTarget;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.target.SetRetaliateTarget;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.HurtBySensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.NearbyLivingEntitySensor;
@@ -36,6 +42,7 @@ import org.quiltmc.qsl.entity.effect.api.StatusEffectRemovalReason;
 import java.util.List;
 import java.util.UUID;
 
+@SuppressWarnings("ALL")
 public class OpossumEntity extends TameableEntity implements SmartBrainOwner<OpossumEntity> {
 	public OpossumEntity(EntityType<? extends TameableEntity> entityType, World world) {
 		super(entityType, world);
@@ -136,14 +143,14 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 	}
 
 	@Override
-	protected Brain.Profile<?> createBrainProfile() {
-		return new SmartBrainProvider<>(this);
+	protected void mobTick() {
+		super.mobTick();
+		tickBrain(this);
 	}
 
 	@Override
-	protected void mobTick() {
-		tickBrain(this);
-		super.mobTick();
+	protected Brain.Profile<?> createBrainProfile() {
+		return new SmartBrainProvider<>(this);
 	}
 
 	@Override
@@ -157,7 +164,11 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 	@Override
 	public BrainActivityGroup<OpossumEntity> getCoreTasks() {
 		return BrainActivityGroup.coreTasks(
-				new FloatToSurfaceOfFluid<>()
+				new FloatToSurfaceOfFluid<>(),
+				new FleeTarget<>().speedModifier(1.5F),
+				new LookAtTarget<>(),
+				new FollowOwner<>(),
+				new MoveToWalkTarget<>()
 		);
 	}
 
@@ -165,9 +176,21 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 	public BrainActivityGroup<OpossumEntity> getIdleTasks() {
 		return BrainActivityGroup.idleTasks(
 				new FirstApplicableBehaviour<OpossumEntity>(
+						new SetRetaliateTarget<>(),
 						new SetPlayerLookTarget<>(),
 						new SetRandomLookTarget<>()
+				),
+				new OneRandomBehaviour<>(
+						new SetRandomWalkTarget<>(),
+						new Idle<>().runFor(entity -> entity.getRandom().nextInt(30) + 30)
 				)
+		);
+	}
+
+	@Override
+	public BrainActivityGroup<OpossumEntity> getFightTasks() {
+		return BrainActivityGroup.fightTasks(
+				new ForgetAttackTargetTask<>(target -> !target.isAlive() || target.squaredDistanceTo(this) > (32 * 32) || target instanceof PlayerEntity player && player.isCreative())
 		);
 	}
 }
