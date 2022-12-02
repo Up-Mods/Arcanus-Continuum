@@ -39,6 +39,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.quiltmc.qsl.entity.effect.api.StatusEffectRemovalReason;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,6 +47,7 @@ import java.util.UUID;
 public class OpossumEntity extends TameableEntity implements SmartBrainOwner<OpossumEntity> {
 	public OpossumEntity(EntityType<? extends TameableEntity> entityType, World world) {
 		super(entityType, world);
+		Arrays.fill(armorDropChances, 1F);
 	}
 
 	public static DefaultAttributeContainer.Builder createAttributes() {

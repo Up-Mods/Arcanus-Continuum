@@ -39,6 +39,18 @@ public class SpellComponent {
 		return minLevel;
 	}
 
+	public Identifier getTexture() {
+		Identifier id = Arcanus.SPELL_COMPONENTS.getId(this);
+		String extra = "";
+
+		if(this instanceof SpellShape)
+			extra = "shapes/";
+		if(this instanceof SpellEffect)
+			extra = "effects/";
+
+		return new Identifier(id.getNamespace(), "textures/spell_components/" + extra + id.getPath() + ".png");
+	}
+
 	public String getTranslationKey(@Nullable PlayerEntity player) {
 		Identifier id = Arcanus.SPELL_COMPONENTS.getId(this);
 
