@@ -20,7 +20,8 @@ import net.minecraft.util.Identifier;
 import java.util.List;
 
 public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
-	private static final Identifier BG_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
+	private static final Identifier BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
+	private static final Identifier PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
 
 	public SpellcraftScreen(SpellcraftScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
 		super(screenHandler, playerInventory, Text.empty());
@@ -39,8 +40,24 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-		RenderSystem.setShaderTexture(0, BG_TEXTURE);
+		RenderSystem.setShaderTexture(0, BOOK_TEXTURE);
 		DrawableHelper.drawTexture(matrices, x, y, 0, 0, 256, 180, 256, 256);
+
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+		RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
+		DrawableHelper.drawTexture(matrices, x - 62, y + 1, 0, 0, 380, 178, 384, 256);
+	}
+
+	@Override
+	protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+		RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
+		DrawableHelper.drawTexture(matrices, -58, 5, 0, 184, 12, 22, 384, 256);
+		DrawableHelper.drawTexture(matrices, 302, 5, 0, 184, 12, 22, 384, 256);
+
+		super.drawForeground(matrices, mouseX, mouseY);
 	}
 
 	@Override

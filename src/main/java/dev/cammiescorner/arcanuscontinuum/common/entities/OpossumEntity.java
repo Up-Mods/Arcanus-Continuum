@@ -27,7 +27,10 @@ import net.tslat.smartbrainlib.api.core.behaviour.FirstApplicableBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.OneRandomBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.look.LookAtTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.misc.Idle;
-import net.tslat.smartbrainlib.api.core.behaviour.custom.move.*;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.move.FleeTarget;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.move.FloatToSurfaceOfFluid;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.move.FollowOwner;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.move.MoveToWalkTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.path.SetRandomWalkTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.target.SetPlayerLookTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.target.SetRandomLookTarget;
@@ -65,31 +68,34 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 
 		if(isTamed()) {
 			if(handStack.isOf(ArcanusItems.WIZARD_HAT)) {
-				if(!this.world.isClient) {
-					equipStack(EquipmentSlot.HEAD, stack);
+				equipStack(EquipmentSlot.HEAD, stack);
 
-					if(!player.isCreative())
-						handStack.decrement(1);
-					if(!getEquippedStack(EquipmentSlot.HEAD).isEmpty() && !player.isCreative())
-						player.setStackInHand(hand, hatStack);
-
-					return ActionResult.SUCCESS;
-				}
-				else {
-					return ActionResult.CONSUME;
-				}
-			}
-			else if(handStack.isEmpty()) {
-				if(player.isSneaking() && !getEquippedStack(EquipmentSlot.HEAD).isEmpty()) {
+				if(!player.isCreative())
+					handStack.decrement(1);
+				if(!getEquippedStack(EquipmentSlot.HEAD).isEmpty() && !player.isCreative())
 					player.setStackInHand(hand, hatStack);
-					equipStack(EquipmentSlot.HEAD, ItemStack.EMPTY);
-					return ActionResult.SUCCESS;
-				}
 
-				if(getOwner() != null && player.getId() == getOwner().getId()) {
-					setSitting(!isSitting());
-					return ActionResult.SUCCESS;
-				}
+				return ActionResult.SUCCESS;
+			}
+
+			if(isBreedingItem(handStack) && getHealth() < getMaxHealth()) {
+				heal(4);
+
+				if(!player.isCreative())
+					handStack.decrement(1);
+
+				return ActionResult.SUCCESS;
+			}
+
+			if(handStack.isEmpty() && player.isSneaking() && !getEquippedStack(EquipmentSlot.HEAD).isEmpty()) {
+				player.setStackInHand(hand, hatStack);
+				equipStack(EquipmentSlot.HEAD, ItemStack.EMPTY);
+				return ActionResult.SUCCESS;
+			}
+
+			if(getOwner() != null && player.getId() == getOwner().getId()) {
+				setSitting(!isSitting());
+				return ActionResult.SUCCESS;
 			}
 		}
 		else if(handStack.isOf(Items.CARROT)) {
@@ -113,6 +119,11 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 		}
 
 		return super.interactMob(player, hand);
+	}
+
+	@Override
+	public boolean isBreedingItem(ItemStack stack) {
+		return stack.isOf(Items.CARROT);
 	}
 
 	@Nullable
@@ -167,10 +178,10 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 	public BrainActivityGroup<OpossumEntity> getCoreTasks() {
 		return BrainActivityGroup.coreTasks(
 				new FloatToSurfaceOfFluid<>(),
-				new FleeTarget<>().speedModifier(1.5F),
+				new FleeTarget<>().speedModifier(1.5F).stopIf(entity -> ((OpossumEntity) entity).isSitting()),
 				new LookAtTarget<>(),
-				new FollowOwner<>(),
-				new MoveToWalkTarget<>()
+				new FollowOwner<>().stopIf(entity -> ((OpossumEntity) entity).isSitting()),
+				new MoveToWalkTarget<>().stopIf(entity -> ((OpossumEntity) entity).isSitting())
 		);
 	}
 
@@ -183,7 +194,7 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 						new SetRandomLookTarget<>()
 				),
 				new OneRandomBehaviour<>(
-						new SetRandomWalkTarget<>(),
+						new SetRandomWalkTarget<>().stopIf(entity -> ((OpossumEntity) entity).isSitting()),
 						new Idle<>().runFor(entity -> entity.getRandom().nextInt(30) + 30)
 				)
 		);
