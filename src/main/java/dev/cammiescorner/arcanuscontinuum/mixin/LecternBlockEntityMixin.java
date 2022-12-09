@@ -40,25 +40,6 @@ public abstract class LecternBlockEntityMixin extends BlockEntity implements Cle
 			info.setReturnValue(new SpellcraftScreenHandler(i, inventory, ScreenHandlerContext.create(world, getPos()), getBook()));
 	}
 
-//	@Inject(method = "setBook(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/PlayerEntity;)V", at = @At("TAIL"))
-//	private void devotion$syncContents(ItemStack book, PlayerEntity player, CallbackInfo info) {
-//		if(world != null && !world.isClient())
-//			world.updateListeners(getPos(), getCachedState(), getCachedState(), Block.NOTIFY_ALL);
-//	}
-//
-//	@Override
-//	public NbtCompound toInitialChunkDataNbt() {
-//		NbtCompound tag = super.toInitialChunkDataNbt();
-//		writeNbt(tag);
-//		return tag;
-//	}
-//
-//	@Nullable
-//	@Override
-//	public Packet<ClientPlayPacketListener> toUpdatePacket() {
-//		return BlockEntityUpdateS2CPacket.of(this);
-//	}
-
 	@Override
 	public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
 		buf.writeItemStack(getBook());

@@ -28,13 +28,11 @@ public class SpellcraftScreenHandler extends ScreenHandler {
 		if(!player.canModifyBlocks())
 			return false;
 
-		ItemStack stack = inventory.removeStack(0);
+		ItemStack itemStack = inventory.removeStack(0);
 		inventory.markDirty();
 
-		if(!player.getInventory().insertStack(stack))
-			player.dropItem(stack, false);
-
-		close(player);
+		if(!player.getInventory().insertStack(itemStack))
+			player.dropItem(itemStack, false);
 
 		return true;
 	}
