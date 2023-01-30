@@ -59,6 +59,6 @@ public class SpellComponent {
 			knownTranslationKey = Util.createTranslationKey("spell_component", id);
 		}
 
-		return player != null && ArcanusComponents.KNOWN_COMPONENTS_COMPONENT.get(player).hasComponent(this) ? knownTranslationKey : unknownTranslationKey;
+		return player != null && ArcanusComponents.hasComponent(player, this) ? knownTranslationKey : unknownTranslationKey;
 	}
 }

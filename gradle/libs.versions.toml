@@ -1,20 +1,19 @@
 [versions]
 # The latest versions are available at https://lambdaurora.dev/tools/import_quilt.html
-minecraft = "1.19.2"
-quilt_mappings = "1.19.2+build.21"
-quilt_loader = "0.18.1-beta.18"
+minecraft = "1.19.3"
+quilt_mappings = "1.19.3+build.20"
+quilt_loader = "0.18.1-beta.64"
 
-quilted_fabric_api = "4.0.0-beta.21+0.67.0-1.19.2"
-cca = "5.0.2"
-playeranimator = "0.3.5"
-patchouli = "1.19.2-76-FABRIC"
-midnightlib = "0.6.0"
+quilted_fabric_api = "5.0.0-beta.4+0.73.0-1.19.3"
+cca = "5.1.0"
+patchouli = "1.19.2-77-FABRIC"
+midnightlib = "1.1.0-quilt"
 blabber = "0.4.0"
 mixinextras = "0.1.1"
 lucko_perms = "0.1-SNAPSHOT"
-reach_attr = "2.3.0"
-modmenu = "4.0.6"
-smartbrainlib = "4125900"
+reach_attr = "2.3.1"
+modmenu = "5.0.2"
+smartbrainlib = "4312173"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -25,7 +24,6 @@ quilted_fabric_api = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-a
 quilted_fabric_api_deprecated = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api-deprecated", version.ref = "quilted_fabric_api" }
 cca_base = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-base", version.ref = "cca" }
 cca_entity = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-entity", version.ref = "cca" }
-playeranimator = { module = "dev.kosmx.player-anim:player-animation-lib-fabric", version.ref = "playeranimator" }
 patchouli = { module = "vazkii.patchouli:Patchouli", version.ref = "patchouli" }
 midnightlib = { module = "maven.modrinth:midnightlib", version.ref = "midnightlib" }
 blabber = { module = "io.github.ladysnake:blabber", version.ref = "blabber" }
@@ -40,4 +38,4 @@ smartbrainlib = { module = "curse.maven:smartbrainlib-661293", version.ref = "sm
 quilted_fabric_api = ["quilted_fabric_api", "quilted_fabric_api_deprecated"]
 
 [plugins]
-quilt_loom = { id = "org.quiltmc.loom", version = "1.0.+" }
+quilt_loom = { id = "org.quiltmc.loom", version = "1.+" }

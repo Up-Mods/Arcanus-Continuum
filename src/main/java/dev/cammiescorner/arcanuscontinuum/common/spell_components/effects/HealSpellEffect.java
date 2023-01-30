@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanuscontinuum.common.spellcomponents.effects;
+package dev.cammiescorner.arcanuscontinuum.common.spell_components.effects;
 
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;

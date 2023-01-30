@@ -11,6 +11,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBind;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -40,6 +41,8 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 	@Shadow public abstract float getTickDelta();
 	@Shadow protected abstract boolean doAttack();
+
+	@Shadow @Nullable public ClientWorld world;
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void tick(CallbackInfo info) {
@@ -109,7 +112,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 				timer = 20;
 				pattern.add(Pattern.LEFT);
 				player.swingHand(Hand.MAIN_HAND);
-				player.world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1F, 1.3F);
+				player.world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1F, 1.3F, 1L);
 
 				if(pattern.size() >= 3)
 					lastMouseDown = options.attackKey;
@@ -134,7 +137,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 				pattern.add(Pattern.RIGHT);
 				player.swingHand(Hand.MAIN_HAND);
 				player.resetLastAttackedTicks();
-				player.world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1F, 1.1F);
+				player.world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1F, 1.1F, 1L);
 
 				if(pattern.size() >= 3)
 					lastMouseDown = options.useKey;

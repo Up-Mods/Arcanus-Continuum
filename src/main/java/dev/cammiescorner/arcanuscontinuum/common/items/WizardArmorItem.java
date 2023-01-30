@@ -2,7 +2,6 @@ package dev.cammiescorner.arcanuscontinuum.common.items;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -26,7 +25,7 @@ public class WizardArmorItem extends DyeableArmorItem {
 	private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
 
 	public WizardArmorItem(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, double manaRegen) {
-		super(armorMaterial, equipmentSlot, new QuiltItemSettings().group(Arcanus.ITEM_GROUP).maxCount(1));
+		super(armorMaterial, equipmentSlot, new QuiltItemSettings().maxCount(1));
 		ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
 		UUID uUID = MODIFIERS[equipmentSlot.getEntitySlotId()];
 		builder.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(uUID, "Armor modifier", armorMaterial.getProtectionAmount(equipmentSlot), EntityAttributeModifier.Operation.ADDITION));

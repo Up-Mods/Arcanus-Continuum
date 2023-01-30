@@ -3,50 +3,86 @@ package dev.cammiescorner.arcanuscontinuum;
 import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
+import dev.cammiescorner.arcanuscontinuum.common.blocks.MagicDoorBlock;
+import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.MagicDoorBlockEntity;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.CastSpellPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SetCastingPacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.DefaultedRegistry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.DefaultedRegistry;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.poi.PointOfInterestStorage;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
+import org.quiltmc.qsl.chat.api.QuiltChatEvents;
+import org.quiltmc.qsl.chat.api.QuiltMessageType;
+import org.quiltmc.qsl.chat.api.types.ChatC2SMessage;
 import org.quiltmc.qsl.command.api.CommandRegistrationCallback;
-import org.quiltmc.qsl.item.group.api.QuiltItemGroup;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Optional;
 
 public class Arcanus implements ModInitializer {
 	public static final String MOD_ID = "arcanuscontinuum";
-	public static final ItemGroup ITEM_GROUP = QuiltItemGroup.createWithIcon(id("general"), () -> new ItemStack(ArcanusItems.WOODEN_STAFF));
 	public static final DefaultedRegistry<SpellComponent> SPELL_COMPONENTS = FabricRegistryBuilder.createDefaulted(SpellComponent.class, id("spell_components"), id("empty")).buildAndRegister();
 
 	@Override
 	public void onInitialize(ModContainer mod) {
-		Registry.register(Registry.ATTRIBUTE, id("max_mana"), ArcanusEntityAttributes.MAX_MANA);
-		Registry.register(Registry.ATTRIBUTE, id("mana_regen"), ArcanusEntityAttributes.MANA_REGEN);
-		Registry.register(Registry.ATTRIBUTE, id("burnout_regen"), ArcanusEntityAttributes.BURNOUT_REGEN);
-		Registry.register(Registry.ATTRIBUTE, id("mana_lock"), ArcanusEntityAttributes.MANA_LOCK);
-		Registry.register(Registry.ATTRIBUTE, id("spell_potency"), ArcanusEntityAttributes.SPELL_POTENCY);
+		Registry.register(Registries.ENTITY_ATTRIBUTE, id("max_mana"), ArcanusEntityAttributes.MAX_MANA);
+		Registry.register(Registries.ENTITY_ATTRIBUTE, id("mana_regen"), ArcanusEntityAttributes.MANA_REGEN);
+		Registry.register(Registries.ENTITY_ATTRIBUTE, id("burnout_regen"), ArcanusEntityAttributes.BURNOUT_REGEN);
+		Registry.register(Registries.ENTITY_ATTRIBUTE, id("mana_lock"), ArcanusEntityAttributes.MANA_LOCK);
+		Registry.register(Registries.ENTITY_ATTRIBUTE, id("spell_potency"), ArcanusEntityAttributes.SPELL_POTENCY);
 
 		ArcanusEntities.register();
+		ArcanusBlocks.register();
+		ArcanusBlockEntities.register();
 		ArcanusItems.register();
 		ArcanusSpellComponents.register();
 		ArcanusRecipes.register();
 		ArcanusScreenHandlers.register();
 		ArcanusCommands.register();
+		ArcanusPointsOfInterest.register();
 
 		ServerPlayNetworking.registerGlobalReceiver(CastSpellPacket.ID, CastSpellPacket::handler);
 		ServerPlayNetworking.registerGlobalReceiver(SetCastingPacket.ID, SetCastingPacket::handler);
 
 		CommandRegistrationCallback.EVENT.register(ArcanusCommands::init);
+
+		QuiltChatEvents.CANCEL.register(EnumSet.of(QuiltMessageType.CHAT), abstractMessage -> {
+			PlayerEntity player = abstractMessage.getPlayer();
+			World world = player.getWorld();
+
+			if(world instanceof ServerWorld server && abstractMessage instanceof ChatC2SMessage message) {
+				PointOfInterestStorage poiStorage = server.getChunkManager().getPointOfInterestStorage();
+				Optional<BlockPos> pointOfInterest = poiStorage.getNearestPosition(poiTypeHolder -> poiTypeHolder.isRegistryKey(ArcanusPointsOfInterest.MAGIC_DOOR), player.getBlockPos(), 8, PointOfInterestStorage.OccupationStatus.ANY);
+
+				if(pointOfInterest.isPresent()) {
+					BlockPos pos = pointOfInterest.get();
+
+					if(world.getBlockEntity(pos) instanceof MagicDoorBlockEntity door && door.getPassword().equals(message.getMessage()) && world.getBlockState(pos).getBlock() instanceof MagicDoorBlock doorBlock) {
+						BlockState state = world.getBlockState(pos);
+						doorBlock.setOpen(player, world, state, pos, true);
+
+						return true;
+					}
+				}
+			}
+
+			return false;
+		});
 	}
 
 	public static Identifier id(String name) {

@@ -8,7 +8,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.HeldItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.Axis;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,8 +33,8 @@ public class HeldItemRendererMixin {
 		if(world != null && isCasting && mainHand.getItem() instanceof StaffItem) {
 			double time = world.getTime() + tickDelta;
 
-			matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-65F));
-			matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(20F));
+			matrices.multiply(Axis.X_POSITIVE.rotationDegrees(-65F));
+			matrices.multiply(Axis.Z_POSITIVE.rotationDegrees(20F));
 			matrices.translate(0.1 + Math.cos(time * 0.25) * 0.05, 1.2, -0.4 + Math.sin(time * 0.25) * 0.05);
 		}
 	}

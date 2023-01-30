@@ -8,7 +8,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.Axis;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,7 +22,7 @@ public class HeldItemFeatureRendererMixin {
 	private void arcanuscontinuum$adjustItem(LivingEntity entity, ItemStack stack, ModelTransformation.Mode transformationMode, Arm arm, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
 		if(ArcanusComponents.isCasting(entity)) {
 			matrices.translate(0, 0.1, 0);
-			matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-15));
+			matrices.multiply(Axis.X_POSITIVE.rotationDegrees(-15));
 		}
 	}
 }

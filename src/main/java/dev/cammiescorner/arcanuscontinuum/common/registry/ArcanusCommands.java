@@ -5,6 +5,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
@@ -46,6 +47,9 @@ public class ArcanusCommands {
 				.then(CommandManager.literal("learn")
 						.then(CommandManager.argument("spell_component", SpellArgumentType.spell())
 								.executes(SpellsCommand::learnSpellComponent)
+						)
+						.then(CommandManager.argument("all", StringArgumentType.word())
+								.executes(SpellsCommand::learnAllSpellComponents)
 						)
 				)
 				.then(CommandManager.literal("list")
@@ -97,7 +101,7 @@ public class ArcanusCommands {
 	private static class SpellsCommand {
 		public static int getSpellComponents(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
 			PlayerEntity player = context.getSource().getPlayer();
-			Set<SpellComponent> components = ArcanusComponents.KNOWN_COMPONENTS_COMPONENT.get(player).getKnownComponents();
+			Set<SpellComponent> components = ArcanusComponents.getKnownComponents(player);
 
 			context.getSource().sendFeedback(Text.literal("Known Spell Components:"), false);
 
@@ -110,7 +114,17 @@ public class ArcanusCommands {
 		public static int learnSpellComponent(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
 			PlayerEntity player = context.getSource().getPlayer();
 			SpellComponent component = SpellArgumentType.getSpell(context, "spell_component");
-			ArcanusComponents.KNOWN_COMPONENTS_COMPONENT.get(player).addComponent(component);
+			ArcanusComponents.addComponent(player, component);
+
+			return Command.SINGLE_SUCCESS;
+		}
+
+		public static int learnAllSpellComponents(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+			PlayerEntity player = context.getSource().getPlayer();
+
+			for(SpellComponent component : Arcanus.SPELL_COMPONENTS)
+				if(!ArcanusComponents.hasComponent(player, component))
+					ArcanusComponents.addComponent(player, component);
 
 			return Command.SINGLE_SUCCESS;
 		}

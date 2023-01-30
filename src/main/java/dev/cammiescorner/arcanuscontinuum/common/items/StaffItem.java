@@ -40,7 +40,7 @@ public class StaffItem extends Item implements DyeableItem {
 	}
 
 	public StaffItem(double attackDamage) {
-		super(new QuiltItemSettings().maxCount(1).group(Arcanus.ITEM_GROUP));
+		super(new QuiltItemSettings().maxCount(1));
 		ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
 
 		builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", attackDamage, EntityAttributeModifier.Operation.ADDITION));

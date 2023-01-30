@@ -1,6 +1,5 @@
 package dev.cammiescorner.arcanuscontinuum.common.items;
 
-import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.components.WizardLevelComponent;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,7 +12,7 @@ import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
 public class ScrollOfKnowledgeItem extends Item {
 	public ScrollOfKnowledgeItem() {
-		super(new QuiltItemSettings().group(Arcanus.ITEM_GROUP).maxCount(16));
+		super(new QuiltItemSettings().maxCount(16));
 	}
 
 	@Override

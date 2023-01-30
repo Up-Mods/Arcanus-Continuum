@@ -189,7 +189,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 		for(int i = 0; i < spellShapeWidgets.size(); i++) {
 			SpellComponentWidget widget = spellShapeWidgets.get(i);
-			widget.y = 8 + (i * 28) - leftScroll * 14;
+			widget.setY(8 + (i * 28) - leftScroll * 14);
 			widget.render(matrices, mouseX - x, mouseY - y, delta);
 		}
 
@@ -200,7 +200,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 		for(int i = 0; i < spellEffectWidgets.size(); i++) {
 			SpellComponentWidget widget = spellEffectWidgets.get(i);
-			widget.y = 8 + (i * 28) - rightScroll * 14;
+			widget.setY(8 + (i * 28) - rightScroll * 14);
 			widget.render(matrices, mouseX - x, mouseY - y, delta);
 		}
 
@@ -215,11 +215,11 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	}
 
 	protected void addCloseButton() {
-		addDrawableChild(new ButtonWidget(width / 2 - 100, y + 170, 98, 20, ScreenTexts.DONE, (button) -> closeScreen()));
-		addDrawableChild(new ButtonWidget(width / 2 + 2, y + 170, 98, 20, Text.translatable("lectern.take_book"), (button) -> {
+		addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> closeScreen()).position(width / 2 - 100, y + 170).size(98, 20).build());
+		addDrawableChild(ButtonWidget.builder(Text.translatable("lectern.take_book"), (button) -> {
 			client.interactionManager.clickButton(handler.syncId, 0);
 			closeScreen();
-		}));
+		}).position(width / 2 + 2, y + 170).size(98, 20).build());
 	}
 
 	public <T extends SpellComponentWidget> T addSpellShapeChild(T drawable) {

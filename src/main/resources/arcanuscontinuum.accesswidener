@@ -1,7 +1,0 @@
-accessWidener v1 named
-
-accessible field net/minecraft/structure/pool/StructurePool elements Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
-
-accessible field net/minecraft/structure/pool/SinglePoolElement processors Lnet/minecraft/util/Holder;
-mutable field net/minecraft/structure/pool/SinglePoolElement processors Lnet/minecraft/util/Holder;
-accessible field net/minecraft/structure/pool/SinglePoolElement template Lcom/mojang/datafixers/util/Either;

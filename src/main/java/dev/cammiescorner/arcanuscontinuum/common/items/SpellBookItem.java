@@ -26,7 +26,7 @@ import java.util.Locale;
 
 public class SpellBookItem extends Item {
 	public SpellBookItem() {
-		super(new QuiltItemSettings().group(Arcanus.ITEM_GROUP).maxCount(1));
+		super(new QuiltItemSettings().maxCount(1));
 	}
 
 	@Override

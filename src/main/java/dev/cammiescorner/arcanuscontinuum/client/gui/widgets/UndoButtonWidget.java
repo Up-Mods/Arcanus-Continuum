@@ -40,21 +40,20 @@ public class UndoButtonWidget extends ClickableWidget {
 		RenderSystem.setShaderTexture(0, SpellcraftScreen.BOOK_TEXTURE);
 
 		if(!isHoveredOrFocused()) {
-			DrawableHelper.drawTexture(matrices, x, y, 0, 192, 24, 16, 256, 256);
+			DrawableHelper.drawTexture(matrices, getX(), getY(), 0, 192, 24, 16, 256, 256);
 		}
 		else {
-			DrawableHelper.drawTexture(matrices, x, y, 24, 192, 24, 16, 256, 256);
+			DrawableHelper.drawTexture(matrices, getX(), getY(), 24, 192, 24, 16, 256, 256);
 			renderTooltip(matrices, mouseX, mouseY);
 		}
 	}
 
-	@Override
 	public void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
 		tooltipSupplier.onTooltip(this, matrices, mouseX, mouseY);
 	}
 
 	@Override
-	public void appendNarrations(NarrationMessageBuilder builder) {
+	protected void updateNarration(NarrationMessageBuilder builder) {
 		appendDefaultNarrations(builder);
 		tooltipSupplier.supply(text -> builder.put(NarrationPart.HINT, text));
 	}

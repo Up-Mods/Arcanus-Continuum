@@ -3,9 +3,10 @@ package dev.cammiescorner.arcanuscontinuum.common.registry;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.screens.SpellcraftScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
 
@@ -18,7 +19,7 @@ public class ArcanusScreenHandlers {
 
 	//-----Registry-----//
 	public static void register() {
-		SCREEN_HANDLERS.keySet().forEach(type -> Registry.register(Registry.SCREEN_HANDLER, SCREEN_HANDLERS.get(type), type));
+		SCREEN_HANDLERS.keySet().forEach(type -> Registry.register(Registries.SCREEN_HANDLER_TYPE, SCREEN_HANDLERS.get(type), type));
 	}
 
 	private static <T extends ScreenHandlerType<?>> T create(String name, T type) {

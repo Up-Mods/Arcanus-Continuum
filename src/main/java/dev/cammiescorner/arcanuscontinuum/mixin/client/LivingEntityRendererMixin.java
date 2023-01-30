@@ -11,7 +11,7 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Arm;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.Axis;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -28,6 +28,6 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 		Arm mainArm = MinecraftClient.getInstance().options.getMainArm().get();
 
 		if(ArcanusComponents.isCasting(livingEntity))
-			matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(mainArm == Arm.RIGHT ? 65 : -65));
+			matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(mainArm == Arm.RIGHT ? 65 : -65));
 	}
 }

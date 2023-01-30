@@ -43,16 +43,15 @@ public class SpellComponentWidget extends ClickableWidget {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
 		RenderSystem.setShaderTexture(0, component.getTexture());
-		DrawableHelper.drawTexture(matrices, x, y, 0, 0, 24, 24, 24, 24);
+		DrawableHelper.drawTexture(matrices, getX(), getY(), 0, 0, 24, 24, 24, 24);
 	}
 
-	@Override
 	public void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
 		tooltipSupplier.onTooltip(this, matrices, mouseX, mouseY);
 	}
 
 	@Override
-	public void appendNarrations(NarrationMessageBuilder builder) {
+	protected void updateNarration(NarrationMessageBuilder builder) {
 		appendDefaultNarrations(builder);
 		tooltipSupplier.supply(text -> builder.put(NarrationPart.HINT, text));
 	}

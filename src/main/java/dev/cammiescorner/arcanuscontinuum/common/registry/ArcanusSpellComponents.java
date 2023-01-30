@@ -5,13 +5,13 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
-import dev.cammiescorner.arcanuscontinuum.common.spellcomponents.effects.DamageSpellEffect;
-import dev.cammiescorner.arcanuscontinuum.common.spellcomponents.effects.HealSpellEffect;
-import dev.cammiescorner.arcanuscontinuum.common.spellcomponents.shapes.SelfSpellShape;
-import dev.cammiescorner.arcanuscontinuum.common.spellcomponents.shapes.TouchSpellShape;
+import dev.cammiescorner.arcanuscontinuum.common.spell_components.effects.DamageSpellEffect;
+import dev.cammiescorner.arcanuscontinuum.common.spell_components.effects.HealSpellEffect;
+import dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes.SelfSpellShape;
+import dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes.TouchSpellShape;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
 
@@ -32,7 +32,7 @@ public class ArcanusSpellComponents {
 	public static final SpellShape RUNE = create("rune_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
 	public static final SpellShape SMITE = create("smite_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
 	public static final SpellShape AOE = create("aoe_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape VOID = create("void_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
+	public static final SpellShape EXPLOSION = create("explosion_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
 
 	//-----Spell Effects-----//
 	public static final SpellEffect DAMAGE = create("damage_effect", new DamageSpellEffect(ParticleTypes.DAMAGE_INDICATOR, Weight.NONE, 3, 5, 1));
@@ -49,6 +49,7 @@ public class ArcanusSpellComponents {
 	public static final SpellEffect WITHERING = create("withering_effect", new HealSpellEffect(ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect REGENERATE = create("regenerate_effect", new HealSpellEffect(ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect VULNERABILITY = create("vulnerability_effect", new HealSpellEffect(ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect FORTIFY = create("fortify_effect", new HealSpellEffect(ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect BOUNCY = create("bouncy_effect", new HealSpellEffect(ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect FEATHER = create("feather_effect", new HealSpellEffect(ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect POWER = create("power_effect", new HealSpellEffect(ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
@@ -58,7 +59,6 @@ public class ArcanusSpellComponents {
 	public static final SpellEffect MINE = create("mine_effect", new HealSpellEffect(ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect BUILD = create("build_effect", new HealSpellEffect(ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect LEVITATE = create("levitate_effect", new HealSpellEffect(ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect TRANSMUTATE = create("transmutate_effect", new HealSpellEffect(ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect GROWTH = create("growth_effect", new HealSpellEffect(ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 
 	//-----Registry-----//
