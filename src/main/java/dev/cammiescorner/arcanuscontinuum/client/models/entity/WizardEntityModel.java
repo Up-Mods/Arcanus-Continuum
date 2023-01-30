@@ -6,16 +6,20 @@ import dev.cammiescorner.arcanuscontinuum.common.entities.WizardEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.entity.model.ModelWithArms;
+import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Arm;
+import net.minecraft.util.math.MathHelper;
 
-public class WizardEntityModel extends EntityModel<WizardEntity> {
+public class WizardEntityModel extends EntityModel<WizardEntity> implements ModelWithArms, ModelWithHead {
 	public static final EntityModelLayer MODEL_LAYER = new EntityModelLayer(Arcanus.id("wizard"), "main");
-	private final ModelPart head;
-	private final ModelPart leftArm;
-	private final ModelPart rightArm;
-	private final ModelPart body;
-	private final ModelPart leftLeg;
-	private final ModelPart rightLeg;
+	public final ModelPart head;
+	public final ModelPart leftArm;
+	public final ModelPart rightArm;
+	public final ModelPart body;
+	public final ModelPart leftLeg;
+	public final ModelPart rightLeg;
 
 	public WizardEntityModel(ModelPart root) {
 		this.head = root.getChild("head");
@@ -68,7 +72,41 @@ public class WizardEntityModel extends EntityModel<WizardEntity> {
 
 	@Override
 	public void setAngles(WizardEntity wizard, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		if(!wizard.getMainHandStack().isEmpty())
-			rightArm.pitch = (float) Math.toRadians(-75);
+		rightArm.pitch = MathHelper.cos(limbAngle * 0.6662F + (float) Math.PI) * 2.0F * limbDistance * 0.5F;
+		leftArm.pitch = MathHelper.cos(limbAngle * 0.6662F) * 2.0F * limbDistance * 0.5F;
+		rightArm.yaw = 0;
+		leftArm.yaw = 0;
+
+		rightLeg.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance * 0.5F;
+		leftLeg.pitch = MathHelper.cos(limbAngle * 0.6662F + (float) Math.PI) * 1.4F * limbDistance * 0.5F;
+		head.pitch = (float) Math.toRadians(headPitch);
+		head.yaw = (float) Math.toRadians(headYaw);
+
+		if(!wizard.getMainHandStack().isEmpty()) {
+			if(wizard.isLeftHanded()) {
+				leftArm.pitch = (float) Math.toRadians(-75) + MathHelper.cos(limbAngle * 0.6662F) * 2F * limbDistance * 0.25F;
+				leftArm.yaw = (float) Math.toRadians(-20);
+			}
+			else {
+				rightArm.pitch = (float) Math.toRadians(-75) + MathHelper.cos(limbAngle * 0.6662F + (float) Math.PI) * 2F * limbDistance * 0.25F;
+				rightArm.yaw = (float) Math.toRadians(20);
+			}
+		}
+
+		leftLeg.pitch = MathHelper.lerp(wizard.getLeaningPitch(animationProgress), leftLeg.pitch, 0.3F * MathHelper.cos(limbAngle * 0.33333334F + (float) Math.PI));
+		rightLeg.pitch = MathHelper.lerp(wizard.getLeaningPitch(animationProgress), rightLeg.pitch, 0.3F * MathHelper.cos(limbAngle * 0.33333334F));
+	}
+
+	@Override
+	public ModelPart getHead() {
+		return head;
+	}
+
+	@Override
+	public void setArmAngle(Arm arm, MatrixStack matrices) {
+		if(arm == Arm.LEFT)
+			leftArm.rotate(matrices);
+		else
+			rightArm.rotate(matrices);
 	}
 }

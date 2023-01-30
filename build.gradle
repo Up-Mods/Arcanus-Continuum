@@ -44,6 +44,10 @@ dependencies {
 	include libs.lucko.perms
 }
 
+loom {
+	accessWidenerPath = file("src/main/resources/arcanuscontinuum.accesswidener")
+}
+
 processResources {
 	inputs.property "version", version
 

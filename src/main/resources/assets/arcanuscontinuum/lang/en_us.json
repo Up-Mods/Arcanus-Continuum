@@ -13,8 +13,10 @@
   "item.arcanuscontinuum.wizard_boots": "Wizard Boots",
   "item.arcanuscontinuum.spell_book": "Spell Book",
   "item.arcanuscontinuum.scroll_of_knowledge": "Scroll of Knowledge",
+  "item.arcanuscontinuum.wizard_spawn_egg": "Wizard Spawn Egg",
   "item.arcanuscontinuum.opossum_spawn_egg": "Opossum Spawn Egg",
 
+  "entity.arcanuscontinuum.wizard": "Wizard",
   "entity.arcanuscontinuum.opossum": "Opossum",
 
   "spell_component.arcanuscontinuum.self_shape": "Self Shape",
