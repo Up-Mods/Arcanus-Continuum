@@ -2,11 +2,13 @@ package dev.cammiescorner.arcanuscontinuum.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.client.gui.screens.SpellcraftScreen;
 import dev.cammiescorner.arcanuscontinuum.client.models.armour.WizardArmourModel;
 import dev.cammiescorner.arcanuscontinuum.client.models.entity.OpossumEntityModel;
+import dev.cammiescorner.arcanuscontinuum.client.models.entity.WizardEntityModel;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.armour.WizardArmourRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.OpossumEntityRenderer;
-import dev.cammiescorner.arcanuscontinuum.client.screens.SpellcraftScreen;
+import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.WizardEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
@@ -31,9 +33,11 @@ public class ArcanusClient implements ClientModInitializer {
 		HandledScreens.register(ArcanusScreenHandlers.SPELLCRAFT_SCREEN_HANDLER, SpellcraftScreen::new);
 
 		EntityModelLayerRegistry.registerModelLayer(WizardArmourModel.MODEL_LAYER, WizardArmourModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(WizardEntityModel.MODEL_LAYER, WizardEntityModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(OpossumEntityModel.MODEL_LAYER, OpossumEntityModel::getTexturedModelData);
 
 		ArmorRenderer.register(new WizardArmourRenderer(), ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS);
+		EntityRendererRegistry.register(ArcanusEntities.WIZARD, WizardEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.OPOSSUM, OpossumEntityRenderer::new);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? ((DyeableItem) stack.getItem()).getColor(stack) : 0xffffff,

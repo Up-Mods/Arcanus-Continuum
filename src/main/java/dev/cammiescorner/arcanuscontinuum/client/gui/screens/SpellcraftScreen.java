@@ -1,11 +1,15 @@
-package dev.cammiescorner.arcanuscontinuum.client.screens;
+package dev.cammiescorner.arcanuscontinuum.client.gui.screens;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.Rectangle;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
+import dev.cammiescorner.arcanuscontinuum.client.gui.widgets.SpellComponentWidget;
+import dev.cammiescorner.arcanuscontinuum.client.gui.widgets.UndoButtonWidget;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanuscontinuum.common.screens.SpellcraftScreenHandler;
 import net.minecraft.client.MinecraftClient;
@@ -14,6 +18,7 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -26,10 +31,12 @@ import net.minecraft.util.math.MathHelper;
 import java.util.List;
 
 public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
-	private static final Identifier BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
-	private static final Identifier PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
-	private static final List<SpellComponent> SPELL_SHAPES = Arcanus.SPELL_COMPONENTS.stream().filter(component -> component != ArcanusSpellComponents.EMPTY && component instanceof SpellShape).toList();
-	private static final List<SpellComponent> SPELL_EFFECTS = Arcanus.SPELL_COMPONENTS.stream().filter(component -> component != ArcanusSpellComponents.EMPTY && component instanceof SpellEffect).toList();
+	public static final Identifier BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
+	public static final Identifier PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
+	private static List<SpellComponent> SPELL_SHAPES;
+	private static List<SpellComponent> SPELL_EFFECTS;
+	private final List<SpellComponentWidget> spellShapeWidgets = Lists.newArrayList();
+	private final List<SpellComponentWidget> spellEffectWidgets = Lists.newArrayList();
 	private int leftScroll, rightScroll;
 	private double leftKnobPos, rightKnobPos;
 	private boolean draggingLeft, draggingRight;
@@ -44,7 +51,21 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		x = (width - 256) / 2;
 		y = (height - 180) / 2;
 		playerInventoryTitleY = -10000;
+		SPELL_SHAPES = Arcanus.SPELL_COMPONENTS.stream().filter(component -> component != ArcanusSpellComponents.EMPTY && ArcanusComponents.getWizardLevel(MinecraftClient.getInstance().player) >= component.getMinLevel() && component instanceof SpellShape).toList();
+		SPELL_EFFECTS = Arcanus.SPELL_COMPONENTS.stream().filter(component -> component != ArcanusSpellComponents.EMPTY && ArcanusComponents.getWizardLevel(MinecraftClient.getInstance().player) >= component.getMinLevel() && component instanceof SpellEffect).toList();
+
+		if(client != null) {
+			for(SpellComponent component : SPELL_SHAPES)
+				if(ArcanusComponents.getWizardLevel(client.player) >= component.getMinLevel())
+					addSpellShapeChild(new SpellComponentWidget(-34, component));
+			for(SpellComponent component : SPELL_EFFECTS)
+				if(ArcanusComponents.getWizardLevel(client.player) >= component.getMinLevel())
+					addSpellEffectChild(new SpellComponentWidget(267, component));
+		}
+
 		addCloseButton();
+		addDrawableChild(new TextFieldWidget(client.textRenderer, (width - 80) / 2, y + 8, 104, 14, Text.literal("Spell Name...")));
+		addDrawableChild(new UndoButtonWidget((width - 128) / 2, y + 7));
 	}
 
 	@Override
@@ -60,7 +81,6 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 	@Override
 	protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
-		int scale = (int) client.getWindow().getScaleFactor();
 		Rectangle leftKnob = getLeftScrollKnob();
 		Rectangle rightKnob = getRightScrollKnob();
 
@@ -71,29 +91,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		DrawableHelper.drawTexture(matrices, leftKnob.x(), leftKnob.y(), draggingLeft ? 12 : 0, 184, leftKnob.width(), leftKnob.height(), 384, 256);
 		DrawableHelper.drawTexture(matrices, rightKnob.x(), rightKnob.y(), draggingRight ? 12 : 0, 184, rightKnob.width(), rightKnob.height(), 384, 256);
 
-		// Render Spell Shapes
-		RenderSystem.enableScissor((x - 37) * scale, (y + 6) * scale, 28 * scale, 168 * scale);
-
-		for(int i = 0; i < SPELL_SHAPES.size(); i++) {
-			SpellComponent component = SPELL_SHAPES.get(i);
-			RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
-			RenderSystem.setShaderTexture(0, component.getTexture());
-			DrawableHelper.drawTexture(matrices, -35, 8 + (i * 28) - leftScroll * 14, 0, 0, 24, 24, 24, 24);
-		}
-
-		RenderSystem.disableScissor();
-
-		// Render Spell Effects
-		RenderSystem.enableScissor((x + 265) * scale, (y + 6) * scale, 28 * scale, 168 * scale);
-
-		for(int i = 0; i < SPELL_EFFECTS.size(); i++) {
-			SpellComponent component = SPELL_EFFECTS.get(i);
-			RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
-			RenderSystem.setShaderTexture(0, component.getTexture());
-			DrawableHelper.drawTexture(matrices, 267, 8 + (i * 28) - rightScroll * 14, 0, 0, 24, 24, 24, 24);
-		}
-
-		RenderSystem.disableScissor();
+		drawWidgets(matrices, mouseX, mouseY, MinecraftClient.getInstance().getTickDelta());
 
 		super.drawForeground(matrices, mouseX, mouseY);
 	}
@@ -183,12 +181,55 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		return MinecraftClient.getInstance();
 	}
 
+	private void drawWidgets(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+		int scale = (int) client.getWindow().getScaleFactor();
+
+		// Render Spell Shapes
+		RenderSystem.enableScissor((x - 37) * scale, (y + 6) * scale, 28 * scale, 168 * scale);
+
+		for(int i = 0; i < spellShapeWidgets.size(); i++) {
+			SpellComponentWidget widget = spellShapeWidgets.get(i);
+			widget.y = 8 + (i * 28) - leftScroll * 14;
+			widget.render(matrices, mouseX - x, mouseY - y, delta);
+		}
+
+		RenderSystem.disableScissor();
+
+		// Render Spell Effects
+		RenderSystem.enableScissor((x + 265) * scale, (y + 6) * scale, 28 * scale, 168 * scale);
+
+		for(int i = 0; i < spellEffectWidgets.size(); i++) {
+			SpellComponentWidget widget = spellEffectWidgets.get(i);
+			widget.y = 8 + (i * 28) - rightScroll * 14;
+			widget.render(matrices, mouseX - x, mouseY - y, delta);
+		}
+
+		RenderSystem.disableScissor();
+
+		for(SpellComponentWidget widget : spellShapeWidgets)
+			if(widget.isHoveredOrFocused())
+				widget.renderTooltip(matrices, mouseX - x, mouseY - y);
+		for(SpellComponentWidget widget : spellEffectWidgets)
+			if(widget.isHoveredOrFocused())
+				widget.renderTooltip(matrices, mouseX - x, mouseY - y);
+	}
+
 	protected void addCloseButton() {
 		addDrawableChild(new ButtonWidget(width / 2 - 100, y + 170, 98, 20, ScreenTexts.DONE, (button) -> closeScreen()));
 		addDrawableChild(new ButtonWidget(width / 2 + 2, y + 170, 98, 20, Text.translatable("lectern.take_book"), (button) -> {
 			client.interactionManager.clickButton(handler.syncId, 0);
 			closeScreen();
 		}));
+	}
+
+	public <T extends SpellComponentWidget> T addSpellShapeChild(T drawable) {
+		spellShapeWidgets.add(drawable);
+		return addSelectableChild(drawable);
+	}
+
+	public <T extends SpellComponentWidget> T addSpellEffectChild(T drawable) {
+		spellEffectWidgets.add(drawable);
+		return addSelectableChild(drawable);
 	}
 
 	public Rectangle getLeftScrollKnob() {

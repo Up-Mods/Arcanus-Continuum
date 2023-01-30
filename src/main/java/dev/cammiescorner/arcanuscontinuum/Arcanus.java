@@ -17,6 +17,7 @@ import net.minecraft.util.registry.DefaultedRegistry;
 import net.minecraft.util.registry.Registry;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
+import org.quiltmc.qsl.command.api.CommandRegistrationCallback;
 import org.quiltmc.qsl.item.group.api.QuiltItemGroup;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 
@@ -40,9 +41,12 @@ public class Arcanus implements ModInitializer {
 		ArcanusSpellComponents.register();
 		ArcanusRecipes.register();
 		ArcanusScreenHandlers.register();
+		ArcanusCommands.register();
 
 		ServerPlayNetworking.registerGlobalReceiver(CastSpellPacket.ID, CastSpellPacket::handler);
 		ServerPlayNetworking.registerGlobalReceiver(SetCastingPacket.ID, SetCastingPacket::handler);
+
+		CommandRegistrationCallback.EVENT.register(ArcanusCommands::init);
 	}
 
 	public static Identifier id(String name) {
