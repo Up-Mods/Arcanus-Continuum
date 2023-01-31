@@ -8,19 +8,24 @@ import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.MagicDoorBlockE
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.CastSpellPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SetCastingPacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.registry.DefaultedRegistry;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.poi.PointOfInterest;
 import net.minecraft.world.poi.PointOfInterestStorage;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
@@ -32,7 +37,9 @@ import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Arcanus implements ModInitializer {
 	public static final String MOD_ID = "arcanuscontinuum";
@@ -65,23 +72,53 @@ public class Arcanus implements ModInitializer {
 			PlayerEntity player = abstractMessage.getPlayer();
 			World world = player.getWorld();
 
-			if(world instanceof ServerWorld server && abstractMessage instanceof ChatC2SMessage message) {
-				PointOfInterestStorage poiStorage = server.getChunkManager().getPointOfInterestStorage();
-				Optional<BlockPos> pointOfInterest = poiStorage.getNearestPosition(poiTypeHolder -> poiTypeHolder.isRegistryKey(ArcanusPointsOfInterest.MAGIC_DOOR), player.getBlockPos(), 8, PointOfInterestStorage.OccupationStatus.ANY);
+			if(world instanceof ServerWorld server && abstractMessage instanceof ChatC2SMessage packet) {
+				String message = packet.getMessage();
 
-				if(pointOfInterest.isPresent()) {
-					BlockPos pos = pointOfInterest.get();
+				CompletableFuture<Boolean> future = CompletableFuture.supplyAsync(() -> {
+					PointOfInterestStorage poiStorage = server.getChunkManager().getPointOfInterestStorage();
+					Stream<BlockPos> pointOfInterest = poiStorage.getInSquare(poiTypeHolder -> poiTypeHolder.isRegistryKey(ArcanusPointsOfInterest.MAGIC_DOOR), player.getBlockPos(), 8, PointOfInterestStorage.OccupationStatus.ANY).map(PointOfInterest::getPos);
+					boolean beep = false;
 
-					if(world.getBlockEntity(pos) instanceof MagicDoorBlockEntity door && door.getPassword().equals(message.getMessage()) && world.getBlockState(pos).getBlock() instanceof MagicDoorBlock doorBlock) {
+					for(BlockPos pos : pointOfInterest.collect(Collectors.toSet())) {
 						BlockState state = world.getBlockState(pos);
-						doorBlock.setOpen(player, world, state, pos, true);
 
-						return true;
+						if(state.getBlock() instanceof MagicDoorBlock doorBlock && world.getBlockEntity(pos) instanceof MagicDoorBlockEntity door && message.equals(door.getPassword())) {
+							doorBlock.setOpen(null, world, state, pos, true);
+							player.sendMessage(Text.translatable("door." + Arcanus.MOD_ID + ".access_granted").formatted(Formatting.GRAY, Formatting.ITALIC), true);
+
+							beep = true;
+						}
 					}
-				}
+
+					return beep;
+				}, world.getServer());
+
+				return future.join();
 			}
 
 			return false;
+		});
+
+		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+			ItemStack stack = player.getStackInHand(hand);
+
+			if(!world.isClient() && player.isSneaking() && stack.isOf(Items.NAME_TAG) && stack.hasCustomName()) {
+				BlockPos pos = hitResult.getBlockPos();
+				BlockState state = world.getBlockState(pos);
+				MagicDoorBlockEntity door = MagicDoorBlock.getBlockEntity(world, state, pos);
+
+				if(door != null && door.getOwner() == player) {
+					door.setPassword(stack.getName().getString());
+
+					if(!player.isCreative())
+						stack.decrement(1);
+
+					return ActionResult.SUCCESS;
+				}
+			}
+
+			return ActionResult.PASS;
 		});
 	}
 

@@ -16,6 +16,8 @@
   "item.arcanuscontinuum.wizard_spawn_egg": "Wizard Spawn Egg",
   "item.arcanuscontinuum.opossum_spawn_egg": "Opossum Spawn Egg",
 
+  "block.arcanuscontinuum.magic_door": "Magic Door",
+
   "entity.arcanuscontinuum.wizard": "Wizard",
   "entity.arcanuscontinuum.opossum": "Opossum",
 
@@ -76,6 +78,8 @@
   "spell_book.arcanuscontinuum.seconds": "s",
 
   "staff.arcanuscontinuum.invalid_data": "!!! INVALID DATA !!!",
+
+  "door.arcanuscontinuum.access_granted": "Access Granted...",
 
   "attribute.name.generic.arcanuscontinuum.max_mana": "Max Mana",
   "attribute.name.generic.arcanuscontinuum.mana_regen": "Mana Regen",
