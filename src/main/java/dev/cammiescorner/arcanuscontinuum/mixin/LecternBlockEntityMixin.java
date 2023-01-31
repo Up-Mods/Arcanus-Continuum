@@ -37,11 +37,12 @@ public abstract class LecternBlockEntityMixin extends BlockEntity implements Cle
 	@Inject(method = "createMenu", at = @At("HEAD"), cancellable = true)
 	private void devotion$createResearchScreen(int i, PlayerInventory playerInventory, PlayerEntity playerEntity, CallbackInfoReturnable<ScreenHandler> info) {
 		if(getBook().getItem() instanceof SpellBookItem)
-			info.setReturnValue(new SpellcraftScreenHandler(i, inventory, ScreenHandlerContext.create(world, getPos()), getBook()));
+			info.setReturnValue(new SpellcraftScreenHandler(i, inventory, ScreenHandlerContext.create(world, getPos()), getPos(), getBook()));
 	}
 
 	@Override
 	public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+		buf.writeBlockPos(getPos());
 		buf.writeItemStack(getBook());
 	}
 }

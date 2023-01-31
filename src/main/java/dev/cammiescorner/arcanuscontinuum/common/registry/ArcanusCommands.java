@@ -43,7 +43,7 @@ public class ArcanusCommands {
 				)
 		);
 
-		dispatcher.register(CommandManager.literal("known_spell_components")
+		dispatcher.register(CommandManager.literal("spell_components")
 				.then(CommandManager.literal("learn")
 						.then(CommandManager.argument("spell_component", SpellArgumentType.spell())
 								.executes(SpellsCommand::learnSpellComponent)

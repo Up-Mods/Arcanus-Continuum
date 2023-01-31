@@ -10,20 +10,19 @@ import dev.cammiescorner.arcanuscontinuum.client.renderer.armour.WizardArmourRen
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.OpossumEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.WizardEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusItems;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusScreenHandlers;
+import dev.cammiescorner.arcanuscontinuum.common.registry.*;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.DyeableItem;
 import net.minecraft.util.Identifier;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
+import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
 
 public class ArcanusClient implements ClientModInitializer {
 	private static final Identifier HUD_ELEMENTS = Arcanus.id("textures/gui/hud/mana_bar.png");
@@ -39,6 +38,8 @@ public class ArcanusClient implements ClientModInitializer {
 		ArmorRenderer.register(new WizardArmourRenderer(), ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS);
 		EntityRendererRegistry.register(ArcanusEntities.WIZARD, WizardEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.OPOSSUM, OpossumEntityRenderer::new);
+
+		BlockRenderLayerMap.put(RenderLayer.getCutout(), ArcanusBlocks.MAGIC_DOOR);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? ((DyeableItem) stack.getItem()).getColor(stack) : 0xffffff,
 				ArcanusItems.WOODEN_STAFF, ArcanusItems.AMETHYST_SHARD_STAFF, ArcanusItems.QUARTZ_SHARD_STAFF,

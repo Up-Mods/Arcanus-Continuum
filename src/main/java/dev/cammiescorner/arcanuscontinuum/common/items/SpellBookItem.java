@@ -6,10 +6,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LecternBlock;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -27,6 +29,16 @@ import java.util.Locale;
 public class SpellBookItem extends Item {
 	public SpellBookItem() {
 		super(new QuiltItemSettings().maxCount(1));
+	}
+
+	@Override
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+		super.inventoryTick(stack, world, entity, slot, selected);
+
+		NbtCompound nbt = stack.getOrCreateNbt();
+
+		if(!nbt.contains("Spell"))
+			nbt.put("Spell", new Spell().toNbt());
 	}
 
 	@Override

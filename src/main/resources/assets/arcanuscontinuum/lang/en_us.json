@@ -21,7 +21,7 @@
   "entity.arcanuscontinuum.wizard": "Wizard",
   "entity.arcanuscontinuum.opossum": "Opossum",
 
-  "spell_component.arcanuscontinuum.self_shape": "Shape: Self",
+  "spell_component.arcanuscontinuum.self_shape": "Self Shape",
   "spell_component.arcanuscontinuum.touch_shape": "Touch Shape",
   "spell_component.arcanuscontinuum.projectile_shape": "Projectile Shape",
   "spell_component.arcanuscontinuum.lob_shape": "Lob Shape",
@@ -80,6 +80,10 @@
   "staff.arcanuscontinuum.invalid_data": "!!! INVALID DATA !!!",
 
   "door.arcanuscontinuum.access_granted": "Access Granted...",
+
+  "screen.arcanuscontinuum.tooltip.undo": "Undo",
+  "screen.arcanuscontinuum.tooltip.redo": "Redo",
+  "screen.arcanuscontinuum.tooltip.component_count": "Spell Components",
 
   "attribute.name.generic.arcanuscontinuum.max_mana": "Max Mana",
   "attribute.name.generic.arcanuscontinuum.mana_regen": "Mana Regen",
