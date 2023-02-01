@@ -98,7 +98,7 @@ public class ArcanusComponents implements EntityComponentInitializer {
 
 	public static int maxSpellSize(LivingEntity entity) {
 		int level = getWizardLevel(entity);
-		return level > 0 ? 1 + level : 0;
+		return level > 0 ? level == 1 ? 2 : 2 + level : 0;
 	}
 
 	public static void increaseWizardLevel(LivingEntity entity, int amount) {
