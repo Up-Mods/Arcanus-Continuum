@@ -59,6 +59,7 @@
 			}
 		]
 	},
+	"access_widener": "arcanuscontinuum.accesswidener",
 	"mixin": "arcanuscontinuum.mixins.json",
 	"cardinal-components": [
 		"arcanuscontinuum:wizard_level",

@@ -8,6 +8,7 @@ import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.MagicDoorBlockE
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.CastSpellPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SaveBookDataPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SetCastingPacket;
+import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SyncPatternPacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
@@ -67,6 +68,7 @@ public class Arcanus implements ModInitializer {
 		ServerPlayNetworking.registerGlobalReceiver(CastSpellPacket.ID, CastSpellPacket::handler);
 		ServerPlayNetworking.registerGlobalReceiver(SetCastingPacket.ID, SetCastingPacket::handler);
 		ServerPlayNetworking.registerGlobalReceiver(SaveBookDataPacket.ID, SaveBookDataPacket::handler);
+		ServerPlayNetworking.registerGlobalReceiver(SyncPatternPacket.ID, SyncPatternPacket::handler);
 
 		CommandRegistrationCallback.EVENT.register(ArcanusCommands::init);
 

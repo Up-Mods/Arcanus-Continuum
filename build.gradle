@@ -39,8 +39,13 @@ dependencies {
 	implementation libs.mixinextras
 	annotationProcessor libs.mixinextras
 	include libs.mixinextras
+	include libs.reach.attr
 //	include libs.blabber
 //	include libs.lucko.perms
+}
+
+loom {
+	accessWidenerPath = file("src/main/resources/arcanuscontinuum.accesswidener")
 }
 
 processResources {

@@ -6,6 +6,7 @@ import dev.cammiescorner.arcanuscontinuum.client.utils.ClientUtils;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.CastSpellPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SetCastingPacket;
+import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SyncPatternPacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -53,6 +54,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 		if(timer == 0 || (lastMouseDown != null && !lastMouseDown.isPressed())) {
 			pattern.clear();
+			SyncPatternPacket.send(pattern);
 			lastMouseDown = null;
 			isCasting = false;
 			timer = 0;
@@ -111,6 +113,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 				doAttack();
 				timer = 20;
 				pattern.add(Pattern.LEFT);
+				SyncPatternPacket.send(pattern);
 				player.swingHand(Hand.MAIN_HAND);
 				player.world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1F, 1.3F, 1L);
 
@@ -135,6 +138,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 			if(player.getAttackCooldownProgress(getTickDelta()) == 1F && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
 				timer = 20;
 				pattern.add(Pattern.RIGHT);
+				SyncPatternPacket.send(pattern);
 				player.swingHand(Hand.MAIN_HAND);
 				player.resetLastAttackedTicks();
 				player.world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1F, 1.1F, 1L);
