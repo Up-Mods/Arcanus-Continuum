@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
 import dev.cammiescorner.arcanuscontinuum.client.models.feature.SpellPatternModel;
+import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
@@ -12,8 +13,11 @@ import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Axis;
 
@@ -29,6 +33,7 @@ public class SpellPatternFeatureRenderer<T extends PlayerEntity, M extends Entit
 
 	@Override
 	public void render(MatrixStack matrices, VertexConsumerProvider vertices, int light, PlayerEntity player, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
+		ItemStack stack = player.getMainHandStack();
 		int colour = 0x68e1ff;
 
 		if(player.getUuidAsString().equals("1b44461a-f605-4b29-a7a9-04e649d1981c"))
@@ -39,6 +44,18 @@ public class SpellPatternFeatureRenderer<T extends PlayerEntity, M extends Entit
 		float r = (colour >> 16 & 255) / 255F;
 		float g = (colour >> 8 & 255) / 255F;
 		float b = (colour & 255) / 255F;
+
+		if(stack.getItem() instanceof StaffItem && stack.hasCustomName() && stack.getName().getString().equals("jeb_")) {
+			int m = 15;
+			int n = player.age / m + player.getId();
+			int o = DyeColor.values().length;
+			float f = ((player.age % m) + client.getTickDelta()) / 15F;
+			float[] fs = SheepEntity.getRgbColor(DyeColor.byId(n % o));
+			float[] gs = SheepEntity.getRgbColor(DyeColor.byId((n + 1) % o));
+			r = fs[0] * (1F - f) + gs[0] * f;
+			g = fs[1] * (1F - f) + gs[1] * f;
+			b = fs[2] * (1F - f) + gs[2] * f;
+		}
 
 		model.showMagicCircles(ArcanusComponents.getPattern(player));
 		model.first.roll += Math.toRadians(2);
