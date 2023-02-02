@@ -88,6 +88,10 @@ public class StaffItem extends Item implements DyeableItem {
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		NbtCompound tag = stack.getSubNbt(Arcanus.MOD_ID);
 
+		int magicColour = getMagicColour(stack, 0x68e1ff);
+		tooltip.add(Text.translatable("staff." + Arcanus.MOD_ID + ".magic_color", Text.literal(String.format("#%06X", magicColour)).styled(style -> style.withColor(magicColour))).formatted(Formatting.GRAY));
+		tooltip.add(Text.empty());
+
 		if(tag != null && !tag.isEmpty()) {
 			NbtList list = tag.getList("Spells", NbtElement.COMPOUND_TYPE);
 
@@ -113,5 +117,10 @@ public class StaffItem extends Item implements DyeableItem {
 	@Override
 	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
 		return slot == EquipmentSlot.MAINHAND ? attributeModifiers : super.getAttributeModifiers(slot);
+	}
+
+	public static int getMagicColour(ItemStack stack, int defaultColour) {
+		NbtCompound nbt = stack.getNbt();
+		return nbt != null && nbt.contains("MagicColor", NbtElement.NUMBER_TYPE) ? nbt.getInt("MagicColor") : defaultColour;
 	}
 }

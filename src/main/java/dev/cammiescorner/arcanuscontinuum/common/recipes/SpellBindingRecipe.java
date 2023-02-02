@@ -89,8 +89,8 @@ public class SpellBindingRecipe extends SpecialCraftingRecipe {
 				Spell spell = new Spell();
 				int[] indices = new int[] { 7, 0, 1, 6, 0, 2, 5, 4, 3 };
 
-				if(stack.getItem() instanceof SpellBookItem book)
-					spell = book.getSpell(stack);
+				if(stack.getItem() instanceof SpellBookItem)
+					spell = SpellBookItem.getSpell(stack);
 
 				spells.set(indices[i], spell);
 			}

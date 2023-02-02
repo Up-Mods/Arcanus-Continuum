@@ -81,6 +81,17 @@ public class ArcanusCommands {
 		}
 	}
 
+	private static class BurnoutCommand {
+		public static int giveBurnout(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+			PlayerEntity player = context.getSource().getPlayer();
+			int burnout = IntegerArgumentType.getInteger(context, "amount");
+
+			ArcanusComponents.addBurnout(player, burnout, false);
+
+			return Command.SINGLE_SUCCESS;
+		}
+	}
+
 	private static class LevelCommand {
 		public static int getLevel(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
 			PlayerEntity player = context.getSource().getPlayer();

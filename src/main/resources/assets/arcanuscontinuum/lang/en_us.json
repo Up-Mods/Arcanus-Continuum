@@ -78,6 +78,7 @@
   "spell_book.arcanuscontinuum.seconds": "s",
 
   "staff.arcanuscontinuum.invalid_data": "!!! INVALID DATA !!!",
+  "staff.arcanuscontinuum.magic_color": "Magic Color: %s",
 
   "door.arcanuscontinuum.access_granted": "Access Granted...",
 

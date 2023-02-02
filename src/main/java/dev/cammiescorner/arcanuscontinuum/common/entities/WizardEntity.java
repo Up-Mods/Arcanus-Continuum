@@ -3,8 +3,10 @@ package dev.cammiescorner.arcanuscontinuum.common.entities;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusItems;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -23,6 +25,9 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.random.RandomGenerator;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.tslat.smartbrainlib.api.SmartBrainOwner;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
@@ -55,7 +60,17 @@ public class WizardEntity extends PassiveEntity implements SmartBrainOwner<Wizar
 		super(entityType, world);
 		Arrays.fill(armorDropChances, 0.1F);
 		Arrays.fill(handDropChances, 0.05F);
+	}
 
+	@Override
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+		initEquipment(world.getRandom(), difficulty);
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+
+	@Override
+	protected void initEquipment(RandomGenerator random, LocalDifficulty difficulty) {
+		dataTracker.set(ROBES_COLOUR, newRandomRobeColour());
 		equipStack(EquipmentSlot.HEAD, getColouredRobes(ArcanusItems.WIZARD_HAT));
 		equipStack(EquipmentSlot.CHEST, getColouredRobes(ArcanusItems.WIZARD_ROBES));
 		equipStack(EquipmentSlot.LEGS, getColouredRobes(ArcanusItems.WIZARD_PANTS));
@@ -66,7 +81,7 @@ public class WizardEntity extends PassiveEntity implements SmartBrainOwner<Wizar
 	@Override
 	protected void initDataTracker() {
 		super.initDataTracker();
-		dataTracker.startTracking(ROBES_COLOUR, newRandomRobeColour());
+		dataTracker.startTracking(ROBES_COLOUR, 0);
 	}
 
 	public static DefaultAttributeContainer.Builder createAttributes() {

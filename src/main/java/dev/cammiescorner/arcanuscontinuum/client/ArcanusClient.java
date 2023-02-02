@@ -25,6 +25,7 @@ import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.DyeableItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import org.joml.Vector3f;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
@@ -124,5 +125,37 @@ public class ArcanusClient implements ClientModInitializer {
 
 	public static RenderLayer getMagicCircles(Identifier texture) {
 		return MAGIC_CIRCLES.apply(texture);
+	}
+
+	public static Vector3f RGBtoHSB(int r, int g, int b) {
+		float hue, saturation, brightness;
+		int cmax = Math.max(r, g);
+		if (b > cmax) cmax = b;
+		int cmin = Math.min(r, g);
+		if (b < cmin) cmin = b;
+
+		brightness = ((float) cmax) / 255.0f;
+		if (cmax != 0)
+			saturation = ((float) (cmax - cmin)) / ((float) cmax);
+		else
+			saturation = 0;
+		if (saturation == 0)
+			hue = 0;
+		else {
+			float redc = ((float) (cmax - r)) / ((float) (cmax - cmin));
+			float greenc = ((float) (cmax - g)) / ((float) (cmax - cmin));
+			float bluec = ((float) (cmax - b)) / ((float) (cmax - cmin));
+			if (r == cmax)
+				hue = bluec - greenc;
+			else if (g == cmax)
+				hue = 2.0f + redc - bluec;
+			else
+				hue = 4.0f + greenc - redc;
+			hue = hue / 6.0f;
+			if (hue < 0)
+				hue = hue + 1.0f;
+		}
+
+		return new Vector3f(hue, saturation, brightness);
 	}
 }
