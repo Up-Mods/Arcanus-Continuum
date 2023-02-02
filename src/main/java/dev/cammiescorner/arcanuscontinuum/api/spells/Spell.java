@@ -22,7 +22,7 @@ public class Spell {
 	}
 
 	public Spell() {
-		this(List.of(new SpellGroup(SpellShape.EMPTY, List.of())), "Blank");
+		this(List.of(new SpellGroup(SpellShape.EMPTY, List.of(), List.of())), "Blank");
 	}
 
 	public static Spell fromNbt(NbtCompound nbt) {

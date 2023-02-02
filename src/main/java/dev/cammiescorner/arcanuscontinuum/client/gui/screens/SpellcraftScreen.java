@@ -4,9 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.Rectangle;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
+import dev.cammiescorner.arcanuscontinuum.api.spells.*;
 import dev.cammiescorner.arcanuscontinuum.client.gui.widgets.SpellComponentWidget;
 import dev.cammiescorner.arcanuscontinuum.client.gui.widgets.UndoRedoButtonWidget;
 import dev.cammiescorner.arcanuscontinuum.common.items.SpellBookItem;
@@ -26,18 +24,25 @@ import net.minecraft.text.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import org.joml.Vector2i;
+import org.joml.Vector4i;
 import org.lwjgl.glfw.GLFW;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	public static final Identifier BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
 	public static final Identifier PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
-	private static List<SpellComponent> SPELL_SHAPES;
-	private static List<SpellComponent> SPELL_EFFECTS;
+	private static final Vector4i VALID_BOUNDS = new Vector4i(27, 37, 202, 120);
+	private static final LinkedList<SpellGroup> SPELL_GROUPS = new LinkedList<>();
+	private static List<SpellComponent> spellShapes;
+	private static List<SpellComponent> spellEffects;
 	private final List<SpellComponentWidget> spellShapeWidgets = Lists.newArrayList();
 	private final List<SpellComponentWidget> spellEffectWidgets = Lists.newArrayList();
-	public TextFieldWidget textBox;
+	private SpellComponent draggedComponent = ArcanusSpellComponents.EMPTY;
+	private TextFieldWidget textBox;
 	private int leftScroll, rightScroll;
 	private double leftKnobPos, rightKnobPos;
 	private boolean draggingLeft, draggingRight;
@@ -52,23 +57,30 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		x = (width - 256) / 2;
 		y = (height - 180) / 2;
 		playerInventoryTitleY = -10000;
-		SPELL_SHAPES = Arcanus.SPELL_COMPONENTS.stream().filter(component -> component != ArcanusSpellComponents.EMPTY && ArcanusComponents.getWizardLevel(MinecraftClient.getInstance().player) >= component.getMinLevel() && component instanceof SpellShape).toList();
-		SPELL_EFFECTS = Arcanus.SPELL_COMPONENTS.stream().filter(component -> component != ArcanusSpellComponents.EMPTY && ArcanusComponents.getWizardLevel(MinecraftClient.getInstance().player) >= component.getMinLevel() && component instanceof SpellEffect).toList();
+		spellShapes = Arcanus.SPELL_COMPONENTS.stream().filter(component -> component != ArcanusSpellComponents.EMPTY && ArcanusComponents.getWizardLevel(MinecraftClient.getInstance().player) >= component.getMinLevel() && component instanceof SpellShape).toList();
+		spellEffects = Arcanus.SPELL_COMPONENTS.stream().filter(component -> component != ArcanusSpellComponents.EMPTY && ArcanusComponents.getWizardLevel(MinecraftClient.getInstance().player) >= component.getMinLevel() && component instanceof SpellEffect).toList();
 
 		if(client != null) {
-			for(SpellComponent component : SPELL_SHAPES)
+			for(SpellComponent component : spellShapes)
 				if(ArcanusComponents.getWizardLevel(client.player) >= component.getMinLevel())
-					addSpellShapeChild(new SpellComponentWidget(-35, component));
-			for(SpellComponent component : SPELL_EFFECTS)
+					addSpellShapeChild(new SpellComponentWidget(-35, component, widget -> {
+						if(spellComponentCount() < ArcanusComponents.maxSpellSize(client.player))
+							draggedComponent = widget.getSpellComponent();
+					}));
+			for(SpellComponent component : spellEffects)
 				if(ArcanusComponents.getWizardLevel(client.player) >= component.getMinLevel())
-					addSpellEffectChild(new SpellComponentWidget(267, component));
+					addSpellEffectChild(new SpellComponentWidget(267, component, widget -> {
+						if(spellComponentCount() < ArcanusComponents.maxSpellSize(client.player))
+							draggedComponent = widget.getSpellComponent();
+					}));
 		}
 
 		addCloseButtons();
 		textBox = addDrawableChild(new TextFieldWidget(client.textRenderer, x + 15, y + 8, 88, 14, Text.empty()));
 		textBox.setText(SpellBookItem.getSpell(getScreenHandler().getSpellBook()).getName());
-		addDrawableChild(new UndoRedoButtonWidget((width - 48) / 2, y - 8, true));
-		addDrawableChild(new UndoRedoButtonWidget(width / 2, y - 8, false));
+		addDrawableChild(new UndoRedoButtonWidget((width - 48) / 2, y - 8, true, button -> System.out.println("Undo")));
+		addDrawableChild(new UndoRedoButtonWidget(width / 2, y - 8, false, button -> System.out.println("Redo")));
+		SPELL_GROUPS.addAll(SpellBookItem.getSpell(getScreenHandler().getSpellBook()).getComponentGroups());
 	}
 
 	@Override
@@ -104,19 +116,19 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		if(isPointWithinBounds(-62, 1, 58, 178, mouseX, mouseY)) {
 			if(leftScroll > 0 && amount > 0)
 				leftScroll--;
-			if(leftScroll < SPELL_SHAPES.size() * 2 - 12 && amount < 0)
+			if(leftScroll < spellShapes.size() * 2 - 12 && amount < 0)
 				leftScroll++;
 
-			leftKnobPos = leftScroll * (148F / (SPELL_SHAPES.size() * 2 - 12));
+			leftKnobPos = leftScroll * (148F / (spellShapes.size() * 2 - 12));
 		}
 
 		if(isPointWithinBounds(260, 1, 58, 178, mouseX, mouseY)) {
 			if(rightScroll > 0 && amount > 0)
 				rightScroll--;
-			if(rightScroll < SPELL_EFFECTS.size() * 2 - 12 && amount < 0)
+			if(rightScroll < spellEffects.size() * 2 - 12 && amount < 0)
 				rightScroll++;
 
-			rightKnobPos = rightScroll * (148F / (SPELL_EFFECTS.size() * 2 - 12));
+			rightKnobPos = rightScroll * (148F / (spellEffects.size() * 2 - 12));
 		}
 
 		return super.mouseScrolled(mouseX, mouseY, amount);
@@ -126,11 +138,11 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
 		if(draggingLeft) {
 			leftKnobPos = MathHelper.clamp(mouseY - y - 16, 0, 148);
-			leftScroll = (int) (leftKnobPos / 148 * (SPELL_SHAPES.size() * 2 - 12));
+			leftScroll = (int) (leftKnobPos / 148 * (spellShapes.size() * 2 - 12));
 		}
 		else if(draggingRight) {
 			rightKnobPos = MathHelper.clamp(mouseY - y - 16, 0, 148);
-			rightScroll = (int) (rightKnobPos / 148 * (SPELL_EFFECTS.size() * 2 - 12));
+			rightScroll = (int) (rightKnobPos / 148 * (spellEffects.size() * 2 - 12));
 		}
 
 		return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
@@ -139,15 +151,22 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
 		if(button == 0) {
+			for(SpellComponentWidget widget : spellShapeWidgets)
+				if(isPointWithinBounds(widget.getX(), widget.getY(), widget.getWidth(), widget.getHeight(), mouseX, mouseY))
+					widget.onClick(mouseX, mouseY);
+			for(SpellComponentWidget widget : spellEffectWidgets)
+				if(isPointWithinBounds(widget.getX(), widget.getY(), widget.getWidth(), widget.getHeight(), mouseX, mouseY))
+					widget.onClick(mouseX, mouseY);
+
 			if(isPointWithinBounds(-58, 5, 12, 170, mouseX, mouseY)) {
 				draggingLeft = true;
 				leftKnobPos = MathHelper.clamp(mouseY - y - 16, 0, 148);
-				leftScroll = (int) (leftKnobPos / 148 * (SPELL_SHAPES.size() * 2 - 12));
+				leftScroll = (int) (leftKnobPos / 148 * (spellShapes.size() * 2 - 12));
 			}
 			else if(isPointWithinBounds(302, 5, 12, 170, mouseX, mouseY)) {
 				draggingRight = true;
 				rightKnobPos = MathHelper.clamp(mouseY - y - 16, 0, 148);
-				rightScroll = (int) (rightKnobPos / 148 * (SPELL_EFFECTS.size() * 2 - 12));
+				rightScroll = (int) (rightKnobPos / 148 * (spellEffects.size() * 2 - 12));
 			}
 		}
 
@@ -156,6 +175,24 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 	@Override
 	public boolean mouseReleased(double mouseX, double mouseY, int button) {
+		if(draggedComponent != ArcanusSpellComponents.EMPTY && button == 0) {
+			if(isPointWithinBounds(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) {
+				Vector2i pos = new Vector2i((int) (mouseX - this.x - 12), (int) (mouseY - this.y - 12));
+
+				if(draggedComponent instanceof SpellShape shape) {
+					List<Vector2i> positions = new ArrayList<>();
+					positions.add(pos);
+					SPELL_GROUPS.add(new SpellGroup(shape, new ArrayList<>(), positions));
+				}
+				if(draggedComponent instanceof SpellEffect effect) {
+					SPELL_GROUPS.getLast().effects().add(effect);
+					SPELL_GROUPS.getLast().positions().add(pos);
+				}
+			}
+
+			draggedComponent = ArcanusSpellComponents.EMPTY;
+		}
+
 		if(draggingLeft)
 			draggingLeft = false;
 		if(draggingRight)
@@ -177,6 +214,14 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		}
 
 		return super.keyPressed(keyCode, scanCode, modifiers);
+	}
+
+	@Override
+	protected void clearChildren() {
+		super.clearChildren();
+		SPELL_GROUPS.clear();
+		spellShapeWidgets.clear();
+		spellEffectWidgets.clear();
 	}
 
 	private void drawWidgets(MatrixStack matrices, int mouseX, int mouseY, float delta) {
@@ -204,6 +249,35 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 		RenderSystem.disableScissor();
 
+		for(SpellGroup group : SPELL_GROUPS) {
+			List<Vector2i> positions = group.positions();
+
+			for(int i = 0; i < positions.size(); i++) {
+				Vector2i pos = positions.get(i);
+				RenderSystem.setShader(GameRenderer::getPositionTexShader);
+				RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
+				RenderSystem.setShaderTexture(0, group.getAllComponents().toList().get(i).getTexture());
+
+				drawTexture(matrices, pos.x, pos.y, 0, 0, 24, 24, 24, 24);
+			}
+		}
+
+		if(draggedComponent != ArcanusSpellComponents.EMPTY) {
+			int colour = 0xff0000;
+
+			if(isPointWithinBounds(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY))
+				colour = 0x00ff00;
+
+			float r = (colour >> 16 & 255) / 255F;
+			float g = (colour >> 8 & 255) / 255F;
+			float b = (colour & 255) / 255F;
+
+			RenderSystem.setShader(GameRenderer::getPositionTexShader);
+			RenderSystem.setShaderColor(r, g, b, 1F);
+			RenderSystem.setShaderTexture(0, draggedComponent.getTexture());
+			drawTexture(matrices, mouseX - x - 12, mouseY - y - 12, 0, 0, 24, 24, 24, 24);
+		}
+
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
@@ -228,12 +302,19 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			}
 		}
 
-		String spellComponentCount = String.valueOf(0);
-		String maxSpellComponentCount = String.valueOf(ArcanusComponents.maxSpellSize(client.player));
+		int componentCount = spellComponentCount();
+		int maxComponents = ArcanusComponents.maxSpellSize(client.player);
+		int textColour = 0x5555ff;
 
-		textRenderer.draw(matrices, spellComponentCount, 118 - textRenderer.getWidth(spellComponentCount) * 0.5F, 11, 0x5555ff);
+		if(componentCount >= maxComponents)
+			textColour = 0xcc2222;
+
+		String spellComponentCount = String.valueOf(componentCount);
+		String maxSpellComponentCount = String.valueOf(maxComponents);
+
+		textRenderer.draw(matrices, spellComponentCount, 118 - textRenderer.getWidth(spellComponentCount) * 0.5F, 11, textColour);
 		textRenderer.draw(matrices, " / ", 128 - textRenderer.getWidth(" / ") * 0.5F, 11, 0x555555);
-		textRenderer.draw(matrices, maxSpellComponentCount, 138 - textRenderer.getWidth(maxSpellComponentCount) * 0.5F, 11, 0x5555ff);
+		textRenderer.draw(matrices, maxSpellComponentCount, 138 - textRenderer.getWidth(maxSpellComponentCount) * 0.5F, 11, textColour);
 
 		if(isPointWithinBounds(109, 8, textRenderer.getWidth("12 / 12"), textRenderer.fontHeight + 4, mouseX, mouseY))
 			renderTooltip(matrices, Text.translatable("screen." + Arcanus.MOD_ID + ".tooltip.component_count"), mouseX - x, mouseY - y);
@@ -241,12 +322,12 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 	protected void addCloseButtons() {
 		addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> {
-			SaveBookDataPacket.send(getScreenHandler().getPos(), textBox.getText().isBlank() ? "Blank" : textBox.getText());
+			SaveBookDataPacket.send(getScreenHandler().getPos(), SPELL_GROUPS, textBox.getText().isBlank() ? "Blank" : textBox.getText());
 			closeScreen();
 		}).position(width / 2 - 100, y + 170).size(98, 20).build());
 
 		addDrawableChild(ButtonWidget.builder(Text.translatable("lectern.take_book"), (button) -> {
-			SaveBookDataPacket.send(getScreenHandler().getPos(), textBox.getText().isBlank() ? "Blank" : textBox.getText());
+			SaveBookDataPacket.send(getScreenHandler().getPos(), SPELL_GROUPS, textBox.getText().isBlank() ? "Blank" : textBox.getText());
 			client.interactionManager.clickButton(handler.syncId, 0);
 			closeScreen();
 		}).position(width / 2 + 2, y + 170).size(98, 20).build());
@@ -268,5 +349,19 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 	public Rectangle getRightScrollKnob() {
 		return new Rectangle(302, (int) (5 + rightKnobPos), 12, 22);
+	}
+
+	public boolean isTooCloseToComponents(double mouseX, double mouseY) {
+		return SPELL_GROUPS.stream().anyMatch(group -> group.positions().stream().anyMatch(position -> position.distance((int) (mouseX - x - 12), (int) (mouseY - y - 12)) < 30));
+	}
+
+	public int spellComponentCount() {
+		int count = 0;
+
+		for(SpellGroup group : SPELL_GROUPS)
+			if(group.shape() != ArcanusSpellComponents.EMPTY)
+				count += group.getAllComponents().toList().size();
+
+		return count;
 	}
 }

@@ -6,7 +6,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.screen.narration.NarrationPart;
-import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.gui.widget.PressableWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.MutableText;
@@ -14,14 +14,16 @@ import net.minecraft.text.Text;
 
 import java.util.function.Consumer;
 
-public class SpellComponentWidget extends ClickableWidget {
-	protected final TooltipSupplier tooltipSupplier;
+public class SpellComponentWidget extends PressableWidget {
+	private final TooltipSupplier tooltipSupplier;
+	private final PressAction onPress;
 	private final MinecraftClient client = MinecraftClient.getInstance();
 	private final SpellComponent component;
 
-	public SpellComponentWidget(int x, SpellComponent component) {
+	public SpellComponentWidget(int x, SpellComponent component, PressAction onPress) {
 		super(x, 0, 24, 24, Text.empty());
 		this.component = component;
+		this.onPress = onPress;
 		this.tooltipSupplier = new TooltipSupplier() {
 			final MutableText text = Text.translatable(component.getTranslationKey(client.player));
 
@@ -39,11 +41,21 @@ public class SpellComponentWidget extends ClickableWidget {
 	}
 
 	@Override
+	public void onPress() {
+		onPress.onPress(this);
+	}
+
+	@Override
 	public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
 		RenderSystem.setShaderTexture(0, component.getTexture());
 		DrawableHelper.drawTexture(matrices, getX(), getY(), 0, 0, 24, 24, 24, 24);
+	}
+
+	@Override
+	public void onClick(double mouseX, double mouseY) {
+		super.onClick(mouseX, mouseY);
 	}
 
 	public void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
@@ -65,5 +77,9 @@ public class SpellComponentWidget extends ClickableWidget {
 
 		default void supply(Consumer<Text> consumer) {
 		}
+	}
+
+	public interface PressAction {
+		void onPress(SpellComponentWidget buttonWidget);
 	}
 }

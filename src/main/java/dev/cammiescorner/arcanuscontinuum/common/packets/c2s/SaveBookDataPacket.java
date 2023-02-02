@@ -17,31 +17,42 @@ import net.minecraft.world.World;
 import org.quiltmc.qsl.networking.api.PacketSender;
 import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 
-import java.util.List;
+import java.util.LinkedList;
 
 public class SaveBookDataPacket {
 	public static final Identifier ID = Arcanus.id("save_book_data");
 
-	public static void send(BlockPos pos, String spellName) {
+	public static void send(BlockPos pos, LinkedList<SpellGroup> spellComponents, String spellName) {
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeBlockPos(pos);
 		buf.writeString(spellName);
+		buf.writeInt(spellComponents.size());
+
+		for(int i = 0; i < spellComponents.size(); i++)
+			buf.writeNbt(spellComponents.get(i).toNbt());
+
 		ClientPlayNetworking.send(ID, buf);
 	}
 
 	public static void handler(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender sender) {
 		BlockPos pos = buf.readBlockPos();
 		String newSpellName = buf.readString();
+		LinkedList<SpellGroup> groups = new LinkedList<>();
+		int groupCount = buf.readInt();
+
+		for(int i = 0; i < groupCount; i++)
+			groups.add(SpellGroup.fromNbt(buf.readNbt()));
 
 		server.execute(() -> {
 			World world = player.getWorld();
 
 			if(world.getBlockEntity(pos) instanceof LecternBlockEntity lectern && lectern.getBook().getItem() instanceof SpellBookItem) {
 				ItemStack stack = lectern.getBook();
-				Spell spell = SpellBookItem.getSpell(stack);
-				List<SpellGroup> groups = spell.getComponentGroups(); // temp
-				Spell newSpell = new Spell(groups, newSpellName);
-				stack.getOrCreateNbt().put("Spell", newSpell.toNbt());
+
+				if(groups.get(0).effects().isEmpty() && groups.size() > 1 && !groups.get(1).effects().isEmpty())
+					groups.remove(0);
+
+				stack.getOrCreateNbt().put("Spell", new Spell(groups, newSpellName).toNbt());
 			}
 		});
 	}
