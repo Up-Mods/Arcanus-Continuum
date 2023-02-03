@@ -63,7 +63,7 @@ public class CastSpellPacket {
 
 					ArcanusComponents.setPattern(player, Arcanus.getSpellPattern(index));
 					ArcanusComponents.setLastCastTime(player, player.world.getTime());
-					spell.cast(player, player.getWorld(), staff, );
+					spell.cast(player, player.getWorld(), staff, stack);
 					player.sendMessage(Text.translatable(spell.getName()).formatted(Formatting.GREEN), true);
 
 					for(Holder<Item> holder : TagRegistry.getTag(ArcanusTags.STAVES))
