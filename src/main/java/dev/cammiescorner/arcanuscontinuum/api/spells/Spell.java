@@ -4,6 +4,7 @@ import dev.cammiescorner.arcanuscontinuum.common.components.KnownComponentsCompo
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
@@ -11,6 +12,7 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Spell {
 	private final List<SpellGroup> groups;
@@ -98,16 +100,21 @@ public class Spell {
 		return averageCoolDown;
 	}
 
-	public void cast(LivingEntity caster, World world, StaffItem staff) {
-		List<SpellGroup> groups = getComponentGroups();
+	public Stream<SpellComponent> components() {
+		return groups.stream().flatMap(SpellGroup::getAllComponents);
+	}
 
-		if(groups.isEmpty())
+	public void cast(LivingEntity caster, World world, StaffItem staff, ItemStack stack) {
+		List<SpellGroup> groups = getComponentGroups();
+		if (groups.isEmpty())
 			return;
 
+		// Add all components to the caster's known components
 		KnownComponentsComponent knownComponents = ArcanusComponents.KNOWN_COMPONENTS_COMPONENT.get(caster);
-		SpellGroup firstGroup = groups.get(0);
+		knownComponents.addAllComponents(components().toList());
 
-		groups.stream().flatMap(SpellGroup::getAllComponents).filter(component -> !knownComponents.hasComponent(component)).forEach(knownComponents::addComponent);
-		firstGroup.shape().cast(caster, caster.getPos(), world, staff, firstGroup.effects(), groups, 0);
+		// start casting the spell
+		SpellGroup firstGroup = groups.get(0);
+		firstGroup.shape().cast(caster, caster.getPos(), caster, world, staff, stack, firstGroup.effects(), groups, 0);
 	}
 }

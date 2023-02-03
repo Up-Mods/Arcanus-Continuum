@@ -106,7 +106,7 @@ public class StaffItem extends Item implements DyeableItem {
 				Spell spell = Spell.fromNbt(list.getCompound(i));
 
 				if(spell.getComponentGroups().isEmpty()) {
-					tooltip.add(Text.translatable("staff." + Arcanus.MOD_ID + ".invalid_data").formatted(Formatting.DARK_RED));
+					tooltip.add(Arcanus.translate("staff", "invalid_data").formatted(Formatting.DARK_RED));
 					return;
 				}
 

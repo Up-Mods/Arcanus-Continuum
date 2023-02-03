@@ -29,6 +29,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.poi.PointOfInterest;
 import net.minecraft.world.poi.PointOfInterestStorage;
+import org.jetbrains.annotations.Nullable;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.quiltmc.qsl.chat.api.QuiltChatEvents;
@@ -89,7 +90,7 @@ public class Arcanus implements ModInitializer {
 
 						if(state.getBlock() instanceof MagicDoorBlock doorBlock && world.getBlockEntity(pos) instanceof MagicDoorBlockEntity door && message.equals(door.getPassword())) {
 							doorBlock.setOpen(null, world, state, pos, true);
-							player.sendMessage(Text.translatable("door." + Arcanus.MOD_ID + ".access_granted").formatted(Formatting.GRAY, Formatting.ITALIC), true);
+							player.sendMessage(translate("door", "access_granted").formatted(Formatting.GRAY, Formatting.ITALIC), true);
 
 							beep = true;
 						}
@@ -128,6 +129,11 @@ public class Arcanus implements ModInitializer {
 
 	public static Identifier id(String name) {
 		return new Identifier(MOD_ID, name);
+	}
+
+	public static MutableText translate(@Nullable String prefix, String... value) {
+		String translationKey = Arcanus.MOD_ID + "." + String.join(".", value);
+		return Text.translatable(prefix != null ? (prefix + "." + translationKey) : translationKey);
 	}
 
 	public static int getSpellIndex(List<Pattern> patternList) {

@@ -11,9 +11,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.util.Identifier;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class KnownComponentsComponent implements AutoSyncedComponent {
 	private final LivingEntity entity;
@@ -57,7 +55,11 @@ public class KnownComponentsComponent implements AutoSyncedComponent {
 	}
 
 	public void addAllComponents(SpellComponent... components) {
-		knownComponents.addAll(List.of(components));
+		addAllComponents(Arrays.asList(components));
+	}
+
+	public void addAllComponents(Collection<SpellComponent> components) {
+		knownComponents.addAll(components);
 		ArcanusComponents.KNOWN_COMPONENTS_COMPONENT.sync(entity);
 	}
 

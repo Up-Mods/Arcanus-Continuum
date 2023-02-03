@@ -30,12 +30,12 @@ public class UndoRedoButtonWidget extends PressableWidget {
 			@Override
 			public void onTooltip(UndoRedoButtonWidget spellComponentWidget, MatrixStack matrices, int mouseX, int mouseY) {
 				if(client.currentScreen != null)
-					client.currentScreen.renderTooltip(matrices, Text.translatable("screen." + Arcanus.MOD_ID + ".tooltip." + text), mouseX, mouseY);
+					client.currentScreen.renderTooltip(matrices, Arcanus.translate("screen", "tooltip", text), mouseX, mouseY);
 			}
 
 			@Override
 			public void supply(Consumer<Text> consumer) {
-				consumer.accept(Text.translatable("screen." + Arcanus.MOD_ID + ".tooltip." + text));
+				consumer.accept(Arcanus.translate("screen", "tooltip", text));
 			}
 		};
 	}

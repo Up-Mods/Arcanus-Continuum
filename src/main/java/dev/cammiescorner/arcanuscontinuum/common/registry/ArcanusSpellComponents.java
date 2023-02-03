@@ -4,8 +4,7 @@ import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.*;
 import dev.cammiescorner.arcanuscontinuum.common.spell_components.effects.DamageSpellEffect;
 import dev.cammiescorner.arcanuscontinuum.common.spell_components.effects.HealSpellEffect;
-import dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes.SelfSpellShape;
-import dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes.TouchSpellShape;
+import dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes.*;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -22,14 +21,14 @@ public class ArcanusSpellComponents {
 	//-----Spell Forms-----//
 	public static final SpellShape SELF = create("self_shape", new SelfSpellShape(Weight.VERY_LIGHT, 0, 1, 1));
 	public static final SpellShape TOUCH = create("touch_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape PROJECTILE = create("projectile_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape LOB = create("lob_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape BOLT = create("bolt_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape BEAM = create("beam_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape RUNE = create("rune_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape SMITE = create("smite_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape AOE = create("aoe_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape EXPLOSION = create("explosion_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
+	public static final SpellShape PROJECTILE = create("projectile_shape", new ProjectileSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
+	public static final SpellShape LOB = create("lob_shape", new ProjectileSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
+	public static final SpellShape BOLT = create("bolt_shape", new HitscanSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
+	public static final SpellShape BEAM = create("beam_shape", new HitscanSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1)); // TODO charge + lock-on
+	public static final SpellShape RUNE = create("rune_shape", new RuneSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
+	public static final SpellShape SMITE = create("smite_shape", new SmiteSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
+	public static final SpellShape AOE = create("aoe_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1)); //TODO entity
+	public static final SpellShape EXPLOSION = create("explosion_shape", new ExplosionSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
 
 	//-----Spell Effects-----//
 	public static final SpellEffect DAMAGE = create("damage_effect", new DamageSpellEffect(SpellType.ATTACK, ParticleTypes.DAMAGE_INDICATOR, Weight.NONE, 3, 5, 1));

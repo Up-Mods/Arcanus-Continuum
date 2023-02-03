@@ -4,9 +4,11 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellType;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,7 +18,10 @@ public class HealSpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public void effect(@Nullable Entity entityTarget, @Nullable Block blockTarget, World world, StaffItem staffItem) {
-
+	public void effect(@Nullable LivingEntity caster, World world, HitResult target, StaffItem staffItem, ItemStack stack) {
+		if(target.getType() == HitResult.Type.ENTITY && target instanceof EntityHitResult entityHit && entityHit.getEntity() instanceof LivingEntity livingEntity) {
+				livingEntity.heal(7.0F);
+		}
 	}
+
 }

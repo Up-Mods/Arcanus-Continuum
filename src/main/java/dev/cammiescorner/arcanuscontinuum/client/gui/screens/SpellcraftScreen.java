@@ -365,7 +365,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		textRenderer.draw(matrices, maxSpellComponentCount, 138 - textRenderer.getWidth(maxSpellComponentCount) * 0.5F, 11, textColour);
 
 		if(isPointWithinBounds(109, 8, textRenderer.getWidth("12 / 12"), textRenderer.fontHeight + 4, mouseX, mouseY))
-			renderTooltip(matrices, Text.translatable("screen." + Arcanus.MOD_ID + ".tooltip.component_count"), mouseX - x, mouseY - y);
+			renderTooltip(matrices, Arcanus.translate("screen", "tooltip.component_count"), mouseX - x, mouseY - y);
 
 		for(SpellComponentWidget widget : spellShapeWidgets)
 			if(widget.isHoveredOrFocused())

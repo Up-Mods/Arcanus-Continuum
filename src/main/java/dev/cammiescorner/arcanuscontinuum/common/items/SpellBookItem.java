@@ -59,12 +59,12 @@ public class SpellBookItem extends Item {
 		String cooldown = String.format("%.2f", spell.getCoolDown() / 20D);
 
 		tooltip.add(Text.literal(spell.getName()).formatted(Formatting.GOLD));
-		tooltip.add(Text.translatable("spell_book." + Arcanus.MOD_ID + ".weight").append(": ").formatted(Formatting.GREEN)
-				.append(Text.translatable("spell_book." + Arcanus.MOD_ID + ".weight." + spell.getWeight().toString().toLowerCase(Locale.ROOT)).formatted(Formatting.GRAY)));
-		tooltip.add(Text.translatable("spell_book." + Arcanus.MOD_ID + ".mana_cost").append(": ").formatted(Formatting.BLUE)
+		tooltip.add(Arcanus.translate("spell_book", "weight").append(": ").formatted(Formatting.GREEN)
+				.append(Arcanus.translate("spell_book", "weight", spell.getWeight().toString().toLowerCase(Locale.ROOT)).formatted(Formatting.GRAY)));
+		tooltip.add(Arcanus.translate("spell_book", "mana_cost").append(": ").formatted(Formatting.BLUE)
 				.append(Text.literal(manaCost).formatted(Formatting.GRAY)));
-		tooltip.add(Text.translatable("spell_book." + Arcanus.MOD_ID + ".cooldown").append(": ").formatted(Formatting.RED)
-				.append(Text.literal(cooldown).append(Text.translatable("spell_book." + Arcanus.MOD_ID + ".seconds")).formatted(Formatting.GRAY)));
+		tooltip.add(Arcanus.translate("spell_book", "cooldown").append(": ").formatted(Formatting.RED)
+				.append(Text.literal(cooldown).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.GRAY)));
 
 		super.appendTooltip(stack, world, tooltip, context);
 	}
