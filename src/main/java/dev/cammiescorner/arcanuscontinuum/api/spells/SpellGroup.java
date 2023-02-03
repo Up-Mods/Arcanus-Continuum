@@ -1,6 +1,5 @@
 package dev.cammiescorner.arcanuscontinuum.api.spells;
 
-import com.google.common.collect.ImmutableList;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -9,14 +8,15 @@ import net.minecraft.nbt.NbtString;
 import net.minecraft.util.Identifier;
 import org.joml.Vector2i;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
 public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vector2i> positions) {
 	public static SpellGroup fromNbt(NbtCompound tag) {
 		SpellShape shape = (SpellShape) Arcanus.SPELL_COMPONENTS.get(new Identifier(tag.getString("Shape")));
-		ImmutableList.Builder<SpellEffect> effects = ImmutableList.builder();
-		ImmutableList.Builder<Vector2i> poses = ImmutableList.builder();
+		List<SpellEffect> effects = new ArrayList<>();
+		List<Vector2i> positions = new ArrayList<>();
 		NbtList nbtEffects = tag.getList("Effects", NbtElement.STRING_TYPE);
 		NbtList nbtPoses = tag.getList("Positions", NbtElement.COMPOUND_TYPE);
 
@@ -25,10 +25,10 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 
 		for(int i = 0; i < nbtPoses.size(); i++) {
 			NbtCompound nbt = nbtPoses.getCompound(i);
-			poses.add(new Vector2i(nbt.getInt("X"), nbt.getInt("Y")));
+			positions.add(new Vector2i(nbt.getInt("X"), nbt.getInt("Y")));
 		}
 
-		return new SpellGroup(shape, effects.build(), poses.build());
+		return new SpellGroup(shape, effects, positions);
 	}
 
 	public NbtCompound toNbt() {

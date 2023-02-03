@@ -2,9 +2,13 @@ package dev.cammiescorner.arcanuscontinuum.client.gui.screens;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.Rectangle;
-import dev.cammiescorner.arcanuscontinuum.api.spells.*;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.client.gui.widgets.SpellComponentWidget;
 import dev.cammiescorner.arcanuscontinuum.client.gui.widgets.UndoRedoButtonWidget;
 import dev.cammiescorner.arcanuscontinuum.common.items.SpellBookItem;
@@ -24,6 +28,7 @@ import net.minecraft.text.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import org.joml.Matrix4f;
 import org.joml.Vector2i;
 import org.joml.Vector4i;
 import org.lwjgl.glfw.GLFW;
@@ -184,7 +189,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 					positions.add(pos);
 					SPELL_GROUPS.add(new SpellGroup(shape, new ArrayList<>(), positions));
 				}
-				if(draggedComponent instanceof SpellEffect effect) {
+				if(draggedComponent instanceof SpellEffect effect && SPELL_GROUPS.getLast().shape() != ArcanusSpellComponents.EMPTY) {
 					SPELL_GROUPS.getLast().effects().add(effect);
 					SPELL_GROUPS.getLast().positions().add(pos);
 				}
@@ -251,6 +256,35 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 		for(SpellGroup group : SPELL_GROUPS) {
 			List<Vector2i> positions = group.positions();
+			RenderSystem.setShader(GameRenderer::getPositionShader);
+			RenderSystem.setShaderColor(0.3F, 0.85F, 0.73F, 0.5F);
+			BufferBuilder bufferBuilder = Tessellator.getInstance().getBufferBuilder();
+
+			bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
+			matrices.push();
+			matrices.translate(12, 12, 0);
+			Matrix4f matrix = matrices.peek().getModel();
+
+			for(int i = 1; i < positions.size(); i++) {
+				Vector2i prevPos = positions.get(i - 1);
+				Vector2i pos = positions.get(i);
+				int x1 = prevPos.x();
+				int y1 = prevPos.y();
+				int x2 = pos.x();
+				int y2 = pos.y();
+				float angle = (float) (Math.atan2(y2 - y1, x2 - x1) - (Math.PI * 0.5));
+				float dx = MathHelper.cos(angle);
+				float dy = MathHelper.sin(angle);
+
+				bufferBuilder.vertex(matrix, x2 - dx, y2 - dy, 0).color(0).next();
+				bufferBuilder.vertex(matrix, x2 + dx, y2 + dy, 0).color(0).next();
+				bufferBuilder.vertex(matrix, x1 + dx, y1 + dy, 0).color(0).next();
+				bufferBuilder.vertex(matrix, x1 - dx, y1 - dy, 0).color(0).next();
+
+			}
+
+			BufferRenderer.drawWithShader(bufferBuilder.end());
+			matrices.pop();
 
 			for(int i = 0; i < positions.size(); i++) {
 				Vector2i pos = positions.get(i);
@@ -265,7 +299,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		if(draggedComponent != ArcanusSpellComponents.EMPTY) {
 			int colour = 0xff0000;
 
-			if(isPointWithinBounds(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY))
+			if((isPointWithinBounds(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) && (!(draggedComponent instanceof SpellEffect) || SPELL_GROUPS.getLast().shape() != ArcanusSpellComponents.EMPTY))
 				colour = 0x00ff00;
 
 			float r = (colour >> 16 & 255) / 255F;

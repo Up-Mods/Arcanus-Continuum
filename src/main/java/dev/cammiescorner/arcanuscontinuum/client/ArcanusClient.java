@@ -8,6 +8,7 @@ import dev.cammiescorner.arcanuscontinuum.client.gui.screens.SpellcraftScreen;
 import dev.cammiescorner.arcanuscontinuum.client.models.armour.WizardArmourModel;
 import dev.cammiescorner.arcanuscontinuum.client.models.entity.OpossumEntityModel;
 import dev.cammiescorner.arcanuscontinuum.client.models.entity.WizardEntityModel;
+import dev.cammiescorner.arcanuscontinuum.client.models.feature.LotusHaloModel;
 import dev.cammiescorner.arcanuscontinuum.client.models.feature.SpellPatternModel;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.armour.WizardArmourRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.OpossumEntityRenderer;
@@ -62,6 +63,7 @@ public class ArcanusClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(WizardEntityModel.MODEL_LAYER, WizardEntityModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(OpossumEntityModel.MODEL_LAYER, OpossumEntityModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(SpellPatternModel.MODEL_LAYER, SpellPatternModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(LotusHaloModel.MODEL_LAYER, LotusHaloModel::getTexturedModelData);
 
 		ArmorRenderer.register(new WizardArmourRenderer(), ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS);
 		EntityRendererRegistry.register(ArcanusEntities.WIZARD, WizardEntityRenderer::new);

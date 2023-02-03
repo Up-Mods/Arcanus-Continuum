@@ -131,7 +131,7 @@ public class Arcanus implements ModInitializer {
 	}
 
 	public static int getSpellIndex(List<Pattern> patternList) {
-		String pattern = patternList.get(0).getSymbol() + patternList.get(1).getSymbol() + patternList.get(2).getSymbol();
+		String pattern = patternList.get(0).getLetter() + patternList.get(1).getLetter() + patternList.get(2).getLetter();
 
 		return switch(pattern) {
 			case "LLL" -> 0;
@@ -162,18 +162,18 @@ public class Arcanus implements ModInitializer {
 
 	public static MutableText getSpellPatternAsText(int index) {
 		String text = switch(index) {
-			case 0 -> "L-L-L";
-			case 1 -> "L-L-R";
-			case 2 -> "L-R-L";
-			case 3 -> "L-R-R";
-			case 4 -> "R-R-R";
-			case 5 -> "R-R-L";
-			case 6 -> "R-L-R";
-			case 7 -> "R-L-L";
+			case 0 -> Pattern.LEFT.getSymbol() + "-" + Pattern.LEFT.getSymbol() + "-" + Pattern.LEFT.getSymbol();
+			case 1 -> Pattern.LEFT.getSymbol() + "-" + Pattern.LEFT.getSymbol() + "-" + Pattern.RIGHT.getSymbol();
+			case 2 -> Pattern.LEFT.getSymbol() + "-" + Pattern.RIGHT.getSymbol() + "-" + Pattern.LEFT.getSymbol();
+			case 3 -> Pattern.LEFT.getSymbol() + "-" + Pattern.RIGHT.getSymbol() + "-" + Pattern.RIGHT.getSymbol();
+			case 4 -> Pattern.RIGHT.getSymbol() + "-" + Pattern.RIGHT.getSymbol() + "-" + Pattern.RIGHT.getSymbol();
+			case 5 -> Pattern.RIGHT.getSymbol() + "-" + Pattern.RIGHT.getSymbol() + "-" + Pattern.LEFT.getSymbol();
+			case 6 -> Pattern.RIGHT.getSymbol() + "-" + Pattern.LEFT.getSymbol() + "-" + Pattern.RIGHT.getSymbol();
+			case 7 -> Pattern.RIGHT.getSymbol() + "-" + Pattern.LEFT.getSymbol() + "-" + Pattern.LEFT.getSymbol();
 			default -> "ERROR";
 		};
 
-		return Text.literal(text).formatted(Formatting.GRAY);
+		return Text.literal(text);
 	}
 
 	public static MutableText getSpellInputs(List<Pattern> pattern) {

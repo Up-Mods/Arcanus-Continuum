@@ -1,11 +1,17 @@
 package dev.cammiescorner.arcanuscontinuum.common.components;
 
+import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.nbt.NbtCompound;
 
+import java.util.UUID;
+
 public class WizardLevelComponent implements AutoSyncedComponent {
+	public static final UUID MANA_MODIFIER = UUID.fromString("a64a245e-0f14-494f-8875-7aa8146b3fc1");
 	private final LivingEntity entity;
 	private int level = 0;
 
@@ -30,5 +36,13 @@ public class WizardLevelComponent implements AutoSyncedComponent {
 	public void setLevel(int level) {
 		this.level = level;
 		ArcanusComponents.WIZARD_LEVEL_COMPONENT.sync(entity);
+		EntityAttributeInstance manaAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MAX_MANA);
+
+		if(manaAttr != null) {
+			if(manaAttr.getModifier(MANA_MODIFIER) != null)
+				manaAttr.removeModifier(MANA_MODIFIER);
+
+			manaAttr.addPersistentModifier(new EntityAttributeModifier(MANA_MODIFIER, "Wizard Level Modifier", Math.max((level - 1) * 10, 10), EntityAttributeModifier.Operation.ADDITION));
+		}
 	}
 }

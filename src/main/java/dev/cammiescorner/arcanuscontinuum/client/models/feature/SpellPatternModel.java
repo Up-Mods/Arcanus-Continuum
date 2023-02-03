@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.client.models.feature;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -62,8 +63,21 @@ public class SpellPatternModel<T extends PlayerEntity> extends BipedEntityModel<
 	}
 
 	@Override
-	public void setAngles(T player, float f, float g, float h, float i, float j) {
-		super.setAngles(player, f, g, h, i, j);
+	public void setAngles(T player, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+		super.setAngles(player, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+		base.pivotY = 0;
+		base.pivotX = 0;
+		base.pivotZ = 0;
+
+		if(player.isInSneakingPose()) {
+			base.pivotY = 4.2F;
+
+			if(ArcanusComponents.isCasting(player)) {
+				base.pivotY = 8;
+				base.pivotX = 4;
+				base.pivotZ = 3;
+			}
+		}
 	}
 
 	@Override

@@ -14,7 +14,8 @@ import net.minecraft.nbt.NbtCompound;
 import java.util.UUID;
 
 public class BurnoutComponent implements AutoSyncedComponent, ServerTickingComponent {
-	public static final UUID uUID = UUID.fromString("c2223d02-f2f0-4fa9-b9d8-5b2c265a8195");
+	public static final UUID ATTACK_SPEED_MODIFIER = UUID.fromString("c2223d02-f2f0-4fa9-b9d8-5b2c265a8195");
+	public static final UUID MOVE_SPEED_MODIFIER = UUID.fromString("38e12f7a-64d8-4054-b609-039e240eb2a9");
 	private final LivingEntity entity;
 	private double burnout;
 
@@ -26,6 +27,7 @@ public class BurnoutComponent implements AutoSyncedComponent, ServerTickingCompo
 	public void serverTick() {
 		EntityAttributeInstance burnoutRegenAttr = entity.getAttributeInstance(ArcanusEntityAttributes.BURNOUT_REGEN);
 		EntityAttributeInstance attackSpeedAttr = entity.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_SPEED);
+		EntityAttributeInstance moveSpeedAttr = entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 		long timer = entity.world.getTime() - ArcanusComponents.getLastCastTime(entity);
 
 		if(burnoutRegenAttr != null && drainBurnout(burnoutRegenAttr.getValue(), true) && timer % 60 == 0) {
@@ -36,10 +38,17 @@ public class BurnoutComponent implements AutoSyncedComponent, ServerTickingCompo
 		}
 
 		if(attackSpeedAttr != null) {
-			if(burnout > 0 && attackSpeedAttr.getModifier(uUID) == null)
-				attackSpeedAttr.addPersistentModifier(new EntityAttributeModifier(uUID, "Burnout modifier", -0.5, EntityAttributeModifier.Operation.MULTIPLY_BASE));
-			if(burnout <= 0 && attackSpeedAttr.getModifier(uUID) != null)
-				attackSpeedAttr.removeModifier(uUID);
+			if(burnout > 0 && attackSpeedAttr.getModifier(ATTACK_SPEED_MODIFIER) == null)
+				attackSpeedAttr.addPersistentModifier(new EntityAttributeModifier(ATTACK_SPEED_MODIFIER, "Burnout modifier", -0.5, EntityAttributeModifier.Operation.MULTIPLY_BASE));
+			if(burnout <= 0 && attackSpeedAttr.getModifier(ATTACK_SPEED_MODIFIER) != null)
+				attackSpeedAttr.removeModifier(ATTACK_SPEED_MODIFIER);
+		}
+
+		if(moveSpeedAttr != null) {
+			if(burnout > 0 && moveSpeedAttr.getModifier(MOVE_SPEED_MODIFIER) == null)
+				moveSpeedAttr.addPersistentModifier(new EntityAttributeModifier(MOVE_SPEED_MODIFIER, "Burnout modifier", -0.1, EntityAttributeModifier.Operation.MULTIPLY_BASE));
+			if(burnout <= 0 && moveSpeedAttr.getModifier(MOVE_SPEED_MODIFIER) != null)
+				moveSpeedAttr.removeModifier(MOVE_SPEED_MODIFIER);
 		}
 	}
 

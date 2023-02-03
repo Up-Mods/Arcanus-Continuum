@@ -1,6 +1,5 @@
 package dev.cammiescorner.arcanuscontinuum.client.renderer.feature;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
 import dev.cammiescorner.arcanuscontinuum.client.models.feature.SpellPatternModel;
@@ -34,6 +33,8 @@ public class SpellPatternFeatureRenderer<T extends PlayerEntity, M extends Entit
 
 	@Override
 	public void render(MatrixStack matrices, VertexConsumerProvider vertices, int light, PlayerEntity player, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
+		model.setAngles(player, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+
 		ItemStack stack = player.getMainHandStack();
 		String playerUuid = player.getUuidAsString();
 		int colour = StaffItem.getMagicColour(stack, switch(playerUuid) {
@@ -80,9 +81,7 @@ public class SpellPatternFeatureRenderer<T extends PlayerEntity, M extends Entit
 			matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(player.getMainArm() == Arm.RIGHT ? 65 : -65));
 		}
 
-		RenderSystem.disableDepthTest();
 		model.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), 15728850, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
-		RenderSystem.enableDepthTest();
 		matrices.pop();
 	}
 }

@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.mixin.client;
 
+import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import net.minecraft.client.gui.screen.ingame.CraftingScreen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -21,26 +22,26 @@ public abstract class CraftingScreenMixin extends HandledScreen<CraftingScreenHa
 	))
 	private void arcanuscontinuum$render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo info) {
 		if(getScreenHandler().getSlot(5).getStack().getItem() instanceof StaffItem) {
-			float scale = 0.5F;
+			float scale = 0.4F;
 			matrices.push();
 			matrices.scale(scale, scale, 1F);
 
 			if(getScreenHandler().getSlot(2).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, "L-L-L", (int) ((x + 56) / scale), (int) ((y + 23) / scale), 0xffffff);
+				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(0), (int) ((x + 56) / scale), (int) ((y + 23) / scale), 0xffffff);
 			if(getScreenHandler().getSlot(3).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, "L-L-R", (int) ((x + 74) / scale), (int) ((y + 23) / scale), 0xffffff);
+				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(1), (int) ((x + 74) / scale), (int) ((y + 23) / scale), 0xffffff);
 			if(getScreenHandler().getSlot(6).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, "L-R-L", (int) ((x + 74) / scale), (int) ((y + 41) / scale), 0xffffff);
+				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(2), (int) ((x + 74) / scale), (int) ((y + 41) / scale), 0xffffff);
 			if(getScreenHandler().getSlot(9).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, "L-R-R", (int) ((x + 74) / scale), (int) ((y + 59) / scale), 0xffffff);
+				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(3), (int) ((x + 74) / scale), (int) ((y + 59) / scale), 0xffffff);
 			if(getScreenHandler().getSlot(8).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, "R-R-R", (int) ((x + 56) / scale), (int) ((y + 59) / scale), 0xffffff);
+				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(4), (int) ((x + 56) / scale), (int) ((y + 59) / scale), 0xffffff);
 			if(getScreenHandler().getSlot(7).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, "R-R-L", (int) ((x + 38) / scale), (int) ((y + 59) / scale), 0xffffff);
+				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(5), (int) ((x + 38) / scale), (int) ((y + 59) / scale), 0xffffff);
 			if(getScreenHandler().getSlot(4).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, "R-L-R", (int) ((x + 38) / scale), (int) ((y + 41) / scale), 0xffffff);
+				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(6), (int) ((x + 38) / scale), (int) ((y + 41) / scale), 0xffffff);
 			if(getScreenHandler().getSlot(1).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, "R-L-L", (int) ((x + 38) / scale), (int) ((y + 23) / scale), 0xffffff);
+				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(7), (int) ((x + 38) / scale), (int) ((y + 23) / scale), 0xffffff);
 
 			matrices.pop();
 		}

@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.mixin.client;
 
+import dev.cammiescorner.arcanuscontinuum.client.renderer.feature.LotusHaloFeatureRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.feature.SpellPatternFeatureRenderer;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -18,5 +19,6 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void arcanuscontinuum$init(EntityRendererFactory.Context context, boolean bl, CallbackInfo info) {
 		addFeature(new SpellPatternFeatureRenderer<>(this));
+		addFeature(new LotusHaloFeatureRenderer<>(this));
 	}
 }

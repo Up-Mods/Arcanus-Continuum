@@ -111,7 +111,7 @@ public class StaffItem extends Item implements DyeableItem {
 				}
 
 				MutableText text = Text.literal(spell.getName()).formatted(spell.getComponentGroups().get(0).shape() == SpellShape.EMPTY ? Formatting.GRAY : Formatting.GREEN);
-				tooltip.add(text.append(Text.literal(" (").formatted(Formatting.DARK_GRAY)).append(Arcanus.getSpellPatternAsText(i)).append(Text.literal(")").formatted(Formatting.DARK_GRAY)));
+				tooltip.add(text.append(Text.literal(" (").formatted(Formatting.DARK_GRAY)).append(Arcanus.getSpellPatternAsText(i).formatted(Formatting.GRAY)).append(Text.literal(")").formatted(Formatting.DARK_GRAY)));
 			}
 		}
 	}
