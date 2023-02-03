@@ -4,6 +4,7 @@ import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.*;
 import dev.cammiescorner.arcanuscontinuum.common.spell_components.effects.DamageSpellEffect;
 import dev.cammiescorner.arcanuscontinuum.common.spell_components.effects.HealSpellEffect;
+import dev.cammiescorner.arcanuscontinuum.common.spell_components.effects.MineSpellEffect;
 import dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes.*;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registry;
@@ -52,7 +53,7 @@ public class ArcanusSpellComponents {
 	public static final SpellEffect NECROMANCY = create("necromancy_effect", new HealSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect MANA_SPLIT = create("mana_split_effect", new HealSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect ANONYMITY = create("anonymity_effect", new HealSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect MINE = create("mine_effect", new HealSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect MINE = create("mine_effect", new MineSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect BUILD = create("build_effect", new HealSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect LEVITATE = create("levitate_effect", new HealSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect GROWTH = create("growth_effect", new HealSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));

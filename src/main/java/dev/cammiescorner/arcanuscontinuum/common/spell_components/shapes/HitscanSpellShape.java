@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class HitscanSpellShape extends SpellShape {
-
 	private static final double RANGE_MODIFIER = 2.5D;
 	private static final double MAX_ANGLE_DIFF = Math.toRadians(5);
 
@@ -29,10 +28,8 @@ public class HitscanSpellShape extends SpellShape {
 
 	@Override
 	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, World world, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex) {
-		double range = caster.getAttributeValue(ReachEntityAttributes.ATTACK_RANGE) * RANGE_MODIFIER;
-
+		double range = ReachEntityAttributes.getAttackRange(caster, 4.5) * RANGE_MODIFIER;
 		Box box = new Box(castFrom.add(-range, -range, -range), castFrom.add(range, range, range));
-
 		List<Entity> affectedEntities = world.getOtherEntities(castSource, box);
 
 		Predicate<Entity> predicate = entity -> {

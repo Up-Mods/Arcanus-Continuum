@@ -49,6 +49,7 @@ public class CastSpellPacket {
 
 					if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).mapToInt(SpellComponent::getMinLevel).max().orElse(1) > ArcanusComponents.WIZARD_LEVEL_COMPONENT.get(player).getLevel()) {
 						player.sendMessage(Arcanus.translate("spell", "too_low_level"), true);
+						return;
 					}
 
 					if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).count() > ArcanusComponents.maxSpellSize(player)) {

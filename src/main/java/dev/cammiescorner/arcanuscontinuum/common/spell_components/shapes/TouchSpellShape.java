@@ -24,10 +24,9 @@ public class TouchSpellShape extends SpellShape {
 
 	@Override
 	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, World world, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex) {
-		double range = caster.getAttributeValue(ReachEntityAttributes.ATTACK_RANGE);
-
+		double range = ReachEntityAttributes.getAttackRange(caster, 4.5);
 		Entity sourceEntity = castSource != null ? castSource : caster;
-		HitResult target = sourceEntity.raycast(range, 1.0F, true); //FIXME custom raycast
+		HitResult target = sourceEntity.raycast(range, 1.0F, true); //FIXME custom raycast\
 
 		if(target.getType() != HitResult.Type.MISS) {
 			for(SpellEffect effect : effects)

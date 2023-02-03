@@ -24,9 +24,9 @@ public abstract class SpellShape extends SpellComponent {
 	public abstract void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, World world, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex);
 
 	public final void castNext(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, World world, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex) {
-		if(spellGroups.size() <= groupIndex) {
+		if(spellGroups.size() <= groupIndex + 1)
 			return;
-		}
+
 		spellGroups.get(groupIndex + 1).shape().cast(caster, castFrom, castSource, world, staffItem, stack, effects, spellGroups, groupIndex + 1);
 	}
 }
