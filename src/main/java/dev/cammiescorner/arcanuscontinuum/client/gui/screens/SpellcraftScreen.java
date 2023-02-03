@@ -40,7 +40,7 @@ import java.util.List;
 public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	public static final Identifier BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
 	public static final Identifier PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
-	private static final Vector4i VALID_BOUNDS = new Vector4i(27, 37, 202, 120);
+	private Vector4i VALID_BOUNDS = new Vector4i(30, 40, 197, 114);
 	private static final LinkedList<SpellGroup> SPELL_GROUPS = new LinkedList<>();
 	private static List<SpellComponent> spellShapes;
 	private static List<SpellComponent> spellEffects;
@@ -257,7 +257,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		for(SpellGroup group : SPELL_GROUPS) {
 			List<Vector2i> positions = group.positions();
 			RenderSystem.setShader(GameRenderer::getPositionShader);
-			RenderSystem.setShaderColor(0.3F, 0.85F, 0.73F, 0.5F);
+			RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
 			BufferBuilder bufferBuilder = Tessellator.getInstance().getBufferBuilder();
 
 			bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
@@ -289,9 +289,11 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			for(int i = 0; i < positions.size(); i++) {
 				Vector2i pos = positions.get(i);
 				RenderSystem.setShader(GameRenderer::getPositionTexShader);
+				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+				RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
+				drawTexture(matrices, pos.x - 3, pos.y - 3, 30, 208, 30, 30, 384, 256);
 				RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
 				RenderSystem.setShaderTexture(0, group.getAllComponents().toList().get(i).getTexture());
-
 				drawTexture(matrices, pos.x, pos.y, 0, 0, 24, 24, 24, 24);
 			}
 		}
@@ -307,6 +309,9 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			float b = (colour & 255) / 255F;
 
 			RenderSystem.setShader(GameRenderer::getPositionTexShader);
+			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+			RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
+			drawTexture(matrices, mouseX - x - 15, mouseY - y - 15, 30, 208, 30, 30, 384, 256);
 			RenderSystem.setShaderColor(r, g, b, 1F);
 			RenderSystem.setShaderTexture(0, draggedComponent.getTexture());
 			drawTexture(matrices, mouseX - x - 12, mouseY - y - 12, 0, 0, 24, 24, 24, 24);
@@ -386,7 +391,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	}
 
 	public boolean isTooCloseToComponents(double mouseX, double mouseY) {
-		return SPELL_GROUPS.stream().anyMatch(group -> group.positions().stream().anyMatch(position -> position.distance((int) (mouseX - x - 12), (int) (mouseY - y - 12)) < 30));
+		return SPELL_GROUPS.stream().anyMatch(group -> group.positions().stream().anyMatch(position -> position.distance((int) (mouseX - x - 12), (int) (mouseY - y - 12)) < 40));
 	}
 
 	public int spellComponentCount() {
