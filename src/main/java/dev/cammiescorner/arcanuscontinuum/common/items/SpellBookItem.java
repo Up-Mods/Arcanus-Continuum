@@ -2,9 +2,12 @@ package dev.cammiescorner.arcanuscontinuum.common.items;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
+import dev.cammiescorner.arcanuscontinuum.client.gui.screens.SpellBookScreen;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LecternBlock;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -79,8 +82,17 @@ public class SpellBookItem extends Item {
 	}
 
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-		return super.use(world, user, hand);
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
+		Spell spell = getSpell(stack);
+
+		if(spell.getComponentGroups().get(0).shape() == ArcanusSpellComponents.EMPTY)
+			return super.use(world, player, hand);
+
+		if(world.isClient())
+			MinecraftClient.getInstance().setScreen(new SpellBookScreen(Text.literal(spell.getName()), stack));
+
+		return TypedActionResult.success(stack, world.isClient());
 	}
 
 	public static Spell getSpell(ItemStack stack) {

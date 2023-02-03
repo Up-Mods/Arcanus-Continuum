@@ -317,8 +317,11 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 				RenderSystem.setShader(GameRenderer::getPositionTexShader);
 				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 				RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
-				drawTexture(matrices, pos.x - 3, pos.y - 3, 30, 208, 30, 30, 384, 256);
+				drawTexture(matrices, pos.x - 3, pos.y - 3, 60, 208, 30, 30, 384, 256);
+
 				RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
+				drawTexture(matrices, pos.x - 3, pos.y - 3, 30, 208, 30, 30, 384, 256);
+
 				RenderSystem.setShaderTexture(0, group.getAllComponents().toList().get(j).getTexture());
 				drawTexture(matrices, pos.x, pos.y, 0, 0, 24, 24, 24, 24);
 			}
@@ -337,7 +340,11 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			RenderSystem.setShader(GameRenderer::getPositionTexShader);
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 			RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
+			drawTexture(matrices, mouseX - x - 15, mouseY - y - 15, 60, 208, 30, 30, 384, 256);
+
+			RenderSystem.setShaderColor(r, g, b, 1F);
 			drawTexture(matrices, mouseX - x - 15, mouseY - y - 15, 30, 208, 30, 30, 384, 256);
+
 			RenderSystem.setShaderColor(r, g, b, 1F);
 			RenderSystem.setShaderTexture(0, draggedComponent.getTexture());
 			drawTexture(matrices, mouseX - x - 12, mouseY - y - 12, 0, 0, 24, 24, 24, 24);
