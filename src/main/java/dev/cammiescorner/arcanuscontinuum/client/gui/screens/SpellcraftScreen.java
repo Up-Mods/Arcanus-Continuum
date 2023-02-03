@@ -239,6 +239,13 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			SpellComponentWidget widget = spellShapeWidgets.get(i);
 			widget.setY(8 + (i * 28) - leftScroll * 14);
 			widget.render(matrices, mouseX - x, mouseY - y, delta);
+
+			RenderSystem.setShader(GameRenderer::getPositionTexShader);
+			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+			RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
+
+			if(widget.isHoveredOrFocused())
+				drawTexture(matrices, widget.getX() - 3, widget.getY() - 3, 0, 208, 30, 30, 384, 256);
 		}
 
 		RenderSystem.disableScissor();
@@ -250,11 +257,19 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			SpellComponentWidget widget = spellEffectWidgets.get(i);
 			widget.setY(8 + (i * 28) - rightScroll * 14);
 			widget.render(matrices, mouseX - x, mouseY - y, delta);
+
+			RenderSystem.setShader(GameRenderer::getPositionTexShader);
+			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+			RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
+
+			if(widget.isHoveredOrFocused())
+				drawTexture(matrices, widget.getX() - 3, widget.getY() - 3, 0, 208, 30, 30, 384, 256);
 		}
 
 		RenderSystem.disableScissor();
 
-		for(SpellGroup group : SPELL_GROUPS) {
+		for(int i = 0; i < SPELL_GROUPS.size(); i++) {
+			SpellGroup group = SPELL_GROUPS.get(i);
 			List<Vector2i> positions = group.positions();
 			RenderSystem.setShader(GameRenderer::getPositionShader);
 			RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
@@ -265,9 +280,17 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			matrices.translate(12, 12, 0);
 			Matrix4f matrix = matrices.peek().getModel();
 
-			for(int i = 1; i < positions.size(); i++) {
-				Vector2i prevPos = positions.get(i - 1);
-				Vector2i pos = positions.get(i);
+			for(int j = 0; j < positions.size(); j++) {
+				Vector2i pos = positions.get(j);
+				Vector2i prevPos = positions.get(Math.max(0, j - 1));
+
+				if(j == 0 && i > 0 && SPELL_GROUPS.get(i - 1).shape() != ArcanusSpellComponents.EMPTY) {
+					List<Vector2i> prevPositions = SPELL_GROUPS.get(i - 1).positions();
+					prevPos = prevPositions.get(prevPositions.size() - 1);
+				}
+				if(pos.equals(prevPos))
+					continue;
+
 				int x1 = prevPos.x();
 				int y1 = prevPos.y();
 				int x2 = pos.x();
@@ -280,20 +303,23 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 				bufferBuilder.vertex(matrix, x2 + dx, y2 + dy, 0).color(0).next();
 				bufferBuilder.vertex(matrix, x1 + dx, y1 + dy, 0).color(0).next();
 				bufferBuilder.vertex(matrix, x1 - dx, y1 - dy, 0).color(0).next();
-
 			}
 
 			BufferRenderer.drawWithShader(bufferBuilder.end());
 			matrices.pop();
+		}
 
-			for(int i = 0; i < positions.size(); i++) {
-				Vector2i pos = positions.get(i);
+		for(SpellGroup group : SPELL_GROUPS) {
+			List<Vector2i> positions = group.positions();
+
+			for(int j = 0; j < positions.size(); j++) {
+				Vector2i pos = positions.get(j);
 				RenderSystem.setShader(GameRenderer::getPositionTexShader);
 				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 				RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
 				drawTexture(matrices, pos.x - 3, pos.y - 3, 30, 208, 30, 30, 384, 256);
 				RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
-				RenderSystem.setShaderTexture(0, group.getAllComponents().toList().get(i).getTexture());
+				RenderSystem.setShaderTexture(0, group.getAllComponents().toList().get(j).getTexture());
 				drawTexture(matrices, pos.x, pos.y, 0, 0, 24, 24, 24, 24);
 			}
 		}
@@ -317,30 +343,6 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			drawTexture(matrices, mouseX - x - 12, mouseY - y - 12, 0, 0, 24, 24, 24, 24);
 		}
 
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-		RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
-
-		for(SpellComponentWidget widget : spellShapeWidgets) {
-			if(widget.isHoveredOrFocused()) {
-				RenderSystem.enableScissor((x - 38) * scale, (y + 5) * scale, 30 * scale, 170 * scale);
-				drawTexture(matrices, widget.getX() - 3, widget.getY() - 3, 0, 208, 30, 30, 384, 256);
-				RenderSystem.disableScissor();
-
-				widget.renderTooltip(matrices, mouseX - x, mouseY - y);
-			}
-		}
-
-		for(SpellComponentWidget widget : spellEffectWidgets) {
-			if(widget.isHoveredOrFocused()) {
-				RenderSystem.enableScissor((x + 264) * scale, (y + 5) * scale, 30 * scale, 170 * scale);
-				drawTexture(matrices, widget.getX() - 3, widget.getY() - 3, 0, 208, 30, 30, 384, 256);
-				RenderSystem.disableScissor();
-
-				widget.renderTooltip(matrices, mouseX - x, mouseY - y);
-			}
-		}
-
 		int componentCount = spellComponentCount();
 		int maxComponents = ArcanusComponents.maxSpellSize(client.player);
 		int textColour = 0x5555ff;
@@ -357,6 +359,23 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 		if(isPointWithinBounds(109, 8, textRenderer.getWidth("12 / 12"), textRenderer.fontHeight + 4, mouseX, mouseY))
 			renderTooltip(matrices, Text.translatable("screen." + Arcanus.MOD_ID + ".tooltip.component_count"), mouseX - x, mouseY - y);
+
+		for(SpellComponentWidget widget : spellShapeWidgets)
+			if(widget.isHoveredOrFocused())
+				widget.renderTooltip(matrices, mouseX - x, mouseY - y);
+
+		for(SpellComponentWidget widget : spellEffectWidgets)
+			if(widget.isHoveredOrFocused())
+				widget.renderTooltip(matrices, mouseX - x, mouseY - y);
+
+		for(SpellGroup group : SPELL_GROUPS) {
+			for(int i = 0; i < group.positions().size(); i++) {
+				Vector2i position = group.positions().get(i);
+
+				if(isPointWithinBounds(position.x() - 2, position.y() - 2, 28, 28, mouseX, mouseY))
+					renderTooltip(matrices, Text.translatable(group.getAllComponents().toList().get(i).getTranslationKey(client.player)), mouseX - x, mouseY - y);
+			}
+		}
 	}
 
 	protected void addCloseButtons() {
