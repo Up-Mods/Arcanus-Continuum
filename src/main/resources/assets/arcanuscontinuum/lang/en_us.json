@@ -91,6 +91,8 @@
   "screen.arcanuscontinuum.tooltip.redo": "Redo",
   "screen.arcanuscontinuum.tooltip.component_count": "Spell Components",
 
+  "death.attack.arcanuscontinuum.magic_damage": "%s was killed by %s using magic",
+
   "attribute.name.generic.arcanuscontinuum.max_mana": "Max Mana",
   "attribute.name.generic.arcanuscontinuum.mana_regen": "Mana Regen",
   "attribute.name.generic.arcanuscontinuum.burnout_regen": "Burnout Regen",

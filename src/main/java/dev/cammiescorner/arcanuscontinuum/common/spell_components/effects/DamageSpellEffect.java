@@ -23,8 +23,10 @@ public class DamageSpellEffect extends SpellEffect {
 		if(target.getType() == HitResult.Type.ENTITY){
 			EntityHitResult entityHit = (EntityHitResult) target;
 
-			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.damage(ArcanusDamageSource.getMagicDamage(caster), 2.5F);
+			if(entityHit.getEntity() instanceof LivingEntity livingEntity) {
+				livingEntity.timeUntilRegen = 0;
+				livingEntity.damage(ArcanusDamageSource.getMagicDamage(caster), 2F);
+			}
 		}
 
 	}

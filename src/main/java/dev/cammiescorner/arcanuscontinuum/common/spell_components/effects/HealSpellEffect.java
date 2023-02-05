@@ -19,9 +19,8 @@ public class HealSpellEffect extends SpellEffect {
 
 	@Override
 	public void effect(@Nullable LivingEntity caster, World world, HitResult target, StaffItem staffItem, ItemStack stack) {
-		if(target.getType() == HitResult.Type.ENTITY && target instanceof EntityHitResult entityHit && entityHit.getEntity() instanceof LivingEntity livingEntity) {
-				livingEntity.heal(7.0F);
-		}
+		if(target.getType() == HitResult.Type.ENTITY && target instanceof EntityHitResult entityHit && entityHit.getEntity() instanceof LivingEntity livingEntity)
+			livingEntity.heal(3F);
 	}
 
 }
