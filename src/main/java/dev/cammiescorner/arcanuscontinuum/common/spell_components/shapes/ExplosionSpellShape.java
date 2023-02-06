@@ -30,7 +30,7 @@ public class ExplosionSpellShape extends SpellShape {
 		Explosion exp = world.createExplosion(castSource, DamageSource.CACTUS, null, castFrom, 5, effects.contains(ArcanusSpellComponents.FIRE), World.ExplosionSourceType.NONE);
 		((EntityAwareExplosion) exp).getAffectedEntities().forEach(entity -> {
 			for(SpellEffect effect : effects)
-				effect.effect(caster, world, new EntityHitResult(entity), staffItem, stack);
+				effect.effect(caster, world, new EntityHitResult(entity), effects, staffItem, stack);
 		});
 
 		castNext(caster, castFrom, castSource, world, staffItem, stack, effects, spellGroups, groupIndex);

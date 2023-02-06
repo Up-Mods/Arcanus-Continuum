@@ -8,6 +8,7 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Box;
@@ -15,6 +16,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -28,7 +30,8 @@ public class HitscanSpellShape extends SpellShape {
 
 	@Override
 	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, World world, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex) {
-		double range = ReachEntityAttributes.getAttackRange(caster, 4.5) * RANGE_MODIFIER;
+		double range = ReachEntityAttributes.getAttackRange(caster, caster instanceof PlayerEntity player && player.isCreative() ? 5 : 4.5) * RANGE_MODIFIER;
+		range *= range;
 		Box box = new Box(castFrom.add(-range, -range, -range), castFrom.add(range, range, range));
 		List<Entity> affectedEntities = world.getOtherEntities(castSource, box);
 
@@ -42,7 +45,8 @@ public class HitscanSpellShape extends SpellShape {
 		Entity hit = getClosestEntity(affectedEntities, range, castFrom, castSource == caster ? predicate : entity -> true);
 
 		if(hit != null)
-			effects.forEach(effect -> effect.effect(caster, world, new EntityHitResult(hit), staffItem, stack));
+			for(SpellEffect effect : new HashSet<>(effects))
+				effect.effect(caster, world, new EntityHitResult(hit), effects, staffItem, stack);
 
 		castNext(caster, hit != null ? hit.getPos() : castFrom, castSource, world, staffItem, stack, effects, spellGroups, groupIndex);
 	}

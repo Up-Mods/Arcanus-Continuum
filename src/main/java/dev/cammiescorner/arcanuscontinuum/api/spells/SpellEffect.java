@@ -8,6 +8,8 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public abstract class SpellEffect extends SpellComponent {
 	private final SpellType type;
 	private final ParticleEffect particle;
@@ -26,5 +28,5 @@ public abstract class SpellEffect extends SpellComponent {
 		return type;
 	}
 
-	public abstract void effect(@Nullable LivingEntity caster, World world, HitResult target, StaffItem staffItem, ItemStack stack);
+	public abstract void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack);
 }

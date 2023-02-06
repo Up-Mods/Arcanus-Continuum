@@ -14,6 +14,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class SelfSpellShape extends SpellShape {
@@ -24,7 +25,10 @@ public class SelfSpellShape extends SpellShape {
 	@Override
 	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, World world, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex) {
 		HitResult hit = new EntityHitResult(caster);
-		effects.forEach(effect -> effect.effect(caster, world, hit, staffItem, stack));
+
+		for(SpellEffect effect : new HashSet<>(effects))
+			effect.effect(caster, world, hit, effects, staffItem, stack);
+
 		castNext(caster, hit.getPos(), caster, world, staffItem, stack, effects, spellGroups, groupIndex);
 	}
 }

@@ -18,6 +18,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class SmiteSpellShape extends SpellShape {
@@ -32,6 +33,7 @@ public class SmiteSpellShape extends SpellShape {
 	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, World world, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex) {
 		HitResult ray;
 		boolean hitDidConnect = true;
+
 		if(caster == castSource) {
 			ray = caster.raycast(MAX_RANGE, 1.0F, false);
 			if(ray.getType() == HitResult.Type.MISS) {
@@ -46,10 +48,12 @@ public class SmiteSpellShape extends SpellShape {
 		}
 
 		Entity smite = null;
+
 		if(hitDidConnect) {
 			//TODO spawn entity
 			//smite = ...
-			effects.forEach(effect -> effect.effect(caster, world, ray, staffItem, stack));
+			for(SpellEffect effect : new HashSet<>(effects))
+				effect.effect(caster, world, ray, effects, staffItem, stack);
 		}
 
 		castNext(caster, hitDidConnect ? ray.getPos() : castFrom, smite, world, staffItem, stack, effects, spellGroups, groupIndex);
