@@ -40,7 +40,7 @@ import java.util.List;
 public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	public static final Identifier BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
 	public static final Identifier PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
-	private Vector4i VALID_BOUNDS = new Vector4i(30, 40, 197, 114);
+	private static final Vector4i VALID_BOUNDS = new Vector4i(30, 40, 197, 114);
 	private static final LinkedList<SpellGroup> SPELL_GROUPS = new LinkedList<>();
 	private static List<SpellComponent> spellShapes;
 	private static List<SpellComponent> spellEffects;

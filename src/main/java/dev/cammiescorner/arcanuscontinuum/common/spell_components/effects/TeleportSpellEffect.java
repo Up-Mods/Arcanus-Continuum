@@ -5,10 +5,14 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellType;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
+import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,8 +25,18 @@ public class TeleportSpellEffect extends SpellEffect {
 
 	@Override
 	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack) {
-		if(target.getType() != HitResult.Type.MISS)
-			if(caster != null && caster.getPos().distanceTo(target.getPos()) <= 5 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.TELEPORT).count())
-				caster.teleport(target.getPos().getX(), target.getPos().getY(), target.getPos().getZ(), true);
+		if(target.getType() != HitResult.Type.MISS) {
+			if(caster != null && caster.getPos().distanceTo(target.getPos()) <= 5 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.TELEPORT).count()) {
+				Vec3d pos = target.getPos();
+
+				if(target.getType() == HitResult.Type.BLOCK) {
+					BlockHitResult blockHit = (BlockHitResult) target;
+					pos = pos.add(blockHit.getSide().getOffsetX() * 0.5, blockHit.getSide() == Direction.DOWN ? -2 : 0, blockHit.getSide().getOffsetZ() * 0.5);
+				}
+
+				caster.requestTeleport(pos.getX(), pos.getY(), pos.getZ());
+				world.sendEntityStatus(caster, EntityStatuses.ADD_PORTAL_PARTICLES);
+			}
+		}
 	}
 }
