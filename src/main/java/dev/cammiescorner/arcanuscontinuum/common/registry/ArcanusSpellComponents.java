@@ -34,30 +34,30 @@ public class ArcanusSpellComponents {
 	public static final SpellEffect FIRE = create("fire_effect", new FireSpellEffect(SpellType.ATTACK, ParticleTypes.FLAME, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect ELECTRIC = create("electric_effect", new HealSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect ICE = create("ice_effect", new IceSpellEffect(SpellType.ATTACK, ParticleTypes.SNOWFLAKE, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect VULNERABILITY = create("vulnerability_effect", new HealSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect MANA_LOCK = create("mana_lock_effect", new HealSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect WITHERING = create("withering_effect", new HealSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect VULNERABILITY = create("vulnerability_effect", new VulnerabilitySpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect MANA_LOCK = create("mana_lock_effect", new ManaLockSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect WITHERING = create("withering_effect", new WitheringSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect NECROMANCY = create("necromancy_effect", new HealSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect MANA_SPLIT = create("mana_split_effect", new HealSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect MANA_SPLIT = create("mana_split_effect", new ManaSplitSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 
 	public static final SpellEffect HEAL = create("heal_effect", new HealSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect DISPEL = create("dispel_effect", new HealSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect REGENERATE = create("regenerate_effect", new HealSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect FORTIFY = create("fortify_effect", new HealSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect DISPEL = create("dispel_effect", new DispelSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect REGENERATE = create("regenerate_effect", new RegenerateSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect FORTIFY = create("fortify_effect", new FortifySpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 
 	public static final SpellEffect PUSH = create("push_effect", new HealSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect PULL = create("pull_effect", new HealSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect POWER = create("power_effect", new HealSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect POWER = create("power_effect", new PowerSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect ANONYMITY = create("anonymity_effect", new HealSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect MINE = create("mine_effect", new MineSpellEffect(SpellType.UTILITY, ParticleTypes.DAMAGE_INDICATOR, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect GROWTH = create("growth_effect", new HealSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect GROWTH = create("growth_effect", new GrowthSpellEffect(SpellType.UTILITY, ParticleTypes.HAPPY_VILLAGER, Weight.NONE, 5, 5, 1));
 
 	public static final SpellEffect BUILD = create("build_effect", new HealSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect LEVITATE = create("levitate_effect", new HealSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect TELEPORT = create("teleport_effect", new HealSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect EXCHANGE = create("exchange_effect", new HealSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect LEVITATE = create("levitate_effect", new LevitateSpellEffect(SpellType.MOVEMENT, ParticleTypes.CLOUD, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect TELEPORT = create("teleport_effect", new TeleportSpellEffect(SpellType.MOVEMENT, ParticleTypes.PORTAL, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect EXCHANGE = create("exchange_effect", new ExchangeSpellEffect(SpellType.MOVEMENT, ParticleTypes.END_ROD, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect BOUNCY = create("bouncy_effect", new HealSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect FEATHER = create("feather_effect", new HealSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect FEATHER = create("feather_effect", new FeatherSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 
 	//-----Registry-----//
 	public static void register() {
