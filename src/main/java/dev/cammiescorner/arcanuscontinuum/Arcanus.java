@@ -55,6 +55,7 @@ public class Arcanus implements ModInitializer {
 		Registry.register(Registries.ENTITY_ATTRIBUTE, id("burnout_regen"), ArcanusEntityAttributes.BURNOUT_REGEN);
 		Registry.register(Registries.ENTITY_ATTRIBUTE, id("mana_lock"), ArcanusEntityAttributes.MANA_LOCK);
 		Registry.register(Registries.ENTITY_ATTRIBUTE, id("spell_potency"), ArcanusEntityAttributes.SPELL_POTENCY);
+		Registry.register(Registries.ENTITY_ATTRIBUTE, id("magic_resistance"), ArcanusEntityAttributes.MAGIC_RESISTANCE);
 
 		ArcanusEntities.register();
 		ArcanusBlocks.register();

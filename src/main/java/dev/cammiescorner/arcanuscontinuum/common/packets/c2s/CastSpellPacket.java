@@ -44,7 +44,7 @@ public class CastSpellPacket {
 			if(stack.getItem() instanceof StaffItem staff) {
 				NbtList list = tag.getList("Spells", NbtElement.COMPOUND_TYPE);
 
-				if(!list.isEmpty()) {
+				if(!list.isEmpty() && player.getItemCooldownManager().getCooldownProgress(staff, 1F) == 0) {
 					Spell spell = Spell.fromNbt(list.getCompound(index));
 
 					if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).mapToInt(SpellComponent::getMinLevel).max().orElse(1) > ArcanusComponents.WIZARD_LEVEL_COMPONENT.get(player).getLevel()) {

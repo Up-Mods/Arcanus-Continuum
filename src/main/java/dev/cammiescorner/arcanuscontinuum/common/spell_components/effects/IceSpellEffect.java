@@ -36,6 +36,8 @@ public class IceSpellEffect extends SpellEffect {
 
 			if(world.getBlockState(blockHit.getBlockPos()).getFluidState().isOf(Fluids.WATER))
 				world.setBlockState(blockHit.getBlockPos(), Blocks.ICE.getDefaultState());
+			else if(world.getBlockState(blockHit.getBlockPos()).getFluidState().isOf(Fluids.LAVA))
+				world.setBlockState(blockHit.getBlockPos(), Blocks.OBSIDIAN.getDefaultState());
 			else
 				world.setBlockState(blockHit.getBlockPos().offset(blockHit.getSide()), Blocks.SNOW.getDefaultState());
 		}

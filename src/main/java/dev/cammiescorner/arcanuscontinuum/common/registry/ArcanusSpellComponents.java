@@ -52,7 +52,7 @@ public class ArcanusSpellComponents {
 	public static final SpellEffect MINE = create("mine_effect", new MineSpellEffect(SpellType.UTILITY, ParticleTypes.DAMAGE_INDICATOR, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect GROWTH = create("growth_effect", new GrowthSpellEffect(SpellType.UTILITY, ParticleTypes.HAPPY_VILLAGER, Weight.NONE, 5, 5, 1));
 
-	public static final SpellEffect BUILD = create("build_effect", new HealSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect BUILD = create("build_effect", new BuildSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect LEVITATE = create("levitate_effect", new LevitateSpellEffect(SpellType.MOVEMENT, ParticleTypes.CLOUD, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect TELEPORT = create("teleport_effect", new TeleportSpellEffect(SpellType.MOVEMENT, ParticleTypes.PORTAL, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect EXCHANGE = create("exchange_effect", new ExchangeSpellEffect(SpellType.MOVEMENT, ParticleTypes.END_ROD, Weight.NONE, 5, 5, 1));

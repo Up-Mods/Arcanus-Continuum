@@ -8,6 +8,7 @@ import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -18,6 +19,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -31,6 +33,16 @@ public abstract class LivingEntityMixin {
 
 	@Unique private static final UUID uUID = UUID.fromString("e348efa3-7987-4912-b82a-03c5c75eccb1");
 	@Unique private final LivingEntity self = (LivingEntity) (Object) this;
+
+	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
+	private float arcanuscontinuum$damage(float amount, DamageSource source) {
+		EntityAttributeInstance attributeInstance = getAttributeInstance(ArcanusEntityAttributes.MAGIC_RESISTANCE);
+
+		if(attributeInstance != null && source.isMagic())
+			amount /= Math.max(attributeInstance.getValue(), 0.000001);
+
+		return amount;
+	}
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void arcanuscontinuum$tick(CallbackInfo info) {
@@ -61,6 +73,6 @@ public abstract class LivingEntityMixin {
 
 	@Inject(method = "createLivingAttributes", at = @At("RETURN"))
 	private static void arcanuscontinuum$createPlayerAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> info) {
-		info.getReturnValue().add(ArcanusEntityAttributes.MAX_MANA).add(ArcanusEntityAttributes.MANA_REGEN).add(ArcanusEntityAttributes.BURNOUT_REGEN).add(ArcanusEntityAttributes.MANA_LOCK).add(ArcanusEntityAttributes.SPELL_POTENCY);
+		info.getReturnValue().add(ArcanusEntityAttributes.MAX_MANA).add(ArcanusEntityAttributes.MANA_REGEN).add(ArcanusEntityAttributes.BURNOUT_REGEN).add(ArcanusEntityAttributes.MANA_LOCK).add(ArcanusEntityAttributes.SPELL_POTENCY).add(ArcanusEntityAttributes.MAGIC_RESISTANCE);
 	}
 }

@@ -41,7 +41,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	}
 
 	public void setMana(double mana) {
-		this.mana = mana;
+		this.mana = Math.max(0, mana);
 
 		if(entity instanceof PlayerEntity)
 			ArcanusComponents.MANA_COMPONENT.sync(entity);
