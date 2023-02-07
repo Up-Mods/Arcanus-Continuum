@@ -13,7 +13,7 @@ import java.util.List;
 public abstract class SpellShape extends SpellComponent {
 	public static final SpellShape EMPTY = new SpellShape(Weight.NONE, 0, 20, 0) {
 		@Override public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex) {
-			castNext(caster, castFrom, castSource, world, staffItem, stack, effects, spellGroups, groupIndex);
+			castNext(caster, castFrom, castSource, world, staffItem, stack, spellGroups, groupIndex);
 		}
 	};
 
@@ -23,10 +23,11 @@ public abstract class SpellShape extends SpellComponent {
 
 	public abstract void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex);
 
-	public final void castNext(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex) {
+	public final void castNext(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, StaffItem staffItem, ItemStack stack, List<SpellGroup> spellGroups, int groupIndex) {
 		if(spellGroups.size() <= groupIndex + 1)
 			return;
 
-		spellGroups.get(groupIndex + 1).shape().cast(caster, castFrom, castSource, world, staffItem, stack, effects, spellGroups, groupIndex + 1);
+		SpellGroup group = spellGroups.get(groupIndex + 1);
+		group.shape().cast(caster, castFrom, castSource, world, staffItem, stack, group.effects(), spellGroups, groupIndex + 1);
 	}
 }

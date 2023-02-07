@@ -49,7 +49,7 @@ public class HitscanSpellShape extends SpellShape {
 			for(SpellEffect effect : new HashSet<>(effects))
 				effect.effect(caster, world, new EntityHitResult(hit), effects, staffItem, stack, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
 
-		castNext(caster, hit != null ? hit.getPos() : castFrom, castSource, world, staffItem, stack, effects, spellGroups, groupIndex);
+		castNext(caster, hit != null ? hit.getPos() : castFrom, castSource, world, staffItem, stack, spellGroups, groupIndex);
 	}
 
 	@Nullable

@@ -57,6 +57,6 @@ public class SmiteSpellShape extends SpellShape {
 				effect.effect(caster, world, ray, effects, staffItem, stack, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
 		}
 
-		castNext(caster, hitDidConnect ? ray.getPos() : castFrom, smite, world, staffItem, stack, effects, spellGroups, groupIndex);
+		castNext(caster, hitDidConnect ? ray.getPos() : castFrom, smite, world, staffItem, stack, spellGroups, groupIndex);
 	}
 }

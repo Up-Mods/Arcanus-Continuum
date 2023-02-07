@@ -86,6 +86,6 @@ public class ExplosionSpellShape extends SpellShape {
 
 		world.playSound(null, castFrom.getX(), castFrom.getY(), castFrom.getZ(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F, 1L);
 		world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, castFrom.getX(), castFrom.getY(), castFrom.getZ(), 1, 1, 0, 0, 1);
-		castNext(caster, castFrom, castSource, world, staffItem, stack, effects, spellGroups, groupIndex);
+		castNext(caster, castFrom, castSource, world, staffItem, stack, spellGroups, groupIndex);
 	}
 }
