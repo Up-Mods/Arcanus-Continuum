@@ -24,6 +24,8 @@
   "effect.arcanuscontinuum.mana_lock": "Mana Lock",
   "effect.arcanuscontinuum.vulnerability": "Vulnerability",
   "effect.arcanuscontinuum.fortify": "Fortify",
+  "effect.arcanuscontinuum.bouncy": "Bouncy",
+  "effect.arcanuscontinuum.anonymity": "Anonymity",
 
   "spell_component.arcanuscontinuum.self_shape": "Self Shape",
   "spell_component.arcanuscontinuum.touch_shape": "Touch Shape",
@@ -61,6 +63,8 @@
   "spell_component.arcanuscontinuum.build_effect": "Build Effect",
   "spell_component.arcanuscontinuum.levitate_effect": "Levitate Effect",
   "spell_component.arcanuscontinuum.growth_effect": "Growth Effect",
+  "spell_component.arcanuscontinuum.mana_shield_effect": "Mana Shield Effect",
+  "spell_component.arcanuscontinuum.speed_effect": "Speed Effect",
 
   "spell_component.arcanuscontinuum.self_shape.unknown": "selo pi jan mi",
   "spell_component.arcanuscontinuum.touch_shape.unknown": "selo pi luka",
@@ -103,5 +107,6 @@
   "attribute.name.generic.arcanuscontinuum.mana_regen": "Mana Regen",
   "attribute.name.generic.arcanuscontinuum.burnout_regen": "Burnout Regen",
   "attribute.name.generic.arcanuscontinuum.mana_lock": "Mana Lock",
+  "attribute.name.generic.arcanuscontinuum.spell_potency": "Spell Potency",
   "attribute.name.generic.arcanuscontinuum.magic_resistance": "Magic Resistance"
 }

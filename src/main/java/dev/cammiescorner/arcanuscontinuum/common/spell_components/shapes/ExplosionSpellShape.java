@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes;
 
+import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
@@ -30,7 +31,7 @@ public class ExplosionSpellShape extends SpellShape {
 		Explosion exp = world.createExplosion(castSource, DamageSource.CACTUS, null, castFrom, 5, effects.contains(ArcanusSpellComponents.FIRE), World.ExplosionSourceType.NONE);
 		((EntityAwareExplosion) exp).getAffectedEntities().forEach(entity -> {
 			for(SpellEffect effect : effects)
-				effect.effect(caster, world, new EntityHitResult(entity), effects, staffItem, stack);
+				effect.effect(caster, world, new EntityHitResult(entity), effects, staffItem, stack, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
 		});
 
 		castNext(caster, castFrom, castSource, world, staffItem, stack, effects, spellGroups, groupIndex);

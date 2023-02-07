@@ -22,13 +22,13 @@ public class PullSpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack) {
+	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack, double potency) {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 			Entity entity = entityHit.getEntity();
 
 			if(caster != null) {
-				entity.addVelocity(caster.getRotationVector().multiply(-effects.stream().filter(effect -> effect == ArcanusSpellComponents.PULL).count() * 0.2));
+				entity.addVelocity(caster.getRotationVector().multiply(-effects.stream().filter(effect -> effect == ArcanusSpellComponents.PULL).count() * 0.2 * potency));
 				entity.velocityModified = true;
 			}
 		}

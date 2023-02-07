@@ -25,12 +25,12 @@ public class FireSpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack) {
+	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack, double potency) {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.setOnFireFor((int) (3 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.FIRE).count()));
+				livingEntity.setOnFireFor((int) (3 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.FIRE).count() * potency));
 		}
 		else if(target.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult blockHit = (BlockHitResult) target;

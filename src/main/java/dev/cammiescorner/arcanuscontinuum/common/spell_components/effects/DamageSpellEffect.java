@@ -22,13 +22,13 @@ public class DamageSpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack) {
+	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack, double potency) {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity) {
 				livingEntity.timeUntilRegen = 0;
-				livingEntity.damage(ArcanusDamageSource.getMagicDamage(caster), 2F * effects.stream().filter(effect -> effect == ArcanusSpellComponents.DAMAGE).count());
+				livingEntity.damage(ArcanusDamageSource.getMagicDamage(caster), (float) (2F * effects.stream().filter(effect -> effect == ArcanusSpellComponents.DAMAGE).count() * potency));
 			}
 		}
 	}

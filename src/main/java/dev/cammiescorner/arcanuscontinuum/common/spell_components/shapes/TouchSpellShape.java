@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes;
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
+import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
@@ -33,7 +34,7 @@ public class TouchSpellShape extends SpellShape {
 
 		if(target.getType() != HitResult.Type.MISS) {
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, world, target, effects, staffItem, stack);
+				effect.effect(caster, world, target, effects, staffItem, stack, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
 		}
 
 		Entity targetEntity = target.getType() == HitResult.Type.ENTITY ? ((EntityHitResult) target).getEntity() : castSource;

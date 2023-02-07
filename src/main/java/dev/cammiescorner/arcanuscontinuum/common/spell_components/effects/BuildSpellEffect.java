@@ -26,14 +26,14 @@ public class BuildSpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack) {
+	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack, double potency) {
 		if(target.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult blockHit = (BlockHitResult) target;
 			BlockPos pos = blockHit.getBlockPos().offset(blockHit.getSide());
 
 			if(world.getBlockState(pos).getMaterial().isReplaceable() && (!(caster instanceof PlayerEntity player) || world.canPlayerModifyAt(player, pos))) {
 				world.setBlockState(pos, ArcanusBlocks.MAGIC_BLOCK.getDefaultState(), Block.NOTIFY_LISTENERS);
-				world.scheduleBlockTick(pos, world.getBlockState(pos).getBlock(), (int) (220 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.BUILD).count()));
+				world.scheduleBlockTick(pos, world.getBlockState(pos).getBlock(), (int) (220 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.BUILD).count() * potency));
 
 				if(world.getBlockEntity(pos) instanceof MagicBlockEntity magicBlock && caster != null) {
 					magicBlock.setColour(StaffItem.getMagicColour(stack, switch(caster.getUuidAsString()) {

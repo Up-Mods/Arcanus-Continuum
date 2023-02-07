@@ -5,9 +5,9 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellType;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusStatusEffects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.hit.EntityHitResult;
@@ -17,8 +17,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class FeatherSpellEffect extends SpellEffect {
-	public FeatherSpellEffect(SpellType type, ParticleEffect particle, Weight weight, double manaCost, int coolDown, int minLevel) {
+public class BouncySpellEffect extends SpellEffect {
+	public BouncySpellEffect(SpellType type, ParticleEffect particle, Weight weight, double manaCost, int coolDown, int minLevel) {
 		super(type, particle, weight, manaCost, coolDown, minLevel);
 	}
 
@@ -28,7 +28,7 @@ public class FeatherSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 100 * (int) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.FEATHER).count() * potency), 0, true, false));
+				livingEntity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.BOUNCY, 220 * (int) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.BOUNCY).count() * potency), 0, true, false));
 		}
 	}
 }

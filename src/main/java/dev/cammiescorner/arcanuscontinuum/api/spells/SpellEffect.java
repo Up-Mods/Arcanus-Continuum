@@ -28,5 +28,5 @@ public abstract class SpellEffect extends SpellComponent {
 		return type;
 	}
 
-	public abstract void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack);
+	public abstract void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack, double potency);
 }

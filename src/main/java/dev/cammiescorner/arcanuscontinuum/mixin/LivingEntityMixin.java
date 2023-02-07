@@ -6,19 +6,30 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusStatusEffects;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -27,12 +38,17 @@ import java.util.List;
 import java.util.UUID;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin {
+public abstract class LivingEntityMixin extends Entity {
 	@Shadow public abstract @Nullable EntityAttributeInstance getAttributeInstance(EntityAttribute attribute);
 	@Shadow public abstract ItemStack getMainHandStack();
+	@Shadow public abstract boolean hasStatusEffect(StatusEffect effect);
+	@Shadow public abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
 
 	@Unique private static final UUID uUID = UUID.fromString("e348efa3-7987-4912-b82a-03c5c75eccb1");
 	@Unique private final LivingEntity self = (LivingEntity) (Object) this;
+	@Unique private Vec3d prevVelocity;
+
+	public LivingEntityMixin(EntityType<?> type, World world) { super(type, world); }
 
 	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
 	private float arcanuscontinuum$damage(float amount, DamageSource source) {
@@ -41,12 +57,43 @@ public abstract class LivingEntityMixin {
 		if(attributeInstance != null && source.isMagic())
 			amount /= Math.max(attributeInstance.getValue(), 0.000001);
 
+		if(hasStatusEffect(ArcanusStatusEffects.FORTIFY))
+			amount *= 1 - (getStatusEffect(ArcanusStatusEffects.FORTIFY).getAmplifier() + 1) * 0.05;
+		if(hasStatusEffect(ArcanusStatusEffects.VULNERABILITY))
+			amount *= 1 + (getStatusEffect(ArcanusStatusEffects.VULNERABILITY).getAmplifier() + 1) * 0.05;
+
 		return amount;
+	}
+
+	@ModifyArg(method = "fall", at = @At(value = "INVOKE", target = "Lnet/minecraft/particle/BlockStateParticleEffect;<init>(Lnet/minecraft/particle/ParticleType;Lnet/minecraft/block/BlockState;)V"))
+	private BlockState arcanuscontinuum$fall(BlockState value) {
+		if(hasStatusEffect(ArcanusStatusEffects.BOUNCY))
+			return Blocks.SLIME_BLOCK.getDefaultState();
+
+		return value;
+	}
+
+	@Inject(method = "handleFallDamage", at = @At("HEAD"), cancellable = true)
+	private void arcanuscontinuum$handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> info) {
+		if(prevVelocity != null && damageSource != DamageSource.STALAGMITE && fallDistance > getSafeFallDistance() && hasStatusEffect(ArcanusStatusEffects.BOUNCY)) {
+			if(!world.isClient) {
+				world.playSoundFromEntity(null, this, SoundEvents.BLOCK_SLIME_BLOCK_FALL, getSoundCategory(), 1, 1);
+
+				if(!bypassesLandingEffects()) {
+					setVelocity(getVelocity().getX(), -prevVelocity.getY() * 0.99, getVelocity().getZ());
+					velocityModified = true;
+				}
+			}
+
+			info.setReturnValue(false);
+		}
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void arcanuscontinuum$tick(CallbackInfo info) {
-		if(!self.world.isClient()) {
+		if(!world.isClient()) {
+			prevVelocity = getVelocity();
+
 			EntityAttributeInstance speedAttr = getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 			List<Pattern> pattern = ArcanusComponents.getPattern(self);
 			ItemStack stack = getMainHandStack();

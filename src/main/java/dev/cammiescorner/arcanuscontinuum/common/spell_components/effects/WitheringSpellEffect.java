@@ -23,12 +23,12 @@ public class WitheringSpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack) {
+	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack, double potency) {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 60 * (int) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.WITHERING).count()), 0, true, false));
+				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 60 * (int) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.WITHERING).count() * potency), 0, true, false));
 		}
 	}
 }

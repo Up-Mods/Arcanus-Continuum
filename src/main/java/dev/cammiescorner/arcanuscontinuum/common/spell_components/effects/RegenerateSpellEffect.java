@@ -23,12 +23,12 @@ public class RegenerateSpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack) {
+	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack, double potency) {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 200, 20 * (int) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.REGENERATE).count() - 1), true, false));
+				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 200, (int) ((effects.stream().filter(effect -> effect == ArcanusSpellComponents.REGENERATE).count() - 1) * potency), true, false));
 		}
 	}
 }

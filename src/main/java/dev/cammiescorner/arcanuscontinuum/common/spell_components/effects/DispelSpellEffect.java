@@ -23,7 +23,7 @@ public class DispelSpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack) {
+	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack, double potency) {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
@@ -31,7 +31,7 @@ public class DispelSpellEffect extends SpellEffect {
 				List<StatusEffect> statusEffects = livingEntity.getStatusEffects().stream().map(StatusEffectInstance::getEffectType).filter(effect -> !effect.isBeneficial()).toList();
 				long dispelCount = effects.stream().filter(effect -> effect == ArcanusSpellComponents.DISPEL).count();
 
-				for(int i = 0; i < Math.min(statusEffects.size(), dispelCount * 2); i++)
+				for(int i = 0; i < Math.min(statusEffects.size(), (int) (dispelCount * 2 * potency)); i++)
 					livingEntity.removeStatusEffect(statusEffects.get(i));
 			}
 		}

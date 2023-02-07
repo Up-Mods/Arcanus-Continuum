@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes;
 
+import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
@@ -27,7 +28,7 @@ public class SelfSpellShape extends SpellShape {
 		HitResult hit = new EntityHitResult(caster);
 
 		for(SpellEffect effect : new HashSet<>(effects))
-			effect.effect(caster, world, hit, effects, staffItem, stack);
+			effect.effect(caster, world, hit, effects, staffItem, stack, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
 
 		castNext(caster, hit.getPos(), caster, world, staffItem, stack, effects, spellGroups, groupIndex);
 	}

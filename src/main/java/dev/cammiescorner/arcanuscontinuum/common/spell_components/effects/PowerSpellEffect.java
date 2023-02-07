@@ -26,14 +26,14 @@ public class PowerSpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack) {
+	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack, double potency) {
 		if(target.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult blockHit = (BlockHitResult) target;
 			BlockPos pos = blockHit.getBlockPos();
 			BlockPos pos1 = pos.offset(blockHit.getSide());
 			BlockState state = world.getBlockState(pos);
 			BlockState state1 = world.getBlockState(pos1);
-			int maxPower = (int) (4 + effects.stream().filter(effect -> effect == ArcanusSpellComponents.POWER).count());
+			int maxPower = (int) (4 + effects.stream().filter(effect -> effect == ArcanusSpellComponents.POWER).count() * potency);
 
 			if(state.getProperties().contains(Properties.POWER)) {
 				world.emitGameEvent(caster, GameEvent.BLOCK_ACTIVATE, pos);

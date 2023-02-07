@@ -21,9 +21,9 @@ public class HealSpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack) {
+	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack, double potency) {
 		if(target.getType() == HitResult.Type.ENTITY && target instanceof EntityHitResult entityHit && entityHit.getEntity() instanceof LivingEntity livingEntity)
-			livingEntity.heal(3F * effects.stream().filter(effect -> effect == ArcanusSpellComponents.HEAL).count());
+			livingEntity.heal((float) (3F * effects.stream().filter(effect -> effect == ArcanusSpellComponents.HEAL).count() * potency));
 	}
 
 }

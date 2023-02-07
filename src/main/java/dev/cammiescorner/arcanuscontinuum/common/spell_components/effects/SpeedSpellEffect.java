@@ -17,8 +17,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class FeatherSpellEffect extends SpellEffect {
-	public FeatherSpellEffect(SpellType type, ParticleEffect particle, Weight weight, double manaCost, int coolDown, int minLevel) {
+public class SpeedSpellEffect extends SpellEffect {
+	public SpeedSpellEffect(SpellType type, ParticleEffect particle, Weight weight, double manaCost, int coolDown, int minLevel) {
 		super(type, particle, weight, manaCost, coolDown, minLevel);
 	}
 
@@ -28,7 +28,7 @@ public class FeatherSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 100 * (int) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.FEATHER).count() * potency), 0, true, false));
+				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 300, (int) ((effects.stream().filter(effect -> effect == ArcanusSpellComponents.SPEED).count() - 1) * potency), true, false));
 		}
 	}
 }

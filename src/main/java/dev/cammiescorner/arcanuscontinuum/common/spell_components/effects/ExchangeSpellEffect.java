@@ -22,12 +22,11 @@ public class ExchangeSpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack) {
+	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, StaffItem staffItem, ItemStack stack, double potency) {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
-			System.out.println();
-			if(entityHit.getEntity() instanceof LivingEntity livingEntity && caster != null && caster.distanceTo(livingEntity) <= 5 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.EXCHANGE).count()) {
+			if(entityHit.getEntity() instanceof LivingEntity livingEntity && caster != null && caster.distanceTo(livingEntity) <= 5 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.EXCHANGE).count() * potency) {
 				Vec3d casterPos = caster.getPos();
 				Vec3d targetPos = livingEntity.getPos();
 

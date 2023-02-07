@@ -44,19 +44,21 @@ public class ArcanusSpellComponents {
 	public static final SpellEffect DISPEL = create("dispel_effect", new DispelSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect REGENERATE = create("regenerate_effect", new RegenerateSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect FORTIFY = create("fortify_effect", new FortifySpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect MANA_SHIELD = create("mana_shield_effect", new HealSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 
 	public static final SpellEffect PUSH = create("push_effect", new PushSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect PULL = create("pull_effect", new PullSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect POWER = create("power_effect", new PowerSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect ANONYMITY = create("anonymity_effect", new HealSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect ANONYMITY = create("anonymity_effect", new AnonymitySpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect MINE = create("mine_effect", new MineSpellEffect(SpellType.UTILITY, ParticleTypes.DAMAGE_INDICATOR, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect GROWTH = create("growth_effect", new GrowthSpellEffect(SpellType.UTILITY, ParticleTypes.HAPPY_VILLAGER, Weight.NONE, 5, 5, 1));
 
 	public static final SpellEffect BUILD = create("build_effect", new BuildSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect LEVITATE = create("levitate_effect", new LevitateSpellEffect(SpellType.MOVEMENT, ParticleTypes.CLOUD, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect SPEED = create("speed_effect", new SpeedSpellEffect(SpellType.MOVEMENT, ParticleTypes.CLOUD, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect TELEPORT = create("teleport_effect", new TeleportSpellEffect(SpellType.MOVEMENT, ParticleTypes.PORTAL, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect EXCHANGE = create("exchange_effect", new ExchangeSpellEffect(SpellType.MOVEMENT, ParticleTypes.END_ROD, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect BOUNCY = create("bouncy_effect", new HealSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect BOUNCY = create("bouncy_effect", new BouncySpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect FEATHER = create("feather_effect", new FeatherSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 
 	//-----Registry-----//

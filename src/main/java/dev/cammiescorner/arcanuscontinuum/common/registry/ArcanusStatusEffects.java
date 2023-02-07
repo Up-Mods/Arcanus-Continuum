@@ -19,7 +19,9 @@ public class ArcanusStatusEffects {
 	//-----Status Effects-----//
 	public static final StatusEffect MANA_LOCK = create("mana_lock", new ArcanusStatusEffect(StatusEffectType.HARMFUL, 0xa89d9b).addAttributeModifier(ArcanusEntityAttributes.MANA_LOCK, "c5fa384f-c7f3-479b-9448-2843ff80a588", 7, EntityAttributeModifier.Operation.ADDITION));
 	public static final StatusEffect VULNERABILITY = create("vulnerability", new ArcanusStatusEffect(StatusEffectType.HARMFUL, 0x3a8e99));
-	public static final StatusEffect FORTIFY = create("fortify", new ArcanusStatusEffect(StatusEffectType.BENEFICIAL, 0x555555));
+	public static final StatusEffect FORTIFY = create("fortify", new ArcanusStatusEffect(StatusEffectType.BENEFICIAL, 0xbbbbbb));
+	public static final StatusEffect BOUNCY = create("bouncy", new ArcanusStatusEffect(StatusEffectType.NEUTRAL, 0x77ff88));
+	public static final StatusEffect ANONYMITY = create("anonymity", new ArcanusStatusEffect(StatusEffectType.NEUTRAL, 0x555555));
 
 	//-----Registry-----//
 	public static void register() {

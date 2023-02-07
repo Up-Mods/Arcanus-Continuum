@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
@@ -53,7 +54,7 @@ public class SmiteSpellShape extends SpellShape {
 			//TODO spawn entity
 			//smite = ...
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, world, ray, effects, staffItem, stack);
+				effect.effect(caster, world, ray, effects, staffItem, stack, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
 		}
 
 		castNext(caster, hitDidConnect ? ray.getPos() : castFrom, smite, world, staffItem, stack, effects, spellGroups, groupIndex);
