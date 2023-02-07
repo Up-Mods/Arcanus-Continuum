@@ -27,7 +27,7 @@ public class ElectricSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				ArcanusComponents.setStunTimer(livingEntity, (int) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.ELECTRIC).count() * potency));
+				ArcanusComponents.setStunTimer(livingEntity, 2 * (int) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.ELECTRIC).count() * potency));
 		}
 	}
 }

@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.world.World;
+import net.minecraft.server.world.ServerWorld;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +104,7 @@ public class Spell {
 		return groups.stream().flatMap(SpellGroup::getAllComponents);
 	}
 
-	public void cast(LivingEntity caster, World world, StaffItem staff, ItemStack stack) {
+	public void cast(LivingEntity caster, ServerWorld world, StaffItem staff, ItemStack stack) {
 		List<SpellGroup> groups = getComponentGroups();
 		if (groups.isEmpty())
 			return;

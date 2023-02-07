@@ -58,23 +58,11 @@ public abstract class LivingEntityMixin extends Entity {
 			amount /= Math.max(attributeInstance.getValue(), 0.000001);
 
 		if(hasStatusEffect(ArcanusStatusEffects.FORTIFY))
-			amount *= 1 - (getStatusEffect(ArcanusStatusEffects.FORTIFY).getAmplifier() + 1) * 0.05;
+			amount /= 1 + (getStatusEffect(ArcanusStatusEffects.FORTIFY).getAmplifier() + 1) * 0.25;
 		if(hasStatusEffect(ArcanusStatusEffects.VULNERABILITY))
-			amount *= 1 + (getStatusEffect(ArcanusStatusEffects.VULNERABILITY).getAmplifier() + 1) * 0.05;
+			amount *= 1 + 0.8 * ((getStatusEffect(ArcanusStatusEffects.VULNERABILITY).getAmplifier() + 1) / 10F);
 
 		return amount;
-	}
-
-	@Inject(method = "getMovementSpeed()F", at = @At("HEAD"), cancellable = true)
-	private void arcanuscontinuum$getMovementSpeed(CallbackInfoReturnable<Float> info) {
-		if(ArcanusComponents.getStunTimer(self) > 0)
-			info.setReturnValue(0F);
-	}
-
-	@Inject(method = "tryAttack", at = @At("HEAD"), cancellable = true)
-	private void arcanuscontinuum$tryAttack(Entity target, CallbackInfoReturnable<Boolean> info) {
-		if(ArcanusComponents.getStunTimer(self) > 0)
-			info.setReturnValue(false);
 	}
 
 	@ModifyArg(method = "fall", at = @At(value = "INVOKE", target = "Lnet/minecraft/particle/BlockStateParticleEffect;<init>(Lnet/minecraft/particle/ParticleType;Lnet/minecraft/block/BlockState;)V"))
@@ -103,7 +91,7 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void arcanuscontinuum$tick(CallbackInfo info) {
-		if(!world.isClient() && ArcanusComponents.STUN_COMPONENT.isProvidedBy(self) && ArcanusComponents.CASTING_COMPONENT.isProvidedBy(self)) {
+		if(!world.isClient() && ArcanusComponents.PATTERN_COMPONENT.isProvidedBy(self) && ArcanusComponents.CASTING_COMPONENT.isProvidedBy(self)) {
 			prevVelocity = getVelocity();
 
 			EntityAttributeInstance speedAttr = getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);

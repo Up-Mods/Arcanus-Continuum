@@ -17,10 +17,8 @@
     "client.CraftingScreenMixin",
     "client.HeldItemFeatureRendererMixin",
     "client.HeldItemRendererMixin",
-    "client.KeyboardInputMixin",
     "client.LivingEntityRendererMixin",
     "client.MinecraftClientMixin",
-    "client.MouseMixin",
     "client.PlayerEntityRendererMixin"
   ],
   "injectors": {

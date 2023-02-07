@@ -4,6 +4,7 @@ import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
 import dev.cammiescorner.arcanuscontinuum.client.models.feature.LotusHaloModel;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusStatusEffects;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -27,7 +28,7 @@ public class LotusHaloFeatureRenderer<T extends PlayerEntity, M extends EntityMo
 
 	@Override
 	public void render(MatrixStack matrices, VertexConsumerProvider vertices, int light, T player, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-		if(player.getUuidAsString().equals("6147825f-5493-4154-87c5-5c03c6b0a7c2")) {
+		if(player.getUuidAsString().equals("6147825f-5493-4154-87c5-5c03c6b0a7c2") && !player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY)) {
 			model.setAngles(player, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
 			model.spinny.yaw = (float) Math.toRadians((player.age + player.getId() + tickDelta) * 2);
 			model.spinny.pivotZ = -3;

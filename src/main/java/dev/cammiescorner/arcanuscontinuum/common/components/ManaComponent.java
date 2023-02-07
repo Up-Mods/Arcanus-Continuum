@@ -8,6 +8,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.math.MathHelper;
 
 public class ManaComponent implements AutoSyncedComponent, ServerTickingComponent {
 	private final LivingEntity entity;
@@ -41,7 +42,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	}
 
 	public void setMana(double mana) {
-		this.mana = Math.max(0, mana);
+		this.mana = MathHelper.clamp(mana, 0, getTrueMaxMana());
 
 		if(entity instanceof PlayerEntity)
 			ArcanusComponents.MANA_COMPONENT.sync(entity);

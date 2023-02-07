@@ -6,6 +6,7 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
@@ -13,6 +14,7 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,13 +35,14 @@ public class IceSpellEffect extends SpellEffect {
 		}
 		else if(target.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult blockHit = (BlockHitResult) target;
+			BlockPos pos = blockHit.getBlockPos().offset(blockHit.getSide());
 
 			if(world.getBlockState(blockHit.getBlockPos()).getFluidState().isOf(Fluids.WATER))
 				world.setBlockState(blockHit.getBlockPos(), Blocks.ICE.getDefaultState());
 			else if(world.getBlockState(blockHit.getBlockPos()).getFluidState().isOf(Fluids.LAVA))
 				world.setBlockState(blockHit.getBlockPos(), Blocks.OBSIDIAN.getDefaultState());
-			else
-				world.setBlockState(blockHit.getBlockPos().offset(blockHit.getSide()), Blocks.SNOW.getDefaultState());
+			else if(world.canPlace(Blocks.SNOW.getDefaultState(), pos, ShapeContext.absent()) && world.getBlockState(pos).getMaterial().isReplaceable())
+				world.setBlockState(pos, Blocks.SNOW.getDefaultState());
 		}
 	}
 }

@@ -4,6 +4,7 @@ import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 
 public class StunComponent implements AutoSyncedComponent, ServerTickingComponent {
@@ -16,8 +17,12 @@ public class StunComponent implements AutoSyncedComponent, ServerTickingComponen
 
 	@Override
 	public void serverTick() {
-		if(stunTimer > 0)
+		if(stunTimer > 0) {
 			setStunTimer(getStunTimer() - 1);
+
+			if(entity instanceof PlayerEntity player)
+				player.resetLastAttackedTicks();
+		}
 	}
 
 	@Override

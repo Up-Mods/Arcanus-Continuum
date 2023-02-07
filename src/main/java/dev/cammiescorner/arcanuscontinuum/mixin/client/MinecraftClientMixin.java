@@ -57,6 +57,9 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 			lastMouseDown = null;
 			isCasting = false;
 			timer = 0;
+
+			if(ArcanusComponents.getStunTimer(player) > 0)
+				player.resetLastAttackedTicks();
 		}
 
 		if(stack.getItem() instanceof StaffItem staff && (ArcanusComponents.getMana(player) > 0 || player.isCreative())) {
