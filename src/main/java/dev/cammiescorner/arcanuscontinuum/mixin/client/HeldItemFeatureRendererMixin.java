@@ -20,7 +20,7 @@ public class HeldItemFeatureRendererMixin {
 			target = "Lnet/minecraft/client/render/item/HeldItemRenderer;renderItem(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformation$Mode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"
 	))
 	private void arcanuscontinuum$adjustItem(LivingEntity entity, ItemStack stack, ModelTransformation.Mode transformationMode, Arm arm, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
-		if(ArcanusComponents.isCasting(entity)) {
+		if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && ArcanusComponents.isCasting(entity)) {
 			matrices.translate(0, 0.1, 0);
 			matrices.multiply(Axis.X_POSITIVE.rotationDegrees(-15));
 		}

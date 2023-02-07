@@ -43,7 +43,7 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 
 	@Inject(method = "setAngles(Lnet/minecraft/entity/LivingEntity;FFFFF)V", at = @At("TAIL"))
 	private void arcanuscontinuum$staffRunningAnim(T entity, float f, float g, float h, float i, float j, CallbackInfo info) {
-		if(entity.isSprinting() && !ArcanusComponents.isCasting(entity) && !entity.isSwimming() && !entity.isFallFlying()) {
+		if(entity.isSprinting() && ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && !ArcanusComponents.isCasting(entity) && !entity.isSwimming() && !entity.isFallFlying()) {
 			MinecraftClient client = MinecraftClient.getInstance();
 			ItemStack rightStack = client.options.getMainArm().get() == Arm.RIGHT ? entity.getMainHandStack() : entity.getOffHandStack();
 			ItemStack leftStack = client.options.getMainArm().get() == Arm.RIGHT ? entity.getOffHandStack() : entity.getMainHandStack();
@@ -75,7 +75,7 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 		ItemStack rightStack = client.options.getMainArm().get() == Arm.RIGHT ? entity.getMainHandStack() : entity.getOffHandStack();
 
 		if(rightStack.getItem() instanceof StaffItem) {
-			if(ArcanusComponents.isCasting(entity)) {
+			if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && ArcanusComponents.isCasting(entity)) {
 				head.yaw = head.yaw + 1.13446F;
 				rightArm.pitch = -1.13446F;
 				rightArm.roll = -1.13446F;
@@ -101,7 +101,7 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 		ItemStack leftStack = client.options.getMainArm().get() == Arm.RIGHT ? entity.getOffHandStack() : entity.getMainHandStack();
 
 		if(leftStack.getItem() instanceof StaffItem) {
-			if(ArcanusComponents.isCasting(entity)) {
+			if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && ArcanusComponents.isCasting(entity)) {
 				head.yaw = head.yaw * 0.5F - 1.13446F;
 				leftArm.pitch = -1.13446F;
 				leftArm.roll = 1.13446F;

@@ -39,11 +39,10 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 	@Shadow @Nullable public ClientPlayerEntity player;
 	@Shadow @Final public GameOptions options;
+	@Shadow @Nullable public ClientWorld world;
 
 	@Shadow public abstract float getTickDelta();
 	@Shadow protected abstract boolean doAttack();
-
-	@Shadow @Nullable public ClientWorld world;
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void tick(CallbackInfo info) {
@@ -52,7 +51,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 		ItemStack stack = player.getMainHandStack();
 
-		if(timer == 0 || (lastMouseDown != null && !lastMouseDown.isPressed())) {
+		if(timer == 0 || (lastMouseDown != null && !lastMouseDown.isPressed()) || ArcanusComponents.getStunTimer(player) > 0) {
 			pattern.clear();
 			SyncPatternPacket.send(pattern);
 			lastMouseDown = null;
@@ -90,6 +89,12 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 		if(timer > 0 && player.getAttackCooldownProgress(getTickDelta()) == 1F && player.getItemCooldownManager().getCooldownProgress(stack.getItem(), getTickDelta()) == 0)
 			timer--;
+	}
+
+	@Inject(method = "handleInputEvents", at = @At("HEAD"), cancellable = true)
+	private void arcanuscontinuum$handleInputEvents(CallbackInfo info) {
+		if(ArcanusComponents.getStunTimer(player) > 0)
+			info.cancel();
 	}
 
 	@Inject(method = "handleInputEvents", at = @At(value = "INVOKE",

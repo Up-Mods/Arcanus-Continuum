@@ -25,17 +25,19 @@ public class ArcanusComponents implements EntityComponentInitializer {
 	public static final ComponentKey<PatternComponent> PATTERN_COMPONENT = createComponent("casting_pattern", PatternComponent.class);
 	public static final ComponentKey<LastCastTimeComponent> LAST_CAST_TIME_COMPONENT = createComponent("last_cast_time", LastCastTimeComponent.class);
 	public static final ComponentKey<KnownComponentsComponent> KNOWN_COMPONENTS_COMPONENT = createComponent("known_components", KnownComponentsComponent.class);
+	public static final ComponentKey<StunComponent> STUN_COMPONENT = createComponent("stun", StunComponent.class);
 	public static final ComponentKey<QuestComponent> QUEST_COMPONENT = createComponent("quests", QuestComponent.class);
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-		registry.beginRegistration(LivingEntity.class, WIZARD_LEVEL_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(WizardLevelComponent::new);
+		registry.beginRegistration(PlayerEntity.class, WIZARD_LEVEL_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(WizardLevelComponent::new);
 		registry.beginRegistration(LivingEntity.class, MANA_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(ManaComponent::new);
 		registry.beginRegistration(LivingEntity.class, BURNOUT_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(BurnoutComponent::new);
-		registry.beginRegistration(LivingEntity.class, CASTING_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(CastingComponent::new);
-		registry.beginRegistration(LivingEntity.class, PATTERN_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(PatternComponent::new);
+		registry.beginRegistration(PlayerEntity.class, CASTING_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(CastingComponent::new);
+		registry.beginRegistration(PlayerEntity.class, PATTERN_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(PatternComponent::new);
 		registry.beginRegistration(LivingEntity.class, LAST_CAST_TIME_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(LastCastTimeComponent::new);
-		registry.beginRegistration(LivingEntity.class, KNOWN_COMPONENTS_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(KnownComponentsComponent::new);
+		registry.beginRegistration(PlayerEntity.class, KNOWN_COMPONENTS_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(KnownComponentsComponent::new);
+		registry.beginRegistration(LivingEntity.class, STUN_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(StunComponent::new);
 		registry.beginRegistration(PlayerEntity.class, QUEST_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(QuestComponent::new);
 	}
 
@@ -159,6 +161,14 @@ public class ArcanusComponents implements EntityComponentInitializer {
 
 	public static void removeAllComponents(LivingEntity entity, SpellComponent... components) {
 		KNOWN_COMPONENTS_COMPONENT.get(entity).removeAllComponents(components);
+	}
+
+	public static int getStunTimer(LivingEntity entity) {
+		return STUN_COMPONENT.get(entity).getStunTimer();
+	}
+
+	public static void setStunTimer(LivingEntity entity, int timer) {
+		STUN_COMPONENT.get(entity).setStunTimer(timer);
 	}
 
 	public static List<Identifier> getQuestIds(PlayerEntity player) {

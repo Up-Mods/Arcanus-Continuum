@@ -32,7 +32,7 @@ public class ArcanusSpellComponents {
 	//-----Spell Effects-----//
 	public static final SpellEffect DAMAGE = create("damage_effect", new DamageSpellEffect(SpellType.ATTACK, ParticleTypes.CRIT, Weight.NONE, 3, 5, 1));
 	public static final SpellEffect FIRE = create("fire_effect", new FireSpellEffect(SpellType.ATTACK, ParticleTypes.FLAME, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect ELECTRIC = create("electric_effect", new HealSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect ELECTRIC = create("electric_effect", new ElectricSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect ICE = create("ice_effect", new IceSpellEffect(SpellType.ATTACK, ParticleTypes.SNOWFLAKE, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect VULNERABILITY = create("vulnerability_effect", new VulnerabilitySpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect MANA_LOCK = create("mana_lock_effect", new ManaLockSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
