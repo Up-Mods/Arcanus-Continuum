@@ -42,7 +42,7 @@ public class ManaShieldEntityRenderer extends EntityRenderer<ManaShieldEntity> {
 
 	@Override
 	public void render(ManaShieldEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertices, int light) {
-		float alpha = MathHelper.clamp((entity.getMaxAge() - entity.getTrueAge()) - tickDelta, 0, 20) / 20F;
+		float alpha = MathHelper.clamp(((entity.getMaxAge() - entity.getTrueAge()) - tickDelta) / 20F, 0, 1);
 
 		matrices.push();
 		matrices.translate(0, 2, 0);
