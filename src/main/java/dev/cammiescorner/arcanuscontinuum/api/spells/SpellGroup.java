@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.api.spells;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
@@ -82,5 +83,9 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 
 	public Stream<SpellComponent> getAllComponents() {
 		return Stream.concat(Stream.of(shape), effects.stream());
+	}
+
+	public boolean isEmpty() {
+		return shape == ArcanusSpellComponents.EMPTY;
 	}
 }

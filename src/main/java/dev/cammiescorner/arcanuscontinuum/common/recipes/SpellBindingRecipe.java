@@ -3,7 +3,6 @@ package dev.cammiescorner.arcanuscontinuum.common.recipes;
 import com.google.common.collect.Lists;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.common.items.SpellBookItem;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusRecipes;
@@ -120,7 +119,7 @@ public class SpellBindingRecipe extends SpecialCraftingRecipe {
 		for(int i = 0; i < spells.size(); i++) {
 			Spell spell = spells.get(i);
 
-			if(spell.getComponentGroups().get(0).shape() == SpellShape.EMPTY)
+			if(spell.getComponentGroups().get(0).isEmpty())
 				continue;
 
 			list.set(i, spell.toNbt());

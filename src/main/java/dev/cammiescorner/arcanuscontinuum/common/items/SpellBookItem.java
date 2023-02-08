@@ -3,7 +3,6 @@ package dev.cammiescorner.arcanuscontinuum.common.items;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
 import dev.cammiescorner.arcanuscontinuum.client.gui.screens.SpellBookScreen;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LecternBlock;
@@ -86,7 +85,7 @@ public class SpellBookItem extends Item {
 		ItemStack stack = player.getStackInHand(hand);
 		Spell spell = getSpell(stack);
 
-		if(spell.getComponentGroups().get(0).shape() == ArcanusSpellComponents.EMPTY)
+		if(spell.getComponentGroups().get(0).isEmpty())
 			return super.use(world, player, hand);
 
 		if(world.isClient())

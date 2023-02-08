@@ -284,7 +284,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 				Vector2i pos = positions.get(j);
 				Vector2i prevPos = positions.get(Math.max(0, j - 1));
 
-				if(j == 0 && i > 0 && SPELL_GROUPS.get(i - 1).shape() != ArcanusSpellComponents.EMPTY) {
+				if(j == 0 && i > 0 && !SPELL_GROUPS.get(i - 1).isEmpty()) {
 					List<Vector2i> prevPositions = SPELL_GROUPS.get(i - 1).positions();
 					prevPos = prevPositions.get(prevPositions.size() - 1);
 				}
@@ -330,7 +330,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		if(draggedComponent != ArcanusSpellComponents.EMPTY) {
 			int colour = 0xff0000;
 
-			if((isPointWithinBounds(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) && (!(draggedComponent instanceof SpellEffect) || SPELL_GROUPS.getLast().shape() != ArcanusSpellComponents.EMPTY))
+			if((isPointWithinBounds(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) && (!(draggedComponent instanceof SpellEffect) || !SPELL_GROUPS.getLast().isEmpty()))
 				colour = 0x00ff00;
 
 			float r = (colour >> 16 & 255) / 255F;
@@ -424,7 +424,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		int count = 0;
 
 		for(SpellGroup group : SPELL_GROUPS)
-			if(group.shape() != ArcanusSpellComponents.EMPTY)
+			if(!group.isEmpty())
 				count += group.getAllComponents().toList().size();
 
 		return count;

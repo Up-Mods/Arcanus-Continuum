@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.*;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.common.items.SpellBookItem;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -78,7 +77,7 @@ public class SpellBookScreen extends Screen {
 				Vector2i pos = positions.get(j);
 				Vector2i prevPos = positions.get(Math.max(0, j - 1));
 
-				if(j == 0 && i > 0 && SPELL_GROUPS.get(i - 1).shape() != ArcanusSpellComponents.EMPTY) {
+				if(j == 0 && i > 0 && !SPELL_GROUPS.get(i - 1).isEmpty()) {
 					List<Vector2i> prevPositions = SPELL_GROUPS.get(i - 1).positions();
 					prevPos = prevPositions.get(prevPositions.size() - 1);
 				}
