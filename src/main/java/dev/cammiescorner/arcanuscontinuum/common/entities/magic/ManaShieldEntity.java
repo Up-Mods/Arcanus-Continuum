@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class ManaShieldEntity extends Entity {
 	private static final TrackedData<Integer> MAX_AGE = DataTracker.registerData(ManaShieldEntity.class, TrackedDataHandlerRegistry.INTEGER);
-	private int trueAge;
+	private static final TrackedData<Integer> TRUE_AGE = DataTracker.registerData(ManaShieldEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
 	public ManaShieldEntity(EntityType<? extends Entity> entityType, World world) {
 		super(entityType, world);
@@ -22,30 +22,34 @@ public class ManaShieldEntity extends Entity {
 
 	@Override
 	public void tick() {
-		if(trueAge >= dataTracker.get(MAX_AGE))
+		if(world.getOtherEntities(this, getBoundingBox(), entity -> entity instanceof LivingEntity && entity.isAlive()).isEmpty() && getTrueAge() + 20 < getMaxAge())
+			dataTracker.set(MAX_AGE, getTrueAge() + 20);
+
+		if(getTrueAge() >= getMaxAge())
 			kill();
 
 		super.tick();
-		trueAge++;
+		dataTracker.set(TRUE_AGE, getTrueAge() + 1);
 	}
 
 	@Override
 	protected void initDataTracker() {
 		dataTracker.startTracking(MAX_AGE, 0);
+		dataTracker.startTracking(TRUE_AGE, 0);
 	}
 
 	@Override
 	protected void readCustomDataFromNbt(NbtCompound tag) {
 		ArcanusComponents.MAGIC_COLOUR.get(this).readFromNbt(tag);
 		dataTracker.set(MAX_AGE, tag.getInt("MaxAge"));
-		trueAge = tag.getInt("TrueAge");
+		dataTracker.set(TRUE_AGE, tag.getInt("TrueAge"));
 	}
 
 	@Override
 	protected void writeCustomDataToNbt(NbtCompound tag) {
 		ArcanusComponents.MAGIC_COLOUR.get(this).writeToNbt(tag);
-		tag.putInt("MaxAge", dataTracker.get(MAX_AGE));
-		tag.putInt("TrueAge", trueAge);
+		tag.putInt("MaxAge", getMaxAge());
+		tag.putInt("TrueAge", getTrueAge());
 	}
 
 	@Override
@@ -55,12 +59,20 @@ public class ManaShieldEntity extends Entity {
 
 	@Override
 	public boolean isCollidable() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean collides() {
 		return !isRemoved();
+	}
+
+	public int getMaxAge() {
+		return dataTracker.get(MAX_AGE);
+	}
+
+	public int getTrueAge() {
+		return dataTracker.get(TRUE_AGE);
 	}
 
 	public int getColour() {

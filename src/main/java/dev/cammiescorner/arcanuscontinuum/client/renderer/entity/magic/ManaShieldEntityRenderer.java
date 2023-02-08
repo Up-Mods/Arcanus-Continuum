@@ -34,6 +34,7 @@ public class ManaShieldEntityRenderer extends EntityRenderer<ManaShieldEntity> {
 			new Vector3i(1, 2, 6), new Vector3i(2, 3, 7), new Vector3i(3, 4, 8), new Vector3i(4, 5, 9), new Vector3i(5, 1, 10),
 			new Vector3i(6, 7, 2), new Vector3i(7, 8, 3), new Vector3i(8, 9, 4), new Vector3i(9, 10, 5), new Vector3i(10, 6, 1)
 	);
+	private boolean shouldRender = true;
 
 	public ManaShieldEntityRenderer(EntityRendererFactory.Context ctx) {
 		super(ctx);
@@ -41,16 +42,22 @@ public class ManaShieldEntityRenderer extends EntityRenderer<ManaShieldEntity> {
 
 	@Override
 	public void render(ManaShieldEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertices, int light) {
-		VertexConsumer consumer = vertices.getBuffer(LAYER);
-		int colour = 0xff << 24 | entity.getColour();
+		int deathTicks = entity.getMaxAge() - entity.getTrueAge();
 
-		matrices.push();
-		matrices.translate(0, 2, 0);
-		matrices.multiply(Axis.X_NEGATIVE.rotationDegrees(90));
-		matrices.multiply(Axis.Z_POSITIVE.rotationDegrees((entity.age + tickDelta) * 0.25F));
-		matrices.scale(3, 3, 3);
-		drawIcosahedron(matrices, consumer, colour, light, OverlayTexture.DEFAULT_UV);
-		matrices.pop();
+		if(deathTicks < 20 && deathTicks % 4 == 0)
+			shouldRender = !shouldRender;
+		else if(deathTicks >= 20)
+			shouldRender = true;
+
+		if(shouldRender) {
+			matrices.push();
+			matrices.translate(0, 2, 0);
+			matrices.multiply(Axis.X_NEGATIVE.rotationDegrees(90));
+			matrices.multiply(Axis.Z_POSITIVE.rotationDegrees((entity.age + tickDelta) * 0.25F));
+			matrices.scale(3, 3, 3);
+			drawIcosahedron(matrices, vertices.getBuffer(LAYER), entity.getColour(), light, OverlayTexture.DEFAULT_UV);
+			matrices.pop();
+		}
 	}
 
 	@Override

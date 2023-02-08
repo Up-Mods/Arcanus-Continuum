@@ -26,7 +26,7 @@ public class MagicBlockEntityRenderer implements BlockEntityRenderer<MagicBlockE
 		VertexConsumer consumer = vertices.getBuffer(LAYER);
 		Matrix4f matrix4f = matrices.peek().getModel();
 		Matrix3f matrix3f = matrices.peek().getNormal();
-		int colour = 0xff << 24 | entity.getColour();
+		int colour = entity.getColour();
 
 		for(Direction direction : Direction.values()) {
 			if(entity.getWorld().getBlockState(entity.getPos().offset(direction)).isOf(ArcanusBlocks.MAGIC_BLOCK))
