@@ -20,6 +20,7 @@
 
   "entity.arcanuscontinuum.wizard": "Wizard",
   "entity.arcanuscontinuum.opossum": "Opossum",
+  "entity.arcanuscontinuum.mana_shield": "Mana Shield",
 
   "effect.arcanuscontinuum.mana_lock": "Mana Lock",
   "effect.arcanuscontinuum.vulnerability": "Vulnerability",

@@ -20,13 +20,13 @@ public class MagicBlockEntity extends BlockEntity {
 	@Override
 	public void readNbt(NbtCompound nbt) {
 		super.readNbt(nbt);
-		colour = nbt.getInt("Colour");
+		colour = nbt.getInt("MagicColour");
 	}
 
 	@Override
 	protected void writeNbt(NbtCompound nbt) {
 		super.writeNbt(nbt);
-		nbt.putInt("Colour", colour);
+		nbt.putInt("MagicColour", colour);
 	}
 
 	@Override

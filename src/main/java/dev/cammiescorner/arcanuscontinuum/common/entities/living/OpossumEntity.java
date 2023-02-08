@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanuscontinuum.common.entities;
+package dev.cammiescorner.arcanuscontinuum.common.entities.living;
 
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusItems;

@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanuscontinuum.client.models.entity;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
-import dev.cammiescorner.arcanuscontinuum.common.entities.OpossumEntity;
+import dev.cammiescorner.arcanuscontinuum.common.entities.living.OpossumEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;

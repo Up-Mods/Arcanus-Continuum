@@ -70,6 +70,7 @@
 		"arcanuscontinuum:last_cast_time",
 		"arcanuscontinuum:known_components",
 		"arcanuscontinuum:stun",
-		"arcanuscontinuum:quests"
+		"arcanuscontinuum:quests",
+		"arcanuscontinuum:magic_colour"
 	]
 }

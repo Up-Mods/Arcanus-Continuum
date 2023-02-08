@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.client.renderer.feature;
 
-import dev.cammiescorner.arcanuscontinuum.common.entities.WizardEntity;
+import dev.cammiescorner.arcanuscontinuum.common.entities.living.WizardEntity;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;

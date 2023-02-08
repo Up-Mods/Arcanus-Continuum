@@ -12,8 +12,9 @@ import dev.cammiescorner.arcanuscontinuum.client.models.feature.LotusHaloModel;
 import dev.cammiescorner.arcanuscontinuum.client.models.feature.SpellPatternModel;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.armour.WizardArmourRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.block.MagicBlockEntityRenderer;
-import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.OpossumEntityRenderer;
-import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.WizardEntityRenderer;
+import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.OpossumEntityRenderer;
+import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.WizardEntityRenderer;
+import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic.ManaShieldEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
@@ -56,6 +57,26 @@ public class ArcanusClient implements ClientModInitializer {
 						.build(false)
 		);
 	});
+	private static final Function<Identifier, RenderLayer> MAGIC_CIRCLES_TRI = Util.memoize(texture -> {
+		RenderPhase.Texture texturing = new RenderPhase.Texture(texture, false, false);
+
+		return RenderLayer.of(
+				Arcanus.id("magic_circle_tri").toString(),
+				VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL,
+				VertexFormat.DrawMode.TRIANGLES,
+				256,
+				false,
+				true,
+				RenderLayer.MultiPhaseParameters.builder()
+						.shader(RenderLayer.ENTITY_TRANSLUCENT_EMISSIVE_SHADER)
+						.texture(texturing)
+						.overlay(RenderPhase.ENABLE_OVERLAY_COLOR)
+						.transparency(RenderLayer.ADDITIVE_TRANSPARENCY)
+						.writeMaskState(RenderLayer.ALL_MASK)
+						.cull(RenderPhase.DISABLE_CULLING)
+						.build(false)
+		);
+	});
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
@@ -70,6 +91,7 @@ public class ArcanusClient implements ClientModInitializer {
 		ArmorRenderer.register(new WizardArmourRenderer(), ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS);
 		EntityRendererRegistry.register(ArcanusEntities.WIZARD, WizardEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.OPOSSUM, OpossumEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.MANA_SHIELD, ManaShieldEntityRenderer::new);
 
 		BlockRenderLayerMap.put(RenderLayer.getCutout(), ArcanusBlocks.MAGIC_DOOR);
 
@@ -131,6 +153,10 @@ public class ArcanusClient implements ClientModInitializer {
 
 	public static RenderLayer getMagicCircles(Identifier texture) {
 		return MAGIC_CIRCLES.apply(texture);
+	}
+
+	public static RenderLayer getMagicCirclesTri(Identifier texture) {
+		return MAGIC_CIRCLES_TRI.apply(texture);
 	}
 
 	public static Vector3f RGBtoHSB(int r, int g, int b) {

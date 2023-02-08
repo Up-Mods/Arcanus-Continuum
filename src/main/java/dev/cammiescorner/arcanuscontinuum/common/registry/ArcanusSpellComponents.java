@@ -44,7 +44,7 @@ public class ArcanusSpellComponents {
 	public static final SpellEffect DISPEL = create("dispel_effect", new DispelSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect REGENERATE = create("regenerate_effect", new RegenerateSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect FORTIFY = create("fortify_effect", new FortifySpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect MANA_SHIELD = create("mana_shield_effect", new HealSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect MANA_SHIELD = create("mana_shield_effect", new ManaShieldSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 
 	public static final SpellEffect PUSH = create("push_effect", new PushSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect PULL = create("pull_effect", new PullSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
