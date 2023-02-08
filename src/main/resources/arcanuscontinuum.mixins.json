@@ -6,6 +6,7 @@
 	"mixins": [
 		"AnvilScreenHandlerMixin",
 		"ChiseledBookshelfBlockMixin",
+		"EntityViewMixin",
 		"ExplosionMixin",
 		"HungerManagerMixin",
 		"LecternBlockEntityMixin",
@@ -20,7 +21,8 @@
 		"client.ItemRendererMixin",
 		"client.LivingEntityRendererMixin",
 		"client.MinecraftClientMixin",
-		"client.PlayerEntityRendererMixin"
+		"client.PlayerEntityRendererMixin",
+        "client.ClientEntityManagerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

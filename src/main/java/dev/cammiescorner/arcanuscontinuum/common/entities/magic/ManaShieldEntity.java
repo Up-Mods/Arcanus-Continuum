@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 public class ManaShieldEntity extends Entity {
 	private static final TrackedData<Integer> MAX_AGE = DataTracker.registerData(ManaShieldEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	private static final TrackedData<Integer> TRUE_AGE = DataTracker.registerData(ManaShieldEntity.class, TrackedDataHandlerRegistry.INTEGER);
+	public static final ThreadLocal<Entity> COLLIDING_ENTITY = new ThreadLocal<>();
 
 	public ManaShieldEntity(EntityType<? extends Entity> entityType, World world) {
 		super(entityType, world);
@@ -53,13 +54,11 @@ public class ManaShieldEntity extends Entity {
 	}
 
 	@Override
-	public boolean collidesWith(Entity other) {
-		return !(other instanceof LivingEntity);
-	}
-
-	@Override
 	public boolean isCollidable() {
-		return true;
+		if(COLLIDING_ENTITY.get() == null)
+			return true;
+
+		return getTrueAge() + 20 < getMaxAge() && !COLLIDING_ENTITY.get().getBoundingBox().intersects(getBoundingBox());
 	}
 
 	@Override
