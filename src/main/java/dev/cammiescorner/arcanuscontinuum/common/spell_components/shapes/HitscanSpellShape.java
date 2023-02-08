@@ -32,7 +32,6 @@ public class HitscanSpellShape extends SpellShape {
 	@Override
 	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex) {
 		double range = ReachEntityAttributes.getAttackRange(caster, caster instanceof PlayerEntity player && player.isCreative() ? 5 : 4.5) * RANGE_MODIFIER;
-		range *= range;
 		Box box = new Box(castFrom.add(-range, -range, -range), castFrom.add(range, range, range));
 		List<Entity> affectedEntities = world.getOtherEntities(castSource, box);
 
@@ -57,10 +56,11 @@ public class HitscanSpellShape extends SpellShape {
 		double d = -1.0;
 		Entity value = null;
 
-		for (Entity entity : entityList) {
-			if (predicate.test(entity)) {
-				double e = entity.squaredDistanceTo(pos);
-				if (e <= range && (d == -1.0 || e < d)) {
+		for(Entity entity : entityList) {
+			if(predicate.test(entity)) {
+				double e = entity.getPos().distanceTo(pos);
+
+				if(e <= range && (d == -1.0 || e < d)) {
 					d = e;
 					value = entity;
 				}
