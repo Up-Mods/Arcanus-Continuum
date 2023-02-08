@@ -15,8 +15,10 @@ import dev.cammiescorner.arcanuscontinuum.client.renderer.block.MagicBlockEntity
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.OpossumEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.WizardEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic.ManaShieldEntityRenderer;
+import dev.cammiescorner.arcanuscontinuum.client.renderer.item.StaffItemRenderer;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
+import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -24,15 +26,20 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.DyeableItem;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import org.joml.Vector3f;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
+import org.quiltmc.qsl.resource.loader.api.ResourceLoader;
 
 import java.util.function.Function;
 
@@ -94,7 +101,6 @@ public class ArcanusClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ArcanusEntities.MANA_SHIELD, ManaShieldEntityRenderer::new);
 
 		BlockRenderLayerMap.put(RenderLayer.getCutout(), ArcanusBlocks.MAGIC_DOOR);
-
 		BlockEntityRendererFactories.register(ArcanusBlockEntities.MAGIC_BLOCK, MagicBlockEntityRenderer::new);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? ((DyeableItem) stack.getItem()).getColor(stack) : 0xffffff,
@@ -105,6 +111,19 @@ public class ArcanusClient implements ClientModInitializer {
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? ((DyeableArmorItem) stack.getItem()).getColor(stack) : 0xffffff,
 				ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS
 		);
+
+		for(Item item : ArcanusItems.ITEMS.keySet()) {
+			if(item instanceof StaffItem) {
+				Identifier itemId = Registries.ITEM.getId(item);
+				StaffItemRenderer staffItemRenderer = new StaffItemRenderer(itemId);
+				ResourceLoader.get(ResourceType.CLIENT_RESOURCES).registerReloader(staffItemRenderer);
+				BuiltinItemRendererRegistry.INSTANCE.register(item, staffItemRenderer);
+				ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
+					out.accept(new ModelIdentifier(itemId.withPath(itemId.getPath() + "_gui"), "inventory"));
+					out.accept(new ModelIdentifier(itemId.withPath(itemId.getPath() + "_handheld"), "inventory"));
+				});
+			}
+		}
 
 		final MinecraftClient client = MinecraftClient.getInstance();
 		var obj = new Object() { int timer; };

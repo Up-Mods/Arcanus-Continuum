@@ -1,7 +1,14 @@
 {
-  "parent": "arcanuscontinuum:item/staff_handheld",
-  "textures": {
-    "layer0": "arcanuscontinuum:item/ender_shard_staff_handle",
-    "layer1": "arcanuscontinuum:item/ender_shard_staff_focus"
+  "parent": "minecraft:builtin/entity",
+  "base": {
+    "parent": "arcanuscontinuum:item/ender_shard_staff_handheld"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "arcanuscontinuum:item/ender_shard_staff_gui"
+    },
+    "fixed": {
+      "parent": "arcanuscontinuum:item/ender_shard_staff_gui"
+    }
   }
 }
