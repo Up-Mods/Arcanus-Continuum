@@ -33,7 +33,7 @@ public class ManaShieldSpellEffect extends SpellEffect {
 					case "63a8c63b-9179-4427-849a-55212e6008bf" -> 0x7cff7c; // moriya green
 					case "d5034857-9e8a-44cb-a6da-931caff5b838" -> 0xbd78ff; // upcraft pourble
 					default -> 0x68e1ff;
-				}), (int) (220 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.MANA_SHIELD).count()));
+				}), (int) ((100 + 40 * (effects.stream().filter(effect -> effect == ArcanusSpellComponents.MANA_SHIELD).count() - 1)) * potency));
 			}
 
 			world.spawnEntity(manaShield);
