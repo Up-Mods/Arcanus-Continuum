@@ -2,11 +2,10 @@ package dev.cammiescorner.arcanuscontinuum.common.items;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
-import dev.cammiescorner.arcanuscontinuum.client.gui.screens.SpellBookScreen;
+import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.OpenSpellBookScreenPacket;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LecternBlock;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -88,8 +88,8 @@ public class SpellBookItem extends Item {
 		if(spell.getComponentGroups().get(0).isEmpty())
 			return super.use(world, player, hand);
 
-		if(world.isClient())
-			MinecraftClient.getInstance().setScreen(new SpellBookScreen(Text.literal(spell.getName()), stack));
+		if(world.isClient() && player instanceof ServerPlayerEntity serverPlayer)
+			OpenSpellBookScreenPacket.send(serverPlayer, spell, stack);
 
 		return TypedActionResult.success(stack, world.isClient());
 	}
