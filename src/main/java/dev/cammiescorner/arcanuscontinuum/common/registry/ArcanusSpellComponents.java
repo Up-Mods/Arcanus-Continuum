@@ -22,8 +22,8 @@ public class ArcanusSpellComponents {
 	public static final SpellShape TOUCH = create("touch_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
 	public static final SpellShape PROJECTILE = create("projectile_shape", new ProjectileSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
 	public static final SpellShape LOB = create("lob_shape", new ProjectileSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape BOLT = create("bolt_shape", new HitscanSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1)); // TODO block raycast
-	public static final SpellShape BEAM = create("beam_shape", new HitscanSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1)); // TODO charge + lock-on
+	public static final SpellShape BOLT = create("bolt_shape", new BoltSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
+	public static final SpellShape BEAM = create("beam_shape", new BeamSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1)); // TODO charge + lock-on
 	public static final SpellShape RUNE = create("rune_shape", new RuneSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1)); // TODO entity
 	public static final SpellShape SMITE = create("smite_shape", new SmiteSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1)); // TODO entity
 	public static final SpellShape AOE = create("aoe_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1)); // TODO entity
@@ -37,7 +37,7 @@ public class ArcanusSpellComponents {
 	public static final SpellEffect VULNERABILITY = create("vulnerability_effect", new VulnerabilitySpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect MANA_LOCK = create("mana_lock_effect", new ManaLockSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect WITHERING = create("withering_effect", new WitheringSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
-	public static final SpellEffect NECROMANCY = create("necromancy_effect", new HealSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
+	public static final SpellEffect NECROMANCY = create("necromancy_effect", new NecromancySpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect MANA_SPLIT = create("mana_split_effect", new ManaSplitSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 
 	public static final SpellEffect HEAL = create("heal_effect", new HealSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
