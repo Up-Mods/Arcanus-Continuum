@@ -38,7 +38,6 @@ public class TouchSpellShape extends SpellShape {
 		}
 
 		Entity targetEntity = target.getType() == HitResult.Type.ENTITY ? ((EntityHitResult) target).getEntity() : castSource;
-
 		castNext(caster, target.getPos(), targetEntity, world, staffItem, stack, spellGroups, groupIndex);
 	}
 }

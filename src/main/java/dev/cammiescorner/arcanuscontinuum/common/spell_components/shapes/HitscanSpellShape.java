@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class HitscanSpellShape extends SpellShape {
-	private static final double RANGE_MODIFIER = 2.5D;
+	private static final double RANGE_MODIFIER = 2D;
 	private static final double MAX_ANGLE_DIFF = Math.toRadians(5);
 
 	public HitscanSpellShape(Weight weight, double manaCost, int coolDown, int minLevel) {

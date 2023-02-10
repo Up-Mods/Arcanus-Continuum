@@ -7,8 +7,10 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -45,16 +47,21 @@ public class ExplosionSpellShape extends SpellShape {
 						d /= g;
 						e /= g;
 						f /= g;
-						float h = 5 * (0.7F + world.random.nextFloat() * 0.6F);
+						float h = 3 * (0.7F + world.random.nextFloat() * 0.6F);
 						double m = castFrom.getX();
 						double n = castFrom.getY();
 						double o = castFrom.getZ();
 
 						for(float p = 0.3F; h > 0F; h -= 0.225F) {
 							BlockPos blockPos = new BlockPos(m, n, o);
+							BlockState blockState = world.getBlockState(blockPos);
+							FluidState fluidState = world.getFluidState(blockPos);
 
 							if(!world.isInBuildLimit(blockPos))
 								break;
+
+							if(!blockState.isAir() || !fluidState.isEmpty())
+								h -= (Math.max(blockState.getBlock().getBlastResistance(), fluidState.getBlastResistance()) + 0.3F) * 0.3F;
 
 							if(!world.isAir(blockPos) && world.isTopSolid(blockPos, caster))
 								affectedBlocks.add(blockPos);
@@ -68,12 +75,12 @@ public class ExplosionSpellShape extends SpellShape {
 			}
 		}
 
-		int k = MathHelper.floor(castFrom.getX() - 10 - 1);
-		int l = MathHelper.floor(castFrom.getX() + 10 + 1);
-		int r = MathHelper.floor(castFrom.getY() - 10 - 1);
-		int s = MathHelper.floor(castFrom.getY() + 10 + 1);
-		int t = MathHelper.floor(castFrom.getZ() - 10 - 1);
-		int u = MathHelper.floor(castFrom.getZ() + 10 + 1);
+		int k = MathHelper.floor(castFrom.getX() - 6 - 1);
+		int l = MathHelper.floor(castFrom.getX() + 6 + 1);
+		int r = MathHelper.floor(castFrom.getY() - 6 - 1);
+		int s = MathHelper.floor(castFrom.getY() + 6 + 1);
+		int t = MathHelper.floor(castFrom.getZ() - 6 - 1);
+		int u = MathHelper.floor(castFrom.getZ() + 6 + 1);
 		List<Entity> list = world.getOtherEntities(caster, new Box(k, r, t, l, s, u));
 
 		for(Entity entity : list)

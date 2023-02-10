@@ -15,6 +15,7 @@ import dev.cammiescorner.arcanuscontinuum.client.renderer.armour.WizardArmourRen
 import dev.cammiescorner.arcanuscontinuum.client.renderer.block.MagicBlockEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.OpossumEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.WizardEntityRenderer;
+import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic.MagicProjectileEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic.ManaShieldEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.item.StaffItemRenderer;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
@@ -103,6 +104,7 @@ public class ArcanusClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ArcanusEntities.WIZARD, WizardEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.OPOSSUM, OpossumEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.MANA_SHIELD, ManaShieldEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.MAGIC_PROJECTILE, MagicProjectileEntityRenderer::new);
 
 		BlockRenderLayerMap.put(RenderLayer.getCutout(), ArcanusBlocks.MAGIC_DOOR);
 		BlockEntityRendererFactories.register(ArcanusBlockEntities.MAGIC_BLOCK, MagicBlockEntityRenderer::new);

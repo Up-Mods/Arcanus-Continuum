@@ -36,11 +36,12 @@ public class SmiteSpellShape extends SpellShape {
 		boolean hitDidConnect = true;
 
 		if(caster == castSource) {
-			ray = caster.raycast(MAX_RANGE, 1.0F, false);
+			ray = caster.raycast(MAX_RANGE, 1F, false);
+
 			if(ray.getType() == HitResult.Type.MISS) {
-				if(caster instanceof PlayerEntity player) {
+				if(caster instanceof PlayerEntity player)
 					player.sendMessage(Arcanus.translate("spell", "smite_miss"), true); // TODO format
-				}
+
 				hitDidConnect = false;
 			}
 		}
@@ -51,7 +52,7 @@ public class SmiteSpellShape extends SpellShape {
 		Entity smite = null;
 
 		if(hitDidConnect) {
-			//TODO spawn entity
+			// TODO spawn entity
 			//smite = ...
 			for(SpellEffect effect : new HashSet<>(effects))
 				effect.effect(caster, world, ray, effects, staffItem, stack, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
