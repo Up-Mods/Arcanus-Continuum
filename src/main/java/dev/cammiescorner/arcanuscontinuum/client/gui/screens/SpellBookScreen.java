@@ -5,12 +5,13 @@ import com.mojang.blaze3d.vertex.*;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.common.items.SpellBookItem;
+import dev.cammiescorner.arcanuscontinuum.common.screens.SpellBookScreenHandler;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.ScreenTexts;
 import net.minecraft.text.Text;
@@ -23,17 +24,13 @@ import org.joml.Vector2i;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SpellBookScreen extends Screen {
+public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 	public static final Identifier BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
 	public static final Identifier PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
 	public static final LinkedList<SpellGroup> SPELL_GROUPS = new LinkedList<>();
-	public final ItemStack stack;
-	public int x;
-	public int y;
 
-	public SpellBookScreen(Text title, ItemStack stack) {
-		super(title);
-		this.stack = stack;
+	public SpellBookScreen(SpellBookScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
+		super(screenHandler, playerInventory, text);
 	}
 
 	@Override
@@ -41,23 +38,22 @@ public class SpellBookScreen extends Screen {
 		super.init();
 		x = (width - 256) / 2;
 		y = (height - 180) / 2;
+		playerInventoryTitleY = -10000;
 
 		addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> closeScreen()).position(width / 2 - 49, y + 170).size(98, 20).build());
-		SPELL_GROUPS.addAll(SpellBookItem.getSpell(stack).getComponentGroups());
+		SPELL_GROUPS.addAll(SpellBookItem.getSpell(getScreenHandler().getSpellBook()).getComponentGroups());
 	}
 
 	@Override
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		RenderSystem.setShaderTexture(0, BOOK_TEXTURE);
 		DrawableHelper.drawTexture(matrices, x, y, 0, 0, 256, 180, 256, 256);
-		super.render(matrices, mouseX, mouseY, delta);
+	}
 
-		MatrixStack matrixStack = RenderSystem.getModelViewStack();
-		matrixStack.push();
-		matrixStack.translate(x, y, 0F);
-		RenderSystem.applyModelViewMatrix();
+	@Override
+	protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
 		MutableText title = this.title.copy().formatted(Formatting.BOLD, Formatting.UNDERLINE);
 		textRenderer.draw(matrices, title, 128 - textRenderer.getWidth(title) * 0.5F, 11, 0x50505D);
 
@@ -128,8 +124,6 @@ public class SpellBookScreen extends Screen {
 					renderTooltip(matrices, Text.translatable(group.getAllComponents().toList().get(i).getTranslationKey(client.player)), mouseX - x, mouseY - y);
 			}
 		}
-
-		matrixStack.pop();
 	}
 
 	@Override

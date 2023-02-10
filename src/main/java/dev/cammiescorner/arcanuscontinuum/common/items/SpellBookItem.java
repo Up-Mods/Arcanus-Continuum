@@ -2,17 +2,21 @@ package dev.cammiescorner.arcanuscontinuum.common.items;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
-import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.OpenSpellBookScreenPacket;
+import dev.cammiescorner.arcanuscontinuum.common.screens.SpellBookScreenHandler;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LecternBlock;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -88,8 +92,22 @@ public class SpellBookItem extends Item {
 		if(spell.getComponentGroups().get(0).isEmpty())
 			return super.use(world, player, hand);
 
-		if(world.isClient() && player instanceof ServerPlayerEntity serverPlayer)
-			OpenSpellBookScreenPacket.send(serverPlayer, spell, stack);
+		player.openHandledScreen(new ExtendedScreenHandlerFactory() {
+			@Override
+			public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+				buf.writeItemStack(stack);
+			}
+
+			@Override
+			public Text getDisplayName() {
+				return Text.literal(spell.getName());
+			}
+
+			@Override
+			public ScreenHandler createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+				return new SpellBookScreenHandler(i, playerInventory, stack);
+			}
+		});
 
 		return TypedActionResult.success(stack, world.isClient());
 	}

@@ -9,6 +9,7 @@ import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.CastSpellPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SaveBookDataPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SetCastingPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SyncPatternPacket;
+import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStatusEffectPacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
@@ -36,6 +37,7 @@ import org.quiltmc.qsl.chat.api.QuiltChatEvents;
 import org.quiltmc.qsl.chat.api.QuiltMessageType;
 import org.quiltmc.qsl.chat.api.types.ChatC2SMessage;
 import org.quiltmc.qsl.command.api.CommandRegistrationCallback;
+import org.quiltmc.qsl.networking.api.ServerPlayConnectionEvents;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 
 import java.util.EnumSet;
@@ -74,6 +76,11 @@ public class Arcanus implements ModInitializer {
 		ServerPlayNetworking.registerGlobalReceiver(SyncPatternPacket.ID, SyncPatternPacket::handler);
 
 		CommandRegistrationCallback.EVENT.register(ArcanusCommands::init);
+
+		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+			if(handler.player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY))
+				SyncStatusEffectPacket.send(handler.player, handler.player.getStatusEffect(ArcanusStatusEffects.ANONYMITY));
+		});
 
 		QuiltChatEvents.CANCEL.register(EnumSet.of(QuiltMessageType.CHAT), abstractMessage -> {
 			PlayerEntity player = abstractMessage.getPlayer();
