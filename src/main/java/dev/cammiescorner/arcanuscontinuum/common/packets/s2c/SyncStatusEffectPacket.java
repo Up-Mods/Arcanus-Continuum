@@ -19,13 +19,11 @@ import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 public class SyncStatusEffectPacket {
 	public static final Identifier ID = Arcanus.id("sync_status_effect");
 
-	public static void send(ServerPlayerEntity player, StatusEffectInstance status) {
+	public static void send(ServerPlayerEntity player, StatusEffect status, boolean hasEffect) {
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeVarInt(player.getId());
-		buf.writeIdentifier(Registries.STATUS_EFFECT.getId(status.getEffectType()));
-		buf.writeVarInt(status.getDuration());
-		buf.writeVarInt(status.getAmplifier());
-		buf.writeBoolean(status.shouldShowParticles());
+		buf.writeIdentifier(Registries.STATUS_EFFECT.getId(status));
+		buf.writeBoolean(hasEffect);
 		ServerPlayNetworking.send(PlayerLookup.tracking(player), ID, buf);
 	}
 
@@ -33,16 +31,18 @@ public class SyncStatusEffectPacket {
 	public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender sender) {
 		int playerId = buf.readVarInt();
 		Identifier statusEffectId = buf.readIdentifier();
-		int duration = buf.readVarInt();
-		int amplifier = buf.readVarInt();
-		boolean showParticles = buf.readBoolean();
+		boolean hasEffect = buf.readBoolean();
 
 		client.execute(() -> {
 			if(client.world != null && client.world.getEntityById(playerId) instanceof PlayerEntity player) {
 				StatusEffect effect = Registries.STATUS_EFFECT.get(statusEffectId);
 
-				if(effect != null)
-					player.addStatusEffect(new StatusEffectInstance(effect, duration, amplifier, showParticles, showParticles));
+				if(effect != null) {
+					if(hasEffect)
+						player.addStatusEffect(new StatusEffectInstance(effect, 100, 0, false, false));
+					else
+						player.removeStatusEffect(effect);
+				}
 			}
 		});
 	}

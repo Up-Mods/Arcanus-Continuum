@@ -17,15 +17,15 @@ public class ArcanusStatusEffect extends StatusEffect {
 	public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
 		super.onApplied(entity, attributes, amplifier);
 
-		if(entity instanceof ServerPlayerEntity player && player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY) && this == ArcanusStatusEffects.ANONYMITY)
-			SyncStatusEffectPacket.send(player, player.getStatusEffect(ArcanusStatusEffects.ANONYMITY));
+		if(entity instanceof ServerPlayerEntity player && this == ArcanusStatusEffects.ANONYMITY)
+			SyncStatusEffectPacket.send(player, ArcanusStatusEffects.ANONYMITY, true);
 	}
 
 	@Override
 	public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
 		super.onRemoved(entity, attributes, amplifier);
 
-		if(entity instanceof ServerPlayerEntity player && player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY) && this == ArcanusStatusEffects.ANONYMITY)
-			SyncStatusEffectPacket.send(player, player.getStatusEffect(ArcanusStatusEffects.ANONYMITY));
+		if(entity instanceof ServerPlayerEntity player && this == ArcanusStatusEffects.ANONYMITY)
+			SyncStatusEffectPacket.send(player, ArcanusStatusEffects.ANONYMITY, false);
 	}
 }

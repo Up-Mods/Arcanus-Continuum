@@ -77,10 +77,7 @@ public class Arcanus implements ModInitializer {
 
 		CommandRegistrationCallback.EVENT.register(ArcanusCommands::init);
 
-		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-			if(handler.player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY))
-				SyncStatusEffectPacket.send(handler.player, handler.player.getStatusEffect(ArcanusStatusEffects.ANONYMITY));
-		});
+		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> SyncStatusEffectPacket.send(handler.player, ArcanusStatusEffects.ANONYMITY, handler.player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY)));
 
 		QuiltChatEvents.CANCEL.register(EnumSet.of(QuiltMessageType.CHAT), abstractMessage -> {
 			PlayerEntity player = abstractMessage.getPlayer();
