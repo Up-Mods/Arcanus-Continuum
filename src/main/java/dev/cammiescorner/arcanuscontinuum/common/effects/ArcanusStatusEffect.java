@@ -18,7 +18,7 @@ public class ArcanusStatusEffect extends StatusEffect {
 		super.onApplied(entity, attributes, amplifier);
 
 		if(entity instanceof ServerPlayerEntity player && this == ArcanusStatusEffects.ANONYMITY)
-			SyncStatusEffectPacket.send(player, ArcanusStatusEffects.ANONYMITY, true);
+			SyncStatusEffectPacket.sendToAll(player, ArcanusStatusEffects.ANONYMITY, true);
 	}
 
 	@Override
@@ -26,6 +26,6 @@ public class ArcanusStatusEffect extends StatusEffect {
 		super.onRemoved(entity, attributes, amplifier);
 
 		if(entity instanceof ServerPlayerEntity player && this == ArcanusStatusEffects.ANONYMITY)
-			SyncStatusEffectPacket.send(player, ArcanusStatusEffects.ANONYMITY, false);
+			SyncStatusEffectPacket.sendToAll(player, ArcanusStatusEffects.ANONYMITY, false);
 	}
 }

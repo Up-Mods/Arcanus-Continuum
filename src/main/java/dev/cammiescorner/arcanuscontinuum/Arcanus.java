@@ -20,6 +20,7 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.DefaultedRegistry;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -37,6 +38,7 @@ import org.quiltmc.qsl.chat.api.QuiltChatEvents;
 import org.quiltmc.qsl.chat.api.QuiltMessageType;
 import org.quiltmc.qsl.chat.api.types.ChatC2SMessage;
 import org.quiltmc.qsl.command.api.CommandRegistrationCallback;
+import org.quiltmc.qsl.networking.api.EntityTrackingEvents;
 import org.quiltmc.qsl.networking.api.ServerPlayConnectionEvents;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 
@@ -77,7 +79,12 @@ public class Arcanus implements ModInitializer {
 
 		CommandRegistrationCallback.EVENT.register(ArcanusCommands::init);
 
-		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> SyncStatusEffectPacket.send(handler.player, ArcanusStatusEffects.ANONYMITY, handler.player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY)));
+		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> SyncStatusEffectPacket.sendToAll(handler.player, ArcanusStatusEffects.ANONYMITY, handler.player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY)));
+
+		EntityTrackingEvents.START_TRACKING.register((trackedEntity, player) -> {
+			if(trackedEntity instanceof ServerPlayerEntity playerEntity)
+				SyncStatusEffectPacket.sendTo(player, playerEntity, ArcanusStatusEffects.ANONYMITY, playerEntity.hasStatusEffect(ArcanusStatusEffects.ANONYMITY));
+		});
 
 		QuiltChatEvents.CANCEL.register(EnumSet.of(QuiltMessageType.CHAT), abstractMessage -> {
 			PlayerEntity player = abstractMessage.getPlayer();

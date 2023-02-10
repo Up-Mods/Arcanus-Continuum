@@ -19,18 +19,26 @@ import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 public class SyncStatusEffectPacket {
 	public static final Identifier ID = Arcanus.id("sync_status_effect");
 
-	public static void send(ServerPlayerEntity player, StatusEffect status, boolean hasEffect) {
+	public static void sendToAll(ServerPlayerEntity player, StatusEffect status, boolean hasEffect) {
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeVarInt(player.getId());
-		buf.writeIdentifier(Registries.STATUS_EFFECT.getId(status));
+		buf.writeVarInt(Registries.STATUS_EFFECT.getRawId(status));
 		buf.writeBoolean(hasEffect);
 		ServerPlayNetworking.send(PlayerLookup.tracking(player), ID, buf);
+	}
+
+	public static void sendTo(ServerPlayerEntity receiver, ServerPlayerEntity player, StatusEffect status, boolean hasEffect) {
+		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+		buf.writeVarInt(player.getId());
+		buf.writeVarInt(Registries.STATUS_EFFECT.getRawId(status));
+		buf.writeBoolean(hasEffect);
+		ServerPlayNetworking.send(receiver, ID, buf);
 	}
 
 	@ClientOnly
 	public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender sender) {
 		int playerId = buf.readVarInt();
-		Identifier statusEffectId = buf.readIdentifier();
+		int statusEffectId = buf.readVarInt();
 		boolean hasEffect = buf.readBoolean();
 
 		client.execute(() -> {
