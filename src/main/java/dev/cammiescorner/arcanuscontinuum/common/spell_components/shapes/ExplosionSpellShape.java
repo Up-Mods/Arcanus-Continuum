@@ -22,6 +22,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -32,9 +33,11 @@ public class ExplosionSpellShape extends SpellShape {
 
 	@Override
 	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex) {
+		Entity sourceEntity = castSource != null ? castSource : caster;
 		world.emitGameEvent(caster, GameEvent.EXPLODE, new Vec3d(castFrom.getX(), castFrom.getY(), castFrom.getZ()));
 		Set<BlockPos> affectedBlocks = Sets.newHashSet();
 		int i = 16;
+		double potency = caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY);
 
 		for(int j = 0; j < i; ++j) {
 			for(int k = 0; k < i; ++k) {
@@ -81,15 +84,19 @@ public class ExplosionSpellShape extends SpellShape {
 		int s = MathHelper.floor(castFrom.getY() + 6 + 1);
 		int t = MathHelper.floor(castFrom.getZ() - 6 - 1);
 		int u = MathHelper.floor(castFrom.getZ() + 6 + 1);
-		List<Entity> list = world.getOtherEntities(caster, new Box(k, r, t, l, s, u));
+		List<Entity> list = world.getOtherEntities(caster, new Box(k, r, t, l, s, u)).stream().filter(entity -> entity instanceof LivingEntity).toList();
 
-		for(Entity entity : list)
-			for(SpellEffect effect : effects)
-				effect.effect(caster, world, new EntityHitResult(entity), effects, staffItem, stack, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
+		for(SpellEffect effect : new HashSet<>(effects)) {
+			if(effect.shouldTriggerOnceOnExplosion()) {
+				effect.effect(caster, world, new EntityHitResult(sourceEntity), effects, staffItem, stack, potency);
+				continue;
+			}
 
-		for(BlockPos blockPos : affectedBlocks)
-			for(SpellEffect effect : effects)
-				effect.effect(caster, world, new BlockHitResult(Vec3d.ofCenter(blockPos), Direction.UP, blockPos, true), effects, staffItem, stack, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
+			for(Entity entity : list)
+				effect.effect(caster, world, new EntityHitResult(entity), effects, staffItem, stack, potency);
+			for(BlockPos blockPos : affectedBlocks)
+				effect.effect(caster, world, new BlockHitResult(Vec3d.ofCenter(blockPos), Direction.UP, blockPos, true), effects, staffItem, stack, potency);
+		}
 
 		world.playSound(null, castFrom.getX(), castFrom.getY(), castFrom.getZ(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F, 1L);
 		world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, castFrom.getX(), castFrom.getY(), castFrom.getZ(), 1, 1, 0, 0, 1);

@@ -35,7 +35,7 @@ public class NecromancySpellEffect extends SpellEffect {
 
 				if(skeleton != null) {
 					skeleton.setPosition(target.getPos());
-					skeleton.setMaxHealth(20 * healthMultiplier);
+					skeleton.setMaxHealth(20 * healthMultiplier * potency);
 
 					if(caster != null)
 						skeleton.setOwner(caster);
@@ -51,5 +51,10 @@ public class NecromancySpellEffect extends SpellEffect {
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean shouldTriggerOnceOnExplosion() {
+		return true;
 	}
 }

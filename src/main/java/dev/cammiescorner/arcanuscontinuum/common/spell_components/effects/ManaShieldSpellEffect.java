@@ -39,4 +39,9 @@ public class ManaShieldSpellEffect extends SpellEffect {
 			world.spawnEntity(manaShield);
 		}
 	}
+
+	@Override
+	public boolean shouldTriggerOnceOnExplosion() {
+		return true;
+	}
 }

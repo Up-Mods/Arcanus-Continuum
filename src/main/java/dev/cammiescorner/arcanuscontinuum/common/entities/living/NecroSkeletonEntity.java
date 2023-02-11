@@ -136,7 +136,7 @@ public class NecroSkeletonEntity extends AbstractSkeletonEntity implements Smart
 	public BrainActivityGroup<NecroSkeletonEntity> getIdleTasks() {
 		return BrainActivityGroup.idleTasks(
 				new FirstApplicableBehaviour<NecroSkeletonEntity>(
-						new TargetOrRetaliate<>(),
+						new TargetOrRetaliate<>().isAllyIf(Entity::isTeammate),
 						new SetPlayerLookTarget<>(),
 						new SetRandomLookTarget<>(),
 						new FollowEntity<>().following(self -> {
