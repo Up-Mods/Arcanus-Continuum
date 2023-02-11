@@ -1,6 +1,8 @@
 package dev.cammiescorner.arcanuscontinuum.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.Tessellator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormats;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
@@ -26,6 +28,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
@@ -50,6 +53,7 @@ import java.util.function.Function;
 
 public class ArcanusClient implements ClientModInitializer {
 	private static final Identifier HUD_ELEMENTS = Arcanus.id("textures/gui/hud/mana_bar.png");
+	private static final Identifier STUN_OVERLAY = Arcanus.id("textures/gui/hud/stunned_vignette.png");
 	private static final Function<Identifier, RenderLayer> MAGIC_CIRCLES = Util.memoize(texture -> {
 		RenderPhase.Texture texturing = new RenderPhase.Texture(texture, false, false);
 
@@ -177,6 +181,8 @@ public class ArcanusClient implements ClientModInitializer {
 					i = (int) Math.ceil(width * (manaLock / maxMana));
 					DrawableHelper.drawTexture(matrices, x + (width - i), y + 5, width - i, 80, i, 23, 256, 256);
 				}
+
+				renderOverlay(STUN_OVERLAY, Math.min(1F, ArcanusComponents.getStunTimer(player) / 5F));
 			}
 		});
 	}
@@ -187,6 +193,30 @@ public class ArcanusClient implements ClientModInitializer {
 
 	public static RenderLayer getMagicCirclesTri(Identifier texture) {
 		return MAGIC_CIRCLES_TRI.apply(texture);
+	}
+
+	private void renderOverlay(Identifier texture, float opacity) {
+		MinecraftClient client = MinecraftClient.getInstance();
+		double scaledHeight = client.getWindow().getScaledHeight();
+		double scaledWidth = client.getWindow().getScaledWidth();
+
+		RenderSystem.disableDepthTest();
+		RenderSystem.depthMask(false);
+		RenderSystem.defaultBlendFunc();
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, opacity);
+		RenderSystem.setShaderTexture(0, texture);
+		Tessellator tessellator = Tessellator.getInstance();
+		BufferBuilder bufferBuilder = tessellator.getBufferBuilder();
+		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
+		bufferBuilder.vertex(0.0, scaledHeight, -90.0).uv(0.0F, 1.0F).next();
+		bufferBuilder.vertex(scaledWidth, scaledHeight, -90.0).uv(1.0F, 1.0F).next();
+		bufferBuilder.vertex(scaledWidth, 0.0, -90.0).uv(1.0F, 0.0F).next();
+		bufferBuilder.vertex(0.0, 0.0, -90.0).uv(0.0F, 0.0F).next();
+		tessellator.draw();
+		RenderSystem.depthMask(true);
+		RenderSystem.enableDepthTest();
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 	}
 
 	public static Vector3f RGBtoHSB(int r, int g, int b) {
