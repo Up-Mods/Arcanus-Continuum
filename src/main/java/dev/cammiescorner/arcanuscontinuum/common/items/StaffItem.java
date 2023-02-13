@@ -5,9 +5,7 @@ import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -89,16 +87,6 @@ public class StaffItem extends Item implements DyeableItem {
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		NbtCompound tag = stack.getSubNbt(Arcanus.MOD_ID);
 
-		int magicColour = getMagicColour(stack, switch(MinecraftClient.getInstance().player.getUuidAsString()) {
-			case "1b44461a-f605-4b29-a7a9-04e649d1981c" -> 0xff005a; // folly red
-			case "6147825f-5493-4154-87c5-5c03c6b0a7c2" -> 0xf2dd50; // lotus gold
-			case "63a8c63b-9179-4427-849a-55212e6008bf" -> 0x7cff7c; // moriya green
-			case "d5034857-9e8a-44cb-a6da-931caff5b838" -> 0xbd78ff; // upcraft pourble
-			default -> 0x68e1ff;
-		});
-		tooltip.add(Text.translatable("staff." + Arcanus.MOD_ID + ".magic_color", Text.literal(String.format("#%06X", magicColour)).styled(style -> style.withColor(magicColour))).formatted(Formatting.GRAY));
-		tooltip.add(Text.empty());
-
 		if(tag != null && !tag.isEmpty()) {
 			NbtList list = tag.getList("Spells", NbtElement.COMPOUND_TYPE);
 
@@ -110,7 +98,7 @@ public class StaffItem extends Item implements DyeableItem {
 					return;
 				}
 
-				MutableText text = Text.literal(spell.getName()).formatted(spell.getComponentGroups().get(0).shape() == SpellShape.EMPTY ? Formatting.GRAY : Formatting.GREEN);
+				MutableText text = Text.literal(spell.getName()).formatted(spell.getComponentGroups().get(0).isEmpty() ? Formatting.GRAY : Formatting.GREEN);
 				tooltip.add(text.append(Text.literal(" (").formatted(Formatting.DARK_GRAY)).append(Arcanus.getSpellPatternAsText(i).formatted(Formatting.GRAY)).append(Text.literal(")").formatted(Formatting.DARK_GRAY)));
 			}
 		}
@@ -126,8 +114,13 @@ public class StaffItem extends Item implements DyeableItem {
 		return slot == EquipmentSlot.MAINHAND ? attributeModifiers : super.getAttributeModifiers(slot);
 	}
 
-	public static int getMagicColour(ItemStack stack, int defaultColour) {
-		NbtCompound nbt = stack.getNbt();
-		return nbt != null && nbt.contains("MagicColor", NbtElement.NUMBER_TYPE) ? nbt.getInt("MagicColor") : defaultColour;
+	public static int getMagicColour(ItemStack stack, String playerUuid) {
+		return switch(playerUuid) {
+			case "1b44461a-f605-4b29-a7a9-04e649d1981c" -> 0xff005a; // folly red
+			case "6147825f-5493-4154-87c5-5c03c6b0a7c2" -> 0xf2dd50; // lotus gold
+			case "63a8c63b-9179-4427-849a-55212e6008bf" -> 0x7cff7c; // moriya green
+			case "d5034857-9e8a-44cb-a6da-931caff5b838" -> 0xbd78ff; // upcraft pourble
+			default -> 0x68e1ff;
+		};
 	}
 }

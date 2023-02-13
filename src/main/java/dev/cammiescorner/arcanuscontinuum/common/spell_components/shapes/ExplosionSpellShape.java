@@ -1,12 +1,10 @@
 package dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes;
 
 import com.google.common.collect.Sets;
-import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
-import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -32,16 +30,16 @@ public class ExplosionSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex) {
+	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		Entity sourceEntity = castSource != null ? castSource : caster;
+		float strength = 3.5F;
+
 		world.emitGameEvent(caster, GameEvent.EXPLODE, new Vec3d(castFrom.getX(), castFrom.getY(), castFrom.getZ()));
 		Set<BlockPos> affectedBlocks = Sets.newHashSet();
-		int i = 16;
-		double potency = caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY);
 
-		for(int j = 0; j < i; ++j) {
-			for(int k = 0; k < i; ++k) {
-				for(int l = 0; l < i; ++l) {
+		for(int j = 0; j < 16; ++j) {
+			for(int k = 0; k < 16; ++k) {
+				for(int l = 0; l < 16; ++l) {
 					if(j == 0 || j == 15 || k == 0 || k == 15 || l == 0 || l == 15) {
 						double d = j / 15F * 2F - 1F;
 						double e = k / 15F * 2F - 1F;
@@ -50,7 +48,7 @@ public class ExplosionSpellShape extends SpellShape {
 						d /= g;
 						e /= g;
 						f /= g;
-						float h = 3 * (0.7F + world.random.nextFloat() * 0.6F);
+						float h = strength * (0.7F + world.random.nextFloat() * 0.6F);
 						double m = castFrom.getX();
 						double n = castFrom.getY();
 						double o = castFrom.getZ();
@@ -78,28 +76,29 @@ public class ExplosionSpellShape extends SpellShape {
 			}
 		}
 
-		int k = MathHelper.floor(castFrom.getX() - 6 - 1);
-		int l = MathHelper.floor(castFrom.getX() + 6 + 1);
-		int r = MathHelper.floor(castFrom.getY() - 6 - 1);
-		int s = MathHelper.floor(castFrom.getY() + 6 + 1);
-		int t = MathHelper.floor(castFrom.getZ() - 6 - 1);
-		int u = MathHelper.floor(castFrom.getZ() + 6 + 1);
+		float f = strength * 2;
+		int k = MathHelper.floor(castFrom.getX() - f - 1);
+		int l = MathHelper.floor(castFrom.getX() + f + 1);
+		int r = MathHelper.floor(castFrom.getY() - f - 1);
+		int s = MathHelper.floor(castFrom.getY() + f + 1);
+		int t = MathHelper.floor(castFrom.getZ() - f - 1);
+		int u = MathHelper.floor(castFrom.getZ() + f + 1);
 		List<Entity> list = world.getOtherEntities(caster, new Box(k, r, t, l, s, u)).stream().filter(entity -> entity instanceof LivingEntity).toList();
 
 		for(SpellEffect effect : new HashSet<>(effects)) {
 			if(effect.shouldTriggerOnceOnExplosion()) {
-				effect.effect(caster, world, new EntityHitResult(sourceEntity), effects, staffItem, stack, potency);
+				effect.effect(caster, world, new EntityHitResult(sourceEntity), effects, stack, potency);
 				continue;
 			}
 
 			for(Entity entity : list)
-				effect.effect(caster, world, new EntityHitResult(entity), effects, staffItem, stack, potency);
+				effect.effect(caster, world, new EntityHitResult(entity), effects, stack, potency);
 			for(BlockPos blockPos : affectedBlocks)
-				effect.effect(caster, world, new BlockHitResult(Vec3d.ofCenter(blockPos), Direction.UP, blockPos, true), effects, staffItem, stack, potency);
+				effect.effect(caster, world, new BlockHitResult(Vec3d.ofCenter(blockPos), Direction.UP, blockPos, true), effects, stack, potency);
 		}
 
 		world.playSound(null, castFrom.getX(), castFrom.getY(), castFrom.getZ(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F, 1L);
 		world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, castFrom.getX(), castFrom.getY(), castFrom.getZ(), 1, 1, 0, 0, 1);
-		castNext(caster, castFrom, castSource, world, staffItem, stack, spellGroups, groupIndex);
+		castNext(caster, castFrom, castSource, world, stack, spellGroups, groupIndex, potency);
 	}
 }

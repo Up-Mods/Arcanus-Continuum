@@ -1,32 +1,37 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.magic;
 
-import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
+import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
-import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 public class MagicProjectileEntity extends PersistentProjectileEntity {
-	private SpellShape shape;
-	private StaffItem staffItem;
-	private ItemStack stack;
-	private List<SpellEffect> effects;
-	private List<SpellGroup> spellGroups;
+	private SpellShape shape = SpellShape.EMPTY;
+	private ItemStack stack = ItemStack.EMPTY;
+	private List<SpellEffect> effects = new ArrayList<>();
+	private List<SpellGroup> spellGroups = new ArrayList<>();
 	private int groupIndex;
+	private double potency;
 
 	public MagicProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
 		super(entityType, world);
@@ -42,11 +47,12 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 
 	@Override
 	protected void onEntityHit(EntityHitResult target) {
-		if(getOwner() instanceof LivingEntity caster && world instanceof ServerWorld server) {
+		if(world instanceof ServerWorld server) {
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, world, target, effects, staffItem, stack, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
+				effect.effect((LivingEntity) getOwner(), world, target, effects, stack, potency);
 
-			shape.castNext(caster, target.getPos(), target.getEntity(), server, staffItem, stack, spellGroups, groupIndex);
+			if(getOwner() instanceof LivingEntity caster)
+				shape.castNext(caster, target.getPos(), target.getEntity(), server, stack, spellGroups, groupIndex, potency);
 		}
 
 		super.onEntityHit(target);
@@ -57,13 +63,53 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 	protected void onBlockHit(BlockHitResult target) {
 		if(getOwner() instanceof LivingEntity caster && world instanceof ServerWorld server) {
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, world, target, effects, staffItem, stack, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
+				effect.effect(caster, world, target, effects, stack, potency);
 
-			shape.castNext(caster, target.getPos(), this, server, staffItem, stack, spellGroups, groupIndex);
+			shape.castNext(caster, target.getPos(), this, server, stack, spellGroups, groupIndex, potency);
 		}
 
 		super.onBlockHit(target);
 		kill();
+	}
+
+	@Override
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		effects.clear();
+		spellGroups.clear();
+
+		shape = (SpellShape) Arcanus.SPELL_COMPONENTS.get(new Identifier(tag.getString("SpellShape")));
+		stack = ItemStack.fromNbt(tag.getCompound("ItemStack"));
+		potency = tag.getDouble("Potency");
+		groupIndex = tag.getInt("GroupIndex");
+
+		NbtList effectList = tag.getList("Effects", NbtElement.STRING_TYPE);
+		NbtList groupsList = tag.getList("SpellGroups", NbtElement.COMPOUND_TYPE);
+
+		for(int i = 0; i < effectList.size(); i++)
+			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(new Identifier(effectList.getString(i))));
+		for(int i = 0; i < groupsList.size(); i++)
+			spellGroups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
+	}
+
+	@Override
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		NbtList effectList = new NbtList();
+		NbtList groupsList = new NbtList();
+
+		tag.putString("SpellShape", Arcanus.SPELL_COMPONENTS.getId(shape).toString());
+		tag.put("ItemStack", stack.writeNbt(new NbtCompound()));
+		tag.putDouble("Potency", potency);
+		tag.putInt("GroupIndex", groupIndex);
+
+		for(SpellEffect effect : effects)
+			effectList.add(NbtString.of(Arcanus.SPELL_COMPONENTS.getId(effect).toString()));
+		for(SpellGroup group : spellGroups)
+			groupsList.add(group.toNbt());
+
+		tag.put("Effects", effectList);
+		tag.put("SpellGroups", groupsList);
 	}
 
 	@Override
@@ -80,17 +126,17 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 		return shape;
 	}
 
-	public void setProperties(Entity caster, SpellShape shape, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, float speed, boolean noGravity) {
+	public void setProperties(Entity caster, SpellShape shape, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, double potency, float speed, boolean noGravity) {
 		setProperties(caster, caster.getPitch(), caster.getYaw(), 0F, speed, 1F);
 		setOwner(caster);
 		setPos(caster.getX(), caster.getEyeY(), caster.getZ());
 		setNoGravity(noGravity);
 		setDamage(0);
 		this.shape = shape;
-		this.staffItem = staffItem;
 		this.stack = stack;
 		this.effects = effects;
 		this.spellGroups = groups;
 		this.groupIndex = groupIndex;
+		this.potency = potency;
 	}
 }

@@ -12,11 +12,9 @@ import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
-import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Axis;
 import net.minecraft.util.math.MathHelper;
@@ -37,29 +35,11 @@ public class SpellPatternFeatureRenderer<T extends PlayerEntity, M extends Entit
 
 		ItemStack stack = player.getMainHandStack();
 		String playerUuid = player.getUuidAsString();
-		int colour = StaffItem.getMagicColour(stack, switch(playerUuid) {
-			case "1b44461a-f605-4b29-a7a9-04e649d1981c" -> 0xff005a; // folly red
-			case "6147825f-5493-4154-87c5-5c03c6b0a7c2" -> 0xf2dd50; // lotus gold
-			case "63a8c63b-9179-4427-849a-55212e6008bf" -> 0x7cff7c; // moriya green
-			case "d5034857-9e8a-44cb-a6da-931caff5b838" -> 0xbd78ff; // upcraft pourble
-			default -> 0x68e1ff;
-		});
+		int colour = StaffItem.getMagicColour(stack, playerUuid);
 
 		float r = (colour >> 16 & 255) / 255F;
 		float g = (colour >> 8 & 255) / 255F;
 		float b = (colour & 255) / 255F;
-
-		if(stack.getItem() instanceof StaffItem && stack.hasCustomName() && stack.getName().getString().equals("jeb_")) {
-			int m = 15;
-			int n = player.age / m + player.getId();
-			int o = DyeColor.values().length;
-			float f = ((player.age % m) + client.getTickDelta()) / 15F;
-			float[] fs = SheepEntity.getRgbColor(DyeColor.byId(n % o));
-			float[] gs = SheepEntity.getRgbColor(DyeColor.byId((n + 1) % o));
-			r = fs[0] * (1F - f) + gs[0] * f;
-			g = fs[1] * (1F - f) + gs[1] * f;
-			b = fs[2] * (1F - f) + gs[2] * f;
-		}
 
 		model.showMagicCircles(ArcanusComponents.getPattern(player));
 		model.first.roll += Math.toRadians(2);

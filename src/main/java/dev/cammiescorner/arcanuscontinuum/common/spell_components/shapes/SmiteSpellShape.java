@@ -1,12 +1,13 @@
 package dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
-import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.SmiteEntity;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,11 +20,9 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashSet;
 import java.util.List;
 
 public class SmiteSpellShape extends SpellShape {
-
 	private static final double MAX_RANGE = 100D;
 
 	public SmiteSpellShape(Weight weight, double manaCost, int coolDown, int minLevel) {
@@ -31,7 +30,7 @@ public class SmiteSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex) {
+	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		HitResult ray;
 		boolean hitDidConnect = true;
 
@@ -49,15 +48,17 @@ public class SmiteSpellShape extends SpellShape {
 			ray = BlockHitResult.createMissed(castFrom, Direction.UP, new BlockPos(castFrom));
 		}
 
-		Entity smite = null;
+		SmiteEntity smite = null;
 
 		if(hitDidConnect) {
-			// TODO spawn entity
-			//smite = ...
-			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, world, ray, effects, staffItem, stack, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
+			smite = ArcanusEntities.SMITE.create(world);
+
+			if(smite != null) {
+				smite.setProperties(caster, ray.getPos(), stack, effects, potency, StaffItem.getMagicColour(stack, caster.getUuidAsString()));
+				world.spawnEntity(smite);
+			}
 		}
 
-		castNext(caster, hitDidConnect ? ray.getPos() : castFrom, smite, world, staffItem, stack, spellGroups, groupIndex);
+		castNext(caster, hitDidConnect ? ray.getPos() : castFrom, smite, world, stack, spellGroups, groupIndex, potency);
 	}
 }

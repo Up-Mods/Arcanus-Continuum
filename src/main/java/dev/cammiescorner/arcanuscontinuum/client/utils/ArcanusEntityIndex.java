@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.client.utils;
 
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.ManaShieldEntity;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.SmiteEntity;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.function.AbortableIterationConsumer;
 import net.minecraft.world.entity.EntityIndex;
@@ -24,7 +25,7 @@ public class ArcanusEntityIndex<T extends EntityLike> extends EntityIndex<T> {
 
 	@Override
 	public Iterable<T> iterate() {
-		return StreamSupport.stream(delegate.iterate().spliterator(), false).sorted((o1, o2) -> o1 instanceof ManaShieldEntity ? o2 instanceof ManaShieldEntity ? 0 : 1 : -1).toList();
+		return StreamSupport.stream(delegate.iterate().spliterator(), false).sorted((o1, o2) -> o1 instanceof ManaShieldEntity || o1 instanceof SmiteEntity ? o2 instanceof ManaShieldEntity || o2 instanceof SmiteEntity ? 0 : 1 : -1).toList();
 	}
 
 	@Override

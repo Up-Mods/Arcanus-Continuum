@@ -2,11 +2,11 @@
 # The latest versions are available at https://lambdaurora.dev/tools/import_quilt.html
 minecraft = "1.19.3"
 quilt_mappings = "1.19.3+build.23"
-quilt_loader = "0.18.1-beta.74"
+quilt_loader = "0.18.1-beta.75"
 
 quilted_fabric_api = "5.0.0-beta.4+0.73.0-1.19.3"
 cca = "5.1.0"
-patchouli = "1.19.2-77-FABRIC"
+patchouli = "1.19.3-78-FABRIC"
 midnightlib = "1.1.0-quilt"
 blabber = "0.4.0"
 mixinextras = "0.1.1"

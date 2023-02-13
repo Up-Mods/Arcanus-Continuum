@@ -63,22 +63,22 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 		return Weight.values()[Math.round(cumulativeWeightIndex / ((float) effects.size() + 1F))];
 	}
 
-	public double getAverageManaCost() {
+	public double getManaCost() {
 		double cumulativeManaCost = shape().getManaCost();
 
 		for(SpellEffect effect : effects)
 			cumulativeManaCost += effect.getManaCost();
 
-		return cumulativeManaCost / (effects.size() + 1D);
+		return cumulativeManaCost;
 	}
 
-	public int getAverageCoolDown() {
+	public int getCoolDown() {
 		int cumulativeCoolDown = shape().getCoolDown();
 
 		for(SpellEffect effect : effects)
 			cumulativeCoolDown += effect.getCoolDown();
 
-		return Math.round(cumulativeCoolDown / ((float) effects.size() + 1F));
+		return cumulativeCoolDown;
 	}
 
 	public Stream<SpellComponent> getAllComponents() {

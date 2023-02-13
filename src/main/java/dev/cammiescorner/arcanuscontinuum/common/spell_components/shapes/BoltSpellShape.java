@@ -1,12 +1,10 @@
 package dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes;
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
-import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
-import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -32,7 +30,7 @@ public class BoltSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, StaffItem staffItem, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex) {
+	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		double range = ReachEntityAttributes.getAttackRange(caster, caster instanceof PlayerEntity player && player.isCreative() ? 5 : 4.5) * RANGE_MODIFIER;
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		Box box = new Box(castFrom.add(-range, -range, -range), castFrom.add(range, range, range));
@@ -49,16 +47,16 @@ public class BoltSpellShape extends SpellShape {
 
 		if(hit != null)
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, world, new EntityHitResult(hit), effects, staffItem, stack, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
+				effect.effect(caster, world, new EntityHitResult(hit), effects, stack, potency);
 		else {
 			HitResult target = ArcanusHelper.raycast(sourceEntity, range, false, true);
 
 			if(target.getType() == HitResult.Type.BLOCK)
 				for(SpellEffect effect : new HashSet<>(effects))
-					effect.effect(caster, world, target, effects, staffItem, stack, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
+					effect.effect(caster, world, target, effects, stack, potency);
 		}
 
-		castNext(caster, hit != null ? hit.getPos() : castFrom, castSource, world, staffItem, stack, spellGroups, groupIndex);
+		castNext(caster, hit != null ? hit.getPos() : castFrom, castSource, world, stack, spellGroups, groupIndex, potency);
 	}
 
 	@Nullable

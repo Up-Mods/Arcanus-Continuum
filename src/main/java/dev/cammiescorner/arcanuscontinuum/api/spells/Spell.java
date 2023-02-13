@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.api.spells;
 
+import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.common.components.KnownComponentsComponent;
-import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -63,10 +63,17 @@ public class Spell {
 		int averageWeightIndex = 0;
 
 		if(!groups.isEmpty()) {
-			for(SpellGroup component : groups)
-				averageWeightIndex += component.getAverageWeight().ordinal();
+			int i = 0;
 
-			averageWeightIndex = Math.round(averageWeightIndex / (float) groups.size());
+			for(SpellGroup group : groups) {
+				if(group.isEmpty())
+					continue;
+
+				averageWeightIndex += group.getAverageWeight().ordinal();
+				i++;
+			}
+
+			averageWeightIndex = Math.round(averageWeightIndex / (float) i);
 		}
 
 		return Weight.values()[averageWeightIndex];
@@ -74,39 +81,33 @@ public class Spell {
 
 	public double getManaCost() {
 		List<SpellGroup> groups = getComponentGroups();
-		double averageManaCost = 0;
+		double manaCost = 0;
 
-		if(!groups.isEmpty()) {
-			for(SpellGroup group : groups)
-				averageManaCost += group.getAverageManaCost();
+		for(SpellGroup group : groups)
+			manaCost += group.getManaCost();
 
-			averageManaCost /= groups.size();
-		}
-
-		return averageManaCost;
+		return manaCost;
 	}
 
 	public int getCoolDown() {
 		List<SpellGroup> groups = getComponentGroups();
-		int averageCoolDown = 0;
+		int coolDown = 0;
 
-		if(!groups.isEmpty()) {
+		if(!groups.isEmpty())
 			for(SpellGroup group : groups)
-				averageCoolDown += group.getAverageCoolDown();
+				coolDown += group.getCoolDown();
 
-			averageCoolDown /= groups.size();
-		}
-
-		return averageCoolDown;
+		return coolDown;
 	}
 
 	public Stream<SpellComponent> components() {
 		return groups.stream().flatMap(SpellGroup::getAllComponents);
 	}
 
-	public void cast(LivingEntity caster, ServerWorld world, StaffItem staff, ItemStack stack) {
+	public void cast(LivingEntity caster, ServerWorld world, ItemStack stack) {
 		List<SpellGroup> groups = getComponentGroups();
-		if (groups.isEmpty())
+
+		if(groups.isEmpty())
 			return;
 
 		// Add all components to the caster's known components
@@ -115,6 +116,6 @@ public class Spell {
 
 		// start casting the spell
 		SpellGroup firstGroup = groups.get(0);
-		firstGroup.shape().cast(caster, caster.getPos(), caster, world, staff, stack, firstGroup.effects(), groups, 0);
+		firstGroup.shape().cast(caster, caster.getPos(), caster, world, stack, firstGroup.effects(), groups, 0, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
 	}
 }

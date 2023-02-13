@@ -19,6 +19,7 @@ import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.OpossumE
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.WizardEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic.MagicProjectileEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic.ManaShieldEntityRenderer;
+import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic.SmiteEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.item.StaffItemRenderer;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStatusEffectPacket;
@@ -70,6 +71,7 @@ public class ArcanusClient implements ClientModInitializer {
 						.overlay(RenderPhase.ENABLE_OVERLAY_COLOR)
 						.transparency(RenderLayer.ADDITIVE_TRANSPARENCY)
 						.writeMaskState(RenderLayer.ALL_MASK)
+						.cull(RenderPhase.DISABLE_CULLING)
 						.build(false)
 		);
 	});
@@ -112,6 +114,7 @@ public class ArcanusClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ArcanusEntities.NECRO_SKELETON, SkeletonEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.MANA_SHIELD, ManaShieldEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.MAGIC_PROJECTILE, MagicProjectileEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.SMITE, SmiteEntityRenderer::new);
 
 		BlockRenderLayerMap.put(RenderLayer.getCutout(), ArcanusBlocks.MAGIC_DOOR);
 		BlockEntityRendererFactories.register(ArcanusBlockEntities.MAGIC_BLOCK, MagicBlockEntityRenderer::new);
@@ -147,6 +150,15 @@ public class ArcanusClient implements ClientModInitializer {
 			PlayerEntity player = client.player;
 
 			if(player != null && !player.isSpectator()) {
+				int stunTimer = ArcanusComponents.getStunTimer(player);
+
+				if(stunTimer > 0) {
+					if(stunTimer > 5)
+						renderOverlay(STUN_OVERLAY, Math.min(1F, 0.5F + (stunTimer % 5F) / 10F));
+					else
+						renderOverlay(STUN_OVERLAY, Math.min(1F, stunTimer / 5F));
+				}
+
 				double maxMana = ArcanusComponents.getMaxMana(player);
 				double mana = ArcanusComponents.getMana(player);
 				double burnout = ArcanusComponents.getBurnout(player);
@@ -181,8 +193,6 @@ public class ArcanusClient implements ClientModInitializer {
 					i = (int) Math.ceil(width * (manaLock / maxMana));
 					DrawableHelper.drawTexture(matrices, x + (width - i), y + 5, width - i, 80, i, 23, 256, 256);
 				}
-
-				renderOverlay(STUN_OVERLAY, Math.min(1F, ArcanusComponents.getStunTimer(player) / 5F));
 			}
 		});
 	}

@@ -30,8 +30,8 @@ dependencies {
 	modImplementation libs.quilted.fabric.api
 	modImplementation libs.cca.base
 	modImplementation libs.cca.entity
-//	modImplementation libs.patchouli
-//	modImplementation libs.midnightlib
+	modImplementation libs.patchouli
+	modImplementation libs.midnightlib
 //	modImplementation libs.blabber
 	modImplementation libs.reach.attr
 	modImplementation libs.modmenu

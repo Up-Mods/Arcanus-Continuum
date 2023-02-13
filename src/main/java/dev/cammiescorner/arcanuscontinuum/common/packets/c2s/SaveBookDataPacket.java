@@ -49,7 +49,7 @@ public class SaveBookDataPacket {
 			if(world.getBlockEntity(pos) instanceof LecternBlockEntity lectern && lectern.getBook().getItem() instanceof SpellBookItem) {
 				ItemStack stack = lectern.getBook();
 
-				if(groups.get(0).effects().isEmpty() && groups.size() > 1 && !groups.get(1).effects().isEmpty())
+				if(groups.get(0).isEmpty() && groups.size() > 1 && !groups.get(1).isEmpty())
 					groups.remove(0);
 
 				stack.getOrCreateNbt().put("Spell", new Spell(groups, newSpellName).toNbt());
