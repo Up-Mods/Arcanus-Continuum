@@ -22,7 +22,7 @@ public abstract class SpellShape extends SpellComponent {
 
 	public abstract void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency);
 
-	public final void castNext(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public static void castNext(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		if(spellGroups.size() <= groupIndex + 1)
 			return;
 

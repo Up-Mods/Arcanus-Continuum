@@ -6,7 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 
 public class MagicColourComponent implements AutoSyncedComponent {
-	private Entity entity;
+	private final Entity entity;
 	private int colour = 0x68e1ff;
 
 	public MagicColourComponent(Entity entity) {

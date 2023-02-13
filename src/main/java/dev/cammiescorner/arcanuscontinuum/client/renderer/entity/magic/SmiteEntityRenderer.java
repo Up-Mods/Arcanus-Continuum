@@ -37,7 +37,7 @@ public class SmiteEntityRenderer extends EntityRenderer<SmiteEntity> {
 		float squaredLength = x * x + y * y + z * z;
 		float length = MathHelper.sqrt(squaredLength);
 		float ageDelta = (entity.age - 1) + tickDelta;
-		float scale = ageDelta < 3 ? (ageDelta) / 3F : ageDelta > 9 ? 1 - ((ageDelta - 9F) / 15F) : 1F;
+		float scale = MathHelper.clamp(ageDelta < 3 ? (ageDelta) / 3F : ageDelta > 9 ? 1 - ((ageDelta - 9F) / 15F) : 1F, 0F, 1F);
 		float alpha = ageDelta < 3 ? 1 : MathHelper.clamp(1 - ((ageDelta - 3) / 23F), 0, 1);
 		float r = ((colour >> 16 & 255) / 255F) * alpha;
 		float g = ((colour >> 8 & 255) / 255F) * alpha;

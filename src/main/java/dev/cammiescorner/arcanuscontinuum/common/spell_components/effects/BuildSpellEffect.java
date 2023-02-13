@@ -36,7 +36,7 @@ public class BuildSpellEffect extends SpellEffect {
 				world.scheduleBlockTick(pos, world.getBlockState(pos).getBlock(), (int) (220 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.BUILD).count() * potency));
 
 				if(world.getBlockEntity(pos) instanceof MagicBlockEntity magicBlock && caster != null)
-					magicBlock.setColour(StaffItem.getMagicColour(stack, caster.getUuidAsString()));
+					magicBlock.setColour(StaffItem.getMagicColour(caster.getUuidAsString()));
 			}
 		}
 	}

@@ -41,14 +41,12 @@ public class ManaShieldEntity extends Entity {
 
 	@Override
 	protected void readCustomDataFromNbt(NbtCompound tag) {
-		ArcanusComponents.MAGIC_COLOUR.get(this).readFromNbt(tag);
 		dataTracker.set(MAX_AGE, tag.getInt("MaxAge"));
 		dataTracker.set(TRUE_AGE, tag.getInt("TrueAge"));
 	}
 
 	@Override
 	protected void writeCustomDataToNbt(NbtCompound tag) {
-		ArcanusComponents.MAGIC_COLOUR.get(this).writeToNbt(tag);
 		tag.putInt("MaxAge", getMaxAge());
 		tag.putInt("TrueAge", getTrueAge());
 	}
@@ -75,11 +73,11 @@ public class ManaShieldEntity extends Entity {
 	}
 
 	public int getColour() {
-		return ArcanusComponents.MAGIC_COLOUR.get(this).getColour();
+		return ArcanusComponents.getColour(this);
 	}
 
 	public void setColour(int colour) {
-		ArcanusComponents.MAGIC_COLOUR.get(this).setColour(colour);
+		ArcanusComponents.setColour(this, colour);
 	}
 
 	public void setProperties(Vec3d pos, int colour, int maxAge) {

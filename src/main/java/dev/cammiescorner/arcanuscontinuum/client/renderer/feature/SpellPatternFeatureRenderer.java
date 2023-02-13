@@ -35,7 +35,7 @@ public class SpellPatternFeatureRenderer<T extends PlayerEntity, M extends Entit
 
 		ItemStack stack = player.getMainHandStack();
 		String playerUuid = player.getUuidAsString();
-		int colour = StaffItem.getMagicColour(stack, playerUuid);
+		int colour = StaffItem.getMagicColour(playerUuid);
 
 		float r = (colour >> 16 & 255) / 255F;
 		float g = (colour >> 8 & 255) / 255F;

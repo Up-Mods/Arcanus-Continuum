@@ -1,4 +1,5 @@
 accessWidener    v1	       named
 accessible       class     net/minecraft/client/render/RenderLayer$MultiPhaseParameters
 accessible       class     net/minecraft/client/render/RenderPhase$Texture
-extendable       method    net/minecraft/entity/mob/AbstractSkeletonEntity                 getStepSound    ()Lnet/minecraft/sound/SoundEvent;
+accessible       class     net/minecraft/client/render/RenderPhase$OffsetTexturing
+extendable       method    net/minecraft/entity/mob/AbstractSkeletonEntity    getStepSound    ()Lnet/minecraft/sound/SoundEvent;

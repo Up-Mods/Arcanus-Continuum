@@ -114,7 +114,7 @@ public class StaffItem extends Item implements DyeableItem {
 		return slot == EquipmentSlot.MAINHAND ? attributeModifiers : super.getAttributeModifiers(slot);
 	}
 
-	public static int getMagicColour(ItemStack stack, String playerUuid) {
+	public static int getMagicColour(String playerUuid) {
 		return switch(playerUuid) {
 			case "1b44461a-f605-4b29-a7a9-04e649d1981c" -> 0xff005a; // folly red
 			case "6147825f-5493-4154-87c5-5c03c6b0a7c2" -> 0xf2dd50; // lotus gold

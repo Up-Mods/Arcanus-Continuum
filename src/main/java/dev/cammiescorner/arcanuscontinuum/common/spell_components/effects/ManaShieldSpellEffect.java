@@ -27,7 +27,7 @@ public class ManaShieldSpellEffect extends SpellEffect {
 			ManaShieldEntity manaShield = new ManaShieldEntity(ArcanusEntities.MANA_SHIELD, world);
 
 			if(caster != null) {
-				manaShield.setProperties(target.getPos().add(0, -0.7, 0), StaffItem.getMagicColour(stack, caster.getUuidAsString()), (int) ((100 + 40 * (effects.stream().filter(effect -> effect == ArcanusSpellComponents.MANA_SHIELD).count() - 1)) * potency));
+				manaShield.setProperties(target.getPos().add(0, -0.7, 0), StaffItem.getMagicColour(caster.getUuidAsString()), (int) ((100 + 40 * (effects.stream().filter(effect -> effect == ArcanusSpellComponents.MANA_SHIELD).count() - 1)) * potency));
 			}
 
 			world.spawnEntity(manaShield);

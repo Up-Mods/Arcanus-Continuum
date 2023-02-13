@@ -9,6 +9,8 @@ import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.gui.screens.SpellBookScreen;
 import dev.cammiescorner.arcanuscontinuum.client.gui.screens.SpellcraftScreen;
 import dev.cammiescorner.arcanuscontinuum.client.models.armour.WizardArmourModel;
+import dev.cammiescorner.arcanuscontinuum.client.models.entity.MagicLobEntityModel;
+import dev.cammiescorner.arcanuscontinuum.client.models.entity.MagicRuneEntityModel;
 import dev.cammiescorner.arcanuscontinuum.client.models.entity.OpossumEntityModel;
 import dev.cammiescorner.arcanuscontinuum.client.models.entity.WizardEntityModel;
 import dev.cammiescorner.arcanuscontinuum.client.models.feature.LotusHaloModel;
@@ -18,6 +20,7 @@ import dev.cammiescorner.arcanuscontinuum.client.renderer.block.MagicBlockEntity
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.OpossumEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.WizardEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic.MagicProjectileEntityRenderer;
+import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic.MagicRuneEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic.ManaShieldEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic.SmiteEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.item.StaffItemRenderer;
@@ -42,7 +45,6 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
 import org.joml.Vector3f;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
@@ -50,51 +52,9 @@ import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
 import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 import org.quiltmc.qsl.resource.loader.api.ResourceLoader;
 
-import java.util.function.Function;
-
 public class ArcanusClient implements ClientModInitializer {
 	private static final Identifier HUD_ELEMENTS = Arcanus.id("textures/gui/hud/mana_bar.png");
 	private static final Identifier STUN_OVERLAY = Arcanus.id("textures/gui/hud/stunned_vignette.png");
-	private static final Function<Identifier, RenderLayer> MAGIC_CIRCLES = Util.memoize(texture -> {
-		RenderPhase.Texture texturing = new RenderPhase.Texture(texture, false, false);
-
-		return RenderLayer.of(
-				Arcanus.id("magic_circle").toString(),
-				VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL,
-				VertexFormat.DrawMode.QUADS,
-				256,
-				false,
-				true,
-				RenderLayer.MultiPhaseParameters.builder()
-						.shader(RenderLayer.ENTITY_TRANSLUCENT_EMISSIVE_SHADER)
-						.texture(texturing)
-						.overlay(RenderPhase.ENABLE_OVERLAY_COLOR)
-						.transparency(RenderLayer.ADDITIVE_TRANSPARENCY)
-						.writeMaskState(RenderLayer.ALL_MASK)
-						.cull(RenderPhase.DISABLE_CULLING)
-						.build(false)
-		);
-	});
-	private static final Function<Identifier, RenderLayer> MAGIC_CIRCLES_TRI = Util.memoize(texture -> {
-		RenderPhase.Texture texturing = new RenderPhase.Texture(texture, false, false);
-
-		return RenderLayer.of(
-				Arcanus.id("magic_circle_tri").toString(),
-				VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL,
-				VertexFormat.DrawMode.TRIANGLES,
-				256,
-				false,
-				true,
-				RenderLayer.MultiPhaseParameters.builder()
-						.shader(RenderLayer.ENTITY_TRANSLUCENT_EMISSIVE_SHADER)
-						.texture(texturing)
-						.overlay(RenderPhase.ENABLE_OVERLAY_COLOR)
-						.transparency(RenderLayer.ADDITIVE_TRANSPARENCY)
-						.writeMaskState(RenderLayer.ALL_MASK)
-						.cull(RenderPhase.DISABLE_CULLING)
-						.build(false)
-		);
-	});
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
@@ -104,6 +64,8 @@ public class ArcanusClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(WizardArmourModel.MODEL_LAYER, WizardArmourModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(WizardEntityModel.MODEL_LAYER, WizardEntityModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(OpossumEntityModel.MODEL_LAYER, OpossumEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(MagicLobEntityModel.MODEL_LAYER, MagicLobEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(MagicRuneEntityModel.MODEL_LAYER, MagicRuneEntityModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(SpellPatternModel.MODEL_LAYER, SpellPatternModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(LotusHaloModel.MODEL_LAYER, LotusHaloModel::getTexturedModelData);
 
@@ -115,6 +77,7 @@ public class ArcanusClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ArcanusEntities.MANA_SHIELD, ManaShieldEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.MAGIC_PROJECTILE, MagicProjectileEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.SMITE, SmiteEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.MAGIC_RUNE, MagicRuneEntityRenderer::new);
 
 		BlockRenderLayerMap.put(RenderLayer.getCutout(), ArcanusBlocks.MAGIC_DOOR);
 		BlockEntityRendererFactories.register(ArcanusBlockEntities.MAGIC_BLOCK, MagicBlockEntityRenderer::new);
@@ -198,11 +161,41 @@ public class ArcanusClient implements ClientModInitializer {
 	}
 
 	public static RenderLayer getMagicCircles(Identifier texture) {
-		return MAGIC_CIRCLES.apply(texture);
+		return RenderLayer.of(
+				Arcanus.id("magic_circle").toString(),
+				VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL,
+				VertexFormat.DrawMode.QUADS,
+				256,
+				false,
+				true,
+				RenderLayer.MultiPhaseParameters.builder()
+						.shader(RenderLayer.ENTITY_TRANSLUCENT_EMISSIVE_SHADER)
+						.texture(new RenderPhase.Texture(texture, false, false))
+						.overlay(RenderPhase.ENABLE_OVERLAY_COLOR)
+						.transparency(RenderLayer.ADDITIVE_TRANSPARENCY)
+						.writeMaskState(RenderLayer.ALL_MASK)
+						.cull(RenderPhase.DISABLE_CULLING)
+						.build(false)
+		);
 	}
 
 	public static RenderLayer getMagicCirclesTri(Identifier texture) {
-		return MAGIC_CIRCLES_TRI.apply(texture);
+		return RenderLayer.of(
+				Arcanus.id("magic_circle_tri").toString(),
+				VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL,
+				VertexFormat.DrawMode.TRIANGLES,
+				256,
+				false,
+				true,
+				RenderLayer.MultiPhaseParameters.builder()
+						.shader(RenderLayer.ENTITY_TRANSLUCENT_EMISSIVE_SHADER)
+						.texture(new RenderPhase.Texture(texture, false, false))
+						.overlay(RenderPhase.ENABLE_OVERLAY_COLOR)
+						.transparency(RenderLayer.ADDITIVE_TRANSPARENCY)
+						.writeMaskState(RenderLayer.ALL_MASK)
+						.cull(RenderPhase.DISABLE_CULLING)
+						.build(false)
+		);
 	}
 
 	private void renderOverlay(Identifier texture, float opacity) {

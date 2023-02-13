@@ -55,13 +55,6 @@ public class SmiteEntity extends Entity {
 		super.tick();
 	}
 
-	private LivingEntity getCaster() {
-		if(world instanceof ServerWorld serverWorld && serverWorld.getEntity(casterId) instanceof LivingEntity caster)
-			return caster;
-
-		return null;
-	}
-
 	@Override
 	protected void initDataTracker() {
 
@@ -103,8 +96,15 @@ public class SmiteEntity extends Entity {
 		tag.put("HasHit", entityList);
 	}
 
+	private LivingEntity getCaster() {
+		if(world instanceof ServerWorld serverWorld && serverWorld.getEntity(casterId) instanceof LivingEntity caster)
+			return caster;
+
+		return null;
+	}
+
 	public int getColour() {
-		return ArcanusComponents.MAGIC_COLOUR.get(this).getColour();
+		return ArcanusComponents.getColour(this);
 	}
 
 	public void setProperties(LivingEntity caster, Vec3d pos, ItemStack stack, List<SpellEffect> effects, double potency, int colour) {
@@ -114,6 +114,6 @@ public class SmiteEntity extends Entity {
 		this.stack = stack;
 		this.effects = effects;
 		this.potency = potency;
-		ArcanusComponents.MAGIC_COLOUR.get(this).setColour(colour);
+		ArcanusComponents.setColour(this, colour);
 	}
 }

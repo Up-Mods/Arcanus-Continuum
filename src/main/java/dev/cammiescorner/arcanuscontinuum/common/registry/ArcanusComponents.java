@@ -3,7 +3,11 @@ package dev.cammiescorner.arcanuscontinuum.common.registry;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.common.components.*;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicProjectileEntity;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicRuneEntity;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.ManaShieldEntity;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.SmiteEntity;
 import dev.onyxstudios.cca.api.v3.component.Component;
@@ -12,8 +16,10 @@ import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
@@ -30,6 +36,7 @@ public class ArcanusComponents implements EntityComponentInitializer {
 	public static final ComponentKey<StunComponent> STUN_COMPONENT = createComponent("stun", StunComponent.class);
 	public static final ComponentKey<QuestComponent> QUEST_COMPONENT = createComponent("quests", QuestComponent.class);
 	public static final ComponentKey<MagicColourComponent> MAGIC_COLOUR = createComponent("magic_colour", MagicColourComponent.class);
+	public static final ComponentKey<BeamTargetComponent> BEAM_TARGET = createComponent("beam_target", BeamTargetComponent.class);
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
@@ -44,6 +51,9 @@ public class ArcanusComponents implements EntityComponentInitializer {
 		registry.beginRegistration(PlayerEntity.class, QUEST_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(QuestComponent::new);
 		registry.beginRegistration(ManaShieldEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
 		registry.beginRegistration(SmiteEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
+		registry.beginRegistration(MagicRuneEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
+		registry.beginRegistration(MagicProjectileEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
+		registry.beginRegistration(LivingEntity.class, BEAM_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BeamTargetComponent::new);
 	}
 
 	private static <T extends Component> ComponentKey<T> createComponent(String name, Class<T> component) {
@@ -186,5 +196,25 @@ public class ArcanusComponents implements EntityComponentInitializer {
 
 	public static void setLastCompletedQuestTime(PlayerEntity player, long time) {
 		QUEST_COMPONENT.get(player).setLastCompletedQuestTime(time);
+	}
+
+	public static int getColour(Entity entity) {
+		return MAGIC_COLOUR.get(entity).getColour();
+	}
+
+	public static void setColour(Entity entity, int colour) {
+		MAGIC_COLOUR.get(entity).setColour(colour);
+	}
+
+	public static int getTimer(LivingEntity entity) {
+		return BEAM_TARGET.get(entity).getTimer();
+	}
+
+	public static void setTimer(LivingEntity entity, int timer) {
+		BEAM_TARGET.get(entity).setTimer(timer);
+	}
+
+	public static void setProperties(LivingEntity entity, LivingEntity caster, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, double potency, int timer) {
+		BEAM_TARGET.get(entity).setProperties(caster, stack, effects, groups, groupIndex, potency, timer);
 	}
 }

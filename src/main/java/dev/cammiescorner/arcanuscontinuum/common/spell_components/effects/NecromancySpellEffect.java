@@ -39,11 +39,7 @@ public class NecromancySpellEffect extends SpellEffect {
 					if(caster != null)
 						skeleton.setOwner(caster);
 
-					if(skeleton.getRandom().nextDouble() < 0.25)
-						skeleton.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-					else
-						skeleton.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
-
+					skeleton.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
 					skeleton.equipStack(EquipmentSlot.HEAD, new ItemStack(ArcanusItems.WIZARD_HAT));
 
 					world.spawnEntity(skeleton);

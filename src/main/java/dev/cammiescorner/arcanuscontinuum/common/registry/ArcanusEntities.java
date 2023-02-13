@@ -5,6 +5,7 @@ import dev.cammiescorner.arcanuscontinuum.common.entities.living.NecroSkeletonEn
 import dev.cammiescorner.arcanuscontinuum.common.entities.living.OpossumEntity;
 import dev.cammiescorner.arcanuscontinuum.common.entities.living.WizardEntity;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicProjectileEntity;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicRuneEntity;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.ManaShieldEntity;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.SmiteEntity;
 import net.minecraft.entity.Entity;
@@ -28,6 +29,7 @@ public class ArcanusEntities {
 	public static final EntityType<ManaShieldEntity> MANA_SHIELD = create("mana_shield", QuiltEntityTypeBuilder.create().entityFactory(ManaShieldEntity::new).setDimensions(EntityDimensions.fixed(4F, 4F)).build());
 	public static final EntityType<MagicProjectileEntity> MAGIC_PROJECTILE = create("magic_projectile", QuiltEntityTypeBuilder.create().entityFactory(MagicProjectileEntity::new).setDimensions(EntityDimensions.fixed(0.6F, 0.6F)).build());
 	public static final EntityType<SmiteEntity> SMITE = create("smite", QuiltEntityTypeBuilder.create().entityFactory(SmiteEntity::new).setDimensions(EntityDimensions.fixed(4F, 4F)).build());
+	public static final EntityType<MagicRuneEntity> MAGIC_RUNE = create("magic_rune", QuiltEntityTypeBuilder.create().entityFactory(MagicRuneEntity::new).setDimensions(EntityDimensions.fixed(1F, 0.125F)).build());
 
 	//-----Registry-----//
 	public static void register() {

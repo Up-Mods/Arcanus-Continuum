@@ -71,6 +71,7 @@
 		"arcanuscontinuum:known_components",
 		"arcanuscontinuum:stun",
 		"arcanuscontinuum:quests",
-		"arcanuscontinuum:magic_colour"
+		"arcanuscontinuum:magic_colour",
+		"arcanuscontinuum:beam_target"
 	]
 }

@@ -4,6 +4,9 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicRuneEntity;
+import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -21,6 +24,11 @@ public class RuneSpellShape extends SpellShape {
 
 	@Override
 	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
-		// TODO entity
+		MagicRuneEntity magicRune = ArcanusEntities.MAGIC_RUNE.create(world);
+
+		if(magicRune != null) {
+			magicRune.setProperties(caster, castFrom, stack, effects, potency, spellGroups, groupIndex, StaffItem.getMagicColour(caster.getUuidAsString()));
+			world.spawnEntity(magicRune);
+		}
 	}
 }

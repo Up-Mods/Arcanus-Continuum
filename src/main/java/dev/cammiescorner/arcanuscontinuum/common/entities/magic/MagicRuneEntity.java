@@ -5,84 +5,75 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.Util;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 
-public class MagicProjectileEntity extends PersistentProjectileEntity {
-	private SpellShape shape = SpellShape.EMPTY;
+public class MagicRuneEntity extends Entity {
+	private UUID casterId = Util.NIL_UUID;
 	private ItemStack stack = ItemStack.EMPTY;
 	private List<SpellEffect> effects = new ArrayList<>();
 	private List<SpellGroup> spellGroups = new ArrayList<>();
 	private int groupIndex;
 	private double potency;
 
-	public MagicProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
-		super(entityType, world);
+	public MagicRuneEntity(EntityType<?> variant, World world) {
+		super(variant, world);
 	}
 
 	@Override
 	public void tick() {
-		if(shape == ArcanusSpellComponents.PROJECTILE && age >= 20)
-			kill();
+		if(world instanceof ServerWorld serverWorld && age > 60) {
+			LivingEntity entity = world.getClosestEntity(LivingEntity.class, TargetPredicate.createNonAttackable().setPredicate(LivingEntity::isAlive), null, getX(), getY(), getZ(), new Box(-0.5, 0, -0.5, 0.5, 0.2, 0.5).offset(getPos()));
+
+			if(entity != null) {
+				for(SpellEffect effect : new HashSet<>(effects))
+					effect.effect(getCaster(), world, new EntityHitResult(entity), effects, stack, potency);
+
+				SpellShape.castNext(getCaster(), getPos(), this, serverWorld, stack, spellGroups, groupIndex, potency);
+				kill();
+			}
+		}
 
 		super.tick();
 	}
 
 	@Override
-	protected void onEntityHit(EntityHitResult target) {
-		if(world instanceof ServerWorld server) {
-			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect((LivingEntity) getOwner(), world, target, effects, stack, potency);
-
-			if(getOwner() instanceof LivingEntity caster)
-				SpellShape.castNext(caster, target.getPos(), target.getEntity(), server, stack, spellGroups, groupIndex, potency);
-		}
-
-		super.onEntityHit(target);
-		kill();
+	public boolean collidesWith(Entity other) {
+		return super.collidesWith(other);
 	}
 
 	@Override
-	protected void onBlockHit(BlockHitResult target) {
-		if(getOwner() instanceof LivingEntity caster && world instanceof ServerWorld server) {
-			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, world, target, effects, stack, potency);
+	protected void initDataTracker() {
 
-			SpellShape.castNext(caster, target.getPos(), this, server, stack, spellGroups, groupIndex, potency);
-		}
-
-		super.onBlockHit(target);
-		kill();
 	}
 
 	@Override
-	public void readCustomDataFromNbt(NbtCompound tag) {
-		super.readCustomDataFromNbt(tag);
+	protected void readCustomDataFromNbt(NbtCompound tag) {
 		effects.clear();
 		spellGroups.clear();
 
-		shape = (SpellShape) Arcanus.SPELL_COMPONENTS.get(new Identifier(tag.getString("SpellShape")));
+		casterId = tag.getUuid("CasterId");
 		stack = ItemStack.fromNbt(tag.getCompound("ItemStack"));
 		potency = tag.getDouble("Potency");
-		groupIndex = tag.getInt("GroupIndex");
 
 		NbtList effectList = tag.getList("Effects", NbtElement.STRING_TYPE);
 		NbtList groupsList = tag.getList("SpellGroups", NbtElement.COMPOUND_TYPE);
@@ -94,15 +85,13 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 	}
 
 	@Override
-	public void writeCustomDataToNbt(NbtCompound tag) {
-		super.writeCustomDataToNbt(tag);
+	protected void writeCustomDataToNbt(NbtCompound tag) {
 		NbtList effectList = new NbtList();
 		NbtList groupsList = new NbtList();
 
-		tag.putString("SpellShape", Arcanus.SPELL_COMPONENTS.getId(shape).toString());
+		tag.putUuid("CasterId", casterId);
 		tag.put("ItemStack", stack.writeNbt(new NbtCompound()));
 		tag.putDouble("Potency", potency);
-		tag.putInt("GroupIndex", groupIndex);
 
 		for(SpellEffect effect : effects)
 			effectList.add(NbtString.of(Arcanus.SPELL_COMPONENTS.getId(effect).toString()));
@@ -113,31 +102,22 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 		tag.put("SpellGroups", groupsList);
 	}
 
-	@Override
-	protected SoundEvent getHitSound() {
-		return super.getHitSound();
-	}
+	private LivingEntity getCaster() {
+		if(world instanceof ServerWorld serverWorld && serverWorld.getEntity(casterId) instanceof LivingEntity caster)
+			return caster;
 
-	@Override
-	protected ItemStack asItemStack() {
-		return ItemStack.EMPTY;
-	}
-
-	public SpellShape getShape() {
-		return shape;
+		return null;
 	}
 
 	public int getColour() {
 		return ArcanusComponents.getColour(this);
 	}
 
-	public void setProperties(Entity caster, SpellShape shape, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, double potency, float speed, boolean noGravity, int colour) {
-		setProperties(caster, caster.getPitch(), caster.getYaw(), 0F, speed, 1F);
-		setOwner(caster);
-		setPos(caster.getX(), caster.getEyeY(), caster.getZ());
-		setNoGravity(noGravity);
-		setDamage(0);
-		this.shape = shape;
+	public void setProperties(LivingEntity caster, Vec3d pos, ItemStack stack, List<SpellEffect> effects, double potency, List<SpellGroup> groups, int groupIndex, int colour) {
+		setPos(pos.getX(), pos.getY(), pos.getZ());
+		setNoGravity(true);
+		this.setPitch(-90);
+		this.casterId = caster.getUuid();
 		this.stack = stack;
 		this.effects = effects;
 		this.spellGroups = groups;

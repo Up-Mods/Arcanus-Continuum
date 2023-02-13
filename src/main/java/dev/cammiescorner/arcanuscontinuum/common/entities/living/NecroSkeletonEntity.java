@@ -16,7 +16,6 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BowItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -29,12 +28,10 @@ import net.tslat.smartbrainlib.api.core.SmartBrainProvider;
 import net.tslat.smartbrainlib.api.core.behaviour.FirstApplicableBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.OneRandomBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.attack.AnimatableMeleeAttack;
-import net.tslat.smartbrainlib.api.core.behaviour.custom.attack.BowAttack;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.misc.Idle;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.move.AvoidEntity;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.move.FollowEntity;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.move.MoveToWalkTarget;
-import net.tslat.smartbrainlib.api.core.behaviour.custom.move.StrafeTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.path.SetRandomWalkTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.target.InvalidateAttackTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.target.SetPlayerLookTarget;
@@ -127,7 +124,6 @@ public class NecroSkeletonEntity extends AbstractSkeletonEntity implements Smart
 		return BrainActivityGroup.coreTasks(
 				new AvoidEntity<>().avoiding(entity -> entity instanceof WolfEntity),
 				new LookAroundTask(40, 300),
-				new StrafeTarget<>().stopStrafingWhen(entity -> !isHoldingBow(entity)).startCondition(NecroSkeletonEntity::isHoldingBow),
 				new MoveToWalkTarget<>()
 		);
 	}
@@ -158,7 +154,6 @@ public class NecroSkeletonEntity extends AbstractSkeletonEntity implements Smart
 		return BrainActivityGroup.fightTasks(
 				new InvalidateAttackTarget<>(),
 				new FirstApplicableBehaviour<>(
-						new BowAttack<NecroSkeletonEntity>(20).startCondition(NecroSkeletonEntity::isHoldingBow),
 						new AnimatableMeleeAttack<>(0).whenStarting(entity -> setAttacking(true)).whenStarting(entity -> setAttacking(false))
 				)
 		);
@@ -178,9 +173,5 @@ public class NecroSkeletonEntity extends AbstractSkeletonEntity implements Smart
 
 	public void setOwner(LivingEntity entity) {
 		ownerId = entity.getUuid();
-	}
-
-	private static boolean isHoldingBow(LivingEntity entity) {
-		return entity.isHolding(stack -> stack.getItem() instanceof BowItem);
 	}
 }
