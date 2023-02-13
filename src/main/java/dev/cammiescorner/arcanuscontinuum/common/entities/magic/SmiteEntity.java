@@ -41,7 +41,7 @@ public class SmiteEntity extends Entity {
 				world.getEntitiesByClass(LivingEntity.class, box, livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator()).forEach(entity -> {
 					if(!hasHit.contains(entity.getUuid())) {
 						for(SpellEffect effect : new HashSet<>(effects))
-							effect.effect(getCaster(), world, new EntityHitResult(entity), effects, stack, potency);
+							effect.effect(getCaster(), world, new EntityHitResult(entity), effects, stack, potency + 0.5);
 
 						hasHit.add(entity.getUuid());
 					}

@@ -54,7 +54,7 @@ public class SmiteSpellShape extends SpellShape {
 			smite = ArcanusEntities.SMITE.create(world);
 
 			if(smite != null) {
-				smite.setProperties(caster, ray.getPos(), stack, effects, potency + 0.5, StaffItem.getMagicColour(stack, caster.getUuidAsString()));
+				smite.setProperties(caster, ray.getPos(), stack, effects, potency, StaffItem.getMagicColour(stack, caster.getUuidAsString()));
 				world.spawnEntity(smite);
 			}
 		}
