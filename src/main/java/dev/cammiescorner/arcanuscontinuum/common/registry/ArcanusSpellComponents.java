@@ -18,19 +18,19 @@ public class ArcanusSpellComponents {
 	public static final SpellComponent EMPTY = create("empty", SpellShape.EMPTY);
 
 	//-----Spell Forms-----//
-	public static final SpellShape SELF = create("self_shape", new SelfSpellShape(Weight.VERY_LIGHT, 0.5, 1, 1));
-	public static final SpellShape TOUCH = create("touch_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape PROJECTILE = create("projectile_shape", new ProjectileSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape LOB = create("lob_shape", new ProjectileSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape BOLT = create("bolt_shape", new BoltSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape BEAM = create("beam_shape", new BeamSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape RUNE = create("rune_shape", new RuneSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape SMITE = create("smite_shape", new SmiteSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape AOE = create("aoe_shape", new AreaOfEffectSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape EXPLOSION = create("explosion_shape", new ExplosionSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
+	public static final SpellShape SELF = create("self_shape", new SelfSpellShape(Weight.VERY_LIGHT, 0.5, 10, 1));
+	public static final SpellShape TOUCH = create("touch_shape", new TouchSpellShape(Weight.VERY_LIGHT, 1, 10, 1));
+	public static final SpellShape PROJECTILE = create("projectile_shape", new ProjectileSpellShape(Weight.LIGHT, 2, 20, 3));
+	public static final SpellShape LOB = create("lob_shape", new ProjectileSpellShape(Weight.LIGHT, 1.5, 10, 3));
+	public static final SpellShape BOLT = create("bolt_shape", new BoltSpellShape(Weight.MEDIUM, 3, 20, 5));
+	public static final SpellShape BEAM = create("beam_shape", new BeamSpellShape(Weight.MEDIUM, 3, 20, 5));
+	public static final SpellShape RUNE = create("rune_shape", new RuneSpellShape(Weight.HEAVY, 4, 30, 7));
+	public static final SpellShape EXPLOSION = create("explosion_shape", new ExplosionSpellShape(Weight.VERY_HEAVY, 5, 40, 7));
+	public static final SpellShape AOE = create("aoe_shape", new AreaOfEffectSpellShape(Weight.VERY_HEAVY, 10, 40, 9));
+	public static final SpellShape SMITE = create("smite_shape", new SmiteSpellShape(Weight.VERY_HEAVY, 10, 40, 9));
 
 	//-----Spell Effects-----//
-	public static final SpellEffect DAMAGE = create("damage_effect", new DamageSpellEffect(SpellType.ATTACK, ParticleTypes.CRIT, Weight.NONE, 3, 5, 1));
+	public static final SpellEffect DAMAGE = create("damage_effect", new DamageSpellEffect(SpellType.ATTACK, ParticleTypes.CRIT, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect FIRE = create("fire_effect", new FireSpellEffect(SpellType.ATTACK, ParticleTypes.FLAME, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect ELECTRIC = create("electric_effect", new ElectricSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 5, 1));
 	public static final SpellEffect ICE = create("ice_effect", new IceSpellEffect(SpellType.ATTACK, ParticleTypes.SNOWFLAKE, Weight.NONE, 5, 5, 1));
