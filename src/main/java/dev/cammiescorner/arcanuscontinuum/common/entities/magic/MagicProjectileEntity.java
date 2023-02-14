@@ -5,6 +5,7 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -38,8 +39,8 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 
 	@Override
 	public void tick() {
-//		if(getShape() == ArcanusSpellComponents.PROJECTILE && age >= 20)
-//			kill();
+		if(getShape() == ArcanusSpellComponents.PROJECTILE && age >= 20)
+			kill();
 
 		super.tick();
 	}
@@ -68,7 +69,7 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 		}
 
 		super.onBlockHit(target);
-//		kill();
+		kill();
 	}
 
 	@Override
