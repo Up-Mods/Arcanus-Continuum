@@ -1,10 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
-import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
+import dev.cammiescorner.arcanuscontinuum.api.spells.*;
 import dev.cammiescorner.arcanuscontinuum.common.components.*;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicProjectileEntity;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicRuneEntity;
@@ -37,6 +34,7 @@ public class ArcanusComponents implements EntityComponentInitializer {
 	public static final ComponentKey<QuestComponent> QUEST_COMPONENT = createComponent("quests", QuestComponent.class);
 	public static final ComponentKey<MagicColourComponent> MAGIC_COLOUR = createComponent("magic_colour", MagicColourComponent.class);
 	public static final ComponentKey<BeamTargetComponent> BEAM_TARGET = createComponent("beam_target", BeamTargetComponent.class);
+	public static final ComponentKey<SpellShapeComponent> SPELL_SHAPE = createComponent("spell_shape", SpellShapeComponent.class);
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
@@ -54,6 +52,7 @@ public class ArcanusComponents implements EntityComponentInitializer {
 		registry.beginRegistration(MagicRuneEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
 		registry.beginRegistration(MagicProjectileEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
 		registry.beginRegistration(LivingEntity.class, BEAM_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BeamTargetComponent::new);
+		registry.beginRegistration(MagicProjectileEntity.class, SPELL_SHAPE).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(SpellShapeComponent::new);
 	}
 
 	private static <T extends Component> ComponentKey<T> createComponent(String name, Class<T> component) {
@@ -216,5 +215,13 @@ public class ArcanusComponents implements EntityComponentInitializer {
 
 	public static void setProperties(LivingEntity entity, LivingEntity caster, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, double potency, int timer) {
 		BEAM_TARGET.get(entity).setProperties(caster, stack, effects, groups, groupIndex, potency, timer);
+	}
+
+	public static SpellShape getSpellShape(Entity entity) {
+		return SPELL_SHAPE.get(entity).getSpellShape();
+	}
+
+	public static void setSpellShape(Entity entity, SpellShape shape) {
+		SPELL_SHAPE.get(entity).setSpellShape(shape);
 	}
 }

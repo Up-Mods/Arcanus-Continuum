@@ -72,6 +72,7 @@
 		"arcanuscontinuum:stun",
 		"arcanuscontinuum:quests",
 		"arcanuscontinuum:magic_colour",
-		"arcanuscontinuum:beam_target"
+		"arcanuscontinuum:beam_target",
+		"arcanuscontinuum:spell_shape"
 	]
 }

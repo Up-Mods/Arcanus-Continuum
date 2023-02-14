@@ -27,7 +27,6 @@ import java.util.HashSet;
 import java.util.List;
 
 public class MagicProjectileEntity extends PersistentProjectileEntity {
-	private SpellShape shape = SpellShape.EMPTY;
 	private ItemStack stack = ItemStack.EMPTY;
 	private List<SpellEffect> effects = new ArrayList<>();
 	private List<SpellGroup> spellGroups = new ArrayList<>();
@@ -40,7 +39,7 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 
 	@Override
 	public void tick() {
-		if(shape == ArcanusSpellComponents.PROJECTILE && age >= 20)
+		if(getShape() == ArcanusSpellComponents.PROJECTILE && age >= 20)
 			kill();
 
 		super.tick();
@@ -79,7 +78,6 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 		effects.clear();
 		spellGroups.clear();
 
-		shape = (SpellShape) Arcanus.SPELL_COMPONENTS.get(new Identifier(tag.getString("SpellShape")));
 		stack = ItemStack.fromNbt(tag.getCompound("ItemStack"));
 		potency = tag.getDouble("Potency");
 		groupIndex = tag.getInt("GroupIndex");
@@ -99,7 +97,6 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 		NbtList effectList = new NbtList();
 		NbtList groupsList = new NbtList();
 
-		tag.putString("SpellShape", Arcanus.SPELL_COMPONENTS.getId(shape).toString());
 		tag.put("ItemStack", stack.writeNbt(new NbtCompound()));
 		tag.putDouble("Potency", potency);
 		tag.putInt("GroupIndex", groupIndex);
@@ -124,7 +121,7 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 	}
 
 	public SpellShape getShape() {
-		return shape;
+		return ArcanusComponents.getSpellShape(this);
 	}
 
 	public int getColour() {
@@ -137,7 +134,7 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 		setPos(caster.getX(), caster.getEyeY(), caster.getZ());
 		setNoGravity(noGravity);
 		setDamage(0);
-		this.shape = shape;
+		ArcanusComponents.setSpellShape(this, shape);
 		this.stack = stack;
 		this.effects = effects;
 		this.spellGroups = groups;
