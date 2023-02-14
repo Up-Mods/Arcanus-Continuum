@@ -1,8 +1,10 @@
 package dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic;
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
 import dev.cammiescorner.arcanuscontinuum.client.models.entity.MagicLobEntityModel;
+import dev.cammiescorner.arcanuscontinuum.client.models.entity.MagicProjectileEntityModel;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicProjectileEntity;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.client.render.OverlayTexture;
@@ -11,34 +13,53 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.ProjectileEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Axis;
+import net.minecraft.util.math.MathHelper;
 
 public class MagicProjectileEntityRenderer extends ProjectileEntityRenderer<MagicProjectileEntity> {
 	private static final Identifier PROJECTILE_TEXTURE = Arcanus.id("textures/entity/magic/projectile.png");
 	private static final Identifier LOB_TEXTURE = Arcanus.id("textures/entity/magic/lob.png");
 	private final MagicLobEntityModel lobModel;
+	private final MagicProjectileEntityModel projectileModel;
 
 	public MagicProjectileEntityRenderer(EntityRendererFactory.Context context) {
 		super(context);
 		lobModel = new MagicLobEntityModel(context.getModelLoader().getModelPart(MagicLobEntityModel.MODEL_LAYER));
+		projectileModel = new MagicProjectileEntityModel(context.getModelLoader().getModelPart(MagicProjectileEntityModel.MODEL_LAYER));
 	}
 
 	@Override
 	public void render(MagicProjectileEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertices, int light) {
+		VertexConsumer consumer = vertices.getBuffer(ArcanusClient.getMagicCircles(getTexture(entity)));
 		boolean isProjectile = entity.getShape() == ArcanusSpellComponents.PROJECTILE;
 		int colour = entity.getColour();
 		float r = (colour >> 16 & 255) / 255F;
 		float g = (colour >> 8 & 255) / 255F;
 		float b = (colour & 255) / 255F;
 
+		matrices.push();
+
 		if(isProjectile) {
-			super.render(entity, yaw, tickDelta, matrices, vertices, light);
+			matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevYaw, entity.getYaw()) - 180));
+			matrices.multiply(Axis.X_POSITIVE.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevPitch, entity.getPitch())));
+			matrices.translate(0, -1, 0);
+			projectileModel.ring1.roll += 0.025;
+			projectileModel.ring2.roll -= 0.03;
+			projectileModel.ring3.roll += 0.035;
+			projectileModel.render(matrices, consumer, light, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
 		}
 		else {
-			lobModel.cube1.pitch += 0.25;
-			lobModel.cube2.yaw -= 0.25;
-			lobModel.cube3.roll += 0.25;
-			lobModel.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(getTexture(entity))), light, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
+			matrices.translate(0, 0.3, 0);
+			lobModel.cube1.pitch += 0.025;
+			lobModel.cube1.yaw += 0.025;
+			lobModel.cube2.yaw -= 0.03;
+			lobModel.cube2.roll -= 0.03;
+			lobModel.cube3.roll += 0.035;
+			lobModel.cube3.pitch += 0.035;
+			lobModel.render(matrices, consumer, light, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
 		}
+
+		matrices.pop();
 	}
 
 	@Override
