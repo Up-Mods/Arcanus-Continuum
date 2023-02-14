@@ -21,6 +21,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -43,6 +44,11 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 			kill();
 
 		super.tick();
+	}
+
+	@Override
+	public boolean doesRenderOnFire() {
+		return false;
 	}
 
 	@Override
@@ -128,10 +134,11 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 		return ArcanusComponents.getColour(this);
 	}
 
-	public void setProperties(Entity caster, SpellShape shape, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, double potency, float speed, boolean noGravity, int colour) {
-		setProperties(caster, caster.getPitch(), caster.getYaw(), 0F, speed, 1F);
+	public void setProperties(Entity caster, @Nullable Entity castSource, SpellShape shape, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, double potency, float speed, boolean noGravity, int colour) {
+		Entity sourceEntity = castSource != null ? castSource : caster;
+		setProperties(sourceEntity, sourceEntity.getPitch(), sourceEntity.getYaw(), 0F, speed, 1F);
 		setOwner(caster);
-		setPos(caster.getX(), caster.getEyeY(), caster.getZ());
+		setPos(sourceEntity.getX(), sourceEntity.getEyeY(), sourceEntity.getZ());
 		setNoGravity(noGravity);
 		setDamage(0);
 		ArcanusComponents.setSpellShape(this, shape);

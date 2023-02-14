@@ -8,7 +8,6 @@ import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -27,33 +26,40 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
-public class MagicRuneEntity extends Entity {
+public class AreaOfEffectEntity extends Entity {
 	private UUID casterId = Util.NIL_UUID;
 	private ItemStack stack = ItemStack.EMPTY;
 	private List<SpellEffect> effects = new ArrayList<>();
 	private List<SpellGroup> spellGroups = new ArrayList<>();
 	private int groupIndex;
 	private double potency;
+	private int trueAge;
 
-	public MagicRuneEntity(EntityType<?> variant, World world) {
+	public AreaOfEffectEntity(EntityType<?> variant, World world) {
 		super(variant, world);
 	}
 
 	@Override
 	public void tick() {
-		if(world instanceof ServerWorld serverWorld && age > 60) {
-			LivingEntity entity = world.getClosestEntity(LivingEntity.class, TargetPredicate.createNonAttackable().setPredicate(LivingEntity::isAlive), null, getX(), getY(), getZ(), new Box(-0.5, 0, -0.5, 0.5, 0.2, 0.5).offset(getPos()));
+		if(!world.isClient()) {
+			if(trueAge % 20 == 0 && trueAge <= 80 && trueAge > 0) {
+				Box box = new Box(-2, 0, -2, 2, 2.5, 2).offset(getPos());
 
-			if(entity != null) {
-				for(SpellEffect effect : new HashSet<>(effects))
-					effect.effect(getCaster(), world, new EntityHitResult(entity), effects, stack, potency);
+				world.getEntitiesByClass(LivingEntity.class, box, livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator()).forEach(entity -> {
+					for(SpellEffect effect : new HashSet<>(effects))
+						effect.effect(getCaster(), world, new EntityHitResult(entity), effects, stack, potency);
+				});
 
-				SpellShape.castNext(getCaster(), getPos(), this, serverWorld, stack, spellGroups, groupIndex, potency);
-				kill();
+				SpellShape.castNext(getCaster(), getPos(), this, (ServerWorld) world, stack, spellGroups, groupIndex, potency);
+				setYaw(getYaw() + 90);
 			}
+
+			if(trueAge >= 100)
+				kill();
 		}
 
 		super.tick();
+		trueAge++;
 	}
 
 	@Override
@@ -75,6 +81,7 @@ public class MagicRuneEntity extends Entity {
 		stack = ItemStack.fromNbt(tag.getCompound("ItemStack"));
 		groupIndex = tag.getInt("GroupIndex");
 		potency = tag.getDouble("Potency");
+		trueAge = tag.getInt("TrueAge");
 
 		NbtList effectList = tag.getList("Effects", NbtElement.STRING_TYPE);
 		NbtList groupsList = tag.getList("SpellGroups", NbtElement.COMPOUND_TYPE);
@@ -94,6 +101,7 @@ public class MagicRuneEntity extends Entity {
 		tag.put("ItemStack", stack.writeNbt(new NbtCompound()));
 		tag.putInt("GroupIndex", groupIndex);
 		tag.putDouble("Potency", potency);
+		tag.putInt("TrueAge", trueAge);
 
 		for(SpellEffect effect : effects)
 			effectList.add(NbtString.of(Arcanus.SPELL_COMPONENTS.getId(effect).toString()));
@@ -115,9 +123,14 @@ public class MagicRuneEntity extends Entity {
 		return ArcanusComponents.getColour(this);
 	}
 
+	public int getTrueAge() {
+		return trueAge;
+	}
+
 	public void setProperties(LivingEntity caster, Vec3d pos, ItemStack stack, List<SpellEffect> effects, double potency, List<SpellGroup> groups, int groupIndex, int colour) {
 		setPos(pos.getX(), pos.getY(), pos.getZ());
-		this.setPitch(-90);
+		setYaw(caster.getYaw());
+		setPitch(-5);
 		this.casterId = caster.getUuid();
 		this.stack = stack;
 		this.effects = effects;
@@ -125,5 +138,6 @@ public class MagicRuneEntity extends Entity {
 		this.groupIndex = groupIndex;
 		this.potency = potency;
 		ArcanusComponents.setColour(this, colour);
+		this.trueAge = random.nextInt(3);
 	}
 }

@@ -5,6 +5,7 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusParticles;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import net.minecraft.entity.LivingEntity;
@@ -41,6 +42,8 @@ public class BeamTargetComponent implements AutoSyncedComponent, ServerTickingCo
 	public void serverTick() {
 		if(entity.world instanceof ServerWorld world && timer > 0) {
 			setTimer(getTimer() - 1);
+
+			world.spawnParticles(ArcanusParticles.COLLAPSE, entity.getX(), entity.getHeight() / 2, entity.getZ(), 1, 0, 0, 0, 0);
 
 			if(timer == 0) {
 				for(SpellEffect effect : new HashSet<>(effects))

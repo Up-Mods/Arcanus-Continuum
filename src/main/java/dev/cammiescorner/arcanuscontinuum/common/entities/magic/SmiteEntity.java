@@ -61,6 +61,11 @@ public class SmiteEntity extends Entity {
 	}
 
 	@Override
+	public boolean doesRenderOnFire() {
+		return false;
+	}
+
+	@Override
 	protected void readCustomDataFromNbt(NbtCompound tag) {
 		effects.clear();
 		hasHit.clear();

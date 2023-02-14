@@ -18,7 +18,6 @@ public class ManaShieldEntity extends Entity {
 
 	public ManaShieldEntity(EntityType<? extends Entity> entityType, World world) {
 		super(entityType, world);
-		setNoGravity(true);
 	}
 
 	@Override
@@ -37,6 +36,16 @@ public class ManaShieldEntity extends Entity {
 	protected void initDataTracker() {
 		dataTracker.startTracking(MAX_AGE, 0);
 		dataTracker.startTracking(TRUE_AGE, 0);
+	}
+
+	@Override
+	public boolean doesRenderOnFire() {
+		return false;
+	}
+
+	@Override
+	public boolean isFireImmune() {
+		return true;
 	}
 
 	@Override

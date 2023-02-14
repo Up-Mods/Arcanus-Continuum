@@ -65,6 +65,7 @@ public class Arcanus implements ModInitializer {
 		ArcanusBlocks.register();
 		ArcanusBlockEntities.register();
 		ArcanusItems.register();
+		ArcanusParticles.register();
 		ArcanusStatusEffects.register();
 		ArcanusSpellComponents.register();
 		ArcanusRecipes.register();

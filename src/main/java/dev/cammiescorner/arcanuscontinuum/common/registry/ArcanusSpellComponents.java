@@ -26,7 +26,7 @@ public class ArcanusSpellComponents {
 	public static final SpellShape BEAM = create("beam_shape", new BeamSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
 	public static final SpellShape RUNE = create("rune_shape", new RuneSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
 	public static final SpellShape SMITE = create("smite_shape", new SmiteSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
-	public static final SpellShape AOE = create("aoe_shape", new AreaOfEffectSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1)); // TODO entity
+	public static final SpellShape AOE = create("aoe_shape", new AreaOfEffectSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
 	public static final SpellShape EXPLOSION = create("explosion_shape", new ExplosionSpellShape(Weight.VERY_LIGHT, 0.5, 5, 1));
 
 	//-----Spell Effects-----//

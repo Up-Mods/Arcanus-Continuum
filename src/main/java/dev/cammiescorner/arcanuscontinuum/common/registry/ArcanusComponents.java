@@ -3,10 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.common.registry;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.*;
 import dev.cammiescorner.arcanuscontinuum.common.components.*;
-import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicProjectileEntity;
-import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicRuneEntity;
-import dev.cammiescorner.arcanuscontinuum.common.entities.magic.ManaShieldEntity;
-import dev.cammiescorner.arcanuscontinuum.common.entities.magic.SmiteEntity;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.*;
 import dev.onyxstudios.cca.api.v3.component.Component;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
@@ -51,6 +48,7 @@ public class ArcanusComponents implements EntityComponentInitializer {
 		registry.beginRegistration(SmiteEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
 		registry.beginRegistration(MagicRuneEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
 		registry.beginRegistration(MagicProjectileEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
+		registry.beginRegistration(AreaOfEffectEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
 		registry.beginRegistration(LivingEntity.class, BEAM_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BeamTargetComponent::new);
 		registry.beginRegistration(MagicProjectileEntity.class, SPELL_SHAPE).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(SpellShapeComponent::new);
 	}
