@@ -43,19 +43,19 @@ public class MagicProjectileEntityRenderer extends ProjectileEntityRenderer<Magi
 			matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevYaw, entity.getYaw()) - 180));
 			matrices.multiply(Axis.X_POSITIVE.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevPitch, entity.getPitch())));
 			matrices.translate(0, -1, 0);
-			projectileModel.ring1.roll += 0.025;
-			projectileModel.ring2.roll -= 0.03;
-			projectileModel.ring3.roll += 0.035;
+			projectileModel.ring1.roll = (entity.age + tickDelta) * 0.1F;
+			projectileModel.ring2.roll = -(entity.age + tickDelta) * 0.125F;
+			projectileModel.ring3.roll = (entity.age + tickDelta) * 0.15F;
 			projectileModel.render(matrices, consumer, light, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
 		}
 		else {
 			matrices.translate(0, 0.3, 0);
-			lobModel.cube1.pitch += 0.025;
-			lobModel.cube1.yaw += 0.025;
-			lobModel.cube2.yaw -= 0.03;
-			lobModel.cube2.roll -= 0.03;
-			lobModel.cube3.roll += 0.035;
-			lobModel.cube3.pitch += 0.035;
+			lobModel.cube1.pitch = (entity.age + tickDelta) * 0.1F;
+			lobModel.cube1.yaw = (entity.age + tickDelta) * 0.1F;
+			lobModel.cube2.yaw = -(entity.age + tickDelta) * 0.125F;
+			lobModel.cube2.roll = -(entity.age + tickDelta) * 0.125F;
+			lobModel.cube3.roll = (entity.age + tickDelta) * 0.15F;
+			lobModel.cube3.pitch = (entity.age + tickDelta) * 0.15F;
 			lobModel.render(matrices, consumer, light, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
 		}
 
