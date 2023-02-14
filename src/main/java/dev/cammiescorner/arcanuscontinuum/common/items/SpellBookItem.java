@@ -8,13 +8,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LecternBlock;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -38,16 +36,6 @@ public class SpellBookItem extends Item {
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		super.inventoryTick(stack, world, entity, slot, selected);
-
-		NbtCompound nbt = stack.getOrCreateNbt();
-
-		if(!nbt.contains("Spell"))
-			nbt.put("Spell", new Spell().toNbt());
-	}
-
-	@Override
 	public Text getName(ItemStack stack) {
 		Spell spell = getSpell(stack);
 
@@ -66,7 +54,7 @@ public class SpellBookItem extends Item {
 				.append(Arcanus.translate("spell_book", "weight", spell.getWeight().toString().toLowerCase(Locale.ROOT)).formatted(Formatting.GRAY)));
 		tooltip.add(Arcanus.translate("spell_book", "mana_cost").append(": ").formatted(Formatting.BLUE)
 				.append(Text.literal(manaCost).formatted(Formatting.GRAY)));
-		tooltip.add(Arcanus.translate("spell_book", "cooldown").append(": ").formatted(Formatting.RED)
+		tooltip.add(Arcanus.translate("spell_book", "cool_down").append(": ").formatted(Formatting.RED)
 				.append(Text.literal(cooldown).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.GRAY)));
 
 		super.appendTooltip(stack, world, tooltip, context);

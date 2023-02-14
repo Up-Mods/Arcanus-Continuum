@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public abstract class SpellShape extends SpellComponent {
-	public static final SpellShape EMPTY = new SpellShape(Weight.NONE, 0, 20, 0) {
+	public static final SpellShape EMPTY = new SpellShape(Weight.NONE, 0, 0, 0) {
 		@Override public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 			castNext(caster, castFrom, castSource, world, stack, spellGroups, groupIndex, potency);
 		}

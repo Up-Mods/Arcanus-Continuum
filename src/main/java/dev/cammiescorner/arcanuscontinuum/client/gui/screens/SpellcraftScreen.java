@@ -5,10 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.Rectangle;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
+import dev.cammiescorner.arcanuscontinuum.api.spells.*;
 import dev.cammiescorner.arcanuscontinuum.client.gui.widgets.SpellComponentWidget;
 import dev.cammiescorner.arcanuscontinuum.client.gui.widgets.UndoRedoButtonWidget;
 import dev.cammiescorner.arcanuscontinuum.common.items.SpellBookItem;
@@ -24,8 +21,10 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.ScreenTexts;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import org.joml.Matrix4f;
@@ -36,6 +35,7 @@ import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	public static final Identifier BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
@@ -352,17 +352,25 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 		int componentCount = spellComponentCount();
 		int maxComponents = ArcanusComponents.maxSpellSize(client.player);
-		int textColour = 0x5555ff;
+		int componentCounterColour = 0x5555ff;
 
 		if(componentCount >= maxComponents)
-			textColour = 0xcc2222;
+			componentCounterColour = 0xcc2222;
 
 		String spellComponentCount = String.valueOf(componentCount);
 		String maxSpellComponentCount = String.valueOf(maxComponents);
 
-		textRenderer.draw(matrices, spellComponentCount, 118 - textRenderer.getWidth(spellComponentCount) * 0.5F, 11, textColour);
+		textRenderer.draw(matrices, spellComponentCount, 118 - textRenderer.getWidth(spellComponentCount) * 0.5F, 11, componentCounterColour);
 		textRenderer.draw(matrices, " / ", 128 - textRenderer.getWidth(" / ") * 0.5F, 11, 0x555555);
-		textRenderer.draw(matrices, maxSpellComponentCount, 138 - textRenderer.getWidth(maxSpellComponentCount) * 0.5F, 11, textColour);
+		textRenderer.draw(matrices, maxSpellComponentCount, 138 - textRenderer.getWidth(maxSpellComponentCount) * 0.5F, 11, componentCounterColour);
+
+		MutableText weight = Arcanus.translate("spell_book", "weight", getWeight().toString().toLowerCase(Locale.ROOT)).formatted(Formatting.DARK_GREEN);
+		MutableText mana = Text.literal(String.format("%.2f", getManaCost())).formatted(Formatting.BLUE);
+		MutableText coolDown = Text.literal(String.format("%.2f", getCoolDown() / 20D)).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.RED);
+
+		textRenderer.draw(matrices, weight, 240 - textRenderer.getWidth(weight), 7, 0xffffff);
+		textRenderer.draw(matrices, mana, 240 - textRenderer.getWidth(mana), 17, 0xffffff);
+		textRenderer.draw(matrices, coolDown, 240 - textRenderer.getWidth(coolDown), 27, 0xffffff);
 
 		if(isPointWithinBounds(109, 8, textRenderer.getWidth("12 / 12"), textRenderer.fontHeight + 4, mouseX, mouseY))
 			renderTooltip(matrices, Arcanus.translate("screen", "tooltip.component_count"), mouseX - x, mouseY - y);
@@ -379,8 +387,16 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			for(int i = 0; i < group.positions().size(); i++) {
 				Vector2i position = group.positions().get(i);
 
-				if(isPointWithinBounds(position.x() - 2, position.y() - 2, 28, 28, mouseX, mouseY))
-					renderTooltip(matrices, Text.translatable(group.getAllComponents().toList().get(i).getTranslationKey(client.player)), mouseX - x, mouseY - y);
+				if(isPointWithinBounds(position.x() - 2, position.y() - 2, 28, 28, mouseX, mouseY)) {
+					SpellComponent component = group.getAllComponents().toList().get(i);
+					MutableText componentName = Text.translatable(component.getTranslationKey(client.player));
+					MutableText componentWeight = Arcanus.translate("spell_book", "weight").append(": ").formatted(Formatting.GREEN).append(Arcanus.translate("spell_book", "weight", component.getWeight().toString().toLowerCase(Locale.ROOT)).formatted(Formatting.GRAY));
+					MutableText componentMana = Arcanus.translate("spell_book", "mana_cost").append(": ").formatted(Formatting.BLUE).append(Text.literal(String.format("%.2f", component.getManaCost())).formatted(Formatting.GRAY));
+					MutableText componentCoolDown = Arcanus.translate("spell_book", "cool_down").append(": ").formatted(Formatting.RED).append(Text.literal(String.format("%.2f", component.getCoolDown() / 20D)).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.GRAY));
+					List<Text> textList = List.of(componentName, componentWeight, componentMana, componentCoolDown);
+
+					renderTooltip(matrices, textList, mouseX - x, mouseY - y);
+				}
 			}
 		}
 	}
@@ -428,5 +444,44 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 				count += group.getAllComponents().toList().size();
 
 		return count;
+	}
+
+	public Weight getWeight() {
+		int averageWeightIndex = 0;
+
+		if(!SPELL_GROUPS.isEmpty()) {
+			int i = 0;
+
+			for(SpellGroup group : SPELL_GROUPS) {
+				if(group.isEmpty())
+					continue;
+
+				averageWeightIndex += group.getAverageWeight().ordinal();
+				i++;
+			}
+
+			averageWeightIndex = Math.round(averageWeightIndex / (float) i);
+		}
+
+		return Weight.values()[averageWeightIndex];
+	}
+
+	public double getManaCost() {
+		double manaCost = 0;
+
+		for(SpellGroup group : SPELL_GROUPS)
+			manaCost += group.getManaCost();
+
+		return manaCost;
+	}
+
+	public int getCoolDown() {
+		int coolDown = 0;
+
+		if(!SPELL_GROUPS.isEmpty())
+			for(SpellGroup group : SPELL_GROUPS)
+				coolDown += group.getCoolDown();
+
+		return coolDown;
 	}
 }

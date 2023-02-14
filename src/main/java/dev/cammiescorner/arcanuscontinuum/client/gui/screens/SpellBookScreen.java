@@ -3,7 +3,9 @@ package dev.cammiescorner.arcanuscontinuum.client.gui.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
+import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
 import dev.cammiescorner.arcanuscontinuum.common.items.SpellBookItem;
 import dev.cammiescorner.arcanuscontinuum.common.screens.SpellBookScreenHandler;
 import net.minecraft.client.gui.DrawableHelper;
@@ -23,6 +25,7 @@ import org.joml.Vector2i;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 	public static final Identifier BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
@@ -116,12 +119,28 @@ public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 			}
 		}
 
+		MutableText weight = Arcanus.translate("spell_book", "weight", getWeight().toString().toLowerCase(Locale.ROOT)).formatted(Formatting.DARK_GREEN);
+		MutableText mana = Text.literal(String.format("%.2f", getManaCost())).formatted(Formatting.BLUE);
+		MutableText coolDown = Text.literal(String.format("%.2f", getCoolDown() / 20D)).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.RED);
+
+		textRenderer.draw(matrices, weight, 240 - textRenderer.getWidth(weight), 7, 0xffffff);
+		textRenderer.draw(matrices, mana, 240 - textRenderer.getWidth(mana), 17, 0xffffff);
+		textRenderer.draw(matrices, coolDown, 240 - textRenderer.getWidth(coolDown), 27, 0xffffff);
+
 		for(SpellGroup group : SPELL_GROUPS) {
 			for(int i = 0; i < group.positions().size(); i++) {
 				Vector2i position = group.positions().get(i);
 
-				if(isPointWithinBounds(position.x() - 2, position.y() - 2, 28, 28, mouseX, mouseY))
-					renderTooltip(matrices, Text.translatable(group.getAllComponents().toList().get(i).getTranslationKey(client.player)), mouseX - x, mouseY - y);
+				if(isPointWithinBounds(position.x() - 2, position.y() - 2, 28, 28, mouseX, mouseY)) {
+					SpellComponent component = group.getAllComponents().toList().get(i);
+					MutableText componentName = Text.translatable(component.getTranslationKey(client.player));
+					MutableText componentWeight = Arcanus.translate("spell_book", "weight").append(": ").formatted(Formatting.GREEN).append(Arcanus.translate("spell_book", "weight", component.getWeight().toString().toLowerCase(Locale.ROOT)).formatted(Formatting.GRAY));
+					MutableText componentMana = Arcanus.translate("spell_book", "mana_cost").append(": ").formatted(Formatting.BLUE).append(Text.literal(String.format("%.2f", component.getManaCost())).formatted(Formatting.GRAY));
+					MutableText componentCoolDown = Arcanus.translate("spell_book", "cool_down").append(": ").formatted(Formatting.RED).append(Text.literal(String.format("%.2f", component.getCoolDown() / 20D)).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.GRAY));
+					List<Text> textList = List.of(componentName, componentWeight, componentMana, componentCoolDown);
+
+					renderTooltip(matrices, textList, mouseX - x, mouseY - y);
+				}
 			}
 		}
 	}
@@ -142,6 +161,46 @@ public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 		int j = this.y;
 		pointX -= i;
 		pointY -= j;
+
 		return pointX >= (double)(x - 1) && pointX < (double)(x + width + 1) && pointY >= (double)(y - 1) && pointY < (double)(y + height + 1);
+	}
+
+	public Weight getWeight() {
+		int averageWeightIndex = 0;
+
+		if(!SPELL_GROUPS.isEmpty()) {
+			int i = 0;
+
+			for(SpellGroup group : SPELL_GROUPS) {
+				if(group.isEmpty())
+					continue;
+
+				averageWeightIndex += group.getAverageWeight().ordinal();
+				i++;
+			}
+
+			averageWeightIndex = Math.round(averageWeightIndex / (float) i);
+		}
+
+		return Weight.values()[averageWeightIndex];
+	}
+
+	public double getManaCost() {
+		double manaCost = 0;
+
+		for(SpellGroup group : SPELL_GROUPS)
+			manaCost += group.getManaCost();
+
+		return manaCost;
+	}
+
+	public int getCoolDown() {
+		int coolDown = 0;
+
+		if(!SPELL_GROUPS.isEmpty())
+			for(SpellGroup group : SPELL_GROUPS)
+				coolDown += group.getCoolDown();
+
+		return coolDown;
 	}
 }
