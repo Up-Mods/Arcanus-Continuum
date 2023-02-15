@@ -1,7 +1,10 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.living;
 
+import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusItems;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusTags;
+import dev.cammiescorner.arcanuscontinuum.common.screens.DialogueScreenHandler;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -19,12 +22,19 @@ import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.Registries;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
 import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -89,6 +99,30 @@ public class WizardEntity extends PassiveEntity implements SmartBrainOwner<Wizar
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15);
+	}
+
+	@Override
+	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
+		if(!world.isClient()) {
+			if(player.getEquippedStack(EquipmentSlot.HEAD).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.CHEST).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.LEGS).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.FEET).isIn(ArcanusTags.WIZARD_ARMOUR)) {
+				player.openHandledScreen(new NamedScreenHandlerFactory() {
+					@Override
+					public Text getDisplayName() {
+						return getName();
+					}
+
+					@Override
+					public ScreenHandler createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+						return new DialogueScreenHandler(i);
+					}
+				});
+			}
+			else {
+				player.sendMessage(Arcanus.translate("wizard_dialogue", "no_wizard_armour").formatted(Formatting.DARK_PURPLE, Formatting.ITALIC), false);
+			}
+		}
+
+		return ActionResult.SUCCESS;
 	}
 
 	@Override

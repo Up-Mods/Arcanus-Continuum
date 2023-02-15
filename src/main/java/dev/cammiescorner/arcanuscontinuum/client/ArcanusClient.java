@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.Tessellator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormats;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.client.gui.screens.DialogueScreen;
 import dev.cammiescorner.arcanuscontinuum.client.gui.screens.SpellBookScreen;
 import dev.cammiescorner.arcanuscontinuum.client.gui.screens.SpellcraftScreen;
 import dev.cammiescorner.arcanuscontinuum.client.models.armour.WizardArmourModel;
@@ -56,6 +57,7 @@ public class ArcanusClient implements ClientModInitializer {
 	public void onInitializeClient(ModContainer mod) {
 		HandledScreens.register(ArcanusScreenHandlers.SPELLCRAFT_SCREEN_HANDLER, SpellcraftScreen::new);
 		HandledScreens.register(ArcanusScreenHandlers.SPELL_BOOK_SCREEN_HANDLER, SpellBookScreen::new);
+		HandledScreens.register(ArcanusScreenHandlers.DIALOGUE_SCREEN_HANDLER, DialogueScreen::new);
 
 		EntityModelLayerRegistry.registerModelLayer(WizardArmourModel.MODEL_LAYER, WizardArmourModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(WizardEntityModel.MODEL_LAYER, WizardEntityModel::getTexturedModelData);

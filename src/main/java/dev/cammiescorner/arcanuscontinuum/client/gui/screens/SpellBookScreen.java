@@ -162,7 +162,7 @@ public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 		pointX -= i;
 		pointY -= j;
 
-		return pointX >= (double)(x - 1) && pointX < (double)(x + width + 1) && pointY >= (double)(y - 1) && pointY < (double)(y + height + 1);
+		return pointX >= (x - 1) && pointX < (x + width + 1) && pointY >= (y - 1) && pointY < (y + height + 1);
 	}
 
 	public Weight getWeight() {

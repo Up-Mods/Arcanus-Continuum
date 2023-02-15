@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.common.screens.DialogueScreenHandler;
 import dev.cammiescorner.arcanuscontinuum.common.screens.SpellBookScreenHandler;
 import dev.cammiescorner.arcanuscontinuum.common.screens.SpellcraftScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
@@ -18,6 +19,7 @@ public class ArcanusScreenHandlers {
 	//-----Screen Handlers-----//
 	public static final ScreenHandlerType<SpellcraftScreenHandler> SPELLCRAFT_SCREEN_HANDLER = create("spellcraft_screen_handler", new ExtendedScreenHandlerType<>((syncId, inventory, buf) -> new SpellcraftScreenHandler(syncId, inventory, buf.readBlockPos(), buf.readItemStack())));
 	public static final ScreenHandlerType<SpellBookScreenHandler> SPELL_BOOK_SCREEN_HANDLER = create("spell_book_screen_handler", new ExtendedScreenHandlerType<>((syncId, inventory, buf) -> new SpellBookScreenHandler(syncId, inventory, buf.readItemStack())));
+	public static final ScreenHandlerType<DialogueScreenHandler> DIALOGUE_SCREEN_HANDLER = create("dialogue_screen_handler", new ScreenHandlerType<>((i, playerInventory) -> new DialogueScreenHandler(i)));
 
 	//-----Registry-----//
 	public static void register() {
