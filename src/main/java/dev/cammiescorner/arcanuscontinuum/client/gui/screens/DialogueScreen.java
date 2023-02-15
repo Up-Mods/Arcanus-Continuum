@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanuscontinuum.client.gui.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.client.gui.widgets.DialogueOptionWidget;
 import dev.cammiescorner.arcanuscontinuum.common.screens.DialogueScreenHandler;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -26,8 +27,12 @@ public class DialogueScreen extends HandledScreen<DialogueScreenHandler> {
 	protected void init() {
 		super.init();
 		x = (width - 256) / 2;
-		y = (height - 62) - 4;
+		y = (height - 64) - 4;
 		playerInventoryTitleY = -10000;
+
+		addDrawableChild(new DialogueOptionWidget(x + 3, y + 3, Text.literal(String.format("Hi! My name's %s!", client.player.getName().getString())), buttonWidget -> System.out.println("Beep")));
+		addDrawableChild(new DialogueOptionWidget(x + 3, y + 23, Text.literal("I want to become a wizard."), buttonWidget -> System.out.println("Boop")));
+		addDrawableChild(new DialogueOptionWidget(x + 3, y + 43, Text.literal("Never mind, goodbye!"), buttonWidget -> System.out.println("Bap")));
 	}
 
 	@Override
@@ -35,41 +40,27 @@ public class DialogueScreen extends HandledScreen<DialogueScreenHandler> {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		RenderSystem.setShaderTexture(0, BACKGROUND);
-		DrawableHelper.drawTexture(matrices, x, y, 0, 0, 256, 62, 256, 256);
+		DrawableHelper.drawTexture(matrices, x, y, 0, 0, 256, 64, 256, 256);
 	}
 
 	@Override
 	protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
 		super.drawForeground(matrices, mouseX, mouseY);
 		drawTextWithShadow(matrices, textRenderer, wizardName, 3, -10, 0xffffff);
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-		RenderSystem.setShaderTexture(0, BACKGROUND);
 
-		if(true) {
-			// TODO player dialogue options + scroll bar
-//			DrawableHelper.drawTexture(matrices, 0, 0, 0, isPointWithinBounds(3, 3, 250, 17, mouseX, mouseY) ? 85 : 62, 256, 23, 256, 256);
-//			DrawableHelper.drawTexture(matrices, 0, 19, 0, isPointWithinBounds(3, 22, 250, 17, mouseX, mouseY) ? 85 : 62, 256, 23, 256, 256);
-//			DrawableHelper.drawTexture(matrices, 0, 38, 0, isPointWithinBounds(3, 41, 250, 17, mouseX, mouseY) ? 85 : 62, 256, 23, 256, 256);
+//		TODO wizard dialogue
+// 		clearChildren();
+//		List<OrderedText> lines = textRenderer.wrapLines(Text.literal("I am Guybrush Threepwood, Grand Wizard of the realm! Do you truly wish to learn more about the arcane?"), 244);
 //
-//			drawTextWithShadow(matrices, textRenderer, Text.literal("I would love to learn more!"), 6, 7, 0xffffff);
-//			drawTextWithShadow(matrices, textRenderer, Text.literal("Arcane? Like, magic and stuff?"), 6, 26, 0xffffff);
-//			drawTextWithShadow(matrices, textRenderer, Text.literal("Guybrush... will you be my valentine!"), 6, 45, 0xffffff);
-		}
-		else {
-			// TODO wizard dialogue
-//			List<OrderedText> lines = textRenderer.wrapLines(Text.literal("I am Guybrush Threepwood, Grand Wizard of the realm! Do you truly wish to learn more about the arcane?"), 244);
+//		for(int i = 0; i < lines.size(); i++) {
+//			OrderedText text = lines.get(i);
+//			textRenderer.drawWithShadow(matrices, text, 6, 6 + (10 * i), 0xffffff);
+//		}
 //
-//			for(int i = 0; i < lines.size(); i++) {
-//				OrderedText text = lines.get(i);
-//				textRenderer.drawWithShadow(matrices, text, 6, 7 + (10 * i), 0xffffff);
-//			}
-//
-//			RenderSystem.setShader(GameRenderer::getPositionTexShader);
-//			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-//			RenderSystem.setShaderTexture(0, BACKGROUND);
-//			DrawableHelper.drawTexture(matrices, 248, client.world.getTime() / 10 % 2 == 0 ? 55 : 54, 0, 112, 5, 4, 256, 256);
-		}
+//		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+//		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+//		RenderSystem.setShaderTexture(0, BACKGROUND);
+//		DrawableHelper.drawTexture(matrices, 248, client.world.getTime() / 10 % 2 == 0 ? 55 : 54, 0, 176, 5, 4, 256, 256);
 	}
 
 	@Override

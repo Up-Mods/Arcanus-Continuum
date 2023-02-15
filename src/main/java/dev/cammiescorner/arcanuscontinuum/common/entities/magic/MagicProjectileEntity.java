@@ -55,7 +55,7 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 	protected void onEntityHit(EntityHitResult target) {
 		if(world instanceof ServerWorld server) {
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect((LivingEntity) getOwner(), world, target, effects, stack, potency);
+				effect.effect((LivingEntity) getOwner(), this, world, target, effects, stack, potency);
 
 			if(getOwner() instanceof LivingEntity caster)
 				SpellShape.castNext(caster, target.getPos(), target.getEntity(), server, stack, spellGroups, groupIndex, potency);
@@ -69,7 +69,7 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 	protected void onBlockHit(BlockHitResult target) {
 		if(getOwner() instanceof LivingEntity caster && world instanceof ServerWorld server) {
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, world, target, effects, stack, potency);
+				effect.effect(caster, this, world, target, effects, stack, potency);
 
 			SpellShape.castNext(caster, target.getPos(), this, server, stack, spellGroups, groupIndex, potency);
 		}

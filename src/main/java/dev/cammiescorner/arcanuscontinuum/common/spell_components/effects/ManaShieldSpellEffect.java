@@ -7,6 +7,7 @@ import dev.cammiescorner.arcanuscontinuum.common.entities.magic.ManaShieldEntity
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
@@ -22,7 +23,7 @@ public class ManaShieldSpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
+	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
 		if(target.getType() != HitResult.Type.MISS) {
 			ManaShieldEntity manaShield = new ManaShieldEntity(ArcanusEntities.MANA_SHIELD, world);
 

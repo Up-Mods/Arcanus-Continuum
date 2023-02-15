@@ -46,7 +46,7 @@ public class MagicRuneEntity extends Entity {
 
 			if(entity != null) {
 				for(SpellEffect effect : new HashSet<>(effects))
-					effect.effect(getCaster(), world, new EntityHitResult(entity), effects, stack, potency);
+					effect.effect(getCaster(), this, world, new EntityHitResult(entity), effects, stack, potency);
 
 				SpellShape.castNext(getCaster(), getPos(), this, serverWorld, stack, spellGroups, groupIndex, potency);
 				kill();
@@ -115,9 +115,10 @@ public class MagicRuneEntity extends Entity {
 		return ArcanusComponents.getColour(this);
 	}
 
-	public void setProperties(LivingEntity caster, Vec3d pos, ItemStack stack, List<SpellEffect> effects, double potency, List<SpellGroup> groups, int groupIndex, int colour) {
+	public void setProperties(LivingEntity caster, Entity sourceEntity, Vec3d pos, ItemStack stack, List<SpellEffect> effects, double potency, List<SpellGroup> groups, int groupIndex, int colour) {
 		setPos(pos.getX(), pos.getY(), pos.getZ());
-		this.setPitch(-90);
+		setYaw(sourceEntity.getYaw());
+		setPitch(sourceEntity.getPitch());
 		this.casterId = caster.getUuid();
 		this.stack = stack;
 		this.effects = effects;

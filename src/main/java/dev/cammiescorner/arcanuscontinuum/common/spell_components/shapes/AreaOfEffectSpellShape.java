@@ -24,9 +24,10 @@ public class AreaOfEffectSpellShape extends SpellShape {
 	@Override
 	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		AreaOfEffectEntity areaOfEffect = ArcanusEntities.AOE.create(world);
+		Entity sourceEntity = castSource != null ? castSource : caster;
 
 		if(areaOfEffect != null) {
-			areaOfEffect.setProperties(caster, castFrom, stack, effects, potency, spellGroups, groupIndex, StaffItem.getMagicColour(caster.getUuidAsString()));
+			areaOfEffect.setProperties(caster, sourceEntity, castFrom, stack, effects, potency, spellGroups, groupIndex, StaffItem.getMagicColour(caster.getUuidAsString()));
 			world.spawnEntity(areaOfEffect);
 		}
 	}

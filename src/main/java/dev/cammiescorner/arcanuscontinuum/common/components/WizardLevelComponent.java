@@ -30,7 +30,7 @@ public class WizardLevelComponent implements AutoSyncedComponent {
 			if(manaAttr.getModifier(MANA_MODIFIER) != null)
 				manaAttr.removeModifier(MANA_MODIFIER);
 
-			manaAttr.addPersistentModifier(new EntityAttributeModifier(MANA_MODIFIER, "Wizard Level Modifier", Math.max((level - 1) * 10, 10), EntityAttributeModifier.Operation.ADDITION));
+			manaAttr.addPersistentModifier(new EntityAttributeModifier(MANA_MODIFIER, "Wizard Level Modifier", Math.max(level - 1, 0) * 10, EntityAttributeModifier.Operation.ADDITION));
 		}
 
 		if(spellPotencyAttr != null) {
@@ -59,7 +59,7 @@ public class WizardLevelComponent implements AutoSyncedComponent {
 			if(manaAttr.getModifier(MANA_MODIFIER) != null)
 				manaAttr.removeModifier(MANA_MODIFIER);
 
-			manaAttr.addPersistentModifier(new EntityAttributeModifier(MANA_MODIFIER, "Wizard Level Modifier", Math.max((level - 1) * 10, 10), EntityAttributeModifier.Operation.ADDITION));
+			manaAttr.addPersistentModifier(new EntityAttributeModifier(MANA_MODIFIER, "Wizard Level Modifier", Math.max(level - 1, 0) * 10, EntityAttributeModifier.Operation.ADDITION));
 		}
 
 		if(spellPotencyAttr != null) {

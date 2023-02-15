@@ -41,7 +41,7 @@ public class SmiteEntity extends Entity {
 				world.getEntitiesByClass(LivingEntity.class, box, livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator()).forEach(entity -> {
 					if(!hasHit.contains(entity.getUuid())) {
 						for(SpellEffect effect : new HashSet<>(effects))
-							effect.effect(getCaster(), world, new EntityHitResult(entity), effects, stack, potency + 0.5);
+							effect.effect(getCaster(), this, world, new EntityHitResult(entity), effects, stack, potency + 0.5);
 
 						hasHit.add(entity.getUuid());
 					}
@@ -112,9 +112,11 @@ public class SmiteEntity extends Entity {
 		return ArcanusComponents.getColour(this);
 	}
 
-	public void setProperties(LivingEntity caster, Vec3d pos, ItemStack stack, List<SpellEffect> effects, double potency, int colour) {
+	public void setProperties(LivingEntity caster, Entity sourceEntity, Vec3d pos, ItemStack stack, List<SpellEffect> effects, double potency, int colour) {
 		setPos(pos.getX(), pos.getY(), pos.getZ());
 		setNoGravity(true);
+		setYaw(sourceEntity.getYaw());
+		setPitch(sourceEntity.getPitch());
 		this.casterId = caster.getUuid();
 		this.stack = stack;
 		this.effects = effects;

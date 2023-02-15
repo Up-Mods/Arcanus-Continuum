@@ -7,6 +7,7 @@ import dev.cammiescorner.arcanuscontinuum.common.entities.living.NecroSkeletonEn
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusItems;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -24,7 +25,7 @@ public class NecromancySpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
+	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
 		if(target.getType() != HitResult.Type.MISS) {
 			int effectCount = (int) effects.stream().filter(effect -> effect == ArcanusSpellComponents.NECROMANCY).count();
 			double healthMultiplier = 1 + (effectCount - 1) * (-0.075);

@@ -20,7 +20,12 @@
 
   "entity.arcanuscontinuum.wizard": "Wizard",
   "entity.arcanuscontinuum.opossum": "Opossum",
+  "entity.arcanuscontinuum.necro_skeleton": "Necro Skeleton",
   "entity.arcanuscontinuum.mana_shield": "Mana Shield",
+  "entity.arcanuscontinuum.magic_projectile": "Magic Projectile",
+  "entity.arcanuscontinuum.magic_rune": "Magic Rune",
+  "entity.arcanuscontinuum.area_of_effect": "Area Of Effect",
+  "entity.arcanuscontinuum.smite": "Smite",
 
   "effect.arcanuscontinuum.mana_lock": "Mana Lock",
   "effect.arcanuscontinuum.vulnerability": "Vulnerability",
@@ -101,6 +106,8 @@
   "screen.arcanuscontinuum.tooltip.undo": "Undo",
   "screen.arcanuscontinuum.tooltip.redo": "Redo",
   "screen.arcanuscontinuum.tooltip.component_count": "Spell Components",
+
+  "wizard_dialogue.arcanuscontinuum.no_wizard_armour": "I only speak to fellow wizards.",
 
   "death.attack.arcanuscontinuum.magic_damage": "%s was killed by %s using magic",
 

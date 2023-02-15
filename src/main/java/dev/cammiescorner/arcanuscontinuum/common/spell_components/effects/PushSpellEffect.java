@@ -21,13 +21,13 @@ public class PushSpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
+	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 			Entity entity = entityHit.getEntity();
 
-			if(caster != null) {
-				entity.addVelocity(caster.getRotationVector().multiply(effects.stream().filter(effect -> effect == ArcanusSpellComponents.PUSH).count() * 0.2 * potency));
+			if(sourceEntity != null) {
+				entity.addVelocity(sourceEntity.getRotationVector().multiply(effects.stream().filter(effect -> effect == ArcanusSpellComponents.PUSH).count() * 0.2 * potency));
 				entity.velocityModified = true;
 			}
 		}

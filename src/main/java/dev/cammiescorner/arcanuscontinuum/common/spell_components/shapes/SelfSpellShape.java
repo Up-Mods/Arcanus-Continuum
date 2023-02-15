@@ -26,7 +26,7 @@ public class SelfSpellShape extends SpellShape {
 		HitResult hit = new EntityHitResult(caster);
 
 		for(SpellEffect effect : new HashSet<>(effects))
-			effect.effect(caster, world, hit, effects, stack, potency);
+			effect.effect(caster, caster, world, hit, effects, stack, potency);
 
 		castNext(caster, hit.getPos(), caster, world, stack, spellGroups, groupIndex, potency);
 	}

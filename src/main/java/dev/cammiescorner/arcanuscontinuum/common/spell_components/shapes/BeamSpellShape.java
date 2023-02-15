@@ -32,7 +32,7 @@ public class BeamSpellShape extends SpellShape {
 
 		if(target.getType() == HitResult.Type.BLOCK) {
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, world, target, effects, stack, potency + 0.25);
+				effect.effect(caster, sourceEntity, world, target, effects, stack, potency + 0.25);
 
 			castNext(caster, target.getPos(), castSource, world, stack, spellGroups, groupIndex, potency);
 		}
@@ -41,7 +41,7 @@ public class BeamSpellShape extends SpellShape {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity targetEntity)
-				ArcanusComponents.setProperties(targetEntity, caster, stack, effects, spellGroups, groupIndex, potency, 60);
+				ArcanusComponents.setProperties(targetEntity, caster, sourceEntity, stack, effects, spellGroups, groupIndex, potency, 60);
 		}
 	}
 }

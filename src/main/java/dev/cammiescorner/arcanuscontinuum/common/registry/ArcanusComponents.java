@@ -211,8 +211,8 @@ public class ArcanusComponents implements EntityComponentInitializer {
 		BEAM_TARGET.get(entity).setTimer(timer);
 	}
 
-	public static void setProperties(LivingEntity entity, LivingEntity caster, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, double potency, int timer) {
-		BEAM_TARGET.get(entity).setProperties(caster, stack, effects, groups, groupIndex, potency, timer);
+	public static void setProperties(LivingEntity entity, LivingEntity caster, Entity sourceEntity, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, double potency, int timer) {
+		BEAM_TARGET.get(entity).setProperties(caster, sourceEntity, stack, effects, groups, groupIndex, potency, timer);
 	}
 
 	public static SpellShape getSpellShape(Entity entity) {

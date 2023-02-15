@@ -25,9 +25,10 @@ public class RuneSpellShape extends SpellShape {
 	@Override
 	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		MagicRuneEntity magicRune = ArcanusEntities.MAGIC_RUNE.create(world);
+		Entity sourceEntity = castSource != null ? castSource : caster;
 
 		if(magicRune != null) {
-			magicRune.setProperties(caster, castFrom, stack, effects, potency, spellGroups, groupIndex, StaffItem.getMagicColour(caster.getUuidAsString()));
+			magicRune.setProperties(caster, sourceEntity, castFrom, stack, effects, potency, spellGroups, groupIndex, StaffItem.getMagicColour(caster.getUuidAsString()));
 			world.spawnEntity(magicRune);
 		}
 	}

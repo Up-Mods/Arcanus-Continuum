@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.api.spells;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
@@ -27,7 +28,7 @@ public abstract class SpellEffect extends SpellComponent {
 		return type;
 	}
 
-	public abstract void effect(@Nullable LivingEntity caster, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency);
+	public abstract void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency);
 
 	public boolean shouldTriggerOnceOnExplosion() {
 		return false;

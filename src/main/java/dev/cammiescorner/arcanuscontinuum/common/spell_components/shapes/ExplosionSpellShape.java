@@ -83,18 +83,18 @@ public class ExplosionSpellShape extends SpellShape {
 		int s = MathHelper.floor(castFrom.getY() + f + 1);
 		int t = MathHelper.floor(castFrom.getZ() - f - 1);
 		int u = MathHelper.floor(castFrom.getZ() + f + 1);
-		List<Entity> list = world.getOtherEntities(sourceEntity, new Box(k, r, t, l, s, u)).stream().filter(entity -> entity instanceof LivingEntity).toList();
+		List<LivingEntity> list = world.getOtherEntities(sourceEntity, new Box(k, r, t, l, s, u)).stream().filter(entity -> entity instanceof LivingEntity).map(LivingEntity.class::cast).toList();
 
 		for(SpellEffect effect : new HashSet<>(effects)) {
 			if(effect.shouldTriggerOnceOnExplosion()) {
-				effect.effect(caster, world, new EntityHitResult(sourceEntity), effects, stack, potency);
+				effect.effect(caster, sourceEntity, world, new EntityHitResult(sourceEntity), effects, stack, potency);
 				continue;
 			}
 
-			for(Entity entity : list)
-				effect.effect(caster, world, new EntityHitResult(entity), effects, stack, potency);
+			for(LivingEntity entity : list)
+				effect.effect(caster, sourceEntity, world, new EntityHitResult(entity), effects, stack, potency);
 			for(BlockPos blockPos : affectedBlocks)
-				effect.effect(caster, world, new BlockHitResult(Vec3d.ofCenter(blockPos), Direction.UP, blockPos, true), effects, stack, potency);
+				effect.effect(caster, sourceEntity, world, new BlockHitResult(Vec3d.ofCenter(blockPos), Direction.UP, blockPos, true), effects, stack, potency);
 		}
 
 		world.playSound(null, castFrom.getX(), castFrom.getY(), castFrom.getZ(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F, 1L);

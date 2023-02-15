@@ -61,11 +61,6 @@ public class SpellComponentWidget extends PressableWidget {
 		DrawableHelper.drawTexture(matrices, getX(), getY(), 0, 0, 24, 24, 24, 24);
 	}
 
-	@Override
-	public void onClick(double mouseX, double mouseY) {
-		super.onClick(mouseX, mouseY);
-	}
-
 	public void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
 		tooltipSupplier.onTooltip(this, matrices, mouseX, mouseY);
 	}

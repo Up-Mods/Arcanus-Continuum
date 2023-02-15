@@ -8,6 +8,7 @@ import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusParticles;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -27,6 +28,7 @@ import java.util.UUID;
 public class BeamTargetComponent implements AutoSyncedComponent, ServerTickingComponent {
 	private final LivingEntity entity;
 	private UUID casterId = Util.NIL_UUID;
+	private UUID sourceEntityId = Util.NIL_UUID;
 	private ItemStack stack = ItemStack.EMPTY;
 	private List<SpellEffect> effects = new ArrayList<>();
 	private List<SpellGroup> spellGroups = new ArrayList<>();
@@ -47,7 +49,7 @@ public class BeamTargetComponent implements AutoSyncedComponent, ServerTickingCo
 
 			if(timer == 0) {
 				for(SpellEffect effect : new HashSet<>(effects))
-					effect.effect(getCaster(), world, new EntityHitResult(entity), effects, stack, potency + 0.25);
+					effect.effect(getCaster(), getSource(), world, new EntityHitResult(entity), effects, stack, potency + 0.25);
 
 				SpellShape.castNext(getCaster(), entity.getPos(), entity, world, stack, spellGroups, groupIndex, potency);
 				casterId = Util.NIL_UUID;
@@ -66,6 +68,7 @@ public class BeamTargetComponent implements AutoSyncedComponent, ServerTickingCo
 		spellGroups.clear();
 
 		casterId = tag.getUuid("CasterId");
+		sourceEntityId = tag.getUuid("SourceEntityId");
 		stack = ItemStack.fromNbt(tag.getCompound("ItemStack"));
 		potency = tag.getDouble("Potency");
 		groupIndex = tag.getInt("GroupIndex");
@@ -86,6 +89,7 @@ public class BeamTargetComponent implements AutoSyncedComponent, ServerTickingCo
 		NbtList groupsList = new NbtList();
 
 		tag.putUuid("CasterId", casterId);
+		tag.putUuid("SourceEntityId", sourceEntityId);
 		tag.put("ItemStack", stack.writeNbt(new NbtCompound()));
 		tag.putDouble("Potency", potency);
 		tag.putInt("GroupIndex", groupIndex);
@@ -107,6 +111,13 @@ public class BeamTargetComponent implements AutoSyncedComponent, ServerTickingCo
 		return null;
 	}
 
+	private Entity getSource() {
+		if(entity.world instanceof ServerWorld serverWorld)
+			return serverWorld.getEntity(sourceEntityId);
+
+		return null;
+	}
+
 	public int getTimer() {
 		return timer;
 	}
@@ -116,8 +127,9 @@ public class BeamTargetComponent implements AutoSyncedComponent, ServerTickingCo
 		ArcanusComponents.BEAM_TARGET.sync(entity, (buf, recipient) -> buf.writeInt(timer));
 	}
 
-	public void setProperties(LivingEntity caster, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, double potency, int timer) {
+	public void setProperties(LivingEntity caster, Entity sourceEntity, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, double potency, int timer) {
 		this.casterId = caster.getUuid();
+		this.sourceEntityId = sourceEntity.getUuid();
 		this.stack = stack;
 		this.effects = effects;
 		this.spellGroups = groups;

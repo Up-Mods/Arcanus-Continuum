@@ -47,13 +47,13 @@ public class BoltSpellShape extends SpellShape {
 
 		if(hit != null)
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, world, new EntityHitResult(hit), effects, stack, potency);
+				effect.effect(caster, sourceEntity, world, new EntityHitResult(hit), effects, stack, potency);
 		else {
 			HitResult target = ArcanusHelper.raycast(sourceEntity, range, false, true);
 
 			if(target.getType() == HitResult.Type.BLOCK)
 				for(SpellEffect effect : new HashSet<>(effects))
-					effect.effect(caster, world, target, effects, stack, potency);
+					effect.effect(caster, sourceEntity, world, target, effects, stack, potency);
 		}
 
 		castNext(caster, hit != null ? hit.getPos() : castFrom, castSource, world, stack, spellGroups, groupIndex, potency);

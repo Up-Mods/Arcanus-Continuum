@@ -32,7 +32,7 @@ public class TouchSpellShape extends SpellShape {
 
 		if(target.getType() != HitResult.Type.MISS) {
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, world, target, effects, stack, potency);
+				effect.effect(caster, sourceEntity, world, target, effects, stack, potency);
 		}
 
 		Entity targetEntity = target.getType() == HitResult.Type.ENTITY ? ((EntityHitResult) target).getEntity() : castSource;

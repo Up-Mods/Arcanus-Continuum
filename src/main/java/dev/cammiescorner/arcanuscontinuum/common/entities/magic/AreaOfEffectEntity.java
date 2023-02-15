@@ -47,7 +47,7 @@ public class AreaOfEffectEntity extends Entity {
 
 				world.getEntitiesByClass(LivingEntity.class, box, livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator()).forEach(entity -> {
 					for(SpellEffect effect : new HashSet<>(effects))
-						effect.effect(getCaster(), world, new EntityHitResult(entity), effects, stack, potency);
+						effect.effect(getCaster(), this, world, new EntityHitResult(entity), effects, stack, potency);
 				});
 
 				SpellShape.castNext(getCaster(), getPos(), this, (ServerWorld) world, stack, spellGroups, groupIndex, potency);
@@ -127,10 +127,10 @@ public class AreaOfEffectEntity extends Entity {
 		return trueAge;
 	}
 
-	public void setProperties(LivingEntity caster, Vec3d pos, ItemStack stack, List<SpellEffect> effects, double potency, List<SpellGroup> groups, int groupIndex, int colour) {
+	public void setProperties(LivingEntity caster, Entity sourceEntity, Vec3d pos, ItemStack stack, List<SpellEffect> effects, double potency, List<SpellGroup> groups, int groupIndex, int colour) {
 		setPos(pos.getX(), pos.getY(), pos.getZ());
-		setYaw(caster.getYaw());
-		setPitch(-5);
+		setYaw(sourceEntity.getYaw());
+		setPitch(sourceEntity.getPitch());
 		this.casterId = caster.getUuid();
 		this.stack = stack;
 		this.effects = effects;
