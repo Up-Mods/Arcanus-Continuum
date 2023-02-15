@@ -59,12 +59,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.quiltmc.qsl.entity.effect.api.StatusEffectRemovalReason;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 public class WizardEntity extends PassiveEntity implements SmartBrainOwner<WizardEntity>, Angerable {
 	private static final TrackedData<Integer> ROBES_COLOUR = DataTracker.registerData(WizardEntity.class, TrackedDataHandlerRegistry.INTEGER);
+	public final List<PlayerEntity> talkingPlayers = new ArrayList<>();
 
 	public WizardEntity(EntityType<? extends PassiveEntity> entityType, World world) {
 		super(entityType, world);
@@ -113,7 +115,7 @@ public class WizardEntity extends PassiveEntity implements SmartBrainOwner<Wizar
 
 					@Override
 					public ScreenHandler createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-						return new DialogueScreenHandler(i);
+						return new DialogueScreenHandler(i, WizardEntity.this, playerInventory);
 					}
 				});
 			}
@@ -194,7 +196,7 @@ public class WizardEntity extends PassiveEntity implements SmartBrainOwner<Wizar
 		return BrainActivityGroup.coreTasks(
 				new FloatToSurfaceOfFluid<>(),
 				new LookAtTarget<>(),
-				new MoveToWalkTarget<>()
+				new MoveToWalkTarget<>().stopIf(pathAwareEntity -> !talkingPlayers.isEmpty())
 		);
 	}
 
@@ -203,11 +205,11 @@ public class WizardEntity extends PassiveEntity implements SmartBrainOwner<Wizar
 		return BrainActivityGroup.idleTasks(
 				new FirstApplicableBehaviour<WizardEntity>(
 						new SetRetaliateTarget<>(),
-						new SetPlayerLookTarget<>(),
-						new SetRandomLookTarget<>()
+						new SetPlayerLookTarget<>().stopIf(entity -> !talkingPlayers.isEmpty()),
+						new SetRandomLookTarget<>().stopIf(entity -> !talkingPlayers.isEmpty())
 				),
 				new OneRandomBehaviour<>(
-						new SetRandomWalkTarget<>(),
+						new SetRandomWalkTarget<>().startCondition(pathAwareEntity -> talkingPlayers.isEmpty()),
 						new Idle<>().runFor(entity -> entity.getRandom().nextInt(30) + 30)
 				)
 		);
