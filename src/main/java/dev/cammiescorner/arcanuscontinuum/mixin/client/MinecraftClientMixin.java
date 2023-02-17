@@ -118,11 +118,11 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 		if(player != null && !player.isSpectator() && player.getMainHandStack().getItem() instanceof StaffItem staff) {
 			if(player.getAttackCooldownProgress(getTickDelta()) == 1F && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
-				doAttack();
 				timer = 20;
 				pattern.add(Pattern.LEFT);
 				SyncPatternPacket.send(pattern);
 				player.swingHand(Hand.MAIN_HAND);
+				player.resetLastAttackedTicks();
 				player.world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1F, 1.3F, 1L);
 
 				if(pattern.size() >= 3)

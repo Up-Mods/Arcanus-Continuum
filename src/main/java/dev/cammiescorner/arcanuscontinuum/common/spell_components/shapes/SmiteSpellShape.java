@@ -29,6 +29,10 @@ public class SmiteSpellShape extends SpellShape {
 		super(weight, manaCost, coolDown, minLevel);
 	}
 
+	public SmiteSpellShape(Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
+		super(weight, manaCost, manaMultiplier, coolDown, minLevel);
+	}
+
 	@Override
 	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		Entity sourceEntity = castSource != null ? castSource : caster;

@@ -24,6 +24,10 @@ public class BeamSpellShape extends SpellShape {
 		super(weight, manaCost, coolDown, minLevel);
 	}
 
+	public BeamSpellShape(Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
+		super(weight, manaCost, manaMultiplier, coolDown, minLevel);
+	}
+
 	@Override
 	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		double range = ReachEntityAttributes.getAttackRange(caster, 16);

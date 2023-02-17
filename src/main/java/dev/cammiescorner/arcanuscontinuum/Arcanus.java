@@ -42,6 +42,7 @@ import org.quiltmc.qsl.networking.api.EntityTrackingEvents;
 import org.quiltmc.qsl.networking.api.ServerPlayConnectionEvents;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 
+import java.text.DecimalFormat;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -50,6 +51,7 @@ import java.util.stream.Stream;
 
 public class Arcanus implements ModInitializer {
 	public static final String MOD_ID = "arcanuscontinuum";
+	public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("##,####.##");
 	public static final DefaultedRegistry<SpellComponent> SPELL_COMPONENTS = FabricRegistryBuilder.createDefaulted(SpellComponent.class, id("spell_components"), id("empty")).buildAndRegister();
 
 	@Override
@@ -148,6 +150,10 @@ public class Arcanus implements ModInitializer {
 	public static MutableText translate(@Nullable String prefix, String... value) {
 		String translationKey = Arcanus.MOD_ID + "." + String.join(".", value);
 		return Text.translatable(prefix != null ? (prefix + "." + translationKey) : translationKey);
+	}
+
+	public static String format(double d) {
+		return DECIMAL_FORMAT.format(d);
 	}
 
 	public static int getSpellIndex(List<Pattern> patternList) {

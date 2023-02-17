@@ -24,6 +24,10 @@ public class TouchSpellShape extends SpellShape {
 		super(weight, manaCost, coolDown, minLevel);
 	}
 
+	public TouchSpellShape(Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
+		super(weight, manaCost, manaMultiplier, coolDown, minLevel);
+	}
+
 	@Override
 	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		double range = ReachEntityAttributes.getAttackRange(caster, caster instanceof PlayerEntity player && player.isCreative() ? 5 : 4.5);

@@ -365,8 +365,8 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		textRenderer.draw(matrices, maxSpellComponentCount, 138 - textRenderer.getWidth(maxSpellComponentCount) * 0.5F, 11, componentCounterColour);
 
 		MutableText weight = Arcanus.translate("spell_book", "weight", getWeight().toString().toLowerCase(Locale.ROOT)).formatted(Formatting.DARK_GREEN);
-		MutableText mana = Text.literal(String.format("%.2f", getManaCost())).formatted(Formatting.BLUE);
-		MutableText coolDown = Text.literal(String.format("%.2f", getCoolDown() / 20D)).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.RED);
+		MutableText mana = Text.literal(Arcanus.format(getManaCost())).formatted(Formatting.BLUE);
+		MutableText coolDown = Text.literal(Arcanus.format(getCoolDown() / 20D)).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.RED);
 
 		textRenderer.draw(matrices, weight, 240 - textRenderer.getWidth(weight), 7, 0xffffff);
 		textRenderer.draw(matrices, mana, 240 - textRenderer.getWidth(mana), 17, 0xffffff);
@@ -388,12 +388,17 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 				Vector2i position = group.positions().get(i);
 
 				if(isPointWithinBounds(position.x() - 2, position.y() - 2, 28, 28, mouseX, mouseY)) {
+					List<Text> textList = new ArrayList<>();
 					SpellComponent component = group.getAllComponents().toList().get(i);
-					MutableText componentName = Text.translatable(component.getTranslationKey(client.player));
-					MutableText componentWeight = Arcanus.translate("spell_book", "weight").append(": ").formatted(Formatting.GREEN).append(Arcanus.translate("spell_book", "weight", component.getWeight().toString().toLowerCase(Locale.ROOT)).formatted(Formatting.GRAY));
-					MutableText componentMana = Arcanus.translate("spell_book", "mana_cost").append(": ").formatted(Formatting.BLUE).append(Text.literal(String.format("%.2f", component.getManaCost())).formatted(Formatting.GRAY));
-					MutableText componentCoolDown = Arcanus.translate("spell_book", "cool_down").append(": ").formatted(Formatting.RED).append(Text.literal(String.format("%.2f", component.getCoolDown() / 20D)).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.GRAY));
-					List<Text> textList = List.of(componentName, componentWeight, componentMana, componentCoolDown);
+
+					textList.add(Text.translatable(component.getTranslationKey(client.player)));
+					textList.add(Arcanus.translate("spell_book", "weight").append(": ").formatted(Formatting.GREEN).append(Arcanus.translate("spell_book", "weight", component.getWeight().toString().toLowerCase(Locale.ROOT)).formatted(Formatting.GRAY)));
+					textList.add(Arcanus.translate("spell_book", "mana_cost").append(": ").formatted(Formatting.BLUE).append(Text.literal(component.getManaCostAsString()).formatted(Formatting.GRAY)));
+
+					if(component instanceof SpellShape shape && shape.getManaMultiplier() != 0)
+						textList.add(Arcanus.translate("spell_book", "mana_multiplier").append(": ").formatted(Formatting.LIGHT_PURPLE).append(Text.literal(shape.getManaMultiplierAsString()).formatted(Formatting.GRAY)));
+
+					textList.add(Arcanus.translate("spell_book", "cool_down").append(": ").formatted(Formatting.RED).append(Text.literal(component.getCoolDownAsString()).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.GRAY)));
 
 					renderTooltip(matrices, textList, mouseX - x, mouseY - y);
 				}
@@ -403,12 +408,12 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 	protected void addCloseButtons() {
 		addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> {
-			SaveBookDataPacket.send(getScreenHandler().getPos(), SPELL_GROUPS, textBox.getText().isBlank() ? "Blank" : textBox.getText());
+			SaveBookDataPacket.send(getScreenHandler().getPos(), getSpell());
 			closeScreen();
 		}).position(width / 2 - 100, y + 170).size(98, 20).build());
 
 		addDrawableChild(ButtonWidget.builder(Text.translatable("lectern.take_book"), (button) -> {
-			SaveBookDataPacket.send(getScreenHandler().getPos(), SPELL_GROUPS, textBox.getText().isBlank() ? "Blank" : textBox.getText());
+			SaveBookDataPacket.send(getScreenHandler().getPos(), getSpell());
 			client.interactionManager.clickButton(handler.syncId, 0);
 			closeScreen();
 		}).position(width / 2 + 2, y + 170).size(98, 20).build());
@@ -446,42 +451,22 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		return count;
 	}
 
+	public Spell getSpell() {
+		if(SPELL_GROUPS.get(0).isEmpty() && SPELL_GROUPS.size() > 1 && !SPELL_GROUPS.get(1).isEmpty())
+			SPELL_GROUPS.remove(0);
+
+		return new Spell(SPELL_GROUPS, textBox.getText().isBlank() ? "Empty" : textBox.getText());
+	}
+
 	public Weight getWeight() {
-		int averageWeightIndex = 0;
-
-		if(!SPELL_GROUPS.isEmpty()) {
-			int i = 0;
-
-			for(SpellGroup group : SPELL_GROUPS) {
-				if(group.isEmpty())
-					continue;
-
-				averageWeightIndex += group.getAverageWeight().ordinal();
-				i++;
-			}
-
-			averageWeightIndex = Math.round(averageWeightIndex / (float) i);
-		}
-
-		return Weight.values()[averageWeightIndex];
+		return getSpell().getWeight();
 	}
 
 	public double getManaCost() {
-		double manaCost = 0;
-
-		for(SpellGroup group : SPELL_GROUPS)
-			manaCost += group.getManaCost();
-
-		return manaCost;
+		return getSpell().getManaCost();
 	}
 
 	public int getCoolDown() {
-		int coolDown = 0;
-
-		if(!SPELL_GROUPS.isEmpty())
-			for(SpellGroup group : SPELL_GROUPS)
-				coolDown += group.getCoolDown();
-
-		return coolDown;
+		return getSpell().getCoolDown();
 	}
 }

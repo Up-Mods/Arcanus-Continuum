@@ -85,7 +85,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	}
 
 	public boolean drainMana(double amount, boolean simulate) {
-		if(getMana() >= 0) {
+		if(getMana() >= 0 && getMana() + getTrueMaxMana() >= amount) {
 			if(!simulate) {
 				if(amount > getMana())
 					ArcanusComponents.addBurnout(entity, amount - getMana(), false);

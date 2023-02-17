@@ -38,6 +38,14 @@ public class SpellComponent {
 		return minLevel;
 	}
 
+	public String getManaCostAsString() {
+		return Arcanus.format(getManaCost());
+	}
+
+	public String getCoolDownAsString() {
+		return Arcanus.format(getCoolDown() / 20D);
+	}
+
 	public Identifier getTexture() {
 		Identifier id = Arcanus.SPELL_COMPONENTS.getId(this);
 		String extra = "";

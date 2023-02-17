@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.api.spells;
 
+import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -16,8 +17,23 @@ public abstract class SpellShape extends SpellComponent {
 		}
 	};
 
-	public SpellShape(Weight weight, double manaCost, int coolDown, int minLevel) {
+	private final double manaMultiplier;
+
+	public SpellShape(Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
 		super(weight, manaCost, coolDown, minLevel);
+		this.manaMultiplier = manaMultiplier;
+	}
+
+	public SpellShape(Weight weight, double manaCost, int coolDown, int minLevel) {
+		this(weight, manaCost, 1, coolDown, minLevel);
+	}
+
+	public double getManaMultiplier() {
+		return manaMultiplier - 1;
+	}
+
+	public String getManaMultiplierAsString() {
+		return (getManaMultiplier() < 0 ? "" : "+") + Arcanus.format(getManaMultiplier() * 100) + "%";
 	}
 
 	public abstract void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency);

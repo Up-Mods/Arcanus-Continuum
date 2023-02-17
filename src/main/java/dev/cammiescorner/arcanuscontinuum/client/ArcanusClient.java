@@ -110,7 +110,7 @@ public class ArcanusClient implements ClientModInitializer {
 		}
 
 		final MinecraftClient client = MinecraftClient.getInstance();
-		var obj = new Object() { int timer; double lastMana = Double.MAX_VALUE; };
+		var obj = new Object() { int timer; double lastMana; };
 
 		HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
 			PlayerEntity player = client.player;
@@ -129,6 +129,9 @@ public class ArcanusClient implements ClientModInitializer {
 				double mana = ArcanusComponents.getMana(player);
 				double burnout = ArcanusComponents.getBurnout(player);
 				double manaLock = ArcanusComponents.getManaLock(player);
+
+				if(obj.lastMana == 0)
+					obj.lastMana = mana;
 
 				if(player.getMainHandStack().getItem() instanceof StaffItem || mana < maxMana)
 					obj.timer = Math.min(obj.timer + 1, 40);

@@ -88,6 +88,7 @@
   "spell_book.arcanuscontinuum.weight.heavy": "Heavy",
   "spell_book.arcanuscontinuum.weight.very_heavy": "Very Heavy",
   "spell_book.arcanuscontinuum.mana_cost": "Mana Cost",
+  "spell_book.arcanuscontinuum.mana_multiplier": "Mana Multiplier",
   "spell_book.arcanuscontinuum.cool_down": "Cool Down",
   "spell_book.arcanuscontinuum.seconds": "s",
 

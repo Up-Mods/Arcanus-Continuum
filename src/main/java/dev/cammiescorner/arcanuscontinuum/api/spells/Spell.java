@@ -59,7 +59,6 @@ public class Spell {
 	}
 
 	public Weight getWeight() {
-		List<SpellGroup> groups = getComponentGroups();
 		int averageWeightIndex = 0;
 
 		if(!groups.isEmpty()) {
@@ -80,17 +79,24 @@ public class Spell {
 	}
 
 	public double getManaCost() {
-		List<SpellGroup> groups = getComponentGroups();
 		double manaCost = 0;
 
 		for(SpellGroup group : groups)
 			manaCost += group.getManaCost();
 
-		return manaCost;
+		return manaCost * getManaMultiplier();
+	}
+
+	public double getManaMultiplier() {
+		double manaMultiplier = 1;
+
+		for(SpellGroup group : groups)
+			manaMultiplier += group.shape().getManaMultiplier();
+
+		return manaMultiplier;
 	}
 
 	public int getCoolDown() {
-		List<SpellGroup> groups = getComponentGroups();
 		int coolDown = 0;
 
 		if(!groups.isEmpty())

@@ -46,8 +46,8 @@ public class SpellBookItem extends Item {
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		Spell spell = getSpell(stack);
 
-		String manaCost = String.format("%.2f", spell.getManaCost());
-		String cooldown = String.format("%.2f", spell.getCoolDown() / 20D);
+		String manaCost = Arcanus.format(spell.getManaCost());
+		String coolDown = Arcanus.format(spell.getCoolDown() / 20D);
 
 		tooltip.add(Text.literal(spell.getName()).formatted(Formatting.GOLD));
 		tooltip.add(Arcanus.translate("spell_book", "weight").append(": ").formatted(Formatting.GREEN)
@@ -55,7 +55,7 @@ public class SpellBookItem extends Item {
 		tooltip.add(Arcanus.translate("spell_book", "mana_cost").append(": ").formatted(Formatting.BLUE)
 				.append(Text.literal(manaCost).formatted(Formatting.GRAY)));
 		tooltip.add(Arcanus.translate("spell_book", "cool_down").append(": ").formatted(Formatting.RED)
-				.append(Text.literal(cooldown).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.GRAY)));
+				.append(Text.literal(coolDown).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.GRAY)));
 
 		super.appendTooltip(stack, world, tooltip, context);
 	}
