@@ -41,7 +41,7 @@ public class IceSpellEffect extends SpellEffect {
 				world.setBlockState(blockHit.getBlockPos(), Blocks.ICE.getDefaultState());
 			else if(world.getBlockState(blockHit.getBlockPos()).getFluidState().isOf(Fluids.LAVA))
 				world.setBlockState(blockHit.getBlockPos(), Blocks.OBSIDIAN.getDefaultState());
-			else if(world.canPlace(Blocks.SNOW.getDefaultState(), pos, ShapeContext.absent()) && world.getBlockState(pos).getMaterial().isReplaceable())
+			else if(world.isTopSolid(pos.down(), caster) && world.canPlace(Blocks.SNOW.getDefaultState(), pos, ShapeContext.absent()) && world.getBlockState(pos).getMaterial().isReplaceable())
 				world.setBlockState(pos, Blocks.SNOW.getDefaultState());
 		}
 	}

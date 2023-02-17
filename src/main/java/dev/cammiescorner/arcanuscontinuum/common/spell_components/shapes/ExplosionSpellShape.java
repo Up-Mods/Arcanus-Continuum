@@ -68,7 +68,7 @@ public class ExplosionSpellShape extends SpellShape {
 							if(!blockState.isAir() || !fluidState.isEmpty())
 								h -= (Math.max(blockState.getBlock().getBlastResistance(), fluidState.getBlastResistance()) + 0.3F) * 0.3F;
 
-							if(!world.isAir(blockPos) && world.isTopSolid(blockPos, caster))
+							if(!world.isAir(blockPos))
 								affectedBlocks.add(blockPos);
 
 							m += d * 0.3F;
