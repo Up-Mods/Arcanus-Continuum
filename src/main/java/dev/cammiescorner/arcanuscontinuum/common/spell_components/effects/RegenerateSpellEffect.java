@@ -28,7 +28,7 @@ public class RegenerateSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 200, (int) ((effects.stream().filter(effect -> effect == ArcanusSpellComponents.REGENERATE).count() - 1) * potency), true, false));
+				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 300, (int) ((effects.stream().filter(effect -> effect == ArcanusSpellComponents.REGENERATE).count() - 1) * potency), true, false));
 		}
 	}
 }
