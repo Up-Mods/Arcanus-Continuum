@@ -14,14 +14,14 @@
 	],
 	"client": [
 		"client.BipedEntityModelMixin",
+		"client.ClientEntityManagerMixin",
 		"client.CraftingScreenMixin",
 		"client.HeldItemFeatureRendererMixin",
 		"client.HeldItemRendererMixin",
 		"client.ItemRendererMixin",
 		"client.LivingEntityRendererMixin",
 		"client.MinecraftClientMixin",
-		"client.PlayerEntityRendererMixin",
-        "client.ClientEntityManagerMixin"
+		"client.PlayerEntityRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

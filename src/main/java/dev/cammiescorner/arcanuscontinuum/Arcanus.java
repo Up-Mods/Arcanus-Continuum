@@ -11,17 +11,18 @@ import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SetCastingPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SyncPatternPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStatusEffectPacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
+import dev.cammiescorner.arcanuscontinuum.common.structures.WizardTowerProcessor;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.DefaultedRegistry;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.registry.*;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.structure.processor.StructureProcessorList;
+import net.minecraft.structure.processor.StructureProcessorType;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -41,6 +42,7 @@ import org.quiltmc.qsl.command.api.CommandRegistrationCallback;
 import org.quiltmc.qsl.networking.api.EntityTrackingEvents;
 import org.quiltmc.qsl.networking.api.ServerPlayConnectionEvents;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
+import org.quiltmc.qsl.registry.api.event.RegistryEvents;
 
 import java.text.DecimalFormat;
 import java.util.EnumSet;
@@ -53,6 +55,8 @@ public class Arcanus implements ModInitializer {
 	public static final String MOD_ID = "arcanuscontinuum";
 	public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("##,####.##");
 	public static final DefaultedRegistry<SpellComponent> SPELL_COMPONENTS = FabricRegistryBuilder.createDefaulted(SpellComponent.class, id("spell_components"), id("empty")).buildAndRegister();
+	public static final StructureProcessorType<WizardTowerProcessor> WIZARD_TOWER_PROCESSOR = StructureProcessorType.register(Arcanus.id("wizard_tower_processor").toString(), WizardTowerProcessor.CODEC);
+	public static final StructureProcessorList WIZARD_TOWER_PROCESSOR_LIST = new StructureProcessorList(List.of(WizardTowerProcessor.INSTANCE));
 
 	@Override
 	public void onInitialize(ModContainer mod) {
@@ -74,6 +78,8 @@ public class Arcanus implements ModInitializer {
 		ArcanusScreenHandlers.register();
 		ArcanusCommands.register();
 		ArcanusPointsOfInterest.register();
+
+		RegistryEvents.DYNAMIC_REGISTRY_SETUP.register(context -> context.register(RegistryKeys.STRUCTURE_PROCESSOR_LIST, Arcanus.id("wizard_tower_processors"), () -> WIZARD_TOWER_PROCESSOR_LIST));
 
 		ServerPlayNetworking.registerGlobalReceiver(CastSpellPacket.ID, CastSpellPacket::handler);
 		ServerPlayNetworking.registerGlobalReceiver(SetCastingPacket.ID, SetCastingPacket::handler);

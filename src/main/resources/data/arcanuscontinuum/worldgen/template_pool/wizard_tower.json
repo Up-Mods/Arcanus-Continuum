@@ -8,7 +8,7 @@
         "element_type": "minecraft:single_pool_element",
         "location": "arcanuscontinuum:wizard_tower",
         "projection": "rigid",
-        "processors": "minecraft:empty"
+        "processors": "arcanuscontinuum:wizard_tower_processors"
       }
     }
   ]
