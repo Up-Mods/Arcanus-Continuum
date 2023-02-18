@@ -8,9 +8,7 @@ quilted_fabric_api = "5.0.0-beta.4+0.73.0-1.19.3"
 cca = "5.1.0"
 patchouli = "1.19.3-78-FABRIC"
 midnightlib = "1.1.0-quilt"
-blabber = "0.4.0"
 mixinextras = "0.1.1"
-lucko_perms = "0.1-SNAPSHOT"
 reach_attr = "2.3.1"
 modmenu = "5.0.2"
 smartbrainlib = "4312173"
@@ -26,9 +24,7 @@ cca_base = { module = "dev.onyxstudios.cardinal-components-api:cardinal-componen
 cca_entity = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-entity", version.ref = "cca" }
 patchouli = { module = "vazkii.patchouli:Patchouli", version.ref = "patchouli" }
 midnightlib = { module = "maven.modrinth:midnightlib", version.ref = "midnightlib" }
-blabber = { module = "io.github.ladysnake:blabber", version.ref = "blabber" }
 mixinextras = { module = "com.github.LlamaLad7:MixinExtras", version.ref = "mixinextras" }
-lucko_perms = { module = "me.lucko:fabric-permissions-api", version.ref = "lucko_perms" }
 reach_attr = { module = "com.jamieswhiteshirt:reach-entity-attributes", version.ref = "reach_attr" }
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
 smartbrainlib = { module = "curse.maven:smartbrainlib-661293", version.ref = "smartbrainlib" }

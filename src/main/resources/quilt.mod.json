@@ -46,6 +46,14 @@
 				"versions": ">=1.19.3"
 			},
 			{
+				"id": "patchouli",
+				"versions": ">=1.19.3-78-FABRIC"
+			},
+			{
+				"id": "midnightlib",
+				"versions": ">=1.1.0"
+			},
+			{
 				"id": "smartbrainlib",
 				"versions": ">=1.8"
 			},
