@@ -122,6 +122,11 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 	}
 
 	@Override
+	protected float getDragInWater() {
+		return 1F;
+	}
+
+	@Override
 	protected ItemStack asItemStack() {
 		return ItemStack.EMPTY;
 	}

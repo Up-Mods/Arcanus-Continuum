@@ -70,10 +70,10 @@ public class SpellPatternModel<T extends PlayerEntity> extends BipedEntityModel<
 		base.pivotX = 0;
 		base.pivotZ = 0;
 
-		if(player.isInSneakingPose() && player.getMainHandStack().getItem() instanceof StaffItem staff && staff.isTwoHanded) {
+		if(player.isInSneakingPose()) {
 			base.pivotY = 4.2F;
 
-			if(ArcanusComponents.isCasting(player)) {
+			if(ArcanusComponents.isCasting(player) && player.getMainHandStack().getItem() instanceof StaffItem staff && staff.isTwoHanded) {
 				base.pivotY = 8;
 				base.pivotX = 4;
 				base.pivotZ = 3;
