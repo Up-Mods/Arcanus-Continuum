@@ -30,7 +30,7 @@ public class HeldItemRendererMixin {
 		World world = client.world;
 		boolean isCasting = ((ClientUtils) client).isCasting();
 
-		if(world != null && isCasting && mainHand.getItem() instanceof StaffItem) {
+		if(world != null && isCasting && mainHand.getItem() instanceof StaffItem item && item.isTwoHanded) {
 			double time = world.getTime() + tickDelta;
 
 			matrices.multiply(Axis.X_POSITIVE.rotationDegrees(-65F));
