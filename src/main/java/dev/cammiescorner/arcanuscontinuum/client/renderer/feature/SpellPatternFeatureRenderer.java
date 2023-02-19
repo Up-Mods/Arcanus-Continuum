@@ -53,7 +53,7 @@ public class SpellPatternFeatureRenderer<T extends PlayerEntity, M extends Entit
 		matrices.push();
 		matrices.translate(0, 0.65, -0.35);
 
-		if(ArcanusComponents.isCasting(player)) {
+		if(ArcanusComponents.isCasting(player) && player.getMainHandStack().getItem() instanceof StaffItem item && item.isTwoHanded) {
 			matrices.translate(-0.35, 0, 0.05);
 			matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(player.getMainArm() == Arm.RIGHT ? 65 : -65));
 		}

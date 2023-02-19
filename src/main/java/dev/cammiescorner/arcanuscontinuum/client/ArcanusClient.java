@@ -92,6 +92,10 @@ public class ArcanusClient implements ClientModInitializer {
 				ArcanusItems.ENDER_SHARD_STAFF, ArcanusItems.ECHO_SHARD_STAFF
 		);
 
+		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex < 2 ? ((DyeableItem) stack.getItem()).getColor(stack) : 0xffffff,
+				ArcanusItems.MAGIC_TOME
+		);
+
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? ((DyeableArmorItem) stack.getItem()).getColor(stack) : 0xffffff,
 				ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS
 		);

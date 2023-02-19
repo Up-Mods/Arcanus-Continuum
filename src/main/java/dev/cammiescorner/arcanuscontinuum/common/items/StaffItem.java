@@ -33,20 +33,21 @@ import java.util.UUID;
 public class StaffItem extends Item implements DyeableItem {
 	public static final UUID ATTACK_RANGE_MODIFIER_ID = UUID.fromString("05869d86-c861-4954-9079-68c380ad063c");
 	private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
+	public final boolean isTwoHanded;
 
 	public StaffItem() {
-		this(2);
+		this(true);
 	}
 
-	public StaffItem(double attackDamage) {
+	public StaffItem(boolean isTwoHanded) {
 		super(new QuiltItemSettings().maxCount(1));
 		ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
 
-		builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", attackDamage, EntityAttributeModifier.Operation.ADDITION));
 		builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -1, EntityAttributeModifier.Operation.ADDITION));
 		builder.put(ReachEntityAttributes.ATTACK_RANGE, new EntityAttributeModifier(ATTACK_RANGE_MODIFIER_ID, "Weapon modifier", 0.5, EntityAttributeModifier.Operation.ADDITION));
 
 		attributeModifiers = builder.build();
+		this.isTwoHanded = isTwoHanded;
 	}
 
 	@Override

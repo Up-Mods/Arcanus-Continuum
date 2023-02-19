@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.mixin.client;
 
+import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -27,7 +28,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 	private void arcanuscontinuum$render(T livingEntity, float f, float g, MatrixStack matrices, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo info) {
 		Arm mainArm = MinecraftClient.getInstance().options.getMainArm().get();
 
-		if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(livingEntity) && ArcanusComponents.isCasting(livingEntity))
+		if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(livingEntity) && livingEntity.getMainHandStack().getItem() instanceof StaffItem item && item.isTwoHanded && ArcanusComponents.isCasting(livingEntity))
 			matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(mainArm == Arm.RIGHT ? 65 : -65));
 	}
 }

@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.client.renderer.feature;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
 import dev.cammiescorner.arcanuscontinuum.client.models.feature.LotusHaloModel;
+import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusStatusEffects;
 import net.minecraft.client.MinecraftClient;
@@ -35,7 +36,7 @@ public class LotusHaloFeatureRenderer<T extends PlayerEntity, M extends EntityMo
 
 			matrices.push();
 
-			if(ArcanusComponents.isCasting(player))
+			if(ArcanusComponents.isCasting(player) && player.getMainHandStack().getItem() instanceof StaffItem item && item.isTwoHanded)
 				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(player.getMainArm() == Arm.RIGHT ? 65 : -65));
 
 			model.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), 15728850, OverlayTexture.DEFAULT_UV, 1F, 1F, 1F, 1F);

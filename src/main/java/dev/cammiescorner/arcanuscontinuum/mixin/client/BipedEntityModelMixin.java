@@ -34,9 +34,9 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 			ItemStack rightStack = client.options.getMainArm().get() == Arm.RIGHT ? livingEntity.getMainHandStack() : livingEntity.getOffHandStack();
 			ItemStack leftStack = client.options.getMainArm().get() == Arm.RIGHT ? livingEntity.getOffHandStack() : livingEntity.getMainHandStack();
 
-			if(rightStack.getItem() instanceof StaffItem)
+			if(rightStack.getItem() instanceof StaffItem item && item.isTwoHanded)
 				rightArm.pitch *= 0.5F;
-			if(leftStack.getItem() instanceof StaffItem)
+			if(leftStack.getItem() instanceof StaffItem item && item.isTwoHanded)
 				leftArm.pitch *= 0.5F;
 		}
 	}
@@ -48,7 +48,7 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 			ItemStack rightStack = client.options.getMainArm().get() == Arm.RIGHT ? entity.getMainHandStack() : entity.getOffHandStack();
 			ItemStack leftStack = client.options.getMainArm().get() == Arm.RIGHT ? entity.getOffHandStack() : entity.getMainHandStack();
 
-			if(rightStack.getItem() instanceof StaffItem) {
+			if(rightStack.getItem() instanceof StaffItem item && item.isTwoHanded) {
 				rightArm.roll = rightArm.roll * 0.5F - 1.0472F;
 				rightArm.pitch = rightArm.pitch * 0.25F - 0.698132F;
 
@@ -56,7 +56,7 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 				leftArm.pitch = -leftArm.pitch * 0.25F - 0.436332F;
 			}
 
-			if(leftStack.getItem() instanceof StaffItem) {
+			if(leftStack.getItem() instanceof StaffItem item && item.isTwoHanded) {
 				leftArm.roll = leftArm.roll * 0.5F + 1.0472F;
 				leftArm.pitch = leftArm.pitch * 0.25F - 0.698132F;
 
@@ -74,17 +74,27 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 		MinecraftClient client = MinecraftClient.getInstance();
 		ItemStack rightStack = client.options.getMainArm().get() == Arm.RIGHT ? entity.getMainHandStack() : entity.getOffHandStack();
 
-		if(rightStack.getItem() instanceof StaffItem) {
+		if(rightStack.getItem() instanceof StaffItem item) {
 			if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && ArcanusComponents.isCasting(entity)) {
-				head.yaw = head.yaw + 1.13446F;
-				rightArm.pitch = -1.13446F;
-				rightArm.roll = -1.13446F;
-				rightArm.yaw = 0.610865F;
-				leftArm.pitch = -0.349066F;
-				leftArm.yaw = -0.610865F;
+				if(item.isTwoHanded) {
+					head.yaw = head.yaw + 1.13446F;
+					rightArm.pitch = -1.13446F;
+					rightArm.roll = -1.13446F;
+					rightArm.yaw = 0.610865F;
+					leftArm.pitch = -0.349066F;
+					leftArm.yaw = -0.610865F;
+				}
+				else {
+					rightArm.pitch = rightArm.pitch * 0.5F - (float) (Math.PI / 10);
+					leftArm.pitch = -1.39626F;
+				}
 			}
 			else {
-				rightArm.pitch = rightArm.pitch * 0.5F - 1.22173F;
+				if(item.isTwoHanded)
+					rightArm.pitch = rightArm.pitch * 0.5F - 1.22173F;
+				else
+					rightArm.pitch = rightArm.pitch * 0.5F - (float) (Math.PI / 10);
+
 				rightArm.yaw = 0F;
 			}
 
@@ -100,18 +110,28 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 		MinecraftClient client = MinecraftClient.getInstance();
 		ItemStack leftStack = client.options.getMainArm().get() == Arm.RIGHT ? entity.getOffHandStack() : entity.getMainHandStack();
 
-		if(leftStack.getItem() instanceof StaffItem) {
+		if(leftStack.getItem() instanceof StaffItem item) {
 			if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && ArcanusComponents.isCasting(entity)) {
-				head.yaw = head.yaw * 0.5F - 1.13446F;
-				leftArm.pitch = -1.13446F;
-				leftArm.roll = 1.13446F;
-				leftArm.yaw = -0.610865F;
-				rightArm.pitch = -0.349066F;
-				rightArm.yaw = 0.610865F;
+				if(item.isTwoHanded) {
+					head.yaw = head.yaw * 0.5F - 1.13446F;
+					leftArm.pitch = -1.13446F;
+					leftArm.roll = 1.13446F;
+					leftArm.yaw = -0.610865F;
+					rightArm.pitch = -0.349066F;
+					rightArm.yaw = 0.610865F;
+				}
+				else {
+					leftArm.pitch = leftArm.pitch * 0.5F - (float) (Math.PI / 10);
+					rightArm.pitch = -1.39626F;
+				}
 			}
 			else {
-				leftArm.pitch = leftArm.pitch * 0.5F - 1.22173F;
-				leftArm.yaw = 0F;
+				if(item.isTwoHanded)
+					leftArm.pitch = leftArm.pitch * 0.5F - 1.22173F;
+				else
+					leftArm.pitch = leftArm.pitch * 0.5F - (float) (Math.PI / 10);
+
+				leftArm.yaw = 0.0F;
 			}
 
 			info.cancel();

@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.mixin.client;
 
+import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.HeldItemFeatureRenderer;
@@ -20,7 +21,7 @@ public class HeldItemFeatureRendererMixin {
 			target = "Lnet/minecraft/client/render/item/HeldItemRenderer;renderItem(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformation$Mode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"
 	))
 	private void arcanuscontinuum$adjustItem(LivingEntity entity, ItemStack stack, ModelTransformation.Mode transformationMode, Arm arm, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
-		if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && ArcanusComponents.isCasting(entity)) {
+		if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && entity.getMainHandStack().getItem() instanceof StaffItem item && item.isTwoHanded && ArcanusComponents.isCasting(entity)) {
 			matrices.translate(0, 0.1, 0);
 			matrices.multiply(Axis.X_POSITIVE.rotationDegrees(-15));
 		}

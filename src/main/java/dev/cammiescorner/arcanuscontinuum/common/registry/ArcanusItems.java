@@ -25,6 +25,8 @@ public class ArcanusItems {
 	public static final Item QUARTZ_SHARD_STAFF = create("quartz_shard_staff", new StaffItem());
 	public static final Item ENDER_SHARD_STAFF = create("ender_shard_staff", new StaffItem());
 	public static final Item ECHO_SHARD_STAFF = create("echo_shard_staff", new StaffItem());
+	public static final Item MIND_STAFF = create("mind_staff", new StaffItem());
+	public static final Item MAGIC_TOME = create("magic_tome", new StaffItem(false));
 	public static final Item WIZARD_HAT = create("wizard_hat", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.HEAD, 0.21, 0.14));
 	public static final Item WIZARD_ROBES = create("wizard_robes", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.CHEST, 0.34, 0.21));
 	public static final Item WIZARD_PANTS = create("wizard_pants", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.LEGS, 0.29, 0.19));
@@ -44,6 +46,8 @@ public class ArcanusItems {
 			entries.addItem(QUARTZ_SHARD_STAFF);
 			entries.addItem(ENDER_SHARD_STAFF);
 			entries.addItem(ECHO_SHARD_STAFF);
+			entries.addItem(MIND_STAFF);
+			entries.addItem(MAGIC_TOME);
 			entries.addItem(WIZARD_HAT);
 			entries.addItem(WIZARD_ROBES);
 			entries.addItem(WIZARD_PANTS);

@@ -3,16 +3,20 @@ package dev.cammiescorner.arcanuscontinuum.common.entities.magic;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSoundEvents;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -50,6 +54,10 @@ public class SmiteEntity extends Entity {
 
 			if(age > 23)
 				kill();
+		}
+		else {
+			if(age == 1)
+				world.playSound(getX(), getY(), getZ(), ArcanusSoundEvents.SMITE, SoundCategory.NEUTRAL, MathHelper.clamp(1 - (distanceTo(MinecraftClient.getInstance().player) / 100F), 0, 1), (1F + (random.nextFloat() - random.nextFloat()) * 0.2F) * 0.7F, false);
 		}
 
 		super.tick();
