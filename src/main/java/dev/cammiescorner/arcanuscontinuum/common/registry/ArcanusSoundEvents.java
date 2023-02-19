@@ -22,13 +22,13 @@ public class ArcanusSoundEvents {
 
 	private static SoundEvent create(String name) {
 		SoundEvent sound = SoundEvent.createVariableRangeEvent(Arcanus.id(name));
-		SOUNDS.put(sound, new Identifier(Arcanus.MOD_ID, name));
+		SOUNDS.put(sound, Arcanus.id(name));
 		return sound;
 	}
 
 	private static SoundEvent create(String name, float range) {
 		SoundEvent sound = SoundEvent.createFixedRangeEvent(Arcanus.id(name), range);
-		SOUNDS.put(sound, new Identifier(Arcanus.MOD_ID, name));
+		SOUNDS.put(sound, Arcanus.id(name));
 		return sound;
 	}
 }
