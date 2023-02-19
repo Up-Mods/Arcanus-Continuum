@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.client.models.feature;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
+import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
@@ -69,7 +70,7 @@ public class SpellPatternModel<T extends PlayerEntity> extends BipedEntityModel<
 		base.pivotX = 0;
 		base.pivotZ = 0;
 
-		if(player.isInSneakingPose()) {
+		if(player.isInSneakingPose() && player.getMainHandStack().getItem() instanceof StaffItem staff && staff.isTwoHanded) {
 			base.pivotY = 4.2F;
 
 			if(ArcanusComponents.isCasting(player)) {
