@@ -105,8 +105,6 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 				if(random.nextInt(3) == 0) {
 					setOwner(player);
 					navigation.stop();
-					setTarget(null);
-					setSitting(true);
 					world.sendEntityStatus(this, (byte) 7);
 				}
 				else {
@@ -179,7 +177,7 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 				new FloatToSurfaceOfFluid<>(),
 				new FleeTarget<>().speedModifier(1.5F).stopIf(entity -> ((OpossumEntity) entity).isSitting()),
 				new LookAtTarget<>(),
-				new FollowOwner<>().stopIf(entity -> ((OpossumEntity) entity).isSitting()),
+				new FollowOwner<>().stopIf(entity -> entity.isSitting()),
 				new MoveToWalkTarget<>().stopIf(entity -> ((OpossumEntity) entity).isSitting())
 		);
 	}

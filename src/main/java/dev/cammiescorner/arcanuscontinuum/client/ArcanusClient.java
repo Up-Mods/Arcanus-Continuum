@@ -137,7 +137,7 @@ public class ArcanusClient implements ClientModInitializer {
 						int colour = StaffItem.getMagicColour(player.getUuidAsString());
 						float x = client.getWindow().getScaledWidth() / 2F;
 						float y = client.getWindow().getScaledHeight() / 2F;
-						float scale = 2.75F;
+						float scale = 3F;
 
 						matrices.push();
 						matrices.translate(x, y, 0);
@@ -147,9 +147,9 @@ public class ArcanusClient implements ClientModInitializer {
 							matrices.push();
 
 							if(i == 1)
-								matrices.multiply(Axis.Z_POSITIVE.rotationDegrees((player.age + player.getId() + tickDelta) * (5 * (i + 1))));
+								matrices.multiply(Axis.Z_POSITIVE.rotationDegrees((player.age + player.getId() + tickDelta) * (5 + (2.5F * i))));
 							else
-								matrices.multiply(Axis.Z_NEGATIVE.rotationDegrees((player.age + player.getId() + tickDelta) * (5 * (i + 1))));
+								matrices.multiply(Axis.Z_NEGATIVE.rotationDegrees((player.age + player.getId() + tickDelta) * (5 + (2.5F * i))));
 
 							matrices.scale(scale, scale, 0);
 							matrices.translate(-8.5, -8.5, 0);
