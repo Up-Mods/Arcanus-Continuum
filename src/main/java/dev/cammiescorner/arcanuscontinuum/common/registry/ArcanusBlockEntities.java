@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.ArcaneWorkbenchBlockEntity;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.MagicBlockEntity;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.MagicDoorBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -19,6 +20,7 @@ public class ArcanusBlockEntities {
 
 	//-----Block Entity Types-----//
 	public static final BlockEntityType<MagicDoorBlockEntity> MAGIC_DOOR = create("magic_door", QuiltBlockEntityTypeBuilder.create(MagicDoorBlockEntity::new, ArcanusBlocks.MAGIC_DOOR).build());
+	public static final BlockEntityType<ArcaneWorkbenchBlockEntity> ARCANE_WORKBENCH = create("arcane_workbench", QuiltBlockEntityTypeBuilder.create(ArcaneWorkbenchBlockEntity::new, ArcanusBlocks.ARCANE_WORKBENCH).build());
 	public static final BlockEntityType<MagicBlockEntity> MAGIC_BLOCK = create("magic_block", QuiltBlockEntityTypeBuilder.create(MagicBlockEntity::new, ArcanusBlocks.MAGIC_BLOCK).build());
 
 	//-----Registry-----//

@@ -40,6 +40,7 @@ public class ArcanusItems {
 	public static void register() {
 		FabricItemGroup.builder(Arcanus.id("general")).icon(() -> new ItemStack(ArcanusItems.WOODEN_STAFF)).entries((enabledFeatures, entries, operatorsEnabled) -> {
 			entries.addItem(ArcanusBlocks.MAGIC_DOOR);
+			entries.addItem(ArcanusBlocks.ARCANE_WORKBENCH);
 			entries.addItem(COMPENDIUM_ARCANUS);
 			entries.addItem(WOODEN_STAFF);
 			entries.addItem(AMETHYST_SHARD_STAFF);

@@ -19,6 +19,8 @@
   "item.arcanuscontinuum.opossum_spawn_egg": "Opossum Spawn Egg",
 
   "block.arcanuscontinuum.magic_door": "Magic Door",
+  "block.arcanuscontinuum.arcane_workbench": "Arcane Workbench",
+  "block.arcanuscontinuum.magic_block": "Magic Block",
 
   "entity.arcanuscontinuum.wizard": "Wizard",
   "entity.arcanuscontinuum.opossum": "Opossum",
