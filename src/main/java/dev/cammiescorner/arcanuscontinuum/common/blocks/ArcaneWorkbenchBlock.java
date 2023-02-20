@@ -26,7 +26,7 @@ import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
 
 import java.util.List;
 
-public class ArcaneWorkbench extends HorizontalFacingBlock implements BlockEntityProvider {
+public class ArcaneWorkbenchBlock extends HorizontalFacingBlock implements BlockEntityProvider {
 	private static final VoxelShape SHAPE = VoxelShapes.union(
 			VoxelShapes.cuboid(0, 0.1875, 0, 1, 0.8125, 1),
 			VoxelShapes.cuboid(0, 0, 0, 0.125, 0.1875, 0.125),
@@ -35,7 +35,7 @@ public class ArcaneWorkbench extends HorizontalFacingBlock implements BlockEntit
 			VoxelShapes.cuboid(0.875, 0, 0.875, 1, 0.1875, 1)
 	);
 
-	public ArcaneWorkbench() {
+	public ArcaneWorkbenchBlock() {
 		super(QuiltBlockSettings.of(Material.WOOD, DyeColor.RED).nonOpaque().ticksRandomly());
 		setDefaultState(getStateManager().getDefaultState().with(FACING, Direction.NORTH));
 	}

@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
-import dev.cammiescorner.arcanuscontinuum.common.blocks.ArcaneWorkbench;
+import dev.cammiescorner.arcanuscontinuum.common.blocks.ArcaneWorkbenchBlock;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.MagicBlock;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.MagicDoorBlock;
 import net.minecraft.block.Block;
@@ -19,7 +19,7 @@ public class ArcanusBlocks {
 
 	//-----Blocks-----//
 	public static final Block MAGIC_DOOR = create("magic_door", new MagicDoorBlock());
-	public static final Block ARCANE_WORKBENCH = create("arcane_workbench", new ArcaneWorkbench());
+	public static final Block ARCANE_WORKBENCH = create("arcane_workbench", new ArcaneWorkbenchBlock());
 	public static final Block MAGIC_BLOCK = create("magic_block", new MagicBlock());
 
 	//-----Registry-----//
