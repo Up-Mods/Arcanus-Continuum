@@ -18,6 +18,7 @@
 		"client.CraftingScreenMixin",
 		"client.HeldItemFeatureRendererMixin",
 		"client.HeldItemRendererMixin",
+		"client.InGameHudMixin",
 		"client.ItemRendererMixin",
 		"client.LivingEntityRendererMixin",
 		"client.MinecraftClientMixin",

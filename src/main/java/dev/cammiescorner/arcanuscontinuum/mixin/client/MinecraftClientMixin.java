@@ -128,7 +128,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 				if(pattern.size() >= 3)
 					lastMouseDown = options.attackKey;
 
-				player.sendMessage(Arcanus.getSpellInputs(pattern), true);
+//				player.sendMessage(Arcanus.getSpellInputs(pattern), true);
 			}
 
 			info.cancel();
@@ -154,7 +154,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 				if(pattern.size() >= 3)
 					lastMouseDown = options.useKey;
 
-				player.sendMessage(Arcanus.getSpellInputs(pattern), true);
+//				player.sendMessage(Arcanus.getSpellInputs(pattern), true);
 			}
 
 			info.cancel();
