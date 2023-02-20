@@ -5,6 +5,7 @@ import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
 import dev.cammiescorner.arcanuscontinuum.client.models.feature.SpellPatternModel;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanuscontinuum.common.util.StaffType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -52,7 +53,7 @@ public class SpellPatternFeatureRenderer<T extends PlayerEntity, M extends Entit
 		matrices.push();
 		matrices.translate(0, 0.65, -0.35);
 
-		if(ArcanusComponents.isCasting(player) && stack.getItem() instanceof StaffItem item && item.isTwoHanded) {
+		if(ArcanusComponents.isCasting(player) && stack.getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF) {
 			matrices.translate(-0.35, 0, 0.05);
 			matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(player.getMainArm() == Arm.RIGHT ? 65 : -65));
 		}

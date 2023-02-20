@@ -5,6 +5,7 @@ import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanuscontinuum.common.util.StaffType;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -73,7 +74,7 @@ public class SpellPatternModel<T extends PlayerEntity> extends BipedEntityModel<
 		if(player.isInSneakingPose()) {
 			base.pivotY = 4.2F;
 
-			if(ArcanusComponents.isCasting(player) && player.getMainHandStack().getItem() instanceof StaffItem staff && staff.isTwoHanded) {
+			if(ArcanusComponents.isCasting(player) && player.getMainHandStack().getItem() instanceof StaffItem staff && staff.staffType == StaffType.STAFF) {
 				base.pivotY = 8;
 				base.pivotX = 4;
 				base.pivotZ = 3;

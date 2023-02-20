@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanuscontinuum.mixin.client;
 
 import dev.cammiescorner.arcanuscontinuum.client.utils.ClientUtils;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
+import dev.cammiescorner.arcanuscontinuum.common.util.StaffType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -42,13 +43,13 @@ public abstract class HeldItemRendererMixin {
 		if(world != null && isCasting && mainHand.getItem() instanceof StaffItem item) {
 			double time = world.getTime() + tickDelta;
 
-			if(item.isTwoHanded) {
+			if(item.staffType == StaffType.STAFF) {
 				matrices.multiply(Axis.X_POSITIVE.rotationDegrees(-65F));
 				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees((float) Math.cos(time * 0.25)));
 				matrices.multiply(Axis.Z_POSITIVE.rotationDegrees(20F + (float) Math.sin(time * 0.25)));
 				matrices.translate(0.1, 1.2, -0.4);
 			}
-			else {
+			else if(item.staffType == StaffType.BOOK) {
 				float swingProgress = player.getHandSwingProgress(tickDelta);
 				float equipProgress = 1F - MathHelper.lerp(tickDelta, prevEquipProgressMainHand, equipProgressMainHand);
 
@@ -57,6 +58,10 @@ public abstract class HeldItemRendererMixin {
 				matrices.multiply(Axis.Z_POSITIVE.rotationDegrees((float) Math.sin(time * 0.25)));
 				renderArmHoldingItem(matrices, vertexConsumers, light, equipProgress, swingProgress, player.getMainArm().getOpposite());
 				matrices.pop();
+			}
+			else {
+				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees((float) Math.cos(time * 0.25)));
+				matrices.multiply(Axis.Z_POSITIVE.rotationDegrees((float) Math.sin(time * 0.25)));
 			}
 		}
 	}

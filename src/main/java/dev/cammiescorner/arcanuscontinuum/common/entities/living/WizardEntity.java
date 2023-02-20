@@ -1,41 +1,36 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.living;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
-import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusItems;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusTags;
-import dev.cammiescorner.arcanuscontinuum.common.screens.DialogueScreenHandler;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusTradeOffers;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.Angerable;
+import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
-import net.minecraft.registry.Registries;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.random.RandomGenerator;
+import net.minecraft.village.TradeOffer;
+import net.minecraft.village.TradeOfferList;
+import net.minecraft.village.TradeOffers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -55,20 +50,16 @@ import net.tslat.smartbrainlib.api.core.behaviour.custom.target.SetRetaliateTarg
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.HurtBySensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.NearbyLivingEntitySensor;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.quiltmc.qsl.entity.effect.api.StatusEffectRemovalReason;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-public class WizardEntity extends PassiveEntity implements SmartBrainOwner<WizardEntity>, Angerable {
+public class WizardEntity extends MerchantEntity implements SmartBrainOwner<WizardEntity>, Angerable {
 	private static final TrackedData<Integer> ROBES_COLOUR = DataTracker.registerData(WizardEntity.class, TrackedDataHandlerRegistry.INTEGER);
-	public final List<PlayerEntity> talkingPlayers = new ArrayList<>();
 
-	public WizardEntity(EntityType<? extends PassiveEntity> entityType, World world) {
+	public WizardEntity(EntityType<? extends MerchantEntity> entityType, World world) {
 		super(entityType, world);
 		Arrays.fill(armorDropChances, 0.1F);
 		Arrays.fill(handDropChances, 0.05F);
@@ -96,28 +87,56 @@ public class WizardEntity extends PassiveEntity implements SmartBrainOwner<Wizar
 		dataTracker.startTracking(ROBES_COLOUR, 0);
 	}
 
+	@Override
+	public void trade(TradeOffer offer) {
+		ambientSoundChance = -getMinAmbientSoundDelay();
+		afterUsing(offer);
+
+		if(getCurrentCustomer() instanceof ServerPlayerEntity player)
+			Criteria.VILLAGER_TRADE.trigger(player, this, offer.getSellItem());
+	}
+
+	@Override
+	protected void afterUsing(TradeOffer offer) {
+		if(offer.shouldRewardPlayerExperience())
+			world.spawnEntity(new ExperienceOrbEntity(world, getX(), getY() + 0.5, getZ(), 3 + random.nextInt(4)));
+	}
+
+	@Override
+	protected void fillRecipes() {
+		TradeOffers.Factory[] factories = ArcanusTradeOffers.WIZARD_TRADES.get(1);
+		TradeOffers.Factory[] factories1 = ArcanusTradeOffers.WIZARD_TRADES.get(2);
+
+		if(factories != null && factories1 != null) {
+			TradeOfferList tradeOfferList = getOffers();
+			fillRecipesFromPool(tradeOfferList, factories, 6);
+
+			int i = random.nextInt(factories1.length);
+			TradeOffers.Factory factory = factories1[i];
+			TradeOffer tradeOffer = factory.create(this, random);
+
+			if(tradeOffer != null)
+				tradeOfferList.add(tradeOffer);
+		}
+	}
+
+	@Override
+	public boolean isLeveledMerchant() {
+		return false;
+	}
+
 	public static DefaultAttributeContainer.Builder createAttributes() {
-		return TameableEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15);
+		return TameableEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 20).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15);
 	}
 
 	@Override
 	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
 		if(!world.isClient()) {
 			if(player.getEquippedStack(EquipmentSlot.HEAD).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.CHEST).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.LEGS).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.FEET).isIn(ArcanusTags.WIZARD_ARMOUR)) {
-				player.openHandledScreen(new NamedScreenHandlerFactory() {
-					@Override
-					public Text getDisplayName() {
-						return getName();
-					}
-
-					@Override
-					public ScreenHandler createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-						return new DialogueScreenHandler(i, WizardEntity.this, playerInventory);
-					}
-				});
+				if(!getOffers().isEmpty()) {
+					setCurrentCustomer(player);
+					sendOffers(player, getDisplayName(), 1);
+				}
 			}
 			else {
 				player.sendMessage(Arcanus.translate("wizard_dialogue", "no_wizard_armour").formatted(Formatting.DARK_PURPLE, Formatting.ITALIC), false);
@@ -153,21 +172,6 @@ public class WizardEntity extends PassiveEntity implements SmartBrainOwner<Wizar
 	}
 
 	@Override
-	public boolean removeStatusEffect(@NotNull StatusEffect type, @NotNull StatusEffectRemovalReason reason) {
-		return false;
-	}
-
-	@Override
-	public int clearStatusEffects(@NotNull StatusEffectRemovalReason reason) {
-		return 0;
-	}
-
-	@Override
-	public void onStatusEffectRemoved(@NotNull StatusEffectInstance effect, @NotNull StatusEffectRemovalReason reason) {
-
-	}
-
-	@Override
 	public boolean canBeLeashedBy(PlayerEntity player) {
 		return false;
 	}
@@ -196,7 +200,7 @@ public class WizardEntity extends PassiveEntity implements SmartBrainOwner<Wizar
 		return BrainActivityGroup.coreTasks(
 				new FloatToSurfaceOfFluid<>(),
 				new LookAtTarget<>(),
-				new MoveToWalkTarget<>().stopIf(pathAwareEntity -> !talkingPlayers.isEmpty())
+				new MoveToWalkTarget<>().stopIf(pathAwareEntity -> getCurrentCustomer() != null)
 		);
 	}
 
@@ -205,18 +209,20 @@ public class WizardEntity extends PassiveEntity implements SmartBrainOwner<Wizar
 		return BrainActivityGroup.idleTasks(
 				new FirstApplicableBehaviour<WizardEntity>(
 						new SetRetaliateTarget<>(),
-						new SetPlayerLookTarget<>().stopIf(entity -> !talkingPlayers.isEmpty()),
-						new SetRandomLookTarget<>().stopIf(entity -> !talkingPlayers.isEmpty())
-				),
-				new OneRandomBehaviour<>(
-						new SetRandomWalkTarget<>().startCondition(pathAwareEntity -> talkingPlayers.isEmpty()),
+						new SetPlayerLookTarget<>(),
+						new SetRandomLookTarget<>()
+				), new OneRandomBehaviour<>(
+						new SetRandomWalkTarget<>().startCondition(pathAwareEntity -> getCurrentCustomer() != null),
 						new Idle<>().runFor(entity -> entity.getRandom().nextInt(30) + 30)
 				)
 		);
 	}
 
 	private ItemStack getRandomStaff() {
-		List<Item> staves = Registries.ITEM.stream().filter(item -> item instanceof StaffItem).toList();
+		List<Item> staves = List.of(
+				ArcanusItems.WOODEN_STAFF, ArcanusItems.AMETHYST_SHARD_STAFF, ArcanusItems.QUARTZ_SHARD_STAFF,
+				ArcanusItems.ENDER_SHARD_STAFF, ArcanusItems.ECHO_SHARD_STAFF
+		);
 
 		return new ItemStack(staves.get(world.getRandom().nextInt(staves.size())));
 	}

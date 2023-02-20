@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.*;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.client.gui.screens.ArcaneWorkbenchScreen;
-import dev.cammiescorner.arcanuscontinuum.client.gui.screens.DialogueScreen;
 import dev.cammiescorner.arcanuscontinuum.client.gui.screens.SpellBookScreen;
 import dev.cammiescorner.arcanuscontinuum.client.gui.screens.SpellcraftScreen;
 import dev.cammiescorner.arcanuscontinuum.client.models.armour.WizardArmourModel;
@@ -35,7 +34,6 @@ import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeableArmorItem;
-import net.minecraft.item.DyeableItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceType;
@@ -60,7 +58,6 @@ public class ArcanusClient implements ClientModInitializer {
 	public void onInitializeClient(ModContainer mod) {
 		HandledScreens.register(ArcanusScreenHandlers.SPELLCRAFT_SCREEN_HANDLER, SpellcraftScreen::new);
 		HandledScreens.register(ArcanusScreenHandlers.SPELL_BOOK_SCREEN_HANDLER, SpellBookScreen::new);
-		HandledScreens.register(ArcanusScreenHandlers.DIALOGUE_SCREEN_HANDLER, DialogueScreen::new);
 		HandledScreens.register(ArcanusScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER, ArcaneWorkbenchScreen::new);
 
 		EntityModelLayerRegistry.registerModelLayer(WizardArmourModel.MODEL_LAYER, WizardArmourModel::getTexturedModelData);
@@ -91,11 +88,18 @@ public class ArcanusClient implements ClientModInitializer {
 
 		ClientPlayNetworking.registerGlobalReceiver(SyncStatusEffectPacket.ID, SyncStatusEffectPacket::handle);
 
-		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? ((DyeableItem) stack.getItem()).getColor(stack) : 0xffffff, ArcanusItems.WOODEN_STAFF, ArcanusItems.AMETHYST_SHARD_STAFF, ArcanusItems.QUARTZ_SHARD_STAFF, ArcanusItems.ENDER_SHARD_STAFF, ArcanusItems.ECHO_SHARD_STAFF);
+		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? ((StaffItem) stack.getItem()).getColor(stack) : 0xffffff,
+				ArcanusItems.WOODEN_STAFF, ArcanusItems.AMETHYST_SHARD_STAFF, ArcanusItems.QUARTZ_SHARD_STAFF,
+				ArcanusItems.ENDER_SHARD_STAFF, ArcanusItems.ECHO_SHARD_STAFF, ArcanusItems.MAGE_PISTOL
+		);
 
-		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex < 2 ? ((DyeableItem) stack.getItem()).getColor(stack) : 0xffffff, ArcanusItems.MAGIC_TOME);
+		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex < 2 ? ((StaffItem) stack.getItem()).getColor(stack) : 0xffffff,
+				ArcanusItems.MAGIC_TOME
+		);
 
-		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? ((DyeableArmorItem) stack.getItem()).getColor(stack) : 0xffffff, ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS);
+		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? ((DyeableArmorItem) stack.getItem()).getColor(stack) : 0xffffff,
+				ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS
+		);
 
 		for(Item item : ArcanusItems.ITEMS.keySet()) {
 			if(item instanceof StaffItem) {

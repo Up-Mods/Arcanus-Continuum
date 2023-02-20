@@ -9,6 +9,7 @@
   "item.arcanuscontinuum.echo_shard_staff": "Echo Shard Staff",
   "item.arcanuscontinuum.mind_staff": "Mind Staff",
   "item.arcanuscontinuum.magic_tome": "Magic Tome",
+  "item.arcanuscontinuum.mage_pistol": "Mage Pistol",
   "item.arcanuscontinuum.wizard_hat": "Wizard Hat",
   "item.arcanuscontinuum.wizard_robes": "Wizard Robes",
   "item.arcanuscontinuum.wizard_pants": "Wizard Pants",
@@ -113,6 +114,7 @@
   "screen.arcanuscontinuum.tooltip.component_count": "Spell Components",
 
   "wizard_dialogue.arcanuscontinuum.no_wizard_armour": "I only speak to fellow wizards.",
+  "scroll_of_knowledge.arcanuscontinuum.level_up": "You feel a little smarter...",
 
   "death.attack.arcanuscontinuum.magic_damage": "%s was killed by %s using magic",
 

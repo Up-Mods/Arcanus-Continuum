@@ -5,6 +5,7 @@ import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
+import dev.cammiescorner.arcanuscontinuum.common.util.StaffType;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -33,13 +34,13 @@ import java.util.UUID;
 public class StaffItem extends Item implements DyeableItem {
 	public static final UUID ATTACK_RANGE_MODIFIER_ID = UUID.fromString("05869d86-c861-4954-9079-68c380ad063c");
 	private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
-	public final boolean isTwoHanded;
+	public final StaffType staffType;
 
 	public StaffItem() {
-		this(true);
+		this(StaffType.STAFF);
 	}
 
-	public StaffItem(boolean isTwoHanded) {
+	public StaffItem(StaffType staffType) {
 		super(new QuiltItemSettings().maxCount(1));
 		ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
 
@@ -47,7 +48,7 @@ public class StaffItem extends Item implements DyeableItem {
 		builder.put(ReachEntityAttributes.ATTACK_RANGE, new EntityAttributeModifier(ATTACK_RANGE_MODIFIER_ID, "Weapon modifier", 0.5, EntityAttributeModifier.Operation.ADDITION));
 
 		attributeModifiers = builder.build();
-		this.isTwoHanded = isTwoHanded;
+		this.staffType = staffType;
 	}
 
 	@Override

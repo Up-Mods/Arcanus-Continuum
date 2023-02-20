@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanuscontinuum.mixin.client;
 
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanuscontinuum.common.util.StaffType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.AnimalModel;
@@ -34,9 +35,9 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 			ItemStack rightStack = client.options.getMainArm().get() == Arm.RIGHT ? livingEntity.getMainHandStack() : livingEntity.getOffHandStack();
 			ItemStack leftStack = client.options.getMainArm().get() == Arm.RIGHT ? livingEntity.getOffHandStack() : livingEntity.getMainHandStack();
 
-			if(rightStack.getItem() instanceof StaffItem item && item.isTwoHanded)
+			if(rightStack.getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF)
 				rightArm.pitch *= 0.5F;
-			if(leftStack.getItem() instanceof StaffItem item && item.isTwoHanded)
+			if(leftStack.getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF)
 				leftArm.pitch *= 0.5F;
 		}
 	}
@@ -48,7 +49,7 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 			ItemStack rightStack = client.options.getMainArm().get() == Arm.RIGHT ? entity.getMainHandStack() : entity.getOffHandStack();
 			ItemStack leftStack = client.options.getMainArm().get() == Arm.RIGHT ? entity.getOffHandStack() : entity.getMainHandStack();
 
-			if(rightStack.getItem() instanceof StaffItem item && item.isTwoHanded) {
+			if(rightStack.getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF) {
 				rightArm.roll = rightArm.roll * 0.5F - 1.0472F;
 				rightArm.pitch = rightArm.pitch * 0.25F - 0.698132F;
 
@@ -56,7 +57,7 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 				leftArm.pitch = -leftArm.pitch * 0.25F - 0.436332F;
 			}
 
-			if(leftStack.getItem() instanceof StaffItem item && item.isTwoHanded) {
+			if(leftStack.getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF) {
 				leftArm.roll = leftArm.roll * 0.5F + 1.0472F;
 				leftArm.pitch = leftArm.pitch * 0.25F - 0.698132F;
 
@@ -76,21 +77,29 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 
 		if(rightStack.getItem() instanceof StaffItem item) {
 			if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && ArcanusComponents.isCasting(entity)) {
-				if(item.isTwoHanded) {
-					head.yaw = head.yaw + 1.13446F;
-					rightArm.pitch = -1.13446F;
-					rightArm.roll = -1.13446F;
-					rightArm.yaw = 0.610865F;
-					leftArm.pitch = -0.349066F;
-					leftArm.yaw = -0.610865F;
-				}
-				else {
-					rightArm.pitch = rightArm.pitch * 0.5F - (float) (Math.PI / 10);
-					leftArm.pitch = -1.39626F;
+				switch(item.staffType) {
+					case STAFF -> {
+						head.yaw = head.yaw + 1.13446F;
+						rightArm.pitch = -1.13446F;
+						rightArm.roll = -1.13446F;
+						rightArm.yaw = 0.610865F;
+						leftArm.pitch = -0.349066F;
+						leftArm.yaw = -0.610865F;
+					}
+					case BOOK -> {
+						rightArm.pitch = rightArm.pitch * 0.5F - (float) (Math.PI / 10);
+						leftArm.pitch = -1.39626F;
+					}
+					case WAND -> {
+						rightArm.pitch = -1.309F;
+						leftArm.pitch = -1.309F;
+						rightArm.yaw = -0.785398F;
+						leftArm.yaw = 0.785398F;
+					}
 				}
 			}
 			else {
-				if(item.isTwoHanded)
+				if(item.staffType == StaffType.STAFF)
 					rightArm.pitch = rightArm.pitch * 0.5F - 1.22173F;
 				else
 					rightArm.pitch = rightArm.pitch * 0.5F - (float) (Math.PI / 10);
@@ -112,21 +121,29 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 
 		if(leftStack.getItem() instanceof StaffItem item) {
 			if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && ArcanusComponents.isCasting(entity)) {
-				if(item.isTwoHanded) {
-					head.yaw = head.yaw * 0.5F - 1.13446F;
-					leftArm.pitch = -1.13446F;
-					leftArm.roll = 1.13446F;
-					leftArm.yaw = -0.610865F;
-					rightArm.pitch = -0.349066F;
-					rightArm.yaw = 0.610865F;
-				}
-				else {
-					leftArm.pitch = leftArm.pitch * 0.5F - (float) (Math.PI / 10);
-					rightArm.pitch = -1.39626F;
+				switch(item.staffType) {
+					case STAFF -> {
+						head.yaw = head.yaw * 0.5F - 1.13446F;
+						leftArm.pitch = -1.13446F;
+						leftArm.roll = 1.13446F;
+						leftArm.yaw = -0.610865F;
+						rightArm.pitch = -0.349066F;
+						rightArm.yaw = 0.610865F;
+					}
+					case BOOK -> {
+						leftArm.pitch = leftArm.pitch * 0.5F - (float) (Math.PI / 10);
+						rightArm.pitch = -1.39626F;
+					}
+					case WAND -> {
+						leftArm.pitch = -1.309F;
+						rightArm.pitch = -1.309F;
+						leftArm.yaw = 0.785398F;
+						rightArm.yaw = -0.785398F;
+					}
 				}
 			}
 			else {
-				if(item.isTwoHanded)
+				if(item.staffType == StaffType.STAFF)
 					leftArm.pitch = leftArm.pitch * 0.5F - 1.22173F;
 				else
 					leftArm.pitch = leftArm.pitch * 0.5F - (float) (Math.PI / 10);
