@@ -112,6 +112,9 @@
   "screen.arcanuscontinuum.tooltip.undo": "Undo",
   "screen.arcanuscontinuum.tooltip.redo": "Redo",
   "screen.arcanuscontinuum.tooltip.component_count": "Spell Components",
+  "screen.arcanuscontinuum.tooltip.change_screens": "Change Mode",
+  "screen.arcanuscontinuum.tooltip.cycle_up": "Cycle Skin Up",
+  "screen.arcanuscontinuum.tooltip.cycle_down": "Cycle Skin Down",
 
   "wizard_dialogue.arcanuscontinuum.no_wizard_armour": "I only speak to fellow wizards.",
   "scroll_of_knowledge.arcanuscontinuum.level_up": "You feel a little smarter...",

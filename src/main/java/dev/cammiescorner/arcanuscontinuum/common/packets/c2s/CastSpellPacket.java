@@ -47,19 +47,21 @@ public class CastSpellPacket {
 				if(!list.isEmpty() && player.getItemCooldownManager().getCooldownProgress(staff, 1F) == 0) {
 					Spell spell = Spell.fromNbt(list.getCompound(index));
 
-					if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).mapToInt(SpellComponent::getMinLevel).max().orElse(1) > ArcanusComponents.WIZARD_LEVEL_COMPONENT.get(player).getLevel()) {
-						player.sendMessage(Arcanus.translate("spell", "too_low_level").formatted(Formatting.RED, Formatting.ITALIC), true);
-						return;
-					}
+					if(!player.isCreative()) {
+						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).mapToInt(SpellComponent::getMinLevel).max().orElse(1) > ArcanusComponents.WIZARD_LEVEL_COMPONENT.get(player).getLevel()) {
+							player.sendMessage(Arcanus.translate("spell", "too_low_level").formatted(Formatting.RED, Formatting.ITALIC), true);
+							return;
+						}
 
-					if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).count() > ArcanusComponents.maxSpellSize(player)) {
-						player.sendMessage(Arcanus.translate("spell", "too_many_components").formatted(Formatting.RED, Formatting.ITALIC), true);
-						return;
-					}
+						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).count() > ArcanusComponents.maxSpellSize(player)) {
+							player.sendMessage(Arcanus.translate("spell", "too_many_components").formatted(Formatting.RED, Formatting.ITALIC), true);
+							return;
+						}
 
-					if(!ArcanusComponents.drainMana(player, spell.getManaCost(), player.isCreative())) {
-						player.sendMessage(Arcanus.translate("spell", "not_enough_mana").formatted(Formatting.RED, Formatting.ITALIC), true);
-						return;
+						if(!ArcanusComponents.drainMana(player, spell.getManaCost(), false)) {
+							player.sendMessage(Arcanus.translate("spell", "not_enough_mana").formatted(Formatting.RED, Formatting.ITALIC), true);
+							return;
+						}
 					}
 
 					ArcanusComponents.setPattern(player, Arcanus.getSpellPattern(index));

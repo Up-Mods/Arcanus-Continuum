@@ -10,7 +10,8 @@
 		"HungerManagerMixin",
 		"LecternBlockEntityMixin",
 		"LivingEntityMixin",
-		"PlayerEntityMixin"
+		"PlayerEntityMixin",
+		"ScreenHandlerTypeMixin"
 	],
 	"client": [
 		"client.BipedEntityModelMixin",

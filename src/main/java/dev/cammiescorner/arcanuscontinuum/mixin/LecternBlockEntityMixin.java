@@ -42,7 +42,9 @@ public abstract class LecternBlockEntityMixin extends BlockEntity implements Cle
 
 	@Override
 	public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-		buf.writeBlockPos(getPos());
-		buf.writeItemStack(getBook());
+		if(getBook().getItem() instanceof SpellBookItem) {
+			buf.writeBlockPos(getPos());
+			buf.writeItemStack(getBook());
+		}
 	}
 }

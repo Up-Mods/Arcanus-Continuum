@@ -2,6 +2,8 @@ package dev.cammiescorner.arcanuscontinuum.client.gui.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.client.gui.widgets.ChangeModeButtonWidget;
+import dev.cammiescorner.arcanuscontinuum.client.gui.widgets.CycleTemplatesButtonWidget;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.screens.ArcaneWorkbenchScreenHandler;
 import dev.cammiescorner.arcanuscontinuum.common.util.WorkbenchMode;
@@ -10,16 +12,10 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHandler> {
-	private List<StaffItem> templates = new ArrayList<>();
-
 	public ArcaneWorkbenchScreen(ArcaneWorkbenchScreenHandler handler, PlayerInventory inventory, Text title) {
 		super(handler, inventory, title);
 	}
@@ -30,7 +26,25 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
 		x = (width - 176) / 2;
 		y = (height - 166) / 2;
 
-		templates = Registries.ITEM.stream().filter(item -> item instanceof StaffItem).map(StaffItem.class::cast).toList();
+		if(handler.getMode() == WorkbenchMode.CUSTOMIZE) {
+			addDrawableChild(new CycleTemplatesButtonWidget(x + 10, y + 13, true, this::cycleTemplate));
+			addDrawableChild(new CycleTemplatesButtonWidget(x + 10, y + 57, false, this::cycleTemplate));
+		}
+
+		addDrawableChild(new ChangeModeButtonWidget(x + 148, y + 60, handler.getMode(), this::changeMode));
+	}
+
+	@Override
+	public void clearAndInit() {
+		super.clearAndInit();
+	}
+
+	private void cycleTemplate(CycleTemplatesButtonWidget widget) {
+		client.interactionManager.clickButton(handler.syncId, widget.isUp ? 1 : 2);
+	}
+
+	private void changeMode(ChangeModeButtonWidget widget) {
+		client.interactionManager.clickButton(handler.syncId, 0);
 	}
 
 	@Override
