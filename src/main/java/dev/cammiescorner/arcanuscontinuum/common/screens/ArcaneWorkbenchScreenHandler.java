@@ -218,21 +218,11 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 				});
 				addSlot(new Slot(input, 1, 95, 24) {
 					@Override
-					public int getMaxItemCount(ItemStack stack) {
-						return 1;
-					}
-
-					@Override
 					public boolean canInsert(ItemStack stack) {
 						return stack.getItem() instanceof DyeItem;
 					}
 				});
 				addSlot(new Slot(input, 2, 95, 46) {
-					@Override
-					public int getMaxItemCount(ItemStack stack) {
-						return 1;
-					}
-
 					@Override
 					public boolean canInsert(ItemStack stack) {
 						return stack.getItem() instanceof DyeItem;
