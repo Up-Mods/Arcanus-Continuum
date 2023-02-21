@@ -21,14 +21,14 @@ public class ArcanusItems {
 
 	//-----Items-----//
 	public static final Item COMPENDIUM_ARCANUS = create("compendium_arcanus", new ArcanusCompendiumItem());
-	public static final Item WOODEN_STAFF = create("wooden_staff", new StaffItem(StaffType.STAFF, 0x835432, 0xffffff));
-	public static final Item AMETHYST_SHARD_STAFF = create("amethyst_shard_staff", new StaffItem(StaffType.STAFF, 0x835432, 0xffffff));
-	public static final Item QUARTZ_SHARD_STAFF = create("quartz_shard_staff", new StaffItem(StaffType.STAFF, 0x835432, 0xffffff));
-	public static final Item ENDER_SHARD_STAFF = create("ender_shard_staff", new StaffItem(StaffType.STAFF, 0x835432, 0xffffff));
-	public static final Item ECHO_SHARD_STAFF = create("echo_shard_staff", new StaffItem(StaffType.STAFF, 0x835432, 0xffffff));
+	public static final Item WOODEN_STAFF = create("wooden_staff", new StaffItem(StaffType.STAFF, 0x51301a, 0x00ffff));
+	public static final Item CRYSTAL_STAFF = create("crystal_staff", new StaffItem(StaffType.STAFF, 0x51301a, 0x00ffff));
+	public static final Item DIVINATION_STAFF = create("divination_staff", new StaffItem(StaffType.STAFF, 0x51301a, 0x00ffff));
+	public static final Item CRESCENT_STAFF = create("crescent_staff", new StaffItem(StaffType.STAFF, 0x51301a, 0x00ffff));
+	public static final Item ANCIENT_STAFF = create("ancient_staff", new StaffItem(StaffType.STAFF, 0x51301a, 0x00ffff));
 	public static final Item MIND_STAFF = create("mind_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0xffffff, true));
-	public static final Item MAGIC_TOME = create("magic_tome", new StaffItem(StaffType.BOOK, 0x835432, 0x835432, true));
-	public static final Item MAGE_PISTOL = create("mage_pistol", new StaffItem(StaffType.WAND, 0x3c44aa, 0xffffff, true));
+	public static final Item MAGIC_TOME = create("magic_tome", new StaffItem(StaffType.BOOK, 0x1e1b1b, 0x8b4513, true));
+	public static final Item MAGE_PISTOL = create("mage_pistol", new StaffItem(StaffType.WAND, 0x00ffff, 0xffffff, true));
 	public static final Item WIZARD_HAT = create("wizard_hat", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.HEAD, 0.21, 0.14));
 	public static final Item WIZARD_ROBES = create("wizard_robes", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.CHEST, 0.34, 0.21));
 	public static final Item WIZARD_PANTS = create("wizard_pants", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.LEGS, 0.29, 0.19));
@@ -45,10 +45,10 @@ public class ArcanusItems {
 			entries.addItem(ArcanusBlocks.ARCANE_WORKBENCH);
 			entries.addItem(COMPENDIUM_ARCANUS);
 			entries.addItem(WOODEN_STAFF);
-			entries.addItem(AMETHYST_SHARD_STAFF);
-			entries.addItem(QUARTZ_SHARD_STAFF);
-			entries.addItem(ENDER_SHARD_STAFF);
-			entries.addItem(ECHO_SHARD_STAFF);
+			entries.addItem(CRYSTAL_STAFF);
+			entries.addItem(DIVINATION_STAFF);
+			entries.addItem(CRESCENT_STAFF);
+			entries.addItem(ANCIENT_STAFF);
 			entries.addItem(MIND_STAFF);
 			entries.addItem(MAGIC_TOME);
 			entries.addItem(MAGE_PISTOL);

@@ -27,6 +27,7 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.CraftingResultSlot;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.DyeColor;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -168,6 +169,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 	public void setMode(WorkbenchMode mode) {
 		this.mode = mode;
 		context.run((world, pos) -> dropInventory(player, input));
+		result.clear();
 		getSlotsForMode(mode);
 	}
 
@@ -205,17 +207,32 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 					}
 
 					@Override
+					public int getMaxItemCount(ItemStack stack) {
+						return 1;
+					}
+
+					@Override
 					public boolean canInsert(ItemStack stack) {
 						return stack.getItem() instanceof StaffItem;
 					}
 				});
 				addSlot(new Slot(input, 1, 95, 24) {
 					@Override
+					public int getMaxItemCount(ItemStack stack) {
+						return 1;
+					}
+
+					@Override
 					public boolean canInsert(ItemStack stack) {
 						return stack.getItem() instanceof DyeItem;
 					}
 				});
 				addSlot(new Slot(input, 2, 95, 46) {
+					@Override
+					public int getMaxItemCount(ItemStack stack) {
+						return 1;
+					}
+
 					@Override
 					public boolean canInsert(ItemStack stack) {
 						return stack.getItem() instanceof DyeItem;
@@ -257,20 +274,14 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 					ItemStack itemStack2 = new ItemStack(handler.getTemplate(), staffStack.getCount());
 					itemStack2.setNbt(staffStack.copy().getNbt());
 
-					if(input.getStack(1).getItem() instanceof DyeItem dye) {
-						float r = dye.getColor().getColorComponents()[0];
-						float g = dye.getColor().getColorComponents()[1];
-						float b = dye.getColor().getColorComponents()[2];
-						int colour = (((int) (r * 255F) << 16) | ((int) (g * 255F) << 8) | (int) (b * 255F));;
-
-						StaffItem.setPrimaryColour(itemStack2, colour);
-					}
+					if(input.getStack(1).getItem() instanceof DyeItem dye)
+						StaffItem.setPrimaryColour(itemStack2, dye.getColor().getFireworkColor());
 
 					if(input.getStack(2).getItem() instanceof DyeItem dye) {
-						float r = dye.getColor().getColorComponents()[0];
-						float g = dye.getColor().getColorComponents()[1];
-						float b = dye.getColor().getColorComponents()[2];
-						int colour = (((int) (r * 255F) << 16) | ((int) (g * 255F) << 8) | (int) (b * 255F));;
+						int colour = dye.getColor().getSignColor();
+
+						if(dye.getColor() == DyeColor.BLACK)
+							colour = dye.getColor().getFireworkColor();
 
 						StaffItem.setSecondaryColour(itemStack2, colour);
 					}

@@ -76,7 +76,15 @@ public class ArcaneWorkbenchBlock extends HorizontalFacingBlock implements Block
 
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		return SHAPE;
+		VoxelShape shape = switch(state.get(FACING)) {
+			case NORTH -> VoxelShapes.union(VoxelShapes.cuboid(0, 0.8125, 0.75, 0.125, 1, 0.875), VoxelShapes.cuboid(0.25, 0.8125, 0.875, 0.375, 1.0625, 1), VoxelShapes.cuboid(0.625, 0.8125, 0.875, 0.75, 1.0625, 1), VoxelShapes.cuboid(0.875, 0.8125, 0.75, 1, 1, 0.875));
+			case SOUTH -> VoxelShapes.union(VoxelShapes.cuboid(0, 0.8125, 0.125, 0.125, 1, 0.25), VoxelShapes.cuboid(0.25, 0.8125, 0, 0.375, 1.0625, 0.125), VoxelShapes.cuboid(0.625, 0.8125, 0, 0.75, 1.0625, 0.125), VoxelShapes.cuboid(0.875, 0.8125, 0.125, 1, 1, 0.25));
+			case WEST -> VoxelShapes.union(VoxelShapes.cuboid(0.75, 0.8125, 0, 0.875, 1, 0.125), VoxelShapes.cuboid(0.875, 0.8125, 0.25, 1, 1.0625, 0.375), VoxelShapes.cuboid(0.875, 0.8125, 0.625, 1, 1.0625, 0.75), VoxelShapes.cuboid(0.75, 0.8125, 0.875, 0.875, 1, 1));
+			case EAST -> VoxelShapes.union(VoxelShapes.cuboid(0.125, 0.8125, 0, 0.25, 1, 0.125), VoxelShapes.cuboid(0, 0.8125, 0.25, 0.125, 1.0625, 0.375), VoxelShapes.cuboid(0, 0.8125, 0.625, 0.125, 1.0625, 0.75), VoxelShapes.cuboid(0.125, 0.8125, 0.875, 0.25, 1, 1));
+			default -> VoxelShapes.empty();
+		};
+
+		return VoxelShapes.union(SHAPE, shape);
 	}
 
 	@Override

@@ -220,8 +220,8 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 
 	private ItemStack getRandomStaff() {
 		List<Item> staves = List.of(
-				ArcanusItems.WOODEN_STAFF, ArcanusItems.AMETHYST_SHARD_STAFF, ArcanusItems.QUARTZ_SHARD_STAFF,
-				ArcanusItems.ENDER_SHARD_STAFF, ArcanusItems.ECHO_SHARD_STAFF
+				ArcanusItems.WOODEN_STAFF, ArcanusItems.CRYSTAL_STAFF, ArcanusItems.DIVINATION_STAFF,
+				ArcanusItems.CRESCENT_STAFF, ArcanusItems.ANCIENT_STAFF
 		);
 
 		return new ItemStack(staves.get(world.getRandom().nextInt(staves.size())));

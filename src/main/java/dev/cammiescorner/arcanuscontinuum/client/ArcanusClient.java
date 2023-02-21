@@ -93,8 +93,8 @@ public class ArcanusClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(SyncStaffTemplatePacket.ID, SyncStaffTemplatePacket::handle);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? StaffItem.getPrimaryColour(stack) : tintIndex == 1 ? StaffItem.getSecondaryColour(stack) : 0xffffff,
-				ArcanusItems.WOODEN_STAFF, ArcanusItems.AMETHYST_SHARD_STAFF, ArcanusItems.QUARTZ_SHARD_STAFF,
-				ArcanusItems.ENDER_SHARD_STAFF, ArcanusItems.ECHO_SHARD_STAFF, ArcanusItems.MAGIC_TOME,
+				ArcanusItems.WOODEN_STAFF, ArcanusItems.CRYSTAL_STAFF, ArcanusItems.DIVINATION_STAFF,
+				ArcanusItems.CRESCENT_STAFF, ArcanusItems.ANCIENT_STAFF, ArcanusItems.MAGIC_TOME,
 				ArcanusItems.MAGE_PISTOL
 		);
 
