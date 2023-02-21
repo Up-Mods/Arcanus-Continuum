@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.screens;
 
+import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusScreenHandlers;
 import dev.cammiescorner.arcanuscontinuum.common.util.WorkbenchMode;
@@ -8,7 +9,10 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.DyeItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Recipe;
@@ -16,7 +20,6 @@ import net.minecraft.recipe.RecipeMatcher;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.screen.AbstractRecipeScreenHandler;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.CraftingResultSlot;
 import net.minecraft.screen.slot.Slot;
@@ -32,6 +35,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 	private final PlayerEntity player;
 	private CraftingInventory input;
 	private WorkbenchMode mode;
+	private Item template = Items.AIR;
 
 	public ArcaneWorkbenchScreenHandler(int syncId, PlayerInventory playerInventory) {
 		this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
@@ -40,7 +44,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 	public ArcaneWorkbenchScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
 		super(ArcanusScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER, syncId);
 		this.playerInventory = playerInventory;
-		this.mode = WorkbenchMode.CUSTOMIZE;
+		this.mode = WorkbenchMode.SPELLBINDING;
 		this.context = context;
 		this.player = playerInventory.player;
 		getSlotsForMode(mode);
@@ -141,9 +145,30 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 
 				addSlot(new CraftingResultSlot(player, input, result, 0, 136, 35));
 
-				addSlot(new Slot(input, 0, 54, 35));
-				addSlot(new Slot(input, 1, 95, 24));
-				addSlot(new Slot(input, 2, 95, 46));
+				addSlot(new Slot(input, 0, 54, 35) {
+					@Override
+					public void setStack(ItemStack stack) {
+						super.setStack(stack);
+						setTemplate(stack.getItem());
+					}
+
+					@Override
+					public boolean canInsert(ItemStack stack) {
+						return stack.getItem() instanceof StaffItem;
+					}
+				});
+				addSlot(new Slot(input, 1, 95, 24) {
+					@Override
+					public boolean canInsert(ItemStack stack) {
+						return stack.getItem() instanceof DyeItem;
+					}
+				});
+				addSlot(new Slot(input, 2, 95, 46) {
+					@Override
+					public boolean canInsert(ItemStack stack) {
+						return stack.getItem() instanceof DyeItem;
+					}
+				});
 			}
 		}
 
@@ -155,23 +180,57 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 			addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
 	}
 
-	protected static void updateResult(ScreenHandler handler, World world, PlayerEntity player, CraftingInventory craftingInventory, CraftingResultInventory resultInventory) {
+	protected static void updateResult(ArcaneWorkbenchScreenHandler handler, World world, PlayerEntity player, CraftingInventory input, CraftingResultInventory result) {
 		if(!world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
 			ItemStack itemStack = ItemStack.EMPTY;
-			Optional<CraftingRecipe> optional = world.getServer().getRecipeManager().getFirstMatch(RecipeType.CRAFTING, craftingInventory, world);
 
-			if(optional.isPresent()) {
-				CraftingRecipe craftingRecipe = optional.get();
+			if(handler.getMode() == WorkbenchMode.SPELLBINDING) {
+				Optional<CraftingRecipe> optional = world.getServer().getRecipeManager().getFirstMatch(RecipeType.CRAFTING, input, world);
 
-				if(resultInventory.shouldCraftRecipe(world, serverPlayer, craftingRecipe)) {
-					ItemStack itemStack2 = craftingRecipe.craft(craftingInventory);
+				if(optional.isPresent()) {
+					CraftingRecipe craftingRecipe = optional.get();
 
-					if(itemStack2.m_eyzvudzj(world.getEnabledFlags()))
+					if(result.shouldCraftRecipe(world, serverPlayer, craftingRecipe)) {
+						ItemStack itemStack2 = craftingRecipe.craft(input);
+
+						if(itemStack2.m_eyzvudzj(world.getEnabledFlags()))
+							itemStack = itemStack2;
+					}
+				}
+			}
+			else {
+				ItemStack staffStack = input.getStack(0);
+
+				if(staffStack.getItem() instanceof StaffItem && handler.getTemplate() instanceof StaffItem) {
+					ItemStack itemStack2 = new ItemStack(handler.getTemplate(), staffStack.getCount());
+					itemStack2.setNbt(staffStack.copy().getNbt());
+
+					if(input.getStack(1).getItem() instanceof DyeItem dye) {
+						float r = dye.getColor().getColorComponents()[0];
+						float g = dye.getColor().getColorComponents()[1];
+						float b = dye.getColor().getColorComponents()[2];
+						int colour = (((int) (r * 255F) << 16) | ((int) (g * 255F) << 8) | (int) (b * 255F));;
+
+						StaffItem.setPrimaryColour(itemStack2, colour);
+					}
+					if(input.getStack(2).getItem() instanceof DyeItem dye) {
+						float r = dye.getColor().getColorComponents()[0];
+						float g = dye.getColor().getColorComponents()[1];
+						float b = dye.getColor().getColorComponents()[2];
+						int colour = (((int) (r * 255F) << 16) | ((int) (g * 255F) << 8) | (int) (b * 255F));;
+
+						StaffItem.setSecondaryColour(itemStack2, colour);
+					}
+
+					if(StaffItem.getPrimaryColour(itemStack2) != StaffItem.getPrimaryColour(staffStack) ||
+							StaffItem.getSecondaryColour(itemStack2) != StaffItem.getSecondaryColour(staffStack) ||
+							handler.getTemplate() != staffStack.getItem()
+					)
 						itemStack = itemStack2;
 				}
 			}
 
-			resultInventory.setStack(0, itemStack);
+			result.setStack(0, itemStack);
 			handler.setPreviousTrackedSlot(0, itemStack);
 			serverPlayer.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(handler.syncId, handler.nextRevision(), 0, itemStack));
 		}
@@ -206,7 +265,10 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 
 	@Override
 	public boolean matches(Recipe<? super CraftingInventory> recipe) {
-		return recipe.matches(input, player.world);
+		if(mode == WorkbenchMode.SPELLBINDING)
+			return recipe.matches(input, player.world);
+		else
+			return true;
 	}
 
 	@Override
@@ -237,5 +299,13 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 	@Override
 	public boolean canInsertIntoSlot(int index) {
 		return index != this.getCraftingResultSlotIndex();
+	}
+
+	public Item getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(Item template) {
+		this.template = template;
 	}
 }

@@ -31,6 +31,13 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		RenderSystem.setShaderTexture(0, getTexture());
 		DrawableHelper.drawTexture(matrices, x, y, 0, 0, 176, 166, 256, 256);
+
+		if(getScreenHandler().getMode() == WorkbenchMode.CUSTOMIZE) {
+			if(getScreenHandler().getSlot(2).getStack().isEmpty())
+				drawTexture(matrices, x + 95, y + 24, 176, 0, 16, 16);
+			if(getScreenHandler().getSlot(3).getStack().isEmpty())
+				drawTexture(matrices, x + 95, y + 46, 176, 0, 16, 16);
+		}
 	}
 
 	@Override
@@ -63,11 +70,8 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
 
 			matrices.pop();
 		}
-		else {
-			if(getScreenHandler().getSlot(2).getStack().isEmpty())
-				drawTexture(matrices, 95, 24, 176, 0, 16, 16);
-			if(getScreenHandler().getSlot(3).getStack().isEmpty())
-				drawTexture(matrices, 95, 46, 176, 0, 16, 16);
+		else if(getScreenHandler().getMode() == WorkbenchMode.CUSTOMIZE) {
+			itemRenderer.renderInGui(getScreenHandler().getTemplate().getDefaultStack(), 10, 35);
 		}
 
 		drawMouseoverTooltip(matrices, mouseX - x, mouseY - y);

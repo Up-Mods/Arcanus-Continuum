@@ -14,7 +14,6 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeableItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -31,16 +30,14 @@ import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 import java.util.List;
 import java.util.UUID;
 
-public class StaffItem extends Item implements DyeableItem {
+public class StaffItem extends Item {
 	public static final UUID ATTACK_RANGE_MODIFIER_ID = UUID.fromString("05869d86-c861-4954-9079-68c380ad063c");
 	private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
 	public final StaffType staffType;
+	public final int defaultPrimaryColour;
+	public final int defaultSecondaryColour;
 
-	public StaffItem() {
-		this(StaffType.STAFF);
-	}
-
-	public StaffItem(StaffType staffType) {
+	public StaffItem(StaffType staffType, int defaultPrimaryColour, int defaultSecondaryColour) {
 		super(new QuiltItemSettings().maxCount(1));
 		ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
 
@@ -49,6 +46,8 @@ public class StaffItem extends Item implements DyeableItem {
 
 		attributeModifiers = builder.build();
 		this.staffType = staffType;
+		this.defaultPrimaryColour = defaultPrimaryColour;
+		this.defaultSecondaryColour = defaultSecondaryColour;
 	}
 
 	@Override
@@ -114,6 +113,34 @@ public class StaffItem extends Item implements DyeableItem {
 	@Override
 	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
 		return slot == EquipmentSlot.MAINHAND ? attributeModifiers : super.getAttributeModifiers(slot);
+	}
+
+	public static void setPrimaryColour(ItemStack stack, int colour) {
+		stack.getOrCreateSubNbt(Arcanus.MOD_ID).putInt("PrimaryColour", colour);
+	}
+
+	public static int getPrimaryColour(ItemStack stack) {
+		NbtCompound tag = stack.getSubNbt(Arcanus.MOD_ID);
+		int colour = ((StaffItem) stack.getItem()).defaultPrimaryColour;
+
+		if(tag != null && tag.contains("PrimaryColour", NbtElement.INT_TYPE))
+			colour = tag.getInt("PrimaryColour");
+
+		return colour;
+	}
+
+	public static void setSecondaryColour(ItemStack stack, int colour) {
+		stack.getOrCreateSubNbt(Arcanus.MOD_ID).putInt("SecondaryColour", colour);
+	}
+
+	public static int getSecondaryColour(ItemStack stack) {
+		NbtCompound tag = stack.getSubNbt(Arcanus.MOD_ID);
+		int colour = ((StaffItem) stack.getItem()).defaultSecondaryColour;
+
+		if(tag != null && tag.contains("SecondaryColour", NbtElement.INT_TYPE))
+			colour = tag.getInt("SecondaryColour");
+
+		return colour;
 	}
 
 	public static int getMagicColour(String playerUuid) {

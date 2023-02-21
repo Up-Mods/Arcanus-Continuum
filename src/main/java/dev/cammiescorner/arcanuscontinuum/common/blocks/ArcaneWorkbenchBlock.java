@@ -55,8 +55,8 @@ public class ArcaneWorkbenchBlock extends HorizontalFacingBlock implements Block
 		List<Vec3d> vec3ds = switch(direction) {
 			case NORTH -> List.of(new Vec3d(0.0625, 1.125, 0.8125), new Vec3d(0.3125, 1.1875, 0.9375), new Vec3d(0.6875, 1.1875, 0.9375), new Vec3d(0.9375, 1.125, 0.8125));
 			case SOUTH -> List.of(new Vec3d(0.0625, 1.125, 0.1875), new Vec3d(0.3125, 1.1875, 0.0625), new Vec3d(0.6875, 1.1875, 0.0625), new Vec3d(0.9375, 1.125, 0.1875));
-			case EAST -> List.of(new Vec3d(0.8125, 1.125, 0.0625), new Vec3d(0.9375, 1.1875, 0.3125), new Vec3d(0.9375, 1.1875, 0.6875), new Vec3d(0.8125, 1.125, 0.9375));
-			case WEST -> List.of(new Vec3d(0.1875, 1.125, 0.0625), new Vec3d(0.0625, 1.1875, 0.3125), new Vec3d(0.0625, 1.1875, 0.6875), new Vec3d(0.1875, 1.125, 0.9375));
+			case WEST -> List.of(new Vec3d(0.8125, 1.125, 0.0625), new Vec3d(0.9375, 1.1875, 0.3125), new Vec3d(0.9375, 1.1875, 0.6875), new Vec3d(0.8125, 1.125, 0.9375));
+			case EAST -> List.of(new Vec3d(0.1875, 1.125, 0.0625), new Vec3d(0.0625, 1.1875, 0.3125), new Vec3d(0.0625, 1.1875, 0.6875), new Vec3d(0.1875, 1.125, 0.9375));
 			default -> List.of();
 		};
 		float f = random.nextFloat();

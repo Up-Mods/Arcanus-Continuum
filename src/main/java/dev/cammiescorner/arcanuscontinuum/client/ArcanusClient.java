@@ -88,13 +88,10 @@ public class ArcanusClient implements ClientModInitializer {
 
 		ClientPlayNetworking.registerGlobalReceiver(SyncStatusEffectPacket.ID, SyncStatusEffectPacket::handle);
 
-		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? ((StaffItem) stack.getItem()).getColor(stack) : 0xffffff,
+		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? StaffItem.getPrimaryColour(stack) : tintIndex == 1 ? StaffItem.getSecondaryColour(stack) : 0xffffff,
 				ArcanusItems.WOODEN_STAFF, ArcanusItems.AMETHYST_SHARD_STAFF, ArcanusItems.QUARTZ_SHARD_STAFF,
-				ArcanusItems.ENDER_SHARD_STAFF, ArcanusItems.ECHO_SHARD_STAFF, ArcanusItems.MAGE_PISTOL
-		);
-
-		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex < 2 ? ((StaffItem) stack.getItem()).getColor(stack) : 0xffffff,
-				ArcanusItems.MAGIC_TOME
+				ArcanusItems.ENDER_SHARD_STAFF, ArcanusItems.ECHO_SHARD_STAFF, ArcanusItems.MAGIC_TOME,
+				ArcanusItems.MAGE_PISTOL
 		);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? ((DyeableArmorItem) stack.getItem()).getColor(stack) : 0xffffff,
