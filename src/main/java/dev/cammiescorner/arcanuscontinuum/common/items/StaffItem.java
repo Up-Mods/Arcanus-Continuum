@@ -36,8 +36,13 @@ public class StaffItem extends Item {
 	public final StaffType staffType;
 	public final int defaultPrimaryColour;
 	public final int defaultSecondaryColour;
+	public final boolean isDonorOnly;
 
 	public StaffItem(StaffType staffType, int defaultPrimaryColour, int defaultSecondaryColour) {
+		this(staffType, defaultPrimaryColour, defaultSecondaryColour, false);
+	}
+
+	public StaffItem(StaffType staffType, int defaultPrimaryColour, int defaultSecondaryColour, boolean isDonorOnly) {
 		super(new QuiltItemSettings().maxCount(1));
 		ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
 
@@ -48,6 +53,7 @@ public class StaffItem extends Item {
 		this.staffType = staffType;
 		this.defaultPrimaryColour = defaultPrimaryColour;
 		this.defaultSecondaryColour = defaultSecondaryColour;
+		this.isDonorOnly = isDonorOnly;
 	}
 
 	@Override

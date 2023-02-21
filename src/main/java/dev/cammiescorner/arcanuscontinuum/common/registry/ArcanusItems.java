@@ -26,9 +26,9 @@ public class ArcanusItems {
 	public static final Item QUARTZ_SHARD_STAFF = create("quartz_shard_staff", new StaffItem(StaffType.STAFF, 0x835432, 0xffffff));
 	public static final Item ENDER_SHARD_STAFF = create("ender_shard_staff", new StaffItem(StaffType.STAFF, 0x835432, 0xffffff));
 	public static final Item ECHO_SHARD_STAFF = create("echo_shard_staff", new StaffItem(StaffType.STAFF, 0x835432, 0xffffff));
-	public static final Item MIND_STAFF = create("mind_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0xffffff));
-	public static final Item MAGIC_TOME = create("magic_tome", new StaffItem(StaffType.BOOK, 0x835432, 0x835432));
-	public static final Item MAGE_PISTOL = create("mage_pistol", new StaffItem(StaffType.WAND, 0x3c44aa, 0xffffff));
+	public static final Item MIND_STAFF = create("mind_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0xffffff, true));
+	public static final Item MAGIC_TOME = create("magic_tome", new StaffItem(StaffType.BOOK, 0x835432, 0x835432, true));
+	public static final Item MAGE_PISTOL = create("mage_pistol", new StaffItem(StaffType.WAND, 0x3c44aa, 0xffffff, true));
 	public static final Item WIZARD_HAT = create("wizard_hat", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.HEAD, 0.21, 0.14));
 	public static final Item WIZARD_ROBES = create("wizard_robes", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.CHEST, 0.34, 0.21));
 	public static final Item WIZARD_PANTS = create("wizard_pants", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.LEGS, 0.29, 0.19));
