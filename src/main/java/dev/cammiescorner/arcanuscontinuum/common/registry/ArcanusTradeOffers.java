@@ -18,6 +18,10 @@ public class ArcanusTradeOffers {
 			ImmutableMap.of(
 					1, new TradeOffers.Factory[] {
 							new SellItemFactory(ArcanusItems.COMPENDIUM_ARCANUS, 2, 1, 100, 1),
+							new SellItemFactory(Items.GLOWSTONE_DUST, 3, 3, 100, 1),
+							new SellItemFactory(Items.LAPIS_LAZULI, 3, 3, 100, 1),
+							new SellItemFactory(Items.GUNPOWDER, 3, 5, 100, 1),
+							new SellItemFactory(Items.REDSTONE, 3, 5, 100, 1),
 							new SellItemFactory(ArcanusItems.WOODEN_STAFF, 5, 1, 100, 3),
 							new SellItemFactory(ArcanusItems.AMETHYST_SHARD_STAFF, 5, 1, 100, 3),
 							new SellItemFactory(ArcanusItems.QUARTZ_SHARD_STAFF, 5, 1, 100, 3),
