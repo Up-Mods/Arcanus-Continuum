@@ -192,7 +192,8 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 				addSlot(new CraftingResultSlot(player, input, result, 0, 136, 35) {
 					@Override
 					public void onTakeItem(PlayerEntity player, ItemStack stack) {
-						super.onTakeItem(player, stack);
+						for(int i = 0; i < input.size(); i++)
+							input.getStack(i).decrement(1);
 
 						if(player instanceof ServerPlayerEntity serverPlayer)
 							SyncStaffTemplatePacket.send(serverPlayer, Items.AIR);
@@ -204,11 +205,6 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 					public void setStack(ItemStack stack) {
 						super.setStack(stack);
 						setTemplate(stack.getItem());
-					}
-
-					@Override
-					public int getMaxItemCount(ItemStack stack) {
-						return 1;
 					}
 
 					@Override
