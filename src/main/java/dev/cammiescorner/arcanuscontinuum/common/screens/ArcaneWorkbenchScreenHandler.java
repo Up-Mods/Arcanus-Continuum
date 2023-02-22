@@ -38,7 +38,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 	private final PlayerInventory playerInventory;
 	private final ScreenHandlerContext context;
 	private final PlayerEntity player;
-	private List<StaffItem> templates;
+	private final List<StaffItem> templates;
 	private CraftingInventory input;
 	private WorkbenchMode mode;
 	private Item template = Items.AIR;
@@ -50,7 +50,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 	public ArcaneWorkbenchScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
 		super(ArcanusScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER, syncId);
 		this.playerInventory = playerInventory;
-		this.mode = WorkbenchMode.SPELLBINDING;
+		this.mode = WorkbenchMode.CUSTOMIZE;
 		this.context = context;
 		this.player = playerInventory.player;
 		getSlotsForMode(mode);
