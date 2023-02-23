@@ -15,6 +15,10 @@ public class ArcanusParticles {
 
 	//-----Particles-----//
 	public static final DefaultParticleType COLLAPSE = create("collapse");
+	public static final DefaultParticleType SPEED = create("speed");
+	public static final DefaultParticleType EXCHANGE = create("exchange");
+	public static final DefaultParticleType BOUNCY = create("bouncy");
+	public static final DefaultParticleType FEATHER = create("feather");
 
 	//-----Registry-----//
 	public static void register() {
