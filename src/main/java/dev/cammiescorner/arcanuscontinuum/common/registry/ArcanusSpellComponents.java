@@ -7,6 +7,7 @@ import dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes.*;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import org.quiltmc.loader.api.QuiltLoader;
 
 import java.util.LinkedHashMap;
 
@@ -52,6 +53,8 @@ public class ArcanusSpellComponents {
 	public static final SpellEffect ANONYMITY = create("anonymity_effect", new AnonymitySpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 0, 5));
 	public static final SpellEffect MINE = create("mine_effect", new MineSpellEffect(SpellType.UTILITY, ParticleTypes.DAMAGE_INDICATOR, Weight.NONE, 7, 0, 4));
 	public static final SpellEffect GROWTH = create("growth_effect", new GrowthSpellEffect(SpellType.UTILITY, ParticleTypes.HAPPY_VILLAGER, Weight.NONE, 6, 0, 4));
+	public static SpellEffect SHRINK;
+	public static SpellEffect ENLARGE;
 
 	public static final SpellEffect BUILD = create("build_effect", new BuildSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 0, 7));
 	public static final SpellEffect LEVITATE = create("levitate_effect", new LevitateSpellEffect(SpellType.MOVEMENT, ParticleTypes.CLOUD, Weight.NONE, 3, 0, 6));
@@ -63,6 +66,11 @@ public class ArcanusSpellComponents {
 
 	//-----Registry-----//
 	public static void register() {
+		if(QuiltLoader.isModLoaded("pehkui")) {
+			SHRINK = create("shrink_effect", new SizeChangeSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 8, 0, 9));
+			ENLARGE = create("enlarge_effect", new SizeChangeSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 8, 0, 9));
+		}
+
 		COMPONENTS.keySet().forEach(item -> Registry.register(Arcanus.SPELL_COMPONENTS, COMPONENTS.get(item), item));
 	}
 

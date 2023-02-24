@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.mixin.client;
 
+import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
 import dev.cammiescorner.arcanuscontinuum.client.utils.ClientUtils;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.util.StaffType;
@@ -49,7 +50,7 @@ public abstract class HeldItemRendererMixin {
 				matrices.multiply(Axis.Z_POSITIVE.rotationDegrees(20F + (float) Math.sin(time * 0.25)));
 				matrices.translate(0.1, 1.2, -0.4);
 			}
-			else if(item.staffType == StaffType.BOOK) {
+			else if(item.staffType == StaffType.BOOK && (!ArcanusClient.FIRST_PERSON_MODEL_ENABLED.getAsBoolean() || ArcanusClient.FIRST_PERSON_SHOW_HANDS.getAsBoolean())) {
 				float swingProgress = player.getHandSwingProgress(tickDelta);
 				float equipProgress = 1F - MathHelper.lerp(tickDelta, prevEquipProgressMainHand, equipProgressMainHand);
 

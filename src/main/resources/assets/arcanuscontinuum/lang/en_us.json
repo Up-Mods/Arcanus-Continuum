@@ -76,6 +76,8 @@
   "spell_component.arcanuscontinuum.growth_effect": "Growth Effect",
   "spell_component.arcanuscontinuum.mana_shield_effect": "Mana Shield Effect",
   "spell_component.arcanuscontinuum.speed_effect": "Speed Effect",
+  "spell_component.arcanuscontinuum.shrink_effect": "Shrink Effect",
+  "spell_component.arcanuscontinuum.enlarge_effect": "Enlarge Effect",
 
   "spell_component.arcanuscontinuum.self_shape.unknown": "selo pi jan mi",
   "spell_component.arcanuscontinuum.touch_shape.unknown": "selo pi luka",

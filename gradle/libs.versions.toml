@@ -2,9 +2,9 @@
 # The latest versions are available at https://lambdaurora.dev/tools/import_quilt.html
 minecraft = "1.19.3"
 quilt_mappings = "1.19.3+build.23"
-quilt_loader = "0.18.1-beta.75"
+quilt_loader = "0.18.2"
 
-quilted_fabric_api = "5.0.0-beta.4+0.73.0-1.19.3"
+quilted_fabric_api = "5.0.0-beta.6+0.74.0-1.19.3"
 cca = "5.1.0"
 patchouli = "1.19.3-78-FABRIC"
 midnightlib = "1.1.0-quilt"
@@ -12,6 +12,9 @@ mixinextras = "0.1.1"
 reach_attr = "2.3.1"
 modmenu = "5.0.2"
 smartbrainlib = "4312173"
+firstperson = "CCXpyT4U"
+pehkui = "3.7.0+1.14.4-1.19.3"
+kanos = "0.3.1"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -28,6 +31,9 @@ mixinextras = { module = "com.github.LlamaLad7:MixinExtras", version.ref = "mixi
 reach_attr = { module = "com.jamieswhiteshirt:reach-entity-attributes", version.ref = "reach_attr" }
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
 smartbrainlib = { module = "curse.maven:smartbrainlib-661293", version.ref = "smartbrainlib" }
+firstperson = { module = "maven.modrinth:first-person-model", version.ref = "firstperson" }
+pehkui = { module = "maven.modrinth:pehkui", version.ref = "pehkui" }
+kanos = { module = "com.github.Virtuoel:KanosConfig", version.ref = "kanos" }
 
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]

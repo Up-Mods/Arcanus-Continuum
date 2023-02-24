@@ -18,6 +18,7 @@ import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.OpossumE
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.WizardEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic.*;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.item.StaffItemRenderer;
+import dev.cammiescorner.arcanuscontinuum.common.compat.FirstPersonCompat;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStaffTemplatePacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStatusEffectPacket;
@@ -44,20 +45,29 @@ import net.minecraft.util.math.Axis;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.quiltmc.loader.api.ModContainer;
+import org.quiltmc.loader.api.QuiltLoader;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
 import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 import org.quiltmc.qsl.resource.loader.api.ResourceLoader;
 
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 public class ArcanusClient implements ClientModInitializer {
 	private static final Identifier HUD_ELEMENTS = Arcanus.id("textures/gui/hud/mana_bar.png");
 	private static final Identifier STUN_OVERLAY = Arcanus.id("textures/gui/hud/stunned_vignette.png");
 	private static final Identifier MAGIC_CIRCLES = Arcanus.id("textures/entity/feature/magic_circles.png");
+	public static BooleanSupplier FIRST_PERSON_MODEL_ENABLED = () -> true;
+	public static BooleanSupplier FIRST_PERSON_SHOW_HANDS = () -> true;
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
+		if(QuiltLoader.isModLoaded("firstperson")) {
+			FIRST_PERSON_MODEL_ENABLED = FirstPersonCompat.isEnabled();
+			FIRST_PERSON_SHOW_HANDS = FirstPersonCompat.showVanillaHands();
+		}
+
 		HandledScreens.register(ArcanusScreenHandlers.SPELLCRAFT_SCREEN_HANDLER, SpellcraftScreen::new);
 		HandledScreens.register(ArcanusScreenHandlers.SPELL_BOOK_SCREEN_HANDLER, SpellBookScreen::new);
 		HandledScreens.register(ArcanusScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER, ArcaneWorkbenchScreen::new);
@@ -134,7 +144,7 @@ public class ArcanusClient implements ClientModInitializer {
 						renderOverlay(STUN_OVERLAY, Math.min(1F, stunTimer / 5F));
 				}
 
-				if(!client.gameRenderer.getCamera().isThirdPerson()) {
+				if(!client.gameRenderer.getCamera().isThirdPerson() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean()) {
 					List<Pattern> list = ArcanusComponents.getPattern(player);
 
 					if(!list.isEmpty()) {
