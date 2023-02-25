@@ -29,24 +29,29 @@ public class SizeChangeSpellEffect extends SpellEffect {
 			Entity entity = entityHit.getEntity();
 			ScaleData heightData = ScaleTypes.HEIGHT.getScaleData(entity);
 			ScaleData widthData = ScaleTypes.WIDTH.getScaleData(entity);
-			ScaleData speedData = ScaleTypes.MOTION.getScaleData(entity);
 			ScaleData reachData = ScaleTypes.REACH.getScaleData(entity);
+			ScaleData speedData = ScaleTypes.MOTION.getScaleData(entity);
+
+			heightData.setScaleTickDelay(10);
+			widthData.setScaleTickDelay(10);
+			reachData.setScaleTickDelay(10);
+			speedData.setScaleTickDelay(10);
 
 			if(this == ArcanusSpellComponents.SHRINK) {
 				float scale = (float) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.SHRINK).count() * 0.05F * potency);
 
-				heightData.setScale(Math.max(1 - scale, heightData.getBaseScale() - scale));
-				widthData.setScale(Math.max(1 - scale, widthData.getBaseScale() - scale));
-				reachData.setScale(Math.max(1 - scale, reachData.getBaseScale() - scale));
-				speedData.setScale(Math.max(1 - scale, speedData.getBaseScale() - scale));
+				heightData.setTargetScale(Math.max(1 - scale, heightData.getBaseScale() - scale));
+				widthData.setTargetScale(Math.max(1 - scale, widthData.getBaseScale() - scale));
+				reachData.setTargetScale(Math.max(1 - scale, reachData.getBaseScale() - scale));
+				speedData.setTargetScale(Math.max(1 - scale, speedData.getBaseScale() - scale));
 			}
 			if(this == ArcanusSpellComponents.ENLARGE) {
 				float scale = (float) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.ENLARGE).count() * 0.05F * potency);
 
-				heightData.setScale(Math.min(1 + scale, heightData.getBaseScale() + scale));
-				widthData.setScale(Math.min(1 + scale, widthData.getBaseScale() + scale));
-				reachData.setScale(Math.min(1 + scale, reachData.getBaseScale() + scale));
-				speedData.setScale(Math.min(1 + scale, speedData.getBaseScale() + scale));
+				heightData.setTargetScale(Math.min(1 + scale, heightData.getBaseScale() + scale));
+				widthData.setTargetScale(Math.min(1 + scale, widthData.getBaseScale() + scale));
+				reachData.setTargetScale(Math.min(1 + scale, reachData.getBaseScale() + scale));
+				speedData.setTargetScale(Math.min(1 + scale, speedData.getBaseScale() + scale));
 			}
 		}
 	}
