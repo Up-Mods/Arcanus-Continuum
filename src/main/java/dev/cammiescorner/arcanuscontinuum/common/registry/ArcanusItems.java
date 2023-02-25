@@ -29,10 +29,10 @@ public class ArcanusItems {
 	public static final Item MIND_STAFF = create("mind_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0xffffff, true));
 	public static final Item MAGIC_TOME = create("magic_tome", new StaffItem(StaffType.BOOK, 0x1e1b1b, 0x8b4513, true));
 	public static final Item MAGE_PISTOL = create("mage_pistol", new StaffItem(StaffType.WAND, 0x00ffff, 0xffffff, true));
-	public static final Item WIZARD_HAT = create("wizard_hat", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.HEAD, 0.21, 0.14));
-	public static final Item WIZARD_ROBES = create("wizard_robes", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.CHEST, 0.34, 0.21));
-	public static final Item WIZARD_PANTS = create("wizard_pants", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.LEGS, 0.29, 0.19));
-	public static final Item WIZARD_BOOTS = create("wizard_boots", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.FEET, 0.16, 0.11));
+	public static final Item WIZARD_HAT = create("wizard_hat", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.HEAD, 0.3, 0.15, 0.1));
+	public static final Item WIZARD_ROBES = create("wizard_robes", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.CHEST, 0.5, 0.2, 0.18));
+	public static final Item WIZARD_PANTS = create("wizard_pants", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.LEGS, 0.45, 0.18, 0.14));
+	public static final Item WIZARD_BOOTS = create("wizard_boots", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, EquipmentSlot.FEET, 0.25, 0.12, 0.08));
 	public static final Item SPELL_BOOK = create("spell_book", new SpellBookItem());
 	public static final Item SCROLL_OF_KNOWLEDGE = create("scroll_of_knowledge", new ScrollOfKnowledgeItem());
 	public static final Item WIZARD_SPAWN_EGG = create("wizard_spawn_egg", new SpawnEggItem(ArcanusEntities.WIZARD, 0x52392a, 0xffd87c, new QuiltItemSettings()));

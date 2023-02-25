@@ -58,7 +58,7 @@ public class ArcanusClient implements ClientModInitializer {
 	private static final Identifier HUD_ELEMENTS = Arcanus.id("textures/gui/hud/mana_bar.png");
 	private static final Identifier STUN_OVERLAY = Arcanus.id("textures/gui/hud/stunned_vignette.png");
 	private static final Identifier MAGIC_CIRCLES = Arcanus.id("textures/entity/feature/magic_circles.png");
-	public static BooleanSupplier FIRST_PERSON_MODEL_ENABLED = () -> true;
+	public static BooleanSupplier FIRST_PERSON_MODEL_ENABLED = () -> false;
 	public static BooleanSupplier FIRST_PERSON_SHOW_HANDS = () -> true;
 
 	@Override

@@ -27,7 +27,7 @@ public class WizardArmorItem extends DyeableArmorItem {
 	};
 	private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
 
-	public WizardArmorItem(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, double manaRegen, double magicResist) {
+	public WizardArmorItem(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, double manaRegen, double magicResist, double spellPotency) {
 		super(armorMaterial, equipmentSlot, new QuiltItemSettings().maxCount(1));
 		ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
 		UUID uUID = MODIFIERS[equipmentSlot.getEntitySlotId()];
@@ -35,6 +35,7 @@ public class WizardArmorItem extends DyeableArmorItem {
 		builder.put(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, new EntityAttributeModifier(uUID, "Armor toughness", armorMaterial.getToughness(), EntityAttributeModifier.Operation.ADDITION));
 		builder.put(ArcanusEntityAttributes.MANA_REGEN, new EntityAttributeModifier(uUID, "Armor modifier", manaRegen, EntityAttributeModifier.Operation.MULTIPLY_BASE));
 		builder.put(ArcanusEntityAttributes.MAGIC_RESISTANCE, new EntityAttributeModifier(uUID, "Armor modifier", magicResist, EntityAttributeModifier.Operation.MULTIPLY_BASE));
+		builder.put(ArcanusEntityAttributes.SPELL_POTENCY, new EntityAttributeModifier(uUID, "Armor modifier", spellPotency, EntityAttributeModifier.Operation.MULTIPLY_BASE));
 		attributeModifiers = builder.build();
 	}
 

@@ -40,10 +40,10 @@ public class SizeChangeSpellEffect extends SpellEffect {
 			if(this == ArcanusSpellComponents.SHRINK) {
 				float scale = (float) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.SHRINK).count() * 0.05F * potency);
 
-				heightData.setTargetScale(Math.max(1 - scale, heightData.getBaseScale() - scale));
-				widthData.setTargetScale(Math.max(1 - scale, widthData.getBaseScale() - scale));
-				reachData.setTargetScale(Math.max(1 - scale, reachData.getBaseScale() - scale));
-				speedData.setTargetScale(Math.max(1 - scale, speedData.getBaseScale() - scale));
+				heightData.setTargetScale(Math.max(Math.max(0.001F, 1 - scale), heightData.getBaseScale() - scale));
+				widthData.setTargetScale(Math.max(Math.max(0.001F, 1 - scale), widthData.getBaseScale() - scale));
+				reachData.setTargetScale(Math.max(Math.max(0.001F, 1 - scale), reachData.getBaseScale() - scale));
+				speedData.setTargetScale(Math.max(Math.max(0.001F, 1 - scale), speedData.getBaseScale() - scale));
 			}
 			if(this == ArcanusSpellComponents.ENLARGE) {
 				float scale = (float) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.ENLARGE).count() * 0.05F * potency);
