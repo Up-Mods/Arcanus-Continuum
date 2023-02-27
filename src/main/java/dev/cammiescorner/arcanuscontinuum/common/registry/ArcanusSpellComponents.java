@@ -11,6 +11,8 @@ import org.quiltmc.loader.api.QuiltLoader;
 
 import java.util.LinkedHashMap;
 
+import static dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusConfig.*;
+
 public class ArcanusSpellComponents {
 	//-----Spell Map-----//
 	public static final LinkedHashMap<SpellComponent, Identifier> COMPONENTS = new LinkedHashMap<>();
@@ -19,58 +21,53 @@ public class ArcanusSpellComponents {
 	public static final SpellComponent EMPTY = create("empty", SpellShape.EMPTY);
 
 	//-----Spell Forms-----//
-	public static final SpellShape SELF = create("self_shape", new SelfSpellShape(Weight.VERY_LIGHT, 0, 0.9, 13, 1));
-	public static final SpellShape TOUCH = create("touch_shape", new TouchSpellShape(Weight.VERY_LIGHT, 0, 20, 1));
-	public static final SpellShape PROJECTILE = create("projectile_shape", new ProjectileSpellShape(Weight.LIGHT, 0, 30, 3));
-	public static final SpellShape LOB = create("lob_shape", new ProjectileSpellShape(Weight.LIGHT, 0, 20, 3));
-	public static final SpellShape BOLT = create("bolt_shape", new BoltSpellShape(Weight.MEDIUM, 0, 25, 5));
-	public static final SpellShape BEAM = create("beam_shape", new BeamSpellShape(Weight.MEDIUM, 0, 1.15, 30, 5));
-	public static final SpellShape RUNE = create("rune_shape", new RuneSpellShape(Weight.HEAVY, 0, 50, 7));
-	public static final SpellShape EXPLOSION = create("explosion_shape", new ExplosionSpellShape(Weight.VERY_HEAVY, 0, 1.25, 60, 7));
-	public static final SpellShape AOE = create("aoe_shape", new AreaOfEffectSpellShape(Weight.VERY_HEAVY, 0, 4, 60, 9));
-	public static final SpellShape SMITE = create("smite_shape", new SmiteSpellShape(Weight.VERY_HEAVY, 0, 1.75, 60, 9));
+	public static final SpellShape SELF = selfShapeProperties.enabled ? create("self_shape", new SelfSpellShape(selfShapeProperties.weight, selfShapeProperties.manaMultiplier, selfShapeProperties.manaMultiplier, selfShapeProperties.coolDown, selfShapeProperties.minimumLevel)) : null;
+	public static final SpellShape TOUCH = touchShapeProperties.enabled ? create("touch_shape", new TouchSpellShape(touchShapeProperties.weight, touchShapeProperties.manaCost, touchShapeProperties.manaMultiplier, touchShapeProperties.coolDown, touchShapeProperties.minimumLevel)) : null;
+	public static final SpellShape PROJECTILE = projectileShapeProperties.enabled ? create("projectile_shape", new ProjectileSpellShape(projectileShapeProperties.weight, projectileShapeProperties.manaCost, projectileShapeProperties.manaMultiplier, projectileShapeProperties.coolDown, projectileShapeProperties.minimumLevel)) : null;
+	public static final SpellShape LOB = lobShapeProperties.enabled ? create("lob_shape", new ProjectileSpellShape(lobShapeProperties.weight, lobShapeProperties.manaCost, lobShapeProperties.manaMultiplier, lobShapeProperties.coolDown, lobShapeProperties.minimumLevel)) : null;
+	public static final SpellShape BOLT = boltShapeProperties.enabled ? create("bolt_shape", new BoltSpellShape(boltShapeProperties.weight, boltShapeProperties.manaCost, boltShapeProperties.manaMultiplier, boltShapeProperties.coolDown, boltShapeProperties.minimumLevel)) : null;
+	public static final SpellShape BEAM = beamShapeProperties.enabled ? create("beam_shape", new BeamSpellShape(beamShapeProperties.weight, beamShapeProperties.manaCost, beamShapeProperties.manaMultiplier, beamShapeProperties.coolDown, beamShapeProperties.minimumLevel)) : null;
+	public static final SpellShape RUNE = runeShapeProperties.enabled ? create("rune_shape", new RuneSpellShape(runeShapeProperties.weight, runeShapeProperties.manaCost, runeShapeProperties.manaMultiplier, runeShapeProperties.coolDown, runeShapeProperties.minimumLevel)) : null;
+	public static final SpellShape EXPLOSION = explosionShapeProperties.enabled ? create("explosion_shape", new ExplosionSpellShape(explosionShapeProperties.weight, explosionShapeProperties.manaCost, explosionShapeProperties.manaMultiplier, explosionShapeProperties.coolDown, explosionShapeProperties.minimumLevel)) : null;
+	public static final SpellShape AOE = aoeShapeProperties.enabled ? create("aoe_shape", new AreaOfEffectSpellShape(aoeShapeProperties.weight, aoeShapeProperties.manaCost, aoeShapeProperties.manaMultiplier, aoeShapeProperties.coolDown, aoeShapeProperties.minimumLevel)) : null;
+	public static final SpellShape SMITE = smiteShapeProperties.enabled ? create("smite_shape", new SmiteSpellShape(smiteShapeProperties.weight, smiteShapeProperties.manaCost, smiteShapeProperties.manaMultiplier, smiteShapeProperties.coolDown, smiteShapeProperties.minimumLevel)) : null;
 
 	//-----Spell Effects-----//
-	public static final SpellEffect DAMAGE = create("damage_effect", new DamageSpellEffect(SpellType.ATTACK, ParticleTypes.CRIT, Weight.NONE, 4, 0, 1));
-	public static final SpellEffect FIRE = create("fire_effect", new FireSpellEffect(SpellType.ATTACK, ParticleTypes.FLAME, Weight.NONE, 2, 0, 2));
-	public static final SpellEffect ELECTRIC = create("electric_effect", new ElectricSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 2, 0, 2));
-	public static final SpellEffect ICE = create("ice_effect", new IceSpellEffect(SpellType.ATTACK, ParticleTypes.SNOWFLAKE, Weight.NONE, 2, 0, 2));
-	public static final SpellEffect VULNERABILITY = create("vulnerability_effect", new VulnerabilitySpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 5, 0, 5));
-	public static final SpellEffect MANA_LOCK = create("mana_lock_effect", new ManaLockSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 8, 0, 9));
-	public static final SpellEffect WITHERING = create("withering_effect", new WitheringSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 6.5, 0, 7));
-	public static final SpellEffect NECROMANCY = create("necromancy_effect", new NecromancySpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 8, 0, 9));
-	public static final SpellEffect MANA_SPLIT = create("mana_split_effect", new ManaSplitSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, Weight.NONE, 6.5, 0, 6));
+	public static final SpellEffect DAMAGE = damageEffectProperties.enabled ? create("damage_effect", new DamageSpellEffect(SpellType.ATTACK, ParticleTypes.CRIT, damageEffectProperties.weight, damageEffectProperties.manaCost, damageEffectProperties.coolDown, damageEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect FIRE = fireEffectProperties.enabled ? create("fire_effect", new FireSpellEffect(SpellType.ATTACK, ParticleTypes.FLAME, fireEffectProperties.weight, fireEffectProperties.manaCost, fireEffectProperties.coolDown, fireEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect ELECTRIC = electricEffectProperties.enabled ? create("electric_effect", new ElectricSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, electricEffectProperties.weight, electricEffectProperties.manaCost, electricEffectProperties.coolDown, electricEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect ICE = iceEffectProperties.enabled ? create("ice_effect", new IceSpellEffect(SpellType.ATTACK, ParticleTypes.SNOWFLAKE, iceEffectProperties.weight, iceEffectProperties.manaCost, iceEffectProperties.coolDown, iceEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect VULNERABILITY = vulnerabilityEffectProperties.enabled ? create("vulnerability_effect", new VulnerabilitySpellEffect(SpellType.ATTACK, ParticleTypes.HEART, vulnerabilityEffectProperties.weight, vulnerabilityEffectProperties.manaCost, vulnerabilityEffectProperties.coolDown, vulnerabilityEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect MANA_LOCK = manaLockEffectProperties.enabled ? create("mana_lock_effect", new ManaLockSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, manaLockEffectProperties.weight, manaLockEffectProperties.manaCost, manaLockEffectProperties.coolDown, manaLockEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect WITHERING = witheringEffectProperties.enabled ? create("withering_effect", new WitheringSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, witheringEffectProperties.weight, witheringEffectProperties.manaCost, witheringEffectProperties.coolDown, witheringEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect NECROMANCY = necromancyEffectProperties.enabled ? create("necromancy_effect", new NecromancySpellEffect(SpellType.ATTACK, ParticleTypes.HEART, necromancyEffectProperties.weight, necromancyEffectProperties.manaCost, necromancyEffectProperties.coolDown, necromancyEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect MANA_SPLIT = manaSplitEffectProperties.enabled ? create("mana_split_effect", new ManaSplitSpellEffect(SpellType.ATTACK, ParticleTypes.HEART, manaSplitEffectProperties.weight, manaSplitEffectProperties.manaCost, manaSplitEffectProperties.coolDown, manaSplitEffectProperties.minimumLevel)) : null;
 
-	public static final SpellEffect HEAL = create("heal_effect", new HealSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 0, 1));
-	public static final SpellEffect DISPEL = create("dispel_effect", new DispelSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 5, 0, 6));
-	public static final SpellEffect REGENERATE = create("regenerate_effect", new RegenerateSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 6, 0, 7));
-	public static final SpellEffect FORTIFY = create("fortify_effect", new FortifySpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 6.5, 0, 5));
-	public static final SpellEffect MANA_SHIELD = create("mana_shield_effect", new ManaShieldSpellEffect(SpellType.HEAL, ParticleTypes.HEART, Weight.NONE, 8, 0, 10));
+	public static final SpellEffect HEAL = healEffectProperties.enabled ? create("heal_effect", new HealSpellEffect(SpellType.HEAL, ParticleTypes.HEART, healEffectProperties.weight, healEffectProperties.manaCost, healEffectProperties.coolDown, healEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect DISPEL = dispelEffectProperties.enabled ? create("dispel_effect", new DispelSpellEffect(SpellType.HEAL, ParticleTypes.HEART, dispelEffectProperties.weight, dispelEffectProperties.manaCost, dispelEffectProperties.coolDown, dispelEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect REGENERATE = regenerateEffectProperties.enabled ? create("regenerate_effect", new RegenerateSpellEffect(SpellType.HEAL, ParticleTypes.HEART, regenerateEffectProperties.weight, regenerateEffectProperties.manaCost, regenerateEffectProperties.coolDown, regenerateEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect FORTIFY = fortifyEffectProperties.enabled ? create("fortify_effect", new FortifySpellEffect(SpellType.HEAL, ParticleTypes.HEART, fortifyEffectProperties.weight, fortifyEffectProperties.manaCost, fortifyEffectProperties.coolDown, fortifyEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect MANA_SHIELD = manaShieldEffectProperties.enabled ? create("mana_shield_effect", new ManaShieldSpellEffect(SpellType.HEAL, ParticleTypes.HEART, manaShieldEffectProperties.weight, manaShieldEffectProperties.manaCost, manaShieldEffectProperties.coolDown, manaShieldEffectProperties.minimumLevel)) : null;
 
-	public static final SpellEffect PUSH = create("push_effect", new PushSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 1, 0, 3));
-	public static final SpellEffect PULL = create("pull_effect", new PullSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 1, 0, 3));
-	public static final SpellEffect POWER = create("power_effect", new PowerSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 2, 0, 4));
-	public static final SpellEffect ANONYMITY = create("anonymity_effect", new AnonymitySpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 5, 0, 5));
-	public static final SpellEffect MINE = create("mine_effect", new MineSpellEffect(SpellType.UTILITY, ParticleTypes.DAMAGE_INDICATOR, Weight.NONE, 7, 0, 4));
-	public static final SpellEffect GROWTH = create("growth_effect", new GrowthSpellEffect(SpellType.UTILITY, ParticleTypes.HAPPY_VILLAGER, Weight.NONE, 6, 0, 4));
-	public static SpellEffect SHRINK;
-	public static SpellEffect ENLARGE;
+	public static final SpellEffect PUSH = pushEffectProperties.enabled ? create("push_effect", new PushSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, pushEffectProperties.weight, pushEffectProperties.manaCost, pushEffectProperties.coolDown, pushEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect PULL = pullEffectProperties.enabled ? create("pull_effect", new PullSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, pullEffectProperties.weight, pullEffectProperties.manaCost, pullEffectProperties.coolDown, pullEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect POWER = powerEffectProperties.enabled ?  create("power_effect", new PowerSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, powerEffectProperties.weight, powerEffectProperties.manaCost, powerEffectProperties.coolDown, powerEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect ANONYMITY = anonymityEffectProperties.enabled ? create("anonymity_effect", new AnonymitySpellEffect(SpellType.UTILITY, ParticleTypes.HEART, anonymityEffectProperties.weight, anonymityEffectProperties.manaCost, anonymityEffectProperties.coolDown, anonymityEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect MINE = mineEffectProperties.enabled ? create("mine_effect", new MineSpellEffect(SpellType.UTILITY, ParticleTypes.DAMAGE_INDICATOR, mineEffectProperties.weight, mineEffectProperties.manaCost, mineEffectProperties.coolDown, mineEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect GROWTH = growthEffectProperties.enabled ? create("growth_effect", new GrowthSpellEffect(SpellType.UTILITY, ParticleTypes.HAPPY_VILLAGER, growthEffectProperties.weight, growthEffectProperties.manaCost, growthEffectProperties.coolDown, growthEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect SHRINK = QuiltLoader.isModLoaded("pehkui") && shrinkEffectProperties.enabled ? create("shrink_effect", new SizeChangeSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, shrinkEffectProperties.weight, shrinkEffectProperties.manaCost, shrinkEffectProperties.coolDown, shrinkEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect ENLARGE = QuiltLoader.isModLoaded("pehkui") && enlargeEffectProperties.enabled ? create("enlarge_effect", new SizeChangeSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, enlargeEffectProperties.weight, enlargeEffectProperties.manaCost, enlargeEffectProperties.coolDown, enlargeEffectProperties.minimumLevel)) : null;
 
-	public static final SpellEffect BUILD = create("build_effect", new BuildSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, Weight.NONE, 5, 0, 7));
-	public static final SpellEffect LEVITATE = create("levitate_effect", new LevitateSpellEffect(SpellType.MOVEMENT, ParticleTypes.CLOUD, Weight.NONE, 3, 0, 6));
-	public static final SpellEffect SPEED = create("speed_effect", new SpeedSpellEffect(SpellType.MOVEMENT, ArcanusParticles.SPEED, Weight.NONE, 7, 0, 8));
-	public static final SpellEffect TELEPORT = create("teleport_effect", new TeleportSpellEffect(SpellType.MOVEMENT, ParticleTypes.PORTAL, Weight.NONE, 7.5, 0, 10));
-	public static final SpellEffect EXCHANGE = create("exchange_effect", new ExchangeSpellEffect(SpellType.MOVEMENT, ArcanusParticles.EXCHANGE, Weight.NONE, 6, 0, 10));
-	public static final SpellEffect BOUNCY = create("bouncy_effect", new BouncySpellEffect(SpellType.MOVEMENT, ArcanusParticles.BOUNCY, Weight.NONE, 5, 0, 8));
-	public static final SpellEffect FEATHER = create("feather_effect", new FeatherSpellEffect(SpellType.MOVEMENT, ArcanusParticles.FEATHER, Weight.NONE, 5, 0, 8));
+	public static final SpellEffect BUILD = buildEffectProperties.enabled ? create("build_effect", new BuildSpellEffect(SpellType.MOVEMENT, ParticleTypes.HEART, buildEffectProperties.weight, buildEffectProperties.manaCost, buildEffectProperties.coolDown, buildEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect LEVITATE = levitateEffectProperties.enabled ? create("levitate_effect", new LevitateSpellEffect(SpellType.MOVEMENT, ParticleTypes.CLOUD, levitateEffectProperties.weight, levitateEffectProperties.manaCost, levitateEffectProperties.coolDown, levitateEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect SPEED = speedEffectProperties.enabled ? create("speed_effect", new SpeedSpellEffect(SpellType.MOVEMENT, ArcanusParticles.SPEED, speedEffectProperties.weight, speedEffectProperties.manaCost, speedEffectProperties.coolDown, speedEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect TELEPORT = teleportEffectProperties.enabled ? create("teleport_effect", new TeleportSpellEffect(SpellType.MOVEMENT, ParticleTypes.PORTAL, teleportEffectProperties.weight, teleportEffectProperties.manaCost, teleportEffectProperties.coolDown, teleportEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect EXCHANGE = exchangeEffectProperties.enabled ? create("exchange_effect", new ExchangeSpellEffect(SpellType.MOVEMENT, ArcanusParticles.EXCHANGE, exchangeEffectProperties.weight, exchangeEffectProperties.manaCost, exchangeEffectProperties.coolDown, exchangeEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect BOUNCY = bouncyEffectProperties.enabled ? create("bouncy_effect", new BouncySpellEffect(SpellType.MOVEMENT, ArcanusParticles.BOUNCY, bouncyEffectProperties.weight, bouncyEffectProperties.manaCost, bouncyEffectProperties.coolDown, bouncyEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect FEATHER = featherEffectProperties.enabled ? create("feather_effect", new FeatherSpellEffect(SpellType.MOVEMENT, ArcanusParticles.FEATHER, featherEffectProperties.weight, featherEffectProperties.manaCost, featherEffectProperties.coolDown, featherEffectProperties.minimumLevel)) : null;
 
 	//-----Registry-----//
 	public static void register() {
-		if(QuiltLoader.isModLoaded("pehkui")) {
-			SHRINK = create("shrink_effect", new SizeChangeSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 8, 0, 9));
-			ENLARGE = create("enlarge_effect", new SizeChangeSpellEffect(SpellType.UTILITY, ParticleTypes.HEART, Weight.NONE, 8, 0, 9));
-		}
-
 		COMPONENTS.keySet().forEach(item -> Registry.register(Arcanus.SPELL_COMPONENTS, COMPONENTS.get(item), item));
 	}
 

@@ -5,6 +5,7 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.MagicDoorBlock;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.MagicDoorBlockEntity;
+import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.CastSpellPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SaveBookDataPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SetCastingPacket;
@@ -12,6 +13,7 @@ import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SyncPatternPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStatusEffectPacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
 import dev.cammiescorner.arcanuscontinuum.common.structures.WizardTowerProcessor;
+import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.block.BlockState;
@@ -63,6 +65,8 @@ public class Arcanus implements ModInitializer {
 
 	@Override
 	public void onInitialize(ModContainer mod) {
+		MidnightConfig.init(MOD_ID, ArcanusConfig.class);
+
 		Registry.register(Registries.ENTITY_ATTRIBUTE, id("max_mana"), ArcanusEntityAttributes.MAX_MANA);
 		Registry.register(Registries.ENTITY_ATTRIBUTE, id("mana_regen"), ArcanusEntityAttributes.MANA_REGEN);
 		Registry.register(Registries.ENTITY_ATTRIBUTE, id("burnout_regen"), ArcanusEntityAttributes.BURNOUT_REGEN);
