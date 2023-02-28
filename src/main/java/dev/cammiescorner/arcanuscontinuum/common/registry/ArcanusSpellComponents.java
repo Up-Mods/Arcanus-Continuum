@@ -21,7 +21,7 @@ public class ArcanusSpellComponents {
 	public static final SpellComponent EMPTY = create("empty", SpellShape.EMPTY);
 
 	//-----Spell Forms-----//
-	public static final SpellShape SELF = selfShapeProperties.enabled ? create("self_shape", new SelfSpellShape(selfShapeProperties.weight, selfShapeProperties.manaMultiplier, selfShapeProperties.manaMultiplier, selfShapeProperties.coolDown, selfShapeProperties.minimumLevel)) : null;
+	public static final SpellShape SELF = selfShapeProperties.enabled ? create("self_shape", new SelfSpellShape(selfShapeProperties.weight, selfShapeProperties.manaCost, selfShapeProperties.manaMultiplier, selfShapeProperties.coolDown, selfShapeProperties.minimumLevel)) : null;
 	public static final SpellShape TOUCH = touchShapeProperties.enabled ? create("touch_shape", new TouchSpellShape(touchShapeProperties.weight, touchShapeProperties.manaCost, touchShapeProperties.manaMultiplier, touchShapeProperties.coolDown, touchShapeProperties.minimumLevel)) : null;
 	public static final SpellShape PROJECTILE = projectileShapeProperties.enabled ? create("projectile_shape", new ProjectileSpellShape(projectileShapeProperties.weight, projectileShapeProperties.manaCost, projectileShapeProperties.manaMultiplier, projectileShapeProperties.coolDown, projectileShapeProperties.minimumLevel)) : null;
 	public static final SpellShape LOB = lobShapeProperties.enabled ? create("lob_shape", new ProjectileSpellShape(lobShapeProperties.weight, lobShapeProperties.manaCost, lobShapeProperties.manaMultiplier, lobShapeProperties.coolDown, lobShapeProperties.minimumLevel)) : null;
