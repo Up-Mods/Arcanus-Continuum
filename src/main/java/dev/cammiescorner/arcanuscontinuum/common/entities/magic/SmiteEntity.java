@@ -19,6 +19,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.quiltmc.loader.api.minecraft.ClientOnly;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -32,8 +33,8 @@ public class SmiteEntity extends Entity {
 	private List<SpellEffect> effects = new ArrayList<>();
 	private double potency;
 
-	public SmiteEntity(EntityType<?> variant, World world) {
-		super(variant, world);
+	public SmiteEntity(EntityType<? extends Entity> entityType, World world) {
+		super(entityType, world);
 	}
 
 	@Override
@@ -56,11 +57,16 @@ public class SmiteEntity extends Entity {
 				kill();
 		}
 		else {
-			if(age == 1)
-				world.playSound(getX(), getY(), getZ(), ArcanusSoundEvents.SMITE, SoundCategory.NEUTRAL, MathHelper.clamp(1 - (distanceTo(MinecraftClient.getInstance().player) / 100F), 0, 1), (1F + (random.nextFloat() - random.nextFloat()) * 0.2F) * 0.7F, false);
+			clientTick();
 		}
 
 		super.tick();
+	}
+
+	@ClientOnly
+	public void clientTick() {
+		if(age == 1)
+			world.playSound(getX(), getY(), getZ(), ArcanusSoundEvents.SMITE, SoundCategory.NEUTRAL, MathHelper.clamp(1 - (distanceTo(MinecraftClient.getInstance().player) / 100F), 0, 1), (1F + (random.nextFloat() - random.nextFloat()) * 0.2F) * 0.7F, false);
 	}
 
 	@Override
