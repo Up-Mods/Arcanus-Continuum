@@ -13,6 +13,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,15 +30,22 @@ public class ProjectileSpellShape extends SpellShape {
 
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
-		MagicProjectileEntity projectile = ArcanusEntities.MAGIC_PROJECTILE.create(world);
+		if(caster != null) {
+			List<? extends MagicProjectileEntity> list = world.getEntitiesByType(TypeFilter.instanceOf(MagicProjectileEntity.class), entity -> caster.equals(entity.getOwner()));
 
-		if(projectile != null && caster != null) {
-			projectile.setProperties(caster, castSource, this, stack, effects, spellGroups, groupIndex, potency, this == ArcanusSpellComponents.LOB ? 2F : 4F, this != ArcanusSpellComponents.LOB, Arcanus.DEFAULT_MAGIC_COLOUR);
+			for(int i = 0; i < list.size() - 20; i++)
+				list.get(i).kill();
 
-			if(caster instanceof PlayerEntity player)
-				projectile.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
+			MagicProjectileEntity projectile = ArcanusEntities.MAGIC_PROJECTILE.create(world);
 
-			world.spawnEntity(projectile);
+			if(projectile != null) {
+				projectile.setProperties(caster, castSource, this, stack, effects, spellGroups, groupIndex, potency, this == ArcanusSpellComponents.LOB ? 2F : 4F, this != ArcanusSpellComponents.LOB, Arcanus.DEFAULT_MAGIC_COLOUR);
+
+				if(caster instanceof PlayerEntity player)
+					projectile.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
+
+				world.spawnEntity(projectile);
+			}
 		}
 	}
 }

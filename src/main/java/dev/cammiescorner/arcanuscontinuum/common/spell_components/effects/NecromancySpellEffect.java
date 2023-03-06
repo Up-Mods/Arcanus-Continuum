@@ -12,6 +12,8 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.TypeFilter;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -25,20 +27,21 @@ public class NecromancySpellEffect extends SpellEffect {
 
 	@Override
 	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
-		if(target.getType() != HitResult.Type.MISS) {
+		if(target.getType() != HitResult.Type.MISS && caster != null) {
 			int effectCount = (int) effects.stream().filter(effect -> effect == ArcanusSpellComponents.NECROMANCY).count();
 			double healthMultiplier = 1 + (effectCount - 1) * (-0.075);
+			List<? extends NecroSkeletonEntity> list = ((ServerWorld) world).getEntitiesByType(TypeFilter.instanceOf(NecroSkeletonEntity.class), necroSkeletonEntity -> necroSkeletonEntity.getOwnerId().equals(caster.getUuid()));
 
 			for(int i = 0; i < effectCount; i++) {
+				if(list.size() + i >= 20)
+					return;
+
 				NecroSkeletonEntity skeleton = ArcanusEntities.NECRO_SKELETON.create(world);
 
 				if(skeleton != null) {
 					skeleton.setPosition(target.getPos());
 					skeleton.setMaxHealth(20 * healthMultiplier * potency);
-
-					if(caster != null)
-						skeleton.setOwner(caster);
-
+					skeleton.setOwner(caster);
 					skeleton.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
 					skeleton.equipStack(EquipmentSlot.HEAD, new ItemStack(ArcanusItems.WIZARD_HAT));
 

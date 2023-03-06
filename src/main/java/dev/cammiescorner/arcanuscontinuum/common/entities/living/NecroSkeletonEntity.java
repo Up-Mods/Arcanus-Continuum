@@ -171,6 +171,10 @@ public class NecroSkeletonEntity extends AbstractSkeletonEntity implements Smart
 		}
 	}
 
+	public UUID getOwnerId() {
+		return ownerId;
+	}
+
 	public void setOwner(LivingEntity entity) {
 		ownerId = entity.getUuid();
 	}

@@ -104,6 +104,10 @@ public class MagicRuneEntity extends Entity {
 		tag.put("SpellGroups", groupsList);
 	}
 
+	public UUID getCasterId() {
+		return casterId;
+	}
+
 	private LivingEntity getCaster() {
 		if(world instanceof ServerWorld serverWorld && serverWorld.getEntity(casterId) instanceof LivingEntity caster)
 			return caster;

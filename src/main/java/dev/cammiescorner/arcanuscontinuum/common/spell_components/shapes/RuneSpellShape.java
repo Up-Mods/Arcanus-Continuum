@@ -12,6 +12,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,16 +29,23 @@ public class RuneSpellShape extends SpellShape {
 
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
-		MagicRuneEntity magicRune = ArcanusEntities.MAGIC_RUNE.create(world);
-		Entity sourceEntity = castSource != null ? castSource : caster;
+		if(caster != null) {
+			List<? extends MagicRuneEntity> list = world.getEntitiesByType(TypeFilter.instanceOf(MagicRuneEntity.class), entity -> caster.getUuid().equals(entity.getCasterId()));
 
-		if(magicRune != null && caster != null) {
-			magicRune.setProperties(caster.getUuid(), sourceEntity, castFrom, stack, effects, potency, spellGroups, groupIndex, Arcanus.DEFAULT_MAGIC_COLOUR);
+			for(int i = 0; i < list.size() - 100; i++)
+				list.get(i).kill();
 
-			if(caster instanceof PlayerEntity player)
-				magicRune.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
+			MagicRuneEntity magicRune = ArcanusEntities.MAGIC_RUNE.create(world);
+			Entity sourceEntity = castSource != null ? castSource : caster;
 
-			world.spawnEntity(magicRune);
+			if(magicRune != null) {
+				magicRune.setProperties(caster.getUuid(), sourceEntity, castFrom, stack, effects, potency, spellGroups, groupIndex, Arcanus.DEFAULT_MAGIC_COLOUR);
+
+				if(caster instanceof PlayerEntity player)
+					magicRune.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
+
+				world.spawnEntity(magicRune);
+			}
 		}
 	}
 }

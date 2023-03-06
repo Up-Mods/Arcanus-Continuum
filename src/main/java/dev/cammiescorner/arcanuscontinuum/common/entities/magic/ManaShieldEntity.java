@@ -8,13 +8,21 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.UUID;
 
 public class ManaShieldEntity extends Entity {
 	private static final TrackedData<Integer> MAX_AGE = DataTracker.registerData(ManaShieldEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	private static final TrackedData<Integer> TRUE_AGE = DataTracker.registerData(ManaShieldEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	public static final ThreadLocal<Entity> COLLIDING_ENTITY = new ThreadLocal<>();
+	public UUID ownerId = Util.NIL_UUID;
 
 	public ManaShieldEntity(EntityType<? extends Entity> entityType, World world) {
 		super(entityType, world);
@@ -22,11 +30,32 @@ public class ManaShieldEntity extends Entity {
 
 	@Override
 	public void tick() {
+		List<ManaShieldEntity> list = world.getEntitiesByClass(ManaShieldEntity.class, getBoundingBox(), EntityPredicates.VALID_ENTITY);
+
+		if(!list.isEmpty()) {
+			list.sort(Comparator.comparingInt(ManaShieldEntity::getTrueAge).reversed());
+			int i = world.getGameRules().getInt(GameRules.MAX_ENTITY_CRAMMING);
+
+			if(i > 0 && list.size() > i - 1) {
+				int j = 0;
+
+				for(ManaShieldEntity ignored : list)
+					++j;
+
+				if(j > i - 1) {
+					kill();
+					return;
+				}
+			}
+		}
+
 		if(world.getOtherEntities(this, getBoundingBox(), entity -> entity instanceof LivingEntity && entity.isAlive()).isEmpty() && getTrueAge() + 20 < getMaxAge())
 			dataTracker.set(MAX_AGE, getTrueAge() + 20);
 
-		if(getTrueAge() >= getMaxAge())
+		if(getTrueAge() >= getMaxAge()) {
 			kill();
+			return;
+		}
 
 		super.tick();
 		dataTracker.set(TRUE_AGE, getTrueAge() + 1);
@@ -52,12 +81,14 @@ public class ManaShieldEntity extends Entity {
 	protected void readCustomDataFromNbt(NbtCompound tag) {
 		dataTracker.set(MAX_AGE, tag.getInt("MaxAge"));
 		dataTracker.set(TRUE_AGE, tag.getInt("TrueAge"));
+		ownerId = tag.getUuid("OwnerId");
 	}
 
 	@Override
 	protected void writeCustomDataToNbt(NbtCompound tag) {
 		tag.putInt("MaxAge", getMaxAge());
 		tag.putInt("TrueAge", getTrueAge());
+		tag.putUuid("OwnerId", ownerId);
 	}
 
 	@Override
@@ -89,9 +120,14 @@ public class ManaShieldEntity extends Entity {
 		ArcanusComponents.setColour(this, colour);
 	}
 
-	public void setProperties(Vec3d pos, int colour, int maxAge) {
+	public UUID getOwnerId() {
+		return ownerId;
+	}
+
+	public void setProperties(UUID ownerId, Vec3d pos, int colour, int maxAge) {
 		setPosition(pos);
 		setColour(colour);
 		dataTracker.set(MAX_AGE, maxAge);
+		this.ownerId = ownerId;
 	}
 }

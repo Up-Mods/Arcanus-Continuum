@@ -12,6 +12,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,16 +29,23 @@ public class AreaOfEffectSpellShape extends SpellShape {
 
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
-		AreaOfEffectEntity areaOfEffect = ArcanusEntities.AOE.create(world);
-		Entity sourceEntity = castSource != null ? castSource : caster;
+		if(caster != null) {
+			List<? extends AreaOfEffectEntity> list = world.getEntitiesByType(TypeFilter.instanceOf(AreaOfEffectEntity.class), entity -> caster.getUuid().equals(entity.getCasterId()));
 
-		if(areaOfEffect != null && caster != null) {
-			areaOfEffect.setProperties(caster.getUuid(), sourceEntity, castFrom, stack, effects, potency, spellGroups, groupIndex, Arcanus.DEFAULT_MAGIC_COLOUR);
+			for(int i = 0; i < list.size() - 20; i++)
+				list.get(i).kill();
 
-			if(caster instanceof PlayerEntity player)
-				areaOfEffect.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
+			AreaOfEffectEntity areaOfEffect = ArcanusEntities.AOE.create(world);
+			Entity sourceEntity = castSource != null ? castSource : caster;
 
-			world.spawnEntity(areaOfEffect);
+			if(areaOfEffect != null) {
+				areaOfEffect.setProperties(caster.getUuid(), sourceEntity, castFrom, stack, effects, potency, spellGroups, groupIndex, Arcanus.DEFAULT_MAGIC_COLOUR);
+
+				if(caster instanceof PlayerEntity player)
+					areaOfEffect.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
+
+				world.spawnEntity(areaOfEffect);
+			}
 		}
 	}
 }

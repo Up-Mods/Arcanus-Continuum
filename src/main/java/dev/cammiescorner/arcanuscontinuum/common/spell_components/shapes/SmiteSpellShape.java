@@ -12,6 +12,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.TypeFilter;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -54,10 +55,15 @@ public class SmiteSpellShape extends SpellShape {
 
 		SmiteEntity smite = null;
 
-		if(hitDidConnect) {
+		if(hitDidConnect && caster != null) {
+			List<? extends SmiteEntity> list = world.getEntitiesByType(TypeFilter.instanceOf(SmiteEntity.class), entity -> caster.getUuid().equals(entity.getCasterId()));
+
+			for(int i = 0; i < list.size() - 50; i++)
+				list.get(i).kill();
+
 			smite = ArcanusEntities.SMITE.create(world);
 
-			if(smite != null && caster != null) {
+			if(smite != null) {
 				smite.setProperties(caster.getUuid(), sourceEntity, ray.getPos(), stack, effects, potency, Arcanus.DEFAULT_MAGIC_COLOUR);
 
 				if(caster instanceof PlayerEntity player)

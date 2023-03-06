@@ -13,18 +13,17 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class AreaOfEffectEntity extends Entity {
 	private UUID casterId = Util.NIL_UUID;
@@ -34,6 +33,7 @@ public class AreaOfEffectEntity extends Entity {
 	private int groupIndex;
 	private double potency;
 	private int trueAge;
+	private boolean isFocused = true;
 
 	public AreaOfEffectEntity(EntityType<?> variant, World world) {
 		super(variant, world);
@@ -41,29 +41,53 @@ public class AreaOfEffectEntity extends Entity {
 
 	@Override
 	public void tick() {
-		if(!world.isClient()) {
-			if(trueAge % 20 == 0 && trueAge <= 80 && trueAge > 0) {
-				Box box = new Box(-2, 0, -2, 2, 2.5, 2).offset(getPos());
+		List<AreaOfEffectEntity> list = world.getEntitiesByClass(AreaOfEffectEntity.class, getBoundingBox(), EntityPredicates.VALID_ENTITY);
 
-				for(SpellEffect effect : new HashSet<>(effects)) {
-					if(effect.shouldTriggerOnceOnExplosion()) {
-						effect.effect(getCaster(), this, world, new EntityHitResult(this), effects, stack, potency);
-						continue;
+		if(!list.isEmpty()) {
+			int i = world.getGameRules().getInt(GameRules.MAX_ENTITY_CRAMMING);
+
+			if(i > 0 && list.size() > i - 1) {
+				int j = 0;
+
+				for(AreaOfEffectEntity ignored : list)
+					++j;
+
+				if(j > i - 1) {
+					kill();
+					return;
+				}
+			}
+		}
+
+		if(!world.isClient()) {
+			if(trueAge <= 90 && trueAge > 0) {
+				if(trueAge % 30 == 0) {
+					Box box = new Box(-2, 0, -2, 2, 2.5, 2).offset(getPos());
+
+					for(SpellEffect effect : new HashSet<>(effects)) {
+						if(effect.shouldTriggerOnceOnExplosion())
+							continue;
+
+						world.getEntitiesByClass(LivingEntity.class, box, livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator()).forEach(entity -> {
+							effect.effect(getCaster(), this, world, new EntityHitResult(entity), effects, stack, potency);
+						});
 					}
 
-					world.getEntitiesByClass(LivingEntity.class, box, livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator()).forEach(entity -> {
-						effect.effect(getCaster(), this, world, new EntityHitResult(entity), effects, stack, potency);
-					});
+					SpellShape.castNext(getCaster(), getPos(), this, (ServerWorld) world, stack, spellGroups, groupIndex, potency);
+
+					if(!isFocused)
+						setYaw(getYaw() + 110 + random.nextInt(21));
 				}
 
-				if(random.nextDouble() < 0.125)
-					SpellShape.castNext(getCaster(), getPos(), this, (ServerWorld) world, stack, spellGroups, groupIndex, potency);
+				if(trueAge % 50 == 0) {
+					for(SpellEffect effect : new HashSet<>(effects))
+						if(effect.shouldTriggerOnceOnExplosion())
+							effect.effect(getCaster(), this, world, new EntityHitResult(this), effects, stack, potency);
+				}
 			}
 
-			if(trueAge >= 100) {
-				SpellShape.castNext(getCaster(), getPos(), this, (ServerWorld) world, stack, spellGroups, groupIndex, potency);
+			if(trueAge >= 100)
 				kill();
-			}
 		}
 
 		super.tick();
@@ -120,6 +144,10 @@ public class AreaOfEffectEntity extends Entity {
 		tag.put("SpellGroups", groupsList);
 	}
 
+	public UUID getCasterId() {
+		return casterId;
+	}
+
 	private LivingEntity getCaster() {
 		if(world instanceof ServerWorld serverWorld && serverWorld.getEntity(casterId) instanceof LivingEntity caster)
 			return caster;
@@ -144,6 +172,7 @@ public class AreaOfEffectEntity extends Entity {
 		setYaw(sourceEntity.getYaw());
 		setPitch(sourceEntity.getPitch());
 		this.casterId = casterId;
+		this.isFocused = sourceEntity instanceof AreaOfEffectEntity aoe ? aoe.isFocused : sourceEntity.getUuid().equals(casterId) && sourceEntity.isSneaking();
 		this.stack = stack;
 		this.effects = effects;
 		this.spellGroups = groups;
