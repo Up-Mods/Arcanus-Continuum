@@ -96,7 +96,8 @@
   "spell_book.arcanuscontinuum.seconds": "s",
 
   "staff.arcanuscontinuum.invalid_data": "!!! INVALID DATA !!!",
-  "staff.arcanuscontinuum.magic_color": "Magic Color: %s",
+  "staff.arcanuscontinuum.primary_color": "Focus Color",
+  "staff.arcanuscontinuum.secondary_color": "Body Color",
 
   "spell.arcanuscontinuum.too_many_components": "Too many components!",
   "spell.arcanuscontinuum.too_low_level": "Wizard level too low!",

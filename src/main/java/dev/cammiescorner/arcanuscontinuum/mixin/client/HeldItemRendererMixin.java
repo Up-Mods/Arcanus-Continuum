@@ -13,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
 import net.minecraft.util.math.Axis;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,11 +34,10 @@ public abstract class HeldItemRendererMixin {
 			ordinal = 0
 	))
 	private void arcanuscontinuum$animateStaff(float tickDelta, MatrixStack matrices, VertexConsumerProvider.Immediate vertexConsumers, ClientPlayerEntity player, int light, CallbackInfo info) {
-		World world = client.world;
 		boolean isCasting = ((ClientUtils) client).isCasting();
 
-		if(world != null && isCasting && mainHand.getItem() instanceof StaffItem item) {
-			double time = world.getTime() + tickDelta;
+		if(client.player != null && isCasting && mainHand.getItem() instanceof StaffItem item) {
+			double time = client.player.age + tickDelta;
 
 			if(item.staffType == StaffType.STAFF) {
 				matrices.multiply(Axis.X_POSITIVE.rotationDegrees(-65F));

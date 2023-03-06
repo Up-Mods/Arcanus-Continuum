@@ -12,7 +12,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -20,8 +19,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class NecromancySpellEffect extends SpellEffect {
-	public NecromancySpellEffect(SpellType type, ParticleEffect particle, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(type, particle, weight, manaCost, coolDown, minLevel);
+	public NecromancySpellEffect(SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(type, weight, manaCost, coolDown, minLevel);
 	}
 
 	@Override

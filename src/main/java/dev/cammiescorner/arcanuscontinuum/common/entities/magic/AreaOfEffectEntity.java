@@ -56,7 +56,7 @@ public class AreaOfEffectEntity extends Entity {
 					});
 				}
 
-				if(random.nextDouble() < 0.1)
+				if(random.nextDouble() < 0.125)
 					SpellShape.castNext(getCaster(), getPos(), this, (ServerWorld) world, stack, spellGroups, groupIndex, potency);
 			}
 

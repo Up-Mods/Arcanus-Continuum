@@ -9,7 +9,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
@@ -18,8 +17,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class BouncySpellEffect extends SpellEffect {
-	public BouncySpellEffect(SpellType type, ParticleEffect particle, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(type, particle, weight, manaCost, coolDown, minLevel);
+	public BouncySpellEffect(SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(type, weight, manaCost, coolDown, minLevel);
 	}
 
 	@Override

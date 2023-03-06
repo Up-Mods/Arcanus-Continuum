@@ -11,7 +11,6 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -23,8 +22,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class FireSpellEffect extends SpellEffect {
-	public FireSpellEffect(SpellType type, ParticleEffect particle, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(type, particle, weight, manaCost, coolDown, minLevel);
+	public FireSpellEffect(SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(type, weight, manaCost, coolDown, minLevel);
 	}
 
 	@Override

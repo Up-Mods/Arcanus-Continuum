@@ -7,7 +7,6 @@ import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
@@ -16,8 +15,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class PushSpellEffect extends SpellEffect {
-	public PushSpellEffect(SpellType type, ParticleEffect particle, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(type, particle, weight, manaCost, coolDown, minLevel);
+	public PushSpellEffect(SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(type, weight, manaCost, coolDown, minLevel);
 	}
 
 	@Override

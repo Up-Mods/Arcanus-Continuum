@@ -28,6 +28,7 @@ import org.jetbrains.annotations.Nullable;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class StaffItem extends Item {
@@ -93,6 +94,12 @@ public class StaffItem extends Item {
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		NbtCompound tag = stack.getSubNbt(Arcanus.MOD_ID);
+		int primaryColour = getPrimaryColour(stack);
+		int secondaryColour = getSecondaryColour(stack);
+
+		tooltip.add(Arcanus.translate("staff", "primary_color").styled(style -> style.withColor(primaryColour)).append(Text.literal(": " + String.format(Locale.ROOT, "#%06X", primaryColour)).formatted(Formatting.GRAY)));
+		tooltip.add(Arcanus.translate("staff", "secondary_color").styled(style -> style.withColor(secondaryColour)).append(Text.literal(": " + String.format(Locale.ROOT, "#%06X", secondaryColour)).formatted(Formatting.GRAY)));
+		tooltip.add(Text.empty());
 
 		if(tag != null && !tag.isEmpty()) {
 			NbtList list = tag.getList("Spells", NbtElement.COMPOUND_TYPE);
