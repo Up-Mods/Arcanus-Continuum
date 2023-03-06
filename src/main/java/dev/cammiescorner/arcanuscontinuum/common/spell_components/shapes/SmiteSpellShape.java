@@ -33,7 +33,7 @@ public class SmiteSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		HitResult ray;
 		boolean hitDidConnect = true;
@@ -57,8 +57,8 @@ public class SmiteSpellShape extends SpellShape {
 		if(hitDidConnect) {
 			smite = ArcanusEntities.SMITE.create(world);
 
-			if(smite != null) {
-				smite.setProperties(caster, sourceEntity, ray.getPos(), stack, effects, potency, Arcanus.DEFAULT_MAGIC_COLOUR);
+			if(smite != null && caster != null) {
+				smite.setProperties(caster.getUuid(), sourceEntity, ray.getPos(), stack, effects, potency, Arcanus.DEFAULT_MAGIC_COLOUR);
 
 				if(caster instanceof PlayerEntity player)
 					smite.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));

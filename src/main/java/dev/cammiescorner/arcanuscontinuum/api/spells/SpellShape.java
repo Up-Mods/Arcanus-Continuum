@@ -12,7 +12,7 @@ import java.util.List;
 
 public abstract class SpellShape extends SpellComponent {
 	public static final SpellShape EMPTY = new SpellShape(Weight.NONE, 0, 0, 0) {
-		@Override public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+		@Override public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 			castNext(caster, castFrom, castSource, world, stack, spellGroups, groupIndex, potency);
 		}
 	};
@@ -36,9 +36,9 @@ public abstract class SpellShape extends SpellComponent {
 		return (getManaMultiplier() < 0 ? "" : "+") + Arcanus.format(getManaMultiplier() * 100) + "%";
 	}
 
-	public abstract void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency);
+	public abstract void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency);
 
-	public static void castNext(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public static void castNext(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		if(spellGroups.size() <= groupIndex + 1)
 			return;
 

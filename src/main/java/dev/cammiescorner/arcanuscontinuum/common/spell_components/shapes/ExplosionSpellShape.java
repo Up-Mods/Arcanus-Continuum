@@ -34,7 +34,7 @@ public class ExplosionSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		float strength = 3.5F;
 

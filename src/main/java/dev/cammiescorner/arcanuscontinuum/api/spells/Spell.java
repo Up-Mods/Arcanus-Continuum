@@ -116,6 +116,6 @@ public class Spell {
 
 		// start casting the spell
 		SpellGroup firstGroup = groups.get(0);
-		firstGroup.shape().cast(caster, caster.getPos(), caster, world, stack, firstGroup.effects(), groups, 0, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
+		firstGroup.shape().cast(caster, caster.getPos(), null, world, stack, firstGroup.effects(), groups, 0, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
 	}
 }

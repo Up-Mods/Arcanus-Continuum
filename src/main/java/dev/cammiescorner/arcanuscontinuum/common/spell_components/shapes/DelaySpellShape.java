@@ -19,18 +19,18 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashSet;
 import java.util.List;
 
-public class BeamSpellShape extends SpellShape {
-	public BeamSpellShape(Weight weight, double manaCost, int coolDown, int minLevel) {
+public class DelaySpellShape extends SpellShape {
+	public DelaySpellShape(Weight weight, double manaCost, int coolDown, int minLevel) {
 		super(weight, manaCost, coolDown, minLevel);
 	}
 
-	public BeamSpellShape(Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
+	public DelaySpellShape(Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
 		super(weight, manaCost, manaMultiplier, coolDown, minLevel);
 	}
 
 	@Override
-	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
-		double range = ReachEntityAttributes.getAttackRange(caster, 16);
+	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+		double range = caster != null ? ReachEntityAttributes.getAttackRange(caster, 16) : 16;
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		HitResult target = ArcanusHelper.raycast(sourceEntity, range, true, true);
 

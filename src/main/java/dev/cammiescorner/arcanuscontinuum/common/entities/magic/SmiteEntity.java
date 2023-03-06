@@ -43,14 +43,20 @@ public class SmiteEntity extends Entity {
 			if(age <= 9) {
 				Box box = new Box(getX() - 4, getY() - 1, getZ() - 4, getX() + 4, (world.getHeight() + 2048) - getY(), getZ() + 4);
 
-				world.getEntitiesByClass(LivingEntity.class, box, livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator()).forEach(entity -> {
-					if(!hasHit.contains(entity.getUuid())) {
-						for(SpellEffect effect : new HashSet<>(effects))
+				for(SpellEffect effect : new HashSet<>(effects)) {
+					if(effect.shouldTriggerOnceOnExplosion()) {
+						effect.effect(getCaster(), this, world, new EntityHitResult(this), effects, stack, potency);
+						continue;
+					}
+
+					world.getEntitiesByClass(LivingEntity.class, box, livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator()).forEach(entity -> {
+						if(!hasHit.contains(entity.getUuid())) {
 							effect.effect(getCaster(), this, world, new EntityHitResult(entity), effects, stack, potency + 0.5);
 
-						hasHit.add(entity.getUuid());
-					}
-				});
+							hasHit.add(entity.getUuid());
+						}
+					});
+				}
 			}
 
 			if(age > 23)
@@ -130,12 +136,12 @@ public class SmiteEntity extends Entity {
 		ArcanusComponents.setColour(this, colour);
 	}
 
-	public void setProperties(LivingEntity caster, Entity sourceEntity, Vec3d pos, ItemStack stack, List<SpellEffect> effects, double potency, int colour) {
+	public void setProperties(UUID casterId, Entity sourceEntity, Vec3d pos, ItemStack stack, List<SpellEffect> effects, double potency, int colour) {
 		setPos(pos.getX(), pos.getY(), pos.getZ());
 		setNoGravity(true);
 		setYaw(sourceEntity.getYaw());
 		setPitch(sourceEntity.getPitch());
-		this.casterId = caster.getUuid();
+		this.casterId = casterId;
 		this.stack = stack;
 		this.effects = effects;
 		this.potency = potency;

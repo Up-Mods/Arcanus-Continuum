@@ -28,10 +28,10 @@ public class ProjectileSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		MagicProjectileEntity projectile = ArcanusEntities.MAGIC_PROJECTILE.create(world);
 
-		if(projectile != null) {
+		if(projectile != null && caster != null) {
 			projectile.setProperties(caster, castSource, this, stack, effects, spellGroups, groupIndex, potency, this == ArcanusSpellComponents.LOB ? 2F : 4F, this != ArcanusSpellComponents.LOB, Arcanus.DEFAULT_MAGIC_COLOUR);
 
 			if(caster instanceof PlayerEntity player)

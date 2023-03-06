@@ -12,7 +12,7 @@ public class ArcanusConfig extends MidnightConfig {
 	@Entry public static SpellShapeProperties beamShapeProperties = new SpellShapeProperties(true, Weight.MEDIUM, 0, 1.15, 30, 5);
 	@Entry public static SpellShapeProperties runeShapeProperties = new SpellShapeProperties(true, Weight.HEAVY, 0, 1, 50, 7);
 	@Entry public static SpellShapeProperties explosionShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 1.25, 60, 7);
-	@Entry public static SpellShapeProperties aoeShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 4, 60, 9);
+	@Entry public static SpellShapeProperties aoeShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 3, 60, 9);
 	@Entry public static SpellShapeProperties smiteShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 1.75, 60, 9);
 
 	@Entry public static SpellEffectProperties damageEffectProperties = new SpellEffectProperties(true, Weight.NONE, 4, 0, 1);

@@ -45,17 +45,25 @@ public class AreaOfEffectEntity extends Entity {
 			if(trueAge % 20 == 0 && trueAge <= 80 && trueAge > 0) {
 				Box box = new Box(-2, 0, -2, 2, 2.5, 2).offset(getPos());
 
-				world.getEntitiesByClass(LivingEntity.class, box, livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator()).forEach(entity -> {
-					for(SpellEffect effect : new HashSet<>(effects))
-						effect.effect(getCaster(), this, world, new EntityHitResult(entity), effects, stack, potency);
-				});
+				for(SpellEffect effect : new HashSet<>(effects)) {
+					if(effect.shouldTriggerOnceOnExplosion()) {
+						effect.effect(getCaster(), this, world, new EntityHitResult(this), effects, stack, potency);
+						continue;
+					}
 
-				SpellShape.castNext(getCaster(), getPos(), this, (ServerWorld) world, stack, spellGroups, groupIndex, potency);
-				setYaw(getYaw() + 90);
+					world.getEntitiesByClass(LivingEntity.class, box, livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator()).forEach(entity -> {
+						effect.effect(getCaster(), this, world, new EntityHitResult(entity), effects, stack, potency);
+					});
+				}
+
+				if(random.nextDouble() < 0.1)
+					SpellShape.castNext(getCaster(), getPos(), this, (ServerWorld) world, stack, spellGroups, groupIndex, potency);
 			}
 
-			if(trueAge >= 100)
+			if(trueAge >= 100) {
+				SpellShape.castNext(getCaster(), getPos(), this, (ServerWorld) world, stack, spellGroups, groupIndex, potency);
 				kill();
+			}
 		}
 
 		super.tick();
@@ -131,11 +139,11 @@ public class AreaOfEffectEntity extends Entity {
 		return trueAge;
 	}
 
-	public void setProperties(LivingEntity caster, Entity sourceEntity, Vec3d pos, ItemStack stack, List<SpellEffect> effects, double potency, List<SpellGroup> groups, int groupIndex, int colour) {
+	public void setProperties(UUID casterId, Entity sourceEntity, Vec3d pos, ItemStack stack, List<SpellEffect> effects, double potency, List<SpellGroup> groups, int groupIndex, int colour) {
 		setPos(pos.getX(), pos.getY(), pos.getZ());
 		setYaw(sourceEntity.getYaw());
 		setPitch(sourceEntity.getPitch());
-		this.casterId = caster.getUuid();
+		this.casterId = casterId;
 		this.stack = stack;
 		this.effects = effects;
 		this.spellGroups = groups;
