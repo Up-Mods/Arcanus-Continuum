@@ -139,6 +139,10 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 		return ArcanusComponents.getColour(this);
 	}
 
+	public void setColour(int colour) {
+		ArcanusComponents.setColour(this, colour);
+	}
+
 	public void setProperties(Entity caster, @Nullable Entity castSource, SpellShape shape, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, double potency, float speed, boolean noGravity, int colour) {
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		setProperties(sourceEntity, sourceEntity.getPitch(), sourceEntity.getYaw(), 0F, speed, 1F);

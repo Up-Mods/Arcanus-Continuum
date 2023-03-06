@@ -148,14 +148,4 @@ public class StaffItem extends Item {
 
 		return colour;
 	}
-
-	public static int getMagicColour(String playerUuid) {
-		return switch(playerUuid) {
-			case "1b44461a-f605-4b29-a7a9-04e649d1981c" -> 0xff005a; // folly red
-			case "6147825f-5493-4154-87c5-5c03c6b0a7c2" -> 0xf2dd50; // lotus gold
-			case "63a8c63b-9179-4427-849a-55212e6008bf" -> 0x7cff7c; // moriya green
-			case "d5034857-9e8a-44cb-a6da-931caff5b838" -> 0xbd78ff; // upcraft pourble
-			default -> 0x68e1ff;
-		};
-	}
 }

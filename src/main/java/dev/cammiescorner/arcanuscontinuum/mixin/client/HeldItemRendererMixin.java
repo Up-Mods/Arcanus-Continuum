@@ -7,7 +7,6 @@ import dev.cammiescorner.arcanuscontinuum.common.util.StaffType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.item.HeldItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
@@ -30,8 +29,6 @@ public abstract class HeldItemRendererMixin {
 	@Shadow private float equipProgressMainHand;
 
 	@Shadow protected abstract void renderArmHoldingItem(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, float equipProgress, float swingProgress, Arm arm);
-
-	@Shadow @Final private EntityRenderDispatcher renderManager;
 
 	@Inject(method = "renderItem(FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;Lnet/minecraft/client/network/ClientPlayerEntity;I)V", at = @At(value = "INVOKE",
 			target = "Lnet/minecraft/client/render/item/HeldItemRenderer;renderFirstPersonItem(Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/util/Hand;FLnet/minecraft/item/ItemStack;FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",
@@ -60,9 +57,20 @@ public abstract class HeldItemRendererMixin {
 				renderArmHoldingItem(matrices, vertexConsumers, light, equipProgress, swingProgress, player.getMainArm().getOpposite());
 				matrices.pop();
 			}
-			else {
+			else if(item.staffType == StaffType.WAND) {
+				matrices.multiply(Axis.X_POSITIVE.rotationDegrees(-65F));
+				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees((float) Math.cos(time * 0.25)));
+				matrices.multiply(Axis.Z_POSITIVE.rotationDegrees(20F + (float) Math.sin(time * 0.25)));
+				matrices.translate(0.1, 1, -0.4);
+			}
+			else if(item.staffType == StaffType.GAUNTLET) {
 				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees((float) Math.cos(time * 0.25)));
 				matrices.multiply(Axis.Z_POSITIVE.rotationDegrees((float) Math.sin(time * 0.25)));
+			}
+			else if(item.staffType == StaffType.GUN) {
+				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees((float) Math.cos(time * 0.25)));
+				matrices.multiply(Axis.Z_POSITIVE.rotationDegrees((float) Math.sin(time * 0.25)));
+				matrices.translate(-0.465, 0, 0);
 			}
 		}
 	}

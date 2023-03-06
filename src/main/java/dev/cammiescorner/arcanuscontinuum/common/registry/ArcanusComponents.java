@@ -1,7 +1,10 @@
 package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
-import dev.cammiescorner.arcanuscontinuum.api.spells.*;
+import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.common.components.*;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.*;
 import dev.onyxstudios.cca.api.v3.component.Component;
@@ -17,7 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
-import java.util.Set;
 
 public class ArcanusComponents implements EntityComponentInitializer {
 	public static final ComponentKey<WizardLevelComponent> WIZARD_LEVEL_COMPONENT = createComponent("wizard_level", WizardLevelComponent.class);
@@ -26,7 +28,6 @@ public class ArcanusComponents implements EntityComponentInitializer {
 	public static final ComponentKey<CastingComponent> CASTING_COMPONENT = createComponent("casting", CastingComponent.class);
 	public static final ComponentKey<PatternComponent> PATTERN_COMPONENT = createComponent("casting_pattern", PatternComponent.class);
 	public static final ComponentKey<LastCastTimeComponent> LAST_CAST_TIME_COMPONENT = createComponent("last_cast_time", LastCastTimeComponent.class);
-	public static final ComponentKey<KnownComponentsComponent> KNOWN_COMPONENTS_COMPONENT = createComponent("known_components", KnownComponentsComponent.class);
 	public static final ComponentKey<StunComponent> STUN_COMPONENT = createComponent("stun", StunComponent.class);
 	public static final ComponentKey<QuestComponent> QUEST_COMPONENT = createComponent("quests", QuestComponent.class);
 	public static final ComponentKey<MagicColourComponent> MAGIC_COLOUR = createComponent("magic_colour", MagicColourComponent.class);
@@ -41,7 +42,6 @@ public class ArcanusComponents implements EntityComponentInitializer {
 		registry.beginRegistration(PlayerEntity.class, CASTING_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(CastingComponent::new);
 		registry.beginRegistration(PlayerEntity.class, PATTERN_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(PatternComponent::new);
 		registry.beginRegistration(LivingEntity.class, LAST_CAST_TIME_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(LastCastTimeComponent::new);
-		registry.beginRegistration(PlayerEntity.class, KNOWN_COMPONENTS_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(KnownComponentsComponent::new);
 		registry.beginRegistration(LivingEntity.class, STUN_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(StunComponent::new);
 		registry.beginRegistration(PlayerEntity.class, QUEST_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(QuestComponent::new);
 		registry.beginRegistration(ManaShieldEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
@@ -145,34 +145,6 @@ public class ArcanusComponents implements EntityComponentInitializer {
 
 	public static void setLastCastTime(LivingEntity entity, long time) {
 		LAST_CAST_TIME_COMPONENT.get(entity).setLastCastTime(time);
-	}
-
-	public static Set<SpellComponent> getKnownComponents(LivingEntity entity) {
-		return KNOWN_COMPONENTS_COMPONENT.get(entity).getKnownComponents();
-	}
-
-	public static boolean hasComponent(LivingEntity entity, SpellComponent component) {
-		return KNOWN_COMPONENTS_COMPONENT.get(entity).hasComponent(component);
-	}
-
-	public static boolean hasAllComponents(LivingEntity entity, SpellComponent... components) {
-		return KNOWN_COMPONENTS_COMPONENT.get(entity).hasAllComponents(components);
-	}
-
-	public static void addComponent(LivingEntity entity, SpellComponent component) {
-		KNOWN_COMPONENTS_COMPONENT.get(entity).addComponent(component);
-	}
-
-	public static void addAllComponents(LivingEntity entity, SpellComponent... components) {
-		KNOWN_COMPONENTS_COMPONENT.get(entity).addAllComponents(components);
-	}
-
-	public static void removeComponent(LivingEntity entity, SpellComponent component) {
-		KNOWN_COMPONENTS_COMPONENT.get(entity).removeComponent(component);
-	}
-
-	public static void removeAllComponents(LivingEntity entity, SpellComponent... components) {
-		KNOWN_COMPONENTS_COMPONENT.get(entity).removeAllComponents(components);
 	}
 
 	public static int getStunTimer(LivingEntity entity) {

@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.blocks.entities;
 
+import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -11,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
 public class MagicBlockEntity extends BlockEntity {
-	private int colour = 0x68e1ff;
+	private int colour = Arcanus.DEFAULT_MAGIC_COLOUR;
 
 	public MagicBlockEntity(BlockPos pos, BlockState state) {
 		super(ArcanusBlockEntities.MAGIC_BLOCK, pos, state);

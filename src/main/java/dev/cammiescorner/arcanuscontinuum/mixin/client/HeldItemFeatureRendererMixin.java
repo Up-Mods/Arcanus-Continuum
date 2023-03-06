@@ -27,9 +27,13 @@ public class HeldItemFeatureRendererMixin {
 				matrices.translate(0, 0.1, 0);
 				matrices.multiply(Axis.X_POSITIVE.rotationDegrees(-15));
 			}
-			else if(item.staffType == StaffType.WAND) {
+			else if(item.staffType == StaffType.GUN) {
 				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(-45));
 				matrices.translate(0.125, 0, 0);
+			}
+			else if(item.staffType == StaffType.WAND) {
+				matrices.translate(0, -0.2, 0);
+				matrices.multiply(Axis.X_POSITIVE.rotationDegrees(-65));
 			}
 		}
 	}

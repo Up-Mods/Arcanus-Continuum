@@ -1,8 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.api.spells;
 
 import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
-import dev.cammiescorner.arcanuscontinuum.common.components.KnownComponentsComponent;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -115,10 +113,6 @@ public class Spell {
 
 		if(groups.isEmpty())
 			return;
-
-		// Add all components to the caster's known components
-		KnownComponentsComponent knownComponents = ArcanusComponents.KNOWN_COMPONENTS_COMPONENT.get(caster);
-		knownComponents.addAllComponents(components().toList());
 
 		// start casting the spell
 		SpellGroup firstGroup = groups.get(0);

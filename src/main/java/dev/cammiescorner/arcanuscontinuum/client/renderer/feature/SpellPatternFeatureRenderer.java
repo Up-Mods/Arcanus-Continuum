@@ -35,8 +35,7 @@ public class SpellPatternFeatureRenderer<T extends PlayerEntity, M extends Entit
 		model.setAngles(player, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
 
 		ItemStack stack = player.getMainHandStack();
-		String playerUuid = player.getUuidAsString();
-		int colour = StaffItem.getMagicColour(playerUuid);
+		int colour = Arcanus.getMagicColour(player.getGameProfile().getId());
 		float r = (colour >> 16 & 255) / 255F;
 		float g = (colour >> 8 & 255) / 255F;
 		float b = (colour & 255) / 255F;
@@ -53,9 +52,23 @@ public class SpellPatternFeatureRenderer<T extends PlayerEntity, M extends Entit
 		matrices.push();
 		matrices.translate(0, 0.65, -0.35);
 
-		if(ArcanusComponents.isCasting(player) && stack.getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF) {
-			matrices.translate(-0.35, 0, 0.05);
-			matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(player.getMainArm() == Arm.RIGHT ? 65 : -65));
+		if(ArcanusComponents.isCasting(player) && stack.getItem() instanceof StaffItem item) {
+			if(item.staffType == StaffType.STAFF) {
+				matrices.translate(player.getMainArm() == Arm.RIGHT ? -0.35 : 0.35, 0, 0.05);
+				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(player.getMainArm() == Arm.RIGHT ? 65 : -65));
+			}
+			else if(item.staffType == StaffType.WAND) {
+				matrices.translate(player.getMainArm() == Arm.RIGHT ? -0.35 : 0.35, -0.05, -0.1);
+			}
+			else if(item.staffType == StaffType.GAUNTLET) {
+				matrices.translate(player.getMainArm() == Arm.RIGHT ? -0.35 : 0.35, -0.05, 0.4);
+			}
+			else if(item.staffType == StaffType.BOOK) {
+				matrices.translate(player.getMainArm() == Arm.RIGHT ? 0.35 : -0.35, -0.05, 0.4);
+			}
+			else if(item.staffType == StaffType.GUN) {
+				matrices.translate(0, -0.15, 0.15);
+			}
 		}
 
 		model.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), 15728850, OverlayTexture.DEFAULT_UV, r, g, b, 1F);

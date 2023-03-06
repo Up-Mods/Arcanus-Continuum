@@ -123,6 +123,10 @@ public class AreaOfEffectEntity extends Entity {
 		return ArcanusComponents.getColour(this);
 	}
 
+	public void setColour(int colour) {
+		ArcanusComponents.setColour(this, colour);
+	}
+
 	public int getTrueAge() {
 		return trueAge;
 	}

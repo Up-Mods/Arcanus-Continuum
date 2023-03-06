@@ -90,11 +90,14 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 						rightArm.pitch = rightArm.pitch * 0.5F - (float) (Math.PI / 10);
 						leftArm.pitch = -1.39626F;
 					}
-					case WAND -> {
+					case GUN -> {
 						rightArm.pitch = -1.309F;
 						leftArm.pitch = -1.309F;
 						rightArm.yaw = -0.785398F;
 						leftArm.yaw = 0.785398F;
+					}
+					case WAND, GAUNTLET -> {
+						rightArm.pitch = -1.309F;
 					}
 				}
 			}
@@ -134,11 +137,14 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
 						leftArm.pitch = leftArm.pitch * 0.5F - (float) (Math.PI / 10);
 						rightArm.pitch = -1.39626F;
 					}
-					case WAND -> {
+					case GUN -> {
 						leftArm.pitch = -1.309F;
 						rightArm.pitch = -1.309F;
 						leftArm.yaw = 0.785398F;
 						rightArm.yaw = -0.785398F;
+					}
+					case WAND, GAUNTLET -> {
+						leftArm.pitch = -1.309F;
 					}
 				}
 			}

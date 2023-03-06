@@ -7,6 +7,8 @@
   "item.arcanuscontinuum.divination_staff": "Divination Staff",
   "item.arcanuscontinuum.crescent_staff": "Crescent Staff",
   "item.arcanuscontinuum.ancient_staff": "Ancient Staff",
+  "item.arcanuscontinuum.wand": "Wand",
+  "item.arcanuscontinuum.thaumaturges_gauntlet": "Thaumaturge's Gauntlet",
   "item.arcanuscontinuum.mind_staff": "Mind Staff",
   "item.arcanuscontinuum.magic_tome": "Magic Tome",
   "item.arcanuscontinuum.mage_pistol": "Mage Pistol",
@@ -78,12 +80,6 @@
   "spell_component.arcanuscontinuum.speed_effect": "Speed Effect",
   "spell_component.arcanuscontinuum.shrink_effect": "Shrink Effect",
   "spell_component.arcanuscontinuum.enlarge_effect": "Enlarge Effect",
-
-  "spell_component.arcanuscontinuum.self_shape.unknown": "selo pi jan mi",
-  "spell_component.arcanuscontinuum.touch_shape.unknown": "selo pi luka",
-
-  "spell_component.arcanuscontinuum.damage_effect.unknown": "wawa pi sijelo",
-  "spell_component.arcanuscontinuum.heal_effect.unknown": "wawa pi misikeke",
 
   "item.arcanuscontinuum.compendium_arcanus.landing_text": "Sample Landing Text",
 

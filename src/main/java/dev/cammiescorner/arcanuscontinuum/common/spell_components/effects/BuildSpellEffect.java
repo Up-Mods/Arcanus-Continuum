@@ -1,10 +1,10 @@
 package dev.cammiescorner.arcanuscontinuum.common.spell_components.effects;
 
+import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellType;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.MagicBlockEntity;
-import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.block.Block;
@@ -36,8 +36,8 @@ public class BuildSpellEffect extends SpellEffect {
 				world.setBlockState(pos, ArcanusBlocks.MAGIC_BLOCK.getDefaultState(), Block.NOTIFY_LISTENERS);
 				world.scheduleBlockTick(pos, world.getBlockState(pos).getBlock(), (int) (220 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.BUILD).count() * potency));
 
-				if(world.getBlockEntity(pos) instanceof MagicBlockEntity magicBlock && caster != null)
-					magicBlock.setColour(StaffItem.getMagicColour(caster.getUuidAsString()));
+				if(world.getBlockEntity(pos) instanceof MagicBlockEntity magicBlock && caster instanceof PlayerEntity player)
+					magicBlock.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
 			}
 		}
 	}

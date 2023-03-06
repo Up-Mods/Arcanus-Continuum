@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.screens;
 
+import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStaffTemplatePacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncWorkbenchModePacket;
@@ -54,7 +55,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 		this.context = context;
 		this.player = playerInventory.player;
 		getSlotsForMode(mode);
-		templates = Registries.ITEM.stream().filter(item -> item instanceof StaffItem).map(StaffItem.class::cast).toList();
+		templates = Registries.ITEM.stream().filter(item -> item instanceof StaffItem staff && (!staff.isDonorOnly || Arcanus.getSupporters().containsKey(player.getUuid()))).map(StaffItem.class::cast).toList();
 	}
 
 	@Override
@@ -97,56 +98,55 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 
 	@Override
 	public ItemStack quickTransfer(PlayerEntity player, int fromIndex) {
-		if(getMode() == WorkbenchMode.SPELLBINDING) {
-			ItemStack itemStack = ItemStack.EMPTY;
-			Slot slot = slots.get(fromIndex);
+		ItemStack itemStack = ItemStack.EMPTY;
+		Slot slot = slots.get(fromIndex);
+		int maxSlots = switch(mode) {
+			case CUSTOMIZE -> 4;
+			case SPELLBINDING -> 10;
+		};
 
-			if(slot.hasStack()) {
-				ItemStack itemStack2 = slot.getStack();
-				itemStack = itemStack2.copy();
+		if(slot.hasStack()) {
+			ItemStack itemStack2 = slot.getStack();
+			itemStack = itemStack2.copy();
 
-				if(fromIndex == 0) {
-					context.run((world, pos) -> itemStack2.getItem().onCraft(itemStack2, world, player));
+			if(fromIndex == 0) {
+				context.run((world, pos) -> itemStack2.getItem().onCraft(itemStack2, world, player));
 
-					if(!insertItem(itemStack2, 10, 46, true))
-						return ItemStack.EMPTY;
+				if(!insertItem(itemStack2, maxSlots, maxSlots + 36, true))
+					return ItemStack.EMPTY;
 
-					slot.onQuickTransfer(itemStack2, itemStack);
-				}
-				else if(fromIndex >= 10 && fromIndex < 46) {
-					if(!insertItem(itemStack2, 1, 10, false)) {
-						if(fromIndex < 37) {
-							if(!insertItem(itemStack2, 37, 46, false))
-								return ItemStack.EMPTY;
-						}
-						else if(!insertItem(itemStack2, 10, 37, false)) {
+				slot.onQuickTransfer(itemStack2, itemStack);
+			}
+			else if(fromIndex >= maxSlots && fromIndex < maxSlots + 36) {
+				if(!insertItem(itemStack2, 1, maxSlots, false)) {
+					if(fromIndex < maxSlots + 27) {
+						if(!insertItem(itemStack2, maxSlots + 27, maxSlots + 36, false))
 							return ItemStack.EMPTY;
-						}
+					}
+					else if(!insertItem(itemStack2, maxSlots, maxSlots + 27, false)) {
+						return ItemStack.EMPTY;
 					}
 				}
-				else if(!insertItem(itemStack2, 10, 46, false)) {
-					return ItemStack.EMPTY;
-				}
-
-				if(itemStack2.isEmpty())
-					slot.setStack(ItemStack.EMPTY);
-				else
-					slot.markDirty();
-
-				if(itemStack2.getCount() == itemStack.getCount())
-					return ItemStack.EMPTY;
-
-				slot.onTakeItem(player, itemStack2);
-
-				if(fromIndex == 0)
-					player.dropItem(itemStack2, false);
+			}
+			else if(!insertItem(itemStack2, maxSlots, maxSlots + 36, false)) {
+				return ItemStack.EMPTY;
 			}
 
-			return itemStack;
+			if(itemStack2.isEmpty())
+				slot.setStack(ItemStack.EMPTY);
+			else
+				slot.markDirty();
+
+			if(itemStack2.getCount() == itemStack.getCount())
+				return ItemStack.EMPTY;
+
+			slot.onTakeItem(player, itemStack2);
+
+			if(fromIndex == 0)
+				player.dropItem(itemStack2, false);
 		}
-		else {
-			return ItemStack.EMPTY;
-		}
+
+		return itemStack;
 	}
 
 	@Override
@@ -272,10 +272,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 						StaffItem.setSecondaryColour(itemStack2, colour);
 					}
 
-					if(StaffItem.getPrimaryColour(itemStack2) != StaffItem.getPrimaryColour(staffStack) ||
-							StaffItem.getSecondaryColour(itemStack2) != StaffItem.getSecondaryColour(staffStack) ||
-							itemStack2.getItem() != staffStack.getItem()
-					)
+					if(StaffItem.getPrimaryColour(itemStack2) != StaffItem.getPrimaryColour(staffStack) || StaffItem.getSecondaryColour(itemStack2) != StaffItem.getSecondaryColour(staffStack) || itemStack2.getItem() != staffStack.getItem())
 						itemStack = itemStack2;
 				}
 			}

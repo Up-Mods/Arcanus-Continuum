@@ -115,6 +115,10 @@ public class MagicRuneEntity extends Entity {
 		return ArcanusComponents.getColour(this);
 	}
 
+	public void setColour(int colour) {
+		ArcanusComponents.setColour(this, colour);
+	}
+
 	public void setProperties(LivingEntity caster, Entity sourceEntity, Vec3d pos, ItemStack stack, List<SpellEffect> effects, double potency, List<SpellGroup> groups, int groupIndex, int colour) {
 		setPos(pos.getX(), pos.getY(), pos.getZ());
 		setYaw(sourceEntity.getYaw());

@@ -22,6 +22,7 @@ import dev.cammiescorner.arcanuscontinuum.common.compat.FirstPersonCompat;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStaffTemplatePacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStatusEffectPacket;
+import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncSupporterData;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncWorkbenchModePacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
@@ -101,11 +102,12 @@ public class ArcanusClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(SyncStatusEffectPacket.ID, SyncStatusEffectPacket::handle);
 		ClientPlayNetworking.registerGlobalReceiver(SyncWorkbenchModePacket.ID, SyncWorkbenchModePacket::handle);
 		ClientPlayNetworking.registerGlobalReceiver(SyncStaffTemplatePacket.ID, SyncStaffTemplatePacket::handle);
+		ClientPlayNetworking.registerGlobalReceiver(SyncSupporterData.ID, SyncSupporterData::handle);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? StaffItem.getPrimaryColour(stack) : tintIndex == 1 ? StaffItem.getSecondaryColour(stack) : 0xffffff,
 				ArcanusItems.WOODEN_STAFF, ArcanusItems.CRYSTAL_STAFF, ArcanusItems.DIVINATION_STAFF,
-				ArcanusItems.CRESCENT_STAFF, ArcanusItems.ANCIENT_STAFF, ArcanusItems.MAGIC_TOME,
-				ArcanusItems.MAGE_PISTOL
+				ArcanusItems.CRESCENT_STAFF, ArcanusItems.ANCIENT_STAFF, ArcanusItems.WAND,
+				ArcanusItems.THAUMATURGES_GAUNTLET, ArcanusItems.MAGIC_TOME, ArcanusItems.MAGE_PISTOL
 		);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? ((DyeableArmorItem) stack.getItem()).getColor(stack) : 0xffffff,
@@ -151,7 +153,7 @@ public class ArcanusClient implements ClientModInitializer {
 						VertexConsumerProvider.Immediate vertices = client.getBufferBuilders().getEntityVertexConsumers();
 						RenderLayer renderLayer = getMagicCircles(MAGIC_CIRCLES);
 						VertexConsumer vertex = vertices.getBuffer(renderLayer);
-						int colour = StaffItem.getMagicColour(player.getUuidAsString());
+						int colour = Arcanus.getMagicColour(player.getGameProfile().getId());
 						float x = client.getWindow().getScaledWidth() / 2F;
 						float y = client.getWindow().getScaledHeight() / 2F;
 						float scale = 3F;

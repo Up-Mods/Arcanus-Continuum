@@ -6,7 +6,6 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.SmiteEntity;
-import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -59,7 +58,11 @@ public class SmiteSpellShape extends SpellShape {
 			smite = ArcanusEntities.SMITE.create(world);
 
 			if(smite != null) {
-				smite.setProperties(caster, sourceEntity, ray.getPos(), stack, effects, potency, StaffItem.getMagicColour(caster.getUuidAsString()));
+				smite.setProperties(caster, sourceEntity, ray.getPos(), stack, effects, potency, Arcanus.DEFAULT_MAGIC_COLOUR);
+
+				if(caster instanceof PlayerEntity player)
+					smite.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
+
 				world.spawnEntity(smite);
 			}
 		}
