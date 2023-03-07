@@ -1,0 +1,12 @@
+{
+  "name": "Mana Lock Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/mana_lock_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 17,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

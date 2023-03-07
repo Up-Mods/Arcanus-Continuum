@@ -1,0 +1,12 @@
+{
+  "name": "Enlarge Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/enlarge_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 33,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

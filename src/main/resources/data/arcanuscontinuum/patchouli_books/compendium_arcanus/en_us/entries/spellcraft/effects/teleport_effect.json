@@ -1,0 +1,12 @@
+{
+  "name": "Teleport Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/teleport_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 37,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

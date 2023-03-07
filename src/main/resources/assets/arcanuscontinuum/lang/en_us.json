@@ -81,7 +81,7 @@
   "spell_component.arcanuscontinuum.shrink_effect": "Shrink Effect",
   "spell_component.arcanuscontinuum.enlarge_effect": "Enlarge Effect",
 
-  "item.arcanuscontinuum.compendium_arcanus.landing_text": "Sample Landing Text",
+  "item.arcanuscontinuum.compendium_arcanus.landing_text": "Arcanus: Continuum",
 
   "spell_book.arcanuscontinuum.weight": "Weight",
   "spell_book.arcanuscontinuum.weight.none": "None",
@@ -102,7 +102,6 @@
   "spell.arcanuscontinuum.too_many_components": "Too many components!",
   "spell.arcanuscontinuum.too_low_level": "Wizard level too low!",
   "spell.arcanuscontinuum.not_enough_mana": "Not enough mana!",
-  "spell.arcanuscontinuum.smite_miss": "Unable to cast smite!",
 
   "door.arcanuscontinuum.access_granted": "Access Granted...",
   "door.arcanuscontinuum.not_owner": "You do not own this door",

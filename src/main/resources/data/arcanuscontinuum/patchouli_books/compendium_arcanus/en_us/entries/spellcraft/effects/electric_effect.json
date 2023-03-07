@@ -1,0 +1,12 @@
+{
+  "name": "Electric Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/electric_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 14,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

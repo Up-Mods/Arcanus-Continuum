@@ -1,0 +1,12 @@
+{
+  "name": "Pull Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/pull_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 27,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

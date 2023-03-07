@@ -1,0 +1,12 @@
+{
+  "name": "Ice Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/ice_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 15,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

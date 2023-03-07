@@ -1,0 +1,12 @@
+{
+  "name": "Levitate Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/levitate_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 35,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

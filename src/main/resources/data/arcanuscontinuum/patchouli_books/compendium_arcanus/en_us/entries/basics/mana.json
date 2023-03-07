@@ -1,0 +1,12 @@
+{
+  "name": "Mana & Mana Accessories",
+  "icon": "minecraft:amethyst_shard",
+  "category": "arcanuscontinuum:basics",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

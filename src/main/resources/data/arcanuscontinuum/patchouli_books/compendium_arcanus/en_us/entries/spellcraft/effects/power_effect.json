@@ -1,0 +1,12 @@
+{
+  "name": "Power Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/power_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 28,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

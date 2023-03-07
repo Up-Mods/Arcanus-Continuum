@@ -141,7 +141,7 @@ public class SmiteEntity extends Entity {
 	}
 
 	public void setProperties(UUID casterId, Entity sourceEntity, Vec3d pos, ItemStack stack, List<SpellEffect> effects, double potency, int colour) {
-		setPos(pos.getX(), pos.getY(), pos.getZ());
+		setPosition(pos);
 		setNoGravity(true);
 		setYaw(sourceEntity.getYaw());
 		setPitch(sourceEntity.getPitch());

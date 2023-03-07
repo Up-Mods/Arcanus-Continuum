@@ -1,0 +1,12 @@
+{
+  "name": "Mana Shield Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/mana_shield_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 25,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

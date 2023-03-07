@@ -1,0 +1,12 @@
+{
+  "name": "Explosion Shape",
+  "icon": "arcanuscontinuum:textures/spell_components/shapes/explosion_shape.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 9,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Withering Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/withering_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 18,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

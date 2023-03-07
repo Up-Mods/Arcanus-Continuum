@@ -1,0 +1,12 @@
+{
+  "name": "Push Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/push_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 26,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

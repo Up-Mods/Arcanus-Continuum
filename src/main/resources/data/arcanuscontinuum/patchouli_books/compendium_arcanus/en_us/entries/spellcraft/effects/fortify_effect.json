@@ -1,0 +1,12 @@
+{
+  "name": "Fortify Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/fortify_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 24,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

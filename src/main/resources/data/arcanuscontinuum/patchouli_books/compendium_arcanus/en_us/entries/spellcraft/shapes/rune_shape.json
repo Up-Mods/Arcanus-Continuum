@@ -1,0 +1,12 @@
+{
+  "name": "Rune Shape",
+  "icon": "arcanuscontinuum:textures/spell_components/shapes/rune_shape.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

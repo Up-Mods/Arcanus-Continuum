@@ -1,0 +1,12 @@
+{
+  "name": "Beam Shape",
+  "icon": "arcanuscontinuum:textures/spell_components/shapes/beam_shape.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

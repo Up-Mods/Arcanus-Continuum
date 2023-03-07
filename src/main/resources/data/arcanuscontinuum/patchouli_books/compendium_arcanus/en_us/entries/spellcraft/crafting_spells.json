@@ -1,0 +1,12 @@
+{
+  "name": "Crafting Spells",
+  "icon": "minecraft:lectern",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

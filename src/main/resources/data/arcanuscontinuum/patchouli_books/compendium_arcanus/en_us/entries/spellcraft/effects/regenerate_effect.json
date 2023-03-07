@@ -1,0 +1,12 @@
+{
+  "name": "Regenerate Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/regenerate_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 23,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

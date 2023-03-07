@@ -1,0 +1,12 @@
+{
+  "name": "Exchange Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/exchange_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 38,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

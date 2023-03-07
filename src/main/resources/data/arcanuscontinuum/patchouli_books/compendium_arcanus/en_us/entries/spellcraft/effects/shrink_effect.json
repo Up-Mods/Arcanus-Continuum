@@ -1,0 +1,12 @@
+{
+  "name": "Shrink Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/shrink_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 32,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

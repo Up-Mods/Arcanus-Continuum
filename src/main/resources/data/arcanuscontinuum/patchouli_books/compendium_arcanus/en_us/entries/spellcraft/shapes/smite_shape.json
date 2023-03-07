@@ -1,0 +1,12 @@
+{
+  "name": "Smite Shape",
+  "icon": "arcanuscontinuum:textures/spell_components/shapes/smite_shape.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

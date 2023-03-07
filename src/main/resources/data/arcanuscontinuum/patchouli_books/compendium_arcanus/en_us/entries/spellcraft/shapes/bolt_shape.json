@@ -1,0 +1,12 @@
+{
+  "name": "Bolt Shape",
+  "icon": "arcanuscontinuum:textures/spell_components/shapes/bolt_shape.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Area of Effect Shape",
+  "icon": "arcanuscontinuum:textures/spell_components/shapes/aoe_shape.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

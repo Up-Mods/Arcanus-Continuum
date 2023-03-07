@@ -1,0 +1,12 @@
+{
+  "name": "Casting Spells",
+  "icon": "arcanuscontinuum:crystal_staff",
+  "category": "arcanuscontinuum:basics",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}
