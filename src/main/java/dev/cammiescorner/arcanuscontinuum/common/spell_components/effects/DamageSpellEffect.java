@@ -27,7 +27,7 @@ public class DamageSpellEffect extends SpellEffect {
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity) {
 				livingEntity.timeUntilRegen = 0;
-				livingEntity.damage(ArcanusDamageSource.getMagicDamage(caster), (float) (2F * effects.stream().filter(effect -> effect == ArcanusSpellComponents.DAMAGE).count() * potency));
+				livingEntity.damage(ArcanusDamageSource.getMagicDamage(caster), (float) (1.5F * effects.stream().filter(effect -> effect == ArcanusSpellComponents.DAMAGE).count() * potency));
 			}
 		}
 	}
