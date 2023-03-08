@@ -1,12 +1,19 @@
 {
   "name": "Growth Effect",
-  "icon": "arcanuscontinuum:textures/spell_components/effects/growth_effect.png",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/colored/growth_effect.png",
   "category": "arcanuscontinuum:spellcraft",
   "sortnum": 31,
   "pages": [
     {
       "type": "patchouli:text",
       "text": ""
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "arcanuscontinuum:textures/gui/patchouli/entries/effects/growth_effect.png"
+      ]
     }
   ]
 }

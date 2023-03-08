@@ -1,12 +1,19 @@
 {
   "name": "Anonymity Effect",
-  "icon": "arcanuscontinuum:textures/spell_components/effects/anonymity_effect.png",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/colored/anonymity_effect.png",
   "category": "arcanuscontinuum:spellcraft",
   "sortnum": 29,
   "pages": [
     {
       "type": "patchouli:text",
       "text": ""
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "arcanuscontinuum:textures/gui/patchouli/entries/effects/anonymity_effect.png"
+      ]
     }
   ]
 }

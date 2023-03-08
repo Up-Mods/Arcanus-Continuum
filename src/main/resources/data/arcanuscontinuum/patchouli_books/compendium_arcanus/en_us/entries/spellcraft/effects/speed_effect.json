@@ -1,12 +1,19 @@
 {
   "name": "Speed Effect",
-  "icon": "arcanuscontinuum:textures/spell_components/effects/speed_effect.png",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/colored/speed_effect.png",
   "category": "arcanuscontinuum:spellcraft",
   "sortnum": 36,
   "pages": [
     {
       "type": "patchouli:text",
       "text": ""
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "arcanuscontinuum:textures/gui/patchouli/entries/effects/speed_effect.png"
+      ]
     }
   ]
 }

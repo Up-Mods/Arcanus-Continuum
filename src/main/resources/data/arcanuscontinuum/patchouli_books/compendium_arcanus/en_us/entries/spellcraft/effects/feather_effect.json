@@ -1,12 +1,19 @@
 {
   "name": "Feather Effect",
-  "icon": "arcanuscontinuum:textures/spell_components/effects/feather_effect.png",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/colored/feather_effect.png",
   "category": "arcanuscontinuum:spellcraft",
   "sortnum": 40,
   "pages": [
     {
       "type": "patchouli:text",
       "text": ""
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "arcanuscontinuum:textures/gui/patchouli/entries/effects/feather_effect.png"
+      ]
     }
   ]
 }

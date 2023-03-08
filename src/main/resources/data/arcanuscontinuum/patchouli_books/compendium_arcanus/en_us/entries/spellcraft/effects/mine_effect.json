@@ -1,12 +1,19 @@
 {
   "name": "Mine Effect",
-  "icon": "arcanuscontinuum:textures/spell_components/effects/mine_effect.png",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/colored/mine_effect.png",
   "category": "arcanuscontinuum:spellcraft",
   "sortnum": 30,
   "pages": [
     {
       "type": "patchouli:text",
       "text": ""
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "arcanuscontinuum:textures/gui/patchouli/entries/effects/mine_effect.png"
+      ]
     }
   ]
 }

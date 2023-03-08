@@ -1,12 +1,19 @@
 {
   "name": "Dispel Effect",
-  "icon": "arcanuscontinuum:textures/spell_components/effects/dispel_effect.png",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/colored/dispel_effect.png",
   "category": "arcanuscontinuum:spellcraft",
   "sortnum": 22,
   "pages": [
     {
       "type": "patchouli:text",
       "text": ""
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "arcanuscontinuum:textures/gui/patchouli/entries/effects/dispel_effect.png"
+      ]
     }
   ]
 }

@@ -1,12 +1,19 @@
 {
   "name": "Touch Shape",
-  "icon": "arcanuscontinuum:textures/spell_components/shapes/touch_shape.png",
+  "icon": "arcanuscontinuum:textures/spell_components/shapes/colored/touch_shape.png",
   "category": "arcanuscontinuum:spellcraft",
   "sortnum": 3,
   "pages": [
     {
       "type": "patchouli:text",
       "text": ""
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "arcanuscontinuum:textures/gui/patchouli/entries/shapes/touch_shape.png"
+      ]
     }
   ]
 }

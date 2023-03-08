@@ -1,12 +1,19 @@
 {
   "name": "Ice Effect",
-  "icon": "arcanuscontinuum:textures/spell_components/effects/ice_effect.png",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/colored/ice_effect.png",
   "category": "arcanuscontinuum:spellcraft",
   "sortnum": 15,
   "pages": [
     {
       "type": "patchouli:text",
       "text": ""
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "arcanuscontinuum:textures/gui/patchouli/entries/effects/ice_effect.png"
+      ]
     }
   ]
 }

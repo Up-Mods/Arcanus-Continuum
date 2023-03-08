@@ -1,12 +1,19 @@
 {
   "name": "Build Effect",
-  "icon": "arcanuscontinuum:textures/spell_components/effects/build_effect.png",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/colored/build_effect.png",
   "category": "arcanuscontinuum:spellcraft",
   "sortnum": 34,
   "pages": [
     {
       "type": "patchouli:text",
       "text": ""
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "arcanuscontinuum:textures/gui/patchouli/entries/effects/build_effect.png"
+      ]
     }
   ]
 }

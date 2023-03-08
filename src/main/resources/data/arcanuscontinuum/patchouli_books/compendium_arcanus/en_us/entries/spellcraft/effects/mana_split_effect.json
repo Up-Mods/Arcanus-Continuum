@@ -1,12 +1,19 @@
 {
   "name": "Mana Split Effect",
-  "icon": "arcanuscontinuum:textures/spell_components/effects/mana_split_effect.png",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/colored/mana_split_effect.png",
   "category": "arcanuscontinuum:spellcraft",
   "sortnum": 20,
   "pages": [
     {
       "type": "patchouli:text",
       "text": ""
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "arcanuscontinuum:textures/gui/patchouli/entries/effects/mana_split_effect.png"
+      ]
     }
   ]
 }

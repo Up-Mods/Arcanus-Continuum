@@ -1,12 +1,19 @@
 {
   "name": "Damage Effect",
-  "icon": "arcanuscontinuum:textures/spell_components/effects/damage_effect.png",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/colored/damage_effect.png",
   "category": "arcanuscontinuum:spellcraft",
   "sortnum": 12,
   "pages": [
     {
       "type": "patchouli:text",
       "text": ""
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "arcanuscontinuum:textures/gui/patchouli/entries/effects/damage_effect.png"
+      ]
     }
   ]
 }

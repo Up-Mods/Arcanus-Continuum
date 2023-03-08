@@ -1,12 +1,19 @@
 {
   "name": "Withering Effect",
-  "icon": "arcanuscontinuum:textures/spell_components/effects/withering_effect.png",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/colored/withering_effect.png",
   "category": "arcanuscontinuum:spellcraft",
   "sortnum": 18,
   "pages": [
     {
       "type": "patchouli:text",
       "text": ""
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "arcanuscontinuum:textures/gui/patchouli/entries/effects/withering_effect.png"
+      ]
     }
   ]
 }
