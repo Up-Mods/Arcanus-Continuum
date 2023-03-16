@@ -28,7 +28,7 @@ public class DamageSpellEffect extends SpellEffect {
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity) {
 				if(livingEntity.isWet() && effects.contains(ArcanusSpellComponents.ELECTRIC))
-					damage *= 1.25F;
+					damage *= 1.15F;
 
 				livingEntity.timeUntilRegen = 0;
 				livingEntity.damage(ArcanusDamageSource.getMagicDamage(caster), (float) (damage * effects.stream().filter(effect -> effect == ArcanusSpellComponents.DAMAGE).count() * potency));
