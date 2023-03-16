@@ -53,8 +53,11 @@ public class BoltSpellShape extends SpellShape {
 		};
 
 		Entity entityTarget = getClosestEntity(affectedEntities, range, castFrom, sourceEntity == caster ? predicate : entity -> true);
+		Vec3d castAt = castFrom;
 
 		if(entityTarget != null) {
+			castAt = entityTarget.getPos();
+
 			if(sourceEntity instanceof LivingEntity livingEntity)
 				ArcanusComponents.setBoltPos(livingEntity, entityTarget.getBoundingBox().getCenter());
 
@@ -64,9 +67,12 @@ public class BoltSpellShape extends SpellShape {
 		else if(sourceEntity != null) {
 			HitResult target = ArcanusHelper.raycast(sourceEntity, range, false, true);
 
-			if(target.getType() == HitResult.Type.BLOCK)
+			if(target.getType() == HitResult.Type.BLOCK) {
 				for(SpellEffect effect : new HashSet<>(effects))
 					effect.effect(caster, sourceEntity, world, target, effects, stack, potency);
+
+				castAt = target.getPos();
+			}
 
 			if(target.getType() != HitResult.Type.ENTITY && sourceEntity instanceof LivingEntity livingEntity)
 				ArcanusComponents.setBoltPos(livingEntity, target.getPos());
@@ -77,7 +83,7 @@ public class BoltSpellShape extends SpellShape {
 			ArcanusComponents.setBoltAge(livingEntity, 0);
 		}
 
-		castNext(caster, entityTarget != null ? entityTarget.getPos() : castFrom, castSource, world, stack, spellGroups, groupIndex, potency);
+		castNext(caster, castAt, castSource, world, stack, spellGroups, groupIndex, potency);
 	}
 
 	@Nullable

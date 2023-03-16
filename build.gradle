@@ -46,13 +46,6 @@ dependencies {
 
 	include libs.mixinextras
 	include libs.reach.attr
-
-	include libs.quilted.fabric.api
-	include libs.cca.base
-	include libs.cca.entity
-	include libs.patchouli
-	include libs.midnightlib
-	include libs.smartbrainlib
 }
 
 loom {
