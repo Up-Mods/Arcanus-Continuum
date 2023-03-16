@@ -4,7 +4,6 @@ import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import dev.cammiescorner.arcanuscontinuum.common.util.StaffType;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -35,10 +34,6 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 
 		matrices.push();
 		matrices.translate(-offset.getX(), -offset.getY(), -offset.getZ());
-
-		if(livingEntity instanceof PlayerEntity player && ArcanusComponents.isCasting(player) && player.getMainHandStack().getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF)
-			matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(player.getMainArm() == Arm.RIGHT ? 65 : -65));
-
 		ArcanusHelper.renderBolts(livingEntity, livingEntity.getLerpedPos(tickDelta).add(0, livingEntity.getEyeHeight(livingEntity.getPose()) * 0.9, 0), matrices, vertices);
 		matrices.pop();
 	}
@@ -47,9 +42,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 			target = "Lnet/minecraft/client/render/entity/LivingEntityRenderer;getHandSwingProgress(Lnet/minecraft/entity/LivingEntity;F)F"
 	))
 	private void arcanuscontinuum$render(T livingEntity, float f, float g, MatrixStack matrices, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo info) {
-		Arm mainArm = MinecraftClient.getInstance().options.getMainArm().get();
-
-		if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(livingEntity) && livingEntity.getMainHandStack().getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF && ArcanusComponents.isCasting(livingEntity))
-			matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(mainArm == Arm.RIGHT ? 65 : -65));
+		if(livingEntity instanceof PlayerEntity player && ArcanusComponents.CASTING_COMPONENT.isProvidedBy(livingEntity) && livingEntity.getMainHandStack().getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF && ArcanusComponents.isCasting(livingEntity))
+			matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(player.getMainArm() == Arm.RIGHT ? 65 : -65));
 	}
 }

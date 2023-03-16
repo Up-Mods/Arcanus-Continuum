@@ -207,7 +207,7 @@ public class ArcanusComponents implements EntityComponentInitializer {
 	}
 
 	public static void setBoltAge(LivingEntity entity, int timer) {
-		BOLT_TARGET.get(entity).setAge(0);
+		BOLT_TARGET.get(entity).setAge(timer);
 	}
 
 	public static SpellShape getSpellShape(Entity entity) {
