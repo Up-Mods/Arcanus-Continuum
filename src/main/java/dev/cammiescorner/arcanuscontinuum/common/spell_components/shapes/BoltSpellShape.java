@@ -5,6 +5,7 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -19,11 +20,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class BoltSpellShape extends SpellShape {
 	private static final double RANGE_MODIFIER = 2D;
-	private static final double MAX_ANGLE_DIFF = Math.toRadians(5);
 
 	public BoltSpellShape(Weight weight, double manaCost, int coolDown, int minLevel) {
 		super(weight, manaCost, coolDown, minLevel);
@@ -38,29 +39,45 @@ public class BoltSpellShape extends SpellShape {
 		double range = (caster != null ? ReachEntityAttributes.getAttackRange(caster, caster instanceof PlayerEntity player && player.isCreative() ? 5 : 4.5) : 4.5) * RANGE_MODIFIER;
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		Box box = new Box(castFrom.add(-range, -range, -range), castFrom.add(range, range, range));
-		List<Entity> affectedEntities = world.getOtherEntities(castSource, box);
+		List<Entity> affectedEntities = world.getOtherEntities(sourceEntity, box);
 
 		Predicate<Entity> predicate = entity -> {
-			Vec3d look = caster.getRotationVector();
-			Vec3d direction = entity.getPos().subtract(castFrom);
-			double angle = Math.acos(look.dotProduct(direction) / (look.length() * direction.length()));
-			return angle > MAX_ANGLE_DIFF;
+			if(entity.getBoundingBox().intersects(sourceEntity.getBoundingBox()))
+				return true;
+			if(sourceEntity instanceof LivingEntity livingEntity && !livingEntity.canSee(entity))
+				return false;
+
+			Vec3d look = sourceEntity.getRotationVector();
+			Optional<Vec3d> vecOptional = entity.getBoundingBox().expand(0.75).raycast(castFrom, castFrom.add(look.multiply(range)));
+			return vecOptional.isPresent();
 		};
 
-		Entity hit = getClosestEntity(affectedEntities, range, castFrom, castSource == caster ? predicate : entity -> true);
+		Entity entityTarget = getClosestEntity(affectedEntities, range, castFrom, sourceEntity == caster ? predicate : entity -> true);
 
-		if(hit != null)
+		if(entityTarget != null) {
+			if(sourceEntity instanceof LivingEntity livingEntity)
+				ArcanusComponents.setBoltPos(livingEntity, entityTarget.getBoundingBox().getCenter());
+
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, sourceEntity, world, new EntityHitResult(hit), effects, stack, potency);
-		else {
+				effect.effect(caster, sourceEntity, world, new EntityHitResult(entityTarget), effects, stack, potency);
+		}
+		else if(sourceEntity != null) {
 			HitResult target = ArcanusHelper.raycast(sourceEntity, range, false, true);
 
 			if(target.getType() == HitResult.Type.BLOCK)
 				for(SpellEffect effect : new HashSet<>(effects))
 					effect.effect(caster, sourceEntity, world, target, effects, stack, potency);
+
+			if(target.getType() != HitResult.Type.ENTITY && sourceEntity instanceof LivingEntity livingEntity)
+				ArcanusComponents.setBoltPos(livingEntity, target.getPos());
 		}
 
-		castNext(caster, hit != null ? hit.getPos() : castFrom, castSource, world, stack, spellGroups, groupIndex, potency);
+		if(sourceEntity instanceof LivingEntity livingEntity) {
+			ArcanusComponents.setShouldRenderBolt(livingEntity, true);
+			ArcanusComponents.setBoltAge(livingEntity, 0);
+		}
+
+		castNext(caster, entityTarget != null ? entityTarget.getPos() : castFrom, castSource, world, stack, spellGroups, groupIndex, potency);
 	}
 
 	@Nullable

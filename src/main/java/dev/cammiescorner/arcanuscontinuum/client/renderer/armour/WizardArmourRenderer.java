@@ -58,8 +58,8 @@ public class WizardArmourRenderer implements ArmorRenderer {
 			model.rightBoot.visible = slot == EquipmentSlot.FEET;
 			model.leftBoot.visible = slot == EquipmentSlot.FEET;
 
-			model.render(matrices, ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(mainTexture), false, stack.hasGlint()), light, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
-			ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, overlayTexture);
+			model.render(matrices, ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(mainTexture), false, false), light, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
+			model.render(matrices, ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(overlayTexture), false, false), light, OverlayTexture.DEFAULT_UV, 1F, 1F, 1F, 1F);
 		}
 	}
 }

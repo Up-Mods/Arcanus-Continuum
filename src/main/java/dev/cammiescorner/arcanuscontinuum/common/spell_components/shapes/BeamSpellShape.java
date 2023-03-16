@@ -19,12 +19,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashSet;
 import java.util.List;
 
-public class DelaySpellShape extends SpellShape {
-	public DelaySpellShape(Weight weight, double manaCost, int coolDown, int minLevel) {
+public class BeamSpellShape extends SpellShape {
+	public BeamSpellShape(Weight weight, double manaCost, int coolDown, int minLevel) {
 		super(weight, manaCost, coolDown, minLevel);
 	}
 
-	public DelaySpellShape(Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
+	public BeamSpellShape(Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
 		super(weight, manaCost, manaMultiplier, coolDown, minLevel);
 	}
 

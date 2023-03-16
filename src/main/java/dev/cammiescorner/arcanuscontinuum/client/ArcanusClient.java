@@ -25,6 +25,7 @@ import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStatusEffectPac
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncSupporterData;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncWorkbenchModePacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
+import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
@@ -43,6 +44,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Axis;
+import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.quiltmc.loader.api.ModContainer;
@@ -128,6 +130,12 @@ public class ArcanusClient implements ClientModInitializer {
 		}
 
 		final MinecraftClient client = MinecraftClient.getInstance();
+
+		WorldRenderEvents.AFTER_ENTITIES.register(context -> {
+			if(!context.camera().isThirdPerson() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean())
+				renderFirstPersonBolt(context, client);
+		});
+
 		var obj = new Object() {
 			int timer;
 			double lastMana;
@@ -225,6 +233,20 @@ public class ArcanusClient implements ClientModInitializer {
 					obj.lastMana += Math.min(mana - obj.lastMana, client.getLastFrameDuration() / 20);
 			}
 		});
+	}
+
+	private static void renderFirstPersonBolt(WorldRenderContext context, MinecraftClient client) {
+		if(client.player != null) {
+			MatrixStack matrices = context.matrixStack();
+			Vec3d camPos = context.camera().getPos();
+			float tickDelta = context.tickDelta();
+			Vec3d startPos = client.player.getLerpedPos(tickDelta).add(0, client.player.getEyeHeight(client.player.getPose()), 0);
+
+			matrices.push();
+			matrices.translate(-camPos.getX(), -camPos.getY(), -camPos.getZ());
+			ArcanusHelper.renderBolts(client.player, startPos.add(0, -0.1, 0), matrices, context.consumers());
+			matrices.pop();
+		}
 	}
 
 	public static RenderLayer getMagicCircles(Identifier texture) {

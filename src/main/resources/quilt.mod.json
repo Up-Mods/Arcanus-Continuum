@@ -81,6 +81,7 @@
 		"arcanuscontinuum:quests",
 		"arcanuscontinuum:magic_colour",
 		"arcanuscontinuum:beam_target",
+		"arcanuscontinuum:bolt_target",
 		"arcanuscontinuum:spell_shape"
 	]
 }

@@ -18,6 +18,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class ArcanusComponents implements EntityComponentInitializer {
 	public static final ComponentKey<QuestComponent> QUEST_COMPONENT = createComponent("quests", QuestComponent.class);
 	public static final ComponentKey<MagicColourComponent> MAGIC_COLOUR = createComponent("magic_colour", MagicColourComponent.class);
 	public static final ComponentKey<BeamTargetComponent> BEAM_TARGET = createComponent("beam_target", BeamTargetComponent.class);
+	public static final ComponentKey<BoltTargetComponent> BOLT_TARGET = createComponent("bolt_target", BoltTargetComponent.class);
 	public static final ComponentKey<SpellShapeComponent> SPELL_SHAPE = createComponent("spell_shape", SpellShapeComponent.class);
 
 	@Override
@@ -50,6 +52,7 @@ public class ArcanusComponents implements EntityComponentInitializer {
 		registry.beginRegistration(MagicProjectileEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
 		registry.beginRegistration(AreaOfEffectEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
 		registry.beginRegistration(LivingEntity.class, BEAM_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BeamTargetComponent::new);
+		registry.beginRegistration(LivingEntity.class, BOLT_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BoltTargetComponent::new);
 		registry.beginRegistration(MagicProjectileEntity.class, SPELL_SHAPE).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(SpellShapeComponent::new);
 	}
 
@@ -175,16 +178,36 @@ public class ArcanusComponents implements EntityComponentInitializer {
 		MAGIC_COLOUR.get(entity).setColour(colour);
 	}
 
-	public static int getTimer(LivingEntity entity) {
+	public static int getBeamTimer(LivingEntity entity) {
 		return BEAM_TARGET.get(entity).getTimer();
 	}
 
-	public static void setTimer(LivingEntity entity, int timer) {
+	public static void setBeamTimer(LivingEntity entity, int timer) {
 		BEAM_TARGET.get(entity).setTimer(timer);
 	}
 
 	public static void setProperties(LivingEntity entity, LivingEntity caster, Entity sourceEntity, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, double potency, int timer) {
 		BEAM_TARGET.get(entity).setProperties(caster, sourceEntity, stack, effects, groups, groupIndex, potency, timer);
+	}
+
+	public static Vec3d getBoltPos(LivingEntity entity) {
+		return BOLT_TARGET.get(entity).getPos();
+	}
+
+	public static void setBoltPos(LivingEntity entity, Vec3d pos) {
+		BOLT_TARGET.get(entity).setPos(pos);
+	}
+
+	public static boolean shouldRenderBolt(LivingEntity entity) {
+		return BOLT_TARGET.get(entity).shouldRender();
+	}
+
+	public static void setShouldRenderBolt(LivingEntity entity, boolean shouldRender) {
+		BOLT_TARGET.get(entity).setShouldRender(shouldRender);
+	}
+
+	public static void setBoltAge(LivingEntity entity, int timer) {
+		BOLT_TARGET.get(entity).setAge(0);
 	}
 
 	public static SpellShape getSpellShape(Entity entity) {
