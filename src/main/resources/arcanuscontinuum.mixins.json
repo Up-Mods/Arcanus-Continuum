@@ -6,7 +6,6 @@
 	"mixins": [
 		"ChiseledBookshelfBlockMixin",
 		"EntityViewMixin",
-		"ExplosionMixin",
 		"HungerManagerMixin",
 		"LecternBlockEntityMixin",
 		"LivingEntityMixin",

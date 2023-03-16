@@ -36,7 +36,7 @@ public class ArcaneWorkbenchBlock extends HorizontalFacingBlock implements Block
 	);
 
 	public ArcaneWorkbenchBlock() {
-		super(QuiltBlockSettings.of(Material.WOOD, DyeColor.RED).nonOpaque().ticksRandomly());
+		super(QuiltBlockSettings.of(Material.WOOD, DyeColor.RED).strength(2F, 3F).nonOpaque().ticksRandomly());
 		setDefaultState(getStateManager().getDefaultState().with(FACING, Direction.NORTH));
 	}
 
