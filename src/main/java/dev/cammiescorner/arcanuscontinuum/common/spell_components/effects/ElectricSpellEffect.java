@@ -7,6 +7,7 @@ import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -25,8 +26,12 @@ public class ElectricSpellEffect extends SpellEffect {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
-			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
+			if(entityHit.getEntity() instanceof LivingEntity livingEntity) {
 				ArcanusComponents.setStunTimer(livingEntity, 2 * (int) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.ELECTRIC).count() * potency));
+
+				if(livingEntity instanceof CreeperEntity creeper && !creeper.getDataTracker().get(CreeperEntity.CHARGED))
+					creeper.getDataTracker().set(CreeperEntity.CHARGED, true);
+			}
 		}
 	}
 }

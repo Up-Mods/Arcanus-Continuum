@@ -10,6 +10,7 @@
 		"HungerManagerMixin",
 		"LecternBlockEntityMixin",
 		"LivingEntityMixin",
+		"MobEntityMixin",
 		"PlayerEntityMixin",
 		"ScreenHandlerTypeMixin"
 	],

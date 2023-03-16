@@ -24,10 +24,14 @@ public class DamageSpellEffect extends SpellEffect {
 	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
+			float damage = 1.5F;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity) {
+				if(livingEntity.isWet() && effects.contains(ArcanusSpellComponents.ELECTRIC))
+					damage *= 1.25F;
+
 				livingEntity.timeUntilRegen = 0;
-				livingEntity.damage(ArcanusDamageSource.getMagicDamage(caster), (float) (1.5F * effects.stream().filter(effect -> effect == ArcanusSpellComponents.DAMAGE).count() * potency));
+				livingEntity.damage(ArcanusDamageSource.getMagicDamage(caster), (float) (damage * effects.stream().filter(effect -> effect == ArcanusSpellComponents.DAMAGE).count() * potency));
 			}
 		}
 	}
