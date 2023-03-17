@@ -96,6 +96,7 @@ public class ArcanusClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ArcanusEntities.AOE, AreaOfEffectEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.SMITE, SmiteEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.MAGIC_RUNE, MagicRuneEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.BEAM, BeamEntityRenderer::new);
 
 		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE, CollapseParticle.Factory::new);
 

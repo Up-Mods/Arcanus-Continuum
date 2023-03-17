@@ -2,8 +2,6 @@ package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
-import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.common.components.*;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.*;
@@ -16,7 +14,6 @@ import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
@@ -32,7 +29,6 @@ public class ArcanusComponents implements EntityComponentInitializer {
 	public static final ComponentKey<StunComponent> STUN_COMPONENT = createComponent("stun", StunComponent.class);
 	public static final ComponentKey<QuestComponent> QUEST_COMPONENT = createComponent("quests", QuestComponent.class);
 	public static final ComponentKey<MagicColourComponent> MAGIC_COLOUR = createComponent("magic_colour", MagicColourComponent.class);
-	public static final ComponentKey<BeamTargetComponent> BEAM_TARGET = createComponent("beam_target", BeamTargetComponent.class);
 	public static final ComponentKey<BoltTargetComponent> BOLT_TARGET = createComponent("bolt_target", BoltTargetComponent.class);
 	public static final ComponentKey<SpellShapeComponent> SPELL_SHAPE = createComponent("spell_shape", SpellShapeComponent.class);
 
@@ -51,7 +47,7 @@ public class ArcanusComponents implements EntityComponentInitializer {
 		registry.beginRegistration(MagicRuneEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
 		registry.beginRegistration(MagicProjectileEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
 		registry.beginRegistration(AreaOfEffectEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
-		registry.beginRegistration(LivingEntity.class, BEAM_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BeamTargetComponent::new);
+		registry.beginRegistration(BeamEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
 		registry.beginRegistration(LivingEntity.class, BOLT_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BoltTargetComponent::new);
 		registry.beginRegistration(MagicProjectileEntity.class, SPELL_SHAPE).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(SpellShapeComponent::new);
 	}
@@ -176,18 +172,6 @@ public class ArcanusComponents implements EntityComponentInitializer {
 
 	public static void setColour(Entity entity, int colour) {
 		MAGIC_COLOUR.get(entity).setColour(colour);
-	}
-
-	public static int getBeamTimer(LivingEntity entity) {
-		return BEAM_TARGET.get(entity).getTimer();
-	}
-
-	public static void setBeamTimer(LivingEntity entity, int timer) {
-		BEAM_TARGET.get(entity).setTimer(timer);
-	}
-
-	public static void setProperties(LivingEntity entity, LivingEntity caster, Entity sourceEntity, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, double potency, int timer) {
-		BEAM_TARGET.get(entity).setProperties(caster, sourceEntity, stack, effects, groups, groupIndex, potency, timer);
 	}
 
 	public static Vec3d getBoltPos(LivingEntity entity) {

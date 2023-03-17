@@ -1,22 +1,25 @@
 package dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes;
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
+import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.BeamEntity;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
 import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashSet;
 import java.util.List;
 
 public class BeamSpellShape extends SpellShape {
@@ -34,18 +37,24 @@ public class BeamSpellShape extends SpellShape {
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		HitResult target = ArcanusHelper.raycast(sourceEntity, range, true, true);
 
-		if(target.getType() == HitResult.Type.BLOCK) {
-			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, sourceEntity, world, target, effects, stack, potency + 0.25);
+		if(target.getType() != HitResult.Type.MISS) {
+			BeamEntity beam = ArcanusEntities.BEAM.create(world);
 
-			castNext(caster, target.getPos(), castSource, world, stack, spellGroups, groupIndex, potency);
-		}
+			if(beam != null) {
+				beam.setProperties(caster, stack, effects, spellGroups, groupIndex, 40, Arcanus.DEFAULT_MAGIC_COLOUR, potency, target.getType() == HitResult.Type.ENTITY);
 
-		if(target.getType() == HitResult.Type.ENTITY) {
-			EntityHitResult entityHit = (EntityHitResult) target;
+				if(caster instanceof PlayerEntity player)
+					beam.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
 
-			if(entityHit.getEntity() instanceof LivingEntity targetEntity)
-				ArcanusComponents.setProperties(targetEntity, caster, sourceEntity, stack, effects, spellGroups, groupIndex, potency, 60);
+				beam.setPosition(target.getPos());
+
+				if(target.getType() == HitResult.Type.ENTITY)
+					beam.startRiding(((EntityHitResult) target).getEntity(), true);
+				else
+					beam.setPosition(Vec3d.ofCenter(((BlockHitResult) target).getBlockPos()));
+
+				world.spawnEntity(beam);
+			}
 		}
 	}
 }

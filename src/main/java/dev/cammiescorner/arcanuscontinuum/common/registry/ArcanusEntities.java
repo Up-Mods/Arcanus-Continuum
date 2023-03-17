@@ -28,6 +28,7 @@ public class ArcanusEntities {
 	public static final EntityType<SmiteEntity> SMITE = create("smite", QuiltEntityTypeBuilder.create().entityFactory(SmiteEntity::new).setDimensions(EntityDimensions.fixed(4F, 4F)).build());
 	public static final EntityType<MagicRuneEntity> MAGIC_RUNE = create("magic_rune", QuiltEntityTypeBuilder.create().entityFactory(MagicRuneEntity::new).setDimensions(EntityDimensions.fixed(1F, 0.125F)).build());
 	public static final EntityType<AreaOfEffectEntity> AOE = create("area_of_effect", QuiltEntityTypeBuilder.create().entityFactory(AreaOfEffectEntity::new).setDimensions(EntityDimensions.fixed(4F, 2.5F)).build());
+	public static final EntityType<BeamEntity> BEAM = create("beam", QuiltEntityTypeBuilder.create().entityFactory(BeamEntity::new).setDimensions(EntityDimensions.fixed(0.1F, 0.1F)).build());
 
 	//-----Registry-----//
 	public static void register() {
