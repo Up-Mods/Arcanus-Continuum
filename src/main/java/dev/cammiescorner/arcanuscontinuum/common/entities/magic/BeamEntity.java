@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.magic;
 
+import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
@@ -12,7 +13,11 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -85,12 +90,46 @@ public class BeamEntity extends Entity {
 
 	@Override
 	protected void readCustomDataFromNbt(NbtCompound tag) {
+		effects.clear();
+		groups.clear();
 
+		dataTracker.set(OWNER_ID, tag.getInt("OwnerId"));
+		dataTracker.set(MAX_AGE, tag.getInt("MaxAge"));
+		dataTracker.set(IS_ON_ENTITY, tag.getBoolean("IsOnBoolean"));
+		casterId = tag.getUuid("CasterId");
+		stack = ItemStack.fromNbt(tag.getCompound("ItemStack"));
+		groupIndex = tag.getInt("GroupIndex");
+		potency = tag.getDouble("Potency");
+
+		NbtList effectList = tag.getList("Effects", NbtElement.STRING_TYPE);
+		NbtList groupsList = tag.getList("SpellGroups", NbtElement.COMPOUND_TYPE);
+
+		for(int i = 0; i < effectList.size(); i++)
+			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(new Identifier(effectList.getString(i))));
+		for(int i = 0; i < groupsList.size(); i++)
+			groups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
 	}
 
 	@Override
 	protected void writeCustomDataToNbt(NbtCompound tag) {
+		NbtList effectList = new NbtList();
+		NbtList groupsList = new NbtList();
 
+		tag.putInt("OwnerId", dataTracker.get(OWNER_ID));
+		tag.putInt("MaxAge", dataTracker.get(MAX_AGE));
+		tag.putBoolean("IsOnBoolean", dataTracker.get(IS_ON_ENTITY));
+		tag.putUuid("CasterId", casterId);
+		tag.put("ItemStack", stack.writeNbt(new NbtCompound()));
+		tag.putInt("GroupIndex", groupIndex);
+		tag.putDouble("Potency", potency);
+
+		for(SpellEffect effect : effects)
+			effectList.add(NbtString.of(Arcanus.SPELL_COMPONENTS.getId(effect).toString()));
+		for(SpellGroup group : groups)
+			groupsList.add(group.toNbt());
+
+		tag.put("Effects", effectList);
+		tag.put("SpellGroups", groupsList);
 	}
 
 	@Override
