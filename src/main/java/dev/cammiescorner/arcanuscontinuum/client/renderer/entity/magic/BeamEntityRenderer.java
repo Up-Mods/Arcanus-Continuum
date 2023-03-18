@@ -5,15 +5,19 @@ import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.BeamEntity;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.Frustum;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-import org.joml.Math;
-import org.joml.*;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
+import org.joml.Vector3d;
 
 public class BeamEntityRenderer extends EntityRenderer<BeamEntity> {
 	private static final Identifier BEAM_TEXTURE = Arcanus.id("textures/entity/magic/beam.png");
@@ -32,8 +36,7 @@ public class BeamEntityRenderer extends EntityRenderer<BeamEntity> {
 		if(caster != null) {
 			Vec3d startPos = caster.getLerpedPos(tickDelta).add(0, caster.getEyeHeight(caster.getPose()) * 0.9F, 0);
 			Vec3d endPos = beamEntity.getBeamPos(tickDelta);
-			Vector3d axis = new Vector3d(endPos.getX() - startPos.getX(), endPos.getY() - startPos.getY(), endPos.getZ() - startPos.getZ());
-			Vector3d camPos = new Vector3d(cam.getX(), cam.getY(), cam.getZ());
+			Vector3d axis = new Vector3d(endPos.getX() - startPos.getX(), endPos.getY() - startPos.getY(), endPos.getZ() - startPos.getZ()).normalize();
 			VertexConsumer vertex = vertices.getBuffer(LAYER);
 			int colour = beamEntity.getColour();
 			float r = (colour >> 16 & 255) / 255F;
@@ -45,7 +48,8 @@ public class BeamEntityRenderer extends EntityRenderer<BeamEntity> {
 			matrices.translate(-beamEntity.getX(), -beamEntity.getY(), -beamEntity.getZ());
 
 			for(int i = 0; i < 2; i++) {
-				Vector3d vec = new Quaternionf(new AxisAngle4d(Math.toRadians(i == 0 ? 45 : -45), axis)).transform(new Vector3d(camPos).sub(startPos.getX(), startPos.getY(), startPos.getZ()).cross(axis).normalize().mul(0.1));
+				Vector3d vec = new Vector3d(cam.getX(), cam.getY(), cam.getZ()).sub(startPos.getX(), startPos.getY(), startPos.getZ()).cross(axis).normalize().mul(0.1);
+				vec.rotateAxis(Math.toRadians(i == 0 ? 45 : -45), axis.x, axis.y, axis.z);
 				Vec3d vert1 = startPos.add(vec.x, vec.y, vec.z);
 				Vec3d vert2 = startPos.subtract(vec.x, vec.y, vec.z);
 				Vec3d vert3 = endPos.add(vec.x, vec.y, vec.z);

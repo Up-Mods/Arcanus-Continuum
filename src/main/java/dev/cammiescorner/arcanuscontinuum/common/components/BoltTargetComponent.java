@@ -19,7 +19,7 @@ public class BoltTargetComponent implements AutoSyncedComponent, ServerTickingCo
 
 	@Override
 	public void serverTick() {
-		if(age >= 6 && shouldRender)
+		if(age >= 3 && shouldRender)
 			setShouldRender(false);
 
 		age++;
