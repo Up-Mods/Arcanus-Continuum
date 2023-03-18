@@ -48,7 +48,7 @@ public class BeamEntityRenderer extends EntityRenderer<BeamEntity> {
 			matrices.translate(-beamEntity.getX(), -beamEntity.getY(), -beamEntity.getZ());
 
 			for(int i = 0; i < 2; i++) {
-				Vector3d vec = new Vector3d(cam.getX(), cam.getY(), cam.getZ()).sub(startPos.getX(), startPos.getY(), startPos.getZ()).cross(axis).normalize().mul(0.1);
+				Vector3d vec = new Vector3d(cam.getX(), cam.getY(), cam.getZ()).sub(startPos.getX(), startPos.getY(), startPos.getZ()).cross(axis).normalize().mul(0.2);
 				vec.rotateAxis(Math.toRadians(i == 0 ? 45 : -45), axis.x, axis.y, axis.z);
 				Vec3d vert1 = startPos.add(vec.x, vec.y, vec.z);
 				Vec3d vert2 = startPos.subtract(vec.x, vec.y, vec.z);
