@@ -6,6 +6,8 @@ import com.mojang.blaze3d.vertex.*;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.Rectangle;
 import dev.cammiescorner.arcanuscontinuum.api.spells.*;
+import dev.cammiescorner.arcanuscontinuum.client.gui.util.Action;
+import dev.cammiescorner.arcanuscontinuum.client.gui.util.UndoRedoStack;
 import dev.cammiescorner.arcanuscontinuum.client.gui.widgets.SpellComponentWidget;
 import dev.cammiescorner.arcanuscontinuum.client.gui.widgets.UndoRedoButtonWidget;
 import dev.cammiescorner.arcanuscontinuum.common.items.SpellBookItem;
@@ -41,11 +43,12 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	public static final Identifier BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
 	public static final Identifier PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
 	private static final Vector4i VALID_BOUNDS = new Vector4i(30, 40, 197, 114);
-	private static final LinkedList<SpellGroup> SPELL_GROUPS = new LinkedList<>();
 	private static List<SpellComponent> spellShapes;
 	private static List<SpellComponent> spellEffects;
+	private final LinkedList<SpellGroup> spellGroups = new LinkedList<>();
 	private final List<SpellComponentWidget> spellShapeWidgets = Lists.newArrayList();
 	private final List<SpellComponentWidget> spellEffectWidgets = Lists.newArrayList();
+	private final UndoRedoStack undoRedoStack = new UndoRedoStack();
 	private SpellComponent draggedComponent = ArcanusSpellComponents.EMPTY;
 	private TextFieldWidget textBox;
 	private int leftScroll, rightScroll;
@@ -83,9 +86,27 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		addCloseButtons();
 		textBox = addDrawableChild(new TextFieldWidget(client.textRenderer, x + 15, y + 8, 88, 14, Text.empty()));
 		textBox.setText(SpellBookItem.getSpell(getScreenHandler().getSpellBook()).getName());
-		addDrawableChild(new UndoRedoButtonWidget((width - 48) / 2, y - 8, true, button -> System.out.println("Undo")));
-		addDrawableChild(new UndoRedoButtonWidget(width / 2, y - 8, false, button -> System.out.println("Redo")));
-		SPELL_GROUPS.addAll(SpellBookItem.getSpell(getScreenHandler().getSpellBook()).getComponentGroups());
+		addDrawableChild(new UndoRedoButtonWidget((width - 48) / 2, y - 8, true, undoRedoStack, button -> undoRedoStack.undo()));
+		addDrawableChild(new UndoRedoButtonWidget(width / 2, y - 8, false, undoRedoStack, button -> undoRedoStack.redo()));
+
+		for(SpellGroup group : SpellBookItem.getSpell(getScreenHandler().getSpellBook()).getComponentGroups()) {
+			if(!group.isEmpty()) {
+				undoRedoStack.addAction(new Action(group.shape(), group.positions().get(0), () -> spellGroups.add(group), () -> spellGroups.remove(group))).Do().run();
+
+				for(int i = 0; i < group.effects().size(); i++) {
+					SpellEffect effect = group.effects().get(i);
+					Vector2i pos = group.positions().get(i + 1);
+
+					undoRedoStack.addAction(new Action(effect, pos, () -> {
+						group.effects().add(effect);
+						group.positions().add(pos);
+					}, () -> {
+						group.effects().remove(effect);
+						group.positions().remove(pos);
+					}));
+				}
+			}
+		}
 	}
 
 	@Override
@@ -187,11 +208,21 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 				if(draggedComponent instanceof SpellShape shape) {
 					List<Vector2i> positions = new ArrayList<>();
 					positions.add(pos);
-					SPELL_GROUPS.add(new SpellGroup(shape, new ArrayList<>(), positions));
+					SpellGroup group = new SpellGroup(shape, new ArrayList<>(), positions);
+					Action action = undoRedoStack.addAction(new Action(draggedComponent, pos, () -> spellGroups.add(group), () -> spellGroups.remove(group)));
+
+					action.Do().run();
 				}
-				if(draggedComponent instanceof SpellEffect effect && SPELL_GROUPS.getLast().shape() != ArcanusSpellComponents.EMPTY) {
-					SPELL_GROUPS.getLast().effects().add(effect);
-					SPELL_GROUPS.getLast().positions().add(pos);
+				if(draggedComponent instanceof SpellEffect effect && spellGroups.getLast().shape() != ArcanusSpellComponents.EMPTY) {
+					Action action = undoRedoStack.addAction(new Action(draggedComponent, pos, () -> {
+						spellGroups.getLast().effects().add(effect);
+						spellGroups.getLast().positions().add(pos);
+					}, () -> {
+						spellGroups.getLast().effects().remove(effect);
+						spellGroups.getLast().positions().remove(pos);
+					}));
+
+					action.Do().run();
 				}
 			}
 
@@ -224,7 +255,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	@Override
 	protected void clearChildren() {
 		super.clearChildren();
-		SPELL_GROUPS.clear();
+		spellGroups.clear();
 		spellShapeWidgets.clear();
 		spellEffectWidgets.clear();
 	}
@@ -268,8 +299,8 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 		RenderSystem.disableScissor();
 
-		for(int i = 0; i < SPELL_GROUPS.size(); i++) {
-			SpellGroup group = SPELL_GROUPS.get(i);
+		for(int i = 0; i < spellGroups.size(); i++) {
+			SpellGroup group = spellGroups.get(i);
 			List<Vector2i> positions = group.positions();
 			RenderSystem.setShader(GameRenderer::getPositionShader);
 			RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
@@ -284,8 +315,8 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 				Vector2i pos = positions.get(j);
 				Vector2i prevPos = positions.get(Math.max(0, j - 1));
 
-				if(j == 0 && i > 0 && !SPELL_GROUPS.get(i - 1).isEmpty()) {
-					List<Vector2i> prevPositions = SPELL_GROUPS.get(i - 1).positions();
+				if(j == 0 && i > 0 && !spellGroups.get(i - 1).isEmpty()) {
+					List<Vector2i> prevPositions = spellGroups.get(i - 1).positions();
 					prevPos = prevPositions.get(prevPositions.size() - 1);
 				}
 				if(pos.equals(prevPos))
@@ -309,7 +340,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			matrices.pop();
 		}
 
-		for(SpellGroup group : SPELL_GROUPS) {
+		for(SpellGroup group : spellGroups) {
 			List<Vector2i> positions = group.positions();
 
 			for(int j = 0; j < positions.size(); j++) {
@@ -330,7 +361,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		if(draggedComponent != ArcanusSpellComponents.EMPTY) {
 			int colour = 0xff0000;
 
-			if((isPointWithinBounds(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) && (!(draggedComponent instanceof SpellEffect) || !SPELL_GROUPS.getLast().isEmpty()))
+			if((isPointWithinBounds(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) && (!(draggedComponent instanceof SpellEffect) || !spellGroups.getLast().isEmpty()))
 				colour = 0x00ff00;
 
 			float r = (colour >> 16 & 255) / 255F;
@@ -383,7 +414,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			if(widget.isHoveredOrFocused())
 				widget.renderTooltip(matrices, mouseX - x, mouseY - y);
 
-		for(SpellGroup group : SPELL_GROUPS) {
+		for(SpellGroup group : spellGroups) {
 			for(int i = 0; i < group.positions().size(); i++) {
 				Vector2i position = group.positions().get(i);
 
@@ -438,13 +469,17 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	}
 
 	public boolean isTooCloseToComponents(double mouseX, double mouseY) {
-		return SPELL_GROUPS.stream().anyMatch(group -> group.positions().stream().anyMatch(position -> position.distance((int) (mouseX - x - 12), (int) (mouseY - y - 12)) < 40));
+		return distanceToNearestComponent(mouseX, mouseY) < 40;
+	}
+
+	public double distanceToNearestComponent(double mouseX, double mouseY) {
+		return spellGroups.stream().mapToDouble(spellGroup -> spellGroup.positions().stream().mapToDouble(position -> position.distance((int) (mouseX - x - 12), (int) (mouseY - y - 12))).min().orElse(Double.MAX_VALUE)).min().orElse(Double.MAX_VALUE);
 	}
 
 	public int spellComponentCount() {
 		int count = 0;
 
-		for(SpellGroup group : SPELL_GROUPS)
+		for(SpellGroup group : spellGroups)
 			if(!group.isEmpty())
 				count += group.getAllComponents().toList().size();
 
@@ -452,10 +487,13 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	}
 
 	public Spell getSpell() {
-		if(SPELL_GROUPS.get(0).isEmpty() && SPELL_GROUPS.size() > 1 && !SPELL_GROUPS.get(1).isEmpty())
-			SPELL_GROUPS.remove(0);
+		if(spellGroups.isEmpty())
+			return new Spell();
 
-		return new Spell(SPELL_GROUPS, textBox.getText().isBlank() ? "Empty" : textBox.getText());
+		if(spellGroups.get(0).isEmpty() && spellGroups.size() > 1 && !spellGroups.get(1).isEmpty())
+			spellGroups.remove(0);
+
+		return new Spell(spellGroups, textBox.getText().isBlank() ? "Empty" : textBox.getText());
 	}
 
 	public Weight getWeight() {

@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.client.gui.widgets;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.gui.screens.SpellcraftScreen;
+import dev.cammiescorner.arcanuscontinuum.client.gui.util.UndoRedoStack;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
@@ -18,12 +19,14 @@ public class UndoRedoButtonWidget extends PressableWidget {
 	private final TooltipSupplier tooltipSupplier;
 	private final PressAction onPress;
 	private final MinecraftClient client = MinecraftClient.getInstance();
+	private final UndoRedoStack undoRedoStack;
 	private final boolean isUndo;
 
-	public UndoRedoButtonWidget(int x, int y, boolean isUndo, PressAction onPress) {
+	public UndoRedoButtonWidget(int x, int y, boolean isUndo, UndoRedoStack stack, PressAction onPress) {
 		super(x, y, 24, 16, Text.empty());
 		this.isUndo = isUndo;
 		this.onPress = onPress;
+		this.undoRedoStack = stack;
 		this.tooltipSupplier = new TooltipSupplier() {
 			final String text = isUndo ? "undo" : "redo";
 
@@ -52,13 +55,16 @@ public class UndoRedoButtonWidget extends PressableWidget {
 		RenderSystem.setShaderTexture(0, SpellcraftScreen.BOOK_TEXTURE);
 
 		int v = isUndo ? 192 : 208;
+		active = isUndo ? undoRedoStack.canUndo() : undoRedoStack.canRedo();
 
-		if(!isHoveredOrFocused()) {
+		if(!active)
+			DrawableHelper.drawTexture(matrices, getX(), getY(), 48, v, width, height, 256, 256);
+		else if(!isHoveredOrFocused())
 			DrawableHelper.drawTexture(matrices, getX(), getY(), 0, v, width, height, 256, 256);
-		}
-		else {
+		else
 			DrawableHelper.drawTexture(matrices, getX(), getY(), 24, v, width, height, 256, 256);
 
+		if(isHoveredOrFocused()) {
 			RenderSystem.disableDepthTest();
 			renderTooltip(matrices, mouseX, mouseY);
 			RenderSystem.enableDepthTest();
