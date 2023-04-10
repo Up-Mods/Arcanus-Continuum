@@ -73,12 +73,12 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 
 	@Override
 	protected void initEquipment(RandomGenerator random, LocalDifficulty difficulty) {
-		dataTracker.set(ROBES_COLOUR, newRandomRobeColour());
+		dataTracker.set(ROBES_COLOUR, newRandomRobeColour(random));
 		equipStack(EquipmentSlot.HEAD, getColouredRobes(ArcanusItems.WIZARD_HAT));
 		equipStack(EquipmentSlot.CHEST, getColouredRobes(ArcanusItems.WIZARD_ROBES));
 		equipStack(EquipmentSlot.LEGS, getColouredRobes(ArcanusItems.WIZARD_PANTS));
 		equipStack(EquipmentSlot.FEET, getColouredRobes(ArcanusItems.WIZARD_BOOTS));
-		equipStack(EquipmentSlot.MAINHAND, getRandomStaff());
+		equipStack(EquipmentSlot.MAINHAND, getRandomStaff(random));
 	}
 
 	@Override
@@ -218,13 +218,13 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 		);
 	}
 
-	private ItemStack getRandomStaff() {
+	private ItemStack getRandomStaff(RandomGenerator random) {
 		List<Item> staves = List.of(
 				ArcanusItems.WOODEN_STAFF, ArcanusItems.CRYSTAL_STAFF, ArcanusItems.DIVINATION_STAFF,
 				ArcanusItems.CRESCENT_STAFF, ArcanusItems.ANCIENT_STAFF
 		);
 
-		return new ItemStack(staves.get(world.getRandom().nextInt(staves.size())));
+		return new ItemStack(staves.get(random.nextInt(staves.size())));
 	}
 
 	public int getRobesColour() {
@@ -237,7 +237,7 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 		return stack;
 	}
 
-	private int newRandomRobeColour() {
+	private int newRandomRobeColour(RandomGenerator random) {
 		// Rare Colours
 		if(random.nextDouble() <= 0.1) {
 			int chance = random.nextInt(2);
