@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.recipe.CraftingCategory;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.util.Identifier;
@@ -22,8 +21,8 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class SpellBindingRecipe extends SpecialCraftingRecipe {
-	public SpellBindingRecipe(Identifier identifier, CraftingCategory category) {
-		super(identifier, category);
+	public SpellBindingRecipe(Identifier identifier) {
+		super(identifier);
 	}
 
 	@Override

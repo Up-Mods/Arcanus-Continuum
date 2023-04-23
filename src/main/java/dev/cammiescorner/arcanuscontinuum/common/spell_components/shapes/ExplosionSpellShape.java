@@ -101,7 +101,7 @@ public class ExplosionSpellShape extends SpellShape {
 				effect.effect(caster, sourceEntity, world, new BlockHitResult(Vec3d.ofCenter(blockPos), Direction.UP, blockPos, true), effects, stack, potency);
 		}
 
-		world.playSound(null, castFrom.getX(), castFrom.getY(), castFrom.getZ(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F, 1L);
+		world.playSound(null, castFrom.getX(), castFrom.getY(), castFrom.getZ(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
 		world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, castFrom.getX(), castFrom.getY(), castFrom.getZ(), 1, 1, 0, 0, 1);
 		castNext(caster, castFrom, castSource, world, stack, spellGroups, groupIndex, potency);
 	}

@@ -29,7 +29,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import org.joml.Matrix4f;
+import net.minecraft.util.math.Matrix4f;
 import org.joml.Vector2i;
 import org.joml.Vector4i;
 import org.lwjgl.glfw.GLFW;
@@ -178,10 +178,10 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
 		if(button == 0) {
 			for(SpellComponentWidget widget : spellShapeWidgets)
-				if(isPointWithinBounds(widget.getX(), widget.getY(), widget.getWidth(), widget.getHeight(), mouseX, mouseY))
+				if(isPointWithinBounds(widget.x, widget.y, widget.getWidth(), widget.getHeight(), mouseX, mouseY))
 					widget.onClick(mouseX, mouseY);
 			for(SpellComponentWidget widget : spellEffectWidgets)
-				if(isPointWithinBounds(widget.getX(), widget.getY(), widget.getWidth(), widget.getHeight(), mouseX, mouseY))
+				if(isPointWithinBounds(widget.x, widget.y, widget.getWidth(), widget.getHeight(), mouseX, mouseY))
 					widget.onClick(mouseX, mouseY);
 
 			if(isPointWithinBounds(-58, 5, 12, 170, mouseX, mouseY)) {
@@ -213,7 +213,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 					action.Do().run();
 				}
-				if(draggedComponent instanceof SpellEffect effect && spellGroups.getLast().shape() != ArcanusSpellComponents.EMPTY) {
+				if(draggedComponent instanceof SpellEffect effect && !spellGroups.isEmpty() && spellGroups.getLast().shape() != ArcanusSpellComponents.EMPTY) {
 					Action action = undoRedoStack.addAction(new Action(draggedComponent, pos, () -> {
 						spellGroups.getLast().effects().add(effect);
 						spellGroups.getLast().positions().add(pos);
@@ -268,7 +268,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 		for(int i = 0; i < spellShapeWidgets.size(); i++) {
 			SpellComponentWidget widget = spellShapeWidgets.get(i);
-			widget.setY(8 + (i * 28) - leftScroll * 14);
+			widget.y = 8 + (i * 28) - leftScroll * 14;
 			widget.render(matrices, mouseX - x, mouseY - y, delta);
 
 			RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -276,7 +276,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
 
 			if(widget.isHoveredOrFocused())
-				drawTexture(matrices, widget.getX() - 3, widget.getY() - 3, 0, 208, 30, 30, 384, 256);
+				drawTexture(matrices, widget.x - 3, widget.y - 3, 0, 208, 30, 30, 384, 256);
 		}
 
 		RenderSystem.disableScissor();
@@ -286,7 +286,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 		for(int i = 0; i < spellEffectWidgets.size(); i++) {
 			SpellComponentWidget widget = spellEffectWidgets.get(i);
-			widget.setY(8 + (i * 28) - rightScroll * 14);
+			widget.y = 8 + (i * 28) - rightScroll * 14;
 			widget.render(matrices, mouseX - x, mouseY - y, delta);
 
 			RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -294,7 +294,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
 
 			if(widget.isHoveredOrFocused())
-				drawTexture(matrices, widget.getX() - 3, widget.getY() - 3, 0, 208, 30, 30, 384, 256);
+				drawTexture(matrices, widget.x - 3, widget.y - 3, 0, 208, 30, 30, 384, 256);
 		}
 
 		RenderSystem.disableScissor();
@@ -361,7 +361,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		if(draggedComponent != ArcanusSpellComponents.EMPTY) {
 			int colour = 0xff0000;
 
-			if((isPointWithinBounds(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) && (!(draggedComponent instanceof SpellEffect) || !spellGroups.getLast().isEmpty()))
+			if((isPointWithinBounds(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) && (!(draggedComponent instanceof SpellEffect) || (!spellGroups.isEmpty() && !spellGroups.getLast().isEmpty())))
 				colour = 0x00ff00;
 
 			float r = (colour >> 16 & 255) / 255F;
@@ -438,26 +438,26 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	}
 
 	protected void addCloseButtons() {
-		addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> {
+		addDrawableChild(new ButtonWidget(width / 2 - 100, y + 170, 98, 20, ScreenTexts.DONE, (button) -> {
 			SaveBookDataPacket.send(getScreenHandler().getPos(), getSpell());
 			closeScreen();
-		}).position(width / 2 - 100, y + 170).size(98, 20).build());
+		}));
 
-		addDrawableChild(ButtonWidget.builder(Text.translatable("lectern.take_book"), (button) -> {
+		addDrawableChild(new ButtonWidget(width / 2 + 2, y + 170, 98, 20, Text.translatable("lectern.take_book"), (button) -> {
 			SaveBookDataPacket.send(getScreenHandler().getPos(), getSpell());
 			client.interactionManager.clickButton(handler.syncId, 0);
 			closeScreen();
-		}).position(width / 2 + 2, y + 170).size(98, 20).build());
+		}));
 	}
 
 	public <T extends SpellComponentWidget> T addSpellShapeChild(T drawable) {
 		spellShapeWidgets.add(drawable);
-		return addSelectableChild(drawable);
+		return drawable;
 	}
 
 	public <T extends SpellComponentWidget> T addSpellEffectChild(T drawable) {
 		spellEffectWidgets.add(drawable);
-		return addSelectableChild(drawable);
+		return drawable;
 	}
 
 	public Rectangle getLeftScrollKnob() {

@@ -10,6 +10,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
+import net.minecraft.network.Packet;
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
@@ -39,6 +41,9 @@ public class SmiteEntity extends Entity {
 
 	@Override
 	public void tick() {
+		if(getCaster() == null || !getCaster().isAlive())
+			kill();
+
 		if(!world.isClient()) {
 			if(age <= 9) {
 				Box box = new Box(getX() - 4, getY() - 1, getZ() - 4, getX() + 4, (world.getHeight() + 2048) - getY(), getZ() + 4);
@@ -83,6 +88,11 @@ public class SmiteEntity extends Entity {
 	@Override
 	public boolean doesRenderOnFire() {
 		return false;
+	}
+
+	@Override
+	public Packet<?> createSpawnPacket() {
+		return new EntitySpawnS2CPacket(this);
 	}
 
 	@Override

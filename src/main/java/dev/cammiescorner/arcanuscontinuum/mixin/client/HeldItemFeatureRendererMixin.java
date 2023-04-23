@@ -10,7 +10,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
-import net.minecraft.util.math.Axis;
+import net.minecraft.util.math.Vec3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,15 +25,15 @@ public class HeldItemFeatureRendererMixin {
 		if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && entity.getMainHandStack().getItem() instanceof StaffItem item && ArcanusComponents.isCasting(entity)) {
 			if(item.staffType == StaffType.STAFF) {
 				matrices.translate(0, 0.1, 0);
-				matrices.multiply(Axis.X_POSITIVE.rotationDegrees(-15));
+				matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-15));
 			}
 			else if(item.staffType == StaffType.GUN) {
-				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(-45));
+				matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-45));
 				matrices.translate(0.125, 0, 0);
 			}
 			else if(item.staffType == StaffType.WAND) {
 				matrices.translate(0, -0.2, 0);
-				matrices.multiply(Axis.X_POSITIVE.rotationDegrees(-65));
+				matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-65));
 			}
 		}
 	}

@@ -10,8 +10,8 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Axis;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3f;
 
 public class AreaOfEffectEntityRenderer extends EntityRenderer<AreaOfEffectEntity> {
 	private static final Identifier TEXTURE = Arcanus.id("textures/entity/magic/area_of_effect.png");
@@ -32,7 +32,7 @@ public class AreaOfEffectEntityRenderer extends EntityRenderer<AreaOfEffectEntit
 		float b = (colour & 255) / 255F * alpha;
 
 		matrices.push();
-		matrices.multiply(Axis.X_POSITIVE.rotationDegrees(180));
+		matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
 		matrices.translate(0, -1.51, 0);
 		model.base.yaw = (entity.age + tickDelta) * 0.015F;
 		model.pillar.yaw = -model.base.yaw;

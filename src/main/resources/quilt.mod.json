@@ -40,19 +40,19 @@
 			},
 			{
 				"id": "quilted_fabric_api",
-				"versions": ">=5.0.0-"
+				"versions": ">=4.0.0-"
 			},
 			{
 				"id": "minecraft",
-				"versions": ">=1.19.3"
+				"versions": ">=1.19.2"
 			},
 			{
 				"id": "patchouli",
-				"versions": ">=1.19.3-78-FABRIC"
+				"versions": ">=1.19.2-77-FABRIC"
 			},
 			{
 				"id": "midnightlib",
-				"versions": ">=1.1.0"
+				"versions": ">=1.0.0"
 			},
 			{
 				"id": "smartbrainlib",
@@ -60,11 +60,11 @@
 			},
 			{
 				"id": "cardinal-components-base",
-				"versions": ">=5.1.0"
+				"versions": ">=5.0.2"
 			},
 			{
 				"id": "cardinal-components-entity",
-				"versions": ">=5.1.0"
+				"versions": ">=5.0.2"
 			}
 		]
 	},

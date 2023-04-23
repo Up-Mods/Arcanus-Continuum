@@ -58,11 +58,11 @@ public class UndoRedoButtonWidget extends PressableWidget {
 		active = isUndo ? undoRedoStack.canUndo() : undoRedoStack.canRedo();
 
 		if(!active)
-			DrawableHelper.drawTexture(matrices, getX(), getY(), 48, v, width, height, 256, 256);
+			DrawableHelper.drawTexture(matrices, x, y, 48, v, width, height, 256, 256);
 		else if(!isHoveredOrFocused())
-			DrawableHelper.drawTexture(matrices, getX(), getY(), 0, v, width, height, 256, 256);
+			DrawableHelper.drawTexture(matrices, x, y, 0, v, width, height, 256, 256);
 		else
-			DrawableHelper.drawTexture(matrices, getX(), getY(), 24, v, width, height, 256, 256);
+			DrawableHelper.drawTexture(matrices, x, y, 24, v, width, height, 256, 256);
 
 		if(isHoveredOrFocused()) {
 			RenderSystem.disableDepthTest();
@@ -76,7 +76,7 @@ public class UndoRedoButtonWidget extends PressableWidget {
 	}
 
 	@Override
-	protected void updateNarration(NarrationMessageBuilder builder) {
+	public void appendNarrations(NarrationMessageBuilder builder) {
 		appendDefaultNarrations(builder);
 		tooltipSupplier.supply(text -> builder.put(NarrationPart.HINT, text));
 	}

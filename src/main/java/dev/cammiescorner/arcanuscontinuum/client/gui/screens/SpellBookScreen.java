@@ -18,7 +18,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import org.joml.Matrix4f;
+import net.minecraft.util.math.Matrix4f;
 import org.joml.Vector2i;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 		y = (height - 180) / 2;
 		playerInventoryTitleY = -10000;
 
-		addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> closeScreen()).position(width / 2 - 49, y + 170).size(98, 20).build());
+		addDrawableChild(new ButtonWidget(width / 2 - 49, y + 170, 98, 20, ScreenTexts.DONE, (button) -> closeScreen()));
 		SPELL_GROUPS.addAll(SpellBookItem.getSpell(getScreenHandler().getSpellBook()).getComponentGroups());
 	}
 

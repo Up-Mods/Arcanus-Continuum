@@ -14,6 +14,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
+import net.minecraft.network.Packet;
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -41,6 +43,9 @@ public class MagicRuneEntity extends Entity {
 
 	@Override
 	public void tick() {
+		if(getCaster() == null || !getCaster().isAlive())
+			kill();
+
 		if(world instanceof ServerWorld serverWorld && age > 60) {
 			LivingEntity entity = world.getClosestEntity(LivingEntity.class, TargetPredicate.createNonAttackable().setPredicate(LivingEntity::isAlive), null, getX(), getY(), getZ(), new Box(-0.5, 0, -0.5, 0.5, 0.2, 0.5).offset(getPos()));
 
@@ -64,6 +69,11 @@ public class MagicRuneEntity extends Entity {
 	@Override
 	public boolean doesRenderOnFire() {
 		return false;
+	}
+
+	@Override
+	public Packet<?> createSpawnPacket() {
+		return new EntitySpawnS2CPacket(this);
 	}
 
 	@Override

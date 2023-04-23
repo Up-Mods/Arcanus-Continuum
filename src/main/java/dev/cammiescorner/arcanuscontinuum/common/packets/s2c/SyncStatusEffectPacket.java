@@ -8,9 +8,9 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.registry.Registries;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import org.quiltmc.loader.api.minecraft.ClientOnly;
 import org.quiltmc.qsl.networking.api.PacketSender;
 import org.quiltmc.qsl.networking.api.PlayerLookup;
@@ -22,7 +22,7 @@ public class SyncStatusEffectPacket {
 	public static void sendToAll(ServerPlayerEntity player, StatusEffect status, boolean hasEffect) {
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeVarInt(player.getId());
-		buf.writeVarInt(Registries.STATUS_EFFECT.getRawId(status));
+		buf.writeVarInt(Registry.STATUS_EFFECT.getRawId(status));
 		buf.writeBoolean(hasEffect);
 		ServerPlayNetworking.send(PlayerLookup.tracking(player), ID, buf);
 	}
@@ -30,7 +30,7 @@ public class SyncStatusEffectPacket {
 	public static void sendTo(ServerPlayerEntity receiver, ServerPlayerEntity player, StatusEffect status, boolean hasEffect) {
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeVarInt(player.getId());
-		buf.writeVarInt(Registries.STATUS_EFFECT.getRawId(status));
+		buf.writeVarInt(Registry.STATUS_EFFECT.getRawId(status));
 		buf.writeBoolean(hasEffect);
 		ServerPlayNetworking.send(receiver, ID, buf);
 	}
@@ -43,7 +43,7 @@ public class SyncStatusEffectPacket {
 
 		client.execute(() -> {
 			if(client.world != null && client.world.getEntityById(playerId) instanceof PlayerEntity player) {
-				StatusEffect effect = Registries.STATUS_EFFECT.get(statusEffectId);
+				StatusEffect effect = Registry.STATUS_EFFECT.get(statusEffectId);
 
 				if(effect != null) {
 					if(hasEffect)

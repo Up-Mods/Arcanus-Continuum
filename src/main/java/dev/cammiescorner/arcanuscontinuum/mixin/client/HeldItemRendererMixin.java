@@ -11,8 +11,8 @@ import net.minecraft.client.render.item.HeldItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
-import net.minecraft.util.math.Axis;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -40,9 +40,9 @@ public abstract class HeldItemRendererMixin {
 			double time = client.player.age + tickDelta;
 
 			if(item.staffType == StaffType.STAFF) {
-				matrices.multiply(Axis.X_POSITIVE.rotationDegrees(-65F));
-				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees((float) Math.cos(time * 0.25)));
-				matrices.multiply(Axis.Z_POSITIVE.rotationDegrees(20F + (float) Math.sin(time * 0.25)));
+				matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-65F));
+				matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((float) Math.cos(time * 0.25)));
+				matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(20F + (float) Math.sin(time * 0.25)));
 				matrices.translate(0.1, 1.2, -0.4);
 			}
 			else if(item.staffType == StaffType.BOOK && (!ArcanusClient.FIRST_PERSON_MODEL_ENABLED.getAsBoolean() || ArcanusClient.FIRST_PERSON_SHOW_HANDS.getAsBoolean())) {
@@ -50,24 +50,24 @@ public abstract class HeldItemRendererMixin {
 				float equipProgress = 1F - MathHelper.lerp(tickDelta, prevEquipProgressMainHand, equipProgressMainHand);
 
 				matrices.push();
-				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees((float) Math.cos(time * 0.25)));
-				matrices.multiply(Axis.Z_POSITIVE.rotationDegrees((float) Math.sin(time * 0.25)));
+				matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((float) Math.cos(time * 0.25)));
+				matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion((float) Math.sin(time * 0.25)));
 				renderArmHoldingItem(matrices, vertexConsumers, light, equipProgress, swingProgress, player.getMainArm().getOpposite());
 				matrices.pop();
 			}
 			else if(item.staffType == StaffType.WAND) {
-				matrices.multiply(Axis.X_POSITIVE.rotationDegrees(-65F));
-				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees((float) Math.cos(time * 0.25)));
-				matrices.multiply(Axis.Z_POSITIVE.rotationDegrees(20F + (float) Math.sin(time * 0.25)));
+				matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-65F));
+				matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((float) Math.cos(time * 0.25)));
+				matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(20F + (float) Math.sin(time * 0.25)));
 				matrices.translate(0.1, 1, -0.4);
 			}
 			else if(item.staffType == StaffType.GAUNTLET) {
-				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees((float) Math.cos(time * 0.25)));
-				matrices.multiply(Axis.Z_POSITIVE.rotationDegrees((float) Math.sin(time * 0.25)));
+				matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((float) Math.cos(time * 0.25)));
+				matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion((float) Math.sin(time * 0.25)));
 			}
 			else if(item.staffType == StaffType.GUN) {
-				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees((float) Math.cos(time * 0.25)));
-				matrices.multiply(Axis.Z_POSITIVE.rotationDegrees((float) Math.sin(time * 0.25)));
+				matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((float) Math.cos(time * 0.25)));
+				matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion((float) Math.sin(time * 0.25)));
 				matrices.translate(-0.465, 0, 0);
 			}
 		}

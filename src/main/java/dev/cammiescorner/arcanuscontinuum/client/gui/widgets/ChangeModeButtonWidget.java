@@ -51,10 +51,10 @@ public class ChangeModeButtonWidget extends PressableWidget {
 		RenderSystem.setShaderTexture(0, texture);
 
 		if(!isHoveredOrFocused()) {
-			DrawableHelper.drawTexture(matrices, getX(), getY(), 24, 168, width, height, 256, 256);
+			DrawableHelper.drawTexture(matrices, x, y, 24, 168, width, height, 256, 256);
 		}
 		else {
-			DrawableHelper.drawTexture(matrices, getX(), getY(), 48, 168, width, height, 256, 256);
+			DrawableHelper.drawTexture(matrices, x, y, 48, 168, width, height, 256, 256);
 
 			RenderSystem.disableDepthTest();
 			renderTooltip(matrices, mouseX, mouseY);
@@ -67,7 +67,7 @@ public class ChangeModeButtonWidget extends PressableWidget {
 	}
 
 	@Override
-	protected void updateNarration(NarrationMessageBuilder builder) {
+	public void appendNarrations(NarrationMessageBuilder builder) {
 		appendDefaultNarrations(builder);
 		tooltipSupplier.supply(text -> builder.put(NarrationPart.HINT, text));
 	}

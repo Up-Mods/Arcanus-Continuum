@@ -7,7 +7,6 @@ import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
@@ -32,7 +31,7 @@ public class GrowthSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof AnimalEntity animal && animal.isBaby())
-				animal.growUp(PassiveEntity.m_eyazmlyb(-animal.getBreedingAge()) * growthCount, true);
+				animal.growUp(animal.age * growthCount, true);
 		}
 		else if(target.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult blockHit = (BlockHitResult) target;

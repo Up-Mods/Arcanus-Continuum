@@ -17,6 +17,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -36,11 +37,12 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 
 	public MagicProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
 		super(entityType, world);
+		setSound(SoundEvents.ENTITY_ILLUSIONER_MIRROR_MOVE);
 	}
 
 	@Override
 	public void tick() {
-		if(getShape() == ArcanusSpellComponents.PROJECTILE && age >= 20)
+		if(getOwner() == null || !getOwner().isAlive() || (getShape() == ArcanusSpellComponents.PROJECTILE && age >= 20))
 			kill();
 
 		super.tick();

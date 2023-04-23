@@ -1,8 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.living;
 
-import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusItems;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusTags;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusTradeOffers;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.advancement.criterion.Criteria;
@@ -25,7 +23,6 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.village.TradeOffer;
@@ -131,16 +128,9 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 
 	@Override
 	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-		if(!world.isClient()) {
-			if(player.getEquippedStack(EquipmentSlot.HEAD).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.CHEST).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.LEGS).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.FEET).isIn(ArcanusTags.WIZARD_ARMOUR)) {
-				if(!getOffers().isEmpty()) {
-					setCurrentCustomer(player);
-					sendOffers(player, getDisplayName(), 1);
-				}
-			}
-			else {
-				player.sendMessage(Arcanus.translate("wizard_dialogue", "no_wizard_armour").formatted(Formatting.DARK_PURPLE, Formatting.ITALIC), false);
-			}
+		if(!world.isClient() && !getOffers().isEmpty()) {
+			setCurrentCustomer(player);
+			sendOffers(player, getDisplayName(), 1);
 		}
 
 		return ActionResult.SUCCESS;

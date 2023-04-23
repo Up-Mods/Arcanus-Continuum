@@ -7,8 +7,8 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellType;
 import dev.cammiescorner.arcanuscontinuum.common.spell_components.effects.*;
 import dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes.*;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import org.quiltmc.loader.api.QuiltLoader;
 
 import java.util.LinkedHashMap;

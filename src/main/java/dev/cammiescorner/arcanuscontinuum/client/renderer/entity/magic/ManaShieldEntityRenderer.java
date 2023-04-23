@@ -11,10 +11,10 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Axis;
 import net.minecraft.util.math.MathHelper;
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
+import net.minecraft.util.math.Matrix3f;
+import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.math.Vec3f;
 import org.joml.Vector3f;
 import org.joml.Vector3i;
 
@@ -46,8 +46,8 @@ public class ManaShieldEntityRenderer extends EntityRenderer<ManaShieldEntity> {
 
 		matrices.push();
 		matrices.translate(0, 2, 0);
-		matrices.multiply(Axis.X_NEGATIVE.rotationDegrees(90));
-		matrices.multiply(Axis.Z_POSITIVE.rotationDegrees((entity.age + tickDelta) * 0.25F));
+		matrices.multiply(Vec3f.NEGATIVE_X.getDegreesQuaternion(90));
+		matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion((entity.age + tickDelta) * 0.25F));
 		matrices.scale(3 * alpha, 3 * alpha, 3 * alpha);
 		drawIcosahedron(matrices, vertices.getBuffer(LAYER), entity.getColour(), alpha, light, OverlayTexture.DEFAULT_UV);
 		matrices.pop();

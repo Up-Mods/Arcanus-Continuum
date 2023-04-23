@@ -5,13 +5,13 @@ import dev.cammiescorner.arcanuscontinuum.common.entities.magic.ManaShieldEntity
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.SmiteEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.TypeFilter;
-import net.minecraft.util.function.AbortableIterationConsumer;
 import net.minecraft.world.entity.EntityIndex;
 import net.minecraft.world.entity.EntityLike;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Consumer;
 import java.util.stream.StreamSupport;
 
 public class ArcanusEntityIndex<T extends EntityLike> extends EntityIndex<T> {
@@ -22,8 +22,8 @@ public class ArcanusEntityIndex<T extends EntityLike> extends EntityIndex<T> {
 	}
 
 	@Override
-	public <U extends T> void forEach(TypeFilter<T, U> filter, AbortableIterationConsumer<U> consumer) {
-		delegate.forEach(filter, consumer);
+	public <U extends T> void forEach(TypeFilter<T, U> filter, Consumer<U> action) {
+		delegate.forEach(filter, action);
 	}
 
 	@Override

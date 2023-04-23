@@ -1,20 +1,21 @@
 [versions]
 # The latest versions are available at https://lambdaurora.dev/tools/import_quilt.html
-minecraft = "1.19.3"
-quilt_mappings = "1.19.3+build.23"
+minecraft = "1.19.2"
+quilt_mappings = "1.19.2+build.22"
 quilt_loader = "0.18.2"
 
-quilted_fabric_api = "5.0.0-beta.6+0.74.0-1.19.3"
-cca = "5.1.0"
-patchouli = "1.19.3-78-FABRIC"
-midnightlib = "1.1.0-quilt"
+quilted_fabric_api = "4.0.0-beta.30+0.76.0-1.19.2"
+cca = "5.0.2"
+patchouli = "1.19.2-77-FABRIC"
+midnightlib = "1.0.0-quilt"
 mixinextras = "0.1.1"
-reach_attr = "2.3.1"
-modmenu = "5.0.2"
-smartbrainlib = "4312173"
-firstperson = "CCXpyT4U"
+reach_attr = "2.3.0"
+modmenu = "4.2.0-beta.2"
+smartbrainlib = "4458564"
+firstperson = "13BJdNBy"
 pehkui = "3.7.0+1.14.4-1.19.3"
 kanos = "0.3.1"
+joml = "1.10.5"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -34,6 +35,7 @@ smartbrainlib = { module = "curse.maven:smartbrainlib-661293", version.ref = "sm
 firstperson = { module = "maven.modrinth:first-person-model", version.ref = "firstperson" }
 pehkui = { module = "maven.modrinth:pehkui", version.ref = "pehkui" }
 kanos = { module = "com.github.Virtuoel:KanosConfig", version.ref = "kanos" }
+joml = { module = "org.joml:joml", version.ref = "joml" }
 
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]

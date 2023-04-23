@@ -12,11 +12,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Matrix3f;
+import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.RaycastContext;
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
 import org.quiltmc.loader.api.minecraft.ClientOnly;
 
 public class ArcanusHelper {

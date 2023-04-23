@@ -24,5 +24,4 @@ public class HealSpellEffect extends SpellEffect {
 		if(target.getType() == HitResult.Type.ENTITY && target instanceof EntityHitResult entityHit && entityHit.getEntity() instanceof LivingEntity livingEntity)
 			livingEntity.heal((float) (3F * effects.stream().filter(effect -> effect == ArcanusSpellComponents.HEAL).count() * potency));
 	}
-
 }

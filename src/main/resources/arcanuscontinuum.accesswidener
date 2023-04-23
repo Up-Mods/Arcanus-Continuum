@@ -2,5 +2,11 @@ accessWidener    v1	       named
 accessible       class     net/minecraft/client/render/RenderLayer$MultiPhaseParameters
 accessible       class     net/minecraft/client/render/RenderPhase$Texture
 accessible       class     net/minecraft/client/render/RenderPhase$OffsetTexturing
-extendable       method    net/minecraft/entity/mob/AbstractSkeletonEntity    getStepSound    ()Lnet/minecraft/sound/SoundEvent;
-accessible       field     net/minecraft/entity/mob/CreeperEntity             CHARGED         Lnet/minecraft/entity/data/TrackedData;
+extendable       method    net/minecraft/entity/mob/AbstractSkeletonEntity    getStepSound                          ()Lnet/minecraft/sound/SoundEvent;
+accessible       method    net/minecraft/client/render/RenderLayer            of                                    (Ljava/lang/String;Lcom/mojang/blaze3d/vertex/VertexFormat;Lcom/mojang/blaze3d/vertex/VertexFormat$DrawMode;IZZLnet/minecraft/client/render/RenderLayer$MultiPhaseParameters;)Lnet/minecraft/client/render/RenderLayer$MultiPhase;
+accessible       field     net/minecraft/client/render/RenderPhase            ENTITY_TRANSLUCENT_EMISSIVE_SHADER    Lnet/minecraft/client/render/RenderPhase$Shader;
+accessible       field     net/minecraft/client/render/RenderPhase            ENABLE_OVERLAY_COLOR                  Lnet/minecraft/client/render/RenderPhase$Overlay;
+accessible       field     net/minecraft/client/render/RenderPhase            ADDITIVE_TRANSPARENCY                 Lnet/minecraft/client/render/RenderPhase$Transparency;
+accessible       field     net/minecraft/client/render/RenderPhase            ALL_MASK                              Lnet/minecraft/client/render/RenderPhase$WriteMaskState;
+accessible       field     net/minecraft/client/render/RenderPhase            DISABLE_CULLING                       Lnet/minecraft/client/render/RenderPhase$Cull;
+accessible       field     net/minecraft/entity/mob/CreeperEntity             CHARGED                               Lnet/minecraft/entity/data/TrackedData;

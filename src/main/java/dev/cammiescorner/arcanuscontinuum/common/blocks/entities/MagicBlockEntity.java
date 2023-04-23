@@ -31,8 +31,8 @@ public class MagicBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public NbtCompound toSyncedNbt() {
-		NbtCompound tag = super.toSyncedNbt();
+	public NbtCompound toInitialChunkDataNbt() {
+		NbtCompound tag = super.toInitialChunkDataNbt();
 		writeNbt(tag);
 		return tag;
 	}

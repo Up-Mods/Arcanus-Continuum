@@ -56,10 +56,10 @@ public class CycleTemplatesButtonWidget extends PressableWidget {
 		int v = isUp ? 184 : 200;
 
 		if(!isHoveredOrFocused()) {
-			DrawableHelper.drawTexture(matrices, getX(), getY(), 24, v, width, height, 256, 256);
+			DrawableHelper.drawTexture(matrices, x, y, 24, v, width, height, 256, 256);
 		}
 		else {
-			DrawableHelper.drawTexture(matrices, getX(), getY(), 40, v, width, height, 256, 256);
+			DrawableHelper.drawTexture(matrices, x, y, 40, v, width, height, 256, 256);
 
 			RenderSystem.disableDepthTest();
 			renderTooltip(matrices, mouseX, mouseY);
@@ -72,7 +72,7 @@ public class CycleTemplatesButtonWidget extends PressableWidget {
 	}
 
 	@Override
-	protected void updateNarration(NarrationMessageBuilder builder) {
+	public void appendNarrations(NarrationMessageBuilder builder) {
 		appendDefaultNarrations(builder);
 		tooltipSupplier.supply(text -> builder.put(NarrationPart.HINT, text));
 	}

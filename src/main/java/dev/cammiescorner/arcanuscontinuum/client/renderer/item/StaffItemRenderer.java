@@ -42,8 +42,8 @@ public class StaffItemRenderer implements BuiltinItemRendererRegistry.DynamicIte
 			applyProfiler.push("listener");
 			final MinecraftClient client = MinecraftClient.getInstance();
 			itemRenderer = client.getItemRenderer();
-			inventoryItemModel = client.getBakedModelManager().getModel(new ModelIdentifier(itemId.withPath(itemId.getPath() + "_gui"), "inventory"));
-			worldItemModel = client.getBakedModelManager().getModel(new ModelIdentifier(itemId.withPath(itemId.getPath() + "_handheld"), "inventory"));
+			inventoryItemModel = client.getBakedModelManager().getModel(new ModelIdentifier(new Identifier(itemId.getNamespace(), itemId.getPath() + "_gui"), "inventory"));
+			worldItemModel = client.getBakedModelManager().getModel(new ModelIdentifier(new Identifier(itemId.getNamespace(), itemId.getPath() + "_handheld"), "inventory"));
 			applyProfiler.pop();
 			applyProfiler.endTick();
 		}, applyExecutor);

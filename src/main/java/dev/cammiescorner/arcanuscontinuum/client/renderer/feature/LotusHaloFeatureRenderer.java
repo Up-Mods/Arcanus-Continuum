@@ -17,7 +17,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Axis;
+import net.minecraft.util.math.Vec3f;
 
 public class LotusHaloFeatureRenderer<T extends PlayerEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
 	private static final Identifier TEXTURE = Arcanus.id("textures/entity/feature/lotus_halo.png");
@@ -38,7 +38,7 @@ public class LotusHaloFeatureRenderer<T extends PlayerEntity, M extends EntityMo
 			matrices.push();
 
 			if(ArcanusComponents.isCasting(player) && player.getMainHandStack().getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF)
-				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(player.getMainArm() == Arm.RIGHT ? 65 : -65));
+				matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(player.getMainArm() == Arm.RIGHT ? 65 : -65));
 
 			model.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), 15728850, OverlayTexture.DEFAULT_UV, 1F, 1F, 1F, 1F);
 			matrices.pop();

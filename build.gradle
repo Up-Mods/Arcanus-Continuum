@@ -41,9 +41,11 @@ dependencies {
 	modImplementation libs.pehkui
 	modImplementation libs.kanos
 
+	implementation libs.joml
 	implementation libs.mixinextras
 	annotationProcessor libs.mixinextras
 
+	include libs.joml
 	include libs.mixinextras
 	include libs.reach.attr
 }

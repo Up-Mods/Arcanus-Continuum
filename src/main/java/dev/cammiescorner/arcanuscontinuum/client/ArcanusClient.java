@@ -11,7 +11,6 @@ import dev.cammiescorner.arcanuscontinuum.client.models.armour.WizardArmourModel
 import dev.cammiescorner.arcanuscontinuum.client.models.entity.*;
 import dev.cammiescorner.arcanuscontinuum.client.models.feature.LotusHaloModel;
 import dev.cammiescorner.arcanuscontinuum.client.models.feature.SpellPatternModel;
-import dev.cammiescorner.arcanuscontinuum.client.particles.CollapseParticle;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.armour.WizardArmourRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.block.MagicBlockEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.OpossumEntityRenderer;
@@ -27,7 +26,6 @@ import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncWorkbenchModePa
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
 import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -40,12 +38,12 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Axis;
+import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
-import org.joml.Matrix4f;
+import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.registry.Registry;
 import org.joml.Vector3f;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.loader.api.QuiltLoader;
@@ -98,9 +96,7 @@ public class ArcanusClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ArcanusEntities.MAGIC_RUNE, MagicRuneEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.BEAM, BeamEntityRenderer::new);
 
-		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE, CollapseParticle.Factory::new);
-
-		BlockRenderLayerMap.put(RenderLayer.getCutout(), ArcanusBlocks.MAGIC_DOOR, ArcanusBlocks.ARCANE_WORKBENCH);
+		BlockRenderLayerMap.put(RenderLayer.getCutout(), ArcanusBlocks.ARCANE_WORKBENCH);
 		BlockEntityRendererFactories.register(ArcanusBlockEntities.MAGIC_BLOCK, MagicBlockEntityRenderer::new);
 
 		ClientPlayNetworking.registerGlobalReceiver(SyncStatusEffectPacket.ID, SyncStatusEffectPacket::handle);
@@ -120,13 +116,13 @@ public class ArcanusClient implements ClientModInitializer {
 
 		for(Item item : ArcanusItems.ITEMS.keySet()) {
 			if(item instanceof StaffItem) {
-				Identifier itemId = Registries.ITEM.getId(item);
+				Identifier itemId = Registry.ITEM.getId(item);
 				StaffItemRenderer staffItemRenderer = new StaffItemRenderer(itemId);
 				ResourceLoader.get(ResourceType.CLIENT_RESOURCES).registerReloader(staffItemRenderer);
 				BuiltinItemRendererRegistry.INSTANCE.register(item, staffItemRenderer);
 				ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
-					out.accept(new ModelIdentifier(itemId.withPath(itemId.getPath() + "_gui"), "inventory"));
-					out.accept(new ModelIdentifier(itemId.withPath(itemId.getPath() + "_handheld"), "inventory"));
+					out.accept(new ModelIdentifier(new Identifier(itemId.getNamespace(), itemId.getPath() + "_gui"), "inventory"));
+					out.accept(new ModelIdentifier(new Identifier(itemId.getNamespace(), itemId.getPath() + "_handheld"), "inventory"));
 				});
 			}
 		}
@@ -176,9 +172,9 @@ public class ArcanusClient implements ClientModInitializer {
 							matrices.push();
 
 							if(i == 1)
-								matrices.multiply(Axis.Z_POSITIVE.rotationDegrees((player.age + player.getId() + tickDelta) * (5 + (2.5F * i))));
+								matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion((player.age + player.getId() + tickDelta) * (5 + (2.5F * i))));
 							else
-								matrices.multiply(Axis.Z_NEGATIVE.rotationDegrees((player.age + player.getId() + tickDelta) * (5 + (2.5F * i))));
+								matrices.multiply(Vec3f.NEGATIVE_Z.getDegreesQuaternion((player.age + player.getId() + tickDelta) * (5 + (2.5F * i))));
 
 							matrices.scale(scale, scale, 0);
 							matrices.translate(-8.5, -8.5, 0);

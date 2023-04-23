@@ -3,8 +3,6 @@ package dev.cammiescorner.arcanuscontinuum;
 import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
-import dev.cammiescorner.arcanuscontinuum.common.blocks.MagicDoorBlock;
-import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.MagicDoorBlockEntity;
 import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.CastSpellPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SaveBookDataPacket;
@@ -13,48 +11,28 @@ import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SyncPatternPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStatusEffectPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncSupporterData;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
-import dev.cammiescorner.arcanuscontinuum.common.structures.WizardTowerProcessor;
 import dev.cammiescorner.arcanuscontinuum.common.util.SupporterData;
 import eu.midnightdust.lib.config.MidnightConfig;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.DefaultedRegistry;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.structure.processor.StructureProcessorList;
-import net.minecraft.structure.processor.StructureProcessorType;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.poi.PointOfInterest;
-import net.minecraft.world.poi.PointOfInterestStorage;
+import net.minecraft.util.registry.DefaultedRegistry;
+import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.loader.api.ModMetadata;
 import org.quiltmc.loader.api.QuiltLoader;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
-import org.quiltmc.qsl.chat.api.QuiltChatEvents;
-import org.quiltmc.qsl.chat.api.QuiltMessageType;
-import org.quiltmc.qsl.chat.api.types.ChatC2SMessage;
 import org.quiltmc.qsl.command.api.CommandRegistrationCallback;
 import org.quiltmc.qsl.lifecycle.api.event.ServerLifecycleEvents;
 import org.quiltmc.qsl.networking.api.EntityTrackingEvents;
 import org.quiltmc.qsl.networking.api.ServerPlayConnectionEvents;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
-import org.quiltmc.qsl.registry.api.event.RegistryEvents;
 import org.quiltmc.qsl.resource.loader.api.ResourceLoaderEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,11 +42,12 @@ import java.io.InputStream;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.Instant;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Arcanus implements ModInitializer {
 	public static final String URL = "https://cammiescorner.dev/data/supporters.json";
@@ -76,8 +55,6 @@ public class Arcanus implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("##,####.##");
 	public static final DefaultedRegistry<SpellComponent> SPELL_COMPONENTS = FabricRegistryBuilder.createDefaulted(SpellComponent.class, id("spell_components"), id("empty")).buildAndRegister();
-	public static final StructureProcessorType<WizardTowerProcessor> WIZARD_TOWER_PROCESSOR = StructureProcessorType.register(Arcanus.id("wizard_tower_processor").toString(), WizardTowerProcessor.CODEC);
-	public static final StructureProcessorList WIZARD_TOWER_PROCESSOR_LIST = new StructureProcessorList(List.of(WizardTowerProcessor.INSTANCE));
 	public static final SupporterStorage STORAGE = new SupporterStorage();
 	public static final int DEFAULT_MAGIC_COLOUR = 0x68e1ff;
 
@@ -99,26 +76,23 @@ public class Arcanus implements ModInitializer {
 	public void onInitialize(ModContainer mod) {
 		MidnightConfig.init(MOD_ID, ArcanusConfig.class);
 
-		Registry.register(Registries.ENTITY_ATTRIBUTE, id("max_mana"), ArcanusEntityAttributes.MAX_MANA);
-		Registry.register(Registries.ENTITY_ATTRIBUTE, id("mana_regen"), ArcanusEntityAttributes.MANA_REGEN);
-		Registry.register(Registries.ENTITY_ATTRIBUTE, id("burnout_regen"), ArcanusEntityAttributes.BURNOUT_REGEN);
-		Registry.register(Registries.ENTITY_ATTRIBUTE, id("mana_lock"), ArcanusEntityAttributes.MANA_LOCK);
-		Registry.register(Registries.ENTITY_ATTRIBUTE, id("spell_potency"), ArcanusEntityAttributes.SPELL_POTENCY);
-		Registry.register(Registries.ENTITY_ATTRIBUTE, id("magic_resistance"), ArcanusEntityAttributes.MAGIC_RESISTANCE);
+		Registry.register(Registry.ATTRIBUTE, id("max_mana"), ArcanusEntityAttributes.MAX_MANA);
+		Registry.register(Registry.ATTRIBUTE, id("mana_regen"), ArcanusEntityAttributes.MANA_REGEN);
+		Registry.register(Registry.ATTRIBUTE, id("burnout_regen"), ArcanusEntityAttributes.BURNOUT_REGEN);
+		Registry.register(Registry.ATTRIBUTE, id("mana_lock"), ArcanusEntityAttributes.MANA_LOCK);
+		Registry.register(Registry.ATTRIBUTE, id("spell_potency"), ArcanusEntityAttributes.SPELL_POTENCY);
+		Registry.register(Registry.ATTRIBUTE, id("magic_resistance"), ArcanusEntityAttributes.MAGIC_RESISTANCE);
 
 		ArcanusEntities.register();
 		ArcanusBlocks.register();
 		ArcanusBlockEntities.register();
 		ArcanusItems.register();
-		ArcanusParticles.register();
 		ArcanusStatusEffects.register();
 		ArcanusSpellComponents.register();
 		ArcanusRecipes.register();
 		ArcanusScreenHandlers.register();
 		ArcanusCommands.register();
 		ArcanusPointsOfInterest.register();
-
-		RegistryEvents.DYNAMIC_REGISTRY_SETUP.register(context -> context.register(RegistryKeys.STRUCTURE_PROCESSOR_LIST, Arcanus.id("wizard_tower_processors"), () -> WIZARD_TOWER_PROCESSOR_LIST));
 
 		ServerPlayNetworking.registerGlobalReceiver(CastSpellPacket.ID, CastSpellPacket::handler);
 		ServerPlayNetworking.registerGlobalReceiver(SetCastingPacket.ID, SetCastingPacket::handler);
@@ -143,59 +117,6 @@ public class Arcanus implements ModInitializer {
 		EntityTrackingEvents.START_TRACKING.register((trackedEntity, player) -> {
 			if(trackedEntity instanceof ServerPlayerEntity playerEntity)
 				SyncStatusEffectPacket.sendTo(player, playerEntity, ArcanusStatusEffects.ANONYMITY, playerEntity.hasStatusEffect(ArcanusStatusEffects.ANONYMITY));
-		});
-
-		QuiltChatEvents.CANCEL.register(EnumSet.of(QuiltMessageType.CHAT), abstractMessage -> {
-			PlayerEntity player = abstractMessage.getPlayer();
-			World world = player.getWorld();
-
-			if(world instanceof ServerWorld server && abstractMessage instanceof ChatC2SMessage packet) {
-				String message = packet.getMessage();
-
-				CompletableFuture<Boolean> future = CompletableFuture.supplyAsync(() -> {
-					PointOfInterestStorage poiStorage = server.getChunkManager().getPointOfInterestStorage();
-					Stream<BlockPos> pointOfInterest = poiStorage.getInSquare(poiTypeHolder -> poiTypeHolder.isRegistryKey(ArcanusPointsOfInterest.MAGIC_DOOR), player.getBlockPos(), 8, PointOfInterestStorage.OccupationStatus.ANY).map(PointOfInterest::getPos);
-					boolean beep = false;
-
-					for(BlockPos pos : pointOfInterest.collect(Collectors.toSet())) {
-						BlockState state = world.getBlockState(pos);
-
-						if(state.getBlock() instanceof MagicDoorBlock doorBlock && world.getBlockEntity(pos) instanceof MagicDoorBlockEntity door && message.equals(door.getPassword())) {
-							doorBlock.setOpen(null, world, state, pos, true);
-							player.sendMessage(translate("door", "access_granted").formatted(Formatting.GRAY, Formatting.ITALIC), true);
-
-							beep = true;
-						}
-					}
-
-					return beep;
-				}, world.getServer());
-
-				return future.join();
-			}
-
-			return false;
-		});
-
-		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
-			ItemStack stack = player.getStackInHand(hand);
-
-			if(!world.isClient() && player.isSneaking() && stack.isOf(Items.NAME_TAG) && stack.hasCustomName()) {
-				BlockPos pos = hitResult.getBlockPos();
-				BlockState state = world.getBlockState(pos);
-				MagicDoorBlockEntity door = MagicDoorBlock.getBlockEntity(world, state, pos);
-
-				if(door != null && door.getOwner() == player) {
-					door.setPassword(stack.getName().getString());
-
-					if(!player.isCreative())
-						stack.decrement(1);
-
-					return ActionResult.SUCCESS;
-				}
-			}
-
-			return ActionResult.PASS;
 		});
 	}
 

@@ -9,6 +9,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,7 +27,8 @@ public class PullSpellEffect extends SpellEffect {
 			Entity entity = entityHit.getEntity();
 
 			if(sourceEntity != null) {
-				entity.addVelocity(sourceEntity.getRotationVector().multiply(-effects.stream().filter(effect -> effect == ArcanusSpellComponents.PULL).count() * 0.2 * potency));
+				Vec3d vec = sourceEntity.getRotationVector().multiply(-effects.stream().filter(effect -> effect == ArcanusSpellComponents.PULL).count() * 0.2 * potency);
+				entity.addVelocity(vec.getX(), vec.getY(), vec.getZ());
 				entity.velocityModified = true;
 			}
 		}

@@ -17,8 +17,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Axis;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3f;
 
 public class SpellPatternFeatureRenderer<T extends PlayerEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
 	private static final Identifier TEXTURE = Arcanus.id("textures/entity/feature/magic_circles.png");
@@ -55,7 +55,7 @@ public class SpellPatternFeatureRenderer<T extends PlayerEntity, M extends Entit
 		if(ArcanusComponents.isCasting(player) && stack.getItem() instanceof StaffItem item) {
 			if(item.staffType == StaffType.STAFF) {
 				matrices.translate(player.getMainArm() == Arm.RIGHT ? -0.35 : 0.35, 0, 0.05);
-				matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(player.getMainArm() == Arm.RIGHT ? 65 : -65));
+				matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(player.getMainArm() == Arm.RIGHT ? 65 : -65));
 			}
 			else if(item.staffType == StaffType.WAND) {
 				matrices.translate(player.getMainArm() == Arm.RIGHT ? -0.35 : 0.35, -0.05, -0.1);

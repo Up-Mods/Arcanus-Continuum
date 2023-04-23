@@ -11,10 +11,10 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Axis;
 import net.minecraft.util.math.MathHelper;
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
+import net.minecraft.util.math.Matrix3f;
+import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.math.Vec3f;
 import org.joml.Vector3f;
 
 public class SmiteEntityRenderer extends EntityRenderer<SmiteEntity> {
@@ -44,7 +44,7 @@ public class SmiteEntityRenderer extends EntityRenderer<SmiteEntity> {
 		float b = ((colour & 255) / 255F) * alpha;
 
 		matrices.push();
-		matrices.multiply(Axis.X_POSITIVE.rotationDegrees(-90));
+		matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-90));
 		matrices.scale(scale, scale, 1);
 
 		VertexConsumer vertexConsumer = provider.getBuffer(ArcanusClient.getMagicCircles(TEXTURE));

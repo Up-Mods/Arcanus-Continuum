@@ -16,6 +16,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
+import net.minecraft.network.Packet;
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -56,7 +58,7 @@ public class BeamEntity extends Entity {
 
 	@Override
 	public void tick() {
-		if(age >= dataTracker.get(MAX_AGE) || (getCaster() == null || squaredDistanceTo(getCaster()) > 273) || (dataTracker.get(IS_ON_ENTITY) ? getVehicle() == null : world.isAir(getBlockPos())))
+		if(age >= dataTracker.get(MAX_AGE) || (getCaster() == null || squaredDistanceTo(getCaster()) > 273 || !getCaster().isAlive()) || (dataTracker.get(IS_ON_ENTITY) ? getVehicle() == null : world.isAir(getBlockPos())))
 			kill();
 
 		super.tick();
@@ -81,6 +83,11 @@ public class BeamEntity extends Entity {
 	@Override
 	public boolean doesRenderOnFire() {
 		return false;
+	}
+
+	@Override
+	public Packet<?> createSpawnPacket() {
+		return new EntitySpawnS2CPacket(this);
 	}
 
 	@Override

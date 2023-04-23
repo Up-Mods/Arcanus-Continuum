@@ -11,8 +11,8 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Direction;
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
+import net.minecraft.util.math.Matrix3f;
+import net.minecraft.util.math.Matrix4f;
 
 public class MagicBlockEntityRenderer implements BlockEntityRenderer<MagicBlockEntity> {
 	private static final RenderLayer LAYER = ArcanusClient.getMagicCircles(Arcanus.id("textures/block/magic_block.png"));

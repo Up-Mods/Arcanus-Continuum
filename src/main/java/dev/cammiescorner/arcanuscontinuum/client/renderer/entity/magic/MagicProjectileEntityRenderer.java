@@ -13,8 +13,8 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.ProjectileEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Axis;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3f;
 
 public class MagicProjectileEntityRenderer extends ProjectileEntityRenderer<MagicProjectileEntity> {
 	private static final Identifier PROJECTILE_TEXTURE = Arcanus.id("textures/entity/magic/projectile.png");
@@ -40,8 +40,8 @@ public class MagicProjectileEntityRenderer extends ProjectileEntityRenderer<Magi
 		matrices.push();
 
 		if(isProjectile) {
-			matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevYaw, entity.getYaw()) - 180));
-			matrices.multiply(Axis.X_POSITIVE.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevPitch, entity.getPitch())));
+			matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(MathHelper.lerp(tickDelta, entity.prevYaw, entity.getYaw()) - 180));
+			matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(MathHelper.lerp(tickDelta, entity.prevPitch, entity.getPitch())));
 			matrices.translate(0, -1, 0);
 			projectileModel.ring1.roll = (entity.age + tickDelta) * 0.1F;
 			projectileModel.ring2.roll = -(entity.age + tickDelta) * 0.125F;

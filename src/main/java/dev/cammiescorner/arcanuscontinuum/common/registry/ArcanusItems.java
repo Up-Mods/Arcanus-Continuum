@@ -3,15 +3,14 @@ package dev.cammiescorner.arcanuscontinuum.common.registry;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.items.*;
 import dev.cammiescorner.arcanuscontinuum.common.util.StaffType;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SpawnEggItem;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import org.quiltmc.loader.api.minecraft.ClientOnly;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
@@ -44,35 +43,34 @@ public class ArcanusItems {
 
 	//-----Registry-----//
 	public static void register() {
-		FabricItemGroup.builder(Arcanus.id("general")).icon(() -> new ItemStack(ArcanusItems.WOODEN_STAFF)).entries((enabledFeatures, entries, operatorsEnabled) -> {
-			entries.addItem(COMPENDIUM_ARCANUS);
-			entries.addItem(ArcanusBlocks.MAGIC_DOOR);
-			entries.addItem(ArcanusBlocks.ARCANE_WORKBENCH);
-			entries.addItem(WOODEN_STAFF);
-			entries.addItem(CRYSTAL_STAFF);
-			entries.addItem(DIVINATION_STAFF);
-			entries.addItem(CRESCENT_STAFF);
-			entries.addItem(ANCIENT_STAFF);
+		FabricItemGroupBuilder.create(Arcanus.id("general")).icon(() -> new ItemStack(ArcanusItems.WOODEN_STAFF)).appendItems(entries -> {
+			entries.add(COMPENDIUM_ARCANUS.getDefaultStack());
+			entries.add(ArcanusBlocks.ARCANE_WORKBENCH.asItem().getDefaultStack());
+			entries.add(WOODEN_STAFF.getDefaultStack());
+			entries.add(CRYSTAL_STAFF.getDefaultStack());
+			entries.add(DIVINATION_STAFF.getDefaultStack());
+			entries.add(CRESCENT_STAFF.getDefaultStack());
+			entries.add(ANCIENT_STAFF.getDefaultStack());
 
 			if(isSupporter()) {
-				entries.addItem(WAND);
-				entries.addItem(THAUMATURGES_GAUNTLET);
-				entries.addItem(MIND_STAFF);
-				entries.addItem(MAGIC_TOME);
-				entries.addItem(MAGE_PISTOL);
+				entries.add(WAND.getDefaultStack());
+				entries.add(THAUMATURGES_GAUNTLET.getDefaultStack());
+				entries.add(MIND_STAFF.getDefaultStack());
+				entries.add(MAGIC_TOME.getDefaultStack());
+				entries.add(MAGE_PISTOL.getDefaultStack());
 			}
 
-			entries.addItem(WIZARD_HAT);
-			entries.addItem(WIZARD_ROBES);
-			entries.addItem(WIZARD_PANTS);
-			entries.addItem(WIZARD_BOOTS);
-			entries.addItem(SPELL_BOOK);
-			entries.addItem(SCROLL_OF_KNOWLEDGE);
-			entries.addItem(WIZARD_SPAWN_EGG);
-			entries.addItem(OPOSSUM_SPAWN_EGG);
+			entries.add(WIZARD_HAT.getDefaultStack());
+			entries.add(WIZARD_ROBES.getDefaultStack());
+			entries.add(WIZARD_PANTS.getDefaultStack());
+			entries.add(WIZARD_BOOTS.getDefaultStack());
+			entries.add(SPELL_BOOK.getDefaultStack());
+			entries.add(SCROLL_OF_KNOWLEDGE.getDefaultStack());
+			entries.add(WIZARD_SPAWN_EGG.getDefaultStack());
+			entries.add(OPOSSUM_SPAWN_EGG.getDefaultStack());
 		}).build();
 
-		ITEMS.keySet().forEach(item -> Registry.register(Registries.ITEM, ITEMS.get(item), item));
+		ITEMS.keySet().forEach(item -> Registry.register(Registry.ITEM, ITEMS.get(item), item));
 	}
 
 	private static <T extends Item> T create(String name, T item) {

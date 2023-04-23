@@ -57,6 +57,14 @@ public class NecroSkeletonEntity extends AbstractSkeletonEntity implements Smart
 	}
 
 	@Override
+	public void tick() {
+		if(getCaster() == null || !getCaster().isAlive())
+			kill();
+
+		super.tick();
+	}
+
+	@Override
 	protected SoundEvent getStepSound() {
 		return SoundEvents.ENTITY_SKELETON_STEP;
 	}
@@ -81,6 +89,13 @@ public class NecroSkeletonEntity extends AbstractSkeletonEntity implements Smart
 	public void writeCustomDataToNbt(NbtCompound tag) {
 		super.writeCustomDataToNbt(tag);
 		tag.putUuid("OwnerId", ownerId);
+	}
+
+	private LivingEntity getCaster() {
+		if(world instanceof ServerWorld serverWorld && serverWorld.getEntity(ownerId) instanceof LivingEntity caster)
+			return caster;
+
+		return null;
 	}
 
 	public static DefaultAttributeContainer.Builder createAttributes() {

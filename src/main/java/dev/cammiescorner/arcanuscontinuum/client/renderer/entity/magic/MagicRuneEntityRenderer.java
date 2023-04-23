@@ -11,7 +11,7 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Axis;
+import net.minecraft.util.math.Vec3f;
 
 public class MagicRuneEntityRenderer extends EntityRenderer<MagicRuneEntity> {
 	private static final Identifier TEXTURE = Arcanus.id("textures/entity/magic/rune.png");
@@ -47,7 +47,7 @@ public class MagicRuneEntityRenderer extends EntityRenderer<MagicRuneEntity> {
 
 		matrices.push();
 		matrices.translate(0, Math.sin((entity.age + tickDelta) * 0.125) * 0.05, 0);
-		matrices.multiply(Axis.Y_POSITIVE.rotationDegrees(entity.age + tickDelta));
+		matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(entity.age + tickDelta));
 		model.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), 15728850, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
 		matrices.pop();
 	}

@@ -22,13 +22,13 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeMatcher;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.registry.Registries;
 import net.minecraft.screen.AbstractRecipeScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.CraftingResultSlot;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -55,7 +55,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 		this.context = context;
 		this.player = playerInventory.player;
 		getSlotsForMode(mode);
-		templates = Registries.ITEM.stream().filter(item -> item instanceof StaffItem staff && (!staff.isDonorOnly || Arcanus.getSupporters().containsKey(player.getUuid()))).map(StaffItem.class::cast).toList();
+		templates = Registry.ITEM.stream().filter(item -> item instanceof StaffItem staff && (!staff.isDonorOnly || Arcanus.getSupporters().containsKey(player.getUuid()))).map(StaffItem.class::cast).toList();
 	}
 
 	@Override
@@ -245,12 +245,8 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 				if(optional.isPresent()) {
 					CraftingRecipe craftingRecipe = optional.get();
 
-					if(result.shouldCraftRecipe(world, serverPlayer, craftingRecipe)) {
-						ItemStack itemStack2 = craftingRecipe.craft(input);
-
-						if(itemStack2.m_eyzvudzj(world.getEnabledFlags()))
-							itemStack = itemStack2;
-					}
+					if(result.shouldCraftRecipe(world, serverPlayer, craftingRecipe))
+						itemStack = craftingRecipe.craft(input);
 				}
 			}
 			else {
