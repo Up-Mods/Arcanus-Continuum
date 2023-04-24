@@ -117,7 +117,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 			info.cancel();
 
 		if(player != null && !player.isSpectator() && player.getMainHandStack().getItem() instanceof StaffItem staff) {
-			if(player.getAttackCooldownProgress(getTickDelta()) == 1F && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
+			if(player.getAttackCooldownProgress(getTickDelta()) >= (ArcanusComponents.getBurnout(player) > 0 ? 1 : 0.15F) && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
 				timer = 20;
 				pattern.add(Pattern.LEFT);
 				SyncPatternPacket.send(pattern);
@@ -136,14 +136,15 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 	}
 
 	@Inject(method = "handleInputEvents", at = @At(value = "INVOKE",
-			target = "Lnet/minecraft/client/MinecraftClient;doItemUse()V"
+			target = "Lnet/minecraft/client/MinecraftClient;doItemUse()V",
+			ordinal = 0
 	), cancellable = true)
 	public void arcanuscontinuum$onRightClick(CallbackInfo info) {
 		if(isCasting)
 			info.cancel();
 
 		if(player != null && !player.isSpectator() && player.getMainHandStack().getItem() instanceof StaffItem staff) {
-			if(player.getAttackCooldownProgress(getTickDelta()) == 1F && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
+			if(player.getAttackCooldownProgress(getTickDelta()) >= (ArcanusComponents.getBurnout(player) > 0 ? 1 : 0.15F) && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
 				timer = 20;
 				pattern.add(Pattern.RIGHT);
 				SyncPatternPacket.send(pattern);
@@ -159,6 +160,15 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 			info.cancel();
 		}
+	}
+
+	@Inject(method = "handleInputEvents", at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/client/MinecraftClient;doItemUse()V",
+			ordinal = 1
+	), cancellable = true)
+	public void arcanuscontinuum$onRightClickBlock(CallbackInfo info) {
+		if(isCasting || (player != null && !player.isSpectator() && player.getMainHandStack().getItem() instanceof StaffItem))
+			info.cancel();
 	}
 
 	@Override

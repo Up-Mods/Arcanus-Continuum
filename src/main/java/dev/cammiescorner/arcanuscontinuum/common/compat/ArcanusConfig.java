@@ -37,8 +37,8 @@ public class ArcanusConfig extends MidnightConfig {
 	@Entry public static SpellEffectProperties anonymityEffectProperties = new SpellEffectProperties(true, Weight.NONE, 5, 0, 5);
 	@Entry public static SpellEffectProperties mineEffectProperties = new SpellEffectProperties(true, Weight.NONE, 7, 0, 4);
 	@Entry public static SpellEffectProperties growthEffectProperties = new SpellEffectProperties(true, Weight.NONE, 6, 0, 4);
-	@Entry public static SpellEffectProperties shrinkEffectProperties = new SpellEffectProperties(true, Weight.NONE, 8, 0, 9);
-	@Entry public static SpellEffectProperties enlargeEffectProperties = new SpellEffectProperties(true, Weight.NONE, 8, 0, 9);
+	@Entry public static SpellEffectProperties shrinkEffectProperties = new SpellEffectProperties(true, Weight.NONE, 2.5, 0, 9);
+	@Entry public static SpellEffectProperties enlargeEffectProperties = new SpellEffectProperties(true, Weight.NONE, 2.5, 0, 9);
 
 	@Entry public static SpellEffectProperties buildEffectProperties = new SpellEffectProperties(true, Weight.NONE, 5, 0, 7);
 	@Entry public static SpellEffectProperties levitateEffectProperties = new SpellEffectProperties(true, Weight.NONE, 3, 0, 6);

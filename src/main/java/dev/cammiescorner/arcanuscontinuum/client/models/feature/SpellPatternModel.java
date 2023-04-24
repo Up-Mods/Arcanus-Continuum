@@ -6,6 +6,7 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.util.StaffType;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class SpellPatternModel<T extends PlayerEntity> extends BipedEntityModel<T> {
 	public static final EntityModelLayer MODEL_LAYER = new EntityModelLayer(Arcanus.id("spell_pattern"), "main");
+	private final MinecraftClient client = MinecraftClient.getInstance();
 	private final ModelPart base;
 	public final ModelPart first;
 	private final ModelPart left1;
@@ -70,6 +72,9 @@ public class SpellPatternModel<T extends PlayerEntity> extends BipedEntityModel<
 		base.pivotY = 0;
 		base.pivotX = 0;
 		base.pivotZ = 0;
+		first.roll = (float) Math.toRadians((player.age + player.getId() + client.getTickDelta()) * 5);
+		second.roll = (float) Math.toRadians((player.age + player.getId() + client.getTickDelta()) * -8);
+		third.roll = (float) Math.toRadians((player.age + player.getId() + client.getTickDelta()) * 11);
 
 		if(player.isInSneakingPose()) {
 			base.pivotY = 4.2F;

@@ -31,6 +31,7 @@ public class ArcanusComponents implements EntityComponentInitializer {
 	public static final ComponentKey<MagicColourComponent> MAGIC_COLOUR = createComponent("magic_colour", MagicColourComponent.class);
 	public static final ComponentKey<BoltTargetComponent> BOLT_TARGET = createComponent("bolt_target", BoltTargetComponent.class);
 	public static final ComponentKey<SpellShapeComponent> SPELL_SHAPE = createComponent("spell_shape", SpellShapeComponent.class);
+	public static final ComponentKey<SizeComponent> SIZE = createComponent("size", SizeComponent.class);
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
@@ -50,6 +51,7 @@ public class ArcanusComponents implements EntityComponentInitializer {
 		registry.beginRegistration(BeamEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
 		registry.beginRegistration(LivingEntity.class, BOLT_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BoltTargetComponent::new);
 		registry.beginRegistration(MagicProjectileEntity.class, SPELL_SHAPE).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(SpellShapeComponent::new);
+		registry.beginRegistration(Entity.class, SIZE).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(SizeComponent::new);
 	}
 
 	private static <T extends Component> ComponentKey<T> createComponent(String name, Class<T> component) {
@@ -200,5 +202,9 @@ public class ArcanusComponents implements EntityComponentInitializer {
 
 	public static void setSpellShape(Entity entity, SpellShape shape) {
 		SPELL_SHAPE.get(entity).setSpellShape(shape);
+	}
+
+	public static void setScale(Entity entity, float scale, double strength) {
+		SIZE.get(entity).setScale(scale, strength);
 	}
 }

@@ -33,6 +33,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import virtuoel.pehkui.api.ScaleTypes;
 
 import java.util.List;
 import java.util.UUID;
@@ -63,6 +64,16 @@ public abstract class LivingEntityMixin extends Entity {
 			amount *= 1 + 0.8 * ((getStatusEffect(ArcanusStatusEffects.VULNERABILITY).getAmplifier() + 1) / 10F);
 
 		return amount;
+	}
+
+	@ModifyVariable(method = "handleFallDamage", at = @At("HEAD"), index = 1, argsOnly = true)
+	private float arcanuscontinuum$alterFallDistance(float fallDistance) {
+		float scale = ScaleTypes.MOTION.getScaleData(self).getScale();
+
+		if(scale < 1)
+			fallDistance *= scale / 2;
+
+		return fallDistance;
 	}
 
 	@ModifyArg(method = "fall", at = @At(value = "INVOKE", target = "Lnet/minecraft/particle/BlockStateParticleEffect;<init>(Lnet/minecraft/particle/ParticleType;Lnet/minecraft/block/BlockState;)V"))
