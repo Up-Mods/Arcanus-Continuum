@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.common.components;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import virtuoel.pehkui.api.ScaleData;
 import virtuoel.pehkui.api.ScaleTypes;
@@ -17,8 +18,20 @@ public class SizeComponent implements ServerTickingComponent {
 
 	@Override
 	public void serverTick() {
-		if(timer > 0 && entity.world.getTime() > timer)
-			resetScale();
+		if(timer > 0 && entity.world.getTime() > timer) {
+			float normalHeight = ScaleTypes.HEIGHT.getDefaultBaseScale() / ScaleTypes.HEIGHT.getScaleData(entity).getBaseScale();
+			Box box = new Box(
+					entity.getBoundingBox().minX,
+					entity.getBoundingBox().minY,
+					entity.getBoundingBox().minZ,
+					entity.getBoundingBox().maxX,
+					entity.getBoundingBox().maxY * normalHeight,
+					entity.getBoundingBox().maxZ
+			);
+
+			if(entity.world.isSpaceEmpty(entity, box) || ScaleTypes.HEIGHT.getScaleData(entity).getBaseScale() > ScaleTypes.HEIGHT.getDefaultBaseScale())
+				resetScale();
+		}
 	}
 
 	@Override
