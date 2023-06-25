@@ -195,7 +195,7 @@ public class ArcanusClient implements ClientModInitializer {
 				if(obj.lastMana == 0)
 					obj.lastMana = mana;
 
-				if(player.getMainHandStack().getItem() instanceof StaffItem || mana < maxMana)
+				if(player.getMainHandStack().getItem() instanceof StaffItem)
 					obj.timer = Math.min(obj.timer + 1, 40);
 				else
 					obj.timer = Math.max(obj.timer - 1, 0);
