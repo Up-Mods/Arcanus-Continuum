@@ -33,7 +33,7 @@ public class ManaShieldEntity extends Entity {
 
 	@Override
 	public void tick() {
-		if(getCaster() == null || !getCaster().isAlive())
+		if(!world.isClient() && (getCaster() == null || !getCaster().isAlive()))
 			kill();
 
 		List<ManaShieldEntity> list = world.getEntitiesByClass(ManaShieldEntity.class, getBoundingBox(), EntityPredicates.VALID_ENTITY);

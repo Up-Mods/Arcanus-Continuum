@@ -58,7 +58,7 @@ public class NecroSkeletonEntity extends AbstractSkeletonEntity implements Smart
 
 	@Override
 	public void tick() {
-		if(getCaster() == null || !getCaster().isAlive())
+		if(!world.isClient() && (getCaster() == null || !getCaster().isAlive()))
 			kill();
 
 		super.tick();

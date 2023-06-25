@@ -46,7 +46,7 @@ public class AreaOfEffectEntity extends Entity {
 
 	@Override
 	public void tick() {
-		if(getCaster() == null || !getCaster().isAlive())
+		if(!world.isClient() && (getCaster() == null || !getCaster().isAlive()))
 			kill();
 
 		List<AreaOfEffectEntity> list = world.getEntitiesByClass(AreaOfEffectEntity.class, getBoundingBox(), EntityPredicates.VALID_ENTITY);

@@ -14,7 +14,7 @@ public class HungerManagerMixin {
 			target = "Lnet/minecraft/world/GameRules;getBoolean(Lnet/minecraft/world/GameRules$Key;)Z",
 			ordinal = 0
 	))
-	public boolean hasBurnout(boolean bl, PlayerEntity player) {
+	public boolean arcanuscontinuum$hasBurnout(boolean bl, PlayerEntity player) {
 		return ArcanusComponents.getBurnout(player) <= 0 && player.world.getGameRules().getBoolean(GameRules.NATURAL_REGENERATION);
 	}
 }

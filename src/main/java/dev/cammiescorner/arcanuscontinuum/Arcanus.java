@@ -15,6 +15,7 @@ import dev.cammiescorner.arcanuscontinuum.common.util.SupporterData;
 import eu.midnightdust.lib.config.MidnightConfig;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
+import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
@@ -118,6 +119,11 @@ public class Arcanus implements ModInitializer {
 			if(trackedEntity instanceof ServerPlayerEntity playerEntity)
 				SyncStatusEffectPacket.sendTo(player, playerEntity, ArcanusStatusEffects.ANONYMITY, playerEntity.hasStatusEffect(ArcanusStatusEffects.ANONYMITY));
 		});
+
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ArcanusItems.WIZARD_HAT, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ArcanusItems.WIZARD_ROBES, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ArcanusItems.WIZARD_PANTS, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ArcanusItems.WIZARD_BOOTS, CauldronBehavior.CLEAN_DYEABLE_ITEM);
 	}
 
 	public static void refreshSupporterData(MinecraftServer server, boolean force) {

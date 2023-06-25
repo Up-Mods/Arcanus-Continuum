@@ -58,7 +58,7 @@ public class BeamEntity extends Entity {
 
 	@Override
 	public void tick() {
-		if(age >= dataTracker.get(MAX_AGE) || (getCaster() == null || squaredDistanceTo(getCaster()) > 273 || !getCaster().isAlive()) || (dataTracker.get(IS_ON_ENTITY) ? getVehicle() == null : world.isAir(getBlockPos())))
+		if(!world.isClient() && (age >= dataTracker.get(MAX_AGE) || (getCaster() == null || squaredDistanceTo(getCaster()) > 273 || !getCaster().isAlive()) || (dataTracker.get(IS_ON_ENTITY) ? getVehicle() == null : world.isAir(getBlockPos()))))
 			kill();
 
 		super.tick();

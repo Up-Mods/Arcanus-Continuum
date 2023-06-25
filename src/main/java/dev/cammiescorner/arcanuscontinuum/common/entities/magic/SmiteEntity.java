@@ -41,7 +41,7 @@ public class SmiteEntity extends Entity {
 
 	@Override
 	public void tick() {
-		if(getCaster() == null || !getCaster().isAlive())
+		if(!world.isClient() && (getCaster() == null || !getCaster().isAlive()))
 			kill();
 
 		if(!world.isClient()) {
