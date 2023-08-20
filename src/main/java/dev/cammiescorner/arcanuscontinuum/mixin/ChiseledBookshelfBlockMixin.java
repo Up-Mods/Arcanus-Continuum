@@ -14,7 +14,7 @@ public abstract class ChiseledBookshelfBlockMixin extends Block {
 
 	@ModifyArg(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockWithEntity;<init>(Lnet/minecraft/block/AbstractBlock$Settings;)V"))
 	private static AbstractBlock.Settings arcanuscontinuum$enableChiseledBookshelf(AbstractBlock.Settings settings) {
-		return AbstractBlock.Settings.of(Material.WOOD).strength(1.5F).sounds(BlockSoundGroup.f_oueonadr);
+		return AbstractBlock.Settings.of(Material.WOOD).strength(1.5F).sounds(BlockSoundGroup.CHISELED_BOOKSHELF);
 	}
 
 	// Mojang please ;-;

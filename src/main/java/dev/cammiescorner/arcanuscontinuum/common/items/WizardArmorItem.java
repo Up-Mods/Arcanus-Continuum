@@ -27,11 +27,11 @@ public class WizardArmorItem extends DyeableArmorItem {
 	};
 	private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
 
-	public WizardArmorItem(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, double manaRegen, double magicResist, double spellPotency) {
+	public WizardArmorItem(ArmorMaterial armorMaterial, ArmorSlot equipmentSlot, double manaRegen, double magicResist, double spellPotency) {
 		super(armorMaterial, equipmentSlot, new QuiltItemSettings().maxCount(1));
 		ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
-		UUID uUID = MODIFIERS[equipmentSlot.getEntitySlotId()];
-		builder.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(uUID, "Armor modifier", armorMaterial.getProtectionAmount(equipmentSlot), EntityAttributeModifier.Operation.ADDITION));
+		UUID uUID = MODIFIERS[equipmentSlot.getEquipmentSlot().getEntitySlotId()];
+		builder.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(uUID, "Armor modifier", armorMaterial.getProtection(equipmentSlot), EntityAttributeModifier.Operation.ADDITION));
 		builder.put(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, new EntityAttributeModifier(uUID, "Armor toughness", armorMaterial.getToughness(), EntityAttributeModifier.Operation.ADDITION));
 		builder.put(ArcanusEntityAttributes.MANA_REGEN, new EntityAttributeModifier(uUID, "Armor modifier", manaRegen, EntityAttributeModifier.Operation.MULTIPLY_BASE));
 		builder.put(ArcanusEntityAttributes.MAGIC_RESISTANCE, new EntityAttributeModifier(uUID, "Armor modifier", magicResist, EntityAttributeModifier.Operation.MULTIPLY_BASE));
@@ -56,6 +56,6 @@ public class WizardArmorItem extends DyeableArmorItem {
 
 	@Override
 	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-		return slot == this.slot ? attributeModifiers : super.getAttributeModifiers(slot);
+		return slot == getPreferredSlot() ? attributeModifiers : super.getAttributeModifiers(slot);
 	}
 }

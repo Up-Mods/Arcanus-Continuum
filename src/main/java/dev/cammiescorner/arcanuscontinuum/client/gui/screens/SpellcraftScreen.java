@@ -241,7 +241,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if(textBox.isFocused()) {
 			if(keyCode == GLFW.GLFW_KEY_ESCAPE) {
-				textBox.setTextFieldFocused(false);
+				textBox.setFocused(false);
 				return false;
 			}
 			if(keyCode == GLFW.GLFW_KEY_E) {
@@ -452,12 +452,12 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 	public <T extends SpellComponentWidget> T addSpellShapeChild(T drawable) {
 		spellShapeWidgets.add(drawable);
-		return addSelectableChild(drawable);
+		return drawable;
 	}
 
 	public <T extends SpellComponentWidget> T addSpellEffectChild(T drawable) {
 		spellEffectWidgets.add(drawable);
-		return addSelectableChild(drawable);
+		return drawable;
 	}
 
 	public Rectangle getLeftScrollKnob() {

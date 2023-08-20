@@ -13,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -26,7 +25,7 @@ import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
 
 public class MagicDoorBlock extends DoorBlock implements BlockEntityProvider {
 	public MagicDoorBlock() {
-		super(QuiltBlockSettings.of(Material.WOOD).strength(2F, 3F).sounds(BlockSoundGroup.WOOD), SoundEvents.BLOCK_WOODEN_DOOR_CLOSE, SoundEvents.BLOCK_WOODEN_DOOR_OPEN);
+		super(QuiltBlockSettings.of(Material.WOOD).strength(2F, 3F).sounds(BlockSoundGroup.WOOD), BlockSetType.OAK);
 	}
 
 	@Override

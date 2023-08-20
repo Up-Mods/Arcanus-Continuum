@@ -117,7 +117,8 @@
   "wizard_dialogue.arcanuscontinuum.no_wizard_armour": "I only speak to fellow wizards.",
   "scroll_of_knowledge.arcanuscontinuum.level_up": "You feel a little smarter...",
 
-  "death.attack.arcanuscontinuum.magic_damage": "%s was killed by %s using magic",
+  "death.attack.arcanuscontinuum.magic": "%s was killed by %s using magic",
+  "death.attack.arcanuscontinuum.magic.item": "%s was killed by %s using magic with %s",
 
   "attribute.name.generic.arcanuscontinuum.max_mana": "Max Mana",
   "attribute.name.generic.arcanuscontinuum.mana_regen": "Mana Regen",

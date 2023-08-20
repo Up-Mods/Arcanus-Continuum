@@ -39,6 +39,9 @@ public class SmiteEntity extends Entity {
 
 	@Override
 	public void tick() {
+		if(!world.isClient() && (getCaster() == null || !getCaster().isAlive()))
+			kill();
+
 		if(!world.isClient()) {
 			if(age <= 9) {
 				Box box = new Box(getX() - 4, getY() - 1, getZ() - 4, getX() + 4, (world.getHeight() + 2048) - getY(), getZ() + 4);

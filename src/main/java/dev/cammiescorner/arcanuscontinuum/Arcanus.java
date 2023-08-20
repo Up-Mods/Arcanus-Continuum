@@ -20,6 +20,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -140,7 +141,7 @@ public class Arcanus implements ModInitializer {
 				Arcanus.refreshSupporterData(server, true);
 		});
 
-		EntityTrackingEvents.START_TRACKING.register((trackedEntity, player) -> {
+		EntityTrackingEvents.AFTER_START_TRACKING.register((trackedEntity, player) -> {
 			if(trackedEntity instanceof ServerPlayerEntity playerEntity)
 				SyncStatusEffectPacket.sendTo(player, playerEntity, ArcanusStatusEffects.ANONYMITY, playerEntity.hasStatusEffect(ArcanusStatusEffects.ANONYMITY));
 		});
@@ -197,6 +198,11 @@ public class Arcanus implements ModInitializer {
 
 			return ActionResult.PASS;
 		});
+
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ArcanusItems.WIZARD_HAT, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ArcanusItems.WIZARD_ROBES, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ArcanusItems.WIZARD_PANTS, CauldronBehavior.CLEAN_DYEABLE_ITEM);
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ArcanusItems.WIZARD_BOOTS, CauldronBehavior.CLEAN_DYEABLE_ITEM);
 	}
 
 	public static void refreshSupporterData(MinecraftServer server, boolean force) {

@@ -32,8 +32,6 @@ public class SpellPatternFeatureRenderer<T extends PlayerEntity, M extends Entit
 
 	@Override
 	public void render(MatrixStack matrices, VertexConsumerProvider vertices, int light, PlayerEntity player, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-		model.setAngles(player, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-
 		ItemStack stack = player.getMainHandStack();
 		int colour = Arcanus.getMagicColour(player.getGameProfile().getId());
 		float r = (colour >> 16 & 255) / 255F;
@@ -41,16 +39,12 @@ public class SpellPatternFeatureRenderer<T extends PlayerEntity, M extends Entit
 		float b = (colour & 255) / 255F;
 
 		model.showMagicCircles(ArcanusComponents.getPattern(player));
-		model.first.roll += Math.toRadians(2);
-		model.second.roll -= Math.toRadians(3);
-		model.third.roll += Math.toRadians(4);
-
-		model.first.pivotZ = -8 + MathHelper.sin((player.age + player.getId() + client.getTickDelta()) / (MathHelper.PI * 2)) * 0.5F;
-		model.second.pivotZ = -11 + MathHelper.cos((player.age + player.getId() + client.getTickDelta()) / (MathHelper.PI * 2)) * 0.5F;
-		model.third.pivotZ = -13 + MathHelper.sin((player.age + player.getId() + client.getTickDelta()) / (MathHelper.PI * 2)) * 0.5F;
 
 		matrices.push();
 		matrices.translate(0, 0.65, -0.35);
+
+		model.setAngles(player, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+		model.showMagicCircles(ArcanusComponents.getPattern(player));
 
 		if(ArcanusComponents.isCasting(player) && stack.getItem() instanceof StaffItem item) {
 			if(item.staffType == StaffType.STAFF) {
@@ -71,7 +65,21 @@ public class SpellPatternFeatureRenderer<T extends PlayerEntity, M extends Entit
 			}
 		}
 
-		model.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), 15728850, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
+		matrices.push();
+		matrices.translate(0, 0, MathHelper.sin((player.age + player.getId() + client.getTickDelta()) / (MathHelper.PI * 2)) * 0.05F);
+		model.first.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), 15728850, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
+		matrices.pop();
+
+		matrices.push();
+		matrices.translate(0, 0, MathHelper.cos((player.age + player.getId() + client.getTickDelta()) / (MathHelper.PI * 2)) * 0.05F);
+		model.second.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), 15728850, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
+		matrices.pop();
+
+		matrices.push();
+		matrices.translate(0, 0, MathHelper.sin((player.age + player.getId() + client.getTickDelta()) / (MathHelper.PI * 2)) * 0.05F);
+		model.third.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), 15728850, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
+		matrices.pop();
+
 		matrices.pop();
 	}
 }

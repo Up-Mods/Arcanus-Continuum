@@ -40,7 +40,7 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 
 	@Override
 	public void tick() {
-		if(getShape() == ArcanusSpellComponents.PROJECTILE && age >= 20)
+		if(!world.isClient() && (getOwner() == null || !getOwner().isAlive() || (getShape() == ArcanusSpellComponents.PROJECTILE && age >= 20)))
 			kill();
 
 		super.tick();
@@ -61,7 +61,7 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 				SpellShape.castNext(caster, target.getPos(), target.getEntity(), server, stack, spellGroups, groupIndex, potency);
 		}
 
-		super.onEntityHit(target);
+		playSound(getSound(), 1F, 1.2F / (random.nextFloat() * 0.2F + 0.9F));
 		kill();
 	}
 

@@ -44,9 +44,9 @@ public class WizardTowerProcessor extends StructureProcessor {
 			lootTable.supplyInventory(inventory, builder.build(LootContextTypes.CHEST));
 			Inventories.writeNbt(absoluteBlockInfo.nbt, inventory.stacks, true);
 
-			for(int j = 0; j < ChiseledBookshelfBlock.f_dvhczcuf.size(); ++j) {
+			for(int j = 0; j < ChiseledBookshelfBlock.SLOT_OCCUPATION_PROPERTIES.size(); ++j) {
 				boolean bl = !inventory.getStack(j).isEmpty();
-				BooleanProperty booleanProperty = ChiseledBookshelfBlock.f_dvhczcuf.get(j);
+				BooleanProperty booleanProperty = ChiseledBookshelfBlock.SLOT_OCCUPATION_PROPERTIES.get(j);
 				blockState = blockState.with(booleanProperty, bl);
 			}
 		}

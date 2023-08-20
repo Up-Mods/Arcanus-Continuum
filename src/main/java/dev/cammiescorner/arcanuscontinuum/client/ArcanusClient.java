@@ -140,7 +140,6 @@ public class ArcanusClient implements ClientModInitializer {
 
 		var obj = new Object() {
 			int timer;
-			double lastMana;
 		};
 
 		HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
@@ -196,10 +195,7 @@ public class ArcanusClient implements ClientModInitializer {
 				double burnout = ArcanusComponents.getBurnout(player);
 				double manaLock = ArcanusComponents.getManaLock(player);
 
-				if(obj.lastMana == 0)
-					obj.lastMana = mana;
-
-				if(player.getMainHandStack().getItem() instanceof StaffItem || mana < maxMana)
+				if(player.getMainHandStack().getItem() instanceof StaffItem)
 					obj.timer = Math.min(obj.timer + 1, 40);
 				else
 					obj.timer = Math.max(obj.timer - 1, 0);
@@ -218,7 +214,7 @@ public class ArcanusClient implements ClientModInitializer {
 					DrawableHelper.drawTexture(matrices, x, y, 0, 0, 101, 28, 256, 256);
 
 					// render mana
-					DrawableHelper.drawTexture(matrices, x, y + 5, 0, 32, (int) (width * (obj.lastMana / maxMana)), 23, 256, 256);
+					DrawableHelper.drawTexture(matrices, x, y + 5, 0, 32, (int) (width * (mana / maxMana)), 23, 256, 256);
 
 					// render burnout
 					int i = (int) Math.ceil(width * ((burnout + manaLock) / maxMana));
@@ -228,11 +224,6 @@ public class ArcanusClient implements ClientModInitializer {
 					i = (int) Math.ceil(width * (manaLock / maxMana));
 					DrawableHelper.drawTexture(matrices, x + (width - i), y + 5, width - i, 80, i, 23, 256, 256);
 				}
-
-				if(mana < obj.lastMana)
-					obj.lastMana = mana;
-				else
-					obj.lastMana += Math.min(mana - obj.lastMana, client.getLastFrameDuration() / 20);
 			}
 		});
 	}

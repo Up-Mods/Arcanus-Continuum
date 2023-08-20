@@ -41,6 +41,9 @@ public class MagicRuneEntity extends Entity {
 
 	@Override
 	public void tick() {
+		if(!world.isClient() && (getCaster() == null || !getCaster().isAlive()))
+			kill();
+
 		if(world instanceof ServerWorld serverWorld && age > 60) {
 			LivingEntity entity = world.getClosestEntity(LivingEntity.class, TargetPredicate.createNonAttackable().setPredicate(LivingEntity::isAlive), null, getX(), getY(), getZ(), new Box(-0.5, 0, -0.5, 0.5, 0.2, 0.5).offset(getPos()));
 

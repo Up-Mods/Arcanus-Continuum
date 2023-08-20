@@ -15,6 +15,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.recipe.CraftingCategory;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
@@ -66,8 +67,9 @@ public class SpellBindingRecipe extends SpecialCraftingRecipe {
 		return !result.isEmpty() && !list.isEmpty();
 	}
 
+
 	@Override
-	public ItemStack craft(CraftingInventory inv) {
+	public ItemStack craft(CraftingInventory inv, DynamicRegistryManager manager) {
 		DefaultedList<Spell> spells = DefaultedList.ofSize(8, new Spell());
 		ItemStack result = ItemStack.EMPTY;
 

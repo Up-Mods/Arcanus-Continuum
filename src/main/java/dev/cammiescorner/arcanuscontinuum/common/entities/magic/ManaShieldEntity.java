@@ -9,6 +9,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
@@ -30,6 +31,9 @@ public class ManaShieldEntity extends Entity {
 
 	@Override
 	public void tick() {
+		if(!world.isClient() && (getCaster() == null || !getCaster().isAlive()))
+			kill();
+
 		List<ManaShieldEntity> list = world.getEntitiesByClass(ManaShieldEntity.class, getBoundingBox(), EntityPredicates.VALID_ENTITY);
 
 		if(!list.isEmpty()) {
@@ -102,6 +106,12 @@ public class ManaShieldEntity extends Entity {
 	@Override
 	public boolean collides() {
 		return !isRemoved();
+	}
+
+	private LivingEntity getCaster() {
+		if(world instanceof ServerWorld serverWorld && serverWorld.getEntity(ownerId) instanceof LivingEntity caster)
+			return caster;
+		return null;
 	}
 
 	public int getMaxAge() {

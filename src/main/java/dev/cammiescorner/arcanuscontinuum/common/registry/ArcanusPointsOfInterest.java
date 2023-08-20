@@ -4,7 +4,7 @@ import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.poi.PointOfInterestType;
-import org.quiltmc.qsl.points_of_interest.api.PointOfInterestHelper;
+import org.quiltmc.qsl.poi.api.PointOfInterestHelper;
 
 public class ArcanusPointsOfInterest {
 	public static final RegistryKey<PointOfInterestType> MAGIC_DOOR = create("magic_door");

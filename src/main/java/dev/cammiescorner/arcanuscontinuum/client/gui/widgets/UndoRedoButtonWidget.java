@@ -49,7 +49,7 @@ public class UndoRedoButtonWidget extends PressableWidget {
 	}
 
 	@Override
-	public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+	public void drawWidget(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		RenderSystem.setShaderTexture(0, SpellcraftScreen.BOOK_TEXTURE);

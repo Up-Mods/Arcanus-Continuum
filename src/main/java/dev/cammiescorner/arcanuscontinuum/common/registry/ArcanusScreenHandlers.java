@@ -5,6 +5,7 @@ import dev.cammiescorner.arcanuscontinuum.common.screens.ArcaneWorkbenchScreenHa
 import dev.cammiescorner.arcanuscontinuum.common.screens.SpellBookScreenHandler;
 import dev.cammiescorner.arcanuscontinuum.common.screens.SpellcraftScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.minecraft.feature_flags.FeatureFlags;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.screen.ScreenHandlerType;
@@ -19,7 +20,7 @@ public class ArcanusScreenHandlers {
 	//-----Screen Handlers-----//
 	public static final ScreenHandlerType<SpellcraftScreenHandler> SPELLCRAFT_SCREEN_HANDLER = create("spellcraft_screen_handler", new ExtendedScreenHandlerType<>((syncId, inventory, buf) -> new SpellcraftScreenHandler(syncId, inventory, buf.readBlockPos(), buf.readItemStack())));
 	public static final ScreenHandlerType<SpellBookScreenHandler> SPELL_BOOK_SCREEN_HANDLER = create("spell_book_screen_handler", new ExtendedScreenHandlerType<>((syncId, inventory, buf) -> new SpellBookScreenHandler(syncId, inventory, buf.readItemStack())));
-	public static final ScreenHandlerType<ArcaneWorkbenchScreenHandler> ARCANE_WORKBENCH_SCREEN_HANDLER = create("arcane_workbench_screen_handler", new ScreenHandlerType<>(ArcaneWorkbenchScreenHandler::new));
+	public static final ScreenHandlerType<ArcaneWorkbenchScreenHandler> ARCANE_WORKBENCH_SCREEN_HANDLER = create("arcane_workbench_screen_handler", new ScreenHandlerType<>(ArcaneWorkbenchScreenHandler::new, FeatureFlags.DEFAULT_SET));
 
 	//-----Registry-----//
 	public static void register() {

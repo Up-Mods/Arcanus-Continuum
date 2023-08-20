@@ -246,9 +246,9 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 					CraftingRecipe craftingRecipe = optional.get();
 
 					if(result.shouldCraftRecipe(world, serverPlayer, craftingRecipe)) {
-						ItemStack itemStack2 = craftingRecipe.craft(input);
+						ItemStack itemStack2 = craftingRecipe.craft(input, world.getRegistryManager());
 
-						if(itemStack2.m_eyzvudzj(world.getEnabledFlags()))
+						if(itemStack2.isEnabled(world.getEnabledFlags()))
 							itemStack = itemStack2;
 					}
 				}

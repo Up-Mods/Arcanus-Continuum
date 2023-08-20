@@ -33,7 +33,7 @@ public class TeleportSpellEffect extends SpellEffect {
 					pos = pos.add(blockHit.getSide().getOffsetX() * 0.5, blockHit.getSide() == Direction.DOWN ? -2 : 0, blockHit.getSide().getOffsetZ() * 0.5);
 				}
 
-				caster.requestTeleport(pos.getX(), pos.getY(), pos.getZ());
+				caster.requestTeleportAndDismount(pos.getX(), pos.getY(), pos.getZ());
 				world.sendEntityStatus(caster, EntityStatuses.ADD_PORTAL_PARTICLES);
 			}
 		}

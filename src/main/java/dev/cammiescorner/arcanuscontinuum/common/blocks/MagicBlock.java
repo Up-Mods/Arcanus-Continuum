@@ -24,7 +24,7 @@ public class MagicBlock extends Block implements BlockEntityProvider {
 
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {
-		return BlockRenderType.ENTITYBLOCK_ANIMATED;
+		return BlockRenderType.ANIMATED;
 	}
 
 	@Override

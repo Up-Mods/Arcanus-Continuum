@@ -57,6 +57,14 @@ public class NecroSkeletonEntity extends AbstractSkeletonEntity implements Smart
 	}
 
 	@Override
+	public void tick() {
+		if(!world.isClient() && (getCaster() == null || !getCaster().isAlive()))
+			kill();
+
+		super.tick();
+	}
+
+	@Override
 	protected SoundEvent getStepSound() {
 		return SoundEvents.ENTITY_SKELETON_STEP;
 	}
@@ -84,7 +92,7 @@ public class NecroSkeletonEntity extends AbstractSkeletonEntity implements Smart
 	}
 
 	public static DefaultAttributeContainer.Builder createAttributes() {
-		return AbstractSkeletonEntity.createAbstractSkeletonAttributes()
+		return AbstractSkeletonEntity.createAttributes()
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1)
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, 0);
 	}
@@ -157,6 +165,12 @@ public class NecroSkeletonEntity extends AbstractSkeletonEntity implements Smart
 						new AnimatableMeleeAttack<>(0).whenStarting(entity -> setAttacking(true)).whenStarting(entity -> setAttacking(false))
 				)
 		);
+	}
+
+	private LivingEntity getCaster() {
+		if(world instanceof ServerWorld serverWorld && serverWorld.getEntity(ownerId) instanceof LivingEntity caster)
+			return caster;
+		return null;
 	}
 
 	public void setMaxHealth(double health) {

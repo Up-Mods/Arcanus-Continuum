@@ -58,7 +58,7 @@ public class ExplosionSpellShape extends SpellShape {
 						double o = castFrom.getZ();
 
 						for(float p = 0.3F; h > 0F; h -= 0.225F) {
-							BlockPos blockPos = new BlockPos(m, n, o);
+							BlockPos blockPos = new BlockPos((int) m, (int) n, (int) o);
 							BlockState blockState = world.getBlockState(blockPos);
 							FluidState fluidState = world.getFluidState(blockPos);
 

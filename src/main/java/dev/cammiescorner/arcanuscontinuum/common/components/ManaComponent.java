@@ -6,7 +6,6 @@ import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.MathHelper;
@@ -24,7 +23,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 		EntityAttributeInstance manaRegenAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MANA_REGEN);
 		long timer = entity.world.getTime() - ArcanusComponents.getLastCastTime(entity);
 
-		if(manaRegenAttr != null && addMana(manaRegenAttr.getValue(), true) && timer % (entity instanceof PlayerEntity player && player.isCreative() ? 2 : 20) == 0)
+		if(manaRegenAttr != null && addMana(manaRegenAttr.getValue(), true) && timer % (entity instanceof PlayerEntity player && player.isCreative() ? 1 : 20) == 0)
 			addMana(manaRegenAttr.getValue(), false);
 	}
 
@@ -92,7 +91,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 					ArcanusComponents.addBurnout(entity, amount - getMana(), false);
 
 					if(ArcanusComponents.getBurnout(entity) >= ArcanusComponents.getMaxMana(entity) * 0.5F)
-						entity.damage(DamageSource.OUT_OF_WORLD, (float) Math.min(entity.getHealth() - 1, amount - getMana()));
+						entity.damage(entity.getDamageSources().outOfWorld(), (float) Math.min(entity.getHealth() - 1, amount - getMana()));
 				}
 
 				setMana(Math.max(0, getMana() - amount));

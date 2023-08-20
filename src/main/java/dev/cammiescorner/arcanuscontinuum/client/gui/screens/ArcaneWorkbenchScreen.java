@@ -93,7 +93,7 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
 			matrices.pop();
 		}
 		else if(getScreenHandler().getMode() == WorkbenchMode.CUSTOMIZE) {
-			itemRenderer.renderInGui(getScreenHandler().getTemplate().getDefaultStack(), 10, 35);
+			itemRenderer.renderItemInGui(matrices, getScreenHandler().getTemplate().getDefaultStack(), 10, 35);
 		}
 
 		drawMouseoverTooltip(matrices, mouseX - x, mouseY - y);

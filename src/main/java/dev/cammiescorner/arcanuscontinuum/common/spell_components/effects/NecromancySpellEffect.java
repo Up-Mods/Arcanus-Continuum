@@ -10,6 +10,9 @@ import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
@@ -29,7 +32,7 @@ public class NecromancySpellEffect extends SpellEffect {
 	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
 		if(target.getType() != HitResult.Type.MISS && caster != null) {
 			int effectCount = (int) effects.stream().filter(effect -> effect == ArcanusSpellComponents.NECROMANCY).count();
-			double healthMultiplier = 1 + (effectCount - 1) * (-0.075);
+			double healthMultiplier = (effectCount - 1) / 10F;
 			List<? extends NecroSkeletonEntity> list = ((ServerWorld) world).getEntitiesByType(TypeFilter.instanceOf(NecroSkeletonEntity.class), necroSkeletonEntity -> necroSkeletonEntity.getOwnerId().equals(caster.getUuid()));
 
 			for(int i = 0; i < effectCount; i++) {
@@ -39,11 +42,16 @@ public class NecromancySpellEffect extends SpellEffect {
 				NecroSkeletonEntity skeleton = ArcanusEntities.NECRO_SKELETON.create(world);
 
 				if(skeleton != null) {
+					EntityAttributeInstance damage = skeleton.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+
 					skeleton.setPosition(target.getPos());
-					skeleton.setMaxHealth(20 * healthMultiplier * potency);
+					skeleton.setMaxHealth((11 - healthMultiplier) * potency);
 					skeleton.setOwner(caster);
 					skeleton.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
 					skeleton.equipStack(EquipmentSlot.HEAD, new ItemStack(ArcanusItems.WIZARD_HAT));
+
+					if(damage != null)
+						damage.addPersistentModifier(new EntityAttributeModifier("Attack Damage", -(effectCount / 2D) / potency, EntityAttributeModifier.Operation.ADDITION));
 
 					world.spawnEntity(skeleton);
 				}

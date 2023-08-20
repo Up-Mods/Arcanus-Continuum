@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.common.spell_components.effects;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellType;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusDamageSource;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusDamageTypes;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -31,7 +31,7 @@ public class DamageSpellEffect extends SpellEffect {
 					damage *= 1.15F;
 
 				livingEntity.timeUntilRegen = 0;
-				livingEntity.damage(ArcanusDamageSource.getMagicDamage(caster), (float) (damage * effects.stream().filter(effect -> effect == ArcanusSpellComponents.DAMAGE).count() * potency));
+				livingEntity.damage(ArcanusDamageTypes.getMagicDamage(caster), (float) (damage * effects.stream().filter(effect -> effect == ArcanusSpellComponents.DAMAGE).count() * potency));
 			}
 		}
 	}

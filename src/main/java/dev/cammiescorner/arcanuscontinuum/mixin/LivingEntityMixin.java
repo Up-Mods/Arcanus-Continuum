@@ -14,12 +14,14 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.*;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -33,6 +35,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import virtuoel.pehkui.api.ScaleTypes;
 
 import java.util.List;
 import java.util.UUID;
@@ -54,15 +57,25 @@ public abstract class LivingEntityMixin extends Entity {
 	private float arcanuscontinuum$damage(float amount, DamageSource source) {
 		EntityAttributeInstance attributeInstance = getAttributeInstance(ArcanusEntityAttributes.MAGIC_RESISTANCE);
 
-		if(attributeInstance != null && source.isMagic())
-			amount /= Math.max(attributeInstance.getValue(), 0.000001);
+		if(attributeInstance != null && source.isTypeIn(DamageTypeTags.WITCH_RESISTANT_TO))
+			amount /= Math.max((float) attributeInstance.getValue(), 0.000001F);
 
 		if(hasStatusEffect(ArcanusStatusEffects.FORTIFY))
-			amount /= 1 + (getStatusEffect(ArcanusStatusEffects.FORTIFY).getAmplifier() + 1) * 0.25;
+			amount /= 1 + (getStatusEffect(ArcanusStatusEffects.FORTIFY).getAmplifier() + 1) * 0.25F;
 		if(hasStatusEffect(ArcanusStatusEffects.VULNERABILITY))
-			amount *= 1 + 0.8 * ((getStatusEffect(ArcanusStatusEffects.VULNERABILITY).getAmplifier() + 1) / 10F);
+			amount *= 1 + 0.8F * ((getStatusEffect(ArcanusStatusEffects.VULNERABILITY).getAmplifier() + 1) / 10F);
 
 		return amount;
+	}
+
+	@ModifyVariable(method = "handleFallDamage", at = @At("HEAD"), index = 1, argsOnly = true)
+	private float arcanuscontinuum$alterFallDistance(float fallDistance) {
+		float scale = ScaleTypes.MOTION.getScaleData(self).getScale();
+
+		if(scale < 1)
+			fallDistance *= scale / 2;
+
+		return fallDistance;
 	}
 
 	@ModifyArg(method = "fall", at = @At(value = "INVOKE", target = "Lnet/minecraft/particle/BlockStateParticleEffect;<init>(Lnet/minecraft/particle/ParticleType;Lnet/minecraft/block/BlockState;)V"))
@@ -75,7 +88,7 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(method = "handleFallDamage", at = @At("HEAD"), cancellable = true)
 	private void arcanuscontinuum$handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> info) {
-		if(prevVelocity != null && damageSource != DamageSource.STALAGMITE && fallDistance > getSafeFallDistance() && hasStatusEffect(ArcanusStatusEffects.BOUNCY)) {
+		if(prevVelocity != null && !getDamageSources().create(DamageTypes.STALAGMITE).equals(damageSource) && fallDistance > getSafeFallDistance() && hasStatusEffect(ArcanusStatusEffects.BOUNCY)) {
 			if(!world.isClient) {
 				world.playSoundFromEntity(null, this, SoundEvents.BLOCK_SLIME_BLOCK_FALL, getSoundCategory(), 1, 1);
 
@@ -118,7 +131,7 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 	}
 
-	@Inject(method = "createLivingAttributes", at = @At("RETURN"))
+	@Inject(method = "createAttributes", at = @At("RETURN"))
 	private static void arcanuscontinuum$createPlayerAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> info) {
 		info.getReturnValue().add(ArcanusEntityAttributes.MAX_MANA).add(ArcanusEntityAttributes.MANA_REGEN).add(ArcanusEntityAttributes.BURNOUT_REGEN).add(ArcanusEntityAttributes.MANA_LOCK).add(ArcanusEntityAttributes.SPELL_POTENCY).add(ArcanusEntityAttributes.MAGIC_RESISTANCE);
 	}

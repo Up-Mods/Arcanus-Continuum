@@ -18,6 +18,7 @@ import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 import net.tslat.smartbrainlib.api.SmartBrainOwner;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
@@ -53,7 +54,7 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 	}
 
 	public static DefaultAttributeContainer.Builder createAttributes() {
-		return TameableEntity.createMobAttributes()
+		return TameableEntity.createAttributes()
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, 10)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.28);
@@ -203,5 +204,10 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 				// TODO Fix later
 //				new ForgetAttackTargetTask().m_nwhekhlv(target -> !target.isAlive() || target.squaredDistanceTo(this) > (32 * 32) || target instanceof PlayerEntity player && player.isCreative())
 		);
+	}
+
+	@Override
+	public EntityView getEntityView() {
+		return getWorld();
 	}
 }
