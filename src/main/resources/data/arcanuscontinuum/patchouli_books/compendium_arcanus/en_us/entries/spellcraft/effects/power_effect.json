@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "Weight: None$(br)Mana Cost: 2$(br)Cool Down: 0 seconds$(br2)Description:$(br)Applies a redstone pulse to any targeted blocks that can accept it."
     },
     {
       "type": "patchouli:image",

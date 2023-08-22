@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "Weight: None$(br)Mana Cost: 2$(br)Cool Down: 0 seconds$(br2)Description:$(br)Prevents the target from attacking with or using items for a very short period of time."
     },
     {
       "type": "patchouli:image",

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "Opossums are cute, fuzzy creatures that can only be found in the basements of Wizard Towers. They can be tamed with carrots, and will follow you around like any other pet.$(br2)These little guys aren't fighters though, and will run away if they get hurt!"
     },
     {
       "type": "patchouli:image",
@@ -21,6 +21,10 @@
       "images": [
         "arcanuscontinuum:textures/gui/patchouli/entries/wizard_poss.png"
       ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You can also put a wizard hat on a tamed opossum. If you thought this would do anything but make them extra cute, I'm sorry to disappoint.$(br2)Maybe some day they'll learn magic..."
     }
   ]
 }

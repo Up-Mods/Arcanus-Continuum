@@ -56,11 +56,18 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 
 	public Weight getAverageWeight() {
 		int cumulativeWeightIndex = shape.getWeight().ordinal();
+		int effectCount = 0;
 
-		for(SpellEffect effect : effects)
-			cumulativeWeightIndex += effect.getWeight().ordinal();
+		for(int i = 0; i < effects.size(); i++) {
+			SpellEffect effect = effects().get(i);
 
-		return Weight.values()[Math.round(cumulativeWeightIndex / ((float) effects.size() + 1F))];
+			if(effect.getWeight() != Weight.NONE) {
+				cumulativeWeightIndex += effect.getWeight().ordinal();
+				effectCount++;
+			}
+		}
+
+		return Weight.values()[Math.round(cumulativeWeightIndex / ((float) effectCount + 1F))];
 	}
 
 	public double getManaCost() {

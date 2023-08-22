@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "Weight: None$(br)Mana Cost: 5$(br)Cool Down: 0 seconds$(br2)Description:$(br)Places a magical block that has a limited life-span. Good for building in a pinch!"
     },
     {
       "type": "patchouli:image",

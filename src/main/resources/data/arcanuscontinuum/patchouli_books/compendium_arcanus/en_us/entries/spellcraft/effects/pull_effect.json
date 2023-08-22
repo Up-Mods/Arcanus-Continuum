@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "Weight: None$(br)Mana Cost: 1$(br)Cool Down: 0 seconds$(br2)Description:$(br)Pulls the target a small amount towards the caster."
     },
     {
       "type": "patchouli:image",

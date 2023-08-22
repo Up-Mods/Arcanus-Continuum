@@ -118,6 +118,8 @@ public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 			}
 		}
 
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+
 		MutableText weight = Arcanus.translate("spell_book", "weight", getWeight().toString().toLowerCase(Locale.ROOT)).formatted(Formatting.DARK_GREEN);
 		MutableText mana = Text.literal(Arcanus.format(getManaCost())).formatted(Formatting.BLUE);
 		MutableText coolDown = Text.literal(Arcanus.format(getCoolDown() / 20D)).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.RED);

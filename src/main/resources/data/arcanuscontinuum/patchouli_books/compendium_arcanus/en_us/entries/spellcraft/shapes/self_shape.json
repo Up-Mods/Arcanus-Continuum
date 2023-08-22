@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "Weight: Very Light$(br)Mana Cost: 0$(br)Mana Multiplier: -10%$(br)Cool Down: 0.65 seconds$(br2)Description:$(br)Shrouds the caster in magical energy, applying its Spell Effects directly to the caster, and casting any chained Spell Shapes as if it wasn't there."
     },
     {
       "type": "patchouli:image",

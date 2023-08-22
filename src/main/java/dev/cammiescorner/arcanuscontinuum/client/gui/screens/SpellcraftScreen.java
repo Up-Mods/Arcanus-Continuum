@@ -381,6 +381,8 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			drawTexture(matrices, mouseX - x - 12, mouseY - y - 12, 0, 0, 24, 24, 24, 24);
 		}
 
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+
 		int componentCount = spellComponentCount();
 		int maxComponents = ArcanusComponents.maxSpellSize(client.player);
 		int componentCounterColour = 0x5555ff;

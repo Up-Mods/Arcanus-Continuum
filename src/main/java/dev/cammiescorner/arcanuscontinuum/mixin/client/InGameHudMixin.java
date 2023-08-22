@@ -18,7 +18,7 @@ public class InGameHudMixin extends DrawableHelper {
 	private void arcanuscontinuum$moveCrosshair(MatrixStack matrices, int x, int y, int u, int v, int w, int h, Operation<Void> original) {
 		matrices.push();
 		matrices.translate((scaledWidth - 15) / 2F, (scaledHeight - 15) / 2F, 0);
-		original.call(matrices, x, y, u, v, w, h);
+		original.call(matrices, 0, 0, u, v, w, h);
 		matrices.pop();
 	}
 }

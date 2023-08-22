@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "Weight: None$(br)Mana Cost: 6.5$(br)Cool Down: 0 seconds$(br2)Description:$(br)Makes the target less susceptible to damage."
     },
     {
       "type": "patchouli:image",

@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "Weight: Light$(br)Mana Cost: 0$(br)Mana Multiplier: +0%$(br)Cool Down: 1.5 seconds$(br2)Description:$(br)Creates a fast-moving, but short-lived projectile made of magical energy that's unaffected by gravity."
     },
     {
       "type": "patchouli:image",

@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "Weight: None$(br)Mana Cost: 7.5$(br)Cool Down: 0 seconds$(br2)Description:$(br)Teleports the caster, but only a short distance."
     },
     {
       "type": "patchouli:image",

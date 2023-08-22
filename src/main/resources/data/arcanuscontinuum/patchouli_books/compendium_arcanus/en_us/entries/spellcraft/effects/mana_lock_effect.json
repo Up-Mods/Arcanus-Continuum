@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "Weight: None$(br)Mana Cost: 8$(br)Cool Down: 0 seconds$(br2)Description:$(br)Applies Mana Lock to the target for a short while, reducing their maximum mana."
     },
     {
       "type": "patchouli:image",

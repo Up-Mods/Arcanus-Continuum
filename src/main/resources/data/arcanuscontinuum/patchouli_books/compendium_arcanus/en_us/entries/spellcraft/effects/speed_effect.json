@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "Weight: None$(br)Mana Cost: 7$(br)Cool Down: 0 seconds$(br2)Description:$(br)Applies the Speed effect to the target for a short while."
     },
     {
       "type": "patchouli:image",

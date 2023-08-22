@@ -223,6 +223,9 @@ public class ArcanusClient implements ClientModInitializer {
 					// render mana lock
 					i = (int) Math.ceil(width * (manaLock / maxMana));
 					DrawableHelper.drawTexture(matrices, x + (width - i), y + 5, width - i, 80, i, 23, 256, 256);
+
+					RenderSystem.disableBlend();
+					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 				}
 			}
 		});

@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "Weight: None$(br)Mana Cost: 8$(br)Cool Down: 0 seconds$(br2)Description:$(br)Creates a magical shield around the target, protecting them from any attackers outside the shield."
     },
     {
       "type": "patchouli:image",
