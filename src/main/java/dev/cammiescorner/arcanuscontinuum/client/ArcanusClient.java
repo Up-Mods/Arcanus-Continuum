@@ -27,7 +27,7 @@ import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncSupporterData;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncWorkbenchModePacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
 import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
-import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.client.MinecraftClient;
@@ -121,10 +121,10 @@ public class ArcanusClient implements ClientModInitializer {
 				StaffItemRenderer staffItemRenderer = new StaffItemRenderer(itemId);
 				ResourceLoader.get(ResourceType.CLIENT_RESOURCES).registerReloader(staffItemRenderer);
 				BuiltinItemRendererRegistry.INSTANCE.register(item, staffItemRenderer);
-				ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
-					out.accept(new ModelIdentifier(itemId.withPath(itemId.getPath() + "_gui"), "inventory"));
-					out.accept(new ModelIdentifier(itemId.withPath(itemId.getPath() + "_handheld"), "inventory"));
-				});
+				ModelLoadingPlugin.register(ctx -> ctx.addModels(
+					new ModelIdentifier(itemId.withPath(itemId.getPath() + "_gui"), "inventory"),
+					new ModelIdentifier(itemId.withPath(itemId.getPath() + "_handheld"), "inventory")
+				));
 			}
 		}
 
