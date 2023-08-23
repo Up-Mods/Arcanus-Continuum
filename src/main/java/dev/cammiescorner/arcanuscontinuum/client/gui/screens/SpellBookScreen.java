@@ -6,14 +6,14 @@ import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.*;
 import dev.cammiescorner.arcanuscontinuum.common.items.SpellBookItem;
 import dev.cammiescorner.arcanuscontinuum.common.screens.SpellBookScreenHandler;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.text.CommonTexts;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -42,23 +42,22 @@ public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 		y = (height - 180) / 2;
 		playerInventoryTitleY = -10000;
 
-		addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> closeScreen()).position(width / 2 - 49, y + 170).size(98, 20).build());
+		addDrawableChild(ButtonWidget.builder(CommonTexts.DONE, (button) -> closeScreen()).position(width / 2 - 49, y + 170).size(98, 20).build());
 		SPELL_GROUPS.addAll(SpellBookItem.getSpell(getScreenHandler().getSpellBook()).getComponentGroups());
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-		this.renderBackground(matrices);
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+	protected void drawBackground(GuiGraphics gui, float delta, int mouseX, int mouseY) {
+		this.renderBackground(gui);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-		RenderSystem.setShaderTexture(0, BOOK_TEXTURE);
-		DrawableHelper.drawTexture(matrices, x, y, 0, 0, 256, 180, 256, 256);
+		gui.drawTexture(BOOK_TEXTURE, x, y, 0, 0, 256, 180, 256, 256);
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
+	protected void drawForeground(GuiGraphics gui, int mouseX, int mouseY) {
+		MatrixStack matrices = gui.getMatrices();
 		MutableText title = this.title.copy().formatted(Formatting.BOLD, Formatting.UNDERLINE);
-		textRenderer.draw(matrices, title, 128 - textRenderer.getWidth(title) * 0.5F, 11, 0x50505D);
+		gui.drawText(textRenderer, title, 128 - textRenderer.getWidth(title) / 2, 11, 0x50505D, false);
 
 		for(int i = 0; i < SPELL_GROUPS.size(); i++) {
 			SpellGroup group = SPELL_GROUPS.get(i);
@@ -106,16 +105,14 @@ public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 
 			for(int j = 0; j < positions.size(); j++) {
 				Vector2i pos = positions.get(j);
-				RenderSystem.setShader(GameRenderer::getPositionTexShader);
 				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-				RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
-				drawTexture(matrices, pos.x - 3, pos.y - 3, 60, 208, 30, 30, 384, 256);
+				gui.drawTexture(PANEL_TEXTURE, pos.x - 3, pos.y - 3, 60, 208, 30, 30, 384, 256);
 
 				RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
-				drawTexture(matrices, pos.x - 3, pos.y - 3, 30, 208, 30, 30, 384, 256);
+				gui.drawTexture(PANEL_TEXTURE, pos.x - 3, pos.y - 3, 30, 208, 30, 30, 384, 256);
 
 				RenderSystem.setShaderTexture(0, group.getAllComponents().toList().get(j).getTexture());
-				drawTexture(matrices, pos.x, pos.y, 0, 0, 24, 24, 24, 24);
+				gui.drawTexture(PANEL_TEXTURE, pos.x, pos.y, 0, 0, 24, 24, 24, 24);
 			}
 		}
 
@@ -125,9 +122,9 @@ public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 		MutableText mana = Text.literal(Arcanus.format(getManaCost())).formatted(Formatting.BLUE);
 		MutableText coolDown = Text.literal(Arcanus.format(getCoolDown() / 20D)).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.RED);
 
-		textRenderer.draw(matrices, weight, 240 - textRenderer.getWidth(weight), 7, 0xffffff);
-		textRenderer.draw(matrices, mana, 240 - textRenderer.getWidth(mana), 17, 0xffffff);
-		textRenderer.draw(matrices, coolDown, 240 - textRenderer.getWidth(coolDown), 27, 0xffffff);
+		gui.drawText(textRenderer, weight, 240 - textRenderer.getWidth(weight), 7, 0xffffff, false);
+		gui.drawText(textRenderer, mana, 240 - textRenderer.getWidth(mana), 17, 0xffffff, false);
+		gui.drawText(textRenderer, coolDown, 240 - textRenderer.getWidth(coolDown), 27, 0xffffff, false);
 
 		for(SpellGroup group : SPELL_GROUPS) {
 			for(int i = 0; i < group.positions().size(); i++) {
@@ -146,7 +143,7 @@ public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 
 					textList.add(Arcanus.translate("spell_book", "cool_down").append(": ").formatted(Formatting.RED).append(Text.literal(component.getCoolDownAsString()).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.GRAY)));
 
-					renderTooltip(matrices, textList, mouseX - x, mouseY - y);
+					gui.drawTooltip(textRenderer, textList, mouseX - x, mouseY - y);
 				}
 			}
 		}

@@ -5,7 +5,7 @@ import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.screen.narration.NarrationPart;
 import net.minecraft.client.gui.widget.PressableWidget;
@@ -43,9 +43,9 @@ public class SpellComponentWidget extends PressableWidget {
 
 		this.tooltipSupplier = new TooltipSupplier() {
 			@Override
-			public void onTooltip(SpellComponentWidget spellComponentWidget, MatrixStack matrices, int mouseX, int mouseY) {
+			public void onTooltip(SpellComponentWidget spellComponentWidget, GuiGraphics gui, int mouseX, int mouseY) {
 				if(client.currentScreen != null)
-					client.currentScreen.renderTooltip(matrices, textList, mouseX, mouseY);
+					gui.drawTooltip(client.textRenderer, textList, mouseX, mouseY);
 			}
 
 			@Override
@@ -61,15 +61,13 @@ public class SpellComponentWidget extends PressableWidget {
 	}
 
 	@Override
-	public void drawWidget(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+	public void drawWidget(GuiGraphics gui, int mouseX, int mouseY, float delta) {
 		RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
-		RenderSystem.setShaderTexture(0, component.getTexture());
-		DrawableHelper.drawTexture(matrices, getX(), getY(), 0, 0, 24, 24, 24, 24);
+		gui.drawTexture(component.getTexture(), getX(), getY(), 0, 0, 24, 24, 24, 24);
 	}
 
-	public void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
-		tooltipSupplier.onTooltip(this, matrices, mouseX, mouseY);
+	public void renderTooltip(GuiGraphics gui, int mouseX, int mouseY) {
+		tooltipSupplier.onTooltip(this, gui, mouseX, mouseY);
 	}
 
 	@Override
@@ -83,7 +81,7 @@ public class SpellComponentWidget extends PressableWidget {
 	}
 
 	public interface TooltipSupplier {
-		void onTooltip(SpellComponentWidget spellComponentWidget, MatrixStack matrixStack, int i, int j);
+		void onTooltip(SpellComponentWidget spellComponentWidget, GuiGraphics gui, int i, int j);
 
 		default void supply(Consumer<Text> consumer) {
 		}

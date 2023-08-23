@@ -16,7 +16,7 @@ import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanuscontinuum.common.screens.SpellcraftScreenHandler;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -24,7 +24,7 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.ScreenTexts;
+import net.minecraft.text.CommonTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -110,19 +110,17 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-		this.renderBackground(matrices);
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+	protected void drawBackground(GuiGraphics gui, float delta, int mouseX, int mouseY) {
+		this.renderBackground(gui);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-		RenderSystem.setShaderTexture(0, BOOK_TEXTURE);
-		DrawableHelper.drawTexture(matrices, x, y, 0, 0, 256, 180, 256, 256);
+		gui.drawTexture(BOOK_TEXTURE, x, y, 0, 0, 256, 180, 256, 256);
 
 		RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
-		DrawableHelper.drawTexture(matrices, x - 62, y + 1, 0, 0, 380, 178, 384, 256);
+		gui.drawTexture(PANEL_TEXTURE, x - 62, y + 1, 0, 0, 380, 178, 384, 256);
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
+	protected void drawForeground(GuiGraphics gui, int mouseX, int mouseY) {
 		Rectangle leftKnob = getLeftScrollKnob();
 		Rectangle rightKnob = getRightScrollKnob();
 
@@ -130,12 +128,12 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
 
-		DrawableHelper.drawTexture(matrices, leftKnob.x(), leftKnob.y(), draggingLeft ? 12 : 0, 184, leftKnob.width(), leftKnob.height(), 384, 256);
-		DrawableHelper.drawTexture(matrices, rightKnob.x(), rightKnob.y(), draggingRight ? 12 : 0, 184, rightKnob.width(), rightKnob.height(), 384, 256);
+		gui.drawTexture(PANEL_TEXTURE, leftKnob.x(), leftKnob.y(), draggingLeft ? 12 : 0, 184, leftKnob.width(), leftKnob.height(), 384, 256);
+		gui.drawTexture(PANEL_TEXTURE, rightKnob.x(), rightKnob.y(), draggingRight ? 12 : 0, 184, rightKnob.width(), rightKnob.height(), 384, 256);
 
-		drawWidgets(matrices, mouseX, mouseY, MinecraftClient.getInstance().getTickDelta());
+		drawWidgets(gui, mouseX, mouseY, MinecraftClient.getInstance().getTickDelta());
 
-		super.drawForeground(matrices, mouseX, mouseY);
+		super.drawForeground(gui, mouseX, mouseY);
 	}
 
 	@Override
@@ -261,7 +259,8 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		spellEffectWidgets.clear();
 	}
 
-	private void drawWidgets(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+	private void drawWidgets(GuiGraphics gui, int mouseX, int mouseY, float delta) {
+		MatrixStack matrices = gui.getMatrices();
 		int scale = (int) client.getWindow().getScaleFactor();
 
 		// Render Spell Shapes
@@ -270,14 +269,12 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		for(int i = 0; i < spellShapeWidgets.size(); i++) {
 			SpellComponentWidget widget = spellShapeWidgets.get(i);
 			widget.setY(8 + (i * 28) - leftScroll * 14);
-			widget.render(matrices, mouseX - x, mouseY - y, delta);
+			widget.render(gui, mouseX - x, mouseY - y, delta);
 
-			RenderSystem.setShader(GameRenderer::getPositionTexShader);
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-			RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
 
 			if(widget.isHoveredOrFocused())
-				drawTexture(matrices, widget.getX() - 3, widget.getY() - 3, 0, 208, 30, 30, 384, 256);
+				gui.drawTexture(PANEL_TEXTURE, widget.getX() - 3, widget.getY() - 3, 0, 208, 30, 30, 384, 256);
 		}
 
 		RenderSystem.disableScissor();
@@ -288,14 +285,12 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		for(int i = 0; i < spellEffectWidgets.size(); i++) {
 			SpellComponentWidget widget = spellEffectWidgets.get(i);
 			widget.setY(8 + (i * 28) - rightScroll * 14);
-			widget.render(matrices, mouseX - x, mouseY - y, delta);
+			widget.render(gui, mouseX - x, mouseY - y, delta);
 
-			RenderSystem.setShader(GameRenderer::getPositionTexShader);
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-			RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
 
 			if(widget.isHoveredOrFocused())
-				drawTexture(matrices, widget.getX() - 3, widget.getY() - 3, 0, 208, 30, 30, 384, 256);
+				gui.drawTexture(PANEL_TEXTURE, widget.getX() - 3, widget.getY() - 3, 0, 208, 30, 30, 384, 256);
 		}
 
 		RenderSystem.disableScissor();
@@ -346,16 +341,14 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 			for(int j = 0; j < positions.size(); j++) {
 				Vector2i pos = positions.get(j);
-				RenderSystem.setShader(GameRenderer::getPositionTexShader);
 				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-				RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
-				drawTexture(matrices, pos.x - 3, pos.y - 3, 60, 208, 30, 30, 384, 256);
+				gui.drawTexture(PANEL_TEXTURE, pos.x - 3, pos.y - 3, 60, 208, 30, 30, 384, 256);
 
 				RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
-				drawTexture(matrices, pos.x - 3, pos.y - 3, 30, 208, 30, 30, 384, 256);
+				gui.drawTexture(PANEL_TEXTURE, pos.x - 3, pos.y - 3, 30, 208, 30, 30, 384, 256);
 
 				RenderSystem.setShaderTexture(0, group.getAllComponents().toList().get(j).getTexture());
-				drawTexture(matrices, pos.x, pos.y, 0, 0, 24, 24, 24, 24);
+				gui.drawTexture(PANEL_TEXTURE, pos.x, pos.y, 0, 0, 24, 24, 24, 24);
 			}
 		}
 
@@ -369,17 +362,15 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			float g = (colour >> 8 & 255) / 255F;
 			float b = (colour & 255) / 255F;
 
-			RenderSystem.setShader(GameRenderer::getPositionTexShader);
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-			RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
-			drawTexture(matrices, mouseX - x - 15, mouseY - y - 15, 60, 208, 30, 30, 384, 256);
+			gui.drawTexture(PANEL_TEXTURE, mouseX - x - 15, mouseY - y - 15, 60, 208, 30, 30, 384, 256);
 
 			RenderSystem.setShaderColor(r, g, b, 1F);
-			drawTexture(matrices, mouseX - x - 15, mouseY - y - 15, 30, 208, 30, 30, 384, 256);
+			gui.drawTexture(PANEL_TEXTURE, mouseX - x - 15, mouseY - y - 15, 30, 208, 30, 30, 384, 256);
 
 			RenderSystem.setShaderColor(r, g, b, 1F);
 			RenderSystem.setShaderTexture(0, draggedComponent.getTexture());
-			drawTexture(matrices, mouseX - x - 12, mouseY - y - 12, 0, 0, 24, 24, 24, 24);
+			gui.drawTexture(PANEL_TEXTURE, mouseX - x - 12, mouseY - y - 12, 0, 0, 24, 24, 24, 24);
 		}
 
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
@@ -394,28 +385,28 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		String spellComponentCount = String.valueOf(componentCount);
 		String maxSpellComponentCount = String.valueOf(maxComponents);
 
-		textRenderer.draw(matrices, spellComponentCount, 118 - textRenderer.getWidth(spellComponentCount) * 0.5F, 11, componentCounterColour);
-		textRenderer.draw(matrices, " / ", 128 - textRenderer.getWidth(" / ") * 0.5F, 11, 0x555555);
-		textRenderer.draw(matrices, maxSpellComponentCount, 138 - textRenderer.getWidth(maxSpellComponentCount) * 0.5F, 11, componentCounterColour);
+		gui.drawText(textRenderer, spellComponentCount, 118 - textRenderer.getWidth(spellComponentCount) / 2, 11, componentCounterColour, false);
+		gui.drawText(textRenderer, " / ", 128 - textRenderer.getWidth(" / ") / 2, 11, 0x555555, false);
+		gui.drawText(textRenderer, maxSpellComponentCount, 138 - textRenderer.getWidth(maxSpellComponentCount) / 2, 11, componentCounterColour, false);
 
 		MutableText weight = Arcanus.translate("spell_book", "weight", getWeight().toString().toLowerCase(Locale.ROOT)).formatted(Formatting.DARK_GREEN);
 		MutableText mana = Text.literal(Arcanus.format(getManaCost())).formatted(Formatting.BLUE);
 		MutableText coolDown = Text.literal(Arcanus.format(getCoolDown() / 20D)).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.RED);
 
-		textRenderer.draw(matrices, weight, 240 - textRenderer.getWidth(weight), 7, 0xffffff);
-		textRenderer.draw(matrices, mana, 240 - textRenderer.getWidth(mana), 17, 0xffffff);
-		textRenderer.draw(matrices, coolDown, 240 - textRenderer.getWidth(coolDown), 27, 0xffffff);
+		gui.drawText(textRenderer, weight, 240 - textRenderer.getWidth(weight), 7, 0xffffff, false);
+		gui.drawText(textRenderer, mana, 240 - textRenderer.getWidth(mana), 17, 0xffffff, false);
+		gui.drawText(textRenderer, coolDown, 240 - textRenderer.getWidth(coolDown), 27, 0xffffff, false);
 
 		if(isPointWithinBounds(109, 8, textRenderer.getWidth("12 / 12"), textRenderer.fontHeight + 4, mouseX, mouseY))
-			renderTooltip(matrices, Arcanus.translate("screen", "tooltip.component_count"), mouseX - x, mouseY - y);
+			gui.drawTooltip(textRenderer, Arcanus.translate("screen", "tooltip.component_count"), mouseX - x, mouseY - y);
 
 		for(SpellComponentWidget widget : spellShapeWidgets)
 			if(widget.isHoveredOrFocused())
-				widget.renderTooltip(matrices, mouseX - x, mouseY - y);
+				widget.renderTooltip(gui, mouseX - x, mouseY - y);
 
 		for(SpellComponentWidget widget : spellEffectWidgets)
 			if(widget.isHoveredOrFocused())
-				widget.renderTooltip(matrices, mouseX - x, mouseY - y);
+				widget.renderTooltip(gui, mouseX - x, mouseY - y);
 
 		for(SpellGroup group : spellGroups) {
 			for(int i = 0; i < group.positions().size(); i++) {
@@ -434,14 +425,14 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 					textList.add(Arcanus.translate("spell_book", "cool_down").append(": ").formatted(Formatting.RED).append(Text.literal(component.getCoolDownAsString()).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.GRAY)));
 
-					renderTooltip(matrices, textList, mouseX - x, mouseY - y);
+					gui.drawTooltip(textRenderer, textList, mouseX - x, mouseY - y);
 				}
 			}
 		}
 	}
 
 	protected void addCloseButtons() {
-		addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> {
+		addDrawableChild(ButtonWidget.builder(CommonTexts.DONE, (button) -> {
 			SaveBookDataPacket.send(getScreenHandler().getPos(), getSpell());
 			closeScreen();
 		}).position(width / 2 - 100, y + 170).size(98, 20).build());
