@@ -27,7 +27,7 @@ public class SmiteEntityRenderer extends EntityRenderer<SmiteEntity> {
 	@Override
 	public void render(SmiteEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, int light) {
 		super.render(entity, yaw, tickDelta, matrices, provider, light);
-		renderBeam(entity, matrices, provider, 0, (float) ((entity.world.getHeight() + 2048) - entity.getY()), 0, tickDelta, OverlayTexture.DEFAULT_UV, light);
+		renderBeam(entity, matrices, provider, 0, (float) ((entity.getWorld().getHeight() + 2048) - entity.getY()), 0, tickDelta, OverlayTexture.DEFAULT_UV, light);
 	}
 
 	public void renderBeam(SmiteEntity entity, MatrixStack matrices, VertexConsumerProvider provider, float x, float y, float z, float tickDelta, int overlay, int light) {

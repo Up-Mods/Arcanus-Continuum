@@ -25,7 +25,7 @@ public class SizeComponent  implements ServerTickingComponent {
 				float normalHeight = ScaleTypes.HEIGHT.getDefaultBaseScale() / ScaleTypes.HEIGHT.getScaleData(entity).getBaseScale();
 				Box box = new Box(entity.getBoundingBox().minX, entity.getBoundingBox().minY, entity.getBoundingBox().minZ, entity.getBoundingBox().maxX, entity.getBoundingBox().maxY * normalHeight, entity.getBoundingBox().maxZ);
 
-				if(entity.world.isSpaceEmpty(entity, box) || ScaleTypes.HEIGHT.getScaleData(entity).getBaseScale() > ScaleTypes.HEIGHT.getDefaultBaseScale())
+				if(entity.getWorld().isSpaceEmpty(entity, box) || ScaleTypes.HEIGHT.getScaleData(entity).getBaseScale() > ScaleTypes.HEIGHT.getDefaultBaseScale())
 					resetScale();
 			}
 			else {

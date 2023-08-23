@@ -313,7 +313,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 	@Override
 	public boolean matches(Recipe<? super CraftingInventory> recipe) {
 		if(mode == WorkbenchMode.SPELLBINDING)
-			return recipe.matches(input, player.world);
+			return recipe.matches(input, player.getWorld());
 		else
 			return true;
 	}

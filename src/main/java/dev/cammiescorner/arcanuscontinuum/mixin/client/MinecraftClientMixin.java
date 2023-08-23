@@ -123,7 +123,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 				SyncPatternPacket.send(pattern);
 				player.swingHand(Hand.MAIN_HAND);
 				player.resetLastAttackedTicks();
-				player.world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1F, 1.3F, 1L);
+				player.getWorld().playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1F, 1.3F, 1L);
 
 				if(pattern.size() >= 3)
 					lastMouseDown = options.attackKey;
@@ -150,7 +150,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 				SyncPatternPacket.send(pattern);
 				player.swingHand(Hand.MAIN_HAND);
 				player.resetLastAttackedTicks();
-				player.world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1F, 1.1F, 1L);
+				player.getWorld().playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1F, 1.1F, 1L);
 
 				if(pattern.size() >= 3)
 					lastMouseDown = options.useKey;

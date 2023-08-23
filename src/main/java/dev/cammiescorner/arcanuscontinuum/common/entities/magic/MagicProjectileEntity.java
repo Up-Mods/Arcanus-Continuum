@@ -40,7 +40,7 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 
 	@Override
 	public void tick() {
-		if(!world.isClient() && (getOwner() == null || !getOwner().isAlive() || (getShape() == ArcanusSpellComponents.PROJECTILE && age >= 20)))
+		if(!getWorld().isClient() && (getOwner() == null || !getOwner().isAlive() || (getShape() == ArcanusSpellComponents.PROJECTILE && age >= 20)))
 			kill();
 
 		super.tick();
@@ -53,9 +53,9 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 
 	@Override
 	protected void onEntityHit(EntityHitResult target) {
-		if(world instanceof ServerWorld server) {
+		if(getWorld() instanceof ServerWorld server) {
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect((LivingEntity) getOwner(), this, world, target, effects, stack, potency);
+				effect.effect((LivingEntity) getOwner(), this, getWorld(), target, effects, stack, potency);
 
 			if(getOwner() instanceof LivingEntity caster)
 				SpellShape.castNext(caster, target.getPos(), target.getEntity(), server, stack, spellGroups, groupIndex, potency);
@@ -67,9 +67,9 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 
 	@Override
 	protected void onBlockHit(BlockHitResult target) {
-		if(getOwner() instanceof LivingEntity caster && world instanceof ServerWorld server) {
+		if(getOwner() instanceof LivingEntity caster && getWorld() instanceof ServerWorld server) {
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, this, world, target, effects, stack, potency);
+				effect.effect(caster, this, getWorld(), target, effects, stack, potency);
 
 			SpellShape.castNext(caster, target.getPos(), this, server, stack, spellGroups, groupIndex, potency);
 		}

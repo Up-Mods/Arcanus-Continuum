@@ -58,7 +58,7 @@ public class NecroSkeletonEntity extends AbstractSkeletonEntity implements Smart
 
 	@Override
 	public void tick() {
-		if(!world.isClient() && (getCaster() == null || !getCaster().isAlive()))
+		if(!getWorld().isClient() && (getCaster() == null || !getCaster().isAlive()))
 			kill();
 
 		super.tick();
@@ -144,7 +144,7 @@ public class NecroSkeletonEntity extends AbstractSkeletonEntity implements Smart
 						new SetPlayerLookTarget<>(),
 						new SetRandomLookTarget<>(),
 						new FollowEntity<>().following(self -> {
-							if(world instanceof ServerWorld server)
+							if(getWorld() instanceof ServerWorld server)
 								return server.getEntity(ownerId);
 
 							return null;
@@ -168,7 +168,7 @@ public class NecroSkeletonEntity extends AbstractSkeletonEntity implements Smart
 	}
 
 	private LivingEntity getCaster() {
-		if(world instanceof ServerWorld serverWorld && serverWorld.getEntity(ownerId) instanceof LivingEntity caster)
+		if(getWorld() instanceof ServerWorld serverWorld && serverWorld.getEntity(ownerId) instanceof LivingEntity caster)
 			return caster;
 		return null;
 	}

@@ -56,7 +56,7 @@ public class BeamEntity extends Entity {
 
 	@Override
 	public void tick() {
-		if(!world.isClient() && (age >= dataTracker.get(MAX_AGE) || (getCaster() == null || squaredDistanceTo(getCaster()) > 273 || !getCaster().isAlive()) || (dataTracker.get(IS_ON_ENTITY) ? getVehicle() == null : world.isAir(getBlockPos()))))
+		if(!getWorld().isClient() && (age >= dataTracker.get(MAX_AGE) || (getCaster() == null || squaredDistanceTo(getCaster()) > 273 || !getCaster().isAlive()) || (dataTracker.get(IS_ON_ENTITY) ? getVehicle() == null : getWorld().isAir(getBlockPos()))))
 			kill();
 
 		super.tick();
@@ -64,14 +64,14 @@ public class BeamEntity extends Entity {
 
 	@Override
 	public void kill() {
-		if(!world.isClient() && getCaster() != null) {
+		if(!getWorld().isClient() && getCaster() != null) {
 			if(squaredDistanceTo(getCaster()) <= 273) {
 				HitResult target = dataTracker.get(IS_ON_ENTITY) && getVehicle() != null ? new EntityHitResult(getVehicle()) : new BlockHitResult(getPos(), Direction.UP, getBlockPos(), true);
 
 				for(SpellEffect effect : new HashSet<>(effects))
-					effect.effect(getCaster(), this, world, target, effects, stack, potency + 0.15);
+					effect.effect(getCaster(), this, getWorld(), target, effects, stack, potency + 0.15);
 
-				SpellShape.castNext(getCaster(), target.getPos(), this, (ServerWorld) world, stack, groups, groupIndex, potency);
+				SpellShape.castNext(getCaster(), target.getPos(), this, (ServerWorld) getWorld(), stack, groups, groupIndex, potency);
 			}
 		}
 
@@ -154,9 +154,9 @@ public class BeamEntity extends Entity {
 	}
 
 	public LivingEntity getCaster() {
-		if(world instanceof ServerWorld serverWorld && serverWorld.getEntity(casterId) instanceof LivingEntity caster)
+		if(getWorld() instanceof ServerWorld serverWorld && serverWorld.getEntity(casterId) instanceof LivingEntity caster)
 			return caster;
-		else if(world.isClient() && world.getEntityById(dataTracker.get(OWNER_ID)) instanceof LivingEntity caster)
+		else if(getWorld().isClient() && getWorld().getEntityById(dataTracker.get(OWNER_ID)) instanceof LivingEntity caster)
 			return caster;
 
 		return null;

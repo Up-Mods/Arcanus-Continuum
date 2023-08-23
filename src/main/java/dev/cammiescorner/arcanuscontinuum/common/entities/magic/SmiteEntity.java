@@ -39,22 +39,22 @@ public class SmiteEntity extends Entity {
 
 	@Override
 	public void tick() {
-		if(!world.isClient() && (getCaster() == null || !getCaster().isAlive()))
+		if(!getWorld().isClient() && (getCaster() == null || !getCaster().isAlive()))
 			kill();
 
-		if(!world.isClient()) {
+		if(!getWorld().isClient()) {
 			if(age <= 9) {
-				Box box = new Box(getX() - 4, getY() - 1, getZ() - 4, getX() + 4, (world.getHeight() + 2048) - getY(), getZ() + 4);
+				Box box = new Box(getX() - 4, getY() - 1, getZ() - 4, getX() + 4, (getWorld().getHeight() + 2048) - getY(), getZ() + 4);
 
 				for(SpellEffect effect : new HashSet<>(effects)) {
 					if(effect.shouldTriggerOnceOnExplosion()) {
-						effect.effect(getCaster(), this, world, new EntityHitResult(this), effects, stack, potency);
+						effect.effect(getCaster(), this, getWorld(), new EntityHitResult(this), effects, stack, potency);
 						continue;
 					}
 
-					world.getEntitiesByClass(LivingEntity.class, box, livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator()).forEach(entity -> {
+					getWorld().getEntitiesByClass(LivingEntity.class, box, livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator()).forEach(entity -> {
 						if(!hasHit.contains(entity.getUuid())) {
-							effect.effect(getCaster(), this, world, new EntityHitResult(entity), effects, stack, potency + 0.35);
+							effect.effect(getCaster(), this, getWorld(), new EntityHitResult(entity), effects, stack, potency + 0.35);
 
 							hasHit.add(entity.getUuid());
 						}
@@ -75,7 +75,7 @@ public class SmiteEntity extends Entity {
 	@ClientOnly
 	public void clientTick() {
 		if(age == 1)
-			world.playSound(getX(), getY(), getZ(), ArcanusSoundEvents.SMITE, SoundCategory.NEUTRAL, MathHelper.clamp(1 - (distanceTo(MinecraftClient.getInstance().player) / 100F), 0, 1), (1F + (random.nextFloat() - random.nextFloat()) * 0.2F) * 0.7F, false);
+			getWorld().playSound(getX(), getY(), getZ(), ArcanusSoundEvents.SMITE, SoundCategory.NEUTRAL, MathHelper.clamp(1 - (distanceTo(MinecraftClient.getInstance().player) / 100F), 0, 1), (1F + (random.nextFloat() - random.nextFloat()) * 0.2F) * 0.7F, false);
 	}
 
 	@Override
@@ -129,7 +129,7 @@ public class SmiteEntity extends Entity {
 	}
 
 	private LivingEntity getCaster() {
-		if(world instanceof ServerWorld serverWorld && serverWorld.getEntity(casterId) instanceof LivingEntity caster)
+		if(getWorld() instanceof ServerWorld serverWorld && serverWorld.getEntity(casterId) instanceof LivingEntity caster)
 			return caster;
 
 		return null;

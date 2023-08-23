@@ -24,7 +24,7 @@ public class ArcanusHelper {
 		Vec3d startPos = origin.getCameraPosVec(1F);
 		Vec3d rotation = origin.getRotationVec(1F);
 		Vec3d endPos = startPos.add(rotation.multiply(maxDistance));
-		HitResult hitResult = origin.world.raycast(new RaycastContext(startPos, endPos, RaycastContext.ShapeType.COLLIDER, includeFluids ? RaycastContext.FluidHandling.ANY : RaycastContext.FluidHandling.NONE, origin));
+		HitResult hitResult = origin.getWorld().raycast(new RaycastContext(startPos, endPos, RaycastContext.ShapeType.COLLIDER, includeFluids ? RaycastContext.FluidHandling.ANY : RaycastContext.FluidHandling.NONE, origin));
 
 		if(hitResult.getType() != HitResult.Type.MISS)
 			endPos = hitResult.getPos();

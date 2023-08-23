@@ -99,17 +99,17 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 			}
 		}
 		else if(handStack.isOf(Items.CARROT)) {
-			if(!world.isClient) {
+			if(!getWorld().isClient) {
 				if(!player.isCreative())
 					handStack.decrement(1);
 
 				if(random.nextInt(3) == 0) {
 					setOwner(player);
 					navigation.stop();
-					world.sendEntityStatus(this, (byte) 7);
+					getWorld().sendEntityStatus(this, (byte) 7);
 				}
 				else {
-					world.sendEntityStatus(this, (byte) 6);
+					getWorld().sendEntityStatus(this, (byte) 6);
 				}
 
 				return ActionResult.SUCCESS;

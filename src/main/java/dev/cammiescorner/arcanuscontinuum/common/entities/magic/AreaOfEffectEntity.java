@@ -41,13 +41,13 @@ public class AreaOfEffectEntity extends Entity {
 
 	@Override
 	public void tick() {
-		if(!world.isClient() && (getCaster() == null || !getCaster().isAlive()))
+		if(!getWorld().isClient() && (getCaster() == null || !getCaster().isAlive()))
 			kill();
 
-		List<AreaOfEffectEntity> list = world.getEntitiesByClass(AreaOfEffectEntity.class, getBoundingBox(), EntityPredicates.VALID_ENTITY);
+		List<AreaOfEffectEntity> list = getWorld().getEntitiesByClass(AreaOfEffectEntity.class, getBoundingBox(), EntityPredicates.VALID_ENTITY);
 
 		if(!list.isEmpty()) {
-			int i = world.getGameRules().getInt(GameRules.MAX_ENTITY_CRAMMING);
+			int i = getWorld().getGameRules().getInt(GameRules.MAX_ENTITY_CRAMMING);
 
 			if(i > 0 && list.size() > i - 1) {
 				int j = 0;
@@ -62,7 +62,7 @@ public class AreaOfEffectEntity extends Entity {
 			}
 		}
 
-		if(!world.isClient()) {
+		if(!getWorld().isClient()) {
 			if(trueAge <= 90 && trueAge > 0) {
 				if(trueAge % 30 == 0) {
 					Box box = new Box(-2, 0, -2, 2, 2.5, 2).offset(getPos());
@@ -71,12 +71,12 @@ public class AreaOfEffectEntity extends Entity {
 						if(effect.shouldTriggerOnceOnExplosion())
 							continue;
 
-						world.getEntitiesByClass(LivingEntity.class, box, livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator()).forEach(entity -> {
-							effect.effect(getCaster(), this, world, new EntityHitResult(entity), effects, stack, potency);
+						getWorld().getEntitiesByClass(LivingEntity.class, box, livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator()).forEach(entity -> {
+							effect.effect(getCaster(), this, getWorld(), new EntityHitResult(entity), effects, stack, potency);
 						});
 					}
 
-					SpellShape.castNext(getCaster(), getPos(), this, (ServerWorld) world, stack, spellGroups, groupIndex, potency);
+					SpellShape.castNext(getCaster(), getPos(), this, (ServerWorld) getWorld(), stack, spellGroups, groupIndex, potency);
 
 					if(!isFocused)
 						setYaw(getYaw() + 110 + random.nextInt(21));
@@ -85,7 +85,7 @@ public class AreaOfEffectEntity extends Entity {
 				if(trueAge % 50 == 0) {
 					for(SpellEffect effect : new HashSet<>(effects))
 						if(effect.shouldTriggerOnceOnExplosion())
-							effect.effect(getCaster(), this, world, new EntityHitResult(this), effects, stack, potency);
+							effect.effect(getCaster(), this, getWorld(), new EntityHitResult(this), effects, stack, potency);
 				}
 			}
 
@@ -152,7 +152,7 @@ public class AreaOfEffectEntity extends Entity {
 	}
 
 	private LivingEntity getCaster() {
-		if(world instanceof ServerWorld serverWorld && serverWorld.getEntity(casterId) instanceof LivingEntity caster)
+		if(getWorld() instanceof ServerWorld serverWorld && serverWorld.getEntity(casterId) instanceof LivingEntity caster)
 			return caster;
 
 		return null;

@@ -31,14 +31,14 @@ public class ManaShieldEntity extends Entity {
 
 	@Override
 	public void tick() {
-		if(!world.isClient() && (getCaster() == null || !getCaster().isAlive()))
+		if(!getWorld().isClient() && (getCaster() == null || !getCaster().isAlive()))
 			kill();
 
-		List<ManaShieldEntity> list = world.getEntitiesByClass(ManaShieldEntity.class, getBoundingBox(), EntityPredicates.VALID_ENTITY);
+		List<ManaShieldEntity> list = getWorld().getEntitiesByClass(ManaShieldEntity.class, getBoundingBox(), EntityPredicates.VALID_ENTITY);
 
 		if(!list.isEmpty()) {
 			list.sort(Comparator.comparingInt(ManaShieldEntity::getTrueAge).reversed());
-			int i = world.getGameRules().getInt(GameRules.MAX_ENTITY_CRAMMING);
+			int i = getWorld().getGameRules().getInt(GameRules.MAX_ENTITY_CRAMMING);
 
 			if(i > 0 && list.size() > i - 1) {
 				int j = 0;
@@ -53,7 +53,7 @@ public class ManaShieldEntity extends Entity {
 			}
 		}
 
-		if(world.getOtherEntities(this, getBoundingBox(), entity -> entity instanceof LivingEntity && entity.isAlive()).isEmpty() && getTrueAge() + 20 < getMaxAge())
+		if(getWorld().getOtherEntities(this, getBoundingBox(), entity -> entity instanceof LivingEntity && entity.isAlive()).isEmpty() && getTrueAge() + 20 < getMaxAge())
 			dataTracker.set(MAX_AGE, getTrueAge() + 20);
 
 		if(getTrueAge() >= getMaxAge()) {
@@ -109,7 +109,7 @@ public class ManaShieldEntity extends Entity {
 	}
 
 	private LivingEntity getCaster() {
-		if(world instanceof ServerWorld serverWorld && serverWorld.getEntity(ownerId) instanceof LivingEntity caster)
+		if(getWorld() instanceof ServerWorld serverWorld && serverWorld.getEntity(ownerId) instanceof LivingEntity caster)
 			return caster;
 		return null;
 	}
