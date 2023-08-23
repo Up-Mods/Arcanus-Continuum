@@ -136,9 +136,9 @@ public class Arcanus implements ModInitializer {
 			SyncStatusEffectPacket.sendToAll(handler.player, ArcanusStatusEffects.ANONYMITY, handler.player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY));
 		});
 
-		ResourceLoaderEvents.END_DATA_PACK_RELOAD.register((server, resourceManager, error) -> {
-			if(server != null)
-				Arcanus.refreshSupporterData(server, true);
+		ResourceLoaderEvents.END_DATA_PACK_RELOAD.register(ctx -> {
+			if(ctx.server() != null)
+				Arcanus.refreshSupporterData(ctx.server(), true);
 		});
 
 		EntityTrackingEvents.AFTER_START_TRACKING.register((trackedEntity, player) -> {
