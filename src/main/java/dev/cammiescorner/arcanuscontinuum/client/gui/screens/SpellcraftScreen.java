@@ -347,8 +347,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 				RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
 				gui.drawTexture(PANEL_TEXTURE, pos.x - 3, pos.y - 3, 30, 208, 30, 30, 384, 256);
 
-				RenderSystem.setShaderTexture(0, group.getAllComponents().toList().get(j).getTexture());
-				gui.drawTexture(PANEL_TEXTURE, pos.x, pos.y, 0, 0, 24, 24, 24, 24);
+				gui.drawTexture(group.getAllComponents().toList().get(j).getTexture(), pos.x, pos.y, 0, 0, 24, 24, 24, 24);
 			}
 		}
 
@@ -369,8 +368,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			gui.drawTexture(PANEL_TEXTURE, mouseX - x - 15, mouseY - y - 15, 30, 208, 30, 30, 384, 256);
 
 			RenderSystem.setShaderColor(r, g, b, 1F);
-			RenderSystem.setShaderTexture(0, draggedComponent.getTexture());
-			gui.drawTexture(PANEL_TEXTURE, mouseX - x - 12, mouseY - y - 12, 0, 0, 24, 24, 24, 24);
+			gui.drawTexture(draggedComponent.getTexture(), mouseX - x - 12, mouseY - y - 12, 0, 0, 24, 24, 24, 24);
 		}
 
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);

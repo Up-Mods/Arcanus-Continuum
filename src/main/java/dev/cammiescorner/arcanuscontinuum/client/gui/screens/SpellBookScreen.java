@@ -111,8 +111,7 @@ public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 				RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
 				gui.drawTexture(PANEL_TEXTURE, pos.x - 3, pos.y - 3, 30, 208, 30, 30, 384, 256);
 
-				RenderSystem.setShaderTexture(0, group.getAllComponents().toList().get(j).getTexture());
-				gui.drawTexture(PANEL_TEXTURE, pos.x, pos.y, 0, 0, 24, 24, 24, 24);
+				gui.drawTexture(group.getAllComponents().toList().get(j).getTexture(), pos.x, pos.y, 0, 0, 24, 24, 24, 24);
 			}
 		}
 
