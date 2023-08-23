@@ -33,7 +33,7 @@ public class ArcanusCommands {
 		public static int getLevel(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
 			PlayerEntity player = context.getSource().getPlayer();
 			int level = ArcanusComponents.getWizardLevel(player);
-			context.getSource().sendFeedback(Text.literal("Wizard Level: " + level), false);
+			context.getSource().sendFeedback(() -> Text.literal("Wizard Level: " + level), false);
 
 			return Command.SINGLE_SUCCESS;
 		}
