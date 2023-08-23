@@ -45,7 +45,7 @@ public class FireSpellEffect extends SpellEffect {
 				case EAST -> FireBlock.WEST;
 			}, blockHit.getSide() != Direction.UP);
 
-			if(world.canPlace(state, pos, ShapeContext.absent()) && world.getBlockState(pos).getMaterial().isReplaceable())
+			if(world.canPlace(state, pos, ShapeContext.absent()) && world.getBlockState(pos).materialReplaceable())
 				world.setBlockState(pos, state);
 		}
 	}
