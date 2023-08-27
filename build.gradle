@@ -49,7 +49,7 @@ dependencies {
 	annotationProcessor libs.mixinextras
 
 	modImplementation libs.bundles.cca
-	modImplementation libs.patchouli
+	modCompileOnly libs.patchouli //TODO re-enable once patchouli updates
 	modImplementation libs.midnightlib
 	modImplementation libs.smartbrainlib
 

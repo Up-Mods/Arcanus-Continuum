@@ -1,16 +1,16 @@
 package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanuscontinuum.common.items.*;
 import dev.cammiescorner.arcanuscontinuum.common.util.StaffType;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SpawnEggItem;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import org.quiltmc.loader.api.minecraft.ClientOnly;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
@@ -18,11 +18,14 @@ import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 import java.util.LinkedHashMap;
 
 public class ArcanusItems {
+
+	public static final RegistryKey<ItemGroup> ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, Arcanus.id("general"));
+
 	//-----Item Map-----//
 	public static final LinkedHashMap<Item, Identifier> ITEMS = new LinkedHashMap<>();
 
 	//-----Items-----//
-	public static final Item COMPENDIUM_ARCANUS = create("compendium_arcanus", new ArcanusCompendiumItem());
+	public static final Item COMPENDIUM_ARCANUS = ArcanusCompat.PATCHOULI.orElse(() -> () -> create("compendium_arcanus", new ArcanusCompendiumItem()), null);
 	public static final Item WOODEN_STAFF = create("wooden_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));
 	public static final Item CRYSTAL_STAFF = create("crystal_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));
 	public static final Item DIVINATION_STAFF = create("divination_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));
@@ -44,11 +47,10 @@ public class ArcanusItems {
 
 	//-----Registry-----//
 	public static void register() {
-		Registry.register(Registries.ITEM_GROUP, Arcanus.id("general"), FabricItemGroup.builder()
+		Registry.register(Registries.ITEM_GROUP, ITEM_GROUP, FabricItemGroup.builder()
 			.name(Arcanus.translate("itemGroup", "general"))
 			.icon(() -> new ItemStack(ArcanusItems.WOODEN_STAFF))
 			.entries((params, entries) -> {
-				entries.addItem(COMPENDIUM_ARCANUS);
 				entries.addItem(ArcanusBlocks.MAGIC_DOOR);
 				entries.addItem(ArcanusBlocks.ARCANE_WORKBENCH);
 				entries.addItem(WOODEN_STAFF);
