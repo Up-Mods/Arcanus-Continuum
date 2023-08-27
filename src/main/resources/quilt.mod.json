@@ -82,5 +82,9 @@
 		"arcanuscontinuum:bolt_target",
 		"arcanuscontinuum:spell_shape",
 		"arcanuscontinuum:size"
-	]
+	],
+	"mc-publish": {
+		"curseforge": "905345",
+		"modrinth": "UnnRjucf"
+	}
 }
