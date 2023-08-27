@@ -111,6 +111,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 	@Override
 	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+		this.renderBackground(matrices);
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		RenderSystem.setShaderTexture(0, BOOK_TEXTURE);
