@@ -214,7 +214,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 					action.Do().run();
 				}
-				if(draggedComponent instanceof SpellEffect effect && spellGroups.getLast().shape() != ArcanusSpellComponents.EMPTY) {
+				if(draggedComponent instanceof SpellEffect effect && !spellGroups.isEmpty() && spellGroups.getLast().shape() != ArcanusSpellComponents.EMPTY) {
 					Action action = undoRedoStack.addAction(new Action(draggedComponent, pos, () -> {
 						spellGroups.getLast().effects().add(effect);
 						spellGroups.getLast().positions().add(pos);
@@ -362,7 +362,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		if(draggedComponent != ArcanusSpellComponents.EMPTY) {
 			int colour = 0xff0000;
 
-			if((isPointWithinBounds(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) && (!(draggedComponent instanceof SpellEffect) || !spellGroups.getLast().isEmpty()))
+			if((isPointWithinBounds(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) && (!(draggedComponent instanceof SpellEffect) || (!spellGroups.isEmpty() && !spellGroups.getLast().isEmpty())))
 				colour = 0x00ff00;
 
 			float r = (colour >> 16 & 255) / 255F;
