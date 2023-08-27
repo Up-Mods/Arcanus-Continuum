@@ -43,7 +43,7 @@
 			},
 			{
 				"id": "minecraft",
-				"versions": "1.19.4"
+				"versions": "1.20.1"
 			},
 			{
 				"id": "midnightlib"
@@ -53,11 +53,11 @@
 			},
 			{
 				"id": "cardinal-components-base",
-				"versions": ">=5.1.0"
+				"versions": ">=5.2.0"
 			},
 			{
 				"id": "cardinal-components-entity",
-				"versions": ">=5.1.0"
+				"versions": ">=5.2.0"
 			}
 		]
 	},
