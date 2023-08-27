@@ -66,6 +66,9 @@ dependencies {
 
 	// modmenu
 	modLocalRuntime libs.modmenu
+
+	// LazyDFU
+	modLocalRuntime libs.lazydfu
 }
 
 loom {
