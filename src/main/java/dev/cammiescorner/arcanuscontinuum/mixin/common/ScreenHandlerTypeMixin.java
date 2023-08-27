@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanuscontinuum.mixin;
+package dev.cammiescorner.arcanuscontinuum.mixin.common;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.registry.Registries;

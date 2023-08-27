@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanuscontinuum.mixin;
+package dev.cammiescorner.arcanuscontinuum.mixin.common;
 
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;

@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanuscontinuum.mixin;
+package dev.cammiescorner.arcanuscontinuum.mixin.common;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
@@ -35,7 +35,6 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import virtuoel.pehkui.api.ScaleTypes;
 
 import java.util.List;
 import java.util.UUID;
@@ -48,7 +47,6 @@ public abstract class LivingEntityMixin extends Entity {
 	@Shadow public abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
 
 	@Unique private static final UUID uUID = UUID.fromString("e348efa3-7987-4912-b82a-03c5c75eccb1");
-	@Unique private final LivingEntity self = (LivingEntity) (Object) this;
 	@Unique private Vec3d prevVelocity;
 
 	public LivingEntityMixin(EntityType<?> type, World world) { super(type, world); }
@@ -66,16 +64,6 @@ public abstract class LivingEntityMixin extends Entity {
 			amount *= 1 + 0.8F * ((getStatusEffect(ArcanusStatusEffects.VULNERABILITY).getAmplifier() + 1) / 10F);
 
 		return amount;
-	}
-
-	@ModifyVariable(method = "handleFallDamage", at = @At("HEAD"), index = 1, argsOnly = true)
-	private float arcanuscontinuum$alterFallDistance(float fallDistance) {
-		float scale = ScaleTypes.MOTION.getScaleData(self).getScale();
-
-		if(scale < 1)
-			fallDistance *= scale / 2;
-
-		return fallDistance;
 	}
 
 	@ModifyArg(method = "fall", at = @At(value = "INVOKE", target = "Lnet/minecraft/particle/BlockStateParticleEffect;<init>(Lnet/minecraft/particle/ParticleType;Lnet/minecraft/block/BlockState;)V"))
@@ -104,15 +92,15 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void arcanuscontinuum$tick(CallbackInfo info) {
-		if(!world.isClient() && ArcanusComponents.PATTERN_COMPONENT.isProvidedBy(self) && ArcanusComponents.CASTING_COMPONENT.isProvidedBy(self)) {
+		if(!world.isClient() && ArcanusComponents.PATTERN_COMPONENT.isProvidedBy(this) && ArcanusComponents.CASTING_COMPONENT.isProvidedBy(this)) {
 			prevVelocity = getVelocity();
 
 			EntityAttributeInstance speedAttr = getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-			List<Pattern> pattern = ArcanusComponents.getPattern(self);
+			List<Pattern> pattern = ArcanusComponents.getPattern((LivingEntity) (Object) this);
 			ItemStack stack = getMainHandStack();
 
 			if(speedAttr != null) {
-				if(stack.getItem() instanceof StaffItem && ArcanusComponents.isCasting(self) && pattern.size() == 3) {
+				if(stack.getItem() instanceof StaffItem && ArcanusComponents.isCasting((LivingEntity) (Object) this) && pattern.size() == 3) {
 					int index = Arcanus.getSpellIndex(pattern);
 					NbtCompound tag = stack.getOrCreateSubNbt(Arcanus.MOD_ID);
 					NbtList list = tag.getList("Spells", NbtElement.COMPOUND_TYPE);

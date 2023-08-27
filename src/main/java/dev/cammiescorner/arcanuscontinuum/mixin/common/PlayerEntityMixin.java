@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanuscontinuum.mixin;
+package dev.cammiescorner.arcanuscontinuum.mixin.common;
 
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusStatusEffects;
 import net.minecraft.entity.EntityType;
