@@ -7,6 +7,12 @@ archivesBaseName = project.archives_base_name
 version = project.version
 group = project.maven_group
 
+// messy workaround for bug in quilt loom 1.3.3
+project.configurations.all {
+	exclude(group: "net.fabricmc", module: "fabric-loader")
+	exclude(group: "net.fabricmc.fabric-api")
+}
+
 repositories {
 	maven { url "https://maven.quiltmc.org/repository/snapshot" }
 	maven { url "https://maven.shedaniel.me" }
@@ -29,23 +35,24 @@ dependencies {
 
 	modImplementation libs.quilt.loader
 	modImplementation libs.quilted.fabric.api
-	modImplementation libs.cca.base
-	modImplementation libs.cca.entity
-	modImplementation libs.patchouli
-	modImplementation libs.midnightlib
-	modImplementation libs.reach.attr
-	modImplementation libs.modmenu
-	modImplementation libs.smartbrainlib
 
-	modImplementation libs.firstperson
-	modImplementation libs.pehkui
-	modImplementation libs.kanos
-
+	include libs.mixinextras
 	implementation libs.mixinextras
 	annotationProcessor libs.mixinextras
 
-	include libs.mixinextras
+	modImplementation libs.bundles.cca
+	modImplementation libs.patchouli
+	modImplementation libs.midnightlib
+	modImplementation libs.smartbrainlib
+
 	include libs.reach.attr
+	modImplementation libs.reach.attr
+
+	modImplementation libs.firstperson
+	modImplementation libs.pehkui
+	modLocalRuntime libs.kanos
+
+	modLocalRuntime libs.modmenu
 }
 
 loom {
@@ -62,7 +69,7 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = "UTF-8"
-	it.options.release = 17
+	it.options.release.set(17)
 }
 
 java {

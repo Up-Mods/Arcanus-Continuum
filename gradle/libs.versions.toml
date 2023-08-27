@@ -38,6 +38,7 @@ kanos = { module = "com.github.Virtuoel:KanosConfig", version.ref = "kanos" }
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]
 quilted_fabric_api = ["quilted_fabric_api", "quilted_fabric_api_deprecated"]
+cca = ["cca_base", "cca_entity"]
 
 [plugins]
-quilt_loom = { id = "org.quiltmc.loom", version = "1.+" }
+quilt_loom = { id = "org.quiltmc.loom", version = "1.3.+" }
