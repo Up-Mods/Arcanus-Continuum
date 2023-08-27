@@ -48,6 +48,8 @@ jobs:
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           github-token: ${{ github.token }}
 
+          version-type: beta
+
           dependencies: |
             qsl(required){modrinth:qvIfYCYJ}{curseforge:634179}#(ignore:github)
             cardinal-components-api(required){modrinth:K01OU20C}{curseforge:318449}#(ignore:github)
