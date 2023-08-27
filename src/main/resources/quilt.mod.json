@@ -43,19 +43,16 @@
 			},
 			{
 				"id": "minecraft",
-				"versions": ">=1.19.3"
+				"versions": "1.19.4"
 			},
 			{
-				"id": "patchouli",
-				"versions": ">=1.19.3-78-FABRIC"
+				"id": "patchouli"
 			},
 			{
-				"id": "midnightlib",
-				"versions": ">=1.1.0"
+				"id": "midnightlib"
 			},
 			{
-				"id": "smartbrainlib",
-				"versions": ">=1.8"
+				"id": "smartbrainlib"
 			},
 			{
 				"id": "cardinal-components-base",
@@ -85,6 +82,9 @@
 	],
 	"mc-publish": {
 		"curseforge": "905345",
-		"modrinth": "UnnRjucf"
+		"modrinth": "UnnRjucf",
+		"loaders": [
+			"quilt"
+		]
 	}
 }

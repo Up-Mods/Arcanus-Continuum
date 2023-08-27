@@ -48,8 +48,10 @@ jobs:
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           github-token: ${{ github.token }}
 
-          game-versions: |
-            1.19.4
-          loaders: |
-            fabric
-            quilt
+          dependencies: |
+            qsl(required){modrinth:qvIfYCYJ}{curseforge:634179}#(ignore:github)
+            cardinal-components-api(required){modrinth:K01OU20C}{curseforge:318449}#(ignore:github)
+            midnightlib(required){modrinth:codAaoxh}{curseforge:488090}#(ignore:github)
+            patchouli(required){modrinth:nU0bVIaL}{curseforge:393236}#(ignore:github)
+            smartbrainlib(required){modrinth:PuyPazRT}{curseforge:661293}#(ignore:github)
+            pehkui(optional){modrinth:t5W7Jfwy}{curseforge:319596}#(ignore:github)
