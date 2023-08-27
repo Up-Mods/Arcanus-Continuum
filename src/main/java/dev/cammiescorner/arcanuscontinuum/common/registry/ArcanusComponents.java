@@ -3,6 +3,8 @@ package dev.cammiescorner.arcanuscontinuum.common.registry;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
+import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusCompat;
+import dev.cammiescorner.arcanuscontinuum.common.compat.PehkuiCompat;
 import dev.cammiescorner.arcanuscontinuum.common.components.*;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.*;
 import dev.onyxstudios.cca.api.v3.component.Component;
@@ -51,7 +53,8 @@ public class ArcanusComponents implements EntityComponentInitializer {
 		registry.beginRegistration(BeamEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
 		registry.beginRegistration(LivingEntity.class, BOLT_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BoltTargetComponent::new);
 		registry.beginRegistration(MagicProjectileEntity.class, SPELL_SHAPE).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(SpellShapeComponent::new);
-		registry.beginRegistration(Entity.class, SIZE).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(SizeComponent::new);
+
+		ArcanusCompat.PEHKUI.ifEnabled(() -> () -> PehkuiCompat.registerEntityComponents(registry));
 	}
 
 	private static <T extends Component> ComponentKey<T> createComponent(String name, Class<T> component) {

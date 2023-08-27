@@ -5,11 +5,11 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellType;
+import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanuscontinuum.common.spell_components.effects.*;
 import dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes.*;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import org.quiltmc.loader.api.QuiltLoader;
 
 import java.util.LinkedHashMap;
 
@@ -57,8 +57,8 @@ public class ArcanusSpellComponents {
 	public static final SpellEffect ANONYMITY = anonymityEffectProperties.enabled ? create("anonymity_effect", new AnonymitySpellEffect(SpellType.UTILITY, anonymityEffectProperties.weight, anonymityEffectProperties.manaCost, anonymityEffectProperties.coolDown, anonymityEffectProperties.minimumLevel)) : null;
 	public static final SpellEffect MINE = mineEffectProperties.enabled ? create("mine_effect", new MineSpellEffect(SpellType.UTILITY, mineEffectProperties.weight, mineEffectProperties.manaCost, mineEffectProperties.coolDown, mineEffectProperties.minimumLevel)) : null;
 	public static final SpellEffect GROWTH = growthEffectProperties.enabled ? create("growth_effect", new GrowthSpellEffect(SpellType.UTILITY, growthEffectProperties.weight, growthEffectProperties.manaCost, growthEffectProperties.coolDown, growthEffectProperties.minimumLevel)) : null;
-	public static final SpellEffect SHRINK = QuiltLoader.isModLoaded("pehkui") && shrinkEffectProperties.enabled ? create("shrink_effect", new SizeChangeSpellEffect(SpellType.UTILITY, shrinkEffectProperties.weight, shrinkEffectProperties.manaCost, shrinkEffectProperties.coolDown, shrinkEffectProperties.minimumLevel)) : null;
-	public static final SpellEffect ENLARGE = QuiltLoader.isModLoaded("pehkui") && enlargeEffectProperties.enabled ? create("enlarge_effect", new SizeChangeSpellEffect(SpellType.UTILITY, enlargeEffectProperties.weight, enlargeEffectProperties.manaCost, enlargeEffectProperties.coolDown, enlargeEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect SHRINK = ArcanusCompat.PEHKUI.isEnabled() && shrinkEffectProperties.enabled ? create("shrink_effect", new SizeChangeSpellEffect(SpellType.UTILITY, shrinkEffectProperties.weight, shrinkEffectProperties.manaCost, shrinkEffectProperties.coolDown, shrinkEffectProperties.minimumLevel)) : null;
+	public static final SpellEffect ENLARGE = ArcanusCompat.PEHKUI.isEnabled() && enlargeEffectProperties.enabled ? create("enlarge_effect", new SizeChangeSpellEffect(SpellType.UTILITY, enlargeEffectProperties.weight, enlargeEffectProperties.manaCost, enlargeEffectProperties.coolDown, enlargeEffectProperties.minimumLevel)) : null;
 
 	public static final SpellEffect BUILD = buildEffectProperties.enabled ? create("build_effect", new BuildSpellEffect(SpellType.MOVEMENT, buildEffectProperties.weight, buildEffectProperties.manaCost, buildEffectProperties.coolDown, buildEffectProperties.minimumLevel)) : null;
 	public static final SpellEffect LEVITATE = levitateEffectProperties.enabled ? create("levitate_effect", new LevitateSpellEffect(SpellType.MOVEMENT, levitateEffectProperties.weight, levitateEffectProperties.manaCost, levitateEffectProperties.coolDown, levitateEffectProperties.minimumLevel)) : null;

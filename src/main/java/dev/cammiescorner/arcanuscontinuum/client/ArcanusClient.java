@@ -18,6 +18,7 @@ import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.OpossumE
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.WizardEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic.*;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.item.StaffItemRenderer;
+import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanuscontinuum.common.compat.FirstPersonCompat;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStaffTemplatePacket;
@@ -48,7 +49,6 @@ import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.quiltmc.loader.api.ModContainer;
-import org.quiltmc.loader.api.QuiltLoader;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
 import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
@@ -67,10 +67,7 @@ public class ArcanusClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
-		if(QuiltLoader.isModLoaded("firstperson")) {
-			FIRST_PERSON_MODEL_ENABLED = FirstPersonCompat.isEnabled();
-			FIRST_PERSON_SHOW_HANDS = FirstPersonCompat.showVanillaHands();
-		}
+		ArcanusCompat.FIRST_PERSON.ifEnabled(() -> FirstPersonCompat::init);
 
 		HandledScreens.register(ArcanusScreenHandlers.SPELLCRAFT_SCREEN_HANDLER, SpellcraftScreen::new);
 		HandledScreens.register(ArcanusScreenHandlers.SPELL_BOOK_SCREEN_HANDLER, SpellBookScreen::new);
