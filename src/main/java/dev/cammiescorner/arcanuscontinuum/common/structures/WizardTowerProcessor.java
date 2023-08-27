@@ -8,7 +8,7 @@ import net.minecraft.block.ChiseledBookshelfBlock;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.state.property.BooleanProperty;
@@ -30,19 +30,19 @@ public class WizardTowerProcessor extends StructureProcessor {
 	@Nullable
 	@Override
 	public Structure.StructureBlockInfo process(WorldView world, BlockPos pos, BlockPos pivot, Structure.StructureBlockInfo localBlockInfo, Structure.StructureBlockInfo absoluteBlockInfo, StructurePlacementData placementData) {
-		if(!absoluteBlockInfo.state.isOf(Blocks.CHISELED_BOOKSHELF))
+		if(!absoluteBlockInfo.state().isOf(Blocks.CHISELED_BOOKSHELF))
 			return absoluteBlockInfo;
 
 		SimpleInventory inventory = new SimpleInventory(6);
 		Identifier lootTableId = Arcanus.id("bookshelves/wizard_tower");
-		long lootTableSeed = placementData.getRandom(absoluteBlockInfo.pos).nextLong();
-		BlockState blockState = absoluteBlockInfo.state;
+		long lootTableSeed = placementData.getRandom(absoluteBlockInfo.pos()).nextLong();
+		BlockState blockState = absoluteBlockInfo.state();
 
 		if(world instanceof ServerWorldAccess serverWorld) {
-			LootTable lootTable = serverWorld.getServer().getLootManager().getTable(lootTableId);
-			LootContext.Builder builder = new LootContext.Builder(serverWorld.toServerWorld()).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(absoluteBlockInfo.pos)).random(lootTableSeed);
-			lootTable.supplyInventory(inventory, builder.build(LootContextTypes.CHEST));
-			Inventories.writeNbt(absoluteBlockInfo.nbt, inventory.stacks, true);
+			LootTable lootTable = serverWorld.getServer().getLootManager().getLootTable(lootTableId);
+			LootContextParameterSet.Builder builder = new LootContextParameterSet.Builder(serverWorld.toServerWorld()).add(LootContextParameters.ORIGIN, Vec3d.ofCenter(absoluteBlockInfo.pos()));
+			lootTable.supplyInventory(inventory, builder.build(LootContextTypes.CHEST), lootTableSeed);
+			Inventories.writeNbt(absoluteBlockInfo.nbt(), inventory.stacks, true);
 
 			for(int j = 0; j < ChiseledBookshelfBlock.SLOT_OCCUPATION_PROPERTIES.size(); ++j) {
 				boolean bl = !inventory.getStack(j).isEmpty();
@@ -51,7 +51,7 @@ public class WizardTowerProcessor extends StructureProcessor {
 			}
 		}
 
-		return new Structure.StructureBlockInfo(absoluteBlockInfo.pos, blockState, absoluteBlockInfo.nbt);
+		return new Structure.StructureBlockInfo(absoluteBlockInfo.pos(), blockState, absoluteBlockInfo.nbt());
 	}
 
 	@Override

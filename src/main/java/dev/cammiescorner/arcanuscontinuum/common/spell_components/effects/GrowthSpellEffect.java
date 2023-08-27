@@ -32,7 +32,7 @@ public class GrowthSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof AnimalEntity animal && animal.isBaby())
-				animal.growUp(PassiveEntity.method_41321(-animal.getBreedingAge()) * growthCount, true);
+				animal.growUp(PassiveEntity.getGrowthSeconds(-animal.getBreedingAge()) * growthCount, true);
 		}
 		else if(target.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult blockHit = (BlockHitResult) target;

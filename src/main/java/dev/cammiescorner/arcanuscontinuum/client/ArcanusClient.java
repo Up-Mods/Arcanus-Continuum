@@ -27,11 +27,10 @@ import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncSupporterData;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncWorkbenchModePacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
 import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
-import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
@@ -121,10 +120,10 @@ public class ArcanusClient implements ClientModInitializer {
 				StaffItemRenderer staffItemRenderer = new StaffItemRenderer(itemId);
 				ResourceLoader.get(ResourceType.CLIENT_RESOURCES).registerReloader(staffItemRenderer);
 				BuiltinItemRendererRegistry.INSTANCE.register(item, staffItemRenderer);
-				ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
-					out.accept(new ModelIdentifier(itemId.withPath(itemId.getPath() + "_gui"), "inventory"));
-					out.accept(new ModelIdentifier(itemId.withPath(itemId.getPath() + "_handheld"), "inventory"));
-				});
+				ModelLoadingPlugin.register(ctx -> ctx.addModels(
+					new ModelIdentifier(itemId.withPath(itemId.getPath() + "_gui"), "inventory"),
+					new ModelIdentifier(itemId.withPath(itemId.getPath() + "_handheld"), "inventory")
+				));
 			}
 		}
 
@@ -139,7 +138,8 @@ public class ArcanusClient implements ClientModInitializer {
 			int timer;
 		};
 
-		HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
+		HudRenderCallback.EVENT.register((gui, tickDelta) -> {
+			MatrixStack matrices = gui.getMatrices();
 			PlayerEntity player = client.player;
 
 			if(player != null && !player.isSpectator()) {
@@ -204,22 +204,21 @@ public class ArcanusClient implements ClientModInitializer {
 					float alpha = obj.timer > 20 ? 1F : obj.timer / 20F;
 
 					RenderSystem.enableBlend();
-					RenderSystem.setShaderTexture(0, HUD_ELEMENTS);
 					RenderSystem.setShaderColor(1F, 1F, 1F, alpha);
 
 					// render frame
-					DrawableHelper.drawTexture(matrices, x, y, 0, 0, 101, 28, 256, 256);
+					gui.drawTexture(HUD_ELEMENTS, x, y, 0, 0, 101, 28, 256, 256);
 
 					// render mana
-					DrawableHelper.drawTexture(matrices, x, y + 5, 0, 32, (int) (width * (mana / maxMana)), 23, 256, 256);
+					gui.drawTexture(HUD_ELEMENTS, x, y + 5, 0, 32, (int) (width * (mana / maxMana)), 23, 256, 256);
 
 					// render burnout
 					int i = (int) Math.ceil(width * ((burnout + manaLock) / maxMana));
-					DrawableHelper.drawTexture(matrices, x + (width - i), y + 5, width - i, 56, i, 23, 256, 256);
+					gui.drawTexture(HUD_ELEMENTS, x + (width - i), y + 5, width - i, 56, i, 23, 256, 256);
 
 					// render mana lock
 					i = (int) Math.ceil(width * (manaLock / maxMana));
-					DrawableHelper.drawTexture(matrices, x + (width - i), y + 5, width - i, 80, i, 23, 256, 256);
+					gui.drawTexture(HUD_ELEMENTS, x + (width - i), y + 5, width - i, 80, i, 23, 256, 256);
 
 					RenderSystem.disableBlend();
 					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);

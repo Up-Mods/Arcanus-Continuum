@@ -6,7 +6,7 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
 import dev.cammiescorner.arcanuscontinuum.common.items.SpellBookItem;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusRecipes;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -28,7 +28,7 @@ public class SpellBindingRecipe extends SpecialCraftingRecipe {
 	}
 
 	@Override
-	public DefaultedList<ItemStack> getRemainder(CraftingInventory inventory) {
+	public DefaultedList<ItemStack> getRemainder(RecipeInputInventory inventory) {
 		DefaultedList<ItemStack> list = DefaultedList.ofSize(inventory.size(), ItemStack.EMPTY);
 
 		for(int i = 0; i < list.size(); ++i)
@@ -39,7 +39,7 @@ public class SpellBindingRecipe extends SpecialCraftingRecipe {
 	}
 
 	@Override
-	public boolean matches(CraftingInventory inv, World world) {
+	public boolean matches(RecipeInputInventory inv, World world) {
 		List<ItemStack> list = Lists.newArrayList();
 		ItemStack result = ItemStack.EMPTY;
 
@@ -69,7 +69,7 @@ public class SpellBindingRecipe extends SpecialCraftingRecipe {
 
 
 	@Override
-	public ItemStack craft(CraftingInventory inv, DynamicRegistryManager manager) {
+	public ItemStack craft(RecipeInputInventory inv, DynamicRegistryManager manager) {
 		DefaultedList<Spell> spells = DefaultedList.ofSize(8, new Spell());
 		ItemStack result = ItemStack.EMPTY;
 

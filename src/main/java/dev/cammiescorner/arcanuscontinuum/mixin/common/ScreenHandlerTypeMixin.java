@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ScreenHandlerType.class)
 public class ScreenHandlerTypeMixin {
-	@Inject(method = "method_17435", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "register(Ljava/lang/String;Lnet/minecraft/screen/ScreenHandlerType$Factory;)Lnet/minecraft/screen/ScreenHandlerType;", at = @At("HEAD"), cancellable = true)
 	private static void arcanuscontinuum$register(String id, ScreenHandlerType.Factory<ScreenHandler> factory, CallbackInfoReturnable<ScreenHandlerType<ScreenHandler>> info) {
 		if(id.equals("lectern"))
 			info.setReturnValue(Registry.register(Registries.SCREEN_HANDLER_TYPE, id, new ExtendedScreenHandlerType<>((syncId, inventory, buf) -> new LecternScreenHandler(syncId))));

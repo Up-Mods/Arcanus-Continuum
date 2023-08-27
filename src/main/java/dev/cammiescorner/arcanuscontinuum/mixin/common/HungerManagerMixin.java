@@ -15,6 +15,6 @@ public class HungerManagerMixin {
 			ordinal = 0
 	))
 	public boolean arcanuscontinuum$hasBurnout(boolean bl, PlayerEntity player) {
-		return ArcanusComponents.getBurnout(player) <= 0 && player.world.getGameRules().getBoolean(GameRules.NATURAL_REGENERATION);
+		return ArcanusComponents.getBurnout(player) <= 0 && player.getWorld().getGameRules().getBoolean(GameRules.NATURAL_REGENERATION);
 	}
 }

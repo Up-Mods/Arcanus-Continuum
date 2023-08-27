@@ -44,33 +44,36 @@ public class ArcanusItems {
 
 	//-----Registry-----//
 	public static void register() {
-		FabricItemGroup.builder(Arcanus.id("general")).icon(() -> new ItemStack(ArcanusItems.WOODEN_STAFF)).entries((params, entries) -> {
-			entries.addItem(COMPENDIUM_ARCANUS);
-			entries.addItem(ArcanusBlocks.MAGIC_DOOR);
-			entries.addItem(ArcanusBlocks.ARCANE_WORKBENCH);
-			entries.addItem(WOODEN_STAFF);
-			entries.addItem(CRYSTAL_STAFF);
-			entries.addItem(DIVINATION_STAFF);
-			entries.addItem(CRESCENT_STAFF);
-			entries.addItem(ANCIENT_STAFF);
+		Registry.register(Registries.ITEM_GROUP, Arcanus.id("general"), FabricItemGroup.builder()
+			.name(Arcanus.translate("itemGroup", "general"))
+			.icon(() -> new ItemStack(ArcanusItems.WOODEN_STAFF))
+			.entries((params, entries) -> {
+				entries.addItem(COMPENDIUM_ARCANUS);
+				entries.addItem(ArcanusBlocks.MAGIC_DOOR);
+				entries.addItem(ArcanusBlocks.ARCANE_WORKBENCH);
+				entries.addItem(WOODEN_STAFF);
+				entries.addItem(CRYSTAL_STAFF);
+				entries.addItem(DIVINATION_STAFF);
+				entries.addItem(CRESCENT_STAFF);
+				entries.addItem(ANCIENT_STAFF);
 
-			if(isSupporter()) {
-				entries.addItem(WAND);
-				entries.addItem(THAUMATURGES_GAUNTLET);
-				entries.addItem(MIND_STAFF);
-				entries.addItem(MAGIC_TOME);
-				entries.addItem(MAGE_PISTOL);
-			}
+				if(isSupporter()) {
+					entries.addItem(WAND);
+					entries.addItem(THAUMATURGES_GAUNTLET);
+					entries.addItem(MIND_STAFF);
+					entries.addItem(MAGIC_TOME);
+					entries.addItem(MAGE_PISTOL);
+				}
 
-			entries.addItem(WIZARD_HAT);
-			entries.addItem(WIZARD_ROBES);
-			entries.addItem(WIZARD_PANTS);
-			entries.addItem(WIZARD_BOOTS);
-			entries.addItem(SPELL_BOOK);
-			entries.addItem(SCROLL_OF_KNOWLEDGE);
-			entries.addItem(WIZARD_SPAWN_EGG);
-			entries.addItem(OPOSSUM_SPAWN_EGG);
-		}).build();
+				entries.addItem(WIZARD_HAT);
+				entries.addItem(WIZARD_ROBES);
+				entries.addItem(WIZARD_PANTS);
+				entries.addItem(WIZARD_BOOTS);
+				entries.addItem(SPELL_BOOK);
+				entries.addItem(SCROLL_OF_KNOWLEDGE);
+				entries.addItem(WIZARD_SPAWN_EGG);
+				entries.addItem(OPOSSUM_SPAWN_EGG);
+			}).build());
 
 		ITEMS.keySet().forEach(item -> Registry.register(Registries.ITEM, ITEMS.get(item), item));
 	}

@@ -99,7 +99,7 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 	@Override
 	protected void afterUsing(TradeOffer offer) {
 		if(offer.shouldRewardPlayerExperience())
-			world.spawnEntity(new ExperienceOrbEntity(world, getX(), getY() + 0.5, getZ(), 3 + random.nextInt(4)));
+			getWorld().spawnEntity(new ExperienceOrbEntity(getWorld(), getX(), getY() + 0.5, getZ(), 3 + random.nextInt(4)));
 	}
 
 	@Override
@@ -131,7 +131,7 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 
 	@Override
 	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-		if(!world.isClient()) {
+		if(!getWorld().isClient()) {
 			if(player.getEquippedStack(EquipmentSlot.HEAD).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.CHEST).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.LEGS).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.FEET).isIn(ArcanusTags.WIZARD_ARMOUR)) {
 				if(!getOffers().isEmpty()) {
 					setCurrentCustomer(player);

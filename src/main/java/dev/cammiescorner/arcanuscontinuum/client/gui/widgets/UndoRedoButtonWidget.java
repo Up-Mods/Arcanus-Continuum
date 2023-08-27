@@ -5,12 +5,10 @@ import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.gui.screens.SpellcraftScreen;
 import dev.cammiescorner.arcanuscontinuum.client.gui.util.UndoRedoStack;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.screen.narration.NarrationPart;
 import net.minecraft.client.gui.widget.PressableWidget;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
 import java.util.function.Consumer;
@@ -31,9 +29,9 @@ public class UndoRedoButtonWidget extends PressableWidget {
 			final String text = isUndo ? "undo" : "redo";
 
 			@Override
-			public void onTooltip(UndoRedoButtonWidget spellComponentWidget, MatrixStack matrices, int mouseX, int mouseY) {
+			public void onTooltip(UndoRedoButtonWidget spellComponentWidget, GuiGraphics gui, int mouseX, int mouseY) {
 				if(client.currentScreen != null)
-					client.currentScreen.renderTooltip(matrices, Arcanus.translate("screen", "tooltip", text), mouseX, mouseY);
+					gui.drawTooltip(client.textRenderer, Arcanus.translate("screen", "tooltip", text), mouseX, mouseY);
 			}
 
 			@Override
@@ -49,30 +47,28 @@ public class UndoRedoButtonWidget extends PressableWidget {
 	}
 
 	@Override
-	public void drawWidget(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+	public void drawWidget(GuiGraphics gui, int mouseX, int mouseY, float delta) {
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-		RenderSystem.setShaderTexture(0, SpellcraftScreen.BOOK_TEXTURE);
 
 		int v = isUndo ? 192 : 208;
 		active = isUndo ? undoRedoStack.canUndo() : undoRedoStack.canRedo();
 
 		if(!active)
-			DrawableHelper.drawTexture(matrices, getX(), getY(), 48, v, width, height, 256, 256);
+			gui.drawTexture(SpellcraftScreen.BOOK_TEXTURE, getX(), getY(), 48, v, width, height, 256, 256);
 		else if(!isHoveredOrFocused())
-			DrawableHelper.drawTexture(matrices, getX(), getY(), 0, v, width, height, 256, 256);
+			gui.drawTexture(SpellcraftScreen.BOOK_TEXTURE, getX(), getY(), 0, v, width, height, 256, 256);
 		else
-			DrawableHelper.drawTexture(matrices, getX(), getY(), 24, v, width, height, 256, 256);
+			gui.drawTexture(SpellcraftScreen.BOOK_TEXTURE, getX(), getY(), 24, v, width, height, 256, 256);
 
 		if(isHoveredOrFocused()) {
 			RenderSystem.disableDepthTest();
-			renderTooltip(matrices, mouseX, mouseY);
+			renderTooltip(gui, mouseX, mouseY);
 			RenderSystem.enableDepthTest();
 		}
 	}
 
-	public void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
-		tooltipSupplier.onTooltip(this, matrices, mouseX, mouseY);
+	public void renderTooltip(GuiGraphics gui, int mouseX, int mouseY) {
+		tooltipSupplier.onTooltip(this, gui, mouseX, mouseY);
 	}
 
 	@Override
@@ -82,7 +78,7 @@ public class UndoRedoButtonWidget extends PressableWidget {
 	}
 
 	public interface TooltipSupplier {
-		void onTooltip(UndoRedoButtonWidget spellComponentWidget, MatrixStack matrixStack, int i, int j);
+		void onTooltip(UndoRedoButtonWidget spellComponentWidget, GuiGraphics gui, int i, int j);
 
 		default void supply(Consumer<Text> consumer) {
 		}

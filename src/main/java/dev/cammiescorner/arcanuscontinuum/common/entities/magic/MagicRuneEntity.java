@@ -41,15 +41,15 @@ public class MagicRuneEntity extends Entity {
 
 	@Override
 	public void tick() {
-		if(!world.isClient() && (getCaster() == null || !getCaster().isAlive()))
+		if(!getWorld().isClient() && (getCaster() == null || !getCaster().isAlive()))
 			kill();
 
-		if(world instanceof ServerWorld serverWorld && age > 60) {
-			LivingEntity entity = world.getClosestEntity(LivingEntity.class, TargetPredicate.createNonAttackable().setPredicate(LivingEntity::isAlive), null, getX(), getY(), getZ(), new Box(-0.5, 0, -0.5, 0.5, 0.2, 0.5).offset(getPos()));
+		if(getWorld() instanceof ServerWorld serverWorld && age > 60) {
+			LivingEntity entity = getWorld().getClosestEntity(LivingEntity.class, TargetPredicate.createNonAttackable().setPredicate(LivingEntity::isAlive), null, getX(), getY(), getZ(), new Box(-0.5, 0, -0.5, 0.5, 0.2, 0.5).offset(getPos()));
 
 			if(entity != null) {
 				for(SpellEffect effect : new HashSet<>(effects))
-					effect.effect(getCaster(), this, world, new EntityHitResult(entity), effects, stack, potency);
+					effect.effect(getCaster(), this, getWorld(), new EntityHitResult(entity), effects, stack, potency);
 
 				SpellShape.castNext(getCaster(), getPos(), this, serverWorld, stack, spellGroups, groupIndex, potency);
 				kill();
@@ -112,7 +112,7 @@ public class MagicRuneEntity extends Entity {
 	}
 
 	private LivingEntity getCaster() {
-		if(world instanceof ServerWorld serverWorld && serverWorld.getEntity(casterId) instanceof LivingEntity caster)
+		if(getWorld() instanceof ServerWorld serverWorld && serverWorld.getEntity(casterId) instanceof LivingEntity caster)
 			return caster;
 
 		return null;

@@ -7,9 +7,8 @@ import dev.cammiescorner.arcanuscontinuum.client.gui.widgets.CycleTemplatesButto
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.screens.ArcaneWorkbenchScreenHandler;
 import dev.cammiescorner.arcanuscontinuum.common.util.WorkbenchMode;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
@@ -48,26 +47,22 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-		this.renderBackground(matrices);
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+	protected void drawBackground(GuiGraphics gui, float delta, int mouseX, int mouseY) {
+		this.renderBackground(gui);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-		RenderSystem.setShaderTexture(0, getTexture());
-		DrawableHelper.drawTexture(matrices, x, y, 0, 0, 176, 166, 256, 256);
+		gui.drawTexture(getTexture(), x, y, 0, 0, 176, 166, 256, 256);
 
 		if(getScreenHandler().getMode() == WorkbenchMode.CUSTOMIZE) {
 			if(getScreenHandler().getSlot(2).getStack().isEmpty())
-				drawTexture(matrices, x + 95, y + 24, 176, 0, 16, 16);
+				gui.drawTexture(getTexture(), x + 95, y + 24, 176, 0, 16, 16);
 			if(getScreenHandler().getSlot(3).getStack().isEmpty())
-				drawTexture(matrices, x + 95, y + 46, 176, 0, 16, 16);
+				gui.drawTexture(getTexture(), x + 95, y + 46, 176, 0, 16, 16);
 		}
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-		RenderSystem.setShaderTexture(0, getTexture());
+	protected void drawForeground(GuiGraphics gui, int mouseX, int mouseY) {
+		MatrixStack matrices = gui.getMatrices();
 
 		if(getScreenHandler().getMode() == WorkbenchMode.SPELLBINDING && getScreenHandler().getSlot(5).getStack().getItem() instanceof StaffItem) {
 			float scale = 0.4F;
@@ -75,29 +70,29 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
 			matrices.scale(scale, scale, 1F);
 
 			if(getScreenHandler().getSlot(2).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(0), (int) (52 / scale), (int) (17 / scale), 0xffffff);
+				gui.drawCenteredShadowedText(textRenderer, Arcanus.getSpellPatternAsText(0), (int) (52 / scale), (int) (17 / scale), 0xffffff);
 			if(getScreenHandler().getSlot(3).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(1), (int) (72 / scale), (int) (17 / scale), 0xffffff);
+				gui.drawCenteredShadowedText(textRenderer, Arcanus.getSpellPatternAsText(1), (int) (72 / scale), (int) (17 / scale), 0xffffff);
 			if(getScreenHandler().getSlot(6).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(2), (int) (72 / scale), (int) (37 / scale), 0xffffff);
+				gui.drawCenteredShadowedText(textRenderer, Arcanus.getSpellPatternAsText(2), (int) (72 / scale), (int) (37 / scale), 0xffffff);
 			if(getScreenHandler().getSlot(9).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(3), (int) (72 / scale), (int) (57 / scale), 0xffffff);
+				gui.drawCenteredShadowedText(textRenderer, Arcanus.getSpellPatternAsText(3), (int) (72 / scale), (int) (57 / scale), 0xffffff);
 			if(getScreenHandler().getSlot(8).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(4), (int) (52 / scale), (int) (57 / scale), 0xffffff);
+				gui.drawCenteredShadowedText(textRenderer, Arcanus.getSpellPatternAsText(4), (int) (52 / scale), (int) (57 / scale), 0xffffff);
 			if(getScreenHandler().getSlot(7).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(5), (int) (32 / scale), (int) (57 / scale), 0xffffff);
+				gui.drawCenteredShadowedText(textRenderer, Arcanus.getSpellPatternAsText(5), (int) (32 / scale), (int) (57 / scale), 0xffffff);
 			if(getScreenHandler().getSlot(4).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(6), (int) (32 / scale), (int) (37 / scale), 0xffffff);
+				gui.drawCenteredShadowedText(textRenderer, Arcanus.getSpellPatternAsText(6), (int) (32 / scale), (int) (37 / scale), 0xffffff);
 			if(getScreenHandler().getSlot(1).getStack().isEmpty())
-				drawCenteredText(matrices, textRenderer, Arcanus.getSpellPatternAsText(7), (int) (32 / scale), (int) (17 / scale), 0xffffff);
+				gui.drawCenteredShadowedText(textRenderer, Arcanus.getSpellPatternAsText(7), (int) (32 / scale), (int) (17 / scale), 0xffffff);
 
 			matrices.pop();
 		}
 		else if(getScreenHandler().getMode() == WorkbenchMode.CUSTOMIZE) {
-			itemRenderer.renderItemInGui(matrices, getScreenHandler().getTemplate().getDefaultStack(), 10, 35);
+			gui.drawItemInSlot(textRenderer, getScreenHandler().getTemplate().getDefaultStack(), 10, 35);
 		}
 
-		drawMouseoverTooltip(matrices, mouseX - x, mouseY - y);
+		drawMouseoverTooltip(gui, mouseX - x, mouseY - y);
 	}
 
 	public Identifier getTexture() {

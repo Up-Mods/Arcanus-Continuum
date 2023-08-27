@@ -25,7 +25,7 @@ import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
 
 public class MagicDoorBlock extends DoorBlock implements BlockEntityProvider {
 	public MagicDoorBlock() {
-		super(QuiltBlockSettings.of(Material.WOOD).strength(2F, 3F).sounds(BlockSoundGroup.WOOD), BlockSetType.OAK);
+		super(QuiltBlockSettings.create().strength(2F, 3F).sounds(BlockSoundGroup.WOOD), BlockSetType.OAK);
 	}
 
 	@Override
