@@ -29,7 +29,6 @@
 		"entrypoints": {
 			"init": "dev.cammiescorner.arcanuscontinuum.Arcanus",
 			"client_init": "dev.cammiescorner.arcanuscontinuum.client.ArcanusClient",
-			"pre_launch": "dev.cammiescorner.arcanuscontinuum.common.ArcanusPreLaunch",
 			"cardinal-components": "dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents"
 		},
 		"depends": [
