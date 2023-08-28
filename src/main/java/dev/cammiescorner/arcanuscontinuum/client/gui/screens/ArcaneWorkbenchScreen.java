@@ -33,11 +33,6 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
 		addDrawableChild(new ChangeModeButtonWidget(x + 148, y + 60, handler.getMode(), this::changeMode));
 	}
 
-	@Override
-	public void clearAndInit() {
-		super.clearAndInit();
-	}
-
 	private void cycleTemplate(CycleTemplatesButtonWidget widget) {
 		client.interactionManager.clickButton(handler.syncId, widget.isUp ? 1 : 2);
 	}

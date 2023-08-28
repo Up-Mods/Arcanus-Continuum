@@ -154,11 +154,6 @@ public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 		SPELL_GROUPS.clear();
 	}
 
-	@Override
-	public boolean isPauseScreen() {
-		return false;
-	}
-
 	protected boolean isPointWithinBounds(int x, int y, int width, int height, double pointX, double pointY) {
 		int i = this.x;
 		int j = this.y;
