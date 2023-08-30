@@ -243,8 +243,12 @@ public class Arcanus implements ModInitializer {
 	}
 
 	public static MutableText translate(@Nullable String prefix, String... value) {
+		return Text.translatable(translationKey(prefix, value));
+	}
+
+	public static String translationKey(@Nullable String prefix, String... value) {
 		String translationKey = Arcanus.MOD_ID + "." + String.join(".", value);
-		return Text.translatable(prefix != null ? (prefix + "." + translationKey) : translationKey);
+		return prefix != null ? (prefix + "." + translationKey) : translationKey;
 	}
 
 	public static String format(double d) {
