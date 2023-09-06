@@ -38,25 +38,44 @@
 			},
 			{
 				"id": "quilted_fabric_api",
-				"versions": ">=5.0.0-"
+				"versions": ">=5.0.0-",
+				"mc-publish": {
+					"curseforge": "634179",
+					"modrinth": "qvIfYCYJ"
+				}
 			},
 			{
 				"id": "minecraft",
 				"versions": "=1.20.1"
 			},
 			{
-				"id": "midnightlib"
+				"id": "midnightlib",
+				"mc-publish": {
+					"curseforge": "488090",
+					"modrinth": "codAaoxh"
+				}
 			},
 			{
-				"id": "smartbrainlib"
+				"id": "smartbrainlib",
+				"mc-publish": {
+					"curseforge": "661293",
+					"modrinth": "PuyPazRT"
+				}
 			},
 			{
 				"id": "cardinal-components-base",
-				"versions": ">=5.2.0"
+				"versions": ">=5.2.0",
+				"mc-publish": {
+					"curseforge": "318449",
+					"modrinth": "K01OU20C"
+				}
 			},
 			{
 				"id": "cardinal-components-entity",
-				"versions": ">=5.2.0"
+				"versions": ">=5.2.0",
+				"mc-publish": {
+					"ignore": true
+				}
 			}
 		]
 	},
@@ -81,6 +100,10 @@
 		"modrinth": "UnnRjucf",
 		"loaders": [
 			"quilt"
+		],
+		"dependencies": [
+			"patchouli(recommended){modrinth:nU0bVIaL}{curseforge:393236}",
+			"pehkui(optional){modrinth:t5W7Jfwy}{curseforge:319596}"
 		]
 	}
 }
