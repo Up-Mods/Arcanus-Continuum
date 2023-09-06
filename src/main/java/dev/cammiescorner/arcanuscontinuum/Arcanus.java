@@ -68,6 +68,7 @@ import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -82,6 +83,8 @@ public class Arcanus implements ModInitializer {
 	public static final SupporterStorage STORAGE = new SupporterStorage();
 	public static final int DEFAULT_MAGIC_COLOUR = 0x68e1ff;
 
+	public static BooleanSupplier supporterCheck = () -> false;
+
 	public static int getMagicColour(UUID playerUuid) {
 		SupporterData.Supporter supporter = getSupporters().get(playerUuid);
 
@@ -89,6 +92,14 @@ public class Arcanus implements ModInitializer {
 			return supporter.magicColour();
 
 		return DEFAULT_MAGIC_COLOUR;
+	}
+
+	public static boolean isCurrentPlayerSupporter() {
+		return supporterCheck.getAsBoolean();
+	}
+
+	public static boolean isPlayerSupporter(UUID uuid) {
+		return getSupporters().containsKey(uuid);
 	}
 
 	public static class SupporterStorage {

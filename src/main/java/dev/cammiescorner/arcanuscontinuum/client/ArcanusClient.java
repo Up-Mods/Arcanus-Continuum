@@ -130,9 +130,12 @@ public class ArcanusClient implements ClientModInitializer {
 
 		final MinecraftClient client = MinecraftClient.getInstance();
 
+		Arcanus.supporterCheck = () -> Arcanus.isPlayerSupporter(client.getSession().getPlayerUuid());
+
 		WorldRenderEvents.AFTER_ENTITIES.register(context -> {
-			if(!context.camera().isThirdPerson() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean())
-				renderFirstPersonBolt(context, client);
+			if(!context.camera().isThirdPerson() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean()) {
+                renderFirstPersonBolt(context);
+            }
 		});
 
 		var obj = new Object() {
@@ -228,7 +231,8 @@ public class ArcanusClient implements ClientModInitializer {
 		});
 	}
 
-	private static void renderFirstPersonBolt(WorldRenderContext context, MinecraftClient client) {
+	private static void renderFirstPersonBolt(WorldRenderContext context) {
+		MinecraftClient client = context.gameRenderer().getClient();
 		if(client.player != null) {
 			MatrixStack matrices = context.matrixStack();
 			Vec3d camPos = context.camera().getPos();
