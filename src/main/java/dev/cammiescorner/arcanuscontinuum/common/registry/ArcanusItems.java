@@ -5,14 +5,12 @@ import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanuscontinuum.common.items.*;
 import dev.cammiescorner.arcanuscontinuum.common.util.StaffType;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
-import org.quiltmc.loader.api.minecraft.ClientOnly;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
 import java.util.LinkedHashMap;
@@ -59,7 +57,7 @@ public class ArcanusItems {
 				entries.addItem(CRESCENT_STAFF);
 				entries.addItem(ANCIENT_STAFF);
 
-				if(isSupporter()) {
+				if (Arcanus.isCurrentPlayerSupporter()) {
 					entries.addItem(WAND);
 					entries.addItem(THAUMATURGES_GAUNTLET);
 					entries.addItem(MIND_STAFF);
@@ -83,10 +81,5 @@ public class ArcanusItems {
 	private static <T extends Item> T create(String name, T item) {
 		ITEMS.put(item, Arcanus.id(name));
 		return item;
-	}
-
-	@ClientOnly
-	private static boolean isSupporter() {
-		return Arcanus.getSupporters().containsKey(MinecraftClient.getInstance().getSession().getPlayerUuid());
 	}
 }

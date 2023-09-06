@@ -32,6 +32,7 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.SkeletonEntityRenderer;
@@ -129,9 +130,12 @@ public class ArcanusClient implements ClientModInitializer {
 
 		final MinecraftClient client = MinecraftClient.getInstance();
 
+		Arcanus.supporterCheck = () -> Arcanus.isPlayerSupporter(client.getSession().getPlayerUuid());
+
 		WorldRenderEvents.AFTER_ENTITIES.register(context -> {
-			if(!context.camera().isThirdPerson() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean())
-				renderFirstPersonBolt(context, client);
+			if(!context.camera().isThirdPerson() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean()) {
+                renderFirstPersonBolt(context);
+            }
 		});
 
 		var obj = new Object() {
@@ -227,16 +231,17 @@ public class ArcanusClient implements ClientModInitializer {
 		});
 	}
 
-	private static void renderFirstPersonBolt(WorldRenderContext context, MinecraftClient client) {
-		if(client.player != null) {
+	private static void renderFirstPersonBolt(WorldRenderContext context) {
+		ClientPlayerEntity player = context.gameRenderer().getClient().player;
+		if(player != null) {
 			MatrixStack matrices = context.matrixStack();
 			Vec3d camPos = context.camera().getPos();
 			float tickDelta = context.tickDelta();
-			Vec3d startPos = client.player.getLerpedPos(tickDelta).add(0, client.player.getEyeHeight(client.player.getPose()), 0);
+			Vec3d startPos = player.getLerpedPos(tickDelta).add(0, player.getEyeHeight(player.getPose()), 0);
 
 			matrices.push();
 			matrices.translate(-camPos.getX(), -camPos.getY(), -camPos.getZ());
-			ArcanusHelper.renderBolts(client.player, startPos.add(0, -0.1, 0), matrices, context.consumers());
+			ArcanusHelper.renderBolts(player, startPos.add(0, -0.1, 0), matrices, context.consumers());
 			matrices.pop();
 		}
 	}

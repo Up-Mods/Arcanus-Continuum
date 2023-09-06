@@ -55,7 +55,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 		this.context = context;
 		this.player = playerInventory.player;
 		getSlotsForMode(mode);
-		templates = Registries.ITEM.stream().filter(item -> item instanceof StaffItem staff && (!staff.isDonorOnly || Arcanus.getSupporters().containsKey(player.getUuid()))).map(StaffItem.class::cast).toList();
+		templates = Registries.ITEM.stream().filter(item -> item instanceof StaffItem staff && (!staff.isDonorOnly || Arcanus.isPlayerSupporter(player.getGameProfile().getId()))).map(StaffItem.class::cast).toList();
 	}
 
 	@Override
