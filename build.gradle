@@ -11,7 +11,7 @@ repositories {
 	maven { url "https://maven.quiltmc.org/repository/snapshot" }
 	maven { url "https://maven.shedaniel.me" }
 	maven { url "https://maven.terraformersmc.com" }
-	maven { url "https://ladysnake.jfrog.io/artifactory/mods" }
+	maven { url "https://maven.ladysnake.org/releases" }
 	maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 	maven { url "https://maven.blamejared.com" }
 	maven { url "https://maven.kosmx.dev/" }
@@ -84,8 +84,8 @@ java {
 
 // If you plan to use a different file for the license, don't forget to change the file name here!
 jar {
-	from("LICENSE") {
-		rename { "${it}_${archivesBaseName}" }
+	from("LICENSE.md") {
+		rename { "LICENSE_${archivesBaseName}.md" }
 	}
 }
 
