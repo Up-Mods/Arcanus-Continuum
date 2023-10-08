@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.registry;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ArmorMaterials;
@@ -22,7 +23,7 @@ public enum ArcanusArmourMaterials implements StringIdentifiable, ArmorMaterial 
 		map.put(ArmorItem.ArmorSlot.HELMET, 1);
 	}), 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.ofItems(Items.LEATHER));
 
-	public static final StringIdentifiable.EnumCodec<ArmorMaterials> CODEC = StringIdentifiable.createCodec(ArmorMaterials::values);
+	public static final Codec<ArmorMaterials> CODEC = StringIdentifiable.createCodec(ArmorMaterials::values);
 	private static final EnumMap<ArmorItem.ArmorSlot, Integer> BASE_DURABILITY_VALUES = Util.make(new EnumMap<>(ArmorItem.ArmorSlot.class), (map) -> {
 		map.put(ArmorItem.ArmorSlot.BOOTS, 13);
 		map.put(ArmorItem.ArmorSlot.LEGGINGS, 15);
