@@ -50,6 +50,9 @@ repositories {
 		url = "https://maven.jamieswhiteshirt.com/libs-release"
 	}
 	maven {
+		url = "https://maven.uuid.gg/releases"
+	}
+	maven {
 		name = "Modrinth"
 		url = "https://api.modrinth.com/maven"
 		content {
@@ -81,6 +84,10 @@ dependencies {
 	modImplementation libs.quilt.loader
 	modImplementation libs.quilted.fabric.api
 	modRuntimeOnly libs.quilted.fabric.api.deprecated
+
+	modImplementation (libs.sparkweave) {
+		exclude(group: "io.github.llamalad7")
+	}
 
 	include libs.mixinextras
 	implementation libs.mixinextras

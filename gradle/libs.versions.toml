@@ -6,6 +6,7 @@ quilt_loader = "0.20.2"
 
 quilted_fabric_api = "7.3.1+0.89.3-1.20.1"
 cca = "5.2.2"
+sparkweave = "0.3.0"
 patchouli = "1.20.1-81-FABRIC"
 midnightlib = "1.4.1-quilt"
 mixinextras = "0.2.0-rc.5"
@@ -26,6 +27,7 @@ quilted_fabric_api = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-a
 quilted_fabric_api_deprecated = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api-deprecated", version.ref = "quilted_fabric_api" }
 cca_base = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-base", version.ref = "cca" }
 cca_entity = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-entity", version.ref = "cca" }
+sparkweave = { module = "dev.upcraft:Sparkweave", version.ref = "sparkweave" }
 patchouli = { module = "vazkii.patchouli:Patchouli", version.ref = "patchouli" }
 midnightlib = { module = "maven.modrinth:midnightlib", version.ref = "midnightlib" }
 mixinextras = { module = "io.github.llamalad7:mixinextras-fabric", version.ref = "mixinextras" }
