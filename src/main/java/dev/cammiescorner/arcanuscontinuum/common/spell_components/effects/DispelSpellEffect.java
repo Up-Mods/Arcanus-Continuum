@@ -28,7 +28,7 @@ public class DispelSpellEffect extends SpellEffect {
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity) {
 				List<StatusEffect> statusEffects = livingEntity.getStatusEffects().stream().map(StatusEffectInstance::getEffectType).filter(effect -> !effect.isBeneficial()).toList();
-				long dispelCount = effects.stream().filter(effect -> effect == ArcanusSpellComponents.DISPEL).count();
+				long dispelCount = effects.stream().filter(ArcanusSpellComponents.DISPEL::is).count();
 
 				for(int i = 0; i < Math.min(statusEffects.size(), (int) (dispelCount * 2 * potency)); i++)
 					livingEntity.removeStatusEffect(statusEffects.get(i));

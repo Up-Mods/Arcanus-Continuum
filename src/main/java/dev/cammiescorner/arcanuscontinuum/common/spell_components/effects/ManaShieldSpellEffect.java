@@ -32,10 +32,10 @@ public class ManaShieldSpellEffect extends SpellEffect {
 			for(int i = 0; i < list.size() - 10; i++)
 				list.get(i).kill();
 
-			ManaShieldEntity manaShield = ArcanusEntities.MANA_SHIELD.create(world);
+			ManaShieldEntity manaShield = ArcanusEntities.MANA_SHIELD.get().create(world);
 
 			if(manaShield != null) {
-				manaShield.setProperties(caster.getUuid(), target.getPos().add(0, -0.7, 0), Arcanus.DEFAULT_MAGIC_COLOUR, (int) ((100 + 40 * (effects.stream().filter(effect -> effect == ArcanusSpellComponents.MANA_SHIELD).count() - 1)) * potency));
+				manaShield.setProperties(caster.getUuid(), target.getPos().add(0, -0.7, 0), Arcanus.DEFAULT_MAGIC_COLOUR, (int) ((100 + 40 * (effects.stream().filter(ArcanusSpellComponents.MANA_SHIELD::is).count() - 1)) * potency));
 
 				if(caster instanceof PlayerEntity player)
 					manaShield.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));

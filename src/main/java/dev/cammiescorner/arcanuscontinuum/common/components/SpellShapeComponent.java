@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 
 public class SpellShapeComponent implements AutoSyncedComponent {
 	private final Entity entity;
-	private SpellShape shape = SpellShape.EMPTY;
+	private SpellShape shape = SpellShape.empty();
 
 	public SpellShapeComponent(Entity entity) {
 		this.entity = entity;

@@ -25,7 +25,7 @@ public class TeleportSpellEffect extends SpellEffect {
 	@Override
 	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
 		if(target.getType() != HitResult.Type.MISS) {
-			if(caster != null && caster.getPos().distanceTo(target.getPos()) <= 5 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.TELEPORT).count() * potency) {
+			if(caster != null && caster.getPos().distanceTo(target.getPos()) <= 5 * effects.stream().filter(ArcanusSpellComponents.TELEPORT::is).count() * potency) {
 				Vec3d pos = target.getPos();
 
 				if(target.getType() == HitResult.Type.BLOCK) {

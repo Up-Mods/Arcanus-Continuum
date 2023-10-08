@@ -19,7 +19,7 @@ public class SpellcraftScreenHandler extends ScreenHandler {
 	}
 
 	public SpellcraftScreenHandler(int syncId, Inventory inventory, ScreenHandlerContext context, BlockPos pos, ItemStack stack) {
-		super(ArcanusScreenHandlers.SPELLCRAFT_SCREEN_HANDLER, syncId);
+		super(ArcanusScreenHandlers.SPELLCRAFT_SCREEN_HANDLER.get(), syncId);
 		this.inventory = inventory;
 		this.stack = stack;
 		this.pos = pos;

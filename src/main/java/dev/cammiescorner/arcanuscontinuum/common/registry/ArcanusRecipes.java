@@ -2,14 +2,15 @@ package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.recipes.SpellBindingRecipe;
+import dev.upcraft.sparkweave.api.registry.RegistryHandler;
+import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
+import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
 
 public class ArcanusRecipes {
-	public static final SpecialRecipeSerializer<SpellBindingRecipe> SPELL_BINDING = new SpecialRecipeSerializer<>(SpellBindingRecipe::new);
 
-	public static void register() {
-		Registry.register(Registries.RECIPE_SERIALIZER, Arcanus.id("spell_binding_recipe"), SPELL_BINDING);
-	}
+	public static final RegistryHandler<RecipeSerializer<?>> RECIPE_SERIALIZERS = RegistryHandler.create(RegistryKeys.RECIPE_SERIALIZER, Arcanus.MOD_ID);
+	public static final RegistrySupplier<SpecialRecipeSerializer<SpellBindingRecipe>> SPELL_BINDING = RECIPE_SERIALIZERS.register("spell_binding_recipe", () -> new SpecialRecipeSerializer<>(SpellBindingRecipe::new));
+
 }

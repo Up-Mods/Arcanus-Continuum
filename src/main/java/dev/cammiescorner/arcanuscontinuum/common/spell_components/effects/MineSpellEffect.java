@@ -30,11 +30,12 @@ public class MineSpellEffect extends SpellEffect {
 
 			if(state.getHardness(world, blockHit.getBlockPos()) > 0) {
 				if(!(caster instanceof PlayerEntity player) || world.canPlayerModifyAt(player, blockHit.getBlockPos())) {
-					if(state.isIn(BlockTags.NEEDS_STONE_TOOL) && effects.stream().filter(effect -> effect == ArcanusSpellComponents.MINE).count() < 2)
+					int count = (int) effects.stream().filter(ArcanusSpellComponents.MINE::is).count();
+					if(count < 2 && state.isIn(BlockTags.NEEDS_STONE_TOOL))
 						return;
-					if(state.isIn(BlockTags.NEEDS_IRON_TOOL) && effects.stream().filter(effect -> effect == ArcanusSpellComponents.MINE).count() < 3)
+					if(count < 3 && state.isIn(BlockTags.NEEDS_IRON_TOOL))
 						return;
-					if(state.isIn(BlockTags.NEEDS_DIAMOND_TOOL) && effects.stream().filter(effect -> effect == ArcanusSpellComponents.MINE).count() < 4)
+					if(count < 4 && state.isIn(BlockTags.NEEDS_DIAMOND_TOOL))
 						return;
 
 					world.breakBlock(blockHit.getBlockPos(), true);

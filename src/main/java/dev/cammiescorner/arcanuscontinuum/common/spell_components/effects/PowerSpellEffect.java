@@ -32,7 +32,7 @@ public class PowerSpellEffect extends SpellEffect {
 			BlockPos pos1 = pos.offset(blockHit.getSide());
 			BlockState state = world.getBlockState(pos);
 			BlockState state1 = world.getBlockState(pos1);
-			int maxPower = (int) (4 + effects.stream().filter(effect -> effect == ArcanusSpellComponents.POWER).count() * potency);
+			int maxPower = (int) (4 + effects.stream().filter(ArcanusSpellComponents.POWER::is).count() * potency);
 
 			if(state.getProperties().contains(Properties.POWER)) {
 				world.emitGameEvent(caster, GameEvent.BLOCK_ACTIVATE, pos);

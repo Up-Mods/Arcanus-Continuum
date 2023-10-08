@@ -35,7 +35,7 @@ public class RuneSpellShape extends SpellShape {
 			for(int i = 0; i < list.size() - 100; i++)
 				list.get(i).kill();
 
-			MagicRuneEntity magicRune = ArcanusEntities.MAGIC_RUNE.create(world);
+			MagicRuneEntity magicRune = ArcanusEntities.MAGIC_RUNE.get().create(world);
 			Entity sourceEntity = castSource != null ? castSource : caster;
 
 			if(magicRune != null) {

@@ -27,7 +27,7 @@ public class FortifySpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.FORTIFY, 500, (int) ((effects.stream().filter(effect -> effect == ArcanusSpellComponents.FORTIFY).count() - 1) * potency), true, false));
+				livingEntity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.FORTIFY.get(), 500, (int) ((effects.stream().filter(ArcanusSpellComponents.FORTIFY::is).count() - 1) * potency), true, false));
 		}
 	}
 }

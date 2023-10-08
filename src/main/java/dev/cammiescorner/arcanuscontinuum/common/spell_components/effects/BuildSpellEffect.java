@@ -32,8 +32,8 @@ public class BuildSpellEffect extends SpellEffect {
 			BlockPos pos = blockHit.getBlockPos().offset(blockHit.getSide());
 
 			if(world.getBlockState(pos).materialReplaceable() && (!(caster instanceof PlayerEntity player) || world.canPlayerModifyAt(player, pos))) {
-				world.setBlockState(pos, ArcanusBlocks.MAGIC_BLOCK.getDefaultState(), Block.NOTIFY_LISTENERS);
-				world.scheduleBlockTick(pos, world.getBlockState(pos).getBlock(), (int) (220 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.BUILD).count() * potency));
+				world.setBlockState(pos, ArcanusBlocks.MAGIC_BLOCK.get().getDefaultState(), Block.NOTIFY_LISTENERS);
+				world.scheduleBlockTick(pos, world.getBlockState(pos).getBlock(), (int) (220 * effects.stream().filter(ArcanusSpellComponents.BUILD::is).count() * potency));
 
 				if(world.getBlockEntity(pos) instanceof MagicBlockEntity magicBlock && caster instanceof PlayerEntity player)
 					magicBlock.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));

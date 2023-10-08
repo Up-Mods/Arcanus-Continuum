@@ -28,12 +28,12 @@ public class ArcanusTradeOffers {
 			new SellItemFactory(Items.LAPIS_LAZULI, 3, 3, 100, 1),
 			new SellItemFactory(Items.GUNPOWDER, 3, 5, 100, 1),
 			new SellItemFactory(Items.REDSTONE, 3, 5, 100, 1),
-			new SellItemFactory(ArcanusItems.WOODEN_STAFF, 5, 1, 100, 3),
-			new SellItemFactory(ArcanusItems.CRYSTAL_STAFF, 5, 1, 100, 3),
-			new SellItemFactory(ArcanusItems.DIVINATION_STAFF, 5, 1, 100, 3),
-			new SellItemFactory(ArcanusItems.CRESCENT_STAFF, 5, 1, 100, 3),
-			new SellItemFactory(ArcanusItems.ANCIENT_STAFF, 5, 1, 100, 3),
-			new SellItemFactory(ArcanusItems.MAGIC_TOME, 5, 1, 100, 3),
+			new SellItemFactory(ArcanusItems.WOODEN_STAFF.get(), 5, 1, 100, 3),
+			new SellItemFactory(ArcanusItems.CRYSTAL_STAFF.get(), 5, 1, 100, 3),
+			new SellItemFactory(ArcanusItems.DIVINATION_STAFF.get(), 5, 1, 100, 3),
+			new SellItemFactory(ArcanusItems.CRESCENT_STAFF.get(), 5, 1, 100, 3),
+			new SellItemFactory(ArcanusItems.ANCIENT_STAFF.get(), 5, 1, 100, 3),
+			new SellItemFactory(ArcanusItems.MAGIC_TOME.get(), 5, 1, 100, 3),
 			new SellItemFactory(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.INVISIBILITY), 10, 100, 5),
 			new SellItemFactory(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.NIGHT_VISION), 10, 100, 5),
 			new SellItemFactory(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.LEAPING), 10, 100, 5),
@@ -50,7 +50,7 @@ public class ArcanusTradeOffers {
 			ImmutableMap.of(
 				1, factories.toArray(TradeOffers.Factory[]::new),
 				2, new TradeOffers.Factory[]{
-					new SellItemFactory(ArcanusItems.SCROLL_OF_KNOWLEDGE, 64, 1, 100, 10)
+					new SellItemFactory(ArcanusItems.SCROLL_OF_KNOWLEDGE.get(), 64, 1, 100, 10)
 				}
 			)
 		);

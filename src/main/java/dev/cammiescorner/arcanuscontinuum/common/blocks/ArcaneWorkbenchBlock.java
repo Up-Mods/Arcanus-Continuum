@@ -1,9 +1,12 @@
 package dev.cammiescorner.arcanuscontinuum.common.blocks;
 
 import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.ArcaneWorkbenchBlockEntity;
+import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
@@ -23,10 +26,11 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
+import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
 import java.util.List;
 
-public class ArcaneWorkbenchBlock extends HorizontalFacingBlock implements BlockEntityProvider {
+public class ArcaneWorkbenchBlock extends HorizontalFacingBlock implements BlockEntityProvider, BlockItemProvider {
 	private static final VoxelShape SHAPE = VoxelShapes.union(
 			VoxelShapes.cuboid(0, 0.1875, 0, 1, 0.8125, 1),
 			VoxelShapes.cuboid(0, 0, 0, 0.125, 0.1875, 0.125),
@@ -38,6 +42,11 @@ public class ArcaneWorkbenchBlock extends HorizontalFacingBlock implements Block
 	public ArcaneWorkbenchBlock() {
 		super(QuiltBlockSettings.create().mapColor(DyeColor.RED).strength(2F, 3F).nonOpaque().ticksRandomly());
 		setDefaultState(getStateManager().getDefaultState().with(FACING, Direction.NORTH));
+	}
+
+	@Override
+	public Item createItem() {
+		return new BlockItem(this, new QuiltItemSettings());
 	}
 
 	@Override

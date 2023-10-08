@@ -12,9 +12,6 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 
 public class ArcanusCommands {
-	public static void register() {
-
-	}
 
 	public static void init(CommandDispatcher<ServerCommandSource> dispatcher, CommandBuildContext commandBuildContext, CommandManager.RegistrationEnvironment environment) {
 		dispatcher.register(CommandManager.literal("wizard_level")

@@ -41,7 +41,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Axis;
@@ -69,9 +68,9 @@ public class ArcanusClient implements ClientModInitializer {
 	public void onInitializeClient(ModContainer mod) {
 		ArcanusCompat.FIRST_PERSON.ifEnabled(() -> FirstPersonCompat::init);
 
-		HandledScreens.register(ArcanusScreenHandlers.SPELLCRAFT_SCREEN_HANDLER, SpellcraftScreen::new);
-		HandledScreens.register(ArcanusScreenHandlers.SPELL_BOOK_SCREEN_HANDLER, SpellBookScreen::new);
-		HandledScreens.register(ArcanusScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER, ArcaneWorkbenchScreen::new);
+		HandledScreens.register(ArcanusScreenHandlers.SPELLCRAFT_SCREEN_HANDLER.get(), SpellcraftScreen::new);
+		HandledScreens.register(ArcanusScreenHandlers.SPELL_BOOK_SCREEN_HANDLER.get(), SpellBookScreen::new);
+		HandledScreens.register(ArcanusScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER.get(), ArcaneWorkbenchScreen::new);
 
 		EntityModelLayerRegistry.registerModelLayer(WizardArmourModel.MODEL_LAYER, WizardArmourModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(WizardEntityModel.MODEL_LAYER, WizardEntityModel::getTexturedModelData);
@@ -83,22 +82,22 @@ public class ArcanusClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(SpellPatternModel.MODEL_LAYER, SpellPatternModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(LotusHaloModel.MODEL_LAYER, LotusHaloModel::getTexturedModelData);
 
-		ArmorRenderer.register(new WizardArmourRenderer(), ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS);
+		ArmorRenderer.register(new WizardArmourRenderer(), ArcanusItems.WIZARD_HAT.get(), ArcanusItems.WIZARD_ROBES.get(), ArcanusItems.WIZARD_PANTS.get(), ArcanusItems.WIZARD_BOOTS.get());
 
-		EntityRendererRegistry.register(ArcanusEntities.WIZARD, WizardEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.OPOSSUM, OpossumEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.NECRO_SKELETON, SkeletonEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.MANA_SHIELD, ManaShieldEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.MAGIC_PROJECTILE, MagicProjectileEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.AOE, AreaOfEffectEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.SMITE, SmiteEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.MAGIC_RUNE, MagicRuneEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.BEAM, BeamEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.WIZARD.get(), WizardEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.OPOSSUM.get(), OpossumEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.NECRO_SKELETON.get(), SkeletonEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.MANA_SHIELD.get(), ManaShieldEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.MAGIC_PROJECTILE.get(), MagicProjectileEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.AOE.get(), AreaOfEffectEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.SMITE.get(), SmiteEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.MAGIC_RUNE.get(), MagicRuneEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.BEAM.get(), BeamEntityRenderer::new);
 
-		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE, CollapseParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE.get(), CollapseParticle.Factory::new);
 
-		BlockRenderLayerMap.put(RenderLayer.getCutout(), ArcanusBlocks.MAGIC_DOOR, ArcanusBlocks.ARCANE_WORKBENCH);
-		BlockEntityRendererFactories.register(ArcanusBlockEntities.MAGIC_BLOCK, MagicBlockEntityRenderer::new);
+		BlockRenderLayerMap.put(RenderLayer.getCutout(), ArcanusBlocks.MAGIC_DOOR.get(), ArcanusBlocks.ARCANE_WORKBENCH.get());
+		BlockEntityRendererFactories.register(ArcanusBlockEntities.MAGIC_BLOCK.get(), MagicBlockEntityRenderer::new);
 
 		ClientPlayNetworking.registerGlobalReceiver(SyncStatusEffectPacket.ID, SyncStatusEffectPacket::handle);
 		ClientPlayNetworking.registerGlobalReceiver(SyncWorkbenchModePacket.ID, SyncWorkbenchModePacket::handle);
@@ -106,36 +105,43 @@ public class ArcanusClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(SyncSupporterData.ID, SyncSupporterData::handle);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? StaffItem.getPrimaryColour(stack) : tintIndex == 1 ? StaffItem.getSecondaryColour(stack) : 0xffffff,
-				ArcanusItems.WOODEN_STAFF, ArcanusItems.CRYSTAL_STAFF, ArcanusItems.DIVINATION_STAFF,
-				ArcanusItems.CRESCENT_STAFF, ArcanusItems.ANCIENT_STAFF, ArcanusItems.WAND,
-				ArcanusItems.THAUMATURGES_GAUNTLET, ArcanusItems.MAGIC_TOME, ArcanusItems.MAGE_PISTOL
+			ArcanusItems.WOODEN_STAFF.get(),
+			ArcanusItems.CRYSTAL_STAFF.get(),
+			ArcanusItems.DIVINATION_STAFF.get(),
+			ArcanusItems.CRESCENT_STAFF.get(),
+			ArcanusItems.ANCIENT_STAFF.get(),
+			ArcanusItems.WAND.get(),
+			ArcanusItems.THAUMATURGES_GAUNTLET.get(),
+			ArcanusItems.MAGIC_TOME.get(),
+			ArcanusItems.MAGE_PISTOL.get()
 		);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? ((DyeableArmorItem) stack.getItem()).getColor(stack) : 0xffffff,
-				ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS
+			ArcanusItems.WIZARD_HAT.get(), ArcanusItems.WIZARD_ROBES.get(), ArcanusItems.WIZARD_PANTS.get(), ArcanusItems.WIZARD_BOOTS.get()
 		);
 
-		for(Item item : ArcanusItems.ITEMS.keySet()) {
-			if(item instanceof StaffItem) {
-				Identifier itemId = Registries.ITEM.getId(item);
-				StaffItemRenderer staffItemRenderer = new StaffItemRenderer(itemId);
+		ArcanusItems.ITEMS.stream().forEach(holder -> {
+			Item item = holder.get();
+			if (item instanceof StaffItem) {
+				Identifier id = holder.getId();
+				StaffItemRenderer staffItemRenderer = new StaffItemRenderer(id);
 				ResourceLoader.get(ResourceType.CLIENT_RESOURCES).registerReloader(staffItemRenderer);
 				BuiltinItemRendererRegistry.INSTANCE.register(item, staffItemRenderer);
 				ModelLoadingPlugin.register(ctx -> ctx.addModels(
-					new ModelIdentifier(itemId.withPath(itemId.getPath() + "_gui"), "inventory"),
-					new ModelIdentifier(itemId.withPath(itemId.getPath() + "_handheld"), "inventory")
+					new ModelIdentifier(id.withPath(id.getPath() + "_gui"), "inventory"),
+					new ModelIdentifier(id.withPath(id.getPath() + "_handheld"), "inventory")
 				));
 			}
-		}
+		});
 
 		final MinecraftClient client = MinecraftClient.getInstance();
 
 		Arcanus.supporterCheck = () -> Arcanus.isPlayerSupporter(client.getSession().getPlayerUuid());
 
 		WorldRenderEvents.AFTER_ENTITIES.register(context -> {
-			if(!context.camera().isThirdPerson() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean()) {
-                renderFirstPersonBolt(context);
-            }
+			if (!context.camera().isThirdPerson() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean()) {
+				renderFirstPersonBolt(context);
+			}
 		});
 
 		var obj = new Object() {
@@ -146,20 +152,20 @@ public class ArcanusClient implements ClientModInitializer {
 			MatrixStack matrices = gui.getMatrices();
 			PlayerEntity player = client.player;
 
-			if(player != null && !player.isSpectator()) {
+			if (player != null && !player.isSpectator()) {
 				int stunTimer = ArcanusComponents.getStunTimer(player);
 
-				if(stunTimer > 0) {
-					if(stunTimer > 5)
+				if (stunTimer > 0) {
+					if (stunTimer > 5)
 						renderOverlay(STUN_OVERLAY, Math.min(1F, 0.5F + (stunTimer % 5F) / 10F));
 					else
 						renderOverlay(STUN_OVERLAY, Math.min(1F, stunTimer / 5F));
 				}
 
-				if(!client.gameRenderer.getCamera().isThirdPerson() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean()) {
+				if (!client.gameRenderer.getCamera().isThirdPerson() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean()) {
 					List<Pattern> list = ArcanusComponents.getPattern(player);
 
-					if(!list.isEmpty()) {
+					if (!list.isEmpty()) {
 						VertexConsumerProvider.Immediate vertices = client.getBufferBuilders().getEntityVertexConsumers();
 						RenderLayer renderLayer = getMagicCircles(MAGIC_CIRCLES);
 						VertexConsumer vertex = vertices.getBuffer(renderLayer);
@@ -171,11 +177,11 @@ public class ArcanusClient implements ClientModInitializer {
 						matrices.push();
 						matrices.translate(x, y, 0);
 
-						for(int i = 0; i < list.size(); i++) {
+						for (int i = 0; i < list.size(); i++) {
 							Pattern pattern = list.get(i);
 							matrices.push();
 
-							if(i == 1)
+							if (i == 1)
 								matrices.multiply(Axis.Z_POSITIVE.rotationDegrees((player.age + player.getId() + tickDelta) * (5 + (2.5F * i))));
 							else
 								matrices.multiply(Axis.Z_NEGATIVE.rotationDegrees((player.age + player.getId() + tickDelta) * (5 + (2.5F * i))));
@@ -196,12 +202,12 @@ public class ArcanusClient implements ClientModInitializer {
 				double burnout = ArcanusComponents.getBurnout(player);
 				double manaLock = ArcanusComponents.getManaLock(player);
 
-				if(player.getMainHandStack().getItem() instanceof StaffItem)
+				if (player.getMainHandStack().getItem() instanceof StaffItem)
 					obj.timer = Math.min(obj.timer + 1, 40);
 				else
 					obj.timer = Math.max(obj.timer - 1, 0);
 
-				if(obj.timer > 0) {
+				if (obj.timer > 0) {
 					int x = 0;
 					int y = client.getWindow().getScaledHeight() - 28;
 					int width = 96;
@@ -233,7 +239,7 @@ public class ArcanusClient implements ClientModInitializer {
 
 	private static void renderFirstPersonBolt(WorldRenderContext context) {
 		ClientPlayerEntity player = context.gameRenderer().getClient().player;
-		if(player != null) {
+		if (player != null) {
 			MatrixStack matrices = context.matrixStack();
 			Vec3d camPos = context.camera().getPos();
 			float tickDelta = context.tickDelta();
@@ -256,15 +262,15 @@ public class ArcanusClient implements ClientModInitializer {
 
 	public static void drawTexture(VertexConsumer vertex, MatrixStack matrices, int colour, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
 		drawTexturedQuad(vertex, matrices.peek().getModel(),
-				colour,
-				x,
-				x + width,
-				y,
-				y + height,
-				u / (float) textureWidth,
-				(u + width) / (float) textureWidth,
-				v / (float) textureHeight,
-				(v + height) / (float) textureHeight
+			colour,
+			x,
+			x + width,
+			y,
+			y + height,
+			u / (float) textureWidth,
+			(u + width) / (float) textureWidth,
+			v / (float) textureHeight,
+			(v + height) / (float) textureHeight
 		);
 	}
 
@@ -302,31 +308,31 @@ public class ArcanusClient implements ClientModInitializer {
 	public static Vector3f RGBtoHSB(int r, int g, int b) {
 		float hue, saturation, brightness;
 		int cmax = Math.max(r, g);
-		if(b > cmax)
+		if (b > cmax)
 			cmax = b;
 		int cmin = Math.min(r, g);
-		if(b < cmin)
+		if (b < cmin)
 			cmin = b;
 
 		brightness = ((float) cmax) / 255.0f;
-		if(cmax != 0)
+		if (cmax != 0)
 			saturation = ((float) (cmax - cmin)) / ((float) cmax);
 		else
 			saturation = 0;
-		if(saturation == 0)
+		if (saturation == 0)
 			hue = 0;
 		else {
 			float redc = ((float) (cmax - r)) / ((float) (cmax - cmin));
 			float greenc = ((float) (cmax - g)) / ((float) (cmax - cmin));
 			float bluec = ((float) (cmax - b)) / ((float) (cmax - cmin));
-			if(r == cmax)
+			if (r == cmax)
 				hue = bluec - greenc;
-			else if(g == cmax)
+			else if (g == cmax)
 				hue = 2.0f + redc - bluec;
 			else
 				hue = 4.0f + greenc - redc;
 			hue = hue / 6.0f;
-			if(hue < 0)
+			if (hue < 0)
 				hue = hue + 1.0f;
 		}
 

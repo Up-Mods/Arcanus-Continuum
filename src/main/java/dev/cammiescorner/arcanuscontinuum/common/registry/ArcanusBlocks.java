@@ -4,37 +4,17 @@ import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.ArcaneWorkbenchBlock;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.MagicBlock;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.MagicDoorBlock;
+import dev.upcraft.sparkweave.api.registry.RegistryHandler;
+import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
-import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
-
-import java.util.LinkedHashMap;
+import net.minecraft.registry.RegistryKeys;
 
 public class ArcanusBlocks {
-	//-----Block Map-----//
-	private static final LinkedHashMap<Block, Identifier> BLOCKS = new LinkedHashMap<>();
 
-	//-----Blocks-----//
-	public static final Block MAGIC_DOOR = create("magic_door", new MagicDoorBlock());
-	public static final Block ARCANE_WORKBENCH = create("arcane_workbench", new ArcaneWorkbenchBlock());
-	public static final Block MAGIC_BLOCK = create("magic_block", new MagicBlock());
+	public static final RegistryHandler<Block> BLOCKS = RegistryHandler.create(RegistryKeys.BLOCK, Arcanus.MOD_ID);
 
-	//-----Registry-----//
-	public static void register() {
-		BLOCKS.keySet().forEach(block -> Registry.register(Registries.BLOCK, BLOCKS.get(block), block));
-		Registry.register(Registries.ITEM, BLOCKS.get(MAGIC_DOOR), getItem(MAGIC_DOOR));
-		Registry.register(Registries.ITEM, BLOCKS.get(ARCANE_WORKBENCH), getItem(ARCANE_WORKBENCH));
-	}
+	public static final RegistrySupplier<Block> MAGIC_DOOR = BLOCKS.register("magic_door", MagicDoorBlock::new);
+	public static final RegistrySupplier<Block> ARCANE_WORKBENCH = BLOCKS.register("arcane_workbench", ArcaneWorkbenchBlock::new);
+	public static final RegistrySupplier<Block> MAGIC_BLOCK = BLOCKS.register("magic_block", MagicBlock::new);
 
-	private static BlockItem getItem(Block block) {
-		return new BlockItem(block, new QuiltItemSettings());
-	}
-
-	private static <T extends Block> T create(String name, T block) {
-		BLOCKS.put(block, Arcanus.id(name));
-		return block;
-	}
 }

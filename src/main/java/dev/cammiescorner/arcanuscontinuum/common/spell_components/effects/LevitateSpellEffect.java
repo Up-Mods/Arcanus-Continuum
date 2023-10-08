@@ -27,7 +27,7 @@ public class LevitateSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 60 * (int) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.LEVITATE).count() * potency), 0, true, false));
+				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 60 * (int) (effects.stream().filter(ArcanusSpellComponents.LEVITATE::is).count() * potency), 0, true, false));
 		}
 	}
 }

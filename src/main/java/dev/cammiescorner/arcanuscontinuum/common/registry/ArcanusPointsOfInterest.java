@@ -10,7 +10,7 @@ public class ArcanusPointsOfInterest {
 	public static final RegistryKey<PointOfInterestType> MAGIC_DOOR = create("magic_door");
 
 	public static void register() {
-		PointOfInterestHelper.register(MAGIC_DOOR.getValue(), 0, 1, ArcanusBlocks.MAGIC_DOOR);
+		PointOfInterestHelper.register(MAGIC_DOOR.getValue(), 0, 1, ArcanusBlocks.MAGIC_DOOR.get());
 	}
 
 	public static RegistryKey<PointOfInterestType> create(String id) {

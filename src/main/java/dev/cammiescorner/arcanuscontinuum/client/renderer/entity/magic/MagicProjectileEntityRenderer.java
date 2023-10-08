@@ -31,7 +31,7 @@ public class MagicProjectileEntityRenderer extends ProjectileEntityRenderer<Magi
 	@Override
 	public void render(MagicProjectileEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertices, int light) {
 		VertexConsumer consumer = vertices.getBuffer(ArcanusClient.getMagicCircles(getTexture(entity)));
-		boolean isProjectile = entity.getShape() == ArcanusSpellComponents.PROJECTILE;
+		boolean isProjectile = ArcanusSpellComponents.PROJECTILE.is(entity.getShape());
 		int colour = entity.getColour();
 		float r = (colour >> 16 & 255) / 255F;
 		float g = (colour >> 8 & 255) / 255F;
@@ -64,6 +64,6 @@ public class MagicProjectileEntityRenderer extends ProjectileEntityRenderer<Magi
 
 	@Override
 	public Identifier getTexture(MagicProjectileEntity entity) {
-		return entity.getShape() == ArcanusSpellComponents.PROJECTILE ? PROJECTILE_TEXTURE : LOB_TEXTURE;
+		return ArcanusSpellComponents.PROJECTILE.is(entity.getShape()) ? PROJECTILE_TEXTURE : LOB_TEXTURE;
 	}
 }

@@ -93,6 +93,6 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 	}
 
 	public boolean isEmpty() {
-		return shape == ArcanusSpellComponents.EMPTY;
+		return ArcanusSpellComponents.EMPTY.is(shape);
 	}
 }

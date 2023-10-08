@@ -15,7 +15,7 @@ public class MagicBlockEntity extends BlockEntity {
 	private int colour = Arcanus.DEFAULT_MAGIC_COLOUR;
 
 	public MagicBlockEntity(BlockPos pos, BlockState state) {
-		super(ArcanusBlockEntities.MAGIC_BLOCK, pos, state);
+		super(ArcanusBlockEntities.MAGIC_BLOCK.get(), pos, state);
 	}
 
 	@Override

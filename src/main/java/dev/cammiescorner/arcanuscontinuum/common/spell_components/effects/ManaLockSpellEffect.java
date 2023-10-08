@@ -27,7 +27,7 @@ public class ManaLockSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.MANA_LOCK, 200, (int) ((effects.stream().filter(effect -> effect == ArcanusSpellComponents.MANA_LOCK).count() - 1) * potency), true, false));
+				livingEntity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.MANA_LOCK.get(), 200, (int) ((effects.stream().filter(ArcanusSpellComponents.MANA_LOCK::is).count() - 1) * potency), true, false));
 		}
 	}
 }

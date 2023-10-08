@@ -107,7 +107,7 @@ public class SpellBindingRecipe extends SpecialCraftingRecipe {
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ArcanusRecipes.SPELL_BINDING;
+		return ArcanusRecipes.SPELL_BINDING.get();
 	}
 
 	private ItemStack applySpells(ItemStack stack, List<Spell> spells) {

@@ -28,7 +28,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
 
 	@Inject(method = "getTexture(Lnet/minecraft/client/network/AbstractClientPlayerEntity;)Lnet/minecraft/util/Identifier;", at = @At("HEAD"), cancellable = true)
 	private void arcanuscontinuum$getTexture(AbstractClientPlayerEntity player, CallbackInfoReturnable<Identifier> info) {
-		if(player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY))
+		if(player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY.get()))
 			info.setReturnValue(Arcanus.id("textures/entity/player/anonymous.png"));
 	}
 }

@@ -74,10 +74,10 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 	@Override
 	protected void initEquipment(RandomGenerator random, LocalDifficulty difficulty) {
 		dataTracker.set(ROBES_COLOUR, newRandomRobeColour(random));
-		equipStack(EquipmentSlot.HEAD, getColouredRobes(ArcanusItems.WIZARD_HAT));
-		equipStack(EquipmentSlot.CHEST, getColouredRobes(ArcanusItems.WIZARD_ROBES));
-		equipStack(EquipmentSlot.LEGS, getColouredRobes(ArcanusItems.WIZARD_PANTS));
-		equipStack(EquipmentSlot.FEET, getColouredRobes(ArcanusItems.WIZARD_BOOTS));
+		equipStack(EquipmentSlot.HEAD, getColouredRobes(ArcanusItems.WIZARD_HAT.get()));
+		equipStack(EquipmentSlot.CHEST, getColouredRobes(ArcanusItems.WIZARD_ROBES.get()));
+		equipStack(EquipmentSlot.LEGS, getColouredRobes(ArcanusItems.WIZARD_PANTS.get()));
+		equipStack(EquipmentSlot.FEET, getColouredRobes(ArcanusItems.WIZARD_BOOTS.get()));
 		equipStack(EquipmentSlot.MAINHAND, getRandomStaff(random));
 	}
 
@@ -92,13 +92,13 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 		ambientSoundChance = -getMinAmbientSoundDelay();
 		afterUsing(offer);
 
-		if(getCurrentCustomer() instanceof ServerPlayerEntity player)
+		if (getCurrentCustomer() instanceof ServerPlayerEntity player)
 			Criteria.VILLAGER_TRADE.trigger(player, this, offer.getSellItem());
 	}
 
 	@Override
 	protected void afterUsing(TradeOffer offer) {
-		if(offer.shouldRewardPlayerExperience())
+		if (offer.shouldRewardPlayerExperience())
 			getWorld().spawnEntity(new ExperienceOrbEntity(getWorld(), getX(), getY() + 0.5, getZ(), 3 + random.nextInt(4)));
 	}
 
@@ -107,7 +107,7 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 		TradeOffers.Factory[] factories = ArcanusTradeOffers.WIZARD_TRADES.get(1);
 		TradeOffers.Factory[] factories1 = ArcanusTradeOffers.WIZARD_TRADES.get(2);
 
-		if(factories != null && factories1 != null) {
+		if (factories != null && factories1 != null) {
 			TradeOfferList tradeOfferList = getOffers();
 			fillRecipesFromPool(tradeOfferList, factories, 6);
 
@@ -115,7 +115,7 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 			TradeOffers.Factory factory = factories1[i];
 			TradeOffer tradeOffer = factory.create(this, random);
 
-			if(tradeOffer != null)
+			if (tradeOffer != null)
 				tradeOfferList.add(tradeOffer);
 		}
 	}
@@ -131,14 +131,13 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 
 	@Override
 	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-		if(!getWorld().isClient()) {
-			if(player.getEquippedStack(EquipmentSlot.HEAD).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.CHEST).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.LEGS).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.FEET).isIn(ArcanusTags.WIZARD_ARMOUR)) {
-				if(!getOffers().isEmpty()) {
+		if (!getWorld().isClient()) {
+			if (player.getEquippedStack(EquipmentSlot.HEAD).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.CHEST).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.LEGS).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.FEET).isIn(ArcanusTags.WIZARD_ARMOUR)) {
+				if (!getOffers().isEmpty()) {
 					setCurrentCustomer(player);
 					sendOffers(player, getDisplayName(), 1);
 				}
-			}
-			else {
+			} else {
 				player.sendMessage(Arcanus.translate("wizard_dialogue", "no_wizard_armour").formatted(Formatting.DARK_PURPLE, Formatting.ITALIC), false);
 			}
 		}
@@ -150,7 +149,7 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
 
-		if(nbt.contains("RobesColour", NbtElement.NUMBER_TYPE))
+		if (nbt.contains("RobesColour", NbtElement.NUMBER_TYPE))
 			dataTracker.set(ROBES_COLOUR, nbt.getInt("RobesColour"));
 	}
 
@@ -190,38 +189,41 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 	@Override
 	public List<ExtendedSensor<WizardEntity>> getSensors() {
 		return ObjectArrayList.of(
-				new NearbyLivingEntitySensor<>(),
-				new HurtBySensor<>()
+			new NearbyLivingEntitySensor<>(),
+			new HurtBySensor<>()
 		);
 	}
 
 	@Override
 	public BrainActivityGroup<WizardEntity> getCoreTasks() {
 		return BrainActivityGroup.coreTasks(
-				new FloatToSurfaceOfFluid<>(),
-				new LookAtTarget<>(),
-				new MoveToWalkTarget<>().stopIf(pathAwareEntity -> getCurrentCustomer() != null)
+			new FloatToSurfaceOfFluid<>(),
+			new LookAtTarget<>(),
+			new MoveToWalkTarget<>().stopIf(pathAwareEntity -> getCurrentCustomer() != null)
 		);
 	}
 
 	@Override
 	public BrainActivityGroup<WizardEntity> getIdleTasks() {
 		return BrainActivityGroup.idleTasks(
-				new FirstApplicableBehaviour<WizardEntity>(
-						new SetRetaliateTarget<>(),
-						new SetPlayerLookTarget<>(),
-						new SetRandomLookTarget<>()
-				), new OneRandomBehaviour<>(
-						new SetRandomWalkTarget<>().startCondition(pathAwareEntity -> getCurrentCustomer() != null),
-						new Idle<>().runFor(entity -> entity.getRandom().nextInt(30) + 30)
-				)
+			new FirstApplicableBehaviour<WizardEntity>(
+				new SetRetaliateTarget<>(),
+				new SetPlayerLookTarget<>(),
+				new SetRandomLookTarget<>()
+			), new OneRandomBehaviour<>(
+				new SetRandomWalkTarget<>().startCondition(pathAwareEntity -> getCurrentCustomer() != null),
+				new Idle<>().runFor(entity -> entity.getRandom().nextInt(30) + 30)
+			)
 		);
 	}
 
 	private ItemStack getRandomStaff(RandomGenerator random) {
 		List<Item> staves = List.of(
-				ArcanusItems.WOODEN_STAFF, ArcanusItems.CRYSTAL_STAFF, ArcanusItems.DIVINATION_STAFF,
-				ArcanusItems.CRESCENT_STAFF, ArcanusItems.ANCIENT_STAFF
+			ArcanusItems.WOODEN_STAFF.get(),
+			ArcanusItems.CRYSTAL_STAFF.get(),
+			ArcanusItems.DIVINATION_STAFF.get(),
+			ArcanusItems.CRESCENT_STAFF.get(),
+			ArcanusItems.ANCIENT_STAFF.get()
 		);
 
 		return new ItemStack(staves.get(random.nextInt(staves.size())));
@@ -239,10 +241,10 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 
 	private int newRandomRobeColour(RandomGenerator random) {
 		// Rare Colours
-		if(random.nextDouble() <= 0.1) {
+		if (random.nextDouble() <= 0.1) {
 			int chance = random.nextInt(2);
 
-			return switch(chance) {
+			return switch (chance) {
 				case 0 -> 0xff005a; // Folly Red
 				case 1 -> 0xf2dd50; // Lotus Gold
 				default -> throw new IllegalStateException("Unexpected value: " + chance);
@@ -252,7 +254,7 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 		// Normal Colours
 		int chance = random.nextInt(17);
 
-		return switch(chance) {
+		return switch (chance) {
 			case 0 -> 0xffffff;
 			case 1 -> 0xf9801d;
 			case 2 -> 0xc74ebd;

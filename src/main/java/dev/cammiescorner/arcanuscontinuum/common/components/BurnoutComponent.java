@@ -25,7 +25,7 @@ public class BurnoutComponent implements AutoSyncedComponent, ServerTickingCompo
 
 	@Override
 	public void serverTick() {
-		EntityAttributeInstance burnoutRegenAttr = entity.getAttributeInstance(ArcanusEntityAttributes.BURNOUT_REGEN);
+		EntityAttributeInstance burnoutRegenAttr = entity.getAttributeInstance(ArcanusEntityAttributes.BURNOUT_REGEN.get());
 		EntityAttributeInstance attackSpeedAttr = entity.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_SPEED);
 		EntityAttributeInstance moveSpeedAttr = entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 		long timer = entity.getWorld().getTime() - ArcanusComponents.getLastCastTime(entity);

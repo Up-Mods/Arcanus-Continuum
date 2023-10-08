@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.api.spells;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -11,11 +12,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public abstract class SpellShape extends SpellComponent {
-	public static final SpellShape EMPTY = new SpellShape(Weight.NONE, 0, 0, 0) {
-		@Override public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
-			castNext(caster, castFrom, castSource, world, stack, spellGroups, groupIndex, potency);
-		}
-	};
+
+	public static SpellShape empty() {
+		return (SpellShape) ArcanusSpellComponents.EMPTY.get();
+	}
 
 	private final double manaMultiplier;
 

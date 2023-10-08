@@ -35,7 +35,7 @@ public class AreaOfEffectSpellShape extends SpellShape {
 			for(int i = 0; i < list.size() - 20; i++)
 				list.get(i).kill();
 
-			AreaOfEffectEntity areaOfEffect = ArcanusEntities.AOE.create(world);
+			AreaOfEffectEntity areaOfEffect = ArcanusEntities.AOE.get().create(world);
 			Entity sourceEntity = castSource != null ? castSource : caster;
 
 			if(areaOfEffect != null) {

@@ -36,10 +36,10 @@ public class ProjectileSpellShape extends SpellShape {
 			for(int i = 0; i < list.size() - 20; i++)
 				list.get(i).kill();
 
-			MagicProjectileEntity projectile = ArcanusEntities.MAGIC_PROJECTILE.create(world);
+			MagicProjectileEntity projectile = ArcanusEntities.MAGIC_PROJECTILE.get().create(world);
 
 			if(projectile != null) {
-				projectile.setProperties(caster, castSource, this, stack, effects, spellGroups, groupIndex, potency, this == ArcanusSpellComponents.LOB ? 2F : 4F, this != ArcanusSpellComponents.LOB, Arcanus.DEFAULT_MAGIC_COLOUR);
+				projectile.setProperties(caster, castSource, this, stack, effects, spellGroups, groupIndex, potency, ArcanusSpellComponents.LOB.is(this) ? 2F : 4F, !ArcanusSpellComponents.LOB.is(this), Arcanus.DEFAULT_MAGIC_COLOUR);
 
 				if(caster instanceof PlayerEntity player)
 					projectile.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));

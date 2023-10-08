@@ -20,7 +20,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 
 	@Override
 	public void serverTick() {
-		EntityAttributeInstance manaRegenAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MANA_REGEN);
+		EntityAttributeInstance manaRegenAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MANA_REGEN.get());
 		long timer = entity.getWorld().getTime() - ArcanusComponents.getLastCastTime(entity);
 
 		if(manaRegenAttr != null && addMana(manaRegenAttr.getValue(), true) && timer % (entity instanceof PlayerEntity player && player.isCreative() ? 1 : 20) == 0)
@@ -53,7 +53,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	}
 
 	public double getMaxMana() {
-		EntityAttributeInstance maxManaAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MAX_MANA);
+		EntityAttributeInstance maxManaAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MAX_MANA.get());
 
 		if(maxManaAttr != null)
 			return maxManaAttr.getValue();
@@ -62,7 +62,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	}
 
 	public double getManaLock() {
-		EntityAttributeInstance manaLockAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MANA_LOCK);
+		EntityAttributeInstance manaLockAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MANA_LOCK.get());
 
 		if(manaLockAttr != null)
 			return manaLockAttr.getValue();

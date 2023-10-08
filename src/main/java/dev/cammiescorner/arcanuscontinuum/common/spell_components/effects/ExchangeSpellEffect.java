@@ -25,7 +25,7 @@ public class ExchangeSpellEffect extends SpellEffect {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
-			if(entityHit.getEntity() instanceof LivingEntity livingEntity && caster != null && caster.distanceTo(livingEntity) <= 5 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.EXCHANGE).count() * potency) {
+			if(entityHit.getEntity() instanceof LivingEntity livingEntity && caster != null && caster.distanceTo(livingEntity) <= 5 * effects.stream().filter(ArcanusSpellComponents.EXCHANGE::is).count() * potency) {
 				Vec3d casterPos = caster.getPos();
 				Vec3d targetPos = livingEntity.getPos();
 

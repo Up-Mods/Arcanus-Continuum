@@ -4,31 +4,18 @@ import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.screens.ArcaneWorkbenchScreenHandler;
 import dev.cammiescorner.arcanuscontinuum.common.screens.SpellBookScreenHandler;
 import dev.cammiescorner.arcanuscontinuum.common.screens.SpellcraftScreenHandler;
+import dev.upcraft.sparkweave.api.registry.RegistryHandler;
+import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.feature_flags.FeatureFlags;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.util.Identifier;
-
-import java.util.LinkedHashMap;
 
 public class ArcanusScreenHandlers {
-	//-----Screen Handler Map-----//
-	public static final LinkedHashMap<ScreenHandlerType<?>, Identifier> SCREEN_HANDLERS = new LinkedHashMap<>();
 
-	//-----Screen Handlers-----//
-	public static final ScreenHandlerType<SpellcraftScreenHandler> SPELLCRAFT_SCREEN_HANDLER = create("spellcraft_screen_handler", new ExtendedScreenHandlerType<>((syncId, inventory, buf) -> new SpellcraftScreenHandler(syncId, inventory, buf.readBlockPos(), buf.readItemStack())));
-	public static final ScreenHandlerType<SpellBookScreenHandler> SPELL_BOOK_SCREEN_HANDLER = create("spell_book_screen_handler", new ExtendedScreenHandlerType<>((syncId, inventory, buf) -> new SpellBookScreenHandler(syncId, inventory, buf.readItemStack())));
-	public static final ScreenHandlerType<ArcaneWorkbenchScreenHandler> ARCANE_WORKBENCH_SCREEN_HANDLER = create("arcane_workbench_screen_handler", new ScreenHandlerType<>(ArcaneWorkbenchScreenHandler::new, FeatureFlags.DEFAULT_SET));
+	public static final RegistryHandler<ScreenHandlerType<?>> SCREEN_HANDLERS = RegistryHandler.create(RegistryKeys.SCREEN_HANDLER_TYPE, Arcanus.MOD_ID);
 
-	//-----Registry-----//
-	public static void register() {
-		SCREEN_HANDLERS.keySet().forEach(type -> Registry.register(Registries.SCREEN_HANDLER_TYPE, SCREEN_HANDLERS.get(type), type));
-	}
-
-	private static <T extends ScreenHandlerType<?>> T create(String name, T type) {
-		SCREEN_HANDLERS.put(type, Arcanus.id(name));
-		return type;
-	}
+	public static final RegistrySupplier<ScreenHandlerType<SpellcraftScreenHandler>> SPELLCRAFT_SCREEN_HANDLER = SCREEN_HANDLERS.register("spellcraft_screen_handler", () -> new ExtendedScreenHandlerType<>((syncId, inventory, buf) -> new SpellcraftScreenHandler(syncId, inventory, buf.readBlockPos(), buf.readItemStack())));
+	public static final RegistrySupplier<ScreenHandlerType<SpellBookScreenHandler>> SPELL_BOOK_SCREEN_HANDLER = SCREEN_HANDLERS.register("spell_book_screen_handler", () -> new ExtendedScreenHandlerType<>((syncId, inventory, buf) -> new SpellBookScreenHandler(syncId, inventory, buf.readItemStack())));
+	public static final RegistrySupplier<ScreenHandlerType<ArcaneWorkbenchScreenHandler>> ARCANE_WORKBENCH_SCREEN_HANDLER = SCREEN_HANDLERS.register("arcane_workbench_screen_handler", () -> new ScreenHandlerType<>(ArcaneWorkbenchScreenHandler::new, FeatureFlags.DEFAULT_SET));
 }

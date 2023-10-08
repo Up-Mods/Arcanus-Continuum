@@ -18,13 +18,13 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
 	@Inject(method = "getName", at = @At("HEAD"), cancellable = true)
 	private void arcanuscontinuum$getName(CallbackInfoReturnable<Text> info) {
-		if(hasStatusEffect(ArcanusStatusEffects.ANONYMITY))
+		if(hasStatusEffect(ArcanusStatusEffects.ANONYMITY.get()))
 			info.setReturnValue(Text.literal("Yog-Sothoth").formatted(Formatting.OBFUSCATED));
 	}
 
 	@Inject(method = "getEntityName", at = @At("HEAD"), cancellable = true)
 	private void arcanuscontinuum$getEntityName(CallbackInfoReturnable<String> info) {
-		if(hasStatusEffect(ArcanusStatusEffects.ANONYMITY))
+		if(hasStatusEffect(ArcanusStatusEffects.ANONYMITY.get()))
 			info.setReturnValue("Yog-Sothoth");
 	}
 }

@@ -27,7 +27,7 @@ public class SpeedSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 300, (int) ((effects.stream().filter(effect -> effect == ArcanusSpellComponents.SPEED).count() - 1) * potency), true, false));
+				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 300, (int) ((effects.stream().filter(ArcanusSpellComponents.SPEED::is).count() - 1) * potency), true, false));
 		}
 	}
 }

@@ -32,7 +32,7 @@ public class FireSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.setOnFireFor((int) (3 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.FIRE).count() * potency));
+				livingEntity.setOnFireFor((int) (3 * effects.stream().filter(ArcanusSpellComponents.FIRE::is).count() * potency));
 		}
 		else if(target.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult blockHit = (BlockHitResult) target;

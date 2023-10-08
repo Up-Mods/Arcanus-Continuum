@@ -38,7 +38,7 @@ public class BeamSpellShape extends SpellShape {
 		HitResult target = ArcanusHelper.raycast(sourceEntity, range, true, true);
 
 		if(target.getType() != HitResult.Type.MISS) {
-			BeamEntity beam = ArcanusEntities.BEAM.create(world);
+			BeamEntity beam = ArcanusEntities.BEAM.get().create(world);
 
 			if(beam != null) {
 				beam.setProperties(caster, stack, effects, spellGroups, groupIndex, 40, Arcanus.DEFAULT_MAGIC_COLOUR, potency, target.getType() == HitResult.Type.ENTITY);

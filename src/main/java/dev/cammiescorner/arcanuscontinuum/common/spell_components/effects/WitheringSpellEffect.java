@@ -27,7 +27,7 @@ public class WitheringSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 60 * (int) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.WITHERING).count() * potency), 0, true, false));
+				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 60 * (int) (effects.stream().filter(ArcanusSpellComponents.WITHERING::is).count() * potency), 0, true, false));
 		}
 	}
 }

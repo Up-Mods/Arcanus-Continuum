@@ -16,7 +16,7 @@ public class MagicDoorBlockEntity extends BlockEntity {
 	private String password = "please";
 
 	public MagicDoorBlockEntity(BlockPos pos, BlockState state) {
-		super(ArcanusBlockEntities.MAGIC_DOOR, pos, state);
+		super(ArcanusBlockEntities.MAGIC_DOOR.get(), pos, state);
 	}
 
 	@Override

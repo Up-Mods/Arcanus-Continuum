@@ -27,7 +27,7 @@ public class BouncySpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.BOUNCY, 220 * (int) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.BOUNCY).count() * potency), 0, true, false));
+				livingEntity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.BOUNCY.get(), 220 * (int) (effects.stream().filter(ArcanusSpellComponents.BOUNCY::is).count() * potency), 0, true, false));
 		}
 	}
 }

@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ArcaneWorkbenchBlockEntity extends BlockEntity implements NamedScreenHandlerFactory {
 	public ArcaneWorkbenchBlockEntity(BlockPos pos, BlockState state) {
-		super(ArcanusBlockEntities.ARCANE_WORKBENCH, pos, state);
+		super(ArcanusBlockEntities.ARCANE_WORKBENCH.get(), pos, state);
 	}
 
 	@Override

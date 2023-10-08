@@ -49,7 +49,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 	private final List<SpellComponentWidget> spellShapeWidgets = Lists.newArrayList();
 	private final List<SpellComponentWidget> spellEffectWidgets = Lists.newArrayList();
 	private final UndoRedoStack undoRedoStack = new UndoRedoStack();
-	private SpellComponent draggedComponent = ArcanusSpellComponents.EMPTY;
+	private SpellComponent draggedComponent = ArcanusSpellComponents.EMPTY.get();
 	private TextFieldWidget textBox;
 	private int leftScroll, rightScroll;
 	private double leftKnobPos, rightKnobPos;
@@ -65,8 +65,8 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 		x = (width - 256) / 2;
 		y = (height - 180) / 2;
 		playerInventoryTitleY = -10000;
-		spellShapes = Arcanus.SPELL_COMPONENTS.stream().filter(component -> component != ArcanusSpellComponents.EMPTY && ArcanusComponents.getWizardLevel(MinecraftClient.getInstance().player) >= component.getMinLevel() && component instanceof SpellShape).toList();
-		spellEffects = Arcanus.SPELL_COMPONENTS.stream().filter(component -> component != ArcanusSpellComponents.EMPTY && ArcanusComponents.getWizardLevel(MinecraftClient.getInstance().player) >= component.getMinLevel() && component instanceof SpellEffect).toList();
+		spellShapes = Arcanus.SPELL_COMPONENTS.stream().filter(component -> !ArcanusSpellComponents.EMPTY.is(component) && ArcanusComponents.getWizardLevel(MinecraftClient.getInstance().player) >= component.getMinLevel() && component instanceof SpellShape).toList();
+		spellEffects = Arcanus.SPELL_COMPONENTS.stream().filter(component -> !ArcanusSpellComponents.EMPTY.is(component) && ArcanusComponents.getWizardLevel(MinecraftClient.getInstance().player) >= component.getMinLevel() && component instanceof SpellEffect).toList();
 
 		if(client != null) {
 			for(SpellComponent component : spellShapes)
@@ -200,7 +200,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 	@Override
 	public boolean mouseReleased(double mouseX, double mouseY, int button) {
-		if(draggedComponent != ArcanusSpellComponents.EMPTY && button == 0) {
+		if(!ArcanusSpellComponents.EMPTY.is(draggedComponent) && button == 0) {
 			if(isPointWithinBounds(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) {
 				Vector2i pos = new Vector2i((int) (mouseX - this.x - 12), (int) (mouseY - this.y - 12));
 
@@ -212,7 +212,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 
 					action.Do().run();
 				}
-				if(draggedComponent instanceof SpellEffect effect && !spellGroups.isEmpty() && spellGroups.getLast().shape() != ArcanusSpellComponents.EMPTY) {
+				if(draggedComponent instanceof SpellEffect effect && !spellGroups.isEmpty() && !ArcanusSpellComponents.EMPTY.is(spellGroups.getLast().shape())) {
 					Action action = undoRedoStack.addAction(new Action(draggedComponent, pos, () -> {
 						spellGroups.getLast().effects().add(effect);
 						spellGroups.getLast().positions().add(pos);
@@ -225,7 +225,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 				}
 			}
 
-			draggedComponent = ArcanusSpellComponents.EMPTY;
+			draggedComponent = ArcanusSpellComponents.EMPTY.get();
 		}
 
 		if(draggingLeft)
@@ -351,7 +351,7 @@ public class SpellcraftScreen extends HandledScreen<SpellcraftScreenHandler> {
 			}
 		}
 
-		if(draggedComponent != ArcanusSpellComponents.EMPTY) {
+		if(!ArcanusSpellComponents.EMPTY.is(draggedComponent)) {
 			int colour = 0xff0000;
 
 			if((isPointWithinBounds(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) && (!(draggedComponent instanceof SpellEffect) || (!spellGroups.isEmpty() && !spellGroups.getLast().isEmpty())))

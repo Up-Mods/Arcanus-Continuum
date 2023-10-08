@@ -67,7 +67,7 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 		ItemStack hatStack = getEquippedStack(EquipmentSlot.HEAD).copy();
 
 		if(isTamed()) {
-			if(handStack.isOf(ArcanusItems.WIZARD_HAT)) {
+			if(handStack.isOf(ArcanusItems.WIZARD_HAT.get())) {
 				equipStack(EquipmentSlot.HEAD, stack);
 
 				if(!player.isCreative())
@@ -127,7 +127,7 @@ public class OpossumEntity extends TameableEntity implements SmartBrainOwner<Opo
 	@Nullable
 	@Override
 	public OpossumEntity createChild(ServerWorld world, PassiveEntity entity) {
-		OpossumEntity opossumEntity = ArcanusEntities.OPOSSUM.create(world);
+		OpossumEntity opossumEntity = ArcanusEntities.OPOSSUM.get().create(world);
 		UUID uUID = getOwnerUuid();
 
 		if(uUID != null && opossumEntity != null) {

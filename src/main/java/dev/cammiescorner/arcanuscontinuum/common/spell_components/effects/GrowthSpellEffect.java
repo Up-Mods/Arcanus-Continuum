@@ -26,7 +26,7 @@ public class GrowthSpellEffect extends SpellEffect {
 
 	@Override
 	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
-		int growthCount = (int) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.GROWTH).count() * potency);
+		int growthCount = (int) (effects.stream().filter(ArcanusSpellComponents.GROWTH::is).count() * potency);
 
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;

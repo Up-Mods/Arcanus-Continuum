@@ -27,7 +27,7 @@ public class FeatherSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 100 * (int) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.FEATHER).count() * potency), 0, true, false));
+				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 100 * (int) (effects.stream().filter(ArcanusSpellComponents.FEATHER::is).count() * potency), 0, true, false));
 		}
 	}
 }

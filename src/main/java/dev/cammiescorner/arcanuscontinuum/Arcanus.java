@@ -15,16 +15,19 @@ import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncSupporterData;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
 import dev.cammiescorner.arcanuscontinuum.common.structures.WizardTowerProcessor;
 import dev.cammiescorner.arcanuscontinuum.common.util.SupporterData;
+import dev.upcraft.sparkweave.api.registry.RegistryService;
 import eu.midnightdust.lib.config.MidnightConfig;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.*;
+import net.minecraft.registry.DefaultedRegistry;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -110,24 +113,19 @@ public class Arcanus implements ModInitializer {
 	public void onInitialize(ModContainer mod) {
 		MidnightConfig.init(MOD_ID, ArcanusConfig.class);
 
-		Registry.register(Registries.ENTITY_ATTRIBUTE, id("max_mana"), ArcanusEntityAttributes.MAX_MANA);
-		Registry.register(Registries.ENTITY_ATTRIBUTE, id("mana_regen"), ArcanusEntityAttributes.MANA_REGEN);
-		Registry.register(Registries.ENTITY_ATTRIBUTE, id("burnout_regen"), ArcanusEntityAttributes.BURNOUT_REGEN);
-		Registry.register(Registries.ENTITY_ATTRIBUTE, id("mana_lock"), ArcanusEntityAttributes.MANA_LOCK);
-		Registry.register(Registries.ENTITY_ATTRIBUTE, id("spell_potency"), ArcanusEntityAttributes.SPELL_POTENCY);
-		Registry.register(Registries.ENTITY_ATTRIBUTE, id("magic_resistance"), ArcanusEntityAttributes.MAGIC_RESISTANCE);
-
-		ArcanusEntities.register();
-		ArcanusBlocks.register();
-		ArcanusBlockEntities.register();
-		ArcanusItems.register();
-		ArcanusParticles.register();
-		ArcanusStatusEffects.register();
-		ArcanusSpellComponents.register();
-		ArcanusRecipes.register();
-		ArcanusScreenHandlers.register();
-		ArcanusCommands.register();
+		RegistryService registryService = RegistryService.get();
+		ArcanusBlocks.BLOCKS.accept(registryService);
+		ArcanusItems.ITEM_GROUPS.accept(registryService);
+		ArcanusItems.ITEMS.accept(registryService);
+		ArcanusBlockEntities.BLOCK_ENTITY_TYPES.accept(registryService);
+		ArcanusEntityAttributes.ENTITY_ATTRIBUTES.accept(registryService);
+		ArcanusEntities.ENTITY_TYPES.accept(registryService);
+		ArcanusParticles.PARTICLE_TYPES.accept(registryService);
 		ArcanusPointsOfInterest.register();
+		ArcanusRecipes.RECIPE_SERIALIZERS.accept(registryService);
+		ArcanusScreenHandlers.SCREEN_HANDLERS.accept(registryService);
+		ArcanusSpellComponents.SPELL_COMPONENTS.accept(registryService);
+		ArcanusStatusEffects.STATUS_EFFECTS.accept(registryService);
 
 		RegistryEvents.DYNAMIC_REGISTRY_SETUP.register(context -> context.register(RegistryKeys.STRUCTURE_PROCESSOR_LIST, Arcanus.id("wizard_tower_processors"), () -> WIZARD_TOWER_PROCESSOR_LIST));
 
@@ -143,7 +141,7 @@ public class Arcanus implements ModInitializer {
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 			Arcanus.refreshSupporterData(server, false);
 			SyncSupporterData.send(handler.player);
-			SyncStatusEffectPacket.sendToAll(handler.player, ArcanusStatusEffects.ANONYMITY, handler.player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY));
+			SyncStatusEffectPacket.sendToAll(handler.player, ArcanusStatusEffects.ANONYMITY.get(), handler.player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY.get()));
 		});
 
 		ResourceLoaderEvents.END_DATA_PACK_RELOAD.register(ctx -> {
@@ -153,7 +151,7 @@ public class Arcanus implements ModInitializer {
 
 		EntityTrackingEvents.AFTER_START_TRACKING.register((trackedEntity, player) -> {
 			if(trackedEntity instanceof ServerPlayerEntity playerEntity)
-				SyncStatusEffectPacket.sendTo(player, playerEntity, ArcanusStatusEffects.ANONYMITY, playerEntity.hasStatusEffect(ArcanusStatusEffects.ANONYMITY));
+				SyncStatusEffectPacket.sendTo(player, playerEntity, ArcanusStatusEffects.ANONYMITY.get(), playerEntity.hasStatusEffect(ArcanusStatusEffects.ANONYMITY.get()));
 		});
 
 		QuiltChatEvents.CANCEL.register(EnumSet.of(QuiltMessageType.CHAT), abstractMessage -> {
@@ -208,11 +206,6 @@ public class Arcanus implements ModInitializer {
 
 			return ActionResult.PASS;
 		});
-
-		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ArcanusItems.WIZARD_HAT, CauldronBehavior.CLEAN_DYEABLE_ITEM);
-		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ArcanusItems.WIZARD_ROBES, CauldronBehavior.CLEAN_DYEABLE_ITEM);
-		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ArcanusItems.WIZARD_PANTS, CauldronBehavior.CLEAN_DYEABLE_ITEM);
-		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(ArcanusItems.WIZARD_BOOTS, CauldronBehavior.CLEAN_DYEABLE_ITEM);
 	}
 
 	public static void refreshSupporterData(MinecraftServer server, boolean force) {

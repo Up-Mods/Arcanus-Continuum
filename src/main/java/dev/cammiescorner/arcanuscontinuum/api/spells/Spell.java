@@ -22,7 +22,7 @@ public class Spell {
 	}
 
 	public Spell() {
-		this(List.of(new SpellGroup(SpellShape.EMPTY, List.of(), List.of())), "Blank");
+		this(List.of(new SpellGroup(SpellShape.empty(), List.of(), List.of())), "Blank");
 	}
 
 	public static Spell fromNbt(NbtCompound nbt) {
@@ -116,6 +116,6 @@ public class Spell {
 
 		// start casting the spell
 		SpellGroup firstGroup = groups.get(0);
-		firstGroup.shape().cast(caster, caster.getPos(), null, world, stack, firstGroup.effects(), groups, 0, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY));
+		firstGroup.shape().cast(caster, caster.getPos(), null, world, stack, firstGroup.effects(), groups, 0, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY.get()));
 	}
 }

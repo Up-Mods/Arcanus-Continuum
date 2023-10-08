@@ -26,10 +26,10 @@ public class SizeChangeSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 			Entity entity = entityHit.getEntity();
 
-			if(this == ArcanusSpellComponents.SHRINK)
-				ArcanusComponents.setScale(entity, 0.5F, effects.stream().filter(effect -> effect == ArcanusSpellComponents.SHRINK).count() * potency);
-			if(this == ArcanusSpellComponents.ENLARGE)
-				ArcanusComponents.setScale(entity, 1.5F, effects.stream().filter(effect -> effect == ArcanusSpellComponents.ENLARGE).count() * potency);
+			if(ArcanusSpellComponents.SHRINK.is(this))
+				ArcanusComponents.setScale(entity, 0.5F, effects.stream().filter(ArcanusSpellComponents.SHRINK::is).count() * potency);
+			else if(ArcanusSpellComponents.ENLARGE.is(this))
+				ArcanusComponents.setScale(entity, 1.5F, effects.stream().filter(ArcanusSpellComponents.ENLARGE::is).count() * potency);
 		}
 	}
 }

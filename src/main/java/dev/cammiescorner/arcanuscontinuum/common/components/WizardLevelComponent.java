@@ -22,7 +22,7 @@ public class WizardLevelComponent implements AutoSyncedComponent {
 	@Override
 	public void readFromNbt(NbtCompound tag) {
 		level = tag.getInt("WizardLevel");
-		EntityAttributeInstance manaAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MAX_MANA);
+		EntityAttributeInstance manaAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MAX_MANA.get());
 
 		if(manaAttr != null) {
 			if(manaAttr.getModifier(MANA_MODIFIER) != null)
@@ -43,7 +43,7 @@ public class WizardLevelComponent implements AutoSyncedComponent {
 
 	public void setLevel(int level) {
 		this.level = level;
-		EntityAttributeInstance manaAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MAX_MANA);
+		EntityAttributeInstance manaAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MAX_MANA.get());
 
 		if(manaAttr != null) {
 			if(manaAttr.getModifier(MANA_MODIFIER) != null)

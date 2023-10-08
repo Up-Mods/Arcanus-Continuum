@@ -49,7 +49,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 	}
 
 	public ArcaneWorkbenchScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
-		super(ArcanusScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER, syncId);
+		super(ArcanusScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER.get(), syncId);
 		this.playerInventory = playerInventory;
 		this.mode = WorkbenchMode.CUSTOMIZE;
 		this.context = context;
@@ -151,7 +151,7 @@ public class ArcaneWorkbenchScreenHandler extends AbstractRecipeScreenHandler<Cr
 
 	@Override
 	public boolean canUse(PlayerEntity player) {
-		return canUse(context, player, ArcanusBlocks.ARCANE_WORKBENCH);
+		return canUse(context, player, ArcanusBlocks.ARCANE_WORKBENCH.get());
 	}
 
 	public PlayerInventory getPlayerInventory() {

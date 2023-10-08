@@ -10,7 +10,7 @@ public class SpellBookScreenHandler extends ScreenHandler {
 	private final ItemStack stack;
 
 	public SpellBookScreenHandler(int syncId, Inventory inventory, ItemStack stack) {
-		super(ArcanusScreenHandlers.SPELL_BOOK_SCREEN_HANDLER, syncId);
+		super(ArcanusScreenHandlers.SPELL_BOOK_SCREEN_HANDLER.get(), syncId);
 		this.stack = stack;
 	}
 

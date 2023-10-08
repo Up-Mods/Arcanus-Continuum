@@ -30,7 +30,7 @@ public class LotusHaloFeatureRenderer<T extends PlayerEntity, M extends EntityMo
 
 	@Override
 	public void render(MatrixStack matrices, VertexConsumerProvider vertices, int light, T player, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-		if(player.getUuidAsString().equals("6147825f-5493-4154-87c5-5c03c6b0a7c2") && !player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY)) {
+		if(player.getUuidAsString().equals("6147825f-5493-4154-87c5-5c03c6b0a7c2") && !player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY.get())) {
 			model.setAngles(player, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
 			model.spinny.yaw = (float) Math.toRadians((player.age + player.getId() + tickDelta) * 2);
 			model.spinny.pivotZ = -3;

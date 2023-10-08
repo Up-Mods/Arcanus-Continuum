@@ -3,12 +3,15 @@ package dev.cammiescorner.arcanuscontinuum.common.blocks;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.MagicDoorBlockEntity;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusBlockEntities;
+import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
@@ -22,10 +25,16 @@ import net.minecraft.util.random.RandomGenerator;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
+import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
-public class MagicDoorBlock extends DoorBlock implements BlockEntityProvider {
+public class MagicDoorBlock extends DoorBlock implements BlockEntityProvider, BlockItemProvider {
 	public MagicDoorBlock() {
 		super(QuiltBlockSettings.create().strength(2F, 3F).sounds(BlockSoundGroup.WOOD), BlockSetType.OAK);
+	}
+
+	@Override
+	public Item createItem() {
+		return new BlockItem(this, new QuiltItemSettings());
 	}
 
 	@Override
@@ -89,6 +98,6 @@ public class MagicDoorBlock extends DoorBlock implements BlockEntityProvider {
 		if(state.get(HALF) == DoubleBlockHalf.UPPER)
 			pos = pos.down();
 
-		return world.getBlockEntity(pos, ArcanusBlockEntities.MAGIC_DOOR).orElse(null);
+		return world.getBlockEntity(pos, ArcanusBlockEntities.MAGIC_DOOR.get()).orElse(null);
 	}
 }

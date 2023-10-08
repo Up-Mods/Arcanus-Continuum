@@ -39,7 +39,7 @@ public class SmiteSpellShape extends SpellShape {
 			for(int i = 0; i < list.size() - 50; i++)
 				list.get(i).kill();
 
-			SmiteEntity smite = ArcanusEntities.SMITE.create(world);
+			SmiteEntity smite = ArcanusEntities.SMITE.get().create(world);
 
 			if(smite != null) {
 				smite.setProperties(caster.getUuid(), sourceEntity, castFrom, stack, effects, potency, Arcanus.DEFAULT_MAGIC_COLOUR);

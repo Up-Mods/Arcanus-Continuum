@@ -29,7 +29,7 @@ public class MagicBlockEntityRenderer implements BlockEntityRenderer<MagicBlockE
 		int colour = entity.getColour();
 
 		for(Direction direction : Direction.values()) {
-			if(entity.getWorld().getBlockState(entity.getPos().offset(direction)).isOf(ArcanusBlocks.MAGIC_BLOCK))
+			if(entity.getWorld().getBlockState(entity.getPos().offset(direction)).isOf(ArcanusBlocks.MAGIC_BLOCK.get()))
 				continue;
 
 			switch(direction) {

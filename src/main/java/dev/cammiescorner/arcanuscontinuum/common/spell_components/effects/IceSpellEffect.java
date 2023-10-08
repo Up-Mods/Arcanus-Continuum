@@ -30,7 +30,7 @@ public class IceSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.setFrozenTicks(livingEntity.getFrozenTicks() + (int) (20 * effects.stream().filter(effect -> effect == ArcanusSpellComponents.ICE).count() * potency));
+				livingEntity.setFrozenTicks(livingEntity.getFrozenTicks() + (int) (20 * effects.stream().filter(ArcanusSpellComponents.ICE::is).count() * potency));
 		}
 		else if(target.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult blockHit = (BlockHitResult) target;

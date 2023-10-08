@@ -26,7 +26,7 @@ public class PushSpellEffect extends SpellEffect {
 			Entity entity = entityHit.getEntity();
 
 			if(sourceEntity != null) {
-				entity.addVelocity(sourceEntity.getRotationVector().multiply(effects.stream().filter(effect -> effect == ArcanusSpellComponents.PUSH).count() * 0.2 * potency));
+				entity.addVelocity(sourceEntity.getRotationVector().multiply(effects.stream().filter(ArcanusSpellComponents.PUSH::is).count() * 0.2 * potency));
 				entity.velocityModified = true;
 			}
 		}

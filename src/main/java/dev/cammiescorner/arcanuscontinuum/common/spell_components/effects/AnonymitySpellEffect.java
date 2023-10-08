@@ -27,7 +27,7 @@ public class AnonymitySpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.ANONYMITY, 220 * (int) (effects.stream().filter(effect -> effect == ArcanusSpellComponents.ANONYMITY).count() * potency), 0, true, false));
+				livingEntity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.ANONYMITY.get(), 220 * (int) (effects.stream().filter(ArcanusSpellComponents.ANONYMITY::is).count() * potency), 0, true, false));
 		}
 	}
 }

@@ -6,81 +6,64 @@ import dev.cammiescorner.arcanuscontinuum.common.items.SpellBookItem;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.items.WizardArmorItem;
 import dev.cammiescorner.arcanuscontinuum.common.util.StaffType;
+import dev.upcraft.sparkweave.api.registry.RegistryHandler;
+import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.*;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
-
-import java.util.LinkedHashMap;
 
 public class ArcanusItems {
 
-	public static final RegistryKey<ItemGroup> ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, Arcanus.id("general"));
+	public static final RegistryHandler<ItemGroup> ITEM_GROUPS = RegistryHandler.create(RegistryKeys.ITEM_GROUP, Arcanus.MOD_ID);
+	public static final RegistryHandler<Item> ITEMS = RegistryHandler.create(RegistryKeys.ITEM, Arcanus.MOD_ID);
 
-	//-----Item Map-----//
-	public static final LinkedHashMap<Item, Identifier> ITEMS = new LinkedHashMap<>();
+	public static final RegistrySupplier<Item> WOODEN_STAFF = ITEMS.register("wooden_staff", () -> new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));
+	public static final RegistrySupplier<Item> CRYSTAL_STAFF = ITEMS.register("crystal_staff", () -> new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));
+	public static final RegistrySupplier<Item> DIVINATION_STAFF = ITEMS.register("divination_staff", () -> new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));
+	public static final RegistrySupplier<Item> CRESCENT_STAFF = ITEMS.register("crescent_staff", () -> new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));
+	public static final RegistrySupplier<Item> ANCIENT_STAFF = ITEMS.register("ancient_staff", () -> new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));
+	public static final RegistrySupplier<Item> WAND = ITEMS.register("wand", () -> new StaffItem(StaffType.WAND, 0xffffff, 0x51301a, true));
+	public static final RegistrySupplier<Item> THAUMATURGES_GAUNTLET = ITEMS.register("thaumaturges_gauntlet", () -> new StaffItem(StaffType.GAUNTLET, 0xffffff, 0x808080, true));
+	public static final RegistrySupplier<Item> MIND_STAFF = ITEMS.register("mind_staff", () -> new StaffItem(StaffType.STAFF, 0xffffff, 0xffffff, true));
+	public static final RegistrySupplier<Item> MAGIC_TOME = ITEMS.register("magic_tome", () -> new StaffItem(StaffType.BOOK, 0x8b4513, 0x1e1b1b, true));
+	public static final RegistrySupplier<Item> MAGE_PISTOL = ITEMS.register("mage_pistol", () -> new StaffItem(StaffType.GUN, 0xffffff, 0xffffff, true));
+	public static final RegistrySupplier<Item> WIZARD_HAT = ITEMS.register("wizard_hat", () -> new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.HELMET, 0.3, 0.15, 0.1));
+	public static final RegistrySupplier<Item> WIZARD_ROBES = ITEMS.register("wizard_robes", () -> new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.CHESTPLATE, 0.5, 0.2, 0.18));
+	public static final RegistrySupplier<Item> WIZARD_PANTS = ITEMS.register("wizard_pants", () -> new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.LEGGINGS, 0.45, 0.18, 0.14));
+	public static final RegistrySupplier<Item> WIZARD_BOOTS = ITEMS.register("wizard_boots", () -> new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.BOOTS, 0.25, 0.12, 0.08));
+	public static final RegistrySupplier<Item> SPELL_BOOK = ITEMS.register("spell_book", SpellBookItem::new);
+	public static final RegistrySupplier<Item> SCROLL_OF_KNOWLEDGE = ITEMS.register("scroll_of_knowledge", ScrollOfKnowledgeItem::new);
+	public static final RegistrySupplier<Item> WIZARD_SPAWN_EGG = ITEMS.register("wizard_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.WIZARD.get(), 0x52392a, 0xffd87c, new QuiltItemSettings()));
+	public static final RegistrySupplier<Item> OPOSSUM_SPAWN_EGG = ITEMS.register("opossum_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.OPOSSUM.get(), 0x131317, 0xbdbdbd, new QuiltItemSettings()));
 
-	//-----Items-----//
-	public static final Item WOODEN_STAFF = create("wooden_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));
-	public static final Item CRYSTAL_STAFF = create("crystal_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));
-	public static final Item DIVINATION_STAFF = create("divination_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));
-	public static final Item CRESCENT_STAFF = create("crescent_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));
-	public static final Item ANCIENT_STAFF = create("ancient_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));
-	public static final Item WAND = create("wand", new StaffItem(StaffType.WAND, 0xffffff, 0x51301a, true));
-	public static final Item THAUMATURGES_GAUNTLET = create("thaumaturges_gauntlet", new StaffItem(StaffType.GAUNTLET, 0xffffff, 0x808080, true));
-	public static final Item MIND_STAFF = create("mind_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0xffffff, true));
-	public static final Item MAGIC_TOME = create("magic_tome", new StaffItem(StaffType.BOOK, 0x8b4513, 0x1e1b1b, true));
-	public static final Item MAGE_PISTOL = create("mage_pistol", new StaffItem(StaffType.GUN, 0xffffff, 0xffffff, true));
-	public static final Item WIZARD_HAT = create("wizard_hat", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.HELMET, 0.3, 0.15, 0.1));
-	public static final Item WIZARD_ROBES = create("wizard_robes", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.CHESTPLATE, 0.5, 0.2, 0.18));
-	public static final Item WIZARD_PANTS = create("wizard_pants", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.LEGGINGS, 0.45, 0.18, 0.14));
-	public static final Item WIZARD_BOOTS = create("wizard_boots", new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.BOOTS, 0.25, 0.12, 0.08));
-	public static final Item SPELL_BOOK = create("spell_book", new SpellBookItem());
-	public static final Item SCROLL_OF_KNOWLEDGE = create("scroll_of_knowledge", new ScrollOfKnowledgeItem());
-	public static final Item WIZARD_SPAWN_EGG = create("wizard_spawn_egg", new SpawnEggItem(ArcanusEntities.WIZARD, 0x52392a, 0xffd87c, new QuiltItemSettings()));
-	public static final Item OPOSSUM_SPAWN_EGG = create("opossum_spawn_egg", new SpawnEggItem(ArcanusEntities.OPOSSUM, 0x131317, 0xbdbdbd, new QuiltItemSettings()));
+	public static final RegistrySupplier<ItemGroup> ITEM_GROUP = ITEM_GROUPS.register("general", () -> FabricItemGroup.builder()
+		.name(Arcanus.translate("itemGroup", "general"))
+		.icon(() -> new ItemStack(ArcanusItems.WOODEN_STAFF.get()))
+		.entries((params, entries) -> {
+			entries.addItem(ArcanusBlocks.MAGIC_DOOR.get());
+			entries.addItem(ArcanusBlocks.ARCANE_WORKBENCH.get());
+			entries.addItem(WOODEN_STAFF.get());
+			entries.addItem(CRYSTAL_STAFF.get());
+			entries.addItem(DIVINATION_STAFF.get());
+			entries.addItem(CRESCENT_STAFF.get());
+			entries.addItem(ANCIENT_STAFF.get());
 
-	//-----Registry-----//
-	public static void register() {
-		Registry.register(Registries.ITEM_GROUP, ITEM_GROUP, FabricItemGroup.builder()
-			.name(Arcanus.translate("itemGroup", "general"))
-			.icon(() -> new ItemStack(ArcanusItems.WOODEN_STAFF))
-			.entries((params, entries) -> {
-				entries.addItem(ArcanusBlocks.MAGIC_DOOR);
-				entries.addItem(ArcanusBlocks.ARCANE_WORKBENCH);
-				entries.addItem(WOODEN_STAFF);
-				entries.addItem(CRYSTAL_STAFF);
-				entries.addItem(DIVINATION_STAFF);
-				entries.addItem(CRESCENT_STAFF);
-				entries.addItem(ANCIENT_STAFF);
+			if (Arcanus.isCurrentPlayerSupporter()) {
+				entries.addItem(WAND.get());
+				entries.addItem(THAUMATURGES_GAUNTLET.get());
+				entries.addItem(MIND_STAFF.get());
+				entries.addItem(MAGIC_TOME.get());
+				entries.addItem(MAGE_PISTOL.get());
+			}
 
-				if (Arcanus.isCurrentPlayerSupporter()) {
-					entries.addItem(WAND);
-					entries.addItem(THAUMATURGES_GAUNTLET);
-					entries.addItem(MIND_STAFF);
-					entries.addItem(MAGIC_TOME);
-					entries.addItem(MAGE_PISTOL);
-				}
-
-				entries.addItem(WIZARD_HAT);
-				entries.addItem(WIZARD_ROBES);
-				entries.addItem(WIZARD_PANTS);
-				entries.addItem(WIZARD_BOOTS);
-				entries.addItem(SPELL_BOOK);
-				entries.addItem(SCROLL_OF_KNOWLEDGE);
-				entries.addItem(WIZARD_SPAWN_EGG);
-				entries.addItem(OPOSSUM_SPAWN_EGG);
-			}).build());
-
-		ITEMS.keySet().forEach(item -> Registry.register(Registries.ITEM, ITEMS.get(item), item));
-	}
-
-	private static <T extends Item> T create(String name, T item) {
-		ITEMS.put(item, Arcanus.id(name));
-		return item;
-	}
+			entries.addItem(WIZARD_HAT.get());
+			entries.addItem(WIZARD_ROBES.get());
+			entries.addItem(WIZARD_PANTS.get());
+			entries.addItem(WIZARD_BOOTS.get());
+			entries.addItem(SPELL_BOOK.get());
+			entries.addItem(SCROLL_OF_KNOWLEDGE.get());
+			entries.addItem(WIZARD_SPAWN_EGG.get());
+			entries.addItem(OPOSSUM_SPAWN_EGG.get());
+		}).build());
 }
