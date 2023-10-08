@@ -8,6 +8,9 @@ def buildTime = ENV.BUILD_TIME ?: new Date().format('yyyyMMddHHmmss')
 
 def javaVersion = 17
 
+//TODO increment when updating the compendium
+def book_version = 1
+
 group = "dev.cammiescorner"
 archivesBaseName = "arcanus-continuum"
 
@@ -22,18 +25,52 @@ project.configurations.configureEach {
 }
 
 repositories {
-	maven { url "https://maven.quiltmc.org/repository/snapshot" }
-	maven { url "https://maven.shedaniel.me" }
-	maven { url "https://maven.terraformersmc.com" }
-	maven { url "https://maven.ladysnake.org/releases" }
-	maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
-	maven { url "https://maven.blamejared.com" }
-	maven { url "https://maven.kosmx.dev/" }
-	maven { url "https://api.modrinth.com/maven" }
-	maven { url "https://cursemaven.com" }
-	maven { url "https://minecraft.curseforge.com/api/maven/" }
-	maven { url "https://maven.jamieswhiteshirt.com/libs-release" }
-	maven { url "https://jitpack.io" }
+	maven {
+		name = "QuiltMC Snapshots"
+		url = "https://maven.quiltmc.org/repository/snapshot"
+	}
+	maven {
+		url = "https://maven.shedaniel.me"
+	}
+	maven {
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com"
+	}
+	maven {
+		name = "Ladysnake"
+		url = "https://maven.ladysnake.org/releases"
+	}
+	maven {
+		url = "https://maven.blamejared.com"
+	}
+	maven {
+		url = "https://maven.kosmx.dev"
+	}
+	maven {
+		url = "https://maven.jamieswhiteshirt.com/libs-release"
+	}
+	maven {
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven"
+		content {
+			includeGroup "maven.modrinth"
+		}
+	}
+	maven {
+		name = "CurseMaven"
+		url = "https://cursemaven.com"
+		content {
+			includeGroup "curse.maven"
+		}
+	}
+	maven {
+		name = "SonaType Snapshots"
+		url = "https://oss.sonatype.org/content/repositories/snapshots"
+	}
+	maven {
+		name = "JitPack"
+		url = "https://jitpack.io"
+	}
 }
 
 dependencies {
@@ -43,13 +80,17 @@ dependencies {
 
 	modImplementation libs.quilt.loader
 	modImplementation libs.quilted.fabric.api
+	modRuntimeOnly libs.quilted.fabric.api.deprecated
 
 	include libs.mixinextras
 	implementation libs.mixinextras
 	annotationProcessor libs.mixinextras
 
 	modImplementation libs.bundles.cca
-	modCompileOnly libs.patchouli //TODO re-enable once patchouli updates
+
+	modCompileOnly libs.patchouli
+	modLocalRuntime libs.patchouli
+
 	modImplementation libs.midnightlib
 	modImplementation libs.smartbrainlib
 
@@ -77,9 +118,13 @@ loom {
 
 processResources {
 	inputs.property "version", version
+	inputs.property "book_version", book_version
 
-	filesMatching('quilt.mod.json') {
+	filesMatching("quilt.mod.json") {
 		expand "version": version
+	}
+	filesMatching("**/patchouli_books/compendium_arcanus/book.json") {
+		expand "book_version": book_version
 	}
 }
 

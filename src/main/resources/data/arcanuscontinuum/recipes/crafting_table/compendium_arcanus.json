@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "patchouli:shapeless_book_recipe",
   "ingredients": [
     {
       "item": "minecraft:book"
@@ -14,7 +14,13 @@
       "item": "minecraft:amethyst_shard"
     }
   ],
-  "result": {
-    "item": "arcanuscontinuum:compendium_arcanus"
-  }
+  "book": "arcanuscontinuum:compendium_arcanus",
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "patchouli"
+      ]
+    }
+  ]
 }

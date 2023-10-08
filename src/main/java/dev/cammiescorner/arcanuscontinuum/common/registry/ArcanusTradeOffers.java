@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import com.google.common.collect.ImmutableMap;
 import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusCompat;
+import dev.cammiescorner.arcanuscontinuum.common.compat.PatchouliCompat;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.entity.Entity;
@@ -43,9 +44,7 @@ public class ArcanusTradeOffers {
 			new SellItemFactory(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.STRENGTH), 10, 100, 5),
 			new SellItemFactory(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.SLOW_FALLING), 10, 100, 5)
 		);
-		if(ArcanusCompat.PATCHOULI.isEnabled()) {
-			factories.add(0, new SellItemFactory(ArcanusItems.COMPENDIUM_ARCANUS, 2, 1, 100, 1));
-		}
+		ArcanusCompat.PATCHOULI.ifEnabled(() -> () -> factories.add(0, new SellItemFactory(PatchouliCompat.getCompendiumArcanus(), 2, 100, 1)));
 
 		return new Int2ObjectOpenHashMap<>(
 			ImmutableMap.of(

@@ -1,8 +1,10 @@
 package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
-import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusCompat;
-import dev.cammiescorner.arcanuscontinuum.common.items.*;
+import dev.cammiescorner.arcanuscontinuum.common.items.ScrollOfKnowledgeItem;
+import dev.cammiescorner.arcanuscontinuum.common.items.SpellBookItem;
+import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
+import dev.cammiescorner.arcanuscontinuum.common.items.WizardArmorItem;
 import dev.cammiescorner.arcanuscontinuum.common.util.StaffType;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.*;
@@ -23,7 +25,6 @@ public class ArcanusItems {
 	public static final LinkedHashMap<Item, Identifier> ITEMS = new LinkedHashMap<>();
 
 	//-----Items-----//
-	public static final Item COMPENDIUM_ARCANUS = ArcanusCompat.PATCHOULI.orElse(() -> () -> create("compendium_arcanus", new ArcanusCompendiumItem()), null);
 	public static final Item WOODEN_STAFF = create("wooden_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));
 	public static final Item CRYSTAL_STAFF = create("crystal_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));
 	public static final Item DIVINATION_STAFF = create("divination_staff", new StaffItem(StaffType.STAFF, 0xffffff, 0x51301a));

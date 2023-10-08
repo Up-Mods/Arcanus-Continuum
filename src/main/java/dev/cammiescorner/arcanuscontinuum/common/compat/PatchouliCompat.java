@@ -1,14 +1,12 @@
 package dev.cammiescorner.arcanuscontinuum.common.compat;
 
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusBlocks;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusItems;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import net.minecraft.item.ItemStack;
+import vazkii.patchouli.api.PatchouliAPI;
 
 public class PatchouliCompat {
 
-	public static void init() {
-		ItemGroupEvents.modifyEntriesEvent(ArcanusItems.ITEM_GROUP).register(entries -> {
-			entries.addBefore(ArcanusBlocks.MAGIC_DOOR, ArcanusItems.COMPENDIUM_ARCANUS);
-		});
+	public static ItemStack getCompendiumArcanus() {
+		return PatchouliAPI.get().getBookStack(Arcanus.id("compendium_arcanus"));
 	}
 }
