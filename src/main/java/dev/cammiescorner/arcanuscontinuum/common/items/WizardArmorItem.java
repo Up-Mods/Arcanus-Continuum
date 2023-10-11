@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.items;
 
+import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
@@ -14,12 +15,12 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.Util;
 import net.minecraft.world.World;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 public class WizardArmorItem extends DyeableArmorItem {
 	private static final Map<ArmorSlot, UUID> MODIFIER_IDS = Map.of(
@@ -28,12 +29,11 @@ public class WizardArmorItem extends DyeableArmorItem {
 		ArmorSlot.CHESTPLATE, UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"),
 		ArmorSlot.HELMET, UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")
 	);
-	private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
+	private final Supplier<Multimap<EntityAttribute, EntityAttributeModifier>> attributeModifiers;
 
 	public WizardArmorItem(ArmorMaterial armorMaterial, ArmorSlot equipmentSlot, double manaRegen, double magicResist, double spellPotency) {
 		super(armorMaterial, equipmentSlot, new QuiltItemSettings().maxCount(1));
-
-		attributeModifiers = Util.make(() -> {
+		this.attributeModifiers = Suppliers.memoize(() -> {
 			UUID modifierID = MODIFIER_IDS.get(equipmentSlot);
 			return ImmutableMultimap.<EntityAttribute, EntityAttributeModifier>builder()
 				.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(modifierID, "Armor modifier", armorMaterial.getProtection(equipmentSlot), EntityAttributeModifier.Operation.ADDITION))
@@ -64,6 +64,6 @@ public class WizardArmorItem extends DyeableArmorItem {
 
 	@Override
 	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-		return slot == getPreferredSlot() ? attributeModifiers : super.getAttributeModifiers(slot);
+		return slot == getPreferredSlot() ? attributeModifiers.get() : super.getAttributeModifiers(slot);
 	}
 }

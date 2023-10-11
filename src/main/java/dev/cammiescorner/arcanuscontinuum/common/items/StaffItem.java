@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.items;
 
+import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
@@ -30,10 +31,11 @@ import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 public class StaffItem extends Item {
 	public static final UUID ATTACK_RANGE_MODIFIER_ID = UUID.fromString("05869d86-c861-4954-9079-68c380ad063c");
-	private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
+	private final Supplier<Multimap<EntityAttribute, EntityAttributeModifier>> attributeModifiers;
 	public final StaffType staffType;
 	public final int defaultPrimaryColour;
 	public final int defaultSecondaryColour;
@@ -45,12 +47,11 @@ public class StaffItem extends Item {
 
 	public StaffItem(StaffType staffType, int defaultPrimaryColour, int defaultSecondaryColour, boolean isDonorOnly) {
 		super(new QuiltItemSettings().maxCount(1));
-		ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
-
-		builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -1, EntityAttributeModifier.Operation.ADDITION));
-		builder.put(ReachEntityAttributes.ATTACK_RANGE, new EntityAttributeModifier(ATTACK_RANGE_MODIFIER_ID, "Weapon modifier", 0.5, EntityAttributeModifier.Operation.ADDITION));
-
-		attributeModifiers = builder.build();
+		this.attributeModifiers = Suppliers.memoize(() -> ImmutableMultimap.<EntityAttribute, EntityAttributeModifier>builder()
+			.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -1, EntityAttributeModifier.Operation.ADDITION))
+			.put(ReachEntityAttributes.ATTACK_RANGE, new EntityAttributeModifier(ATTACK_RANGE_MODIFIER_ID, "Weapon modifier", 0.5, EntityAttributeModifier.Operation.ADDITION))
+			.build()
+		);
 		this.staffType = staffType;
 		this.defaultPrimaryColour = defaultPrimaryColour;
 		this.defaultSecondaryColour = defaultSecondaryColour;
@@ -59,13 +60,13 @@ public class StaffItem extends Item {
 
 	@Override
 	public void onCraft(ItemStack stack, World world, PlayerEntity player) {
-		if(!world.isClient()) {
+		if (!world.isClient()) {
 			NbtCompound tag = stack.getOrCreateSubNbt(Arcanus.MOD_ID);
 
-			if(tag.isEmpty()) {
+			if (tag.isEmpty()) {
 				NbtList list = new NbtList();
 
-				for(int i = 0; i < 8; i++)
+				for (int i = 0; i < 8; i++)
 					list.add(i, new Spell().toNbt());
 
 				tag.put("Spells", list);
@@ -77,13 +78,13 @@ public class StaffItem extends Item {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		if(!world.isClient()) {
+		if (!world.isClient()) {
 			NbtCompound tag = stack.getOrCreateSubNbt(Arcanus.MOD_ID);
 
-			if(tag.isEmpty()) {
+			if (tag.isEmpty()) {
 				NbtList list = new NbtList();
 
-				for(int i = 0; i < 8; i++)
+				for (int i = 0; i < 8; i++)
 					list.add(i, new Spell().toNbt());
 
 				tag.put("Spells", list);
@@ -101,13 +102,13 @@ public class StaffItem extends Item {
 		tooltip.add(Arcanus.translate("staff", "secondary_color").styled(style -> style.withColor(secondaryColour)).append(Text.literal(": " + String.format(Locale.ROOT, "#%06X", secondaryColour)).formatted(Formatting.GRAY)));
 		tooltip.add(Text.empty());
 
-		if(tag != null && !tag.isEmpty()) {
+		if (tag != null && !tag.isEmpty()) {
 			NbtList list = tag.getList("Spells", NbtElement.COMPOUND_TYPE);
 
-			for(int i = 0; i < list.size(); i++) {
+			for (int i = 0; i < list.size(); i++) {
 				Spell spell = Spell.fromNbt(list.getCompound(i));
 
-				if(spell.getComponentGroups().isEmpty()) {
+				if (spell.getComponentGroups().isEmpty()) {
 					tooltip.add(Arcanus.translate("staff", "invalid_data").formatted(Formatting.DARK_RED));
 					return;
 				}
@@ -125,7 +126,7 @@ public class StaffItem extends Item {
 
 	@Override
 	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-		return slot == EquipmentSlot.MAINHAND ? attributeModifiers : super.getAttributeModifiers(slot);
+		return slot == EquipmentSlot.MAINHAND ? attributeModifiers.get() : super.getAttributeModifiers(slot);
 	}
 
 	public static void setPrimaryColour(ItemStack stack, int colour) {
@@ -136,7 +137,7 @@ public class StaffItem extends Item {
 		NbtCompound tag = stack.getSubNbt(Arcanus.MOD_ID);
 		int colour = ((StaffItem) stack.getItem()).defaultPrimaryColour;
 
-		if(tag != null && tag.contains("PrimaryColour", NbtElement.INT_TYPE))
+		if (tag != null && tag.contains("PrimaryColour", NbtElement.INT_TYPE))
 			colour = tag.getInt("PrimaryColour");
 
 		return colour;
@@ -150,7 +151,7 @@ public class StaffItem extends Item {
 		NbtCompound tag = stack.getSubNbt(Arcanus.MOD_ID);
 		int colour = ((StaffItem) stack.getItem()).defaultSecondaryColour;
 
-		if(tag != null && tag.contains("SecondaryColour", NbtElement.INT_TYPE))
+		if (tag != null && tag.contains("SecondaryColour", NbtElement.INT_TYPE))
 			colour = tag.getInt("SecondaryColour");
 
 		return colour;
