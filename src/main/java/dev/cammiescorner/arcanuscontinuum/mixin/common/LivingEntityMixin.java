@@ -132,13 +132,15 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@ModifyReturnValue(method = "createAttributes", at = @At("RETURN"))
 	private static DefaultAttributeContainer.Builder arcanuscontinuum$createPlayerAttributes(DefaultAttributeContainer.Builder builder) {
-		return builder
-			.add(ArcanusEntityAttributes.MAX_MANA.get())
-			.add(ArcanusEntityAttributes.MANA_REGEN.get())
-			.add(ArcanusEntityAttributes.BURNOUT_REGEN.get())
-			.add(ArcanusEntityAttributes.MANA_LOCK.get())
-			.add(ArcanusEntityAttributes.SPELL_POTENCY.get())
-			.add(ArcanusEntityAttributes.MAGIC_RESISTANCE.get())
-		;
+		if (ArcanusEntityAttributes.isInitialized())
+			return builder
+				.add(ArcanusEntityAttributes.MAX_MANA.get())
+				.add(ArcanusEntityAttributes.MANA_REGEN.get())
+				.add(ArcanusEntityAttributes.BURNOUT_REGEN.get())
+				.add(ArcanusEntityAttributes.MANA_LOCK.get())
+				.add(ArcanusEntityAttributes.SPELL_POTENCY.get())
+				.add(ArcanusEntityAttributes.MAGIC_RESISTANCE.get());
+		else
+			return builder;
 	}
 }
