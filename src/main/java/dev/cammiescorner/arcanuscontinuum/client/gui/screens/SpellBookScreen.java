@@ -29,7 +29,7 @@ import java.util.Locale;
 public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 	public static final Identifier BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
 	public static final Identifier PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
-	public static final LinkedList<SpellGroup> SPELL_GROUPS = new LinkedList<>();
+	public final LinkedList<SpellGroup> SPELL_GROUPS = new LinkedList<>();
 
 	public SpellBookScreen(SpellBookScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
 		super(screenHandler, playerInventory, text);

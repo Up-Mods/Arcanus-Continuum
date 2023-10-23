@@ -114,12 +114,12 @@ public class Arcanus implements ModInitializer {
 		MidnightConfig.init(MOD_ID, ArcanusConfig.class);
 
 		RegistryService registryService = RegistryService.get();
+		ArcanusEntities.ENTITY_TYPES.accept(registryService);
 		ArcanusBlocks.BLOCKS.accept(registryService);
 		ArcanusItems.ITEM_GROUPS.accept(registryService);
 		ArcanusItems.ITEMS.accept(registryService);
 		ArcanusBlockEntities.BLOCK_ENTITY_TYPES.accept(registryService);
 		ArcanusEntityAttributes.registerAll(registryService);
-		ArcanusEntities.ENTITY_TYPES.accept(registryService);
 		ArcanusParticles.PARTICLE_TYPES.accept(registryService);
 		ArcanusPointsOfInterest.register();
 		ArcanusRecipes.RECIPE_SERIALIZERS.accept(registryService);
@@ -145,8 +145,10 @@ public class Arcanus implements ModInitializer {
 		});
 
 		ResourceLoaderEvents.END_DATA_PACK_RELOAD.register(ctx -> {
-			if(ctx.server() != null)
-				Arcanus.refreshSupporterData(ctx.server(), true);
+			try (MinecraftServer server = ctx.server()) {
+				if(server != null)
+					Arcanus.refreshSupporterData(server, true);
+			}
 		});
 
 		EntityTrackingEvents.AFTER_START_TRACKING.register((trackedEntity, player) -> {
@@ -169,14 +171,16 @@ public class Arcanus implements ModInitializer {
 					for(BlockPos pos : pointOfInterest.collect(Collectors.toSet())) {
 						BlockState state = world.getBlockState(pos);
 
-						if(state.getBlock() instanceof MagicDoorBlock doorBlock && world.getBlockEntity(pos) instanceof MagicDoorBlockEntity door && message.equals(door.getPassword())) {
-							doorBlock.setOpen(null, world, state, pos, true);
-							player.sendMessage(translate("door", "access_granted").formatted(Formatting.GRAY, Formatting.ITALIC), true);
+						if(state.getBlock() instanceof MagicDoorBlock doorBlock && world.getBlockEntity(pos) instanceof MagicDoorBlockEntity door) {
+							boolean messageIsPassword = message.equals(door.getPassword()) || message.equals(door.getPassword().toLowerCase());
 
-							beep = true;
+							if (messageIsPassword) {
+								doorBlock.setOpen(null, world, state, pos, true);
+								player.sendMessage(translate("door", "access_granted").formatted(Formatting.GRAY, Formatting.ITALIC), true);
+								beep = true;
+							}
 						}
 					}
-
 					return beep;
 				}, world.getServer());
 
