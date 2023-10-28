@@ -145,10 +145,9 @@ public class Arcanus implements ModInitializer {
 		});
 
 		ResourceLoaderEvents.END_DATA_PACK_RELOAD.register(ctx -> {
-			try (MinecraftServer server = ctx.server()) {
-				if(server != null)
-					Arcanus.refreshSupporterData(server, true);
-			}
+			var server = ctx.server();
+			if (server != null)
+				Arcanus.refreshSupporterData(server, true);
 		});
 
 		EntityTrackingEvents.AFTER_START_TRACKING.register((trackedEntity, player) -> {
@@ -172,9 +171,7 @@ public class Arcanus implements ModInitializer {
 						BlockState state = world.getBlockState(pos);
 
 						if(state.getBlock() instanceof MagicDoorBlock doorBlock && world.getBlockEntity(pos) instanceof MagicDoorBlockEntity door) {
-							boolean messageIsPassword = message.equals(door.getPassword()) || message.equals(door.getPassword().toLowerCase());
-
-							if (messageIsPassword) {
+							if (message.toLowerCase(Locale.ROOT).equals(door.getPassword())) {
 								doorBlock.setOpen(null, world, state, pos, true);
 								player.sendMessage(translate("door", "access_granted").formatted(Formatting.GRAY, Formatting.ITALIC), true);
 								beep = true;
@@ -280,7 +277,6 @@ public class Arcanus implements ModInitializer {
 
 	public static List<Pattern> getSpellPattern(int index) {
 		return switch(index) {
-			case 0 -> List.of(Pattern.LEFT, Pattern.LEFT, Pattern.LEFT);
 			case 1 -> List.of(Pattern.LEFT, Pattern.LEFT, Pattern.RIGHT);
 			case 2 -> List.of(Pattern.LEFT, Pattern.RIGHT, Pattern.LEFT);
 			case 3 -> List.of(Pattern.LEFT, Pattern.RIGHT, Pattern.RIGHT);

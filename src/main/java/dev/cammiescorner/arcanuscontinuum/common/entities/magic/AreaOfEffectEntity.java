@@ -23,7 +23,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.UUID;
 
 public class AreaOfEffectEntity extends Entity {
 	private UUID casterId = Util.NIL_UUID;

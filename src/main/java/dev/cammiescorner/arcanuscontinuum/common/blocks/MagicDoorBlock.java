@@ -16,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -28,8 +27,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
-
-import java.util.Locale;
 
 public class MagicDoorBlock extends DoorBlock implements BlockEntityProvider, BlockItemProvider {
 	public MagicDoorBlock() {
@@ -64,7 +61,7 @@ public class MagicDoorBlock extends DoorBlock implements BlockEntityProvider, Bl
 		LivingEntity owner = door.getOwner();
 
 		if(owner != null && stack.isOf(Items.NAME_TAG) && stack.hasCustomName())
-			if(owner.getUuid().compareTo(player.getUuid()) == 0) {
+			if(owner.getUuid().equals(player.getUuid())) {
 				String password = stack.getName().getString();
 
 				door.setPassword(password);

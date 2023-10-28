@@ -9,6 +9,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.Locale;
 import java.util.UUID;
 
 public class MagicDoorBlockEntity extends BlockEntity {
@@ -51,6 +52,6 @@ public class MagicDoorBlockEntity extends BlockEntity {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = password.toLowerCase(Locale.ROOT);
 	}
 }
