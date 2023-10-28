@@ -8,19 +8,21 @@
 			"name": "Arcanus Continuum",
 			"description": "A simple magic mod based on EB Wizardry & Wynncraft",
 			"contributors": {
-				"Cammie": "Owner",
 				"Arathain": "Artist",
-				"SleepySheepy (Kelly)": "Mod Namer"
+				"Cammie": "Owner",
+				"Evelyn (evieowlette)": "",
+				"SleepySheepy (Kelly)": "Mod Namer",
+				"Up": "Author"
 			},
 			"contact": {
-				"homepage": "https://cammiescorner.dev/",
-				"issues": "https://github.com/CammiePone/Arcanus-Continuum/issues",
-				"sources": "https://github.com/CammiePone/Arcanus-Continuum"
+				"homepage": "https://cammiescorner.dev",
+				"issues": "https://github.com/Up-Mods/Arcanus-Continuum/issues",
+				"sources": "https://github.com/Up-Mods/Arcanus-Continuum"
 			},
 			"license": {
 				"name": "Custom License",
 				"id": "Custom License",
-				"url": "https://github.com/CammiePone/Arcanus-Continuum/blob/1.19-dev/LICENSE",
+				"url": "https://github.com/Up-Mods/Arcanus-Continuum/blob/HEAD/LICENSE.md",
 				"description": "This license permits small portions of the code to be used without prior permission, but not large parts."
 			},
 			"icon": "assets/arcanuscontinuum/icon.png"
