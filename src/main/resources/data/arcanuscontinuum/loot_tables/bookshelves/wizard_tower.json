@@ -22,7 +22,7 @@
               "conditions": [
                 {
                   "condition": "minecraft:random_chance",
-                  "chance": 0.125
+                  "chance": 0.25
                 }
               ]
             },
@@ -38,7 +38,7 @@
               "conditions": [
                 {
                   "condition": "minecraft:random_chance",
-                  "chance": 0.125
+                  "chance": 0.25
                 }
               ]
             },
@@ -54,7 +54,7 @@
               "conditions": [
                 {
                   "condition": "minecraft:random_chance",
-                  "chance": 0.125
+                  "chance": 0.25
                 }
               ]
             },
@@ -70,7 +70,7 @@
               "conditions": [
                 {
                   "condition": "minecraft:random_chance",
-                  "chance": 0.125
+                  "chance": 0.25
                 }
               ]
             },
@@ -86,7 +86,7 @@
               "conditions": [
                 {
                   "condition": "minecraft:random_chance",
-                  "chance": 0.125
+                  "chance": 0.25
                 }
               ]
             },
@@ -102,7 +102,7 @@
               "conditions": [
                 {
                   "condition": "minecraft:random_chance",
-                  "chance": 0.125
+                  "chance": 0.25
                 }
               ]
             },
@@ -118,7 +118,7 @@
               "conditions": [
                 {
                   "condition": "minecraft:random_chance",
-                  "chance": 0.125
+                  "chance": 0.25
                 }
               ]
             },
@@ -134,7 +134,7 @@
               "conditions": [
                 {
                   "condition": "minecraft:random_chance",
-                  "chance": 0.125
+                  "chance": 0.25
                 }
               ]
             }
@@ -155,7 +155,7 @@
               "conditions": [
                 {
                   "condition": "minecraft:random_chance",
-                  "chance": 0.0
+                  "chance": 0
                 }
               ]
             }
@@ -163,12 +163,12 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 4,
+          "weight": 5,
           "name": "minecraft:writable_book"
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 5,
           "name": "minecraft:book"
         },
         {
