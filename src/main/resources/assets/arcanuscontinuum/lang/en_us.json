@@ -106,6 +106,7 @@
   "door.arcanuscontinuum.access_granted": "Access Granted...",
   "door.arcanuscontinuum.not_owner": "You do not own this door",
   "door.arcanuscontinuum.say_magic_word": "This door needs a magic word to open",
+  "door.arcanuscontinuum.password_set": "Password set to %s",
 
   "screen.arcanuscontinuum.tooltip.undo": "Undo",
   "screen.arcanuscontinuum.tooltip.redo": "Redo",

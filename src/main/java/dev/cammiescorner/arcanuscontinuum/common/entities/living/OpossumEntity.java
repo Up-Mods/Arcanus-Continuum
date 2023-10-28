@@ -47,7 +47,8 @@ import java.util.List;
 import java.util.UUID;
 
 @SuppressWarnings("ALL")
-public class OpossumEntity extends TameableEntity implements SmartBrainOwner<OpossumEntity> {
+public class
+OpossumEntity extends TameableEntity implements SmartBrainOwner<OpossumEntity> {
 	public OpossumEntity(EntityType<? extends TameableEntity> entityType, World world) {
 		super(entityType, world);
 		Arrays.fill(armorDropChances, 1F);

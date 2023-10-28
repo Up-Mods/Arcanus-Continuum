@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -53,17 +54,23 @@ public class MagicDoorBlock extends DoorBlock implements BlockEntityProvider, Bl
 
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		if (world.isClient) return ActionResult.SUCCESS;
+
 		ItemStack stack = player.getStackInHand(hand);
 		MagicDoorBlockEntity door = getBlockEntity(world, state, pos);
+		LivingEntity owner = door.getOwner();
 
-		if(stack.isOf(Items.NAME_TAG) && stack.hasCustomName() && door != null)
-			if(door.getOwner().equals(player))
-				door.setPassword(stack.getName().getString());
-			else
+		if(owner != null && stack.isOf(Items.NAME_TAG) && stack.hasCustomName())
+			if(owner.getUuid().equals(player.getUuid())) {
+				String password = stack.getName().getString();
+
+				door.setPassword(password);
+				player.sendMessage(Text.translatable("door.arcanuscontinuum.password_set", password)
+					.formatted(Formatting.GOLD, Formatting.ITALIC), true);
+			} else
 				player.sendMessage(Arcanus.translate("door", "not_owner").formatted(Formatting.GRAY, Formatting.ITALIC), true);
 		else
 			player.sendMessage(Arcanus.translate("door", "say_magic_word").formatted(Formatting.GRAY, Formatting.ITALIC), true);
-
 		return ActionResult.SUCCESS;
 	}
 
