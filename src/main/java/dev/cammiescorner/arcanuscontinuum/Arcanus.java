@@ -114,12 +114,12 @@ public class Arcanus implements ModInitializer {
 		MidnightConfig.init(MOD_ID, ArcanusConfig.class);
 
 		RegistryService registryService = RegistryService.get();
+		ArcanusEntityAttributes.registerAll(registryService);
 		ArcanusEntities.ENTITY_TYPES.accept(registryService);
 		ArcanusBlocks.BLOCKS.accept(registryService);
 		ArcanusItems.ITEM_GROUPS.accept(registryService);
 		ArcanusItems.ITEMS.accept(registryService);
 		ArcanusBlockEntities.BLOCK_ENTITY_TYPES.accept(registryService);
-		ArcanusEntityAttributes.registerAll(registryService);
 		ArcanusParticles.PARTICLE_TYPES.accept(registryService);
 		ArcanusPointsOfInterest.register();
 		ArcanusRecipes.RECIPE_SERIALIZERS.accept(registryService);
