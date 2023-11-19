@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.magic;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
@@ -41,11 +42,13 @@ public class MagicRuneEntity extends Entity {
 
 	@Override
 	public void tick() {
-		if(!getWorld().isClient() && (getCaster() == null || !getCaster().isAlive()))
+		if(!getWorld().isClient() && (getCaster() == null || !getCaster().isAlive())) {
 			kill();
+			return;
+		}
 
 		if(getWorld() instanceof ServerWorld serverWorld && age > 60) {
-			LivingEntity entity = getWorld().getClosestEntity(LivingEntity.class, TargetPredicate.createNonAttackable().setPredicate(LivingEntity::isAlive), null, getX(), getY(), getZ(), new Box(-0.5, 0, -0.5, 0.5, 0.2, 0.5).offset(getPos()));
+			LivingEntity entity = getWorld().getClosestEntity(LivingEntity.class, TargetPredicate.createNonAttackable().setPredicate(livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator() && livingEntity instanceof Targetable targetable && targetable.arcanuscontinuum$canBeTargeted()), null, getX(), getY(), getZ(), new Box(-0.5, 0, -0.5, 0.5, 0.2, 0.5).offset(getPos()));
 
 			if(entity != null) {
 				for(SpellEffect effect : new HashSet<>(effects))

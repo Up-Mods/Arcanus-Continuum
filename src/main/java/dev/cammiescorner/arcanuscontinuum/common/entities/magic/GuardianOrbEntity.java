@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.magic;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
@@ -8,6 +9,8 @@ import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MovementType;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -16,13 +19,11 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -32,55 +33,78 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
-public class BeamEntity extends Entity {
-	private static final TrackedData<Integer> OWNER_ID = DataTracker.registerData(BeamEntity.class, TrackedDataHandlerRegistry.INTEGER);
-	private static final TrackedData<Integer> MAX_AGE = DataTracker.registerData(BeamEntity.class, TrackedDataHandlerRegistry.INTEGER);
-	private static final TrackedData<Boolean> IS_ON_ENTITY = DataTracker.registerData(BeamEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+public class GuardianOrbEntity extends Entity implements Targetable {
+	private static final TrackedData<Integer> OWNER_ID = DataTracker.registerData(GuardianOrbEntity.class, TrackedDataHandlerRegistry.INTEGER);
+	private static final TrackedData<Integer> TARGET_ID = DataTracker.registerData(GuardianOrbEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	private final List<SpellEffect> effects = new ArrayList<>();
 	private final List<SpellGroup> groups = new ArrayList<>();
 	private UUID casterId = Util.NIL_UUID;
+	private UUID targetId = Util.NIL_UUID;
 	private ItemStack stack = ItemStack.EMPTY;
 	private int groupIndex = 0;
 	private double potency = 1F;
 
-	public BeamEntity(EntityType<?> variant, World world) {
+	public GuardianOrbEntity(EntityType<?> variant, World world) {
 		super(variant, world);
+		this.noClip = true;
 	}
 
 	@Override
 	protected void initDataTracker() {
 		dataTracker.startTracking(OWNER_ID, -1);
-		dataTracker.startTracking(MAX_AGE, 40);
-		dataTracker.startTracking(IS_ON_ENTITY, false);
+		dataTracker.startTracking(TARGET_ID, -1);
 	}
 
 	@Override
 	public void tick() {
-		if(age >= dataTracker.get(MAX_AGE) || (getCaster() == null || squaredDistanceTo(getCaster()) > 273 || !getCaster().isAlive()) || (dataTracker.get(IS_ON_ENTITY) ? getVehicle() == null : getWorld().isAir(getBlockPos()))) {
+		if((getCaster() == null || getTarget() == null || getCaster().squaredDistanceTo(getTarget()) > 48 * 48)) {
 			if(!getWorld().isClient())
 				kill();
 
 			return;
 		}
 
-		if(!getWorld().isClient() && dataTracker.get(OWNER_ID) == -1 && getCaster() != null)
-			dataTracker.set(OWNER_ID, getCaster().getId());
+		if(!getWorld().isClient()) {
+			if(dataTracker.get(TARGET_ID) == -1 && getTarget() != null)
+				dataTracker.set(TARGET_ID, getTarget().getId());
+		}
+
+		Vec3d rotation = getTarget().getRotationVec(1F).multiply(getTarget().getWidth() / 2 + 0.5).rotateY((float) Math.toRadians(105));
+		Vec3d targetPos = getTarget().getPos().add(rotation.getX(), getTarget().getHeight(), rotation.getZ());
+		Vec3d direction = targetPos.subtract(getPos());
+		move(MovementType.SELF, direction.multiply(0.25f));
+
+		if(age % 8 == 0) {
+			Vec3d vel = (direction.lengthSquared() <= 1 ? direction : direction.normalize()).multiply(0.125f);
+
+			getWorld().addParticle(ParticleTypes.END_ROD, getX(), getY() + getHeight() / 2, getZ(), vel.getX(), vel.getY(), vel.getZ());
+		}
+
+		if(age % 200 == 0) {
+			EntityHitResult target = new EntityHitResult(getTarget());
+
+			for(SpellEffect effect : new HashSet<>(effects))
+				effect.effect(getCaster(), this, getWorld(), target, effects, stack, potency);
+		}
 
 		super.tick();
 	}
 
 	@Override
+	public boolean collides() {
+		return true;
+	}
+
+	@Override
+	public boolean damage(DamageSource source, float amount) {
+		kill();
+		return true;
+	}
+
+	@Override
 	public void kill() {
-		if(!getWorld().isClient() && getCaster() != null) {
-			if(squaredDistanceTo(getCaster()) <= 273) {
-				HitResult target = dataTracker.get(IS_ON_ENTITY) && getVehicle() != null ? new EntityHitResult(getVehicle()) : new BlockHitResult(getPos(), Direction.UP, getBlockPos(), true);
-
-				for(SpellEffect effect : new HashSet<>(effects))
-					effect.effect(getCaster(), this, getWorld(), target, effects, stack, potency + 0.15);
-
-				SpellShape.castNext(getCaster(), target.getPos(), this, (ServerWorld) getWorld(), stack, groups, groupIndex, potency);
-			}
-		}
+		if(!getWorld().isClient() && getCaster() != null)
+			SpellShape.castNext(getCaster(), getPos(), this, (ServerWorld) getWorld(), stack, groups, groupIndex, potency);
 
 		super.kill();
 	}
@@ -100,10 +124,8 @@ public class BeamEntity extends Entity {
 		effects.clear();
 		groups.clear();
 
-		dataTracker.set(OWNER_ID, tag.getInt("OwnerId"));
-		dataTracker.set(MAX_AGE, tag.getInt("MaxAge"));
-		dataTracker.set(IS_ON_ENTITY, tag.getBoolean("IsOnBoolean"));
 		casterId = tag.getUuid("CasterId");
+		targetId = tag.getUuid("TargetId");
 		stack = ItemStack.fromNbt(tag.getCompound("ItemStack"));
 		groupIndex = tag.getInt("GroupIndex");
 		potency = tag.getDouble("Potency");
@@ -122,10 +144,8 @@ public class BeamEntity extends Entity {
 		NbtList effectList = new NbtList();
 		NbtList groupsList = new NbtList();
 
-		tag.putInt("OwnerId", dataTracker.get(OWNER_ID));
-		tag.putInt("MaxAge", dataTracker.get(MAX_AGE));
-		tag.putBoolean("IsOnBoolean", dataTracker.get(IS_ON_ENTITY));
 		tag.putUuid("CasterId", casterId);
+		tag.putUuid("TargetId", targetId);
 		tag.put("ItemStack", stack.writeNbt(new NbtCompound()));
 		tag.putInt("GroupIndex", groupIndex);
 		tag.putDouble("Potency", potency);
@@ -152,14 +172,6 @@ public class BeamEntity extends Entity {
 		ArcanusComponents.setColour(this, colour);
 	}
 
-	public Vec3d getBeamPos(float tickDelta) {
-		return getVehicle() != null ? getVehicle().getLerpedPos(tickDelta).add(0, getVehicle().getHeight() / 2, 0) : getLerpedPos(tickDelta);
-	}
-
-	public float getBeamProgress(float tickDelta) {
-		return (age + tickDelta) / (float) dataTracker.get(MAX_AGE);
-	}
-
 	public LivingEntity getCaster() {
 		if(getWorld() instanceof ServerWorld serverWorld && serverWorld.getEntity(casterId) instanceof LivingEntity caster)
 			return caster;
@@ -169,7 +181,16 @@ public class BeamEntity extends Entity {
 		return null;
 	}
 
-	public void setProperties(@Nullable LivingEntity caster, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, int maxAge, int colour, double potency, boolean isOnEntity) {
+	public LivingEntity getTarget() {
+		if(getWorld() instanceof ServerWorld serverWorld && serverWorld.getEntity(targetId) instanceof LivingEntity target)
+			return target;
+		else if(getWorld().isClient() && getWorld().getEntityById(dataTracker.get(TARGET_ID)) instanceof LivingEntity target)
+			return target;
+
+		return null;
+	}
+
+	public void setProperties(@Nullable LivingEntity caster, LivingEntity target, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, int colour, double potency) {
 		this.effects.clear();
 		this.groups.clear();
 		this.effects.addAll(effects);
@@ -177,14 +198,14 @@ public class BeamEntity extends Entity {
 		setColour(colour);
 
 		if(caster != null) {
-			casterId = caster.getUuid();
-			dataTracker.set(OWNER_ID, caster.getId());
+			this.casterId = caster.getUuid();
+			this.dataTracker.set(OWNER_ID, caster.getId());
 		}
 
+		this.targetId = target.getUuid();
+		this.dataTracker.set(TARGET_ID, target.getId());
 		this.stack = stack;
 		this.groupIndex = groupIndex;
-		dataTracker.set(MAX_AGE, maxAge);
 		this.potency = potency;
-		dataTracker.set(IS_ON_ENTITY, isOnEntity);
 	}
 }

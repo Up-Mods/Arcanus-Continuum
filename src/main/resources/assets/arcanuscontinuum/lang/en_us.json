@@ -55,6 +55,7 @@
   "spell_component.arcanuscontinuum.smite_shape": "Smite Shape",
   "spell_component.arcanuscontinuum.aoe_shape": "AOE Shape",
   "spell_component.arcanuscontinuum.explosion_shape": "Explosion Shape",
+  "spell_component.arcanuscontinuum.guardian_orb_shape": "Guardian Orb Shape",
 
   "spell_component.arcanuscontinuum.damage_effect": "Damage Effect",
   "spell_component.arcanuscontinuum.heal_effect": "Heal Effect",

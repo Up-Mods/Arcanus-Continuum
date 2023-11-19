@@ -45,14 +45,15 @@ public class ArcanusComponents implements EntityComponentInitializer {
 		registry.beginRegistration(LivingEntity.class, LAST_CAST_TIME_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(LastCastTimeComponent::new);
 		registry.beginRegistration(LivingEntity.class, STUN_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(StunComponent::new);
 		registry.beginRegistration(PlayerEntity.class, QUEST_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(QuestComponent::new);
-		registry.beginRegistration(ManaShieldEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
-		registry.beginRegistration(SmiteEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
-		registry.beginRegistration(MagicRuneEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
-		registry.beginRegistration(MagicProjectileEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
-		registry.beginRegistration(AreaOfEffectEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
-		registry.beginRegistration(BeamEntity.class, MAGIC_COLOUR).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(MagicColourComponent::new);
+		registry.beginRegistration(ManaShieldEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
+		registry.beginRegistration(SmiteEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
+		registry.beginRegistration(MagicRuneEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
+		registry.beginRegistration(MagicProjectileEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
+		registry.beginRegistration(AreaOfEffectEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
+		registry.beginRegistration(BeamEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
+		registry.beginRegistration(GuardianOrbEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
 		registry.beginRegistration(LivingEntity.class, BOLT_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BoltTargetComponent::new);
-		registry.beginRegistration(MagicProjectileEntity.class, SPELL_SHAPE).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(SpellShapeComponent::new);
+		registry.beginRegistration(MagicProjectileEntity.class, SPELL_SHAPE).end(SpellShapeComponent::new);
 
 		ArcanusCompat.PEHKUI.ifEnabled(() -> () -> PehkuiCompat.registerEntityComponents(registry));
 	}

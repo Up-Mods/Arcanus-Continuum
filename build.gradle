@@ -74,6 +74,10 @@ repositories {
 		name = "JitPack"
 		url = "https://jitpack.io"
 	}
+	maven {
+		name 'Gegy'
+		url 'https://maven.gegy.dev'
+	}
 }
 
 dependencies {
@@ -111,6 +115,10 @@ dependencies {
 	modCompileOnly libs.pehkui
 	modRuntimeOnly libs.pehkui
 	modLocalRuntime libs.kanos
+
+	// lambdynamiclights
+	modImplementation libs.lambdynamiclights
+	modLocalRuntime libs.spruceui
 
 	// modmenu
 	modLocalRuntime libs.modmenu

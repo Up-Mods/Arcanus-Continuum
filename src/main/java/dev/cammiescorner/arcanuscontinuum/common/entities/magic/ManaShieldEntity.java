@@ -31,8 +31,10 @@ public class ManaShieldEntity extends Entity {
 
 	@Override
 	public void tick() {
-		if(!getWorld().isClient() && (getCaster() == null || !getCaster().isAlive()))
+		if(!getWorld().isClient() && (getCaster() == null || !getCaster().isAlive())) {
 			kill();
+			return;
+		}
 
 		List<ManaShieldEntity> list = getWorld().getEntitiesByClass(ManaShieldEntity.class, getBoundingBox(), EntityPredicates.VALID_ENTITY);
 

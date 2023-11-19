@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.magic;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSoundEvents;
@@ -39,8 +40,10 @@ public class SmiteEntity extends Entity {
 
 	@Override
 	public void tick() {
-		if(!getWorld().isClient() && (getCaster() == null || !getCaster().isAlive()))
+		if(!getWorld().isClient() && (getCaster() == null || !getCaster().isAlive())) {
 			kill();
+			return;
+		}
 
 		if(!getWorld().isClient()) {
 			if(age <= 9) {
@@ -52,7 +55,7 @@ public class SmiteEntity extends Entity {
 						continue;
 					}
 
-					getWorld().getEntitiesByClass(LivingEntity.class, box, livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator()).forEach(entity -> {
+					getWorld().getEntitiesByClass(Entity.class, box, entity -> entity.isAlive() && !entity.isSpectator() && entity instanceof Targetable targetable && targetable.arcanuscontinuum$canBeTargeted()).forEach(entity -> {
 						if(!hasHit.contains(entity.getUuid())) {
 							effect.effect(getCaster(), this, getWorld(), new EntityHitResult(entity), effects, stack, potency + 0.35);
 

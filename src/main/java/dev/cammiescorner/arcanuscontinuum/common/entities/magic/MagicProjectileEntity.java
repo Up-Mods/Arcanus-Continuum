@@ -40,8 +40,10 @@ public class MagicProjectileEntity extends PersistentProjectileEntity {
 
 	@Override
 	public void tick() {
-		if(!getWorld().isClient() && (getOwner() == null || !getOwner().isAlive() || (ArcanusSpellComponents.PROJECTILE.is(getShape()) && age >= 20)))
+		if(!getWorld().isClient() && (getOwner() == null || !getOwner().isAlive() || (ArcanusSpellComponents.PROJECTILE.is(getShape()) && age >= 20))) {
 			kill();
+			return;
+		}
 
 		super.tick();
 	}

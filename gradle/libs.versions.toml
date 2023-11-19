@@ -17,6 +17,8 @@ smartbrainlib = "4743399"
 firstperson = "evkvoubL"
 pehkui = "3.7.8+1.14.4-1.20.1"
 kanos = "0.4.1"
+lambdynamiclights = "2.3.2+1.20.1"
+spruceui = "5.0.2+1.20"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -38,6 +40,8 @@ smartbrainlib = { module = "curse.maven:smartbrainlib-661293", version.ref = "sm
 firstperson = { module = "maven.modrinth:first-person-model", version.ref = "firstperson" }
 pehkui = { module = "maven.modrinth:pehkui", version.ref = "pehkui" }
 kanos = { module = "com.github.Virtuoel:KanosConfig", version.ref = "kanos" }
+lambdynamiclights = { module = "maven.modrinth:lambdynamiclights", version.ref = "lambdynamiclights" }
+spruceui = { module = "dev.lambdaurora:spruceui", version.ref = "spruceui" }
 
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]

@@ -31,7 +31,8 @@
 		"entrypoints": {
 			"init": "dev.cammiescorner.arcanuscontinuum.Arcanus",
 			"client_init": "dev.cammiescorner.arcanuscontinuum.client.ArcanusClient",
-			"cardinal-components": "dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents"
+			"cardinal-components": "dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents",
+			"dynamiclights": "dev.cammiescorner.arcanuscontinuum.common.compat.DynamicLightsCompat"
 		},
 		"depends": [
 			{
@@ -112,7 +113,8 @@
 		],
 		"dependencies": [
 			"patchouli(recommended){modrinth:nU0bVIaL}{curseforge:393236}",
-			"pehkui(optional){modrinth:t5W7Jfwy}{curseforge:319596}"
+			"pehkui(optional){modrinth:t5W7Jfwy}{curseforge:319596}",
+			"lambdynamiclights(optional){modrinth:yBW8D80W}{curseforge:393442}"
 		]
 	}
 }

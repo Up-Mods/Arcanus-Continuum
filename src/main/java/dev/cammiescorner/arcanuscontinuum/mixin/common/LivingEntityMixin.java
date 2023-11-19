@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.mixin.common;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
+import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
@@ -41,7 +42,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity {
+public abstract class LivingEntityMixin extends Entity implements Targetable {
 	@Shadow
 	public abstract @Nullable EntityAttributeInstance getAttributeInstance(EntityAttribute attribute);
 
