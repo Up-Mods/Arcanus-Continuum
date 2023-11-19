@@ -26,12 +26,12 @@ import java.util.function.Predicate;
 public class BoltSpellShape extends SpellShape {
 	private static final double RANGE_MODIFIER = 2D;
 
-	public BoltSpellShape(Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(weight, manaCost, coolDown, minLevel);
+	public BoltSpellShape(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(isEnabled, weight, manaCost, coolDown, minLevel);
 	}
 
-	public BoltSpellShape(Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
-		super(weight, manaCost, manaMultiplier, coolDown, minLevel);
+	public BoltSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
+		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel);
 	}
 
 	@Override

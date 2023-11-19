@@ -20,12 +20,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ProjectileSpellShape extends SpellShape {
-	public ProjectileSpellShape(Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(weight, manaCost, coolDown, minLevel);
+	public ProjectileSpellShape(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(isEnabled, weight, manaCost, coolDown, minLevel);
 	}
 
-	public ProjectileSpellShape(Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
-		super(weight, manaCost, manaMultiplier, coolDown, minLevel);
+	public ProjectileSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
+		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel);
 	}
 
 	@Override

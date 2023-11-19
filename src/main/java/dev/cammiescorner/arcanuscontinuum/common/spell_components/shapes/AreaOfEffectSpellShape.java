@@ -19,12 +19,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class AreaOfEffectSpellShape extends SpellShape {
-	public AreaOfEffectSpellShape(Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(weight, manaCost, coolDown, minLevel);
+	public AreaOfEffectSpellShape(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(isEnabled, weight, manaCost, coolDown, minLevel);
 	}
 
-	public AreaOfEffectSpellShape(Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
-		super(weight, manaCost, manaMultiplier, coolDown, minLevel);
+	public AreaOfEffectSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
+		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel);
 	}
 
 	@Override

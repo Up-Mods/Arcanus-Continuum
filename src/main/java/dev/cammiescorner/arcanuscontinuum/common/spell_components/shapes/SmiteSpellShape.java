@@ -19,14 +19,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class SmiteSpellShape extends SpellShape {
-	private static final double MAX_RANGE = 100D;
-
-	public SmiteSpellShape(Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(weight, manaCost, coolDown, minLevel);
+	public SmiteSpellShape(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(isEnabled, weight, manaCost, coolDown, minLevel);
 	}
 
-	public SmiteSpellShape(Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
-		super(weight, manaCost, manaMultiplier, coolDown, minLevel);
+	public SmiteSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
+		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel);
 	}
 
 	@Override

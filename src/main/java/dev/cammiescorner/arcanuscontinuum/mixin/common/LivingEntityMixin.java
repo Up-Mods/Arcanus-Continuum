@@ -143,4 +143,10 @@ public abstract class LivingEntityMixin extends Entity {
 		else
 			return builder;
 	}
+
+	@Inject(method = "onStatusEffectRemoved", at = @At("HEAD"), cancellable = true)
+	private void arcanuscontinuum$cantRemoveCurse(StatusEffectInstance effect, CallbackInfo info) {
+		if(effect.getEffectType() == ArcanusStatusEffects.COPPER_CURSE.get())
+			info.cancel();
+	}
 }

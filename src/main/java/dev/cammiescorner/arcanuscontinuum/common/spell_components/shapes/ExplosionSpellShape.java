@@ -25,12 +25,12 @@ import java.util.List;
 import java.util.Set;
 
 public class ExplosionSpellShape extends SpellShape {
-	public ExplosionSpellShape(Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(weight, manaCost, coolDown, minLevel);
+	public ExplosionSpellShape(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(isEnabled, weight, manaCost, coolDown, minLevel);
 	}
 
-	public ExplosionSpellShape(Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
-		super(weight, manaCost, manaMultiplier, coolDown, minLevel);
+	public ExplosionSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
+		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel);
 	}
 
 	@Override

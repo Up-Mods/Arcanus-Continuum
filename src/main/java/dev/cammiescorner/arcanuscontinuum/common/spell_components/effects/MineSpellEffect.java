@@ -18,8 +18,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class MineSpellEffect extends SpellEffect {
-	public MineSpellEffect(SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(type, weight, manaCost, coolDown, minLevel);
+	public MineSpellEffect(boolean isEnabled, SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(isEnabled, type, weight, manaCost, coolDown, minLevel);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.api.spells;
 
+import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -7,9 +8,11 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class Spell {
@@ -113,6 +116,11 @@ public class Spell {
 
 		if(groups.isEmpty())
 			return;
+
+		if(groups.stream().flatMap(SpellGroup::getAllComponents).anyMatch(Predicate.not(SpellComponent::isEnabled))) {
+			caster.sendSystemMessage(Arcanus.translate("text", "disabled_component").formatted(Formatting.RED));
+			return;
+		}
 
 		// start casting the spell
 		SpellGroup firstGroup = groups.get(0);

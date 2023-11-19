@@ -1,33 +1,36 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "dev.cammiescorner.arcanuscontinuum.mixin",
-  "plugin": "dev.cammiescorner.arcanuscontinuum.ArcanusMixinConfig",
-  "compatibilityLevel": "JAVA_17",
-  "mixins": [
-    "common.ChiseledBookshelfBlockMixin",
-    "common.EntityViewMixin",
-    "common.HungerManagerMixin",
-    "common.LecternBlockEntityMixin",
-    "common.LivingEntityMixin",
-    "common.MobEntityMixin",
-    "common.PlayerEntityMixin",
-    "common.ScreenHandlerTypeMixin",
-    "compat.pehkui.LivingEntityMixin"
-  ],
-  "client": [
-    "client.BipedEntityModelMixin",
-    "client.CraftingScreenMixin",
-    "client.HeldItemFeatureRendererMixin",
-    "client.HeldItemRendererMixin",
-    "client.InGameHudMixin",
-    "client.ItemRendererMixin",
-    "client.LivingEntityRendererMixin",
-    "client.MinecraftClientMixin",
-    "client.PlayerEntityRendererMixin",
-    "client.WorldRendererMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
+	"required": true,
+	"minVersion": "0.8",
+	"package": "dev.cammiescorner.arcanuscontinuum.mixin",
+	"plugin": "dev.cammiescorner.arcanuscontinuum.ArcanusMixinConfig",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"common.ChiseledBookshelfBlockMixin",
+		"common.EntityViewMixin",
+		"common.HungerManagerMixin",
+		"common.ItemEntityMixin",
+		"common.LecternBlockEntityMixin",
+		"common.LivingEntityMixin",
+		"common.MilkBucketItemMixin",
+		"common.MobEntityMixin",
+		"common.PlayerEntityMixin",
+		"common.PlayerInventoryMixin",
+		"common.ScreenHandlerTypeMixin",
+		"compat.pehkui.LivingEntityMixin"
+	],
+	"client": [
+		"client.BipedEntityModelMixin",
+		"client.CraftingScreenMixin",
+		"client.HeldItemFeatureRendererMixin",
+		"client.HeldItemRendererMixin",
+		"client.InGameHudMixin",
+		"client.ItemRendererMixin",
+		"client.LivingEntityRendererMixin",
+		"client.MinecraftClientMixin",
+		"client.PlayerEntityRendererMixin",
+		"client.WorldRendererMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
 	}
 }

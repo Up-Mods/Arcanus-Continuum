@@ -1,10 +1,15 @@
 package dev.cammiescorner.arcanuscontinuum.api.spells;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
 public class SpellComponent {
+	private static final MutableText DISABLED_TRANSLATED_NAME = Arcanus.translate("spell_component", "disabled").formatted(Formatting.OBFUSCATED);
+	private final boolean isEnabled;
 	private final Weight weight;
 	private final double manaCost;
 	private final int coolDown;
@@ -12,11 +17,16 @@ public class SpellComponent {
 	private String translationKey;
 	private Identifier texture;
 
-	public SpellComponent(Weight weight, double manaCost, int coolDown, int minLevel) {
+	public SpellComponent(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel) {
+		this.isEnabled = isEnabled;
 		this.weight = weight;
 		this.manaCost = manaCost;
 		this.coolDown = coolDown;
 		this.minLevel = minLevel;
+	}
+
+	public boolean isEnabled() {
+		return isEnabled;
 	}
 
 	public Weight getWeight() {
@@ -64,5 +74,12 @@ public class SpellComponent {
 			translationKey = Util.createTranslationKey("spell_component", Arcanus.SPELL_COMPONENTS.getId(this));
 
 		return translationKey;
+	}
+
+	public MutableText getTranslatedName() {
+		if(!isEnabled())
+			return DISABLED_TRANSLATED_NAME;
+
+		return Text.translatable(getTranslationKey());
 	}
 }

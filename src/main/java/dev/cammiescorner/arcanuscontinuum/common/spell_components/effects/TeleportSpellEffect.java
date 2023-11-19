@@ -18,8 +18,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class TeleportSpellEffect extends SpellEffect {
-	public TeleportSpellEffect(SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(type, weight, manaCost, coolDown, minLevel);
+	public TeleportSpellEffect(boolean isEnabled, SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(isEnabled, type, weight, manaCost, coolDown, minLevel);
 	}
 
 	@Override

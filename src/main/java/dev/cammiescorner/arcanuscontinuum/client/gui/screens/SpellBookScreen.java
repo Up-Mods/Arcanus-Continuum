@@ -133,7 +133,7 @@ public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 					List<Text> textList = new ArrayList<>();
 					SpellComponent component = group.getAllComponents().toList().get(i);
 
-					textList.add(Text.translatable(component.getTranslationKey()));
+					textList.add(component.getTranslatedName());
 					textList.add(Arcanus.translate("spell_book", "weight").append(": ").formatted(Formatting.GREEN).append(Arcanus.translate("spell_book", "weight", component.getWeight().toString().toLowerCase(Locale.ROOT)).formatted(Formatting.GRAY)));
 					textList.add(Arcanus.translate("spell_book", "mana_cost").append(": ").formatted(Formatting.BLUE).append(Text.literal(component.getManaCostAsString()).formatted(Formatting.GRAY)));
 

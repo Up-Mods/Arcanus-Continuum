@@ -15,8 +15,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class PullSpellEffect extends SpellEffect {
-	public PullSpellEffect(SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(type, weight, manaCost, coolDown, minLevel);
+	public PullSpellEffect(boolean isEnabled, SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(isEnabled, type, weight, manaCost, coolDown, minLevel);
 	}
 
 	@Override

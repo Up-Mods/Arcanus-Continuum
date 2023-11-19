@@ -20,8 +20,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class IceSpellEffect extends SpellEffect {
-	public IceSpellEffect(SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(type, weight, manaCost, coolDown, minLevel);
+	public IceSpellEffect(boolean isEnabled, SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(isEnabled, type, weight, manaCost, coolDown, minLevel);
 	}
 
 	@Override

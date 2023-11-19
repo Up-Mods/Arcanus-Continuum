@@ -24,8 +24,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class NecromancySpellEffect extends SpellEffect {
-	public NecromancySpellEffect(SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(type, weight, manaCost, coolDown, minLevel);
+	public NecromancySpellEffect(boolean isEnabled, SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(isEnabled, type, weight, manaCost, coolDown, minLevel);
 	}
 
 	@Override

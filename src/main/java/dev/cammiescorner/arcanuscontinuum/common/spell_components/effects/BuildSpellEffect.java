@@ -21,8 +21,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class BuildSpellEffect extends SpellEffect {
-	public BuildSpellEffect(SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(type, weight, manaCost, coolDown, minLevel);
+	public BuildSpellEffect(boolean isEnabled, SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(isEnabled, type, weight, manaCost, coolDown, minLevel);
 	}
 
 	@Override

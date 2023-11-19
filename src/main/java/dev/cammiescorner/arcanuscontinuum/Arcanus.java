@@ -18,9 +18,11 @@ import dev.cammiescorner.arcanuscontinuum.common.util.SupporterData;
 import dev.upcraft.sparkweave.api.registry.RegistryService;
 import eu.midnightdust.lib.config.MidnightConfig;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -185,6 +187,19 @@ public class Arcanus implements ModInitializer {
 			}
 
 			return false;
+		});
+
+		EntitySleepEvents.STOP_SLEEPING.register((entity, sleepingPos) -> {
+			if(!entity.getWorld().isClient() && entity.getWorld().getTimeOfDay() == 24000) {
+				StatusEffectInstance copperCurse = entity.getStatusEffect(ArcanusStatusEffects.COPPER_CURSE.get());
+
+				if(copperCurse != null) {
+					entity.removeStatusEffect(ArcanusStatusEffects.COPPER_CURSE.get());
+
+					if(copperCurse.getDuration() > 24000)
+						entity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.COPPER_CURSE.get(), copperCurse.getDuration() - 24000, 0, true, false));
+				}
+			}
 		});
 
 		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {

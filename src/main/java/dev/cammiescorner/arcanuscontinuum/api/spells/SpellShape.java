@@ -19,13 +19,13 @@ public abstract class SpellShape extends SpellComponent {
 
 	private final double manaMultiplier;
 
-	public SpellShape(Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
-		super(weight, manaCost, coolDown, minLevel);
+	public SpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
+		super(isEnabled, weight, manaCost, coolDown, minLevel);
 		this.manaMultiplier = manaMultiplier;
 	}
 
-	public SpellShape(Weight weight, double manaCost, int coolDown, int minLevel) {
-		this(weight, manaCost, 1, coolDown, minLevel);
+	public SpellShape(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel) {
+		this(isEnabled, weight, manaCost, 1, coolDown, minLevel);
 	}
 
 	public double getManaMultiplier() {

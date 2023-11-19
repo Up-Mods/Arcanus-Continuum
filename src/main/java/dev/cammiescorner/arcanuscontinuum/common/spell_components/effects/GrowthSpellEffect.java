@@ -20,8 +20,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class GrowthSpellEffect extends SpellEffect {
-	public GrowthSpellEffect(SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(type, weight, manaCost, coolDown, minLevel);
+	public GrowthSpellEffect(boolean isEnabled, SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(isEnabled, type, weight, manaCost, coolDown, minLevel);
 	}
 
 	@Override

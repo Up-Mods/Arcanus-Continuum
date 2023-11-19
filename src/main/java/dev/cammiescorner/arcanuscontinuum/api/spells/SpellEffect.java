@@ -12,8 +12,8 @@ import java.util.List;
 public abstract class SpellEffect extends SpellComponent {
 	private final SpellType type;
 
-	public SpellEffect(SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(weight, manaCost, coolDown, minLevel);
+	public SpellEffect(boolean isEnabled, SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
+		super(isEnabled, weight, manaCost, coolDown, minLevel);
 		this.type = type;
 	}
 

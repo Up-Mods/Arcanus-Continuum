@@ -39,6 +39,11 @@
   "effect.arcanuscontinuum.fortify": "Fortify",
   "effect.arcanuscontinuum.bouncy": "Bouncy",
   "effect.arcanuscontinuum.anonymity": "Anonymity",
+  "effect.arcanuscontinuum.copper_curse": "Copper Curse",
+
+  "text.arcanuscontinuum.disabled_component": "This spell contains one or more disabled spell components. Aborting spell.",
+
+  "spell_component.arcanuscontinuum.disabled": "Unreadable Text",
 
   "spell_component.arcanuscontinuum.self_shape": "Self Shape",
   "spell_component.arcanuscontinuum.touch_shape": "Touch Shape",
@@ -80,6 +85,7 @@
   "spell_component.arcanuscontinuum.speed_effect": "Speed Effect",
   "spell_component.arcanuscontinuum.shrink_effect": "Shrink Effect",
   "spell_component.arcanuscontinuum.enlarge_effect": "Enlarge Effect",
+  "spell_component.arcanuscontinuum.copper_curse_effect": "Copper Curse Effect",
 
   "item.arcanuscontinuum.compendium_arcanus.landing_text": "Discover a mystical world full of magic and musty old Wizards. Craft your own custom spells to suit your play style, and become the most powerful wizard who ever lived!",
 
@@ -254,6 +260,12 @@
   "arcanuscontinuum.midnightconfig.manaSplitEffectProperties.manaCost": "Mana Cost",
   "arcanuscontinuum.midnightconfig.manaSplitEffectProperties.coolDown": "Cool Down",
   "arcanuscontinuum.midnightconfig.manaSplitEffectProperties.minimumLevel": "Minimum Level",
+  "arcanuscontinuum.midnightconfig.copperCurseEffectProperties": "Copper Curse Effect Properties",
+  "arcanuscontinuum.midnightconfig.copperCurseEffectProperties.enabled": "Enabled",
+  "arcanuscontinuum.midnightconfig.copperCurseEffectProperties.weight": "Weight",
+  "arcanuscontinuum.midnightconfig.copperCurseEffectProperties.manaCost": "Mana Cost",
+  "arcanuscontinuum.midnightconfig.copperCurseEffectProperties.coolDown": "Cool Down",
+  "arcanuscontinuum.midnightconfig.copperCurseEffectProperties.minimumLevel": "Minimum Level",
   "arcanuscontinuum.midnightconfig.healEffectProperties": "Heal Effect Properties",
   "arcanuscontinuum.midnightconfig.healEffectProperties.enabled": "Enabled",
   "arcanuscontinuum.midnightconfig.healEffectProperties.weight": "Weight",
