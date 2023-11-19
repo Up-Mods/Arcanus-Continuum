@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.living;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusItems;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusTags;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusTradeOffers;
@@ -24,6 +25,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -58,6 +61,8 @@ import java.util.UUID;
 
 public class WizardEntity extends MerchantEntity implements SmartBrainOwner<WizardEntity>, Angerable {
 	private static final TrackedData<Integer> ROBES_COLOUR = DataTracker.registerData(WizardEntity.class, TrackedDataHandlerRegistry.INTEGER);
+	private static final MutableText PUT_ON_ROBES = Arcanus.translate("wizard_dialogue", "put_on_robes").formatted(Formatting.AQUA, Formatting.ITALIC);
+	private static final MutableText LOOK_LIKE_A_WIZARD = Arcanus.translate("wizard_dialogue", "no_wizard_armour").formatted(Formatting.DARK_PURPLE, Formatting.ITALIC).styled(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, PUT_ON_ROBES)));
 
 	public WizardEntity(EntityType<? extends MerchantEntity> entityType, World world) {
 		super(entityType, world);
@@ -132,13 +137,13 @@ public class WizardEntity extends MerchantEntity implements SmartBrainOwner<Wiza
 	@Override
 	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
 		if (!getWorld().isClient()) {
-			if (player.getEquippedStack(EquipmentSlot.HEAD).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.CHEST).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.LEGS).isIn(ArcanusTags.WIZARD_ARMOUR) && player.getEquippedStack(EquipmentSlot.FEET).isIn(ArcanusTags.WIZARD_ARMOUR)) {
+			if (ArcanusComponents.getWizardLevel(player) > 0 || player.getEquippedStack(EquipmentSlot.HEAD).isIn(ArcanusTags.WIZARD_ARMOUR) || player.getEquippedStack(EquipmentSlot.CHEST).isIn(ArcanusTags.WIZARD_ARMOUR) || player.getEquippedStack(EquipmentSlot.LEGS).isIn(ArcanusTags.WIZARD_ARMOUR) || player.getEquippedStack(EquipmentSlot.FEET).isIn(ArcanusTags.WIZARD_ARMOUR)) {
 				if (!getOffers().isEmpty()) {
 					setCurrentCustomer(player);
 					sendOffers(player, getDisplayName(), 1);
 				}
 			} else {
-				player.sendMessage(Arcanus.translate("wizard_dialogue", "no_wizard_armour").formatted(Formatting.DARK_PURPLE, Formatting.ITALIC), false);
+				player.sendMessage(LOOK_LIKE_A_WIZARD, false);
 			}
 		}
 

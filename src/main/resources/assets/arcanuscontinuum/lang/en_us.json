@@ -115,7 +115,8 @@
   "screen.arcanuscontinuum.tooltip.cycle_up": "Previous Skin",
   "screen.arcanuscontinuum.tooltip.cycle_down": "Next Skin",
 
-  "wizard_dialogue.arcanuscontinuum.no_wizard_armour": "I only speak to fellow wizards.",
+  "wizard_dialogue.arcanuscontinuum.no_wizard_armour": "Come back to me when you look like a wizard.",
+  "wizard_dialogue.arcanuscontinuum.put_on_robes": "Maybe wearing Wizard Robes will help...",
   "scroll_of_knowledge.arcanuscontinuum.level_up": "You feel a little smarter...",
 
   "death.attack.arcanuscontinuum.magic": "%s was killed by %s using magic",
