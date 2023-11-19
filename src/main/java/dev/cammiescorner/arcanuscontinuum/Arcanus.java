@@ -289,7 +289,7 @@ public class Arcanus implements ModInitializer {
 	}
 
 	public static MutableText getSpellPatternAsText(int index) {
-		String text = switch(index) {
+		String string = switch(index) {
 			case 0 -> Pattern.LEFT.getSymbol() + "-" + Pattern.LEFT.getSymbol() + "-" + Pattern.LEFT.getSymbol();
 			case 1 -> Pattern.LEFT.getSymbol() + "-" + Pattern.LEFT.getSymbol() + "-" + Pattern.RIGHT.getSymbol();
 			case 2 -> Pattern.LEFT.getSymbol() + "-" + Pattern.RIGHT.getSymbol() + "-" + Pattern.LEFT.getSymbol();
@@ -301,15 +301,7 @@ public class Arcanus implements ModInitializer {
 			default -> "ERROR";
 		};
 
-		return Text.literal(text);
-	}
-
-	public static MutableText getSpellInputs(List<Pattern> pattern) {
-		MutableText hyphen = Text.literal("-").formatted(Formatting.GRAY);
-		return getSpellInputs(pattern, 0).append(hyphen).append(getSpellInputs(pattern, 1)).append(hyphen).append(getSpellInputs(pattern, 2));
-	}
-
-	public static MutableText getSpellInputs(List<Pattern> pattern, int index) {
-		return index >= pattern.size() || pattern.get(index) == null ? Text.literal("?").formatted(Formatting.GRAY, Formatting.UNDERLINE) : Text.literal(pattern.get(index).getSymbol()).formatted(Formatting.GREEN);
+		MutableText text = Text.literal(string);
+		return text.setStyle(text.getStyle().withFont(Arcanus.id("magic_symbols")));
 	}
 }
