@@ -40,7 +40,7 @@ public class ArcaneWorkbenchBlock extends HorizontalFacingBlock implements Block
 	);
 
 	public ArcaneWorkbenchBlock() {
-		super(QuiltBlockSettings.create().mapColor(DyeColor.RED).strength(2F, 3F).nonOpaque().ticksRandomly());
+		super(QuiltBlockSettings.create().mapColor(DyeColor.RED).strength(2F, 3F).luminance(12).nonOpaque().ticksRandomly());
 		setDefaultState(getStateManager().getDefaultState().with(FACING, Direction.NORTH));
 	}
 

@@ -39,6 +39,9 @@ public class GuardianOrbSpellShape extends SpellShape {
 		LivingEntity targetEntity = target.getType() == HitResult.Type.ENTITY && ((EntityHitResult) target).getEntity() instanceof LivingEntity livingEntity ? livingEntity : caster;
 
 		if(targetEntity != null && guardianOrb != null) {
+			List<? extends GuardianOrbEntity> oldOrbs = world.getEntitiesByType(ArcanusEntities.GUARDIAN_ORB.get(), t -> caster != null && t.getCaster().getUuid() == caster.getUuid());
+			oldOrbs.forEach(Entity::kill);
+
 			guardianOrb.setProperties(caster, targetEntity, stack, effects, spellGroups, groupIndex, Arcanus.DEFAULT_MAGIC_COLOUR, potency);
 			guardianOrb.setPosition(castFrom);
 

@@ -58,9 +58,7 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 	@Override
 	public void tick() {
 		if((getCaster() == null || getTarget() == null || getCaster().squaredDistanceTo(getTarget()) > 32 * 32)) {
-			if(!getWorld().isClient())
-				kill();
-
+			kill();
 			return;
 		}
 
