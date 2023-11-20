@@ -78,7 +78,7 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 			getWorld().addParticle(ParticleTypes.END_ROD, getX(), getY() + getHeight() / 2, getZ(), vel.getX(), vel.getY(), vel.getZ());
 		}
 
-		if(age % 200 == 0) {
+		if(age % 100 == 0) {
 			EntityHitResult target = new EntityHitResult(getTarget());
 
 			for(SpellEffect effect : new HashSet<>(effects))

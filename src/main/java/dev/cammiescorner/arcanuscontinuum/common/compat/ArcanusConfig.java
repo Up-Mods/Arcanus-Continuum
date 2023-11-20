@@ -14,7 +14,7 @@ public class ArcanusConfig extends MidnightConfig {
 	@Entry public static SpellShapeProperties explosionShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 1.25, 60, 7);
 	@Entry public static SpellShapeProperties aoeShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 4, 60, 9);
 	@Entry public static SpellShapeProperties smiteShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 1.75, 60, 9);
-	@Entry public static SpellShapeProperties guardianOrbShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 2.5, 150, 10);
+	@Entry public static SpellShapeProperties guardianOrbShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 3.5, 150, 10);
 
 	@Entry public static SpellEffectProperties damageEffectProperties = new SpellEffectProperties(true, Weight.NONE, 4, 0, 1);
 	@Entry public static SpellEffectProperties fireEffectProperties = new SpellEffectProperties(true, Weight.NONE, 2, 0, 2);
@@ -26,6 +26,7 @@ public class ArcanusConfig extends MidnightConfig {
 	@Entry public static SpellEffectProperties necromancyEffectProperties = new SpellEffectProperties(true, Weight.NONE, 8, 0, 9);
 	@Entry public static SpellEffectProperties manaSplitEffectProperties = new SpellEffectProperties(true, Weight.NONE, 6.5, 0, 6);
 	@Entry public static SpellEffectProperties copperCurseEffectProperties = new SpellEffectProperties(true, Weight.NONE, 8, 0, 8);
+	@Entry public static SpellEffectProperties discombobulateEffectProperties = new SpellEffectProperties(true, Weight.NONE, 6, 0, 5);
 
 	@Entry public static SpellEffectProperties healEffectProperties = new SpellEffectProperties(true, Weight.NONE, 5, 0, 1);
 	@Entry public static SpellEffectProperties dispelEffectProperties = new SpellEffectProperties(true, Weight.NONE, 5, 0, 6);

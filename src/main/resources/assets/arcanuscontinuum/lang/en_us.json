@@ -87,6 +87,10 @@
   "spell_component.arcanuscontinuum.shrink_effect": "Shrink Effect",
   "spell_component.arcanuscontinuum.enlarge_effect": "Enlarge Effect",
   "spell_component.arcanuscontinuum.copper_curse_effect": "Copper Curse Effect",
+  "spell_component.arcanuscontinuum.temporal_dilation_effect": "Temporal Dilation Effect",
+  "spell_component.arcanuscontinuum.spatial_pocket_effect": "Spatial Pocket Effect",
+  "spell_component.arcanuscontinuum.warding_effect": "Warding Effect",
+  "spell_component.arcanuscontinuum.discombobulate_effect": "Discombobulate Effect",
 
   "item.arcanuscontinuum.compendium_arcanus.landing_text": "Discover a mystical world full of magic and musty old Wizards. Craft your own custom spells to suit your play style, and become the most powerful wizard who ever lived!",
 
