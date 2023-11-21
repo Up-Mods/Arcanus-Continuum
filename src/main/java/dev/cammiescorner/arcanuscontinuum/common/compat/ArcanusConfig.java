@@ -4,9 +4,9 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
 import eu.midnightdust.lib.config.MidnightConfig;
 
 public class ArcanusConfig extends MidnightConfig {
-	@Entry public static SpellShapeProperties selfShapeProperties = new SpellShapeProperties(true, Weight.VERY_LIGHT, 0, 0.9, 13, 1);
-	@Entry public static SpellShapeProperties touchShapeProperties = new SpellShapeProperties(true, Weight.VERY_LIGHT, 0, 1, 20, 1);
-	@Entry public static SpellShapeProperties projectileShapeProperties = new SpellShapeProperties(true, Weight.LIGHT, 0, 1, 30, 3);
+	@Entry public static SpellShapeProperties selfShapeProperties = new SpellShapeProperties(true, Weight.VERY_LIGHT, 0, 0.9, 10, 1);
+	@Entry public static SpellShapeProperties touchShapeProperties = new SpellShapeProperties(true, Weight.VERY_LIGHT, 0, 1, 15, 1);
+	@Entry public static SpellShapeProperties projectileShapeProperties = new SpellShapeProperties(true, Weight.LIGHT, 0, 1, 10, 3);
 	@Entry public static SpellShapeProperties lobShapeProperties = new SpellShapeProperties(true, Weight.LIGHT, 0, 1, 20, 3);
 	@Entry public static SpellShapeProperties boltShapeProperties = new SpellShapeProperties(true, Weight.MEDIUM, 0, 1, 20, 5);
 	@Entry public static SpellShapeProperties beamShapeProperties = new SpellShapeProperties(true, Weight.MEDIUM, 0, 1.25, 30, 5);
@@ -14,7 +14,7 @@ public class ArcanusConfig extends MidnightConfig {
 	@Entry public static SpellShapeProperties explosionShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 1.25, 60, 7);
 	@Entry public static SpellShapeProperties aoeShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 4, 60, 9);
 	@Entry public static SpellShapeProperties smiteShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 1.75, 60, 9);
-	@Entry public static SpellShapeProperties guardianOrbShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 3.5, 150, 10);
+	@Entry public static SpellShapeProperties guardianOrbShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 1.5, 100, 10);
 
 	@Entry public static SpellEffectProperties damageEffectProperties = new SpellEffectProperties(true, Weight.NONE, 4, 0, 1);
 	@Entry public static SpellEffectProperties fireEffectProperties = new SpellEffectProperties(true, Weight.NONE, 2, 0, 2);
