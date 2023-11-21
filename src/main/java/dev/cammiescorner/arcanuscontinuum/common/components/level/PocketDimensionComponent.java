@@ -4,6 +4,7 @@ import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.MagicBlockEntity;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusBlocks;
 import dev.onyxstudios.cca.api.v3.component.Component;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -69,15 +70,15 @@ public class PocketDimensionComponent implements Component {
 		tag.put("PlotMap", nbtList);
 	}
 
-	public void teleportToPocketDimension(PlayerEntity ownerOfPocket, PlayerEntity player) {
-		if(!player.getWorld().isClient()) {
+	public void teleportToPocketDimension(PlayerEntity ownerOfPocket, Entity entity) {
+		if(!entity.getWorld().isClient()) {
 			if(!existingPlots.containsKey(ownerOfPocket.getUuid()))
 				generateNewPlot(ownerOfPocket);
 
-			ServerWorld pocketDim = player.getServer().getWorld(POCKET_DIM);
+			ServerWorld pocketDim = entity.getServer().getWorld(POCKET_DIM);
 
 			if(pocketDim != null)
-				QuiltDimensions.teleport(player, pocketDim, new TeleportTarget(existingPlots.get(ownerOfPocket.getUuid()).getCenter().subtract(0, 8, 0), Vec3d.ZERO, player.getYaw(), player.getPitch()));
+				QuiltDimensions.teleport(entity, pocketDim, new TeleportTarget(existingPlots.get(ownerOfPocket.getUuid()).getCenter().subtract(0, 8, 0), Vec3d.ZERO, entity.getYaw(), entity.getPitch()));
 		}
 	}
 

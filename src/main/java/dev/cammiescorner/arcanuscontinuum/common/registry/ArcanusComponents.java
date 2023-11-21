@@ -80,8 +80,8 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 	}
 
 	// ----- Helper Methods ----- //
-	public static void teleportPlayerToPocket(WorldProperties properties, PlayerEntity ownerOfPocket, PlayerEntity player) {
-		POCKET_DIMENSION_COMPONENT.get(properties).teleportToPocketDimension(ownerOfPocket, player);
+	public static void teleportToPocketDimension(WorldProperties properties, PlayerEntity ownerOfPocket, Entity entity) {
+		POCKET_DIMENSION_COMPONENT.get(properties).teleportToPocketDimension(ownerOfPocket, entity);
 	}
 
 	public static double getMaxMana(LivingEntity entity) {

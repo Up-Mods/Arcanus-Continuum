@@ -8,8 +8,10 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -31,13 +33,38 @@ public class PocketDimensionPortalEntity extends Entity {
 			return;
 		}
 
-		if(getTrueAge() > 100 && getTrueAge() <= 700) {
-			getWorld().getEntitiesByClass(PlayerEntity.class, getBoundingBox(), Entity::canUsePortals).forEach(entity -> {
-				ArcanusComponents.teleportPlayerToPocket(getWorld().getProperties(), getCaster(), entity);
+		if(getTrueAge() <= 700) {
+			if(getTrueAge() > 100) {
+				getWorld().getEntitiesByClass(Entity.class, getBoundingBox(), entity -> entity.canUsePortals() && !entity.isSpectator()).forEach(entity -> {
+					if(!(entity instanceof PocketDimensionPortalEntity))
+						ArcanusComponents.teleportToPocketDimension(getWorld().getProperties(), getCaster(), entity);
+				});
+			}
+
+			float ageMultiplier = Math.min(100, getTrueAge()) / 100f;
+			Box box = new Box(-4 * ageMultiplier, -4 * ageMultiplier, -4 * ageMultiplier, 4 * ageMultiplier, 4 * ageMultiplier, 4 * ageMultiplier).expand(pullStrength * ageMultiplier);
+
+			getWorld().getEntitiesByClass(Entity.class, box.offset(getPos()), entity -> entity.isAlive() && !entity.isSpectator()).forEach(entity -> {
+				double distanceSq = getPos().squaredDistanceTo(entity.getPos());
+
+				if(!(entity instanceof PocketDimensionPortalEntity) && distanceSq <= box.getXLength() * box.getXLength()) {
+					Vec3d direction = getPos().subtract(entity.getPos()).normalize();
+					double inverseSq = 1 / distanceSq;
+
+					entity.addVelocity(direction.multiply(inverseSq * pullStrength));
+					entity.velocityModified = true;
+
+					double particleX = getPos().getX() + 5;
+					double particleY = getPos().getY();
+					double particleZ = getPos().getZ();
+					double particleVelX = 1 / ((getX() - particleX) * (getX() - particleX));
+					double particleVelY = 1 / ((getY() - particleY) * (getY() - particleY));
+					double particleVelZ = 1 / ((getZ() - particleZ) * (getZ() - particleZ));
+
+					getWorld().addParticle(ParticleTypes.CLOUD, particleX, particleY, particleZ, particleVelX, particleVelY, particleVelZ);
+				}
 			});
 		}
-
-		float ageMultiplier = Math.min(100, getTrueAge()) / 100f;
 
 		super.tick();
 		dataTracker.set(TRUE_AGE, getTrueAge() + 1);

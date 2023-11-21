@@ -43,7 +43,7 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 		float b = (colour & 255) / 255F;
 		float ageDelta = entity.getTrueAge() + tickDelta;
 		float maxScale = 0.5f;
-		float scale = entity.getTrueAge() <= 100 ? (ageDelta / 100f) * maxScale : entity.getTrueAge() > 700 ? (1 - (ageDelta - 700) / 20f) * maxScale : maxScale;
+		float scale = entity.getTrueAge() <= 100 ? Math.min(maxScale, (ageDelta / 100f) * maxScale) : entity.getTrueAge() > 700 ? Math.max(0, (1 - (ageDelta - 700) / 20f) * maxScale) : maxScale;
 
 		if(!stencilBuffer.arcanuscontinuum$isStencilBufferEnabled())
 			stencilBuffer.arcanuscontinuum$enableStencilBufferAndReload(true);
