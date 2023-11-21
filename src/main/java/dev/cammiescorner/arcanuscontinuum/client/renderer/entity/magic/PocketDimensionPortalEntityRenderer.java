@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.VertexFormats;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
 import dev.cammiescorner.arcanuscontinuum.client.models.entity.PocketDimensionPortalEntityModel;
+import dev.cammiescorner.arcanuscontinuum.client.utils.StencilBuffer;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.PocketDimensionPortalEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
@@ -34,18 +35,22 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 	@Override
 	public void render(PocketDimensionPortalEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertices, int light) {
 		super.render(entity, yaw, tickDelta, matrices, vertices, light);
+		StencilBuffer stencilBuffer = ((StencilBuffer) client.getFramebuffer());
 		RenderLayer layer = ArcanusClient.getMagicCircles(TEXTURE);
 		int colour = entity.getColour();
 		float r = (colour >> 16 & 255) / 255F;
 		float g = (colour >> 8 & 255) / 255F;
 		float b = (colour & 255) / 255F;
-		float maxScale = 0.3f;
-		float scale = entity.getTrueAge() <= 100 ? (entity.getTrueAge() / 100f) * maxScale : entity.getTrueAge() > 700 ? (1 - (entity.getTrueAge() - 700) / 20f) * maxScale : maxScale;
+		float ageDelta = entity.getTrueAge() + tickDelta;
+		float maxScale = 0.5f;
+		float scale = entity.getTrueAge() <= 100 ? (ageDelta / 100f) * maxScale : entity.getTrueAge() > 700 ? (1 - (ageDelta - 700) / 20f) * maxScale : maxScale;
 
-		//\\ Thank you Lyzantra! This entire effect was thanks to him! \\//
-//		StencilBuffer stencilBuffer = ((StencilBuffer) client.getFramebuffer());
+		if(!stencilBuffer.arcanuscontinuum$isStencilBufferEnabled())
+			stencilBuffer.arcanuscontinuum$enableStencilBufferAndReload(true);
 
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		GL11.glEnable(GL11.GL_STENCIL_TEST);
+
 		GL11.glStencilOp(GL11.GL_KEEP, GL11.GL_KEEP, GL11.GL_INCR);
 		GL11.glStencilFunc(GL11.GL_EQUAL, 0, 0xFF);
 		GL11.glStencilMask(0xFF);
@@ -53,16 +58,12 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 		GL11.glStencilFunc(GL11.GL_EQUAL, 1, 0xFF);
 		GL11.glStencilMask(0x00);
 
-//		if(!stencilBuffer.arcanuscontinuum$isStencilBufferEnabled())
-//			stencilBuffer.arcanuscontinuum$enableStencilBufferAndReload(true);
-
 		matrices.push();
-//		RenderSystem.disableDepthTest();
 		matrices.multiply(Axis.X_POSITIVE.rotationDegrees(180));
-		matrices.translate(0, -0.3f, 0);
-		matrices.scale(scale, scale, scale);
+		matrices.translate(0, -0.8f, 0);
+		matrices.scale(scale, maxScale, scale);
 		model.render(matrices, vertices.getBuffer(layer), light, OverlayTexture.DEFAULT_UV, r, g, b, 1f);
-//		RenderSystem.enableDepthTest();
+//		model.skybox.render(matrices, vertices.getBuffer(RenderLayer.getEntityAlpha(TEXTURE)), light, OverlayTexture.DEFAULT_UV, 1f, 1f, 1f, 1f);
 		matrices.pop();
 
 		GL11.glClearStencil(GL11.GL_STENCIL_BUFFER_BIT);
@@ -72,7 +73,9 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 		drawStencil(matrices, client.gameRenderer.getCamera().getPos(), entity, tessellator);
 		GL11.glStencilFunc(GL11.GL_EQUAL, 0, 0xFF);
 		GL11.glStencilMask(0x00);
+
 		GL11.glDisable(GL11.GL_STENCIL_TEST);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
 	}
 
 	@Override
