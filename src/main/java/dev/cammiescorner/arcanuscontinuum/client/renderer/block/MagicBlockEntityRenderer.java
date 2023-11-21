@@ -5,11 +5,13 @@ import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.MagicBlockEntity;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusBlocks;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
@@ -29,7 +31,10 @@ public class MagicBlockEntityRenderer implements BlockEntityRenderer<MagicBlockE
 		int colour = entity.getColour();
 
 		for(Direction direction : Direction.values()) {
-			if(entity.getWorld().getBlockState(entity.getPos().offset(direction)).isOf(ArcanusBlocks.MAGIC_BLOCK.get()))
+			BlockPos blockToSide = entity.getPos().offset(direction);
+			BlockState state = entity.getWorld().getBlockState(blockToSide);
+
+			if(state.isOpaqueFullCube(entity.getWorld(), blockToSide) || state.isOf(ArcanusBlocks.MAGIC_BLOCK.get()) || state.isOf(ArcanusBlocks.UNBREAKABLE_MAGIC_BLOCK.get()))
 				continue;
 
 			switch(direction) {

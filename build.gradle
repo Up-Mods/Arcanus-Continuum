@@ -105,8 +105,8 @@ dependencies {
 	modImplementation libs.midnightlib
 	modImplementation libs.smartbrainlib
 
-	include libs.reach.attr
 	modImplementation libs.reach.attr
+	include libs.reach.attr
 
 	// first person model
 	modImplementation libs.firstperson

@@ -1,0 +1,14 @@
+{
+  "type": "arcanuscontinuum:pocket_dimension",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "layers": [
+        {
+          "height": 0
+        }
+      ],
+      "structure_overrides": []
+    }
+  }
+}

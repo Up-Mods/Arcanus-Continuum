@@ -21,6 +21,7 @@
 	"client": [
 		"client.BipedEntityModelMixin",
 		"client.CraftingScreenMixin",
+		"client.FramebufferMixin",
 		"client.HeldItemFeatureRendererMixin",
 		"client.HeldItemRendererMixin",
 		"client.InGameHudMixin",
@@ -28,6 +29,7 @@
 		"client.LivingEntityRendererMixin",
 		"client.MinecraftClientMixin",
 		"client.PlayerEntityRendererMixin",
+
 		"client.WorldRendererMixin"
 	],
 	"injectors": {

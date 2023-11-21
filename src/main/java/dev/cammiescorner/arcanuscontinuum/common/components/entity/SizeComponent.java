@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanuscontinuum.common.components;
+package dev.cammiescorner.arcanuscontinuum.common.components.entity;
 
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import net.minecraft.entity.Entity;

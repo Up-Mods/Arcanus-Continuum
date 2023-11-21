@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.magic;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
@@ -10,6 +11,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -101,8 +104,14 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 
 	@Override
 	public void kill() {
-		if(!getWorld().isClient() && getCaster() != null)
+		if(!getWorld().isClient() && getCaster() != null) {
+			EntityAttributeInstance inst = getCaster().getAttributeInstance(ArcanusEntityAttributes.MANA_LOCK.get());
+
+			if(inst != null)
+				inst.removeModifier(casterId);
+
 			SpellShape.castNext(getCaster(), getPos(), this, (ServerWorld) getWorld(), stack, groups, groupIndex, potency);
+		}
 
 		super.kill();
 	}
@@ -198,6 +207,11 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 		if(caster != null) {
 			this.casterId = caster.getUuid();
 			this.dataTracker.set(OWNER_ID, caster.getId());
+			EntityAttributeInstance maxMana = caster.getAttributeInstance(ArcanusEntityAttributes.MAX_MANA.get());
+			EntityAttributeInstance manaLock = caster.getAttributeInstance(ArcanusEntityAttributes.MANA_LOCK.get());
+
+			if(maxMana != null && manaLock != null)
+				manaLock.addPersistentModifier(new EntityAttributeModifier(casterId, "Orb Mana Lock", maxMana.getValue() * (effects.size() * 0.0818181), EntityAttributeModifier.Operation.ADDITION));
 		}
 
 		this.targetId = target.getUuid();

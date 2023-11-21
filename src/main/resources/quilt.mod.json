@@ -92,6 +92,7 @@
 	"access_widener": "arcanuscontinuum.accesswidener",
 	"mixin": "arcanuscontinuum.mixins.json",
 	"cardinal-components": [
+		"arcanuscontinuum:pocket_dimension",
 		"arcanuscontinuum:wizard_level",
 		"arcanuscontinuum:mana",
 		"arcanuscontinuum:burnout",
@@ -103,7 +104,8 @@
 		"arcanuscontinuum:magic_colour",
 		"arcanuscontinuum:bolt_target",
 		"arcanuscontinuum:spell_shape",
-		"arcanuscontinuum:size"
+		"arcanuscontinuum:size",
+		"arcanuscontinuum:pocket_dimension_portal"
 	],
 	"mc-publish": {
 		"curseforge": "905345",

@@ -5,7 +5,8 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanuscontinuum.common.compat.PehkuiCompat;
-import dev.cammiescorner.arcanuscontinuum.common.components.*;
+import dev.cammiescorner.arcanuscontinuum.common.components.entity.*;
+import dev.cammiescorner.arcanuscontinuum.common.components.level.PocketDimensionComponent;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.*;
 import dev.onyxstudios.cca.api.v3.component.Component;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
@@ -13,15 +14,23 @@ import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
+import dev.onyxstudios.cca.api.v3.level.LevelComponentFactoryRegistry;
+import dev.onyxstudios.cca.api.v3.level.LevelComponentInitializer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.WorldProperties;
 
 import java.util.List;
 
-public class ArcanusComponents implements EntityComponentInitializer {
+public class ArcanusComponents implements EntityComponentInitializer, LevelComponentInitializer {
+	// ----- Level Components ----- \\
+	public static final ComponentKey<PocketDimensionComponent> POCKET_DIMENSION_COMPONENT = createComponent("pocket_dimension", PocketDimensionComponent.class);
+
+	// ----- Entity Components ----- \\
 	public static final ComponentKey<WizardLevelComponent> WIZARD_LEVEL_COMPONENT = createComponent("wizard_level", WizardLevelComponent.class);
 	public static final ComponentKey<ManaComponent> MANA_COMPONENT = createComponent("mana", ManaComponent.class);
 	public static final ComponentKey<BurnoutComponent> BURNOUT_COMPONENT = createComponent("burnout", BurnoutComponent.class);
@@ -34,6 +43,12 @@ public class ArcanusComponents implements EntityComponentInitializer {
 	public static final ComponentKey<BoltTargetComponent> BOLT_TARGET = createComponent("bolt_target", BoltTargetComponent.class);
 	public static final ComponentKey<SpellShapeComponent> SPELL_SHAPE = createComponent("spell_shape", SpellShapeComponent.class);
 	public static final ComponentKey<SizeComponent> SIZE = createComponent("size", SizeComponent.class);
+	public static final ComponentKey<PocketDimensionPortalComponent> POCKET_DIMENSION_PORTAL_COMPONENT = createComponent("pocket_dimension_portal", PocketDimensionPortalComponent.class);
+
+	@Override
+	public void registerLevelComponentFactories(LevelComponentFactoryRegistry registry) {
+		registry.register(POCKET_DIMENSION_COMPONENT, PocketDimensionComponent::new);
+	}
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
@@ -42,6 +57,7 @@ public class ArcanusComponents implements EntityComponentInitializer {
 		registry.beginRegistration(LivingEntity.class, BURNOUT_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(BurnoutComponent::new);
 		registry.beginRegistration(PlayerEntity.class, CASTING_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(CastingComponent::new);
 		registry.beginRegistration(PlayerEntity.class, PATTERN_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(PatternComponent::new);
+		registry.beginRegistration(PlayerEntity.class, POCKET_DIMENSION_PORTAL_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PocketDimensionPortalComponent::new);
 		registry.beginRegistration(LivingEntity.class, LAST_CAST_TIME_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(LastCastTimeComponent::new);
 		registry.beginRegistration(LivingEntity.class, STUN_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(StunComponent::new);
 		registry.beginRegistration(PlayerEntity.class, QUEST_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(QuestComponent::new);
@@ -52,6 +68,7 @@ public class ArcanusComponents implements EntityComponentInitializer {
 		registry.beginRegistration(AreaOfEffectEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
 		registry.beginRegistration(BeamEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
 		registry.beginRegistration(GuardianOrbEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
+		registry.beginRegistration(PocketDimensionPortalEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
 		registry.beginRegistration(LivingEntity.class, BOLT_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BoltTargetComponent::new);
 		registry.beginRegistration(MagicProjectileEntity.class, SPELL_SHAPE).end(SpellShapeComponent::new);
 
@@ -63,6 +80,10 @@ public class ArcanusComponents implements EntityComponentInitializer {
 	}
 
 	// ----- Helper Methods ----- //
+	public static void teleportPlayerToPocket(WorldProperties properties, PlayerEntity ownerOfPocket, PlayerEntity player) {
+		POCKET_DIMENSION_COMPONENT.get(properties).teleportToPocketDimension(ownerOfPocket, player);
+	}
+
 	public static double getMaxMana(LivingEntity entity) {
 		return MANA_COMPONENT.get(entity).getMaxMana();
 	}
@@ -210,5 +231,13 @@ public class ArcanusComponents implements EntityComponentInitializer {
 
 	public static void setScale(Entity entity, float scale, double strength) {
 		SIZE.get(entity).setScale(scale, strength);
+	}
+
+	public static void createPortal(PlayerEntity player, ServerWorld world, Vec3d pos, double pullStrength) {
+		POCKET_DIMENSION_PORTAL_COMPONENT.get(player).createPortal(world, pos, pullStrength);
+	}
+
+	public static Vec3d getPortalPos(PlayerEntity player) {
+		return POCKET_DIMENSION_PORTAL_COMPONENT.get(player).getPortalPos();
 	}
 }

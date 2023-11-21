@@ -24,6 +24,7 @@
   "block.arcanuscontinuum.magic_door": "Magic Door",
   "block.arcanuscontinuum.arcane_workbench": "Arcane Workbench",
   "block.arcanuscontinuum.magic_block": "Magic Block",
+  "block.arcanuscontinuum.unbreakable_magic_block": "Magic Block",
 
   "entity.arcanuscontinuum.wizard": "Wizard",
   "entity.arcanuscontinuum.opossum": "Opossum",
@@ -88,7 +89,7 @@
   "spell_component.arcanuscontinuum.enlarge_effect": "Enlarge Effect",
   "spell_component.arcanuscontinuum.copper_curse_effect": "Copper Curse Effect",
   "spell_component.arcanuscontinuum.temporal_dilation_effect": "Temporal Dilation Effect",
-  "spell_component.arcanuscontinuum.spatial_pocket_effect": "Spatial Pocket Effect",
+  "spell_component.arcanuscontinuum.spatial_rift_effect": "Spatial Rift Effect",
   "spell_component.arcanuscontinuum.warding_effect": "Warding Effect",
   "spell_component.arcanuscontinuum.discombobulate_effect": "Discombobulate Effect",
 

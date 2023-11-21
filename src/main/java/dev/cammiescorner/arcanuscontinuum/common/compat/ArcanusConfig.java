@@ -43,7 +43,7 @@ public class ArcanusConfig extends MidnightConfig {
 	@Entry public static SpellEffectProperties growthEffectProperties = new SpellEffectProperties(true, Weight.NONE, 6, 0, 4);
 	@Entry public static SpellEffectProperties shrinkEffectProperties = new SpellEffectProperties(true, Weight.NONE, 2.5, 0, 9);
 	@Entry public static SpellEffectProperties enlargeEffectProperties = new SpellEffectProperties(true, Weight.NONE, 2.5, 0, 9);
-	@Entry public static SpellEffectProperties spatialPocketEffectProperties = new SpellEffectProperties(true, Weight.NONE, 10, 0, 7);
+	@Entry public static SpellEffectProperties spatialRiftEffectProperties = new SpellEffectProperties(true, Weight.NONE, 10, 0, 7);
 	@Entry public static SpellEffectProperties wardingEffectProperties = new SpellEffectProperties(true, Weight.NONE, 4, 0, 6);
 
 	@Entry public static SpellEffectProperties buildEffectProperties = new SpellEffectProperties(true, Weight.NONE, 5, 0, 7);

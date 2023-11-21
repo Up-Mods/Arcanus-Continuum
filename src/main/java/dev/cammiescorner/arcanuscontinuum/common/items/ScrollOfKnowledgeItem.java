@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.items;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
-import dev.cammiescorner.arcanuscontinuum.common.components.WizardLevelComponent;
+import dev.cammiescorner.arcanuscontinuum.common.components.entity.WizardLevelComponent;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
