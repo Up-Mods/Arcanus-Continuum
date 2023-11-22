@@ -12,12 +12,13 @@ import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
 public class UnbreakableMagicBlock extends Block implements BlockEntityProvider {
 	public UnbreakableMagicBlock() {
 		super(QuiltBlockSettings.copyOf(Blocks.BEDROCK)
-				.sounds(BlockSoundGroup.GLASS)
-				.nonOpaque()
-				.allowsSpawning(Blocks::never)
-				.solidBlock(Blocks::never)
-				.suffocates(Blocks::never)
-				.blockVision(Blocks::never)
+			.sounds(BlockSoundGroup.GLASS)
+			.luminance(value -> 12)
+			.nonOpaque()
+			.allowsSpawning(Blocks::never)
+			.solidBlock(Blocks::never)
+			.suffocates(Blocks::never)
+			.blockVision(Blocks::never)
 		);
 	}
 

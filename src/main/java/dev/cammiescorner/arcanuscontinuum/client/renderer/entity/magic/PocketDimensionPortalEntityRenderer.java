@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.VertexFormats;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
 import dev.cammiescorner.arcanuscontinuum.client.models.entity.PocketDimensionPortalEntityModel;
+import dev.cammiescorner.arcanuscontinuum.client.models.entity.SpatialRiftEntitySigilModel;
 import dev.cammiescorner.arcanuscontinuum.client.utils.StencilBuffer;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.PocketDimensionPortalEntity;
 import net.minecraft.client.MinecraftClient;
@@ -16,7 +17,6 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.texture.AbstractTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Axis;
@@ -24,15 +24,16 @@ import org.lwjgl.opengl.GL11;
 
 public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDimensionPortalEntity> {
 	private static final Identifier TEXTURE = Arcanus.id("textures/entity/magic/pocket_dimension_portal.png");
-	private static final Identifier MASK = Arcanus.id("textures/entity/magic/pocket_dimension_portal_mask.png");
+	private static final Identifier SIGIL_TEXTURE = Arcanus.id("textures/entity/magic/spatial_rift_sigil.png");
 	private final MinecraftClient client = MinecraftClient.getInstance();
 	private final Tessellator tessellator = Tessellator.getInstance();
 	private final PocketDimensionPortalEntityModel model;
-	private final AbstractTexture textureMask = client.getTextureManager().getTexture(MASK);
+	private final SpatialRiftEntitySigilModel sigilModel;
 
 	public PocketDimensionPortalEntityRenderer(EntityRendererFactory.Context ctx) {
 		super(ctx);
 		model = new PocketDimensionPortalEntityModel(ctx.getModelLoader().getModelPart(PocketDimensionPortalEntityModel.MODEL_LAYER));
+		sigilModel = new SpatialRiftEntitySigilModel(ctx.getModelLoader().getModelPart(SpatialRiftEntitySigilModel.MODEL_LAYER));
 	}
 
 	@Override
@@ -40,6 +41,7 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 		super.render(entity, yaw, tickDelta, matrices, vertices, light);
 		StencilBuffer stencilBuffer = ((StencilBuffer) client.getFramebuffer());
 		RenderLayer layer = ArcanusClient.getMagicPortal(TEXTURE);
+		RenderLayer sigilLayer = ArcanusClient.getMagicPortal(SIGIL_TEXTURE);
 		int colour = entity.getColour();
 		float r = (colour >> 16 & 255) / 255F;
 		float g = (colour >> 8 & 255) / 255F;
@@ -115,6 +117,14 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthFunc(GL11.GL_LEQUAL);
 
+		matrices.pop();
+
+		matrices.push();
+		matrices.translate(0, 1.51, 0);
+		matrices.multiply(Axis.X_POSITIVE.rotationDegrees(180));
+		matrices.scale(scale / maxScale, 1, scale / maxScale);
+		sigilModel.sigil.yaw = (entity.age + tickDelta) * 0.015F;
+		sigilModel.render(matrices, vertices.getBuffer(sigilLayer), light, OverlayTexture.DEFAULT_UV, r, g, b, 1f);
 		matrices.pop();
 	}
 

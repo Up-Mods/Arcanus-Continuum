@@ -1,10 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
-import dev.cammiescorner.arcanuscontinuum.common.blocks.ArcaneWorkbenchBlock;
-import dev.cammiescorner.arcanuscontinuum.common.blocks.MagicBlock;
-import dev.cammiescorner.arcanuscontinuum.common.blocks.MagicDoorBlock;
-import dev.cammiescorner.arcanuscontinuum.common.blocks.UnbreakableMagicBlock;
+import dev.cammiescorner.arcanuscontinuum.common.blocks.*;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.block.Block;
@@ -17,4 +14,5 @@ public class ArcanusBlocks {
 	public static final RegistrySupplier<Block> ARCANE_WORKBENCH = BLOCKS.register("arcane_workbench", ArcaneWorkbenchBlock::new);
 	public static final RegistrySupplier<Block> MAGIC_BLOCK = BLOCKS.register("magic_block", MagicBlock::new);
 	public static final RegistrySupplier<Block> UNBREAKABLE_MAGIC_BLOCK = BLOCKS.register("unbreakable_magic_block", UnbreakableMagicBlock::new);
+	public static final RegistrySupplier<Block> SPATIAL_RIFT_EXIT_EDGE = BLOCKS.register("spatial_rift_exit_edge", SpatialRiftExitEdgeBlock::new);
 }

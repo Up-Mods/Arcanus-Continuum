@@ -8,6 +8,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Box;
@@ -15,9 +16,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.UUID;
+import java.util.random.RandomGenerator;
 
 public class PocketDimensionPortalEntity extends Entity {
 	private static final TrackedData<Integer> TRUE_AGE = DataTracker.registerData(PocketDimensionPortalEntity.class, TrackedDataHandlerRegistry.INTEGER);
+	private final RandomGenerator rand = RandomGenerator.getDefault();
 	private UUID casterId = Util.NIL_UUID;
 	private double pullStrength;
 
@@ -42,27 +45,31 @@ public class PocketDimensionPortalEntity extends Entity {
 
 			float ageMultiplier = Math.min(100, getTrueAge()) / 100f;
 			Box box = new Box(0, 0, 0, 0, 0, 0).expand((4 + pullStrength) * ageMultiplier);
+			double boxRadius = box.getXLength() / 2;
+			double boxRadiusSq = boxRadius * boxRadius;
 
 			getWorld().getEntitiesByClass(Entity.class, box.offset(getPos()), entity -> entity.isAlive() && !entity.isSpectator() && !(entity instanceof PlayerEntity player && player.isCreative())).forEach(entity -> {
 				double distanceSq = getPos().squaredDistanceTo(entity.getPos());
 
-				if(!(entity instanceof PocketDimensionPortalEntity) && distanceSq <= box.getXLength() * box.getXLength()) {
+				if(!(entity instanceof PocketDimensionPortalEntity) && distanceSq <= boxRadiusSq) {
 					Vec3d direction = getPos().subtract(entity.getPos()).normalize();
 					double inverseSq = 1 / distanceSq;
 
 					entity.addVelocity(direction.multiply(inverseSq));
 					entity.velocityModified = true;
-
-//					double particleX = getPos().getX() + 5;
-//					double particleY = getPos().getY() + 0.1;
-//					double particleZ = getPos().getZ();
-//					double particleVelX = 1 / ((getX() - particleX) * (getX() - particleX)) * 0.1;
-//					double particleVelY = 1 / ((getY() - particleY) * (getY() - particleY)) * 0.1;
-//					double particleVelZ = 1 / ((getZ() - particleZ) * (getZ() - particleZ)) * 0.1;
-//
-//					getWorld().addParticle(ParticleTypes.CLOUD, particleX, particleY, particleZ, particleVelX, particleVelY, particleVelZ);
 				}
 			});
+
+			for(int i = 0; i < boxRadius * 2; ++i) {
+				double particleX = getPos().getX() + (rand.nextDouble(-boxRadius, boxRadius + 1));
+				double particleY = getPos().getY();
+				double particleZ = getPos().getZ() + (rand.nextDouble(-boxRadius, boxRadius + 1));
+				Vec3d particlePos = new Vec3d(particleX, particleY, particleZ);
+				Vec3d particleVelocity = particlePos.subtract(getPos());
+
+				if(particlePos.squaredDistanceTo(getPos()) <= boxRadiusSq)
+					getWorld().addParticle(ParticleTypes.PORTAL, particleX, particleY, particleZ, particleVelocity.getX(), particleVelocity.getY(), particleVelocity.getZ());
+			}
 		}
 
 		super.tick();
