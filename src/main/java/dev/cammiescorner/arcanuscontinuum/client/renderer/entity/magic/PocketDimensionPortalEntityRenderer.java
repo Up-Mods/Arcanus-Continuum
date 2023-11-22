@@ -10,6 +10,7 @@ import dev.cammiescorner.arcanuscontinuum.client.models.entity.PocketDimensionPo
 import dev.cammiescorner.arcanuscontinuum.client.utils.StencilBuffer;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.PocketDimensionPortalEntity;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -36,7 +37,7 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 	public void render(PocketDimensionPortalEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertices, int light) {
 		super.render(entity, yaw, tickDelta, matrices, vertices, light);
 		StencilBuffer stencilBuffer = ((StencilBuffer) client.getFramebuffer());
-		RenderLayer layer = ArcanusClient.getMagicCircles(TEXTURE);
+		RenderLayer layer = ArcanusClient.getMagicPortal(TEXTURE);
 		int colour = entity.getColour();
 		float r = (colour >> 16 & 255) / 255F;
 		float g = (colour >> 8 & 255) / 255F;
@@ -51,31 +52,54 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		GL11.glEnable(GL11.GL_STENCIL_TEST);
 
+		GL11.glDepthMask(false);
+		GL11.glColorMask(false, false, false, true);
 		GL11.glStencilOp(GL11.GL_KEEP, GL11.GL_KEEP, GL11.GL_INCR);
 		GL11.glStencilFunc(GL11.GL_EQUAL, 0, 0xFF);
 		GL11.glStencilMask(0xFF);
-		drawStencil(matrices, client.gameRenderer.getCamera().getPos(), entity, tessellator);
-		GL11.glStencilFunc(GL11.GL_EQUAL, 1, 0xFF);
-		GL11.glStencilMask(0x00);
 
+		RenderLayer.getWaterMask().startDrawing();
+		GameRenderer.getPositionShader().bind();
+		GL11.glColorMask(true, false, false, true);
+		GL11.glDepthFunc(GL11.GL_LEQUAL);
+		drawStencil(matrices, client.gameRenderer.getCamera().getPos(), entity, tessellator);
+		GameRenderer.getPositionShader().unbind();
+		RenderLayer.getWaterMask().endDrawing();
+
+		GL11.glColorMask(true, true, true, true);
+		GL11.glStencilFunc(GL11.GL_NOTEQUAL, 0, 0xFF);
+		GL11.glStencilMask(0x00);
 		matrices.push();
-		matrices.multiply(Axis.X_POSITIVE.rotationDegrees(180));
-		matrices.translate(0, -0.8f, 0);
-		matrices.scale(scale, maxScale, scale);
+		matrices.translate(-0.35f, -0, 0);
+		matrices.multiply(Axis.Z_POSITIVE.rotationDegrees(90));
+		matrices.scale(scale * 1.5f, scale * 1.5f, -scale * 1.5f);
 		model.render(matrices, vertices.getBuffer(layer), light, OverlayTexture.DEFAULT_UV, r, g, b, 1f);
 //		model.skybox.render(matrices, vertices.getBuffer(RenderLayer.getEntityAlpha(TEXTURE)), light, OverlayTexture.DEFAULT_UV, 1f, 1f, 1f, 1f);
 		matrices.pop();
 
-		GL11.glClearStencil(GL11.GL_STENCIL_BUFFER_BIT);
+		if (vertices instanceof VertexConsumerProvider.Immediate immediate) {
+			immediate.draw();
+			GL11.glDepthMask(true);
+		}
+
+		GL11.glColorMask(false, false, false, true);
 		GL11.glStencilOp(GL11.GL_KEEP, GL11.GL_KEEP, GL11.GL_DECR);
 		GL11.glStencilFunc(GL11.GL_EQUAL, 1, 0xFF);
 		GL11.glStencilMask(0xFF);
+
+		RenderLayer.getWaterMask().startDrawing();
+		GameRenderer.getPositionShader().bind();
+		GL11.glDepthFunc(GL11.GL_ALWAYS);
 		drawStencil(matrices, client.gameRenderer.getCamera().getPos(), entity, tessellator);
+		GameRenderer.getPositionShader().unbind();
+		RenderLayer.getWaterMask().endDrawing();
+
 		GL11.glStencilFunc(GL11.GL_EQUAL, 0, 0xFF);
 		GL11.glStencilMask(0x00);
 
 		GL11.glDisable(GL11.GL_STENCIL_TEST);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glDepthFunc(GL11.GL_LEQUAL);
 	}
 
 	@Override
@@ -84,27 +108,28 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 	}
 
 	public static void drawStencil(MatrixStack matrices, Vec3d cameraPos, PocketDimensionPortalEntity portal, Tessellator tessellator) {
+//		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		BufferBuilder builder = tessellator.getBufferBuilder();
 		builder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
 		builder.vertex(
-				matrices.peek().getModel(), (float) (portal.getPos().x - cameraPos.x),
-				(float) (portal.getPos().y - cameraPos.y - 1),
-				(float) (portal.getPos().z - cameraPos.z - 1)
+				matrices.peek().getModel(), (float) (0),
+				(float) ( - 1),
+				(float) ( - 1)
 		).next();
 		builder.vertex(
-				matrices.peek().getModel(), (float) (portal.getPos().x - cameraPos.x),
-				(float) (portal.getPos().y - cameraPos.y + 1),
-				(float) (portal.getPos().z - cameraPos.z - 1)
+				matrices.peek().getModel(), (float) (0),
+				(float) ( + 1),
+				(float) ( - 1)
 		).next();
 		builder.vertex(
-				matrices.peek().getModel(), (float) (portal.getPos().x - cameraPos.x),
-				(float) (portal.getPos().y - cameraPos.y + 1),
-				(float) (portal.getPos().z - cameraPos.z + 1)
+				matrices.peek().getModel(), (float) (0),
+				(float) ( + 1),
+				(float) ( + 1)
 		).next();
 		builder.vertex(
-				matrices.peek().getModel(), (float) (portal.getPos().x - cameraPos.x),
-				(float) (portal.getPos().y - cameraPos.y - 1),
-				(float) (portal.getPos().z - cameraPos.z + 1)
+				matrices.peek().getModel(), (float) (0),
+				(float) ( - 1),
+				(float) (+ 1)
 		).next();
 		tessellator.draw();
 	}
