@@ -16,17 +16,19 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.texture.AbstractTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Axis;
-import net.minecraft.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
 
 public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDimensionPortalEntity> {
 	private static final Identifier TEXTURE = Arcanus.id("textures/entity/magic/pocket_dimension_portal.png");
+	private static final Identifier MASK = Arcanus.id("textures/entity/magic/pocket_dimension_portal_mask.png");
 	private final MinecraftClient client = MinecraftClient.getInstance();
 	private final Tessellator tessellator = Tessellator.getInstance();
 	private final PocketDimensionPortalEntityModel model;
+	private final AbstractTexture textureMask = client.getTextureManager().getTexture(MASK);
 
 	public PocketDimensionPortalEntityRenderer(EntityRendererFactory.Context ctx) {
 		super(ctx);
@@ -43,8 +45,20 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 		float g = (colour >> 8 & 255) / 255F;
 		float b = (colour & 255) / 255F;
 		float ageDelta = entity.getTrueAge() + tickDelta;
-		float maxScale = 0.5f;
+		float maxScale = 0.75f;
 		float scale = entity.getTrueAge() <= 100 ? Math.min(maxScale, (ageDelta / 100f) * maxScale) : entity.getTrueAge() > 700 ? Math.max(0, (1 - (ageDelta - 700) / 20f) * maxScale) : maxScale;
+
+		matrices.push();
+		matrices.translate(0, 1.625, 0);
+		matrices.multiply(Axis.Z_POSITIVE.rotationDegrees(180));
+		matrices.scale(scale, 1, scale);
+		model.skybox.render(matrices, vertices.getBuffer(RenderLayer.getEntitySolid(TEXTURE)), light, OverlayTexture.DEFAULT_UV, 1f, 1f, 1f, 1f);
+		matrices.pop();
+
+		matrices.push();
+		matrices.translate(0, 0.05, 0);
+		matrices.scale(scale, 1, scale);
+		matrices.multiply(Axis.Z_POSITIVE.rotationDegrees(90));
 
 		if(!stencilBuffer.arcanuscontinuum$isStencilBufferEnabled())
 			stencilBuffer.arcanuscontinuum$enableStencilBufferAndReload(true);
@@ -62,22 +76,22 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 		GameRenderer.getPositionShader().bind();
 		GL11.glColorMask(true, false, false, true);
 		GL11.glDepthFunc(GL11.GL_LEQUAL);
-		drawStencil(matrices, client.gameRenderer.getCamera().getPos(), entity, tessellator);
+		drawStencil(matrices, tessellator);
 		GameRenderer.getPositionShader().unbind();
 		RenderLayer.getWaterMask().endDrawing();
 
 		GL11.glColorMask(true, true, true, true);
 		GL11.glStencilFunc(GL11.GL_NOTEQUAL, 0, 0xFF);
 		GL11.glStencilMask(0x00);
+
 		matrices.push();
-		matrices.translate(-0.35f, -0, 0);
+		matrices.translate(-0.375, 0, 0);
 		matrices.multiply(Axis.Z_POSITIVE.rotationDegrees(90));
-		matrices.scale(scale * 1.5f, scale * 1.5f, -scale * 1.5f);
+		matrices.scale(2f / 3f, maxScale, 2f / 3f);
 		model.render(matrices, vertices.getBuffer(layer), light, OverlayTexture.DEFAULT_UV, r, g, b, 1f);
-//		model.skybox.render(matrices, vertices.getBuffer(RenderLayer.getEntityAlpha(TEXTURE)), light, OverlayTexture.DEFAULT_UV, 1f, 1f, 1f, 1f);
 		matrices.pop();
 
-		if (vertices instanceof VertexConsumerProvider.Immediate immediate) {
+		if(vertices instanceof VertexConsumerProvider.Immediate immediate) {
 			immediate.draw();
 			GL11.glDepthMask(true);
 		}
@@ -90,7 +104,7 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 		RenderLayer.getWaterMask().startDrawing();
 		GameRenderer.getPositionShader().bind();
 		GL11.glDepthFunc(GL11.GL_ALWAYS);
-		drawStencil(matrices, client.gameRenderer.getCamera().getPos(), entity, tessellator);
+		drawStencil(matrices, tessellator);
 		GameRenderer.getPositionShader().unbind();
 		RenderLayer.getWaterMask().endDrawing();
 
@@ -100,6 +114,8 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 		GL11.glDisable(GL11.GL_STENCIL_TEST);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthFunc(GL11.GL_LEQUAL);
+
+		matrices.pop();
 	}
 
 	@Override
@@ -107,30 +123,13 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 		return TEXTURE;
 	}
 
-	public static void drawStencil(MatrixStack matrices, Vec3d cameraPos, PocketDimensionPortalEntity portal, Tessellator tessellator) {
-//		GL11.glDisable(GL11.GL_DEPTH_TEST);
+	public static void drawStencil(MatrixStack matrices, Tessellator tessellator) {
 		BufferBuilder builder = tessellator.getBufferBuilder();
 		builder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
-		builder.vertex(
-				matrices.peek().getModel(), (float) (0),
-				(float) ( - 1),
-				(float) ( - 1)
-		).next();
-		builder.vertex(
-				matrices.peek().getModel(), (float) (0),
-				(float) ( + 1),
-				(float) ( - 1)
-		).next();
-		builder.vertex(
-				matrices.peek().getModel(), (float) (0),
-				(float) ( + 1),
-				(float) ( + 1)
-		).next();
-		builder.vertex(
-				matrices.peek().getModel(), (float) (0),
-				(float) ( - 1),
-				(float) (+ 1)
-		).next();
+		builder.vertex(matrices.peek().getModel(), 0, -1, -1).next();
+		builder.vertex(matrices.peek().getModel(), 0, 1, -1).next();
+		builder.vertex(matrices.peek().getModel(), 0, 1, 1).next();
+		builder.vertex(matrices.peek().getModel(), 0, -1, 1).next();
 		tessellator.draw();
 	}
 }

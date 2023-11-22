@@ -24,7 +24,7 @@ public class PocketDimensionPortalEntityModel extends EntityModel<Entity> {
 
 		ModelPartData box = root.addChild("box", ModelPartBuilder.create().uv(4, 5).cuboid(-24.0F, -32.0F, -24.0F, 48.0F, 32.0F, 48.0F, new Dilation(0.0F))
 		.uv(0, 85).cuboid(-25.0F, -32.0F, -25.0F, 50.0F, 33.0F, 50.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
-		ModelPartData skybox = root.addChild("skybox", ModelPartBuilder.create().uv(0, 192).cuboid(-32.0F, -50.0F, -32.0F, 64.0F, 64.0F, 64.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+		ModelPartData skybox = root.addChild("skybox", ModelPartBuilder.create().uv(0, 192).cuboid(-32.0F, 1.25F, -32.0F, 64.0F, 0.0F, 64.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
 
 		return TexturedModelData.of(data, 256, 320);
 	}

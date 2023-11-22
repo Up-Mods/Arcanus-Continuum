@@ -29,7 +29,6 @@
 		"client.LivingEntityRendererMixin",
 		"client.MinecraftClientMixin",
 		"client.PlayerEntityRendererMixin",
-
 		"client.WorldRendererMixin"
 	],
 	"injectors": {

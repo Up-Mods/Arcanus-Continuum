@@ -8,7 +8,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Box;
@@ -42,26 +41,26 @@ public class PocketDimensionPortalEntity extends Entity {
 			}
 
 			float ageMultiplier = Math.min(100, getTrueAge()) / 100f;
-			Box box = new Box(-4 * ageMultiplier, -4 * ageMultiplier, -4 * ageMultiplier, 4 * ageMultiplier, 4 * ageMultiplier, 4 * ageMultiplier).expand(pullStrength * ageMultiplier);
+			Box box = new Box(0, 0, 0, 0, 0, 0).expand((4 + pullStrength) * ageMultiplier);
 
-			getWorld().getEntitiesByClass(Entity.class, box.offset(getPos()), entity -> entity.isAlive() && !entity.isSpectator()).forEach(entity -> {
+			getWorld().getEntitiesByClass(Entity.class, box.offset(getPos()), entity -> entity.isAlive() && !entity.isSpectator() && !(entity instanceof PlayerEntity player && player.isCreative())).forEach(entity -> {
 				double distanceSq = getPos().squaredDistanceTo(entity.getPos());
 
 				if(!(entity instanceof PocketDimensionPortalEntity) && distanceSq <= box.getXLength() * box.getXLength()) {
 					Vec3d direction = getPos().subtract(entity.getPos()).normalize();
 					double inverseSq = 1 / distanceSq;
 
-					entity.addVelocity(direction.multiply(inverseSq * pullStrength));
+					entity.addVelocity(direction.multiply(inverseSq));
 					entity.velocityModified = true;
 
-					double particleX = getPos().getX() + 5;
-					double particleY = getPos().getY();
-					double particleZ = getPos().getZ();
-					double particleVelX = 1 / ((getX() - particleX) * (getX() - particleX));
-					double particleVelY = 1 / ((getY() - particleY) * (getY() - particleY));
-					double particleVelZ = 1 / ((getZ() - particleZ) * (getZ() - particleZ));
-
-					getWorld().addParticle(ParticleTypes.CLOUD, particleX, particleY, particleZ, particleVelX, particleVelY, particleVelZ);
+//					double particleX = getPos().getX() + 5;
+//					double particleY = getPos().getY() + 0.1;
+//					double particleZ = getPos().getZ();
+//					double particleVelX = 1 / ((getX() - particleX) * (getX() - particleX)) * 0.1;
+//					double particleVelY = 1 / ((getY() - particleY) * (getY() - particleY)) * 0.1;
+//					double particleVelZ = 1 / ((getZ() - particleZ) * (getZ() - particleZ)) * 0.1;
+//
+//					getWorld().addParticle(ParticleTypes.CLOUD, particleX, particleY, particleZ, particleVelX, particleVelY, particleVelZ);
 				}
 			});
 		}
