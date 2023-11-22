@@ -89,8 +89,10 @@ public class PocketDimensionPortalEntity extends Entity {
 	}
 
 	private PlayerEntity getCaster() {
-		if(getWorld() instanceof ServerWorld serverWorld && serverWorld.getEntity(casterId) instanceof PlayerEntity caster)
-			return caster;
+		if(getWorld().getServer() != null)
+			for(ServerWorld serverWorld : getWorld().getServer().getWorlds())
+				if(serverWorld.getEntity(casterId) instanceof PlayerEntity caster)
+					return caster;
 
 		return null;
 	}
