@@ -101,8 +101,8 @@ public class PocketDimensionComponent implements Component {
 			ServerWorld pocketDim = server.getWorld(POCKET_DIM);
 
 			if(pocketDim != null) {
-				for(BlockPos pos : BlockPos.iterate((int) Math.round(boxContainer.box.minX), (int) Math.round(boxContainer.box.minY), (int) Math.round(boxContainer.box.minZ), (int) Math.round(boxContainer.box.maxX), (int) Math.round(boxContainer.box.maxY), (int) Math.round(boxContainer.box.maxZ))) {
-					if(pos.getX() > boxContainer.box.minX && pos.getX() < boxContainer.box.maxX && pos.getY() > boxContainer.box.minY && pos.getY() < boxContainer.box.maxY && pos.getZ() > boxContainer.box.minZ && pos.getZ() < boxContainer.box.maxZ)
+				for(BlockPos pos : BlockPos.iterate((int) Math.round(boxContainer.box.minX), (int) Math.round(boxContainer.box.minY), (int) Math.round(boxContainer.box.minZ), (int) Math.round(boxContainer.box.maxX - 1), (int) Math.round(boxContainer.box.maxY - 1), (int) Math.round(boxContainer.box.maxZ - 1))) {
+					if(pos.getX() > boxContainer.box.minX && pos.getX() < boxContainer.box.maxX - 1 && pos.getY() > boxContainer.box.minY && pos.getY() < boxContainer.box.maxY - 1 && pos.getZ() > boxContainer.box.minZ && pos.getZ() < boxContainer.box.maxZ - 1)
 						continue;
 
 					pocketDim.setBlockState(pos, ArcanusBlocks.UNBREAKABLE_MAGIC_BLOCK.get().getDefaultState());

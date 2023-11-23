@@ -9,7 +9,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
@@ -21,7 +20,6 @@ import org.joml.Matrix4f;
 public class MagicBlockEntityRenderer implements BlockEntityRenderer<MagicBlockEntity> {
 	private static final RenderLayer LAYER = ArcanusClient.getMagicCircles(Arcanus.id("textures/block/magic_block.png"));
 	private final MinecraftClient client = MinecraftClient.getInstance();
-	private final BlockRenderManager blockRenderer = client.getBlockRenderManager();
 
 	public MagicBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
 
