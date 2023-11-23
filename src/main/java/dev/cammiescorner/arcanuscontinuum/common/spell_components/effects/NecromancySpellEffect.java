@@ -32,7 +32,7 @@ public class NecromancySpellEffect extends SpellEffect {
 	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
 		if(target.getType() != HitResult.Type.MISS && caster != null) {
 			int effectCount = (int) effects.stream().filter(ArcanusSpellComponents.NECROMANCY::is).count();
-			double healthMultiplier = (effectCount - 1) / 10F;
+			double healthModifier = (effectCount - 1) / 10F;
 			List<? extends NecroSkeletonEntity> list = ((ServerWorld) world).getEntitiesByType(TypeFilter.instanceOf(NecroSkeletonEntity.class), necroSkeletonEntity -> necroSkeletonEntity.getOwnerId().equals(caster.getUuid()));
 
 			for(int i = 0; i < effectCount; i++) {
@@ -45,7 +45,7 @@ public class NecromancySpellEffect extends SpellEffect {
 					EntityAttributeInstance damage = skeleton.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 
 					skeleton.setPosition(target.getPos());
-					skeleton.setMaxHealth((11 - healthMultiplier) * potency);
+					skeleton.setMaxHealth((11 - healthModifier) * potency);
 					skeleton.setOwner(caster);
 					skeleton.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
 					skeleton.equipStack(EquipmentSlot.HEAD, new ItemStack(ArcanusItems.WIZARD_HAT.get()));

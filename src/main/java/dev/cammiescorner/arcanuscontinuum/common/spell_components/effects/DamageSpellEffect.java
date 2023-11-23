@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.spell_components.effects;
 
+import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellType;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
@@ -24,14 +25,15 @@ public class DamageSpellEffect extends SpellEffect {
 	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
+			Entity entity = entityHit.getEntity();
 			float damage = 1.5F;
 
-			if(entityHit.getEntity() instanceof LivingEntity livingEntity) {
-				if(livingEntity.isWet() && effects.contains(ArcanusSpellComponents.ELECTRIC.get()))
-					damage *= 1.15F;
+			if(entity instanceof Targetable) {
+				if(entity.isWet() && effects.contains(ArcanusSpellComponents.ELECTRIC.get()))
+					damage *= 2F;
 
-				livingEntity.timeUntilRegen = 0;
-				livingEntity.damage(ArcanusDamageTypes.getMagicDamage(caster), (float) (damage * effects.stream().filter(ArcanusSpellComponents.DAMAGE::is).count() * potency));
+				entity.timeUntilRegen = 0;
+				entity.damage(ArcanusDamageTypes.getMagicDamage(caster), (float) (damage * effects.stream().filter(ArcanusSpellComponents.DAMAGE::is).count() * potency));
 			}
 		}
 	}

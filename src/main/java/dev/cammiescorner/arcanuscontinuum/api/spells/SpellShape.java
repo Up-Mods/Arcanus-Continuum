@@ -12,24 +12,28 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public abstract class SpellShape extends SpellComponent {
-
 	public static SpellShape empty() {
 		return (SpellShape) ArcanusSpellComponents.EMPTY.get();
 	}
-
 	private final double manaMultiplier;
+	private final double potencyModifier;
 
-	public SpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
+	public SpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel, double potencyModifier) {
 		super(isEnabled, weight, manaCost, coolDown, minLevel);
 		this.manaMultiplier = manaMultiplier;
+		this.potencyModifier = potencyModifier;
 	}
 
-	public SpellShape(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel) {
-		this(isEnabled, weight, manaCost, 1, coolDown, minLevel);
+	public double getPotencyModifier() {
+		return potencyModifier;
 	}
 
 	public double getManaMultiplier() {
 		return manaMultiplier - 1;
+	}
+
+	public String getPotencyModifierAsString() {
+		return (getPotencyModifier() < 0 ? "" : "+") + Arcanus.format(getPotencyModifier() * 100) + "%";
 	}
 
 	public String getManaMultiplierAsString() {

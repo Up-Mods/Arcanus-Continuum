@@ -16,6 +16,7 @@ public class DynamicLightsCompat implements DynamicLightsInitializer {
 		DynamicLightHandlers.registerDynamicLightHandler(ArcanusEntities.MAGIC_RUNE.get(), entity -> (int) (Math.abs(Math.sin(entity.age * 0.05)) * 3 + 4));
 		DynamicLightHandlers.registerDynamicLightHandler(ArcanusEntities.MANA_SHIELD.get(), entity -> (int) (Math.abs(Math.sin(entity.age * 0.05)) * 7 + 8));
 		DynamicLightHandlers.registerDynamicLightHandler(ArcanusEntities.SMITE.get(), entity -> (int) (-0.103501 * entity.age * entity.age + 2.15793 * entity.age + 3.38905));
+		DynamicLightHandlers.registerDynamicLightHandler(ArcanusEntities.PORTAL.get(), entity -> (int) (Math.abs(Math.sin(entity.age * 0.05)) * 7 + 8));
 		DynamicLightHandlers.registerDynamicLightHandler(EntityType.PLAYER, playerEntity -> ArcanusComponents.shouldRenderBolt(playerEntity) ? 15 : 0);
 	}
 }

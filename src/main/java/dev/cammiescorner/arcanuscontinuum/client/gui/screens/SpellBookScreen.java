@@ -137,8 +137,12 @@ public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 					textList.add(Arcanus.translate("spell_book", "weight").append(": ").formatted(Formatting.GREEN).append(Arcanus.translate("spell_book", "weight", component.getWeight().toString().toLowerCase(Locale.ROOT)).formatted(Formatting.GRAY)));
 					textList.add(Arcanus.translate("spell_book", "mana_cost").append(": ").formatted(Formatting.BLUE).append(Text.literal(component.getManaCostAsString()).formatted(Formatting.GRAY)));
 
-					if(component instanceof SpellShape shape && shape.getManaMultiplier() != 0)
-						textList.add(Arcanus.translate("spell_book", "mana_multiplier").append(": ").formatted(Formatting.LIGHT_PURPLE).append(Text.literal(shape.getManaMultiplierAsString()).formatted(Formatting.GRAY)));
+					if(component instanceof SpellShape shape) {
+						if(shape.getManaMultiplier() != 0)
+							textList.add(Arcanus.translate("spell_book", "mana_multiplier").append(": ").formatted(Formatting.LIGHT_PURPLE).append(Text.literal(shape.getManaMultiplierAsString()).formatted(Formatting.GRAY)));
+						if(shape.getPotencyModifier() != 0)
+							textList.add(Arcanus.translate("spell_book", "potency_modifier").append(": ").formatted(Formatting.YELLOW).append(Text.literal(shape.getPotencyModifierAsString()).formatted(Formatting.GRAY)));
+					}
 
 					textList.add(Arcanus.translate("spell_book", "cool_down").append(": ").formatted(Formatting.RED).append(Text.literal(component.getCoolDownAsString()).append(Arcanus.translate("spell_book", "seconds")).formatted(Formatting.GRAY)));
 

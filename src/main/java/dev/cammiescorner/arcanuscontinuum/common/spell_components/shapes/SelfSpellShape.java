@@ -17,16 +17,14 @@ import java.util.HashSet;
 import java.util.List;
 
 public class SelfSpellShape extends SpellShape {
-	public SelfSpellShape(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(isEnabled, weight, manaCost, coolDown, minLevel);
-	}
-
-	public SelfSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
-		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel);
+	public SelfSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel, double potencyModifier) {
+		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel, potencyModifier);
 	}
 
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+		potency += getPotencyModifier();
+
 		HitResult hit = new EntityHitResult(caster);
 
 		for(SpellEffect effect : new HashSet<>(effects))

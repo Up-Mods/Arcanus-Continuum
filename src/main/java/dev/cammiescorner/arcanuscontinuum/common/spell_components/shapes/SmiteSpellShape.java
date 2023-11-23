@@ -19,17 +19,14 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class SmiteSpellShape extends SpellShape {
-	public SmiteSpellShape(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(isEnabled, weight, manaCost, coolDown, minLevel);
-	}
-
-	public SmiteSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
-		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel);
+	public SmiteSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel, double potencyModifier) {
+		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel, potencyModifier);
 	}
 
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		Entity sourceEntity = castSource != null ? castSource : caster;
+		potency += getPotencyModifier();
 
 		if(caster != null) {
 			List<? extends SmiteEntity> list = world.getEntitiesByType(TypeFilter.instanceOf(SmiteEntity.class), entity -> caster.getUuid().equals(entity.getCasterId()));

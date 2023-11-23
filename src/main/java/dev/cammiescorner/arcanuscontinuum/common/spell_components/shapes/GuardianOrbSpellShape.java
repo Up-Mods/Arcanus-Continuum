@@ -22,16 +22,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class GuardianOrbSpellShape extends SpellShape {
-	public GuardianOrbSpellShape(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(isEnabled, weight, manaCost, coolDown, minLevel);
-	}
-
-	public GuardianOrbSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
-		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel);
+	public GuardianOrbSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel, double potencyModifier) {
+		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel, potencyModifier);
 	}
 
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+		potency += getPotencyModifier();
 		double range = caster != null ? ReachEntityAttributes.getAttackRange(caster, 24) : 24;
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		HitResult target = ArcanusHelper.raycast(sourceEntity, range, true, true);

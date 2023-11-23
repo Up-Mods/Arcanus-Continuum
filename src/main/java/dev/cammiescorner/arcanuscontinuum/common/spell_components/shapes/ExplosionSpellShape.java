@@ -26,17 +26,14 @@ import java.util.List;
 import java.util.Set;
 
 public class ExplosionSpellShape extends SpellShape {
-	public ExplosionSpellShape(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(isEnabled, weight, manaCost, coolDown, minLevel);
-	}
-
-	public ExplosionSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
-		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel);
+	public ExplosionSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel, double potencyModifier) {
+		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel, potencyModifier);
 	}
 
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		Entity sourceEntity = castSource != null ? castSource : caster;
+		potency += getPotencyModifier();
 		float strength = 3.5F;
 
 		world.emitGameEvent(caster, GameEvent.EXPLODE, new Vec3d(castFrom.getX(), castFrom.getY(), castFrom.getZ()));

@@ -81,17 +81,17 @@ public class PocketDimensionComponent implements Component {
 			ServerWorld pocketDim = entity.getServer().getWorld(POCKET_DIM);
 
 			if(pocketDim != null)
-				QuiltDimensions.teleport(entity, pocketDim, new TeleportTarget(existingPlots.get(ownerOfPocket.getUuid()).getCenter().subtract(-0.5, 11, -0.5), Vec3d.ZERO, entity.getYaw(), entity.getPitch()));
+				QuiltDimensions.teleport(entity, pocketDim, new TeleportTarget(existingPlots.get(ownerOfPocket.getUuid()).getCenter().subtract(0, 11, 0), Vec3d.ZERO, entity.getYaw(), entity.getPitch()));
 		}
 	}
 
 	private void generateNewPlot(PlayerEntity player) {
 		var boxContainer = new Object() {
-			Box box = new Box(-13, -13, -13, 12, 12, 12);
+			Box box = new Box(-13, -13, -13, 13, 13, 13);
 		};
 
-		while(existingPlots.entrySet().stream().anyMatch(entry -> entry.getValue().intersects(boxContainer.box)))
-			boxContainer.box = boxContainer.box.offset(random.nextInt(-468749, 468750) * 64, random.nextInt(-8, 9) * 64, random.nextInt(-468749, 468750) * 64);
+		while(existingPlots.entrySet().stream().anyMatch(entry -> entry.getValue().intersects(boxContainer.box.expand(38))))
+			boxContainer.box = boxContainer.box.offset(random.nextInt(-468748, 468749) * 64, random.nextInt(-3, 4) * 64, random.nextInt(-468748, 468749) * 64);
 
 		existingPlots.put(player.getUuid(), boxContainer.box);
 
@@ -101,7 +101,7 @@ public class PocketDimensionComponent implements Component {
 			ServerWorld pocketDim = server.getWorld(POCKET_DIM);
 
 			if(pocketDim != null) {
-				for(BlockPos pos : BlockPos.iterate((int) boxContainer.box.minX, (int) boxContainer.box.minY, (int) boxContainer.box.minZ, (int) boxContainer.box.maxX, (int) boxContainer.box.maxY, (int) boxContainer.box.maxZ)) {
+				for(BlockPos pos : BlockPos.iterate((int) Math.round(boxContainer.box.minX), (int) Math.round(boxContainer.box.minY), (int) Math.round(boxContainer.box.minZ), (int) Math.round(boxContainer.box.maxX), (int) Math.round(boxContainer.box.maxY), (int) Math.round(boxContainer.box.maxZ))) {
 					if(pos.getX() > boxContainer.box.minX && pos.getX() < boxContainer.box.maxX && pos.getY() > boxContainer.box.minY && pos.getY() < boxContainer.box.maxY && pos.getZ() > boxContainer.box.minZ && pos.getZ() < boxContainer.box.maxZ)
 						continue;
 
@@ -113,7 +113,7 @@ public class PocketDimensionComponent implements Component {
 
 				for(int x = 0; x < 4; x++) {
 					for(int z = 0; z < 4; z++) {
-						BlockPos pos = new BlockPos((int) boxContainer.box.getCenter().getX() + (x - 2), (int) boxContainer.box.minY, (int) boxContainer.box.getCenter().getZ() + (z - 2));
+						BlockPos pos = new BlockPos((int) Math.round(boxContainer.box.getCenter().getX()) + (x - 2), (int) Math.round(boxContainer.box.minY), (int) Math.round(boxContainer.box.getCenter().getZ()) + (z - 2));
 
 						if(x == 0) {
 							switch(z) {

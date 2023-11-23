@@ -1,6 +1,5 @@
 package dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes;
 
-import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
@@ -9,7 +8,6 @@ import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.EntityHitResult;
@@ -24,19 +22,14 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public class BoltSpellShape extends SpellShape {
-	private static final double RANGE_MODIFIER = 2D;
-
-	public BoltSpellShape(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(isEnabled, weight, manaCost, coolDown, minLevel);
-	}
-
-	public BoltSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
-		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel);
+	public BoltSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel, double potencyModifier) {
+		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel, potencyModifier);
 	}
 
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
-		double range = (caster != null ? ReachEntityAttributes.getAttackRange(caster, caster instanceof PlayerEntity player && player.isCreative() ? 5 : 4.5) : 4.5) * RANGE_MODIFIER;
+		potency += getPotencyModifier();
+		double range = 6;
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		Box box = new Box(castFrom.add(-range, -range, -range), castFrom.add(range, range, range));
 		List<Entity> affectedEntities = world.getOtherEntities(sourceEntity, box);

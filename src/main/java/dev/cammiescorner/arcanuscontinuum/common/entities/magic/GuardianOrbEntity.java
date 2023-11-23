@@ -210,8 +210,11 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 			EntityAttributeInstance maxMana = caster.getAttributeInstance(ArcanusEntityAttributes.MAX_MANA.get());
 			EntityAttributeInstance manaLock = caster.getAttributeInstance(ArcanusEntityAttributes.MANA_LOCK.get());
 
-			if(maxMana != null && manaLock != null)
-				manaLock.addPersistentModifier(new EntityAttributeModifier(casterId, "Orb Mana Lock", maxMana.getValue() * (effects.size() * 0.0818181), EntityAttributeModifier.Operation.ADDITION));
+			if(maxMana != null && manaLock != null) {
+				double maximumManaLock = 0.9;
+
+				manaLock.addPersistentModifier(new EntityAttributeModifier(casterId, "Orb Mana Lock", maxMana.getValue() * (effects.size() * (maximumManaLock / 11)), EntityAttributeModifier.Operation.ADDITION));
+			}
 		}
 
 		this.targetId = target.getUuid();

@@ -57,7 +57,7 @@ public class SmiteEntity extends Entity {
 
 					getWorld().getEntitiesByClass(Entity.class, box, entity -> entity.isAlive() && !entity.isSpectator() && entity instanceof Targetable targetable && targetable.arcanuscontinuum$canBeTargeted()).forEach(entity -> {
 						if(!hasHit.contains(entity.getUuid())) {
-							effect.effect(getCaster(), this, getWorld(), new EntityHitResult(entity), effects, stack, potency + 0.35);
+							effect.effect(getCaster(), this, getWorld(), new EntityHitResult(entity), effects, stack, potency);
 
 							hasHit.add(entity.getUuid());
 						}

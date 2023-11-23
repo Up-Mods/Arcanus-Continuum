@@ -20,16 +20,14 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ProjectileSpellShape extends SpellShape {
-	public ProjectileSpellShape(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel) {
-		super(isEnabled, weight, manaCost, coolDown, minLevel);
-	}
-
-	public ProjectileSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel) {
-		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel);
+	public ProjectileSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel, double potencyModifier) {
+		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel, potencyModifier);
 	}
 
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+		potency += getPotencyModifier();
+
 		if(caster != null) {
 			List<? extends MagicProjectileEntity> list = world.getEntitiesByType(TypeFilter.instanceOf(MagicProjectileEntity.class), entity -> caster.equals(entity.getOwner()));
 
@@ -39,7 +37,7 @@ public class ProjectileSpellShape extends SpellShape {
 			MagicProjectileEntity projectile = ArcanusEntities.MAGIC_PROJECTILE.get().create(world);
 
 			if(projectile != null) {
-				projectile.setProperties(caster, castSource, this, stack, effects, spellGroups, groupIndex, potency * (ArcanusSpellComponents.LOB.is(this) ? 1f : 0.5f), ArcanusSpellComponents.LOB.is(this) ? 2F : 4F, !ArcanusSpellComponents.LOB.is(this), Arcanus.DEFAULT_MAGIC_COLOUR);
+				projectile.setProperties(caster, castSource, this, stack, effects, spellGroups, groupIndex, potency, ArcanusSpellComponents.LOB.is(this) ? 2F : 4F, !ArcanusSpellComponents.LOB.is(this), Arcanus.DEFAULT_MAGIC_COLOUR);
 
 				if(caster instanceof PlayerEntity player)
 					projectile.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
