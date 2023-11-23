@@ -36,29 +36,28 @@ public class PocketDimensionPortalEntity extends Entity {
 		}
 
 		if(getTrueAge() <= 700) {
+			Box box = new Box(0, 0, 0, 0, 0, 0).expand(4 + pullStrength).offset(getPos());
+			double boxRadius = box.getXLength() / 2;
+			double boxRadiusSq = boxRadius * boxRadius;
+
 			if(getTrueAge() > 100) {
 				getWorld().getEntitiesByClass(Entity.class, getBoundingBox(), entity -> entity.canUsePortals() && !entity.isSpectator()).forEach(entity -> {
 					if(!(entity instanceof PocketDimensionPortalEntity))
 						ArcanusComponents.teleportToPocketDimension(getWorld().getProperties(), getCaster(), entity);
 				});
+
+				getWorld().getEntitiesByClass(Entity.class, box, entity -> entity.isAlive() && !entity.isSpectator() && !(entity instanceof PlayerEntity player && player.isCreative())).forEach(entity -> {
+					double distanceSq = getPos().squaredDistanceTo(entity.getPos());
+
+					if(!(entity instanceof PocketDimensionPortalEntity) && distanceSq <= boxRadiusSq) {
+						Vec3d direction = getPos().subtract(entity.getPos()).normalize();
+						double inverseSq = 1 / distanceSq;
+
+						entity.addVelocity(direction.multiply(inverseSq));
+						entity.velocityModified = true;
+					}
+				});
 			}
-
-			float ageMultiplier = Math.min(100, getTrueAge()) / 100f;
-			Box box = new Box(0, 0, 0, 0, 0, 0).expand((4 + pullStrength) * ageMultiplier);
-			double boxRadius = box.getXLength() / 2;
-			double boxRadiusSq = boxRadius * boxRadius;
-
-			getWorld().getEntitiesByClass(Entity.class, box.offset(getPos()), entity -> entity.isAlive() && !entity.isSpectator() && !(entity instanceof PlayerEntity player && player.isCreative())).forEach(entity -> {
-				double distanceSq = getPos().squaredDistanceTo(entity.getPos());
-
-				if(!(entity instanceof PocketDimensionPortalEntity) && distanceSq <= boxRadiusSq) {
-					Vec3d direction = getPos().subtract(entity.getPos()).normalize();
-					double inverseSq = 1 / distanceSq;
-
-					entity.addVelocity(direction.multiply(inverseSq));
-					entity.velocityModified = true;
-				}
-			});
 
 			for(int i = 0; i < boxRadius * 2; ++i) {
 				double particleX = getPos().getX() + (rand.nextDouble(-boxRadius, boxRadius + 1));

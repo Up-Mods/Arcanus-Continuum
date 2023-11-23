@@ -89,7 +89,7 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 		matrices.push();
 		matrices.translate(-0.375, 0, 0);
 		matrices.multiply(Axis.Z_POSITIVE.rotationDegrees(90));
-		matrices.scale(2f / 3f, maxScale, 2f / 3f);
+		matrices.scale(maxScale, maxScale, maxScale);
 		model.render(matrices, vertices.getBuffer(layer), light, OverlayTexture.DEFAULT_UV, r, g, b, 1f);
 		matrices.pop();
 
