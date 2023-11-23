@@ -1,16 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "  L",
+    "  A",
     " L ",
     "L  "
   ],
   "key": {
     "L": {
       "tag": "minecraft:logs"
-    }
+    },
+	"A": {
+		"item": "minecraft:amethyst_shard"
+	}
   },
   "result": {
-    "item": "arcanuscontinuum:wooden_staff"
+    "item": "arcanuscontinuum:crystal_staff"
   }
 }
