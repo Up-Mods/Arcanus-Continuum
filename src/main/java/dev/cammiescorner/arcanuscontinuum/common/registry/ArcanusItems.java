@@ -39,10 +39,12 @@ public class ArcanusItems {
 
 	public static final RegistrySupplier<ItemGroup> ITEM_GROUP = ITEM_GROUPS.register("general", () -> FabricItemGroup.builder()
 		.name(Arcanus.translate("itemGroup", "general"))
-		.icon(() -> new ItemStack(ArcanusItems.WOODEN_STAFF.get()))
+		.icon(() -> new ItemStack(ArcanusItems.CRYSTAL_STAFF.get()))
 		.entries((params, entries) -> {
 			entries.addItem(ArcanusBlocks.MAGIC_DOOR.get());
 			entries.addItem(ArcanusBlocks.ARCANE_WORKBENCH.get());
+			entries.addItem(SPELL_BOOK.get());
+			entries.addItem(SCROLL_OF_KNOWLEDGE.get());
 			entries.addItem(WOODEN_STAFF.get());
 			entries.addItem(CRYSTAL_STAFF.get());
 			entries.addItem(DIVINATION_STAFF.get());
@@ -61,8 +63,6 @@ public class ArcanusItems {
 			entries.addItem(WIZARD_ROBES.get());
 			entries.addItem(WIZARD_PANTS.get());
 			entries.addItem(WIZARD_BOOTS.get());
-			entries.addItem(SPELL_BOOK.get());
-			entries.addItem(SCROLL_OF_KNOWLEDGE.get());
 			entries.addItem(WIZARD_SPAWN_EGG.get());
 			entries.addItem(OPOSSUM_SPAWN_EGG.get());
 		}).build());

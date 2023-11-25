@@ -20,4 +20,5 @@ public class ArcanusStatusEffects {
 	public static final RegistrySupplier<StatusEffect> BOUNCY = STATUS_EFFECTS.register("bouncy", () -> new ArcanusStatusEffect(StatusEffectType.NEUTRAL, 0x77ff88));
 	public static final RegistrySupplier<StatusEffect> ANONYMITY = STATUS_EFFECTS.register("anonymity", () -> new ArcanusStatusEffect(StatusEffectType.NEUTRAL, 0x555555));
 	public static final RegistrySupplier<StatusEffect> COPPER_CURSE = STATUS_EFFECTS.register("copper_curse", () -> new ArcanusStatusEffect(StatusEffectType.HARMFUL, 0xc15a36));
+	public static final RegistrySupplier<StatusEffect> DISCOMBOBULATE = STATUS_EFFECTS.register("discombobulate", () -> new ArcanusStatusEffect(StatusEffectType.HARMFUL, 0x7b1375));
 }

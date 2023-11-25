@@ -30,6 +30,8 @@ import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.SideShapeType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -38,13 +40,18 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.SkeletonEntityRenderer;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Axis;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.chunk.Chunk;
+import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.quiltmc.loader.api.ModContainer;
@@ -145,8 +152,58 @@ public class ArcanusClient implements ClientModInitializer {
 		Arcanus.supporterCheck = () -> Arcanus.isPlayerSupporter(client.getSession().getPlayerUuid());
 
 		WorldRenderEvents.AFTER_ENTITIES.register(context -> {
-			if (!context.camera().isThirdPerson() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean()) {
+			if(!context.camera().isThirdPerson() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean())
 				renderFirstPersonBolt(context);
+		});
+
+		WorldRenderEvents.AFTER_TRANSLUCENT.register(context -> {
+			ClientPlayerEntity player = client.player;
+			ClientWorld world = context.world();
+			MatrixStack matrices = context.matrixStack();
+			VertexConsumerProvider vertices = context.consumers();
+
+			if(player != null && world != null && vertices != null) {
+				if(player.getMainHandStack().isIn(ArcanusTags.STAVES) || player.getOffHandStack().isIn(ArcanusTags.STAVES)) {
+					context.worldRenderer().chunkInfoList.forEach(chunkInfo -> {
+						Chunk chunk = world.getChunk(chunkInfo.chunk.getOrigin());
+
+						if(chunk != null) {
+							ArcanusComponents.getWardedBlocks(chunk).forEach((blockPos, uuid) -> {
+								if(blockPos.getSquaredDistance(context.camera().getBlockPos()) < 1024) {
+									VertexConsumer consumer = vertices.getBuffer(ArcanusClient.getMagicCircles(Arcanus.id("textures/block/warded_block.png")));
+
+									matrices.push();
+									matrices.scale(1.001f, 1.001f, 1.001f);
+
+									Matrix4f matrix4f = matrices.peek().getModel();
+									Matrix3f matrix3f = matrices.peek().getNormal();
+									int light = world.getLightLevel(blockPos);
+									int overlay = OverlayTexture.DEFAULT_UV;
+									int colour = Arcanus.getMagicColour(uuid);
+
+									for(Direction direction : Direction.values()) {
+										BlockPos blockToSide = blockPos.offset(direction);
+										BlockState stateToSide = world.getBlockState(blockToSide);
+
+										if(stateToSide.isSideSolid(world, blockToSide, direction.getOpposite(), SideShapeType.FULL))
+											continue;
+
+										switch(direction) {
+											case SOUTH -> renderSide(matrix4f, consumer, 0F, 1F, 0F, 1F, 1F, 1F, 1F, 1F, colour, light, overlay, matrix3f, Direction.SOUTH); // south
+											case NORTH -> renderSide(matrix4f, consumer, 0F, 1F, 1F, 0F, 0F, 0F, 0F, 0F, colour, light, overlay, matrix3f, Direction.NORTH); // north
+											case EAST -> renderSide(matrix4f, consumer, 1F, 1F, 1F, 0F, 0F, 1F, 1F, 0F, colour, light, overlay, matrix3f, Direction.EAST); // east
+											case WEST -> renderSide(matrix4f, consumer, 0F, 0F, 0F, 1F, 0F, 1F, 1F, 0F, colour, light, overlay, matrix3f, Direction.WEST); // west
+											case DOWN -> renderSide(matrix4f, consumer, 0F, 1F, 0F, 0F, 0F, 0F, 1F, 1F, colour, light, overlay, matrix3f, Direction.DOWN); // down
+											case UP -> renderSide(matrix4f, consumer, 0F, 1F, 1F, 1F, 1F, 1F, 0F, 0F, colour, light, overlay, matrix3f, Direction.UP); // up
+										}
+									}
+
+									matrices.pop();
+								}
+							});
+						}
+					});
+				}
 			}
 		});
 
@@ -289,6 +346,13 @@ public class ArcanusClient implements ClientModInitializer {
 		vertex.vertex(matrix, x1, y1, 0).color(colour).uv(u1, v1).overlay(OverlayTexture.DEFAULT_UV).light(15728850).normal(0, 0, 1).next();
 		vertex.vertex(matrix, x1, y0, 0).color(colour).uv(u1, v0).overlay(OverlayTexture.DEFAULT_UV).light(15728850).normal(0, 0, 1).next();
 		vertex.vertex(matrix, x0, y0, 0).color(colour).uv(u0, v0).overlay(OverlayTexture.DEFAULT_UV).light(15728850).normal(0, 0, 1).next();
+	}
+
+	public static void renderSide(Matrix4f matrix4f, VertexConsumer vertices, float x1, float x2, float y1, float y2, float z1, float z2, float z3, float z4, int colour, int light, int overlay, Matrix3f normal, Direction direction) {
+		vertices.vertex(matrix4f, x1, y1, z1).color(colour).uv(0, 1).overlay(overlay).light(light).normal(normal, direction.getVector().getX(), direction.getVector().getY(), direction.getVector().getZ()).next();
+		vertices.vertex(matrix4f, x2, y1, z2).color(colour).uv(1, 1).overlay(overlay).light(light).normal(normal, direction.getVector().getX(), direction.getVector().getY(), direction.getVector().getZ()).next();
+		vertices.vertex(matrix4f, x2, y2, z3).color(colour).uv(1, 0).overlay(overlay).light(light).normal(normal, direction.getVector().getX(), direction.getVector().getY(), direction.getVector().getZ()).next();
+		vertices.vertex(matrix4f, x1, y2, z4).color(colour).uv(0, 0).overlay(overlay).light(light).normal(normal, direction.getVector().getX(), direction.getVector().getY(), direction.getVector().getZ()).next();
 	}
 
 	private void renderOverlay(Identifier texture, float opacity) {

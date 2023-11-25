@@ -93,6 +93,7 @@
 	"mixin": "arcanuscontinuum.mixins.json",
 	"cardinal-components": [
 		"arcanuscontinuum:pocket_dimension",
+		"arcanuscontinuum:warded_blocks",
 		"arcanuscontinuum:wizard_level",
 		"arcanuscontinuum:mana",
 		"arcanuscontinuum:burnout",

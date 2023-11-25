@@ -104,13 +104,13 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 
 	@Override
 	public void kill() {
-		if(!getWorld().isClient() && getCaster() != null) {
+		if(!getWorld().isClient() && getCaster() != null && getTarget() != null) {
 			EntityAttributeInstance inst = getCaster().getAttributeInstance(ArcanusEntityAttributes.MANA_LOCK.get());
 
 			if(inst != null)
 				inst.removeModifier(casterId);
 
-			SpellShape.castNext(getCaster(), getPos(), this, (ServerWorld) getWorld(), stack, groups, groupIndex, potency);
+			SpellShape.castNext(getCaster(), getTarget().getPos(), this, (ServerWorld) getWorld(), stack, groups, groupIndex, potency);
 		}
 
 		super.kill();

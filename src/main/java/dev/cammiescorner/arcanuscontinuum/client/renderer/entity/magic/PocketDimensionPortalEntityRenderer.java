@@ -20,7 +20,7 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Axis;
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL31;
 
 public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDimensionPortalEntity> {
 	private static final Identifier TEXTURE = Arcanus.id("textures/entity/magic/pocket_dimension_portal.png");
@@ -65,26 +65,26 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 		if(!stencilBuffer.arcanuscontinuum$isStencilBufferEnabled())
 			stencilBuffer.arcanuscontinuum$enableStencilBufferAndReload(true);
 
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		GL11.glEnable(GL11.GL_STENCIL_TEST);
+		GL31.glDisable(GL31.GL_DEPTH_TEST);
+		GL31.glEnable(GL31.GL_STENCIL_TEST);
 
-		GL11.glDepthMask(false);
-		GL11.glColorMask(false, false, false, true);
-		GL11.glStencilOp(GL11.GL_KEEP, GL11.GL_KEEP, GL11.GL_INCR);
-		GL11.glStencilFunc(GL11.GL_EQUAL, 0, 0xFF);
-		GL11.glStencilMask(0xFF);
+		GL31.glDepthMask(false);
+		GL31.glColorMask(false, false, false, true);
+		GL31.glStencilOp(GL31.GL_KEEP, GL31.GL_KEEP, GL31.GL_INCR);
+		GL31.glStencilFunc(GL31.GL_EQUAL, 0, 0xFF);
+		GL31.glStencilMask(0xFF);
 
 		RenderLayer.getWaterMask().startDrawing();
 		GameRenderer.getPositionShader().bind();
-		GL11.glColorMask(true, false, false, true);
-		GL11.glDepthFunc(GL11.GL_LEQUAL);
+		GL31.glColorMask(true, false, false, true);
+		GL31.glDepthFunc(GL31.GL_LEQUAL);
 		drawStencil(matrices, tessellator);
 		GameRenderer.getPositionShader().unbind();
 		RenderLayer.getWaterMask().endDrawing();
 
-		GL11.glColorMask(true, true, true, true);
-		GL11.glStencilFunc(GL11.GL_NOTEQUAL, 0, 0xFF);
-		GL11.glStencilMask(0x00);
+		GL31.glColorMask(true, true, true, true);
+		GL31.glStencilFunc(GL31.GL_NOTEQUAL, 0, 0xFF);
+		GL31.glStencilMask(0x00);
 
 		matrices.push();
 		matrices.translate(-0.375, 0, 0);
@@ -95,27 +95,27 @@ public class PocketDimensionPortalEntityRenderer extends EntityRenderer<PocketDi
 
 		if(vertices instanceof VertexConsumerProvider.Immediate immediate) {
 			immediate.draw();
-			GL11.glDepthMask(true);
+			GL31.glDepthMask(true);
 		}
 
-		GL11.glColorMask(false, false, false, true);
-		GL11.glStencilOp(GL11.GL_KEEP, GL11.GL_KEEP, GL11.GL_DECR);
-		GL11.glStencilFunc(GL11.GL_EQUAL, 1, 0xFF);
-		GL11.glStencilMask(0xFF);
+		GL31.glColorMask(false, false, false, true);
+		GL31.glStencilOp(GL31.GL_KEEP, GL31.GL_KEEP, GL31.GL_DECR);
+		GL31.glStencilFunc(GL31.GL_EQUAL, 1, 0xFF);
+		GL31.glStencilMask(0xFF);
 
 		RenderLayer.getWaterMask().startDrawing();
 		GameRenderer.getPositionShader().bind();
-		GL11.glDepthFunc(GL11.GL_ALWAYS);
+		GL31.glDepthFunc(GL31.GL_ALWAYS);
 		drawStencil(matrices, tessellator);
 		GameRenderer.getPositionShader().unbind();
 		RenderLayer.getWaterMask().endDrawing();
 
-		GL11.glStencilFunc(GL11.GL_EQUAL, 0, 0xFF);
-		GL11.glStencilMask(0x00);
+		GL31.glStencilFunc(GL31.GL_EQUAL, 0, 0xFF);
+		GL31.glStencilMask(0x00);
 
-		GL11.glDisable(GL11.GL_STENCIL_TEST);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glDepthFunc(GL11.GL_LEQUAL);
+		GL31.glDisable(GL31.GL_STENCIL_TEST);
+		GL31.glEnable(GL31.GL_DEPTH_TEST);
+		GL31.glDepthFunc(GL31.GL_LEQUAL);
 
 		matrices.pop();
 

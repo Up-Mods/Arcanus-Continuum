@@ -3,10 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.mixin.client;
 import com.mojang.blaze3d.framebuffer.Framebuffer;
 import dev.cammiescorner.arcanuscontinuum.client.utils.StencilBuffer;
 import net.minecraft.client.MinecraftClient;
-import org.lwjgl.opengl.ARBFramebufferObject;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL30;
-import org.lwjgl.opengl.GL30C;
+import org.lwjgl.opengl.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -36,9 +33,9 @@ public abstract class FramebufferMixin implements StencilBuffer {
 	))
 	private void modifyTexImage2D(Args args) {
 		if(Objects.equals(args.get(2), GL11.GL_DEPTH_COMPONENT) && isStencilBufferEnabled) {
-			args.set(2, GL30.GL_DEPTH24_STENCIL8);
+			args.set(2, GL31.GL_DEPTH24_STENCIL8);
 			args.set(6, ARBFramebufferObject.GL_DEPTH_STENCIL);
-			args.set(7, GL30.GL_UNSIGNED_INT_24_8);
+			args.set(7, GL31.GL_UNSIGNED_INT_24_8);
 		}
 	}
 
@@ -49,7 +46,7 @@ public abstract class FramebufferMixin implements StencilBuffer {
 	private void modifyFrameBufferTexture2D(Args args) {
 		if(Objects.equals(args.get(1), GL30C.GL_DEPTH_ATTACHMENT))
 			if(isStencilBufferEnabled)
-				args.set(1, GL30.GL_DEPTH_STENCIL_ATTACHMENT);
+				args.set(1, GL31.GL_DEPTH_STENCIL_ATTACHMENT);
 	}
 
 	@Override

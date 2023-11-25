@@ -5,9 +5,12 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanuscontinuum.common.compat.PehkuiCompat;
+import dev.cammiescorner.arcanuscontinuum.common.components.chunk.WardedBlocksComponent;
 import dev.cammiescorner.arcanuscontinuum.common.components.entity.*;
 import dev.cammiescorner.arcanuscontinuum.common.components.level.PocketDimensionComponent;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.*;
+import dev.onyxstudios.cca.api.v3.chunk.ChunkComponentFactoryRegistry;
+import dev.onyxstudios.cca.api.v3.chunk.ChunkComponentInitializer;
 import dev.onyxstudios.cca.api.v3.component.Component;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
@@ -21,14 +24,22 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldProperties;
+import net.minecraft.world.chunk.Chunk;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
-public class ArcanusComponents implements EntityComponentInitializer, LevelComponentInitializer {
+public class ArcanusComponents implements EntityComponentInitializer, LevelComponentInitializer, ChunkComponentInitializer {
 	// ----- Level Components ----- \\
 	public static final ComponentKey<PocketDimensionComponent> POCKET_DIMENSION_COMPONENT = createComponent("pocket_dimension", PocketDimensionComponent.class);
+
+	// ----- Chunk Components ----- \\
+	public static final ComponentKey<WardedBlocksComponent> WARDED_BLOCKS_COMPONENT = createComponent("warded_blocks", WardedBlocksComponent.class);
 
 	// ----- Entity Components ----- \\
 	public static final ComponentKey<WizardLevelComponent> WIZARD_LEVEL_COMPONENT = createComponent("wizard_level", WizardLevelComponent.class);
@@ -48,6 +59,11 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 	@Override
 	public void registerLevelComponentFactories(LevelComponentFactoryRegistry registry) {
 		registry.register(POCKET_DIMENSION_COMPONENT, PocketDimensionComponent::new);
+	}
+
+	@Override
+	public void registerChunkComponentFactories(ChunkComponentFactoryRegistry registry) {
+		registry.register(WARDED_BLOCKS_COMPONENT, WardedBlocksComponent::new);
 	}
 
 	@Override
@@ -79,37 +95,61 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 		return ComponentRegistry.getOrCreate(Arcanus.id(name), component);
 	}
 
+	private static WardedBlocksComponent getWardedBlocksComponent(World world, BlockPos pos) {
+		return world.getChunk(pos).getComponent(WARDED_BLOCKS_COMPONENT);
+	}
+
 	// ----- Helper Methods ----- //
 	public static void teleportToPocketDimension(WorldProperties properties, PlayerEntity ownerOfPocket, Entity entity) {
 		POCKET_DIMENSION_COMPONENT.get(properties).teleportToPocketDimension(ownerOfPocket, entity);
 	}
 
+	public static void addWardedBlock(PlayerEntity player, BlockPos pos) {
+		getWardedBlocksComponent(player.getWorld(), pos).addWardedBlock(player, pos);
+	}
+
+	public static void removeWardedBlock(PlayerEntity player, BlockPos pos) {
+		getWardedBlocksComponent(player.getWorld(), pos).removeWardedBlock(player, pos);
+	}
+
+	public static boolean isOwnerOfBlock(PlayerEntity player, BlockPos pos) {
+		return getWardedBlocksComponent(player.getWorld(), pos).isOwnerOfBlock(player, pos);
+	}
+
+	public static boolean isBlockWarded(World world, BlockPos pos) {
+		return getWardedBlocksComponent(world, pos).isBlockWarded(pos);
+	}
+
+	public static Map<BlockPos, UUID> getWardedBlocks(Chunk chunk) {
+		return chunk.getComponent(WARDED_BLOCKS_COMPONENT).getWardedBlocks();
+	}
+
 	public static double getMaxMana(LivingEntity entity) {
-		return MANA_COMPONENT.get(entity).getMaxMana();
+		return entity.getComponent(MANA_COMPONENT).getMaxMana();
 	}
 
 	public static double getManaLock(LivingEntity entity) {
-		return MANA_COMPONENT.get(entity).getManaLock();
+		return entity.getComponent(MANA_COMPONENT).getManaLock();
 	}
 
 	public static double getTrueMaxMana(LivingEntity entity) {
-		return MANA_COMPONENT.get(entity).getTrueMaxMana();
+		return entity.getComponent(MANA_COMPONENT).getTrueMaxMana();
 	}
 
 	public static double getMana(LivingEntity entity) {
-		return MANA_COMPONENT.get(entity).getMana();
+		return entity.getComponent(MANA_COMPONENT).getMana();
 	}
 
 	public static void setMana(LivingEntity entity, double amount) {
-		MANA_COMPONENT.get(entity).setMana(amount);
+		entity.getComponent(MANA_COMPONENT).setMana(amount);
 	}
 
 	public static boolean addMana(LivingEntity entity, double amount, boolean simulate) {
-		return MANA_COMPONENT.get(entity).addMana(amount, simulate);
+		return entity.getComponent(MANA_COMPONENT).addMana(amount, simulate);
 	}
 
 	public static boolean drainMana(LivingEntity entity, double amount, boolean simulate) {
-		return MANA_COMPONENT.get(entity).drainMana(amount, simulate);
+		return entity.getComponent(MANA_COMPONENT).drainMana(amount, simulate);
 	}
 
 	public static double getBurnout(LivingEntity entity) {

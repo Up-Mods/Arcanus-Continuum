@@ -19,6 +19,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -43,22 +44,14 @@ import java.util.UUID;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements Targetable {
-	@Shadow
-	public abstract @Nullable EntityAttributeInstance getAttributeInstance(EntityAttribute attribute);
+	@Unique private static final UUID uUID = UUID.fromString("e348efa3-7987-4912-b82a-03c5c75eccb1");
+	@Unique private final LivingEntity self = (LivingEntity) (Entity) this;
+	@Unique private Vec3d prevVelocity;
 
-	@Shadow
-	public abstract ItemStack getMainHandStack();
-
-	@Shadow
-	public abstract boolean hasStatusEffect(StatusEffect effect);
-
-	@Shadow
-	public abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
-
-	@Unique
-	private static final UUID uUID = UUID.fromString("e348efa3-7987-4912-b82a-03c5c75eccb1");
-	@Unique
-	private Vec3d prevVelocity;
+	@Shadow public abstract @Nullable EntityAttributeInstance getAttributeInstance(EntityAttribute attribute);
+	@Shadow public abstract ItemStack getMainHandStack();
+	@Shadow public abstract boolean hasStatusEffect(StatusEffect effect);
+	@Shadow public abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
 
 	public LivingEntityMixin(EntityType<?> type, World world) {
 		super(type, world);
@@ -149,5 +142,14 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 	private void arcanuscontinuum$cantRemoveCurse(StatusEffectInstance effect, CallbackInfo info) {
 		if(effect.getEffectType() == ArcanusStatusEffects.COPPER_CURSE.get())
 			info.cancel();
+	}
+
+	@ModifyVariable(method = "travel", at = @At("HEAD"), argsOnly = true)
+	public Vec3d arcanuscontinuum$invertInput(Vec3d movementInput) {
+		if(!(self instanceof PlayerEntity) && hasStatusEffect(ArcanusStatusEffects.DISCOMBOBULATE.get())) {
+			movementInput = movementInput.multiply(-1, 1, -1);
+		}
+
+		return movementInput;
 	}
 }

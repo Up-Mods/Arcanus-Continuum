@@ -5,6 +5,7 @@
 	"plugin": "dev.cammiescorner.arcanuscontinuum.ArcanusMixinConfig",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
+		"common.AbstractBlockStateMixin",
 		"common.ChiseledBookshelfBlockMixin",
 		"common.EntityViewMixin",
 		"common.HungerManagerMixin",
@@ -16,6 +17,7 @@
 		"common.PlayerEntityMixin",
 		"common.PlayerInventoryMixin",
 		"common.ScreenHandlerTypeMixin",
+		"common.WorldMixin",
 		"compat.pehkui.LivingEntityMixin"
 	],
 	"client": [
@@ -28,6 +30,7 @@
 		"client.ItemRendererMixin",
 		"client.LivingEntityRendererMixin",
 		"client.MinecraftClientMixin",
+		"client.MouseMixin",
 		"client.PlayerEntityRendererMixin",
 		"client.WorldRendererMixin"
 	],

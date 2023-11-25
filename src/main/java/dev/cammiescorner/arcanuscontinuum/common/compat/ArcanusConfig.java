@@ -3,6 +3,9 @@ package dev.cammiescorner.arcanuscontinuum.common.compat;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
 import eu.midnightdust.lib.config.MidnightConfig;
 
+import java.lang.reflect.Field;
+import java.util.function.Supplier;
+
 public class ArcanusConfig extends MidnightConfig {
 	@Entry public static SpellShapeProperties selfShapeProperties = new SpellShapeProperties(true, Weight.VERY_LIGHT, 0, 0.85, 10, 1, 0);
 	@Entry public static SpellShapeProperties touchShapeProperties = new SpellShapeProperties(true, Weight.VERY_LIGHT, 0, 1, 15, 1, 0.2);
@@ -140,6 +143,26 @@ public class ArcanusConfig extends MidnightConfig {
 	@Entry public static SpellEffectProperties featherEffectProperties = new SpellEffectProperties(true, Weight.NONE, 5, 0, 8) {
 		@Entry public int baseEffectDuration = 100;
 	};
+
+	@SuppressWarnings("unchecked")
+	public static <T> Supplier<T> getConfigOption(Object obj, String name) {
+		try {
+			Field field = obj.getClass().getEnclosingClass().getDeclaredField(name);
+			field.setAccessible(true);
+
+			return () -> {
+				try {
+					return (T) field.get(obj);
+				}
+				catch(IllegalAccessException e) {
+					throw new RuntimeException(e);
+				}
+			};
+		}
+		catch(NoSuchFieldException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	public static class SpellShapeProperties {
 		@Entry public boolean enabled;
