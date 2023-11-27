@@ -131,6 +131,9 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 	}
 
 	public static Map<BlockPos, UUID> getWardedBlocks(Chunk chunk) {
+		if(chunk instanceof EmptyChunk)
+			return Map.of();
+
 		return chunk.getComponent(WARDED_BLOCKS_COMPONENT).getWardedBlocks();
 	}
 
