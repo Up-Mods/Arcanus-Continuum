@@ -29,6 +29,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProperties;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.EmptyChunk;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
@@ -95,8 +97,10 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 		return ComponentRegistry.getOrCreate(Arcanus.id(name), component);
 	}
 
+	@Nullable
 	private static WardedBlocksComponent getWardedBlocksComponent(World world, BlockPos pos) {
-		return world.getChunk(pos).getComponent(WARDED_BLOCKS_COMPONENT);
+		Chunk chunk = world.getChunk(pos);
+		return !(chunk instanceof EmptyChunk) ? chunk.getComponent(WARDED_BLOCKS_COMPONENT) : null;
 	}
 
 	// ----- Helper Methods ----- //
@@ -105,19 +109,25 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 	}
 
 	public static void addWardedBlock(PlayerEntity player, BlockPos pos) {
-		getWardedBlocksComponent(player.getWorld(), pos).addWardedBlock(player, pos);
+		WardedBlocksComponent component = getWardedBlocksComponent(player.getWorld(), pos);
+		if(component != null)
+			component.addWardedBlock(player, pos);
 	}
 
 	public static void removeWardedBlock(PlayerEntity player, BlockPos pos) {
-		getWardedBlocksComponent(player.getWorld(), pos).removeWardedBlock(player, pos);
+		WardedBlocksComponent component = getWardedBlocksComponent(player.getWorld(), pos);
+		if (component != null)
+			component.removeWardedBlock(player, pos);
 	}
 
 	public static boolean isOwnerOfBlock(PlayerEntity player, BlockPos pos) {
-		return getWardedBlocksComponent(player.getWorld(), pos).isOwnerOfBlock(player, pos);
+		WardedBlocksComponent component = getWardedBlocksComponent(player.getWorld(), pos);
+		return component != null && component.isOwnerOfBlock(player, pos);
 	}
 
 	public static boolean isBlockWarded(World world, BlockPos pos) {
-		return getWardedBlocksComponent(world, pos).isBlockWarded(pos);
+		WardedBlocksComponent component = getWardedBlocksComponent(world, pos);
+		return component != null && component.isBlockWarded(pos);
 	}
 
 	public static Map<BlockPos, UUID> getWardedBlocks(Chunk chunk) {

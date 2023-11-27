@@ -147,7 +147,7 @@ public class ArcanusConfig extends MidnightConfig {
 	@SuppressWarnings("unchecked")
 	public static <T> Supplier<T> getConfigOption(Object obj, String name) {
 		try {
-			Field field = obj.getClass().getEnclosingClass().getDeclaredField(name);
+			Field field = obj.getClass().getDeclaredField(name);
 			field.setAccessible(true);
 
 			return () -> {

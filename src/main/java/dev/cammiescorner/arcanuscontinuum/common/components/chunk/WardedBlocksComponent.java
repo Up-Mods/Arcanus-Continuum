@@ -26,7 +26,6 @@ public class WardedBlocksComponent implements AutoSyncedComponent {
 
 	public WardedBlocksComponent(Chunk chunk) {
 		this.chunk = chunk;
-		chunk.setNeedsSaving(true);
 	}
 
 	@Override
@@ -66,6 +65,7 @@ public class WardedBlocksComponent implements AutoSyncedComponent {
 		if(!isBlockWarded(pos)) {
 			wardedBlocks.put(pos, player.getUuid());
 			chunk.syncComponent(ArcanusComponents.WARDED_BLOCKS_COMPONENT);
+			chunk.setNeedsSaving(true);
 		}
 	}
 
@@ -73,6 +73,7 @@ public class WardedBlocksComponent implements AutoSyncedComponent {
 		if(canOtherPlayersRemoveBlock.get() || isOwnerOfBlock(player, pos)) {
 			wardedBlocks.remove(pos);
 			chunk.syncComponent(ArcanusComponents.WARDED_BLOCKS_COMPONENT);
+			chunk.setNeedsSaving(true);
 		}
 	}
 
