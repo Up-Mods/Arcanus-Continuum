@@ -46,10 +46,7 @@ import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Axis;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.chunk.Chunk;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
@@ -68,6 +65,7 @@ public class ArcanusClient implements ClientModInitializer {
 	private static final Identifier STUN_OVERLAY = Arcanus.id("textures/gui/hud/stunned_vignette.png");
 	private static final Identifier MAGIC_CIRCLES = Arcanus.id("textures/entity/feature/magic_circles.png");
 	public static final Identifier WHITE = new Identifier("textures/misc/white.png");
+	public static final RenderLayer LAYER = ArcanusClient.getMagicCircles(Arcanus.id("textures/block/warded_block.png"));
 	public static BooleanSupplier FIRST_PERSON_MODEL_ENABLED = () -> false;
 	public static BooleanSupplier FIRST_PERSON_SHOW_HANDS = () -> true;
 
@@ -161,8 +159,10 @@ public class ArcanusClient implements ClientModInitializer {
 			ClientWorld world = context.world();
 			MatrixStack matrices = context.matrixStack();
 			VertexConsumerProvider vertices = context.consumers();
+			Vec3d cameraPos = context.camera().getPos();
+			float alpha = (float) (Math.sin(world.getTime() * 0.06f) * 0.4f + 0.6f);
 
-			if(player != null && world != null && vertices != null) {
+			if(player != null && vertices != null) {
 				if(player.getMainHandStack().isIn(ArcanusTags.STAVES) || player.getOffHandStack().isIn(ArcanusTags.STAVES)) {
 					context.worldRenderer().chunkInfoList.forEach(chunkInfo -> {
 						Chunk chunk = world.getChunk(chunkInfo.chunk.getOrigin());
@@ -170,16 +170,23 @@ public class ArcanusClient implements ClientModInitializer {
 						if(chunk != null) {
 							ArcanusComponents.getWardedBlocks(chunk).forEach((blockPos, uuid) -> {
 								if(blockPos.getSquaredDistance(context.camera().getBlockPos()) < 1024) {
-									VertexConsumer consumer = vertices.getBuffer(ArcanusClient.getMagicCircles(Arcanus.id("textures/block/warded_block.png")));
+									VertexConsumer consumer = vertices.getBuffer(LAYER);
+									Vec3d pos = Vec3d.ofCenter(blockPos);
 
 									matrices.push();
+									matrices.translate(pos.getX() - cameraPos.getX(), pos.getY() - cameraPos.getY(), pos.getZ() - cameraPos.getZ());
 									matrices.scale(1.001f, 1.001f, 1.001f);
+									matrices.translate(-0.5, -0.5, -0.5);
 
 									Matrix4f matrix4f = matrices.peek().getModel();
 									Matrix3f matrix3f = matrices.peek().getNormal();
 									int light = world.getLightLevel(blockPos);
 									int overlay = OverlayTexture.DEFAULT_UV;
 									int colour = Arcanus.getMagicColour(uuid);
+									float r = (colour >> 16 & 255) * alpha;
+									float g = (colour >> 8 & 255) * alpha;
+									float b = (colour & 255) * alpha;
+									colour = (((int) r << 16) | ((int) g << 8) | (int) b);
 
 									for(Direction direction : Direction.values()) {
 										BlockPos blockToSide = blockPos.offset(direction);

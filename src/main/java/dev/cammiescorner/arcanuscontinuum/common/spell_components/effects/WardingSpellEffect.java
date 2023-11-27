@@ -27,10 +27,12 @@ public class WardingSpellEffect extends SpellEffect {
 			BlockHitResult blockHit = (BlockHitResult) target;
 			BlockPos pos = blockHit.getBlockPos();
 
-			if(ArcanusComponents.isBlockWarded(world, pos))
-				ArcanusComponents.removeWardedBlock(player, pos);
-			else
-				ArcanusComponents.addWardedBlock(player, pos);
+			if(world.canPlayerModifyAt(player, pos)) {
+				if(ArcanusComponents.isBlockWarded(world, pos))
+					ArcanusComponents.removeWardedBlock(player, pos);
+				else
+					ArcanusComponents.addWardedBlock(player, pos);
+			}
 		}
 	}
 }
