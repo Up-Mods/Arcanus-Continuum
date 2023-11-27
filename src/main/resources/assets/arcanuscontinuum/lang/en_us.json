@@ -44,6 +44,7 @@
 	"effect.arcanuscontinuum.discombobulate": "Discombobulate",
 
 	"text.arcanuscontinuum.disabled_component": "This spell contains one or more disabled spell components. Aborting spell.",
+	"text.arcanuscontinuum.block_is_warded": "This block is warded.",
 
 	"spell_component.arcanuscontinuum.disabled": "Unreadable Text",
 

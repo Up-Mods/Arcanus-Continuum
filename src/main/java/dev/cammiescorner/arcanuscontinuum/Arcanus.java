@@ -24,7 +24,9 @@ import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.Items;
 import net.minecraft.registry.DefaultedRegistry;
 import net.minecraft.registry.Registry;
@@ -204,10 +206,10 @@ public class Arcanus implements ModInitializer {
 
 		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
 			ItemStack stack = player.getStackInHand(hand);
+			BlockPos pos = hitResult.getBlockPos();
+			BlockState state = world.getBlockState(pos);
 
 			if(!world.isClient() && player.isSneaking() && stack.isOf(Items.NAME_TAG) && stack.hasCustomName()) {
-				BlockPos pos = hitResult.getBlockPos();
-				BlockState state = world.getBlockState(pos);
 				MagicDoorBlockEntity door = MagicDoorBlock.getBlockEntity(world, state, pos);
 
 				if(door != null && door.getOwner() == player) {
@@ -218,6 +220,20 @@ public class Arcanus implements ModInitializer {
 
 					return ActionResult.SUCCESS;
 				}
+			}
+
+			if(ArcanusComponents.isBlockWarded(world, pos) && !ArcanusComponents.isOwnerOfBlock(player, pos)) {
+				ItemUsageContext ctx = new ItemPlacementContext(world, player, hand, stack, hitResult);
+				ActionResult result = stack.useOnBlock(ctx);
+
+				if(!result.isAccepted()) {
+					player.sendMessage(Arcanus.translate("text", "block_is_warded").formatted(Formatting.RED), true);
+					player.swingHand(hand);
+
+					return ActionResult.FAIL;
+				}
+
+				return result;
 			}
 
 			return ActionResult.PASS;

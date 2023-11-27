@@ -35,6 +35,7 @@ import net.minecraft.block.SideShapeType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.SkeletonEntityRenderer;
@@ -45,8 +46,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.resource.ResourceType;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.*;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.Axis;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
@@ -68,6 +75,7 @@ public class ArcanusClient implements ClientModInitializer {
 	public static final RenderLayer LAYER = ArcanusClient.getMagicCircles(Arcanus.id("textures/block/warded_block.png"));
 	public static BooleanSupplier FIRST_PERSON_MODEL_ENABLED = () -> false;
 	public static BooleanSupplier FIRST_PERSON_SHOW_HANDS = () -> true;
+	private final MinecraftClient client = MinecraftClient.getInstance();
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
@@ -145,9 +153,8 @@ public class ArcanusClient implements ClientModInitializer {
 			}
 		});
 
-		final MinecraftClient client = MinecraftClient.getInstance();
-
 		Arcanus.supporterCheck = () -> Arcanus.isPlayerSupporter(client.getSession().getPlayerUuid());
+		var obj = new Object() { int hudTimer, hitTimer; };
 
 		WorldRenderEvents.AFTER_ENTITIES.register(context -> {
 			if(!context.camera().isThirdPerson() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean())
@@ -155,68 +162,46 @@ public class ArcanusClient implements ClientModInitializer {
 		});
 
 		WorldRenderEvents.AFTER_TRANSLUCENT.register(context -> {
+			ClientPlayerInteractionManager interactionManager = client.interactionManager;
 			ClientPlayerEntity player = client.player;
 			ClientWorld world = context.world();
 			MatrixStack matrices = context.matrixStack();
 			VertexConsumerProvider vertices = context.consumers();
 			Vec3d cameraPos = context.camera().getPos();
-			float alpha = (float) (Math.sin(world.getTime() * 0.06f) * 0.4f + 0.6f);
 
-			if(player != null && vertices != null) {
+			if(player != null && vertices != null && interactionManager != null) {
+				if(client.crosshairTarget instanceof BlockHitResult hitResult && ArcanusComponents.isBlockWarded(world, hitResult.getBlockPos()) && player.handSwinging) {
+					if(client.options.attackKey.isPressed())
+						obj.hitTimer = 10;
+
+					if(!ArcanusComponents.isOwnerOfBlock(player, hitResult.getBlockPos()) || obj.hitTimer > 0) {
+						BlockPos blockPos = hitResult.getBlockPos();
+						float alpha = 1 - player.handSwingProgress;
+
+						renderWardedBlock(matrices, vertices, world, cameraPos, blockPos, alpha);
+						player.sendMessage(Arcanus.translate("text", "block_is_warded").formatted(Formatting.RED), true);
+					}
+
+					if(obj.hitTimer > 0)
+						obj.hitTimer -= 1;
+				}
+
 				if(player.getMainHandStack().isIn(ArcanusTags.STAVES) || player.getOffHandStack().isIn(ArcanusTags.STAVES)) {
+					float alpha = (float) (Math.sin(world.getTime() * 0.06f) * 0.4f + 0.6f);
+
 					context.worldRenderer().chunkInfoList.forEach(chunkInfo -> {
 						Chunk chunk = world.getChunk(chunkInfo.chunk.getOrigin());
 
 						if(chunk != null) {
 							ArcanusComponents.getWardedBlocks(chunk).forEach((blockPos, uuid) -> {
-								if(blockPos.getSquaredDistance(context.camera().getBlockPos()) < 1024) {
-									VertexConsumer consumer = vertices.getBuffer(LAYER);
-									Vec3d pos = Vec3d.ofCenter(blockPos);
-
-									matrices.push();
-									matrices.translate(pos.getX() - cameraPos.getX(), pos.getY() - cameraPos.getY(), pos.getZ() - cameraPos.getZ());
-									matrices.scale(1.001f, 1.001f, 1.001f);
-									matrices.translate(-0.5, -0.5, -0.5);
-
-									Matrix4f matrix4f = matrices.peek().getModel();
-									Matrix3f matrix3f = matrices.peek().getNormal();
-									int light = world.getLightLevel(blockPos);
-									int overlay = OverlayTexture.DEFAULT_UV;
-									int colour = Arcanus.getMagicColour(uuid);
-									float r = (colour >> 16 & 255) * alpha;
-									float g = (colour >> 8 & 255) * alpha;
-									float b = (colour & 255) * alpha;
-									colour = (((int) r << 16) | ((int) g << 8) | (int) b);
-
-									for(Direction direction : Direction.values()) {
-										BlockPos blockToSide = blockPos.offset(direction);
-										BlockState stateToSide = world.getBlockState(blockToSide);
-
-										if(stateToSide.isSideSolid(world, blockToSide, direction.getOpposite(), SideShapeType.FULL))
-											continue;
-
-										switch(direction) {
-											case SOUTH -> renderSide(matrix4f, consumer, 0F, 1F, 0F, 1F, 1F, 1F, 1F, 1F, colour, light, overlay, matrix3f, Direction.SOUTH); // south
-											case NORTH -> renderSide(matrix4f, consumer, 0F, 1F, 1F, 0F, 0F, 0F, 0F, 0F, colour, light, overlay, matrix3f, Direction.NORTH); // north
-											case EAST -> renderSide(matrix4f, consumer, 1F, 1F, 1F, 0F, 0F, 1F, 1F, 0F, colour, light, overlay, matrix3f, Direction.EAST); // east
-											case WEST -> renderSide(matrix4f, consumer, 0F, 0F, 0F, 1F, 0F, 1F, 1F, 0F, colour, light, overlay, matrix3f, Direction.WEST); // west
-											case DOWN -> renderSide(matrix4f, consumer, 0F, 1F, 0F, 0F, 0F, 0F, 1F, 1F, colour, light, overlay, matrix3f, Direction.DOWN); // down
-											case UP -> renderSide(matrix4f, consumer, 0F, 1F, 1F, 1F, 1F, 1F, 0F, 0F, colour, light, overlay, matrix3f, Direction.UP); // up
-										}
-									}
-
-									matrices.pop();
-								}
+								if(blockPos.getSquaredDistance(context.camera().getBlockPos()) < 1024)
+									renderWardedBlock(matrices, vertices, world, cameraPos, blockPos, alpha);
 							});
 						}
 					});
 				}
 			}
 		});
-
-		var obj = new Object() {
-			int timer;
-		};
 
 		HudRenderCallback.EVENT.register((gui, tickDelta) -> {
 			MatrixStack matrices = gui.getMatrices();
@@ -273,15 +258,15 @@ public class ArcanusClient implements ClientModInitializer {
 				double manaLock = ArcanusComponents.getManaLock(player);
 
 				if (player.getMainHandStack().getItem() instanceof StaffItem)
-					obj.timer = Math.min(obj.timer + 1, 40);
+					obj.hudTimer = Math.min(obj.hudTimer + 1, 40);
 				else
-					obj.timer = Math.max(obj.timer - 1, 0);
+					obj.hudTimer = Math.max(obj.hudTimer - 1, 0);
 
-				if (obj.timer > 0) {
+				if (obj.hudTimer > 0) {
 					int x = 0;
 					int y = client.getWindow().getScaledHeight() - 28;
 					int width = 96;
-					float alpha = obj.timer > 20 ? 1F : obj.timer / 20F;
+					float alpha = obj.hudTimer > 20 ? 1F : obj.hudTimer / 20F;
 
 					RenderSystem.enableBlend();
 					RenderSystem.setShaderColor(1F, 1F, 1F, alpha);
@@ -305,6 +290,45 @@ public class ArcanusClient implements ClientModInitializer {
 				}
 			}
 		});
+	}
+
+	private static void renderWardedBlock(MatrixStack matrices, VertexConsumerProvider vertices, World world, Vec3d cameraPos, BlockPos blockPos, float alpha) {
+		VertexConsumer consumer = vertices.getBuffer(LAYER);
+		Vec3d pos = Vec3d.ofCenter(blockPos);
+
+		matrices.push();
+		matrices.translate(pos.getX() - cameraPos.getX(), pos.getY() - cameraPos.getY(), pos.getZ() - cameraPos.getZ());
+		matrices.scale(1.001f, 1.001f, 1.001f);
+		matrices.translate(-0.5, -0.5, -0.5);
+
+		Matrix4f matrix4f = matrices.peek().getModel();
+		Matrix3f matrix3f = matrices.peek().getNormal();
+		int light = world.getLightLevel(blockPos);
+		int overlay = OverlayTexture.DEFAULT_UV;
+		int colour = Arcanus.getMagicColour(ArcanusComponents.getWardedBlocks(world.getChunk(blockPos)).get(blockPos));
+		float r = (colour >> 16 & 255) * alpha;
+		float g = (colour >> 8 & 255) * alpha;
+		float b = (colour & 255) * alpha;
+		colour = (((int) r << 16) | ((int) g << 8) | (int) b);
+
+		for(Direction direction : Direction.values()) {
+			BlockPos blockToSide = blockPos.offset(direction);
+			BlockState stateToSide = world.getBlockState(blockToSide);
+
+			if(stateToSide.isSideSolid(world, blockToSide, direction.getOpposite(), SideShapeType.FULL))
+				continue;
+
+			switch(direction) {
+				case SOUTH -> renderSide(matrix4f, consumer, 0F, 1F, 0F, 1F, 1F, 1F, 1F, 1F, colour, light, overlay, matrix3f, Direction.SOUTH); // south
+				case NORTH -> renderSide(matrix4f, consumer, 0F, 1F, 1F, 0F, 0F, 0F, 0F, 0F, colour, light, overlay, matrix3f, Direction.NORTH); // north
+				case EAST -> renderSide(matrix4f, consumer, 1F, 1F, 1F, 0F, 0F, 1F, 1F, 0F, colour, light, overlay, matrix3f, Direction.EAST); // east
+				case WEST -> renderSide(matrix4f, consumer, 0F, 0F, 0F, 1F, 0F, 1F, 1F, 0F, colour, light, overlay, matrix3f, Direction.WEST); // west
+				case DOWN -> renderSide(matrix4f, consumer, 0F, 1F, 0F, 0F, 0F, 0F, 1F, 1F, colour, light, overlay, matrix3f, Direction.DOWN); // down
+				case UP -> renderSide(matrix4f, consumer, 0F, 1F, 1F, 1F, 1F, 1F, 0F, 0F, colour, light, overlay, matrix3f, Direction.UP); // up
+			}
+		}
+
+		matrices.pop();
 	}
 
 	private static void renderFirstPersonBolt(WorldRenderContext context) {
