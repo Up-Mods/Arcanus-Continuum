@@ -5,7 +5,7 @@
 			"item": "arcanuscontinuum:scroll_of_knowledge"
 		},
 		"title": {
-			"translate": "advancements.arcanuscontinuum.wizard_level_6.title",
+			"translate": "advancements.arcanuscontinuum.wizard_level_6.title"
 		},
 		"description": {
 			"translate": "advancements.arcanuscontinuum.wizard_level_6.description"
