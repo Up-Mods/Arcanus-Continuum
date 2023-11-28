@@ -2,11 +2,12 @@
   "name": "Build Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/build_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 34,
+  "sortnum": 35,
+  "advancement": "arcanuscontinuum:arcane/wizard_level_7",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Weight: None$(br)Mana Cost: 5$(br)Cool Down: 0 seconds$(br2)Description:$(br)Places a magical block that has a limited life-span. Good for building in a pinch!"
+      "text": "Weight: None$(br)Mana Cost: 5$(br)Cool Down: 0 seconds$(br2)Description:$(br)Places a magical block that has a limited life-span. Good for building in a pinch! Chaining it makes it last longer."
     },
     {
       "type": "patchouli:image",

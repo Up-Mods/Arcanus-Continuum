@@ -2,6 +2,7 @@
   "name": "Crafting Spells",
   "icon": "minecraft:lectern",
   "category": "arcanuscontinuum:basics",
+  "advancement": "arcanuscontinuum:arcane/wizard_level_1",
   "sortnum": 2,
   "pages": [
     {

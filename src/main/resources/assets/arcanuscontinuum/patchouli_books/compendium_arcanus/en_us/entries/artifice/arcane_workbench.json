@@ -2,6 +2,7 @@
   "name": "Arcane Workbench",
   "icon": "arcanuscontinuum:arcane_workbench",
   "category": "arcanuscontinuum:artifice",
+  "advancement": "arcanuscontinuum:arcane/a_magical_crystal",
   "pages": [
     {
       "type": "patchouli:text",

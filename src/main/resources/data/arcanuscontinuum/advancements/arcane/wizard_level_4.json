@@ -1,0 +1,39 @@
+{
+	"parent": "arcanuscontinuum:arcane/wizard_level_3",
+	"display": {
+		"icon": {
+			"item": "arcanuscontinuum:scroll_of_knowledge"
+		},
+		"title": {
+			"translate": "advancements.arcanuscontinuum.wizard_level_4.title"
+		},
+		"description": {
+			"translate": "advancements.arcanuscontinuum.wizard_level_4.description"
+		},
+		"frame": "goal",
+		"hidden": false,
+		"show_toast": true,
+		"announce_to_chat": true
+	},
+	"criteria": {
+		"requirement": {
+			"trigger": "minecraft:tick",
+			"conditions": {
+				"player": [
+					{
+						"condition": "minecraft:entity_properties",
+						"entity": "this",
+						"predicate": {
+							"nbt": "{cardinal_components:{\"arcanuscontinuum:wizard_level\":{WizardLevel:4}}}"
+						}
+					}
+				]
+			}
+		}
+	},
+	"requirements": [
+		[
+			"requirement"
+		]
+	]
+}

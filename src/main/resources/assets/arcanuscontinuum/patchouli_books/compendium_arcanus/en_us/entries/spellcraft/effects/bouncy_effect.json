@@ -2,11 +2,12 @@
   "name": "Bouncy Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/bouncy_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 39,
+  "sortnum": 40,
+  "advancement": "arcanuscontinuum:arcane/wizard_level_8",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Weight: None$(br)Mana Cost: 5$(br)Cool Down: 0 seconds$(br2)Description:$(br)Makes the target bounce when taking great falls, as well as makes them immune to fall damage."
+      "text": "Weight: None$(br)Mana Cost: 5$(br)Cool Down: 0 seconds$(br2)Description:$(br)Makes the target bounce when taking great falls, as well as makes them immune to fall damage. Chaining the effect makes it last longer."
     },
     {
       "type": "patchouli:image",

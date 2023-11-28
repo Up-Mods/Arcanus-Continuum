@@ -2,6 +2,7 @@
   "name": "Magic Door",
   "icon": "arcanuscontinuum:magic_door",
   "category": "arcanuscontinuum:artifice",
+  "advancement": "arcanuscontinuum:arcane/a_magical_crystal",
   "pages": [
     {
       "type": "patchouli:text",

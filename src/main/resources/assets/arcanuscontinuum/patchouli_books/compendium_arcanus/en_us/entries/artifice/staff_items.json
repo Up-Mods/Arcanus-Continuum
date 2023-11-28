@@ -2,6 +2,7 @@
   "name": "Staves",
   "icon": "arcanuscontinuum:wooden_staff",
   "category": "arcanuscontinuum:artifice",
+  "advancement": "arcanuscontinuum:arcane/wizard_level_1",
   "pages": [
     {
       "type": "patchouli:text",

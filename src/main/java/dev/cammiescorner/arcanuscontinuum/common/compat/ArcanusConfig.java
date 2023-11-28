@@ -61,7 +61,7 @@ public class ArcanusConfig extends MidnightConfig {
 	};
 	@Entry public static SpellEffectProperties necromancyEffectProperties = new SpellEffectProperties(true, Weight.NONE, 8, 0, 9) {
 		@Entry public int baseHealth = 11;
-	};;
+	};
 	@Entry public static SpellEffectProperties manaSplitEffectProperties = new SpellEffectProperties(true, Weight.NONE, 6.5, 0, 6);
 	@Entry public static SpellEffectProperties copperCurseEffectProperties = new SpellEffectProperties(true, Weight.NONE, 8, 0, 8) {
 		@Entry public int baseEffectDuration = 24000;

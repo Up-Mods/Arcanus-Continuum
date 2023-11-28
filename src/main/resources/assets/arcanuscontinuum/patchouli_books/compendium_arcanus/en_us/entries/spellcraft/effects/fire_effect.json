@@ -2,11 +2,12 @@
   "name": "Fire Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/fire_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 13,
+  "sortnum": 14,
+  "advancement": "arcanuscontinuum:arcane/wizard_level_2",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Weight: None$(br)Mana Cost: 2$(br)Cool Down: 0 seconds$(br2)Description:$(br)Sets the target on fire for a short amount of time."
+      "text": "Weight: None$(br)Mana Cost: 2$(br)Cool Down: 0 seconds$(br2)Description:$(br)Sets the target on fire for a short amount of time. Chaining the effect makes it last longer."
     },
     {
       "type": "patchouli:image",

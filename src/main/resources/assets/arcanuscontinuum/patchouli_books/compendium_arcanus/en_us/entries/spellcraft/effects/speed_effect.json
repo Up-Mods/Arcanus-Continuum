@@ -2,11 +2,12 @@
   "name": "Speed Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/speed_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 36,
+  "sortnum": 37,
+  "advancement": "arcanuscontinuum:arcane/wizard_level_8",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Weight: None$(br)Mana Cost: 7$(br)Cool Down: 0 seconds$(br2)Description:$(br)Applies the Speed effect to the target for a short while."
+      "text": "Weight: None$(br)Mana Cost: 7$(br)Cool Down: 0 seconds$(br2)Description:$(br)Applies the Speed effect to the target for a short while. Chaining the effect makes it stronger."
     },
     {
       "type": "patchouli:image",

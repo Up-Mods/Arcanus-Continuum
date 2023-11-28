@@ -2,11 +2,12 @@
   "name": "Dispel Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/dispel_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 22,
+  "sortnum": 23,
+  "advancement": "arcanuscontinuum:arcane/wizard_level_6",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Weight: None$(br)Mana Cost: 5$(br)Cool Down: 0 seconds$(br2)Description:$(br)Removes all negative potion effects from the target."
+      "text": "Weight: None$(br)Mana Cost: 5$(br)Cool Down: 0 seconds$(br2)Description:$(br)Removes negative potion effects from the target. Chaining the effect removes more negative potion effects."
     },
     {
       "type": "patchouli:image",

@@ -2,6 +2,7 @@
   "name": "Spell Book",
   "icon": "arcanuscontinuum:spell_book",
   "category": "arcanuscontinuum:artifice",
+  "advancement": "arcanuscontinuum:arcane/wizard_level_1",
   "pages": [
     {
       "type": "patchouli:text",

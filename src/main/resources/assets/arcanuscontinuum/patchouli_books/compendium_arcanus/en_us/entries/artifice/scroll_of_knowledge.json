@@ -2,6 +2,7 @@
   "name": "Scroll of Knowledge",
   "icon": "arcanuscontinuum:scroll_of_knowledge",
   "category": "arcanuscontinuum:artifice",
+  "advancement": "arcanuscontinuum:arcane/meet_and_greet",
   "pages": [
     {
       "type": "patchouli:text",

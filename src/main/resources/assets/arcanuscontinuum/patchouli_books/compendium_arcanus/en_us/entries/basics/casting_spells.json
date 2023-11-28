@@ -2,6 +2,7 @@
   "name": "Casting Spells",
   "icon": "arcanuscontinuum:crystal_staff",
   "category": "arcanuscontinuum:basics",
+  "advancement": "arcanuscontinuum:arcane/wizard_level_1",
   "sortnum": 3,
   "pages": [
     {

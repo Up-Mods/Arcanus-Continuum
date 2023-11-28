@@ -2,6 +2,7 @@
   "name": "Wizard Robes",
   "icon": "arcanuscontinuum:wizard_robes",
   "category": "arcanuscontinuum:artifice",
+  "advancement": "arcanuscontinuum:arcane/a_magical_crystal",
   "pages": [
     {
       "type": "patchouli:text",

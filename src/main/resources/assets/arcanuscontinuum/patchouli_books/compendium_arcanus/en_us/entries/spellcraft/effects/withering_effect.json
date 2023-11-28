@@ -2,11 +2,12 @@
   "name": "Withering Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/withering_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 18,
+  "sortnum": 19,
+  "advancement": "arcanuscontinuum:arcane/wizard_level_7",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Weight: None$(br)Mana Cost: 6.5$(br)Cool Down: 0 seconds$(br2)Description:$(br)Applies the Wither effect to the target for a short while."
+      "text": "Weight: None$(br)Mana Cost: 6.5$(br)Cool Down: 0 seconds$(br2)Description:$(br)Applies the Wither effect to the target for a short while. Chaining the effect makes it last longer."
     },
     {
       "type": "patchouli:image",

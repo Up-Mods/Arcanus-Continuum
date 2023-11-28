@@ -2,11 +2,12 @@
   "name": "Push Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/push_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 26,
+  "sortnum": 27,
+  "advancement": "arcanuscontinuum:arcane/wizard_level_3",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Weight: None$(br)Mana Cost: 1$(br)Cool Down: 0 seconds$(br2)Description:$(br)Pushes the target a small amount away from the caster."
+      "text": "Weight: None$(br)Mana Cost: 1$(br)Cool Down: 0 seconds$(br2)Description:$(br)Pushes the target a small amount away from the caster. Chaining the effect makes it stronger."
     },
     {
       "type": "patchouli:image",

@@ -1,0 +1,23 @@
+{
+	"display": {
+		"icon": {
+			"item": "arcanuscontinuum:crystal_staff"
+		},
+		"title": {
+			"translate": "advancements.arcanuscontinuum.root.title"
+		},
+		"description": {
+			"translate": "advancements.arcanuscontinuum.root.description"
+		},
+		"background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+		"frame": "goal",
+		"hidden": false,
+		"show_toast": false,
+		"announce_to_chat": false
+	},
+	"criteria": {
+		"tick": {
+			"trigger": "minecraft:tick"
+		}
+	}
+}

@@ -2,11 +2,12 @@
   "name": "Heal Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/heal_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 21,
+  "sortnum": 22,
+  "advancement": "arcanuscontinuum:arcane/wizard_level_1",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Weight: None$(br)Mana Cost: 5$(br)Cool Down: 0 seconds$(br2)Description:$(br)Heals the target for a few hearts."
+      "text": "Weight: None$(br)Mana Cost: 5$(br)Cool Down: 0 seconds$(br2)Description:$(br)Heals the target for a few hearts. Chaining the effect makes it stronger."
     },
     {
       "type": "patchouli:image",
