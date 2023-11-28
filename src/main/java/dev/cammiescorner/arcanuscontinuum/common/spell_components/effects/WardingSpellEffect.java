@@ -27,7 +27,7 @@ public class WardingSpellEffect extends SpellEffect {
 			BlockHitResult blockHit = (BlockHitResult) target;
 			BlockPos pos = blockHit.getBlockPos();
 
-			if(world.canPlayerModifyAt(player, pos)) {
+			if(world.canPlayerModifyAt(player, pos) && !world.getBlockState(pos).getCollisionShape(world, pos).isEmpty()) {
 				if(ArcanusComponents.isBlockWarded(world, pos))
 					ArcanusComponents.removeWardedBlock(player, pos);
 				else
