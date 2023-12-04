@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Holder;
 import net.minecraft.registry.RegistryKey;
@@ -26,5 +27,12 @@ public abstract class ClientWorldMixin extends World {
 	))
 	private boolean arcanuscontinuum$noBreakingSoundsOrParticles(WorldRenderer target, int eventId, BlockPos pos, int data) {
 		return eventId != 2001 || !ArcanusComponents.isBlockWarded(this, pos);
+	}
+
+	@WrapWithCondition(method = "tickEntity", at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/entity/Entity;tick()V"
+	))
+	private boolean arcanuscontinuum$blockEntityTick(Entity entity) {
+		return !ArcanusComponents.areUpdatesBlocked(entity);
 	}
 }

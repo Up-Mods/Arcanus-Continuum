@@ -1,0 +1,46 @@
+package dev.cammiescorner.arcanuscontinuum.common.components.entity;
+
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
+import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
+import net.minecraft.entity.Entity;
+import net.minecraft.nbt.NbtCompound;
+
+public class SlowTimeComponent  implements AutoSyncedComponent {
+	private final Entity entity;
+	private boolean slowTime;
+	private boolean blockUpdates;
+
+	public SlowTimeComponent(Entity entity) {
+		this.entity = entity;
+	}
+
+	@Override
+	public void readFromNbt(NbtCompound tag) {
+		slowTime = tag.getBoolean("SlowTime");
+		blockUpdates = tag.getBoolean("BlockUpdates");
+	}
+
+	@Override
+	public void writeToNbt(NbtCompound tag) {
+		tag.putBoolean("SlowTime", slowTime);
+		tag.putBoolean("BlockUpdates", blockUpdates);
+	}
+
+	public boolean isTimeSlowed() {
+		return slowTime;
+	}
+
+	public void setSlowTime(boolean slowTime) {
+		this.slowTime = slowTime;
+		entity.syncComponent(ArcanusComponents.SLOW_TIME_COMPONENT);
+	}
+
+	public boolean areUpdatesBlocked() {
+		return blockUpdates;
+	}
+
+	public void setBlockUpdates(boolean blockUpdates) {
+		this.blockUpdates = blockUpdates;
+		entity.syncComponent(ArcanusComponents.SLOW_TIME_COMPONENT);
+	}
+}

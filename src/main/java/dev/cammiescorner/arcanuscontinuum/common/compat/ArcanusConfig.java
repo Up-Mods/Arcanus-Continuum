@@ -88,6 +88,7 @@ public class ArcanusConfig extends MidnightConfig {
 	};
 	@Entry public static SpellEffectProperties temporalDilationEffectProperties = new SpellEffectProperties(true, Weight.NONE, 10, 0, 10) {
 		@Entry public int baseEffectDuration = 100;
+		@Entry public boolean affectsPlayers = true;
 	};
 
 	@Entry public static SpellEffectProperties pushEffectProperties = new SpellEffectProperties(true, Weight.NONE, 1, 0, 3) {

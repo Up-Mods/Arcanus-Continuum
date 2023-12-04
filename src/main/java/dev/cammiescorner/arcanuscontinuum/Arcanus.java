@@ -22,6 +22,9 @@ import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -43,6 +46,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.minecraft.world.poi.PointOfInterest;
 import net.minecraft.world.poi.PointOfInterestStorage;
@@ -56,6 +60,7 @@ import org.quiltmc.qsl.chat.api.QuiltMessageType;
 import org.quiltmc.qsl.chat.api.types.ChatC2SMessage;
 import org.quiltmc.qsl.command.api.CommandRegistrationCallback;
 import org.quiltmc.qsl.lifecycle.api.event.ServerLifecycleEvents;
+import org.quiltmc.qsl.lifecycle.api.event.ServerWorldTickEvents;
 import org.quiltmc.qsl.networking.api.EntityTrackingEvents;
 import org.quiltmc.qsl.networking.api.ServerPlayConnectionEvents;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
@@ -237,6 +242,29 @@ public class Arcanus implements ModInitializer {
 			}
 
 			return ActionResult.PASS;
+		});
+
+		ServerWorldTickEvents.END.register((server, world) -> {
+			List<Entity> loadedEntityList = new ArrayList<>();
+			world.iterateEntities().forEach(loadedEntityList::add);
+			StatusEffect statusEffect = ArcanusStatusEffects.TEMPORAL_DILATION.get();
+			float radius = 3;
+
+			for(Entity entity : loadedEntityList) {
+				if(ArcanusComponents.isTimeSlowed(entity)) {
+					List<Entity> targets = world.getOtherEntities(entity, new Box(-radius, -radius, -radius, radius, radius, radius).offset(entity.getPos()), target -> target.squaredDistanceTo(entity) <= radius * radius);
+
+					if(targets.stream().noneMatch(target -> target instanceof LivingEntity livingTarget && livingTarget.hasStatusEffect(statusEffect))) {
+						ArcanusComponents.setSlowTime(entity, false);
+						ArcanusComponents.setBlockUpdates(entity, false);
+					}
+				}
+			}
+		});
+
+		ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
+			if(ArcanusComponents.areUpdatesBlocked(handler.player))
+				ArcanusComponents.setBlockUpdates(handler.player, false);
 		});
 	}
 

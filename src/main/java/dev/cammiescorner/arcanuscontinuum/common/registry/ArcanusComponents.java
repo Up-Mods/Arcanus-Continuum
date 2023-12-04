@@ -57,6 +57,7 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 	public static final ComponentKey<SpellShapeComponent> SPELL_SHAPE = createComponent("spell_shape", SpellShapeComponent.class);
 	public static final ComponentKey<SizeComponent> SIZE = createComponent("size", SizeComponent.class);
 	public static final ComponentKey<PocketDimensionPortalComponent> POCKET_DIMENSION_PORTAL_COMPONENT = createComponent("pocket_dimension_portal", PocketDimensionPortalComponent.class);
+	public static final ComponentKey<SlowTimeComponent> SLOW_TIME_COMPONENT = createComponent("slow_time", SlowTimeComponent.class);
 
 	@Override
 	public void registerLevelComponentFactories(LevelComponentFactoryRegistry registry) {
@@ -89,6 +90,7 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 		registry.beginRegistration(PocketDimensionPortalEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
 		registry.beginRegistration(LivingEntity.class, BOLT_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BoltTargetComponent::new);
 		registry.beginRegistration(MagicProjectileEntity.class, SPELL_SHAPE).end(SpellShapeComponent::new);
+		registry.beginRegistration(Entity.class, SLOW_TIME_COMPONENT).end(SlowTimeComponent::new);
 
 		ArcanusCompat.PEHKUI.ifEnabled(() -> () -> PehkuiCompat.registerEntityComponents(registry));
 	}
@@ -292,5 +294,21 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 
 	public static Vec3d getPortalPos(PlayerEntity player) {
 		return POCKET_DIMENSION_PORTAL_COMPONENT.get(player).getPortalPos();
+	}
+
+	public static boolean isTimeSlowed(Entity entity) {
+		return entity.getComponent(SLOW_TIME_COMPONENT).isTimeSlowed();
+	}
+
+	public static void setSlowTime(Entity entity, boolean slowTime) {
+		entity.getComponent(SLOW_TIME_COMPONENT).setSlowTime(slowTime);
+	}
+
+	public static boolean areUpdatesBlocked(Entity entity) {
+		return entity.getComponent(SLOW_TIME_COMPONENT).areUpdatesBlocked();
+	}
+
+	public static void setBlockUpdates(Entity entity, boolean blockUpdates) {
+		entity.getComponent(SLOW_TIME_COMPONENT).setBlockUpdates(blockUpdates);
 	}
 }

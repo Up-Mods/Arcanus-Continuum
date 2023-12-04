@@ -106,7 +106,8 @@
 		"arcanuscontinuum:bolt_target",
 		"arcanuscontinuum:spell_shape",
 		"arcanuscontinuum:size",
-		"arcanuscontinuum:pocket_dimension_portal"
+		"arcanuscontinuum:pocket_dimension_portal",
+		"arcanuscontinuum:slow_time"
 	],
 	"mc-publish": {
 		"curseforge": "905345",
