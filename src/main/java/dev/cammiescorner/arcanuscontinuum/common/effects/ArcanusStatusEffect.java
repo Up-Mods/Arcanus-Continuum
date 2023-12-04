@@ -60,6 +60,7 @@ public class ArcanusStatusEffect extends StatusEffect {
 				ArcanusComponents.setSlowTime(target, true);
 				ArcanusComponents.setBlockUpdates(target, world.getTime() % interval != 0);
 
+				// FIXME method doesnt run on the client so need to move it to somewhere that does
 				if(world.isClient()) {
 					Vec3d vel = target.getVelocity().multiply(1d / (double) interval);
 
@@ -68,14 +69,14 @@ public class ArcanusStatusEffect extends StatusEffect {
 						target.prevY = target.getY();
 						target.prevZ = target.getZ();
 
-						target.setPosition(target.getX() + vel.x, target.getY() + vel.y, target.getZ() + vel.z);
+						target.setPosition(target.getX() + vel.getX(), target.getY() + vel.getY(), target.getZ() + vel.getZ());
 					}
 					else {
-						target.setPosition(target.getX() + vel.x, target.getY() + vel.y, target.getZ() + vel.z);
+						target.setPosition(target.getX() + vel.getX(), target.getY() + vel.getY(), target.getZ() + vel.getZ());
 
-						target.prevX = target.getX() - vel.x;
-						target.prevY = target.getY() - vel.y;
-						target.prevZ = target.getZ() - vel.z;
+						target.prevX = target.getX() - vel.getX();
+						target.prevY = target.getY() - vel.getY();
+						target.prevZ = target.getZ() - vel.getZ();
 					}
 				}
 			}

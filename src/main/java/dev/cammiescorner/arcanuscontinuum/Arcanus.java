@@ -153,15 +153,22 @@ public class Arcanus implements ModInitializer {
 			SyncStatusEffectPacket.sendToAll(handler.player, ArcanusStatusEffects.ANONYMITY.get(), handler.player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY.get()));
 		});
 
-		ResourceLoaderEvents.END_DATA_PACK_RELOAD.register(ctx -> {
-			var server = ctx.server();
-			if (server != null)
-				Arcanus.refreshSupporterData(server, true);
+		ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
+			if(ArcanusComponents.areUpdatesBlocked(handler.player))
+				ArcanusComponents.setBlockUpdates(handler.player, false);
 		});
 
 		EntityTrackingEvents.AFTER_START_TRACKING.register((trackedEntity, player) -> {
 			if(trackedEntity instanceof ServerPlayerEntity playerEntity)
 				SyncStatusEffectPacket.sendTo(player, playerEntity, ArcanusStatusEffects.ANONYMITY.get(), playerEntity.hasStatusEffect(ArcanusStatusEffects.ANONYMITY.get()));
+			if(trackedEntity instanceof LivingEntity livingEntity)
+				SyncStatusEffectPacket.sendTo(player, livingEntity, ArcanusStatusEffects.TEMPORAL_DILATION.get(), livingEntity.hasStatusEffect(ArcanusStatusEffects.TEMPORAL_DILATION.get()));
+		});
+
+		ResourceLoaderEvents.END_DATA_PACK_RELOAD.register(ctx -> {
+			var server = ctx.server();
+			if (server != null)
+				Arcanus.refreshSupporterData(server, true);
 		});
 
 		QuiltChatEvents.CANCEL.register(EnumSet.of(QuiltMessageType.CHAT), abstractMessage -> {
@@ -260,11 +267,6 @@ public class Arcanus implements ModInitializer {
 					}
 				}
 			}
-		});
-
-		ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
-			if(ArcanusComponents.areUpdatesBlocked(handler.player))
-				ArcanusComponents.setBlockUpdates(handler.player, false);
 		});
 	}
 
