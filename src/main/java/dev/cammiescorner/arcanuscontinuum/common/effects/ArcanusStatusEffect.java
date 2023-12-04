@@ -10,6 +10,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -53,7 +54,7 @@ public class ArcanusStatusEffect extends StatusEffect {
 			float radius = 3;
 
 			List<Entity> targets = world.getOtherEntities(entity, new Box(-radius, -radius, -radius, radius, radius, radius).offset(entity.getPos()), target -> target.squaredDistanceTo(entity) <= radius * radius && !(target instanceof LivingEntity livingTarget && livingTarget.hasStatusEffect(ArcanusStatusEffects.TEMPORAL_DILATION.get())));
-			int interval = (amplifier + 1) * 2; // stacks to a maximum of 50% (5 temporal dilation effects)
+			int interval = MathHelper.clamp((amplifier + 1) * 2, 2, 10); // stacks to a maximum of 50% (5 temporal dilation effects)
 
 			for(Entity target : targets) {
 				ArcanusComponents.setSlowTime(target, true);
