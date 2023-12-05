@@ -9,6 +9,7 @@ public class SlowTimeComponent  implements AutoSyncedComponent {
 	private final Entity entity;
 	private boolean slowTime;
 	private boolean blockUpdates;
+	private int blockUpdatesInterval = 20;
 
 	public SlowTimeComponent(Entity entity) {
 		this.entity = entity;
@@ -18,12 +19,14 @@ public class SlowTimeComponent  implements AutoSyncedComponent {
 	public void readFromNbt(NbtCompound tag) {
 		slowTime = tag.getBoolean("SlowTime");
 		blockUpdates = tag.getBoolean("BlockUpdates");
+		blockUpdatesInterval = tag.getInt("BlockUpdatesInterval");
 	}
 
 	@Override
 	public void writeToNbt(NbtCompound tag) {
 		tag.putBoolean("SlowTime", slowTime);
 		tag.putBoolean("BlockUpdates", blockUpdates);
+		tag.putInt("BlockUpdatesInterval", blockUpdatesInterval);
 	}
 
 	public boolean isTimeSlowed() {
@@ -41,6 +44,15 @@ public class SlowTimeComponent  implements AutoSyncedComponent {
 
 	public void setBlockUpdates(boolean blockUpdates) {
 		this.blockUpdates = blockUpdates;
+		entity.syncComponent(ArcanusComponents.SLOW_TIME_COMPONENT);
+	}
+
+	public int getBlockUpdatesInterval() {
+		return blockUpdatesInterval;
+	}
+
+	public void setBlockUpdatesInterval(int interval) {
+		this.blockUpdatesInterval = interval;
 		entity.syncComponent(ArcanusComponents.SLOW_TIME_COMPONENT);
 	}
 }

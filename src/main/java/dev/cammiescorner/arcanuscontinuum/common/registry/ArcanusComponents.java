@@ -311,4 +311,12 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 	public static void setBlockUpdates(Entity entity, boolean blockUpdates) {
 		entity.getComponent(SLOW_TIME_COMPONENT).setBlockUpdates(blockUpdates);
 	}
+
+	public static int getBlockUpdatesInterval(Entity entity) {
+		return entity.getComponent(SLOW_TIME_COMPONENT).getBlockUpdatesInterval();
+	}
+
+	public static void setBlockUpdatesInterval(Entity entity, int interval) {
+		entity.getComponent(SLOW_TIME_COMPONENT).setBlockUpdatesInterval(interval);
+	}
 }

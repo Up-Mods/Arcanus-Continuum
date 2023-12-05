@@ -61,6 +61,7 @@ import org.joml.Vector3f;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
+import org.quiltmc.qsl.entity.event.api.client.ClientEntityTickCallback;
 import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
 import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 import org.quiltmc.qsl.resource.loader.api.ResourceLoader;
@@ -290,6 +291,13 @@ public class ArcanusClient implements ClientModInitializer {
 					RenderSystem.disableBlend();
 					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 				}
+			}
+		});
+
+		ClientEntityTickCallback.EVENT.register((entity, isPassengerTick) -> {
+			if(ArcanusComponents.isTimeSlowed(entity)) {
+//				entity.setVelocity(entity.getVelocity().multiply(1d / 2d));
+//				entity.velocityModified = true;
 			}
 		});
 

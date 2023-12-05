@@ -11,7 +11,6 @@ import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -51,34 +50,46 @@ public class ArcanusStatusEffect extends StatusEffect {
 		World world = entity.getWorld();
 
 		if(this == ArcanusStatusEffects.TEMPORAL_DILATION.get()) {
-			float radius = 3;
+			float radius = 4;
 
-			List<Entity> targets = world.getOtherEntities(entity, new Box(-radius, -radius, -radius, radius, radius, radius).offset(entity.getPos()), target -> target.squaredDistanceTo(entity) <= radius * radius && !(target instanceof LivingEntity livingTarget && livingTarget.hasStatusEffect(ArcanusStatusEffects.TEMPORAL_DILATION.get())));
+			List<Entity> targets = world.getOtherEntities(entity, new Box(-radius, -radius, -radius, radius, radius, radius).offset(entity.getPos().add(0, entity.getHeight() / 2, 0)), target -> target.squaredDistanceTo(entity) <= radius * radius && !(target instanceof LivingEntity livingTarget && livingTarget.hasStatusEffect(ArcanusStatusEffects.TEMPORAL_DILATION.get())));
 			int interval = MathHelper.clamp((amplifier + 1) * 2, 2, 10); // stacks to a maximum of 50% (5 temporal dilation effects)
 
 			for(Entity target : targets) {
 				ArcanusComponents.setSlowTime(target, true);
 				ArcanusComponents.setBlockUpdates(target, world.getTime() % interval != 0);
+				ArcanusComponents.setBlockUpdatesInterval(target, interval);
 
-				// FIXME method doesnt run on the client so need to move it to somewhere that does
-				if(world.isClient()) {
-					Vec3d vel = target.getVelocity().multiply(1d / (double) interval);
-
-					if(ArcanusComponents.areUpdatesBlocked(target)) {
-						target.prevX = target.getX();
-						target.prevY = target.getY();
-						target.prevZ = target.getZ();
-
-						target.setPosition(target.getX() + vel.getX(), target.getY() + vel.getY(), target.getZ() + vel.getZ());
-					}
-					else {
-						target.setPosition(target.getX() + vel.getX(), target.getY() + vel.getY(), target.getZ() + vel.getZ());
-
-						target.prevX = target.getX() - vel.getX();
-						target.prevY = target.getY() - vel.getY();
-						target.prevZ = target.getZ() - vel.getZ();
-					}
-				}
+//				if(world.isClient()) {
+//					if(target.isOnGround())
+//						target.setVelocity(target.getVelocity().getX(), 0, target.getVelocity().getZ());
+//
+//					if(target instanceof LivingEntity livingEntity) {
+//						livingEntity.handSwingProgress = livingEntity.lastHandSwingProgress;
+//						livingEntity.setBodyYaw(livingEntity.prevBodyYaw);
+//						livingEntity.setHeadYaw(livingEntity.prevHeadYaw);
+//					}
+//
+//					target.setYaw(target.prevYaw);
+//					target.setPitch(target.prevPitch);
+//
+//					if(ArcanusComponents.areUpdatesBlocked(target)) {
+//						Vec3d pos = target.getPos().add(target.getVelocity().multiply((20d - interval) / 20d));
+//
+//						target.prevX = target.getX();
+//						target.prevY = target.getY();
+//						target.prevZ = target.getZ();
+//
+//						target.setPosition(pos);
+//					}
+//					else {
+//						target.setPosition(target.getPos().add(target.getVelocity().multiply((20d - interval) / 20d)));
+//
+//						target.prevX = target.getX() - target.getVelocity().getX() * ((20d - interval) / 20d);
+//						target.prevY = target.getY() - target.getVelocity().getY() * ((20d - interval) / 20d);
+//						target.prevZ = target.getZ() - target.getVelocity().getZ() * ((20d - interval) / 20d);
+//					}
+//				}
 			}
 
 			List<Entity> targetsOutOfRange = world.getOtherEntities(entity, new Box(-radius - 3, -radius - 3, -radius - 3, radius + 3, radius + 3, radius + 3).offset(entity.getPos()), target -> !targets.contains(target) && !(target instanceof LivingEntity livingTarget && livingTarget.hasStatusEffect(ArcanusStatusEffects.TEMPORAL_DILATION.get())));
