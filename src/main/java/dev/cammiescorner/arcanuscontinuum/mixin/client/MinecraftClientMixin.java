@@ -140,11 +140,17 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 				List<UUID> orbs = player.getComponent(ArcanusComponents.AGGRESSORB_COMPONENT).getOrbs();
 
 				if(!orbs.isEmpty()) {
-					ShootOrbsPacket.send(orbs);
+					ShootOrbsPacket.send(orbs, player.getUuid());
 
-					for(Entity entity : world.getEntities())
-						if(entity instanceof AggressorbEntity orb && orbs.contains(orb.getUuid()))
-							orb.setBoundToTarget(false);
+					for(Entity entity : world.getEntities()) {
+						if(entity instanceof AggressorbEntity orb && orbs.contains(orb.getUuid())) {
+							if(orb.getTarget().age % 5 * (orbs.indexOf(orb.getUuid()) + 1) == 0) {
+								orb.setBoundToTarget(false);
+								orb.setPosition(orb.getTarget().getEyePos());
+								orb.fire(orb.getTarget().getRotationVec(1f), 4f);
+							}
+						}
+					}
 				}
 			}
 		}
