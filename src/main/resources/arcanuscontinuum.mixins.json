@@ -6,7 +6,6 @@
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
 		"common.AbstractBlockStateMixin",
-		"common.ChiseledBookshelfBlockMixin",
 		"common.EntityViewMixin",
 		"common.FallingBlockMixin",
 		"common.HungerManagerMixin",
@@ -17,7 +16,6 @@
 		"common.MobEntityMixin",
 		"common.PistonBlockMixin",
 		"common.PlayerEntityMixin",
-		"common.PlayerInventoryMixin",
 		"common.ScreenHandlerTypeMixin",
 		"common.ServerWorldMixin",
 		"common.WorldMixin",

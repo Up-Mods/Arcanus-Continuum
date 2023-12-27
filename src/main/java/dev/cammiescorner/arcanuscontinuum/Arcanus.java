@@ -6,10 +6,7 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.MagicDoorBlock;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.MagicDoorBlockEntity;
 import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusConfig;
-import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.CastSpellPacket;
-import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SaveBookDataPacket;
-import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SetCastingPacket;
-import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SyncPatternPacket;
+import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.*;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStatusEffectPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncSupporterData;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
@@ -18,6 +15,7 @@ import dev.cammiescorner.arcanuscontinuum.common.util.SupporterData;
 import dev.upcraft.sparkweave.api.registry.RegistryService;
 import eu.midnightdust.lib.config.MidnightConfig;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import net.fabricmc.fabric.api.entity.event.v1.EntityElytraEvents;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
@@ -142,10 +140,13 @@ public class Arcanus implements ModInitializer {
 		ServerPlayNetworking.registerGlobalReceiver(SetCastingPacket.ID, SetCastingPacket::handler);
 		ServerPlayNetworking.registerGlobalReceiver(SaveBookDataPacket.ID, SaveBookDataPacket::handler);
 		ServerPlayNetworking.registerGlobalReceiver(SyncPatternPacket.ID, SyncPatternPacket::handler);
+		ServerPlayNetworking.registerGlobalReceiver(ShootOrbsPacket.ID, ShootOrbsPacket::handler);
 
 		CommandRegistrationCallback.EVENT.register(ArcanusCommands::init);
 
 		ServerLifecycleEvents.STARTING.register(server -> Arcanus.refreshSupporterData(server, true));
+
+		EntityElytraEvents.CUSTOM.register((entity, tickElytra) -> entity.hasStatusEffect(ArcanusStatusEffects.MANA_WINGS.get()));
 
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 			Arcanus.refreshSupporterData(server, false);

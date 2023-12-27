@@ -19,7 +19,7 @@ public class RenderDocker {
 	@Unique private static final Logger LOGGER = LoggerFactory.getLogger("DynamicPortals::DEBUG");
 
 	@Inject(method = "main", at = @At("HEAD"), remap = false)
-	private static void preMain(String[] pArgs, CallbackInfo ci) {
+	private static void arcanuscontinuum$preMain(String[] pArgs, CallbackInfo ci) {
 		if (!QuiltLoader.isDevelopmentEnvironment()) return;
 
 		String pth = System.getProperty("java.library.path");

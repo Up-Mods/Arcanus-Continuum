@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.common.spell_components.effects;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellType;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -33,6 +34,8 @@ public class DispelSpellEffect extends SpellEffect {
 				for(int i = 0; i < Math.min(statusEffects.size(), (int) (dispelCount * 2 * potency)); i++)
 					livingEntity.removeStatusEffect(statusEffects.get(i));
 			}
+
+			ArcanusComponents.resetScale(entityHit.getEntity());
 		}
 	}
 }

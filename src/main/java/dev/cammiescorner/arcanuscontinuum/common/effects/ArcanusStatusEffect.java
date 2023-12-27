@@ -25,7 +25,7 @@ public class ArcanusStatusEffect extends StatusEffect {
 		super.onApplied(entity, attributes, amplifier);
 
 		if(entity.getWorld() instanceof ServerWorld) {
-			if(this == ArcanusStatusEffects.ANONYMITY.get() || this == ArcanusStatusEffects.TEMPORAL_DILATION.get())
+			if(this == ArcanusStatusEffects.ANONYMITY.get() || this == ArcanusStatusEffects.TEMPORAL_DILATION.get() || this == ArcanusStatusEffects.MANA_WINGS.get())
 				SyncStatusEffectPacket.sendToAll(entity, this, true);
 		}
 	}
@@ -35,7 +35,7 @@ public class ArcanusStatusEffect extends StatusEffect {
 		super.onRemoved(entity, attributes, amplifier);
 
 		if(entity.getWorld() instanceof ServerWorld) {
-			if(this == ArcanusStatusEffects.ANONYMITY.get() || this == ArcanusStatusEffects.TEMPORAL_DILATION.get())
+			if(this == ArcanusStatusEffects.ANONYMITY.get() || this == ArcanusStatusEffects.TEMPORAL_DILATION.get() || this == ArcanusStatusEffects.MANA_WINGS.get())
 				SyncStatusEffectPacket.sendToAll(entity, this, false);
 		}
 	}

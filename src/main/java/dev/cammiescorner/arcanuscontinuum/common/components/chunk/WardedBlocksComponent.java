@@ -21,7 +21,6 @@ import java.util.function.Supplier;
 public class WardedBlocksComponent implements AutoSyncedComponent {
 	private static final Supplier<Boolean> canOtherPlayersRemoveBlock = ArcanusConfig.getConfigOption(ArcanusConfig.wardingEffectProperties, "canBeRemovedByOthers");
 	private final Map<BlockPos, UUID> wardedBlocks = new HashMap<>();
-	private final Map<BlockPos, UUID> viewOfWardedBlocks = Collections.unmodifiableMap(wardedBlocks);
 	private final Chunk chunk;
 
 	public WardedBlocksComponent(Chunk chunk) {
@@ -86,6 +85,6 @@ public class WardedBlocksComponent implements AutoSyncedComponent {
 	}
 
 	public Map<BlockPos, UUID> getWardedBlocks() {
-		return viewOfWardedBlocks;
+		return Collections.unmodifiableMap(wardedBlocks);
 	}
 }

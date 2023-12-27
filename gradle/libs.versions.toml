@@ -6,6 +6,7 @@ quilt_loader = "0.20.2"
 
 quilted_fabric_api = "7.3.1+0.89.3-1.20.1"
 cca = "5.2.2"
+trinkets = "3.7.1"
 sparkweave = "0.3.0"
 patchouli = "1.20.1-81-FABRIC"
 midnightlib = "1.4.1-quilt"
@@ -31,6 +32,7 @@ cca_base = { module = "dev.onyxstudios.cardinal-components-api:cardinal-componen
 cca_entity = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-entity", version.ref = "cca" }
 cca_level = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-level", version.ref = "cca" }
 cca_chunk = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-chunk", version.ref = "cca" }
+trinkets = { module = "dev.emi:trinkets", version.ref = "trinkets" }
 sparkweave = { module = "dev.upcraft:Sparkweave", version.ref = "sparkweave" }
 patchouli = { module = "vazkii.patchouli:Patchouli", version.ref = "patchouli" }
 midnightlib = { module = "maven.modrinth:midnightlib", version.ref = "midnightlib" }

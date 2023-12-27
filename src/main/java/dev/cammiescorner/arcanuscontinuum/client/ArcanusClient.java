@@ -8,7 +8,9 @@ import dev.cammiescorner.arcanuscontinuum.client.gui.screens.ArcaneWorkbenchScre
 import dev.cammiescorner.arcanuscontinuum.client.gui.screens.SpellBookScreen;
 import dev.cammiescorner.arcanuscontinuum.client.gui.screens.SpellcraftScreen;
 import dev.cammiescorner.arcanuscontinuum.client.models.armour.WizardArmourModel;
-import dev.cammiescorner.arcanuscontinuum.client.models.entity.*;
+import dev.cammiescorner.arcanuscontinuum.client.models.entity.living.OpossumEntityModel;
+import dev.cammiescorner.arcanuscontinuum.client.models.entity.living.WizardEntityModel;
+import dev.cammiescorner.arcanuscontinuum.client.models.entity.magic.*;
 import dev.cammiescorner.arcanuscontinuum.client.models.feature.LotusHaloModel;
 import dev.cammiescorner.arcanuscontinuum.client.models.feature.SpellPatternModel;
 import dev.cammiescorner.arcanuscontinuum.client.particles.CollapseParticle;
@@ -100,8 +102,7 @@ public class ArcanusClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(GuardianOrbEntityModel.MODEL_LAYER, GuardianOrbEntityModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(PocketDimensionPortalEntityModel.MODEL_LAYER, PocketDimensionPortalEntityModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(SpatialRiftEntitySigilModel.MODEL_LAYER, SpatialRiftEntitySigilModel::getTexturedModelData);
-
-		ArmorRenderer.register(new WizardArmourRenderer(), ArcanusItems.WIZARD_HAT.get(), ArcanusItems.WIZARD_ROBES.get(), ArcanusItems.WIZARD_PANTS.get(), ArcanusItems.WIZARD_BOOTS.get());
+		EntityModelLayerRegistry.registerModelLayer(AggressorbEntityModel.MODEL_LAYER, AggressorbEntityModel::getTexturedModelData);
 
 		EntityRendererRegistry.register(ArcanusEntities.WIZARD.get(), WizardEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.OPOSSUM.get(), OpossumEntityRenderer::new);
@@ -114,6 +115,9 @@ public class ArcanusClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ArcanusEntities.BEAM.get(), BeamEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.GUARDIAN_ORB.get(), GuardianOrbEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.PORTAL.get(), PocketDimensionPortalEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.AGGRESSORB.get(), AggressorbEntityRenderer::new);
+
+		ArmorRenderer.register(new WizardArmourRenderer(), ArcanusItems.WIZARD_HAT.get(), ArcanusItems.WIZARD_ROBES.get(), ArcanusItems.WIZARD_PANTS.get(), ArcanusItems.WIZARD_BOOTS.get());
 
 		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE.get(), CollapseParticle.Factory::new);
 

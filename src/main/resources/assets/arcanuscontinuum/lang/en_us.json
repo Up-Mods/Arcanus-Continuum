@@ -34,6 +34,10 @@
 	"entity.arcanuscontinuum.magic_rune": "Magic Rune",
 	"entity.arcanuscontinuum.area_of_effect": "Area Of Effect",
 	"entity.arcanuscontinuum.smite": "Smite",
+  "entity.arcanuscontinuum.beam": "Beam",
+  "entity.arcanuscontinuum.guardian_orb": "Guardian Orb",
+  "entity.arcanuscontinuum.aggressorb": "Aggressorb",
+  "entity.arcanuscontinuum.pocket_dimension_portal": "Pocket Dimension Portal",
 
 	"effect.arcanuscontinuum.mana_lock": "Mana Lock",
 	"effect.arcanuscontinuum.vulnerability": "Vulnerability",
@@ -88,6 +92,7 @@
 	"spell_component.arcanuscontinuum.aoe_shape": "AOE Shape",
 	"spell_component.arcanuscontinuum.explosion_shape": "Explosion Shape",
 	"spell_component.arcanuscontinuum.guardian_orb_shape": "Guardian Orb Shape",
+  "spell_component.arcanuscontinuum.aggressorb_shape": "Aggressorb Shape",
 
 	"spell_component.arcanuscontinuum.damage_effect": "Damage Effect",
 	"spell_component.arcanuscontinuum.heal_effect": "Heal Effect",

@@ -52,13 +52,14 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 	@Shadow public abstract ItemStack getMainHandStack();
 	@Shadow public abstract boolean hasStatusEffect(StatusEffect effect);
 	@Shadow public abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
+	@Shadow public abstract boolean removeStatusEffect(StatusEffect type);
 
 	public LivingEntityMixin(EntityType<?> type, World world) {
 		super(type, world);
 	}
 
 	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
-	private float arcanuscontinuum$damage(float amount, DamageSource source) {
+	private float arcanuscontinuum$modifyDamage(float amount, DamageSource source) {
 		EntityAttributeInstance attributeInstance = getAttributeInstance(ArcanusEntityAttributes.MAGIC_RESISTANCE.get());
 
 		if (attributeInstance != null && source.isTypeIn(DamageTypeTags.WITCH_RESISTANT_TO))
@@ -72,8 +73,14 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 		return amount;
 	}
 
+	@Inject(method = "damage", at = @At("HEAD"))
+	private void arcanuscontinuum$removeWings(DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
+		if(amount > 0 && hasStatusEffect(ArcanusStatusEffects.MANA_WINGS.get()))
+			removeStatusEffect(ArcanusStatusEffects.MANA_WINGS.get());
+	}
+
 	@ModifyArg(method = "fall", at = @At(value = "INVOKE", target = "Lnet/minecraft/particle/BlockStateParticleEffect;<init>(Lnet/minecraft/particle/ParticleType;Lnet/minecraft/block/BlockState;)V"))
-	private BlockState arcanuscontinuum$fall(BlockState value) {
+	private BlockState arcanuscontinuum$bouncy(BlockState value) {
 		if (hasStatusEffect(ArcanusStatusEffects.BOUNCY.get()))
 			return Blocks.SLIME_BLOCK.getDefaultState();
 
@@ -81,7 +88,7 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 	}
 
 	@Inject(method = "handleFallDamage", at = @At("HEAD"), cancellable = true)
-	private void arcanuscontinuum$handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> info) {
+	private void arcanuscontinuum$negateFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> info) {
 		if (prevVelocity != null && !getDamageSources().create(DamageTypes.STALAGMITE).equals(damageSource) && fallDistance > getSafeFallDistance() && hasStatusEffect(ArcanusStatusEffects.BOUNCY.get())) {
 			if (!getWorld().isClient) {
 				getWorld().playSoundFromEntity(null, this, SoundEvents.BLOCK_SLIME_BLOCK_FALL, getSoundCategory(), 1, 1);

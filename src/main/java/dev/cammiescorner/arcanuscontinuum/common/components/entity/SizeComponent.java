@@ -55,10 +55,10 @@ public class SizeComponent  implements ServerTickingComponent {
 		reachData.setScaleTickDelay(10);
 		speedData.setScaleTickDelay(10);
 
-		heightData.setTargetScale((float) MathHelper.clamp(heightData.getBaseScale() * scale, 0.0625, 6));
-		widthData.setTargetScale((float) MathHelper.clamp(widthData.getBaseScale() * scale, 0.0625, 6));
-		reachData.setTargetScale((float) MathHelper.clamp(reachData.getBaseScale() * scale, 0.0625, 6));
-		speedData.setTargetScale((float) MathHelper.clamp(speedData.getBaseScale() * scale, 0.0625, 6));
+		heightData.setTargetScale((float) MathHelper.clamp(heightData.getBaseScale() * scale, 0.125, 6));
+		widthData.setTargetScale((float) MathHelper.clamp(widthData.getBaseScale() * scale, 0.125, 6));
+		reachData.setTargetScale((float) MathHelper.clamp(reachData.getBaseScale() * scale, 0.125, 6));
+		speedData.setTargetScale((float) MathHelper.clamp(speedData.getBaseScale() * scale, 0.125, 6));
 
 		timer = (int) Math.round(100 * strength);
 	}

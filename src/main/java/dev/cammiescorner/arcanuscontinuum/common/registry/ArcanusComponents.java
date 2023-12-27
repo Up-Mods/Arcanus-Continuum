@@ -58,6 +58,7 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 	public static final ComponentKey<SizeComponent> SIZE = createComponent("size", SizeComponent.class);
 	public static final ComponentKey<PocketDimensionPortalComponent> POCKET_DIMENSION_PORTAL_COMPONENT = createComponent("pocket_dimension_portal", PocketDimensionPortalComponent.class);
 	public static final ComponentKey<SlowTimeComponent> SLOW_TIME_COMPONENT = createComponent("slow_time", SlowTimeComponent.class);
+	public static final ComponentKey<AggressorbComponent> AGGRESSORB_COMPONENT = createComponent("aggressorb", AggressorbComponent.class);
 
 	@Override
 	public void registerLevelComponentFactories(LevelComponentFactoryRegistry registry) {
@@ -87,10 +88,12 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 		registry.beginRegistration(AreaOfEffectEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
 		registry.beginRegistration(BeamEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
 		registry.beginRegistration(GuardianOrbEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
+		registry.beginRegistration(AggressorbEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
 		registry.beginRegistration(PocketDimensionPortalEntity.class, MAGIC_COLOUR).end(MagicColourComponent::new);
 		registry.beginRegistration(LivingEntity.class, BOLT_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BoltTargetComponent::new);
 		registry.beginRegistration(MagicProjectileEntity.class, SPELL_SHAPE).end(SpellShapeComponent::new);
 		registry.beginRegistration(Entity.class, SLOW_TIME_COMPONENT).end(SlowTimeComponent::new);
+		registry.beginRegistration(LivingEntity.class, AGGRESSORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(AggressorbComponent::new);
 
 		ArcanusCompat.PEHKUI.ifEnabled(() -> () -> PehkuiCompat.registerEntityComponents(registry));
 	}
@@ -132,7 +135,7 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 		return component != null && component.isBlockWarded(pos);
 	}
 
-	public static Map<BlockPos, UUID> getWardedBlocks(Chunk chunk) {
+	public static Map<BlockPos, java.util.UUID> getWardedBlocks(Chunk chunk) {
 		if(chunk instanceof EmptyChunk)
 			return Map.of();
 
@@ -288,6 +291,10 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 		SIZE.get(entity).setScale(scale, strength);
 	}
 
+	public static void resetScale(Entity entity) {
+		entity.getComponent(SIZE).resetScale();
+	}
+
 	public static void createPortal(PlayerEntity player, ServerWorld world, Vec3d pos, double pullStrength) {
 		POCKET_DIMENSION_PORTAL_COMPONENT.get(player).createPortal(world, pos, pullStrength);
 	}
@@ -318,5 +325,21 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 
 	public static void setBlockUpdatesInterval(Entity entity, int interval) {
 		entity.getComponent(SLOW_TIME_COMPONENT).setBlockUpdatesInterval(interval);
+	}
+
+	public static int orbCount(LivingEntity entity) {
+		return entity.getComponent(AGGRESSORB_COMPONENT).orbCount();
+	}
+
+	public static int orbIndex(LivingEntity entity, AggressorbEntity orb) {
+		return entity.getComponent(AGGRESSORB_COMPONENT).orbIndex(orb);
+	}
+
+	public static void addOrbToEntity(LivingEntity entity, UUID orbId) {
+		entity.getComponent(AGGRESSORB_COMPONENT).addOrbToEntity(orbId);
+	}
+
+	public static void removeOrbFromEntity(LivingEntity entity, UUID orbId) {
+		entity.getComponent(AGGRESSORB_COMPONENT).removeOrbFromEntity(orbId);
 	}
 }

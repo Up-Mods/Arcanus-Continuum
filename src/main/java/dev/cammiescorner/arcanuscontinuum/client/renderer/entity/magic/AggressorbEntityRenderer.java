@@ -3,8 +3,8 @@ package dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
-import dev.cammiescorner.arcanuscontinuum.client.models.entity.magic.GuardianOrbEntityModel;
-import dev.cammiescorner.arcanuscontinuum.common.entities.magic.GuardianOrbEntity;
+import dev.cammiescorner.arcanuscontinuum.client.models.entity.magic.AggressorbEntityModel;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.AggressorbEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -12,17 +12,17 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-public class GuardianOrbEntityRenderer extends EntityRenderer<GuardianOrbEntity> {
+public class AggressorbEntityRenderer extends EntityRenderer<AggressorbEntity> {
 	private static final Identifier TEXTURE = Arcanus.id("textures/entity/magic/lob.png");
-	private final GuardianOrbEntityModel model;
+	private final AggressorbEntityModel model;
 
-	public GuardianOrbEntityRenderer(EntityRendererFactory.Context context) {
+	public AggressorbEntityRenderer(EntityRendererFactory.Context context) {
 		super(context);
-		model = new GuardianOrbEntityModel(context.getModelLoader().getModelPart(GuardianOrbEntityModel.MODEL_LAYER));
+		model = new AggressorbEntityModel(context.getModelLoader().getModelPart(AggressorbEntityModel.MODEL_LAYER));
 	}
 
 	@Override
-	public void render(GuardianOrbEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertices, int light) {
+	public void render(AggressorbEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertices, int light) {
 		VertexConsumer consumer = vertices.getBuffer(ArcanusClient.getMagicCircles(getTexture(entity)));
 		int colour = entity.getColour();
 		float r = (colour >> 16 & 255) / 255F;
@@ -42,7 +42,7 @@ public class GuardianOrbEntityRenderer extends EntityRenderer<GuardianOrbEntity>
 	}
 
 	@Override
-	public Identifier getTexture(GuardianOrbEntity entity) {
+	public Identifier getTexture(AggressorbEntity entity) {
 		return TEXTURE;
 	}
 }

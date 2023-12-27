@@ -99,6 +99,8 @@ dependencies {
 
 	modImplementation libs.bundles.cca
 
+	modImplementation libs.trinkets
+
 	modCompileOnly libs.patchouli
 	modLocalRuntime libs.patchouli
 

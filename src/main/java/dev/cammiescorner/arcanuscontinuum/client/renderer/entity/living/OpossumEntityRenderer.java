@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
-import dev.cammiescorner.arcanuscontinuum.client.models.entity.OpossumEntityModel;
+import dev.cammiescorner.arcanuscontinuum.client.models.entity.living.OpossumEntityModel;
 import dev.cammiescorner.arcanuscontinuum.common.entities.living.OpossumEntity;
 import dev.cammiescorner.arcanuscontinuum.common.items.WizardArmorItem;
 import net.minecraft.client.MinecraftClient;

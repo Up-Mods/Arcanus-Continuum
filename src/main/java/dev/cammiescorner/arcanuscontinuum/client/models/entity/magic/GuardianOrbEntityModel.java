@@ -1,20 +1,20 @@
-package dev.cammiescorner.arcanuscontinuum.client.models.entity;
+package dev.cammiescorner.arcanuscontinuum.client.models.entity.magic;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
-import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicProjectileEntity;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.GuardianOrbEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
 
-public class MagicLobEntityModel extends EntityModel<MagicProjectileEntity> {
-	public static final EntityModelLayer MODEL_LAYER = new EntityModelLayer(Arcanus.id("magic_lob"), "main");
+public class GuardianOrbEntityModel extends EntityModel<GuardianOrbEntity> {
+	public static final EntityModelLayer MODEL_LAYER = new EntityModelLayer(Arcanus.id("guardian_orb"), "main");
 	public final ModelPart cube1;
 	public final ModelPart cube2;
 	public final ModelPart cube3;
 
-	public MagicLobEntityModel(ModelPart root) {
+	public GuardianOrbEntityModel(ModelPart root) {
 		this.cube1 = root.getChild("cube1");
 		this.cube2 = root.getChild("cube2");
 		this.cube3 = root.getChild("cube3");
@@ -39,7 +39,7 @@ public class MagicLobEntityModel extends EntityModel<MagicProjectileEntity> {
 	}
 
 	@Override
-	public void setAngles(MagicProjectileEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+	public void setAngles(GuardianOrbEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 
 	}
 }

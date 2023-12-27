@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
-import dev.cammiescorner.arcanuscontinuum.client.models.entity.MagicRuneEntityModel;
+import dev.cammiescorner.arcanuscontinuum.client.models.entity.magic.MagicRuneEntityModel;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicRuneEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;

@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanuscontinuum.client.models.entity;
+package dev.cammiescorner.arcanuscontinuum.client.models.entity.living;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;

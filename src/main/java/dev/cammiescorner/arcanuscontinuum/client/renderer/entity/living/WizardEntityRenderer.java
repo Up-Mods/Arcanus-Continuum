@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
-import dev.cammiescorner.arcanuscontinuum.client.models.entity.WizardEntityModel;
+import dev.cammiescorner.arcanuscontinuum.client.models.entity.living.WizardEntityModel;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.feature.WizardHeldItemFeatureRenderer;
 import dev.cammiescorner.arcanuscontinuum.common.entities.living.WizardEntity;
 import net.minecraft.client.MinecraftClient;

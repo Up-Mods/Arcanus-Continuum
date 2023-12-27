@@ -3,9 +3,12 @@ package dev.cammiescorner.arcanuscontinuum.mixin.client;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.client.utils.ClientUtils;
+import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusConfig;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.AggressorbEntity;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.CastSpellPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SetCastingPacket;
+import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.ShootOrbsPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SyncPatternPacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.client.MinecraftClient;
@@ -13,6 +16,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBind;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -28,6 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin implements ClientUtils {
@@ -42,10 +47,9 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 	@Shadow @Nullable public ClientWorld world;
 
 	@Shadow public abstract float getTickDelta();
-	@Shadow protected abstract boolean doAttack();
 
 	@Inject(method = "tick", at = @At("HEAD"))
-	public void tick(CallbackInfo info) {
+	public void arcanuscontinuum$tick(CallbackInfo info) {
 		if(player == null)
 			return;
 
@@ -116,22 +120,33 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 		if(isCasting)
 			info.cancel();
 
-		if(player != null && !player.isSpectator() && player.getMainHandStack().getItem() instanceof StaffItem staff) {
-			if(player.getAttackCooldownProgress(getTickDelta()) >= (ArcanusComponents.getBurnout(player) > 0 ? 1 : 0.15F) && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
-				timer = 20;
-				pattern.add(Pattern.LEFT);
-				SyncPatternPacket.send(pattern);
-				player.swingHand(Hand.MAIN_HAND);
-				player.resetLastAttackedTicks();
-				player.getWorld().playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1F, 1.3F, 1L);
+		if(player != null && !player.isSpectator() && world != null) {
+			if(player.getMainHandStack().getItem() instanceof StaffItem staff) {
+				if(player.getAttackCooldownProgress(getTickDelta()) >= ((ArcanusConfig.castingSpeedHasCoolDown || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15F) && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
+					timer = 20;
+					pattern.add(Pattern.LEFT);
+					SyncPatternPacket.send(pattern);
+					player.swingHand(Hand.MAIN_HAND);
+					player.resetLastAttackedTicks();
+					player.getWorld().playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1F, 1.3F, 1L);
 
-				if(pattern.size() >= 3)
-					lastMouseDown = options.attackKey;
+					if(pattern.size() >= 3)
+						lastMouseDown = options.attackKey;
+				}
 
-//				player.sendMessage(Arcanus.getSpellInputs(pattern), true);
+				info.cancel();
 			}
+			else {
+				List<UUID> orbs = player.getComponent(ArcanusComponents.AGGRESSORB_COMPONENT).getOrbs();
 
-			info.cancel();
+				if(!orbs.isEmpty()) {
+					ShootOrbsPacket.send(orbs);
+
+					for(Entity entity : world.getEntities())
+						if(entity instanceof AggressorbEntity orb && orbs.contains(orb.getUuid()))
+							orb.setBoundToTarget(false);
+				}
+			}
 		}
 	}
 
@@ -143,8 +158,8 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 		if(isCasting)
 			info.cancel();
 
-		if(player != null && !player.isSpectator() && player.getMainHandStack().getItem() instanceof StaffItem staff) {
-			if(player.getAttackCooldownProgress(getTickDelta()) >= (ArcanusComponents.getBurnout(player) > 0 ? 1 : 0.15F) && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
+		if(player != null && !player.isSpectator() && world != null && player.getMainHandStack().getItem() instanceof StaffItem staff) {
+			if(player.getAttackCooldownProgress(getTickDelta()) >= ((ArcanusConfig.castingSpeedHasCoolDown || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15F) && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
 				timer = 20;
 				pattern.add(Pattern.RIGHT);
 				SyncPatternPacket.send(pattern);
@@ -154,8 +169,6 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 				if(pattern.size() >= 3)
 					lastMouseDown = options.useKey;
-
-//				player.sendMessage(Arcanus.getSpellInputs(pattern), true);
 			}
 
 			info.cancel();

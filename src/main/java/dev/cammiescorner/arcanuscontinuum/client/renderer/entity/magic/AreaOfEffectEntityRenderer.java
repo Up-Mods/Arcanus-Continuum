@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
-import dev.cammiescorner.arcanuscontinuum.client.models.entity.AreaOfEffectEntityModel;
+import dev.cammiescorner.arcanuscontinuum.client.models.entity.magic.AreaOfEffectEntityModel;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.AreaOfEffectEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;

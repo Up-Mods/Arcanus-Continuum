@@ -11,7 +11,6 @@ import virtuoel.pehkui.api.ScaleTypes;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
-
 	private LivingEntityMixin(EntityType<?> variant, World world) {
 		super(variant, world);
 		throw new UnsupportedOperationException();

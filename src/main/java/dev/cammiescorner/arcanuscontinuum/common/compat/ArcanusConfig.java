@@ -7,6 +7,8 @@ import java.lang.reflect.Field;
 import java.util.function.Supplier;
 
 public class ArcanusConfig extends MidnightConfig {
+	@Entry public static boolean castingSpeedHasCoolDown = true;
+
 	@Entry public static SpellShapeProperties selfShapeProperties = new SpellShapeProperties(true, Weight.VERY_LIGHT, 0, 0.85, 10, 1, 0);
 	@Entry public static SpellShapeProperties touchShapeProperties = new SpellShapeProperties(true, Weight.VERY_LIGHT, 0, 1, 15, 1, 0.2);
 	@Entry public static SpellShapeProperties projectileShapeProperties = new SpellShapeProperties(true, Weight.LIGHT, 0, 1, 10, 3, -0.5) {
@@ -35,6 +37,11 @@ public class ArcanusConfig extends MidnightConfig {
 	@Entry public static SpellShapeProperties smiteShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 1.75, 60, 9, 0.5);
 	@Entry public static SpellShapeProperties guardianOrbShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 1.5, 100, 10, 0) {
 		@Entry public double maximumManaLock = 0.9;
+	};
+	@Entry public static SpellShapeProperties aggressorbShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 0.8, 200, 10, 0) {
+		@Entry public int maximumAggressorbs = 8;
+		@Entry public int fireDelay = 5;
+		@Entry public float projectileSpeed = 4f;
 	};
 
 	@Entry public static SpellEffectProperties damageEffectProperties = new SpellEffectProperties(true, Weight.NONE, 4, 0, 1) {
@@ -81,6 +88,9 @@ public class ArcanusConfig extends MidnightConfig {
 	};
 	@Entry public static SpellEffectProperties fortifyEffectProperties = new SpellEffectProperties(true, Weight.NONE, 6.5, 0, 5) {
 		@Entry public int baseEffectDuration = 500;
+	};
+	@Entry public static SpellEffectProperties hasteEffectProperties = new SpellEffectProperties(true, Weight.NONE, 7, 0, 4) {
+		@Entry public int baseEffectDuration = 200;
 	};
 	@Entry public static SpellEffectProperties manaShieldEffectProperties = new SpellEffectProperties(true, Weight.NONE, 8, 0, 10) {
 		@Entry public int baseLifeSpan = 100;
@@ -135,7 +145,7 @@ public class ArcanusConfig extends MidnightConfig {
 	@Entry public static SpellEffectProperties teleportEffectProperties = new SpellEffectProperties(true, Weight.NONE, 7.5, 0, 10) {
 		@Entry public int baseTeleportDistance = 5;
 	};
-	@Entry public static SpellEffectProperties exchangeEffectProperties = new SpellEffectProperties(true, Weight.NONE, 6, 0, 10) {
+	@Entry public static SpellEffectProperties exchangeEffectProperties = new SpellEffectProperties(true, Weight.NONE, 6, 0, 7) {
 		@Entry public int baseTeleportDistance = 5;
 	};
 	@Entry public static SpellEffectProperties bouncyEffectProperties = new SpellEffectProperties(true, Weight.NONE, 5, 0, 8) {
@@ -143,6 +153,15 @@ public class ArcanusConfig extends MidnightConfig {
 	};
 	@Entry public static SpellEffectProperties featherEffectProperties = new SpellEffectProperties(true, Weight.NONE, 5, 0, 8) {
 		@Entry public int baseEffectDuration = 100;
+	};
+	@Entry public static SpellEffectProperties antiGravityEffectProperties = new SpellEffectProperties(true, Weight.NONE, 10, 0, 5) {
+		@Entry public boolean removedUponTakingDamage = true;
+		@Entry public float baseMovementSpeed = 0.1f;
+	};
+	@Entry public static SpellEffectProperties manaWingsEffectProperties = new SpellEffectProperties(true, Weight.NONE, 8.5, 0, 10) {
+		@Entry public boolean removedUponTakingDamage = true;
+		@Entry public int baseEffectDuration = 200;
+		@Entry public int effectDurationModifier = 100;
 	};
 
 	@SuppressWarnings("unchecked")

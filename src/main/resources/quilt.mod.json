@@ -107,7 +107,8 @@
 		"arcanuscontinuum:spell_shape",
 		"arcanuscontinuum:size",
 		"arcanuscontinuum:pocket_dimension_portal",
-		"arcanuscontinuum:slow_time"
+		"arcanuscontinuum:slow_time",
+		"arcanuscontinuum:aggressorb"
 	],
 	"mc-publish": {
 		"curseforge": "905345",
