@@ -1,6 +1,8 @@
 package dev.cammiescorner.arcanuscontinuum.mixin.common;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
@@ -26,6 +28,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -48,35 +51,58 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 	@Unique private final LivingEntity self = (LivingEntity) (Entity) this;
 	@Unique private Vec3d prevVelocity;
 
+	@Shadow protected boolean jumping;
+
 	@Shadow public abstract @Nullable EntityAttributeInstance getAttributeInstance(EntityAttribute attribute);
 	@Shadow public abstract ItemStack getMainHandStack();
 	@Shadow public abstract boolean hasStatusEffect(StatusEffect effect);
 	@Shadow public abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
 	@Shadow public abstract boolean removeStatusEffect(StatusEffect type);
+	@Shadow public abstract boolean blockedByShield(DamageSource source);
+	@Shadow public abstract boolean clearStatusEffects();
+	@Shadow public abstract boolean addStatusEffect(StatusEffectInstance effect);
+	@Shadow public abstract float getMovementSpeed();
 
 	public LivingEntityMixin(EntityType<?> type, World world) {
 		super(type, world);
+	}
+
+	@Inject(method = "damage", at = @At("HEAD"))
+	private void arcanuscontinuum$onDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
+		if(amount > 0 && !blockedByShield(source)) {
+			if(hasStatusEffect(ArcanusStatusEffects.MANA_WINGS.get()))
+				removeStatusEffect(ArcanusStatusEffects.MANA_WINGS.get());
+			if(hasStatusEffect(ArcanusStatusEffects.ANTI_GRAVITY.get()))
+				removeStatusEffect(ArcanusStatusEffects.ANTI_GRAVITY.get());
+
+			if(hasStatusEffect(ArcanusStatusEffects.STOCKPILE.get()) && amount >= 10f) {
+				StatusEffectInstance stockpile = getStatusEffect(ArcanusStatusEffects.STOCKPILE.get());
+
+				if(stockpile.getAmplifier() < 9) {
+					clearStatusEffects();
+
+					addStatusEffect(new StatusEffectInstance(stockpile.getEffectType(), stockpile.getDuration(), stockpile.getAmplifier() + MathHelper.floor(Math.round(amount) / 10f)));
+				}
+			}
+		}
 	}
 
 	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
 	private float arcanuscontinuum$modifyDamage(float amount, DamageSource source) {
 		EntityAttributeInstance attributeInstance = getAttributeInstance(ArcanusEntityAttributes.MAGIC_RESISTANCE.get());
 
-		if (attributeInstance != null && source.isTypeIn(DamageTypeTags.WITCH_RESISTANT_TO))
+		if(attributeInstance != null && source.isTypeIn(DamageTypeTags.WITCH_RESISTANT_TO))
 			amount /= Math.max((float) attributeInstance.getValue(), 0.000001F);
-
-		if (hasStatusEffect(ArcanusStatusEffects.FORTIFY.get()))
+		if(hasStatusEffect(ArcanusStatusEffects.FORTIFY.get()))
 			amount /= 1 + (getStatusEffect(ArcanusStatusEffects.FORTIFY.get()).getAmplifier() + 1) * 0.25F;
-		if (hasStatusEffect(ArcanusStatusEffects.VULNERABILITY.get()))
+		if(hasStatusEffect(ArcanusStatusEffects.VULNERABILITY.get()))
 			amount *= 1 + 0.8F * ((getStatusEffect(ArcanusStatusEffects.VULNERABILITY.get()).getAmplifier() + 1) / 10F);
+		if(source.getAttacker() instanceof LivingEntity attacker && attacker.hasStatusEffect(ArcanusStatusEffects.STOCKPILE.get())) {
+			amount *= attacker.getStatusEffect(ArcanusStatusEffects.STOCKPILE.get()).getAmplifier() + 1;
+			attacker.removeStatusEffect(ArcanusStatusEffects.STOCKPILE.get());
+		}
 
 		return amount;
-	}
-
-	@Inject(method = "damage", at = @At("HEAD"))
-	private void arcanuscontinuum$removeWings(DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
-		if(amount > 0 && hasStatusEffect(ArcanusStatusEffects.MANA_WINGS.get()))
-			removeStatusEffect(ArcanusStatusEffects.MANA_WINGS.get());
 	}
 
 	@ModifyArg(method = "fall", at = @At(value = "INVOKE", target = "Lnet/minecraft/particle/BlockStateParticleEffect;<init>(Lnet/minecraft/particle/ParticleType;Lnet/minecraft/block/BlockState;)V"))
@@ -133,7 +159,7 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 
 	@ModifyReturnValue(method = "createAttributes", at = @At("RETURN"))
 	private static DefaultAttributeContainer.Builder arcanuscontinuum$createPlayerAttributes(DefaultAttributeContainer.Builder builder) {
-		if (ArcanusEntityAttributes.isInitialized())
+		if(ArcanusEntityAttributes.isInitialized())
 			return builder
 				.add(ArcanusEntityAttributes.MAX_MANA.get())
 				.add(ArcanusEntityAttributes.MANA_REGEN.get())
@@ -143,6 +169,18 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 				.add(ArcanusEntityAttributes.MAGIC_RESISTANCE.get());
 		else
 			return builder;
+	}
+
+	@WrapOperation(method = "handleFrictionAndCalculateMovement", at = @At(value = "INVOKE",
+		target = "Lnet/minecraft/entity/LivingEntity;getVelocity()Lnet/minecraft/util/math/Vec3d;",
+		ordinal = 1
+	))
+	private Vec3d arcanuscontinuum$floatAround(LivingEntity livingEntity, Operation<Vec3d> original, Vec3d movementInput, float slipperiness) {
+		// FIXME smooth out vertical movement, currently a bit jolting
+		if(hasStatusEffect(ArcanusStatusEffects.ANTI_GRAVITY.get()))
+			return getVelocity().add(0, jumping ? getMovementSpeed() : isSneaking() ? -getMovementSpeed() : 0, 0);
+
+		return original.call(livingEntity);
 	}
 
 	@Inject(method = "onStatusEffectRemoved", at = @At("HEAD"), cancellable = true)

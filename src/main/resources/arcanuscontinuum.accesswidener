@@ -3,7 +3,7 @@ accessible       class     net/minecraft/client/render/RenderLayer$MultiPhasePar
 accessible       class     net/minecraft/client/render/RenderPhase$Texture
 accessible       class     net/minecraft/client/render/RenderPhase$OffsetTexturing
 accessible       class     net/minecraft/client/render/WorldRenderer$ChunkInfo
-extendable       method    net/minecraft/entity/mob/AbstractSkeletonEntity        getStepSound    ()Lnet/minecraft/sound/SoundEvent;
 accessible       field     net/minecraft/entity/mob/CreeperEntity                 CHARGED         Lnet/minecraft/entity/data/TrackedData;
 accessible       field     net/minecraft/client/render/WorldRenderer              chunkInfoList   Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
 accessible       field     net/minecraft/client/render/WorldRenderer$ChunkInfo    chunk           Lnet/minecraft/client/render/chunk/ChunkBuilder$BuiltChunk;
+extendable       method    net/minecraft/entity/mob/AbstractSkeletonEntity        getStepSound    ()Lnet/minecraft/sound/SoundEvent;

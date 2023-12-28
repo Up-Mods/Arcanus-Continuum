@@ -141,19 +141,27 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 				if(!orbs.isEmpty()) {
 					ShootOrbsPacket.send(orbs, player.getUuid());
-
-					for(Entity entity : world.getEntities()) {
-						if(entity instanceof AggressorbEntity orb && orbs.contains(orb.getUuid())) {
-							if(orb.getTarget().age % 5 * (orbs.indexOf(orb.getUuid()) + 1) == 0) {
-								orb.setBoundToTarget(false);
-								orb.setPosition(orb.getTarget().getEyePos());
-								orb.fire(orb.getTarget().getRotationVec(1f), 4f);
-							}
-						}
-					}
+					shootOrbs(orbs, 5);
 				}
 			}
 		}
+	}
+
+	@Unique
+	private void shootOrbs(List<UUID> orbs, int delay) {
+		if(orbs.isEmpty())
+			return;
+
+		for(Entity entity : world.getEntities()) {
+			if(entity instanceof AggressorbEntity orb && orbs.contains(orb.getUuid())) {
+				orb.setBoundToTarget(false);
+				orb.setPosition(orb.getTarget().getEyePos());
+				orb.setProperties(orb.getTarget(), orb.getTarget().getPitch(), orb.getTarget().getYaw(), 0F, 3f, 1F);
+				break;
+			}
+		}
+
+		// TODO re-run this method every time <delay> ticks passed
 	}
 
 	@Inject(method = "handleInputEvents", at = @At(value = "INVOKE",

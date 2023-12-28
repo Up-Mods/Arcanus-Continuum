@@ -78,6 +78,11 @@ public class ArcanusConfig extends MidnightConfig {
 		@Entry public int baseEffectDuration = 60;
 		@Entry public int effectDurationModifier = 15;
 	};
+	@Entry public static SpellEffectProperties stockpileEffectProperties = new SpellEffectProperties(true, Weight.NONE, 4.5, 0, 6) {
+		@Entry public int baseEffectDuration = 100;
+		@Entry public int effectDurationModifier = 30;
+		@Entry public float damageNeededToIncrease = 10f;
+	};
 
 	@Entry public static SpellEffectProperties healEffectProperties = new SpellEffectProperties(true, Weight.NONE, 5, 0, 1) {
 		@Entry public float baseHealAmount = 3f;

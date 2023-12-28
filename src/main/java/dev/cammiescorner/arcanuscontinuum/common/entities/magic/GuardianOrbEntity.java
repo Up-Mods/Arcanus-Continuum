@@ -124,11 +124,6 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 	}
 
 	@Override
-	public boolean isFireImmune() {
-		return true;
-	}
-
-	@Override
 	protected void readCustomDataFromNbt(NbtCompound tag) {
 		effects.clear();
 		groups.clear();

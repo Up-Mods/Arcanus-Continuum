@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.magic;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
@@ -32,7 +33,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
-public class BeamEntity extends Entity {
+public class BeamEntity extends Entity implements Targetable {
 	private static final TrackedData<Integer> OWNER_ID = DataTracker.registerData(BeamEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	private static final TrackedData<Integer> MAX_AGE = DataTracker.registerData(BeamEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	private static final TrackedData<Boolean> IS_ON_ENTITY = DataTracker.registerData(BeamEntity.class, TrackedDataHandlerRegistry.BOOLEAN);

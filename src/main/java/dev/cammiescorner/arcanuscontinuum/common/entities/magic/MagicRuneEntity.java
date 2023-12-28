@@ -28,7 +28,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
-public class MagicRuneEntity extends Entity {
+public class MagicRuneEntity extends Entity implements Targetable {
 	private UUID casterId = Util.NIL_UUID;
 	private ItemStack stack = ItemStack.EMPTY;
 	private List<SpellEffect> effects = new ArrayList<>();
@@ -65,6 +65,11 @@ public class MagicRuneEntity extends Entity {
 	@Override
 	protected void initDataTracker() {
 
+	}
+
+	@Override
+	public boolean collides() {
+		return true;
 	}
 
 	@Override

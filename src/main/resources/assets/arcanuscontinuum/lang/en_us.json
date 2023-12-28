@@ -46,6 +46,9 @@
 	"effect.arcanuscontinuum.anonymity": "Anonymity",
 	"effect.arcanuscontinuum.copper_curse": "Copper Curse",
 	"effect.arcanuscontinuum.discombobulate": "Discombobulate",
+  "effect.arcanuscontinuum.anti_gravity": "Anti-Gravity",
+  "effect.arcanuscontinuum.mana_wings": "Mana Wings",
+  "effect.arcanuscontinuum.stockpile": "Stockpile",
 
 	"advancements.arcanuscontinuum.root.title": "Arcanus: Continuum",
 	"advancements.arcanuscontinuum.root.description": "[insert witty sales pitch for something you're already playing]",
@@ -128,6 +131,10 @@
 	"spell_component.arcanuscontinuum.spatial_rift_effect": "Spatial Rift Effect",
 	"spell_component.arcanuscontinuum.warding_effect": "Warding Effect",
 	"spell_component.arcanuscontinuum.discombobulate_effect": "Discombobulate Effect",
+  "spell_component.arcanuscontinuum.haste_effect": "Haste Effect",
+  "spell_component.arcanuscontinuum.anti_gravity_effect": "Anti-Gravity Effect",
+  "spell_component.arcanuscontinuum.mana_wings_effect": "Mana Wings Effect",
+  "spell_component.arcanuscontinuum.stockpile_effect": "Stockpile Effect",
 
 	"item.arcanuscontinuum.compendium_arcanus.landing_text": "Discover a mystical world full of magic and musty old Wizards. Craft your own custom spells to suit your play style, and become the most powerful wizard who ever lived!",
 

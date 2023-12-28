@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.magic;
 
+import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -19,7 +20,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
-public class ManaShieldEntity extends Entity {
+public class ManaShieldEntity extends Entity implements Targetable {
 	private static final TrackedData<Integer> MAX_AGE = DataTracker.registerData(ManaShieldEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	private static final TrackedData<Integer> TRUE_AGE = DataTracker.registerData(ManaShieldEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	public static final ThreadLocal<Entity> COLLIDING_ENTITY = new ThreadLocal<>();

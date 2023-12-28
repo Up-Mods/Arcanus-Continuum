@@ -44,9 +44,6 @@ import net.minecraft.client.render.entity.SkeletonEntityRenderer;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.Item;
@@ -54,7 +51,10 @@ import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.Axis;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import org.joml.Matrix3f;
@@ -64,11 +64,9 @@ import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
 import org.quiltmc.qsl.entity.event.api.client.ClientEntityTickCallback;
-import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
 import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 import org.quiltmc.qsl.resource.loader.api.ResourceLoader;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BooleanSupplier;
 
@@ -305,27 +303,28 @@ public class ArcanusClient implements ClientModInitializer {
 			}
 		});
 
-		ClientTickEvents.END.register(mcClient -> {
-			ClientWorld world = mcClient.world;
-
-			if(world != null && !mcClient.isPaused()) {
-				List<Entity> loadedEntityList = new ArrayList<>();
-				world.getEntities().forEach(loadedEntityList::add);
-				StatusEffect statusEffect = ArcanusStatusEffects.TEMPORAL_DILATION.get();
-				float radius = 3;
-
-				for(Entity entity : loadedEntityList) {
-					if(ArcanusComponents.isTimeSlowed(entity)) {
-						List<Entity> targets = world.getOtherEntities(entity, new Box(-radius, -radius, -radius, radius, radius, radius).offset(entity.getPos()), target -> target.squaredDistanceTo(entity) <= radius * radius);
-
-						if(targets.stream().noneMatch(target -> target instanceof LivingEntity livingTarget && livingTarget.hasStatusEffect(statusEffect))) {
-							ArcanusComponents.setSlowTime(entity, false);
-							ArcanusComponents.setBlockUpdates(entity, false);
-						}
-					}
-				}
-			}
-		});
+		// FIXME temporal dilation no worky
+//		ClientTickEvents.END.register(mcClient -> {
+//			ClientWorld world = mcClient.world;
+//
+//			if(world != null && !mcClient.isPaused()) {
+//				List<Entity> loadedEntityList = new ArrayList<>();
+//				world.getEntities().forEach(loadedEntityList::add);
+//				StatusEffect statusEffect = ArcanusStatusEffects.TEMPORAL_DILATION.get();
+//				float radius = 3;
+//
+//				for(Entity entity : loadedEntityList) {
+//					if(ArcanusComponents.isTimeSlowed(entity)) {
+//						List<Entity> targets = world.getOtherEntities(entity, new Box(-radius, -radius, -radius, radius, radius, radius).offset(entity.getPos()), target -> target.squaredDistanceTo(entity) <= radius * radius);
+//
+//						if(targets.stream().noneMatch(target -> target instanceof LivingEntity livingTarget && livingTarget.hasStatusEffect(statusEffect))) {
+//							ArcanusComponents.setSlowTime(entity, false);
+//							ArcanusComponents.setBlockUpdates(entity, false);
+//						}
+//					}
+//				}
+//			}
+//		});
 	}
 
 	private static void renderWardedBlock(MatrixStack matrices, VertexConsumerProvider vertices, World world, Vec3d cameraPos, BlockPos blockPos, float alpha) {

@@ -28,7 +28,7 @@ public class DamageSpellEffect extends SpellEffect {
 			Entity entity = entityHit.getEntity();
 			float damage = 1.5F;
 
-			if(entity instanceof Targetable) {
+			if(entity instanceof Targetable targetable && targetable.arcanuscontinuum$canBeTargeted()) {
 				if(entity.isWet() && effects.contains(ArcanusSpellComponents.ELECTRIC.get()))
 					damage *= 2F;
 

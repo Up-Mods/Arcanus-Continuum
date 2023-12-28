@@ -29,7 +29,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
-public class AreaOfEffectEntity extends Entity {
+public class AreaOfEffectEntity extends Entity implements Targetable {
 	private UUID casterId = Util.NIL_UUID;
 	private ItemStack stack = ItemStack.EMPTY;
 	private List<SpellEffect> effects = new ArrayList<>();

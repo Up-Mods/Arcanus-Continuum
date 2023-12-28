@@ -7,12 +7,12 @@ import dev.cammiescorner.arcanuscontinuum.client.models.entity.magic.AggressorbE
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.AggressorbEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.ProjectileEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-public class AggressorbEntityRenderer extends EntityRenderer<AggressorbEntity> {
+public class AggressorbEntityRenderer extends ProjectileEntityRenderer<AggressorbEntity> {
 	private static final Identifier TEXTURE = Arcanus.id("textures/entity/magic/lob.png");
 	private final AggressorbEntityModel model;
 

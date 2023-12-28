@@ -3,12 +3,10 @@ package dev.cammiescorner.arcanuscontinuum.common.spell_components.effects;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellType;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusTags;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusStatusEffects;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.EntityHitResult;
@@ -18,8 +16,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class DispelSpellEffect extends SpellEffect {
-	public DispelSpellEffect(boolean isEnabled, SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
+public class StockpileSpellEffect extends SpellEffect {
+	public StockpileSpellEffect(boolean isEnabled, SpellType type, Weight weight, double manaCost, int coolDown, int minLevel) {
 		super(isEnabled, type, weight, manaCost, coolDown, minLevel);
 	}
 
@@ -28,18 +26,8 @@ public class DispelSpellEffect extends SpellEffect {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
-			if(entityHit.getEntity() instanceof LivingEntity livingEntity) {
-				List<StatusEffect> statusEffects = livingEntity.getStatusEffects().stream().map(StatusEffectInstance::getEffectType).filter(effect -> !effect.isBeneficial()).toList();
-				long dispelCount = effects.stream().filter(ArcanusSpellComponents.DISPEL::is).count();
-
-				for(int i = 0; i < Math.min(statusEffects.size(), (int) (dispelCount * 2 * potency)); i++)
-					livingEntity.removeStatusEffect(statusEffects.get(i));
-			}
-
-			ArcanusComponents.resetScale(entityHit.getEntity());
-
-			if(entityHit.getEntity().getType().isIn(ArcanusTags.DISPELLABLE))
-				entityHit.getEntity().kill();
+			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
+				livingEntity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.STOCKPILE.get(), 100 + 30 * (int) (effects.stream().filter(ArcanusSpellComponents.STOCKPILE::is).count() * potency), 0, true, false));
 		}
 	}
 }

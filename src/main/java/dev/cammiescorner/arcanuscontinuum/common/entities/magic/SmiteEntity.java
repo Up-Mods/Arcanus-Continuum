@@ -27,7 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
-public class SmiteEntity extends Entity {
+public class SmiteEntity extends Entity implements Targetable {
 	private final List<UUID> hasHit = new ArrayList<>();
 	private UUID casterId = Util.NIL_UUID;
 	private ItemStack stack = ItemStack.EMPTY;

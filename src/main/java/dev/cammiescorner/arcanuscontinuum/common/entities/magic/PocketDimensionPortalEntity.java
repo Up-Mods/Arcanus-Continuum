@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.magic;
 
+import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -18,7 +19,7 @@ import net.minecraft.world.World;
 import java.util.UUID;
 import java.util.random.RandomGenerator;
 
-public class PocketDimensionPortalEntity extends Entity {
+public class PocketDimensionPortalEntity extends Entity implements Targetable {
 	private static final TrackedData<Integer> TRUE_AGE = DataTracker.registerData(PocketDimensionPortalEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	private final RandomGenerator rand = RandomGenerator.getDefault();
 	private UUID casterId = Util.NIL_UUID;
@@ -78,6 +79,11 @@ public class PocketDimensionPortalEntity extends Entity {
 	@Override
 	protected void initDataTracker() {
 		dataTracker.startTracking(TRUE_AGE, 0);
+	}
+
+	@Override
+	public boolean collides() {
+		return true;
 	}
 
 	@Override

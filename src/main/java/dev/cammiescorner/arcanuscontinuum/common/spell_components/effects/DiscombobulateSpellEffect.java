@@ -28,7 +28,7 @@ public class DiscombobulateSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 			Entity entity = entityHit.getEntity();
 
-			if(entity instanceof Targetable && entity instanceof LivingEntity livingEntity)
+			if(entity instanceof Targetable targetable && targetable.arcanuscontinuum$canBeTargeted() && entity instanceof LivingEntity livingEntity)
 				livingEntity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.DISCOMBOBULATE.get(), 60 + (int) (15 * effects.stream().filter(ArcanusSpellComponents.DISCOMBOBULATE::is).count() * potency), 0, true, false));
 		}
 	}
