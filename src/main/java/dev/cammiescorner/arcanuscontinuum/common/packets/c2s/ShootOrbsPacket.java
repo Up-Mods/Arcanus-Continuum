@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.common.packets.c2s;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.AggressorbEntity;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
+import dev.upcraft.sparkweave.api.util.scheduler.Tasks;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -52,18 +53,15 @@ public class ShootOrbsPacket {
 	}
 
 	private static void shootOrb(List<UUID> orbIds, ServerWorld world, LivingEntity owner, int delay) {
-		if(orbIds.isEmpty())
-			return;
-
-		UUID orbId = orbIds.get(0);
-
-		if(world.getEntity(orbId) instanceof AggressorbEntity orb && owner != null) {
-			orb.setBoundToTarget(false);
-			orb.setPosition(orb.getTarget().getEyePos());
-			orb.setProperties(orb.getTarget(), orb.getTarget().getPitch(), orb.getTarget().getYaw(), 0F, 3f, 1F);
-			ArcanusComponents.removeOrbFromEntity(orb.getTarget(), orbId);
+		for(UUID orbId : orbIds) {
+			if(world.getEntity(orbId) instanceof AggressorbEntity orb && owner != null && orb.isBoundToTarget()) {
+				orb.setBoundToTarget(false);
+				orb.setPosition(orb.getTarget().getEyePos());
+				orb.setProperties(orb.getTarget(), orb.getTarget().getPitch(), orb.getTarget().getYaw(), 0F, 3f, 1F);
+				ArcanusComponents.removeOrbFromEntity(orb.getTarget(), orbId);
+				Tasks.scheduleEphemeral(() -> shootOrb(orbIds, world, owner, delay), delay);
+				break;
+			}
 		}
-
-		// TODO re-run this method every time <delay> ticks passed
 	}
 }

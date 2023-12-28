@@ -11,6 +11,7 @@ import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SetCastingPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.ShootOrbsPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.SyncPatternPacket;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
+import dev.upcraft.sparkweave.api.util.scheduler.Tasks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.GameOptions;
@@ -149,19 +150,15 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 	@Unique
 	private void shootOrbs(List<UUID> orbs, int delay) {
-		if(orbs.isEmpty())
-			return;
-
 		for(Entity entity : world.getEntities()) {
-			if(entity instanceof AggressorbEntity orb && orbs.contains(orb.getUuid())) {
+			if(entity instanceof AggressorbEntity orb && orbs.contains(orb.getUuid()) && orb.isBoundToTarget()) {
 				orb.setBoundToTarget(false);
 				orb.setPosition(orb.getTarget().getEyePos());
 				orb.setProperties(orb.getTarget(), orb.getTarget().getPitch(), orb.getTarget().getYaw(), 0F, 3f, 1F);
+				Tasks.scheduleEphemeral(() -> shootOrbs(orbs, delay), delay);
 				break;
 			}
 		}
-
-		// TODO re-run this method every time <delay> ticks passed
 	}
 
 	@Inject(method = "handleInputEvents", at = @At(value = "INVOKE",

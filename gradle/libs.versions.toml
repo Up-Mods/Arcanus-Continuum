@@ -2,12 +2,12 @@
 # The latest versions are available at https://lambdaurora.dev/tools/import_quilt.html
 minecraft = "1.20.1"
 quilt_mappings = "1.20.1+build.23"
-quilt_loader = "0.20.2"
+quilt_loader = "0.23.0-beta.1"
 
-quilted_fabric_api = "7.3.1+0.89.3-1.20.1"
+quilted_fabric_api = "7.4.0+0.90.0-1.20.1"
 cca = "5.2.2"
 trinkets = "3.7.1"
-sparkweave = "0.3.0"
+sparkweave = "0.4.0"
 patchouli = "1.20.1-81-FABRIC"
 midnightlib = "1.4.1-quilt"
 mixinextras = "0.2.0-rc.5"
