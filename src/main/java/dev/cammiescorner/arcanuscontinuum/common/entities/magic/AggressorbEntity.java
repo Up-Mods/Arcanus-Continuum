@@ -13,8 +13,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.ProjectileUtil;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -25,10 +24,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,7 +33,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
-public class AggressorbEntity extends PersistentProjectileEntity implements Targetable {
+public class AggressorbEntity extends ThrownEntity implements Targetable {
 	private static final TrackedData<Integer> OWNER_ID = DataTracker.registerData(AggressorbEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	private static final TrackedData<Integer> TARGET_ID = DataTracker.registerData(AggressorbEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	private final List<SpellEffect> effects = new ArrayList<>();
@@ -49,22 +45,16 @@ public class AggressorbEntity extends PersistentProjectileEntity implements Targ
 	private double potency = 1F;
 	private boolean boundToTarget = true;
 
-	public AggressorbEntity(EntityType<? extends PersistentProjectileEntity> variant, World world) {
+	public AggressorbEntity(EntityType<? extends ThrownEntity> variant, World world) {
 		super(variant, world);
-		setNoClip(true);
+		noClip = true;
 		setNoGravity(true);
 	}
 
 	@Override
 	protected void initDataTracker() {
-		super.initDataTracker();
 		dataTracker.startTracking(OWNER_ID, -1);
 		dataTracker.startTracking(TARGET_ID, -1);
-	}
-
-	@Override
-	protected float getDragInWater() {
-		return 0.95f;
 	}
 
 	@Override
@@ -96,20 +86,10 @@ public class AggressorbEntity extends PersistentProjectileEntity implements Targ
 			move(MovementType.SELF, direction);
 		}
 		else {
-			setNoClip(false);
-			setCritical(true);
+			noClip = false;
 		}
 
 		super.tick();
-	}
-
-	@Nullable
-	@Override
-	protected EntityHitResult getEntityCollision(Vec3d currentPosition, Vec3d nextPosition) {
-		if(isBoundToTarget())
-			return null;
-
-		return super.getEntityCollision(currentPosition, nextPosition);
 	}
 
 	@Override
@@ -120,7 +100,6 @@ public class AggressorbEntity extends PersistentProjectileEntity implements Targ
 
 			SpellShape.castNext(getCaster(), getTarget().getPos(), entityHitResult.getEntity(), (ServerWorld) getWorld(), stack, groups, groupIndex, potency);
 
-			playSound(getSound(), 1F, 1.2F / (random.nextFloat() * 0.2F + 0.9F));
 			kill();
 		}
 	}
@@ -145,7 +124,7 @@ public class AggressorbEntity extends PersistentProjectileEntity implements Targ
 
 	@Override
 	public float getTargetingMargin() {
-		return isBoundToTarget() ? 0f : 0.5f;
+		return isBoundToTarget() ? 0f : 0.75f;
 	}
 
 	@Override
@@ -155,7 +134,14 @@ public class AggressorbEntity extends PersistentProjectileEntity implements Targ
 
 	@Override
 	public boolean damage(DamageSource source, float amount) {
-		setProperties(getTarget(), getTarget().getPitch(), getTarget().getYaw(), 0F, 3f, 1F);
+		Vec3d dir = getTarget().getEyePos().subtract(getPos()).normalize();
+		float pitch = (float) Math.toDegrees(Math.asin(-dir.getY()));
+		float yaw = (float) Math.toDegrees(-Math.atan2(dir.getX(), dir.getZ()));
+
+		setBoundToTarget(false);
+		setProperties(getTarget(), pitch, yaw, 0F, 3f, 1F);
+		ArcanusComponents.removeOrbFromEntity(getTarget(), getUuid());
+
 		return true;
 	}
 
@@ -170,11 +156,6 @@ public class AggressorbEntity extends PersistentProjectileEntity implements Targ
 	@Override
 	public boolean doesRenderOnFire() {
 		return false;
-	}
-
-	@Override
-	protected ItemStack asItemStack() {
-		return ItemStack.EMPTY;
 	}
 
 	@Override
@@ -256,29 +237,6 @@ public class AggressorbEntity extends PersistentProjectileEntity implements Targ
 
 	public void setBoundToTarget(boolean boundToTarget) {
 		this.boundToTarget = boundToTarget;
-	}
-
-	public HitResult getHitResult() {
-		if(noClip)
-			return null;
-
-		EntityHitResult entityTarget = ProjectileUtil.getEntityCollision(getWorld(), this, getTarget().getPos(), getPos(), getBoundingBox().offset(getPos()), entity -> !entity.isSpectator() && entity.isAlive() && entity instanceof Targetable targetable && targetable.arcanuscontinuum$canBeTargeted());
-		HitResult blockTarget = getWorld().raycast(new RaycastContext(getTarget().getPos(), getPos(), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
-
-		return entityTarget != null && entityTarget.getType() != HitResult.Type.MISS ? entityTarget : blockTarget;
-	}
-
-	public void fire(Vec3d direction, float speed) {
-		Vec3d vel = direction.normalize().multiply(speed);
-
-		setBoundToTarget(false);
-		setVelocity(vel);
-		setYaw((float) Math.toDegrees(MathHelper.atan2(vel.getX(), vel.getZ())));
-		setPitch((float) Math.toDegrees(MathHelper.atan2(vel.getY(), vel.horizontalLength())));
-
-		velocityModified = true;
-		prevYaw = getYaw();
-		prevPitch = getPitch();
 	}
 
 	public void setProperties(@Nullable LivingEntity caster, LivingEntity target, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, int colour, double potency) {

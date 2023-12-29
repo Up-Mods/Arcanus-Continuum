@@ -17,7 +17,6 @@
 		"common.PistonBlockMixin",
 		"common.PlayerEntityMixin",
 		"common.ScreenHandlerTypeMixin",
-		"common.ServerPlayNetworkHandlerMixin",
 		"common.ServerWorldMixin",
 		"common.WorldMixin",
 		"compat.pehkui.LivingEntityMixin"
