@@ -2,7 +2,7 @@
   "name": "Copper Curse Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/copper_curse_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 42,
+  "sortnum": 109,
   "advancement": "arcanuscontinuum:arcane/wizard_level_8",
   "pages": [
     {

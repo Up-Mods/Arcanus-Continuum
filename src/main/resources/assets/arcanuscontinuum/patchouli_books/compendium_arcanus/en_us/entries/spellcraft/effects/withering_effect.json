@@ -2,7 +2,7 @@
   "name": "Withering Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/withering_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 19,
+  "sortnum": 106,
   "advancement": "arcanuscontinuum:arcane/wizard_level_7",
   "pages": [
     {

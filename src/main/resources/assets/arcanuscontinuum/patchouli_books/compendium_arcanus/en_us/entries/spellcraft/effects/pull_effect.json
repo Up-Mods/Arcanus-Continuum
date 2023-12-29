@@ -2,7 +2,7 @@
   "name": "Pull Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/pull_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 28,
+  "sortnum": 301,
   "advancement": "arcanuscontinuum:arcane/wizard_level_3",
   "pages": [
     {

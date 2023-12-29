@@ -2,7 +2,7 @@
   "name": "Regenerate Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/regenerate_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 24,
+  "sortnum": 202,
   "advancement": "arcanuscontinuum:arcane/wizard_level_7",
   "pages": [
     {

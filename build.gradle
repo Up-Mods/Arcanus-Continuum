@@ -91,6 +91,7 @@ dependencies {
 
 	modImplementation (libs.sparkweave) {
 		exclude(group: "io.github.llamalad7")
+		exclude(group: "org.quiltmc")
 	}
 
 	include libs.mixinextras

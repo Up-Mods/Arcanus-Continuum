@@ -2,7 +2,7 @@
   "name": "Fortify Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/fortify_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 25,
+  "sortnum": 203,
   "advancement": "arcanuscontinuum:arcane/wizard_level_5",
   "pages": [
     {

@@ -2,7 +2,7 @@
   "name": "Necromancy Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/necromancy_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 20,
+  "sortnum": 107,
   "advancement": "arcanuscontinuum:arcane/wizard_level_9",
   "pages": [
     {

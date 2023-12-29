@@ -2,7 +2,7 @@
   "name": "Anonymity Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/anonymity_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 30,
+  "sortnum": 303,
   "advancement": "arcanuscontinuum:arcane/wizard_level_5",
   "pages": [
     {

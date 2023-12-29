@@ -2,7 +2,7 @@
   "name": "Push Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/push_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 27,
+  "sortnum": 300,
   "advancement": "arcanuscontinuum:arcane/wizard_level_3",
   "pages": [
     {

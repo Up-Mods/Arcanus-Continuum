@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Weight: Very Heavy$(br)Mana Cost: 0$(br)Mana Multiplier: +75%$(br)Potency Modifier: +50%(br)Cool Down: 3 seconds$(br2)Description:$(br)Summons a large beam of magical light from the sky, affecting every entity it passes through. It also increases Spell Effect potency by a small bit."
+      "text": "Weight: Very Heavy$(br)Mana Cost: 0$(br)Mana Multiplier: +75%$(br)Potency Modifier: +50%$(br)Cool Down: 3 seconds$(br2)Description:$(br)Summons a large beam of magical light from the sky, affecting every entity it passes through. It also increases Spell Effect potency by a small bit."
     },
     {
       "type": "patchouli:image",

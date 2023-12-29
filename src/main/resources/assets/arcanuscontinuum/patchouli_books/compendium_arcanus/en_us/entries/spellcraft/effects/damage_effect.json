@@ -2,7 +2,7 @@
   "name": "Damage Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/damage_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 13,
+  "sortnum": 100,
   "advancement": "arcanuscontinuum:arcane/wizard_level_1",
   "pages": [
     {

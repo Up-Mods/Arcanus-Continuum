@@ -2,7 +2,7 @@
   "name": "Dispel Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/dispel_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 23,
+  "sortnum": 201,
   "advancement": "arcanuscontinuum:arcane/wizard_level_6",
   "pages": [
     {

@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Weight: Light$(br)Mana Cost: 0$(br)Mana Multiplier: +0%$(br)Potency Modifier: +0%(br)Cool Down: 1 second$(br2)Description:$(br)Creates a slow-moving orb of magical energy that's affected by gravity. Great for lobbing over obstacles to hit an enemy that's trying to hide!"
+      "text": "Weight: Light$(br)Mana Cost: 0$(br)Mana Multiplier: +0%$(br)Potency Modifier: +0%$(br)Cool Down: 1 second$(br2)Description:$(br)Creates a slow-moving orb of magical energy that's affected by gravity. Great for lobbing over obstacles to hit an enemy that's trying to hide!"
     },
     {
       "type": "patchouli:image",

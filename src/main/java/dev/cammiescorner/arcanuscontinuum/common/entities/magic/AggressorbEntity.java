@@ -21,7 +21,6 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
@@ -98,6 +97,7 @@ public class AggressorbEntity extends PersistentProjectileEntity implements Targ
 		}
 		else {
 			setNoClip(false);
+			setCritical(true);
 		}
 
 		super.tick();
@@ -139,13 +139,13 @@ public class AggressorbEntity extends PersistentProjectileEntity implements Targ
 	}
 
 	@Override
-	protected SoundEvent getHitSound() {
-		return super.getHitSound();
+	public boolean isAttackable() {
+		return true;
 	}
 
 	@Override
-	public boolean isAttackable() {
-		return true;
+	public float getTargetingMargin() {
+		return isBoundToTarget() ? 0f : 0.5f;
 	}
 
 	@Override

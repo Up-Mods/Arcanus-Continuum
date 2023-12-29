@@ -10,7 +10,7 @@
 			"translate": "advancements.arcanuscontinuum.root.description"
 		},
 		"background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
-		"frame": "goal",
+		"frame": "task",
 		"hidden": false,
 		"show_toast": false,
 		"announce_to_chat": false

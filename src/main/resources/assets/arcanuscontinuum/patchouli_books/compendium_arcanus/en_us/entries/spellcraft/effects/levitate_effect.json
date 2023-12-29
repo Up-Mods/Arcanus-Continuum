@@ -2,7 +2,7 @@
   "name": "Levitate Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/levitate_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 36,
+  "sortnum": 401,
   "advancement": "arcanuscontinuum:arcane/wizard_level_6",
   "pages": [
     {

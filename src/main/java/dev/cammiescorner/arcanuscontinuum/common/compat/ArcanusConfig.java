@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 import java.util.function.Supplier;
 
 public class ArcanusConfig extends MidnightConfig {
-	@Entry public static boolean castingSpeedHasCoolDown = true;
+	@Entry public static boolean castingSpeedHasCoolDown = false;
 
 	@Entry public static SpellShapeProperties selfShapeProperties = new SpellShapeProperties(true, Weight.VERY_LIGHT, 0, 0.85, 10, 1, 0);
 	@Entry public static SpellShapeProperties touchShapeProperties = new SpellShapeProperties(true, Weight.VERY_LIGHT, 0, 1, 15, 1, 0.2);
@@ -101,10 +101,10 @@ public class ArcanusConfig extends MidnightConfig {
 		@Entry public int baseLifeSpan = 100;
 		@Entry public int lifeSpanModifier = 40;
 	};
-	@Entry public static SpellEffectProperties temporalDilationEffectProperties = new SpellEffectProperties(true, Weight.NONE, 10, 0, 10) {
-		@Entry public int baseEffectDuration = 100;
-		@Entry public boolean affectsPlayers = true;
-	};
+//	@Entry public static SpellEffectProperties temporalDilationEffectProperties = new SpellEffectProperties(true, Weight.NONE, 10, 0, 10) {
+//		@Entry public int baseEffectDuration = 100;
+//		@Entry public boolean affectsPlayers = true;
+//	};
 
 	@Entry public static SpellEffectProperties pushEffectProperties = new SpellEffectProperties(true, Weight.NONE, 1, 0, 3) {
 		@Entry public double pushAmount = 0.2;

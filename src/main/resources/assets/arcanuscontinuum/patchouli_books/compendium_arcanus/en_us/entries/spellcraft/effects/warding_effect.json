@@ -2,7 +2,7 @@
   "name": "Warding Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/warding_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 46,
+  "sortnum": 309,
   "advancement": "arcanuscontinuum:arcane/wizard_level_6",
   "pages": [
     {

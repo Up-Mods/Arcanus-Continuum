@@ -1,0 +1,20 @@
+{
+  "name": "Anti-Gravity Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/colored/anti_gravity_effect.png",
+  "category": "arcanuscontinuum:spellcraft",
+  "sortnum": 407,
+  "advancement": "arcanuscontinuum:arcane/wizard_level_5",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Weight: None$(br)Mana Cost: 10$(br)Cool Down: 0 seconds$(br2)Description:$(br)Allows the target to float slowly in space until they take damage or the effect is removed. Chaining the effect does nothing."
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "arcanuscontinuum:textures/gui/patchouli/entries/effects/anti_gravity_effect.png"
+      ]
+    }
+  ]
+}

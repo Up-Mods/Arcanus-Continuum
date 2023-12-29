@@ -2,7 +2,7 @@
   "name": "Shrink Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/shrink_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 33,
+  "sortnum": 306,
   "flag": "mod:pehkui",
   "advancement": "arcanuscontinuum:arcane/wizard_level_9",
   "pages": [

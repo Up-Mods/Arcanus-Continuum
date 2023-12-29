@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Weight: Medium$(br)Mana Cost: 0$(br)Mana Multiplier: +25%$(br)Potency Modifier: +25%(br)Cool Down: 1.5 seconds$(br2)Description:$(br)Forms a charging beam between the caster and the target that takes a few seconds before activating its Spell Effects."
+      "text": "Weight: Medium$(br)Mana Cost: 0$(br)Mana Multiplier: +25%$(br)Potency Modifier: +25%$(br)Cool Down: 1.5 seconds$(br2)Description:$(br)Forms a charging beam between the caster and the target that takes a few seconds before activating its Spell Effects."
     },
     {
       "type": "patchouli:image",

@@ -2,7 +2,7 @@
   "name": "Spatial Rift Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/spatial_rift_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 45,
+  "sortnum": 308,
   "advancement": "arcanuscontinuum:arcane/wizard_level_7",
   "pages": [
     {

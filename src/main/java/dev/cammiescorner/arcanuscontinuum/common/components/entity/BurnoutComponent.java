@@ -28,13 +28,12 @@ public class BurnoutComponent implements AutoSyncedComponent, ServerTickingCompo
 		EntityAttributeInstance burnoutRegenAttr = entity.getAttributeInstance(ArcanusEntityAttributes.BURNOUT_REGEN.get());
 		EntityAttributeInstance attackSpeedAttr = entity.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_SPEED);
 		EntityAttributeInstance moveSpeedAttr = entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-		long timer = entity.getWorld().getTime() - ArcanusComponents.getLastCastTime(entity);
 
-		if(burnoutRegenAttr != null && drainBurnout(burnoutRegenAttr.getValue(), true) && timer % (entity instanceof PlayerEntity player && player.isCreative() ? 1 : 30) == 0) {
-			drainBurnout(burnoutRegenAttr.getValue(), false);
+		if(burnoutRegenAttr != null && drainBurnout(burnoutRegenAttr.getValue(), true)) {
+			drainBurnout(burnoutRegenAttr.getValue() / (entity instanceof PlayerEntity player && player.isCreative() ? 1 : 30), false);
 
 			if(entity instanceof PlayerEntity player)
-				player.addExhaustion(1F);
+				player.addExhaustion(0.01F);
 		}
 
 		if(attackSpeedAttr != null) {

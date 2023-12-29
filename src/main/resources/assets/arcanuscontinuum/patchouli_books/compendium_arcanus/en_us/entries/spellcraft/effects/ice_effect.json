@@ -2,7 +2,7 @@
   "name": "Ice Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/ice_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 16,
+  "sortnum": 103,
   "advancement": "arcanuscontinuum:arcane/wizard_level_2",
   "pages": [
     {

@@ -2,7 +2,7 @@
   "name": "Enlarge Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/enlarge_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 34,
+  "sortnum": 307,
   "flag": "mod:pehkui",
   "advancement": "arcanuscontinuum:arcane/wizard_level_9",
   "pages": [

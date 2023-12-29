@@ -21,10 +21,9 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	@Override
 	public void serverTick() {
 		EntityAttributeInstance manaRegenAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MANA_REGEN.get());
-		long timer = entity.getWorld().getTime() - ArcanusComponents.getLastCastTime(entity);
 
-		if(manaRegenAttr != null && addMana(manaRegenAttr.getValue(), true) && timer % (entity instanceof PlayerEntity player && player.isCreative() ? 1 : 20) == 0)
-			addMana(manaRegenAttr.getValue(), false);
+		if(manaRegenAttr != null && addMana(manaRegenAttr.getValue(), true))
+			addMana(manaRegenAttr.getValue() / (entity instanceof PlayerEntity player && player.isCreative() ? 1 : 20), false);
 	}
 
 	@Override

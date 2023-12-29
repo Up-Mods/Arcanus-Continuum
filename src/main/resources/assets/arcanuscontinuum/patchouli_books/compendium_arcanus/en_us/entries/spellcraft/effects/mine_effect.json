@@ -2,7 +2,7 @@
   "name": "Mine Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/mine_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 31,
+  "sortnum": 304,
   "advancement": "arcanuscontinuum:arcane/wizard_level_4",
   "pages": [
     {

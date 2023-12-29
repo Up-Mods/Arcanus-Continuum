@@ -2,7 +2,7 @@
   "name": "Electric Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/electric_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 15,
+  "sortnum": 102,
   "advancement": "arcanuscontinuum:arcane/wizard_level_2",
   "pages": [
     {

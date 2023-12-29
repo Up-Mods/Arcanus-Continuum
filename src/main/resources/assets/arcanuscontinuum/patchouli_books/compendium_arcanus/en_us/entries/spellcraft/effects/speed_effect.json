@@ -2,7 +2,7 @@
   "name": "Speed Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/speed_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 37,
+  "sortnum": 402,
   "advancement": "arcanuscontinuum:arcane/wizard_level_8",
   "pages": [
     {

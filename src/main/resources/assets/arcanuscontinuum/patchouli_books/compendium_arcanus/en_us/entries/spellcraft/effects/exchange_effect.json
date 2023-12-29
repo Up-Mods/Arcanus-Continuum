@@ -2,7 +2,7 @@
   "name": "Exchange Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/exchange_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 39,
+  "sortnum": 404,
   "advancement": "arcanuscontinuum:arcane/wizard_level_10",
   "pages": [
     {

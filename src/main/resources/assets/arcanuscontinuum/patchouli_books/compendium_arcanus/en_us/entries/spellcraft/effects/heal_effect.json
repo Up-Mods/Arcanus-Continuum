@@ -2,7 +2,7 @@
   "name": "Heal Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/heal_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 22,
+  "sortnum": 200,
   "advancement": "arcanuscontinuum:arcane/wizard_level_1",
   "pages": [
     {

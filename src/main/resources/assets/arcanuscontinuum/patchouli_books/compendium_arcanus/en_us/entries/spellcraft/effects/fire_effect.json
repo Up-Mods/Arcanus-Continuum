@@ -2,7 +2,7 @@
   "name": "Fire Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/fire_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 14,
+  "sortnum": 101,
   "advancement": "arcanuscontinuum:arcane/wizard_level_2",
   "pages": [
     {

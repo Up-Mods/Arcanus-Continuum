@@ -2,7 +2,7 @@
   "name": "Teleport Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/teleport_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 38,
+  "sortnum": 403,
   "advancement": "arcanuscontinuum:arcane/wizard_level_10",
   "pages": [
     {

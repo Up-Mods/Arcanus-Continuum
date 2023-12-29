@@ -2,7 +2,7 @@
   "name": "Growth Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/growth_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 32,
+  "sortnum": 305,
   "advancement": "arcanuscontinuum:arcane/wizard_level_4",
   "pages": [
     {

@@ -2,7 +2,7 @@
   "name": "Mana Split Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/mana_split_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 21,
+  "sortnum": 108,
   "advancement": "arcanuscontinuum:arcane/wizard_level_6",
   "pages": [
     {

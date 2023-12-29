@@ -2,7 +2,7 @@
   "name": "Discombobulate Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/discombobulate_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 43,
+  "sortnum": 110,
   "advancement": "arcanuscontinuum:arcane/wizard_level_5",
   "pages": [
     {

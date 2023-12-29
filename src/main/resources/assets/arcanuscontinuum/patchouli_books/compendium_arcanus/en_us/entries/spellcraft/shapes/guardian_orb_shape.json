@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Weight: Very Heavy$(br)Mana Cost: 0$(br)Mana Multiplier: +50%$(br)Potency Modifier: +0%(br)Cool Down: 5 seconds$(br2)Description:$(br)A unique shape, it will latch on to any entity the caster is looking at. If the caster isn't looking at any, it will latch onto the caster. It will cast its effects every 5 seconds, and chain the rest of the spell when it dies."
+      "text": "Weight: Very Heavy$(br)Mana Cost: 0$(br)Mana Multiplier: +50%$(br)Potency Modifier: +0%$(br)Cool Down: 5 seconds$(br2)Description:$(br)A unique shape, it will latch on to any entity the caster is looking at. If the caster isn't looking at any, it will latch onto the caster. It will cast its effects every 5 seconds, and chain the rest of the spell when it dies."
     },
     {
       "type": "patchouli:image",

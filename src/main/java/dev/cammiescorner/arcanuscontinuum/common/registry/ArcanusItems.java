@@ -28,10 +28,10 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> MIND_STAFF = ITEMS.register("mind_staff", () -> new StaffItem(StaffType.STAFF, 0xffffff, 0xffffff, true));
 	public static final RegistrySupplier<Item> MAGIC_TOME = ITEMS.register("magic_tome", () -> new StaffItem(StaffType.BOOK, 0x8b4513, 0x1e1b1b, true));
 	public static final RegistrySupplier<Item> MAGE_PISTOL = ITEMS.register("mage_pistol", () -> new StaffItem(StaffType.GUN, 0xffffff, 0xffffff, true));
-	public static final RegistrySupplier<Item> WIZARD_HAT = ITEMS.register("wizard_hat", () -> new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.HELMET, 0.3, 0.15, 0.1));
-	public static final RegistrySupplier<Item> WIZARD_ROBES = ITEMS.register("wizard_robes", () -> new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.CHESTPLATE, 0.5, 0.2, 0.18));
-	public static final RegistrySupplier<Item> WIZARD_PANTS = ITEMS.register("wizard_pants", () -> new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.LEGGINGS, 0.45, 0.18, 0.14));
-	public static final RegistrySupplier<Item> WIZARD_BOOTS = ITEMS.register("wizard_boots", () -> new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.BOOTS, 0.25, 0.12, 0.08));
+	public static final RegistrySupplier<Item> WIZARD_HAT = ITEMS.register("wizard_hat", () -> new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.HELMET, 1, 0.15, 0.1));
+	public static final RegistrySupplier<Item> WIZARD_ROBES = ITEMS.register("wizard_robes", () -> new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.CHESTPLATE, 3, 0.2, 0.18));
+	public static final RegistrySupplier<Item> WIZARD_PANTS = ITEMS.register("wizard_pants", () -> new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.LEGGINGS, 2, 0.18, 0.14));
+	public static final RegistrySupplier<Item> WIZARD_BOOTS = ITEMS.register("wizard_boots", () -> new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.BOOTS, 1, 0.12, 0.08));
 	public static final RegistrySupplier<Item> SPELL_BOOK = ITEMS.register("spell_book", SpellBookItem::new);
 	public static final RegistrySupplier<Item> SCROLL_OF_KNOWLEDGE = ITEMS.register("scroll_of_knowledge", ScrollOfKnowledgeItem::new);
 	public static final RegistrySupplier<Item> WIZARD_SPAWN_EGG = ITEMS.register("wizard_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.WIZARD.get(), 0x52392a, 0xffd87c, new QuiltItemSettings()));

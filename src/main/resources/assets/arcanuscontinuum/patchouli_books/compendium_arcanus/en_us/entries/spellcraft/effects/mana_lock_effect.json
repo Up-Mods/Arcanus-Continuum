@@ -2,7 +2,7 @@
   "name": "Mana Lock Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/mana_lock_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 18,
+  "sortnum": 105,
   "advancement": "arcanuscontinuum:arcane/wizard_level_9",
   "pages": [
     {

@@ -2,7 +2,7 @@
   "name": "Power Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/power_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 29,
+  "sortnum": 302,
   "advancement": "arcanuscontinuum:arcane/wizard_level_4",
   "pages": [
     {
