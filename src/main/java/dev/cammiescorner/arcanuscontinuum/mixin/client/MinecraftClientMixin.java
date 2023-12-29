@@ -138,24 +138,27 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 				info.cancel();
 			}
 			else {
-				List<UUID> orbs = player.getComponent(ArcanusComponents.AGGRESSORB_COMPONENT).getOrbs();
+				List<UUID> orbIds = player.getComponent(ArcanusComponents.AGGRESSORB_COMPONENT).getOrbs();
 
-				if(!orbs.isEmpty()) {
-					ShootOrbsPacket.send(orbs, player.getUuid());
-					shootOrbs(orbs, 5);
+				if(!orbIds.isEmpty()) {
+					ShootOrbsPacket.send(orbIds, player.getUuid());
+					shootOrbs(orbIds, 5);
 				}
 			}
 		}
 	}
 
 	@Unique
-	private void shootOrbs(List<UUID> orbs, int delay) {
+	private void shootOrbs(List<UUID> orbIds, int delay) {
 		for(Entity entity : world.getEntities()) {
-			if(entity instanceof AggressorbEntity orb && orbs.contains(orb.getUuid()) && orb.isBoundToTarget()) {
+			if(entity instanceof AggressorbEntity orb && orbIds.contains(orb.getUuid()) && orb.isBoundToTarget()) {
 				orb.setBoundToTarget(false);
 				orb.setPosition(orb.getTarget().getEyePos());
 				orb.setProperties(orb.getTarget(), orb.getTarget().getPitch(), orb.getTarget().getYaw(), 0F, 3f, 1F);
-				Tasks.scheduleEphemeral(() -> shootOrbs(orbs, delay), delay);
+
+				if(orbIds.size() > 1)
+					Tasks.scheduleEphemeral(() -> shootOrbs(orbIds, delay), delay);
+
 				break;
 			}
 		}

@@ -42,15 +42,15 @@ public class PocketDimensionPortalEntity extends Entity implements Targetable {
 			double boxRadiusSq = boxRadius * boxRadius;
 
 			if(getTrueAge() > 100) {
-				getWorld().getEntitiesByClass(Entity.class, getBoundingBox(), entity -> entity.canUsePortals() && !entity.isSpectator()).forEach(entity -> {
+				getWorld().getEntitiesByClass(Entity.class, getBoundingBox(), entity -> entity.canUsePortals() && !entity.isSpectator() && (!(entity instanceof PlayerEntity player) || !ArcanusComponents.hasPortalCoolDown(player))).forEach(entity -> {
 					if(!(entity instanceof PocketDimensionPortalEntity))
 						ArcanusComponents.teleportToPocketDimension(getWorld().getProperties(), getCaster(), entity);
 				});
 
-				getWorld().getEntitiesByClass(Entity.class, box, entity -> entity.isAlive() && !entity.isSpectator() && !(entity instanceof PlayerEntity player && player.isCreative())).forEach(entity -> {
+				getWorld().getEntitiesByClass(Entity.class, box, entity -> entity.isAlive() && !entity.isSpectator() && !(entity instanceof PlayerEntity player && (player.isCreative() || ArcanusComponents.hasPortalCoolDown(player)))).forEach(entity -> {
 					double distanceSq = getPos().squaredDistanceTo(entity.getPos());
 
-					if(!(entity instanceof PocketDimensionPortalEntity) && distanceSq <= boxRadiusSq) {
+					if(!(entity instanceof PocketDimensionPortalEntity) && distanceSq <= boxRadiusSq && distanceSq != 0) {
 						Vec3d direction = getPos().subtract(entity.getPos()).normalize();
 						double inverseSq = 1 / distanceSq;
 

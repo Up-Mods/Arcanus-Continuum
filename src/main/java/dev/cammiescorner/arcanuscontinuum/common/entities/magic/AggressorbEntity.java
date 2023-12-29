@@ -59,7 +59,7 @@ public class AggressorbEntity extends ThrownEntity implements Targetable {
 
 	@Override
 	public void tick() {
-		if(getCaster() == null || getTarget() == null || squaredDistanceTo(getTarget()) > (32 * 32)) {
+		if(getCaster() == null || getTarget() == null || squaredDistanceTo(getTarget()) > (64 * 64)) {
 			kill();
 			return;
 		}

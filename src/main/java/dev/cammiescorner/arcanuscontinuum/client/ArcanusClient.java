@@ -16,6 +16,7 @@ import dev.cammiescorner.arcanuscontinuum.client.models.feature.SpellPatternMode
 import dev.cammiescorner.arcanuscontinuum.client.particles.CollapseParticle;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.armour.WizardArmourRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.block.MagicBlockEntityRenderer;
+import dev.cammiescorner.arcanuscontinuum.client.renderer.block.SpatialRiftExitBlockEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.OpossumEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.WizardEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic.*;
@@ -122,6 +123,7 @@ public class ArcanusClient implements ClientModInitializer {
 		BlockRenderLayerMap.put(RenderLayer.getCutout(), ArcanusBlocks.MAGIC_DOOR.get(), ArcanusBlocks.ARCANE_WORKBENCH.get());
 		BlockRenderLayerMap.put(RenderLayer.getTranslucent(), ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get());
 		BlockEntityRendererFactories.register(ArcanusBlockEntities.MAGIC_BLOCK.get(), MagicBlockEntityRenderer::new);
+		BlockEntityRendererFactories.register(ArcanusBlockEntities.SPATIAL_RIFT_EXIT.get(), SpatialRiftExitBlockEntityRenderer::new);
 
 		ClientPlayNetworking.registerGlobalReceiver(SyncStatusEffectPacket.ID, SyncStatusEffectPacket::handle);
 		ClientPlayNetworking.registerGlobalReceiver(SyncWorkbenchModePacket.ID, SyncWorkbenchModePacket::handle);

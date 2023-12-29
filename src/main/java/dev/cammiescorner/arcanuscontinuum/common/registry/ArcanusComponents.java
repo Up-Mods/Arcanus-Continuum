@@ -59,6 +59,7 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 	public static final ComponentKey<PocketDimensionPortalComponent> POCKET_DIMENSION_PORTAL_COMPONENT = createComponent("pocket_dimension_portal", PocketDimensionPortalComponent.class);
 	public static final ComponentKey<SlowTimeComponent> SLOW_TIME_COMPONENT = createComponent("slow_time", SlowTimeComponent.class);
 	public static final ComponentKey<AggressorbComponent> AGGRESSORB_COMPONENT = createComponent("aggressorb", AggressorbComponent.class);
+	public static final ComponentKey<PortalCoolDownComponent> PORTAL_COOL_DOWN_COMPONENT = createComponent("portal_cool_down", PortalCoolDownComponent.class);
 
 	@Override
 	public void registerLevelComponentFactories(LevelComponentFactoryRegistry registry) {
@@ -94,6 +95,7 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 		registry.beginRegistration(MagicProjectileEntity.class, SPELL_SHAPE).end(SpellShapeComponent::new);
 		registry.beginRegistration(Entity.class, SLOW_TIME_COMPONENT).end(SlowTimeComponent::new);
 		registry.beginRegistration(LivingEntity.class, AGGRESSORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(AggressorbComponent::new);
+		registry.beginRegistration(PlayerEntity.class, PORTAL_COOL_DOWN_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PortalCoolDownComponent::new);
 
 		ArcanusCompat.PEHKUI.ifEnabled(() -> () -> PehkuiCompat.registerEntityComponents(registry));
 	}
@@ -341,5 +343,13 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 
 	public static void removeOrbFromEntity(LivingEntity entity, UUID orbId) {
 		entity.getComponent(AGGRESSORB_COMPONENT).removeOrbFromEntity(orbId);
+	}
+
+	public static void setPortalCoolDown(PlayerEntity player, int coolDown) {
+		player.getComponent(PORTAL_COOL_DOWN_COMPONENT).setCoolDown(coolDown);
+	}
+
+	public static boolean hasPortalCoolDown(PlayerEntity player) {
+		return player.getComponent(PORTAL_COOL_DOWN_COMPONENT).hasCoolDown();
 	}
 }

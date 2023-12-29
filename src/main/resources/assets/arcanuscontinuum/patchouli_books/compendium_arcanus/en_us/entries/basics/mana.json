@@ -15,7 +15,7 @@
     {
       "title": "Mana",
       "type": "patchouli:text",
-      "text": "At the bottom left of your screen is your mana bar. Mana is a regenerating resource required to cast spells, and is primarily influenced by the Spell Effects within a given spell. However, some Spell Shapes have a additive multiplier that gets applied to the mana cost of any spell they're in.$(br2)Mana regenerates at a rate of 1 per second, and can increase to a rate of 7 per second by wearing Wizard Robes."
+      "text": "At the bottom left of your screen is your mana bar. Mana is a regenerating resource required to cast spells, and is primarily influenced by the Spell Effects within a given spell. However, some Spell Shapes have a additive multiplier that gets applied to the mana cost of any spell they're in.$(br2)Mana regenerates at a rate of 1 per second, and can increase to a rate of 6 per second by wearing Wizard Robes."
     },
     {
       "title": "Burnout",

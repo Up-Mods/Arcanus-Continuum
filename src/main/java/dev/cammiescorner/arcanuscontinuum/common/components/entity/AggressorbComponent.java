@@ -8,14 +8,17 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.server.world.ServerWorld;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 public class AggressorbComponent implements AutoSyncedComponent {
 	private final LivingEntity entity;
 	private final List<UUID> orbs = new ArrayList<>();
+	private final List<UUID> viewOfOrbs = Collections.unmodifiableList(orbs);
 
 	public AggressorbComponent(LivingEntity entity) {
 		this.entity = entity;
@@ -42,7 +45,7 @@ public class AggressorbComponent implements AutoSyncedComponent {
 	}
 
 	public List<UUID> getOrbs() {
-		return List.copyOf(orbs);
+		return viewOfOrbs;
 	}
 
 	public int orbCount() {
@@ -54,6 +57,9 @@ public class AggressorbComponent implements AutoSyncedComponent {
 	}
 
 	public void addOrbToEntity(UUID orbId) {
+		if(entity.getWorld() instanceof ServerWorld world)
+			orbs.removeIf(uuid -> world.getEntity(uuid) == null);
+
 		orbs.add(orbId);
 		entity.syncComponent(ArcanusComponents.AGGRESSORB_COMPONENT);
 	}

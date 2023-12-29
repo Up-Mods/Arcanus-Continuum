@@ -6,6 +6,7 @@
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
 		"common.AbstractBlockStateMixin",
+		"common.EntityPartMixin",
 		"common.EntityViewMixin",
 		"common.FallingBlockMixin",
 		"common.HungerManagerMixin",

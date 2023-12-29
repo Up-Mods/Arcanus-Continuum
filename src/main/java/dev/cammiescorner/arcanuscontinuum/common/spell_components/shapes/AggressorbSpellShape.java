@@ -43,8 +43,7 @@ public class AggressorbSpellShape extends SpellShape {
 					world.spawnEntity(aggressorb);
 				}
 			}
-
-			if(ArcanusComponents.orbCount(target) >= 8 && caster instanceof PlayerEntity player)
+			else if(caster instanceof PlayerEntity player)
 				player.sendSystemMessage(Arcanus.translate("text", "too_many_orbs").formatted(Formatting.RED));
 		}
 	}
