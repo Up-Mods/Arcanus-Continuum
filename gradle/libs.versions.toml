@@ -20,6 +20,7 @@ pehkui = "3.7.8+1.14.4-1.20.1"
 kanos = "0.4.1"
 lambdynamiclights = "2.3.2+1.20.1"
 spruceui = "5.0.2+1.20"
+sodium = "mc1.20.1-0.5.3"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -46,6 +47,7 @@ pehkui = { module = "maven.modrinth:pehkui", version.ref = "pehkui" }
 kanos = { module = "com.github.Virtuoel:KanosConfig", version.ref = "kanos" }
 lambdynamiclights = { module = "maven.modrinth:lambdynamiclights", version.ref = "lambdynamiclights" }
 spruceui = { module = "dev.lambdaurora:spruceui", version.ref = "spruceui" }
+sodium = { module = "maven.modrinth:sodium", version.ref = "sodium" }
 
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]

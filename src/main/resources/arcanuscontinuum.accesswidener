@@ -2,8 +2,8 @@ accessWidener    v1	       named
 accessible       class     net/minecraft/client/render/RenderLayer$MultiPhaseParameters
 accessible       class     net/minecraft/client/render/RenderPhase$Texture
 accessible       class     net/minecraft/client/render/RenderPhase$OffsetTexturing
-accessible       class     net/minecraft/client/render/WorldRenderer$ChunkInfo
-accessible       field     net/minecraft/entity/mob/CreeperEntity                 CHARGED         Lnet/minecraft/entity/data/TrackedData;
-accessible       field     net/minecraft/client/render/WorldRenderer              chunkInfoList   Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
-accessible       field     net/minecraft/client/render/WorldRenderer$ChunkInfo    chunk           Lnet/minecraft/client/render/chunk/ChunkBuilder$BuiltChunk;
-extendable       method    net/minecraft/entity/mob/AbstractSkeletonEntity        getStepSound    ()Lnet/minecraft/sound/SoundEvent;
+accessible       class     net/minecraft/client/world/ClientChunkManager$ClientChunkMap
+accessible       field     net/minecraft/entity/mob/CreeperEntity                          CHARGED         Lnet/minecraft/entity/data/TrackedData;
+accessible       field     net/minecraft/client/world/ClientChunkManager                   chunks          Lnet/minecraft/client/world/ClientChunkManager$ClientChunkMap;
+accessible       field     net/minecraft/client/world/ClientChunkManager$ClientChunkMap    chunks          Ljava/util/concurrent/atomic/AtomicReferenceArray;
+extendable       method    net/minecraft/entity/mob/AbstractSkeletonEntity                 getStepSound    ()Lnet/minecraft/sound/SoundEvent;

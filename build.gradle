@@ -114,6 +114,9 @@ dependencies {
 	// first person model
 	modImplementation libs.firstperson
 
+	// sodium
+	modImplementation libs.sodium
+
 	// pehkui
 	modCompileOnly libs.pehkui
 	modRuntimeOnly libs.pehkui

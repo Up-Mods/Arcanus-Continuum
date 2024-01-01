@@ -52,12 +52,10 @@ import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.Axis;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.WorldChunk;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -69,6 +67,7 @@ import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 import org.quiltmc.qsl.resource.loader.api.ResourceLoader;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 import java.util.function.BooleanSupplier;
 
 public class ArcanusClient implements ClientModInitializer {
@@ -196,16 +195,18 @@ public class ArcanusClient implements ClientModInitializer {
 				if(player.getMainHandStack().isIn(ArcanusTags.STAVES) || player.getOffHandStack().isIn(ArcanusTags.STAVES)) {
 					float alpha = (float) (Math.sin(world.getTime() * 0.06f) * 0.4f + 0.6f);
 
-					context.worldRenderer().chunkInfoList.forEach(chunkInfo -> {
-						Chunk chunk = world.getChunk(chunkInfo.chunk.getOrigin());
+					AtomicReferenceArray<WorldChunk> chunks = context.world().getChunkManager().chunks.chunks;
+
+					for(int i = 0; i < chunks.length(); i++) {
+						Chunk chunk = chunks.get(i);
 
 						if(chunk != null) {
 							ArcanusComponents.getWardedBlocks(chunk).forEach((blockPos, uuid) -> {
-								if(blockPos.getSquaredDistance(context.camera().getBlockPos()) < 1024)
+								if(blockPos.getSquaredDistance(context.camera().getBlockPos()) < 256)
 									renderWardedBlock(matrices, vertices, world, cameraPos, blockPos, alpha);
 							});
 						}
-					});
+					}
 				}
 			}
 		});
@@ -214,20 +215,20 @@ public class ArcanusClient implements ClientModInitializer {
 			MatrixStack matrices = gui.getMatrices();
 			PlayerEntity player = client.player;
 
-			if (player != null && !player.isSpectator()) {
+			if(player != null && !player.isSpectator()) {
 				int stunTimer = ArcanusComponents.getStunTimer(player);
 
-				if (stunTimer > 0) {
+				if(stunTimer > 0) {
 					if (stunTimer > 5)
 						renderOverlay(STUN_OVERLAY, Math.min(1F, 0.5F + (stunTimer % 5F) / 10F));
 					else
 						renderOverlay(STUN_OVERLAY, Math.min(1F, stunTimer / 5F));
 				}
 
-				if (!client.gameRenderer.getCamera().isThirdPerson() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean()) {
+				if(!client.gameRenderer.getCamera().isThirdPerson() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean()) {
 					List<Pattern> list = ArcanusComponents.getPattern(player);
 
-					if (!list.isEmpty()) {
+					if(!list.isEmpty()) {
 						VertexConsumerProvider.Immediate vertices = client.getBufferBuilders().getEntityVertexConsumers();
 						RenderLayer renderLayer = getMagicCircles(MAGIC_CIRCLES);
 						VertexConsumer vertex = vertices.getBuffer(renderLayer);
@@ -239,11 +240,11 @@ public class ArcanusClient implements ClientModInitializer {
 						matrices.push();
 						matrices.translate(x, y, 0);
 
-						for (int i = 0; i < list.size(); i++) {
+						for(int i = 0; i < list.size(); i++) {
 							Pattern pattern = list.get(i);
 							matrices.push();
 
-							if (i == 1)
+							if(i == 1)
 								matrices.multiply(Axis.Z_POSITIVE.rotationDegrees((player.age + player.getId() + tickDelta) * (5 + (2.5F * i))));
 							else
 								matrices.multiply(Axis.Z_NEGATIVE.rotationDegrees((player.age + player.getId() + tickDelta) * (5 + (2.5F * i))));
