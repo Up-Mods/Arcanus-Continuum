@@ -8,15 +8,21 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicProjectileEntity;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
+import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.TypeFilter;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class ProjectileSpellShape extends SpellShape {
@@ -30,19 +36,30 @@ public class ProjectileSpellShape extends SpellShape {
 
 		if(caster != null) {
 			List<? extends MagicProjectileEntity> list = world.getEntitiesByType(TypeFilter.instanceOf(MagicProjectileEntity.class), entity -> caster.equals(entity.getOwner()));
+			Entity sourceEntity = castSource != null ? castSource : caster;
+			HitResult target = ArcanusHelper.raycast(sourceEntity, 4.5, true, true);
 
 			for(int i = 0; i < list.size() - 20; i++)
 				list.get(i).kill();
 
-			MagicProjectileEntity projectile = ArcanusEntities.MAGIC_PROJECTILE.get().create(world);
+			if(ArcanusSpellComponents.PROJECTILE.is(this) && target instanceof EntityHitResult hitResult) {
+				for(SpellEffect effect : new HashSet<>(effects))
+					effect.effect(caster, sourceEntity, world, target, effects, stack, potency);
 
-			if(projectile != null) {
-				projectile.setProperties(caster, castSource, this, stack, effects, spellGroups, groupIndex, potency, ArcanusSpellComponents.LOB.is(this) ? 2F : 4F, !ArcanusSpellComponents.LOB.is(this), Arcanus.DEFAULT_MAGIC_COLOUR);
+				SpellShape.castNext(caster, target.getPos(), hitResult.getEntity(), world, stack, spellGroups, groupIndex, potency);
+				world.playSound(hitResult.getEntity(), hitResult.getEntity().getBlockPos(), SoundEvents.ENTITY_ARROW_HIT, SoundCategory.NEUTRAL, 1F, 1.2F / (world.random.nextFloat() * 0.2F + 0.9F));
+			}
+			else {
+				MagicProjectileEntity projectile = ArcanusEntities.MAGIC_PROJECTILE.get().create(world);
 
-				if(caster instanceof PlayerEntity player)
-					projectile.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
+				if(projectile != null) {
+					projectile.setProperties(caster, castSource, this, stack, effects, spellGroups, groupIndex, potency, ArcanusSpellComponents.LOB.is(this) ? 2F : 4F, !ArcanusSpellComponents.LOB.is(this), Arcanus.DEFAULT_MAGIC_COLOUR);
 
-				world.spawnEntity(projectile);
+					if(caster instanceof PlayerEntity player)
+						projectile.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
+
+					world.spawnEntity(projectile);
+				}
 			}
 		}
 	}

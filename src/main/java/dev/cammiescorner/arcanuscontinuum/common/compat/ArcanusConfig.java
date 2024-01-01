@@ -11,14 +11,14 @@ public class ArcanusConfig extends MidnightConfig {
 
 	@Entry public static SpellShapeProperties selfShapeProperties = new SpellShapeProperties(true, Weight.VERY_LIGHT, 0, 0.85, 10, 1, 0);
 	@Entry public static SpellShapeProperties touchShapeProperties = new SpellShapeProperties(true, Weight.VERY_LIGHT, 0, 1, 15, 1, 0.2);
-	@Entry public static SpellShapeProperties projectileShapeProperties = new SpellShapeProperties(true, Weight.LIGHT, 0, 1, 10, 3, -0.5) {
+	@Entry public static SpellShapeProperties projectileShapeProperties = new SpellShapeProperties(true, Weight.LIGHT, 0, 1, 10, 3, -0.75) {
 		@Entry public float projectileSpeed = 4f;
 		@Entry public int lifeSpan = 20;
 	};
 	@Entry public static SpellShapeProperties lobShapeProperties = new SpellShapeProperties(true, Weight.LIGHT, 0, 1, 20, 3, 0) {
 		@Entry public float projectileSpeed = 2f;
 	};
-	@Entry public static SpellShapeProperties boltShapeProperties = new SpellShapeProperties(true, Weight.MEDIUM, 0, 1, 20, 5, 0) {
+	@Entry public static SpellShapeProperties boltShapeProperties = new SpellShapeProperties(true, Weight.MEDIUM, 0, 1, 15, 5, 0) {
 		@Entry public double range = 8;
 	};
 	@Entry public static SpellShapeProperties beamShapeProperties = new SpellShapeProperties(true, Weight.MEDIUM, 0, 1.25, 30, 5, 0.25) {
