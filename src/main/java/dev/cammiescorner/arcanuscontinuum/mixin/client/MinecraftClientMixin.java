@@ -142,22 +142,19 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 				if(!orbIds.isEmpty()) {
 					ShootOrbsPacket.send(orbIds, player.getUuid());
-					shootOrbs(orbIds, 5);
+					shootOrbs(orbIds);
 				}
 			}
 		}
 	}
 
 	@Unique
-	private void shootOrbs(List<UUID> orbIds, int delay) {
+	private void shootOrbs(List<UUID> orbIds) {
 		for(Entity entity : world.getEntities()) {
-			if(entity instanceof AggressorbEntity orb && orbIds.contains(orb.getUuid()) && orb.isBoundToTarget()) {
+			if(entity instanceof AggressorbEntity orb && orbIds.get(0).equals(entity.getUuid()) && orb.isBoundToTarget()) {
 				orb.setBoundToTarget(false);
 				orb.setPosition(orb.getTarget().getEyePos());
 				orb.setProperties(orb.getTarget(), orb.getTarget().getPitch(), orb.getTarget().getYaw(), 0F, 3f, 1F);
-
-				if(orbIds.size() > 1)
-					Tasks.scheduleEphemeral(() -> shootOrbs(orbIds, delay), delay);
 
 				break;
 			}

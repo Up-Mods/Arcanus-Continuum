@@ -117,6 +117,9 @@ dependencies {
 	// sodium
 	modImplementation libs.sodium
 
+	// iris
+	modImplementation libs.iris
+
 	// pehkui
 	modCompileOnly libs.pehkui
 	modRuntimeOnly libs.pehkui

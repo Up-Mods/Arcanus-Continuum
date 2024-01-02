@@ -50,11 +50,11 @@ public class ShootOrbsPacket {
 			Entity owner = world.getEntity(ownerId);
 
 			if(owner instanceof LivingEntity livingEntity)
-				shootOrb(orbIds, world, livingEntity, 5);
+				shootOrb(orbIds, world, livingEntity);
 		});
 	}
 
-	private static void shootOrb(List<UUID> orbIds, ServerWorld world, LivingEntity owner, int delay) {
+	private static void shootOrb(List<UUID> orbIds, ServerWorld world, LivingEntity owner) {
 		for(UUID orbId : orbIds) {
 			if(world.getEntity(orbId) instanceof AggressorbEntity orb && owner != null && orb.isBoundToTarget()) {
 				orb.setBoundToTarget(false);
@@ -62,9 +62,6 @@ public class ShootOrbsPacket {
 				orb.setProperties(orb.getTarget(), orb.getTarget().getPitch(), orb.getTarget().getYaw(), 0F, 3f, 1F);
 				world.playSound(null, orb.getX(), orb.getY(), orb.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1f, 1f, 1L);
 				ArcanusComponents.removeOrbFromEntity(orb.getTarget(), orbId);
-
-				if(orbIds.size() > 1)
-					Tasks.scheduleEphemeral(() -> shootOrb(orbIds, world, owner, delay), delay);
 
 				break;
 			}

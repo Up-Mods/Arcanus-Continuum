@@ -39,9 +39,8 @@ public class ArcanusConfig extends MidnightConfig {
 		@Entry public double maximumManaLock = 0.9;
 	};
 	@Entry public static SpellShapeProperties aggressorbShapeProperties = new SpellShapeProperties(true, Weight.VERY_HEAVY, 0, 0.8, 200, 10, 0) {
-		@Entry public int maximumAggressorbs = 8;
-		@Entry public int fireDelay = 5;
-		@Entry public float projectileSpeed = 4f;
+		@Entry public int maximumAggressorbs = 6;
+		@Entry public float projectileSpeed = 3f;
 	};
 
 	@Entry public static SpellEffectProperties damageEffectProperties = new SpellEffectProperties(true, Weight.NONE, 4, 0, 1) {

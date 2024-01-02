@@ -30,7 +30,7 @@ public class AggressorbSpellShape extends SpellShape {
 		Entity sourceEntity = castSource != null ? castSource : caster;
 
 		if(sourceEntity instanceof LivingEntity target) {
-			if(ArcanusComponents.orbCount(target) < 8) {
+			if(ArcanusComponents.orbCount(target) < 6) {
 				AggressorbEntity aggressorb = ArcanusEntities.AGGRESSORB.get().create(world);
 
 				if(aggressorb != null) {

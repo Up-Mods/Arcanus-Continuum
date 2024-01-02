@@ -177,12 +177,12 @@ public class ArcanusClient implements ClientModInitializer {
 
 			if(player != null && vertices != null && interactionManager != null) {
 				if(client.crosshairTarget instanceof BlockHitResult hitResult && ArcanusComponents.isBlockWarded(world, hitResult.getBlockPos()) && player.handSwinging) {
-					if(client.options.attackKey.isPressed())
-						obj.hitTimer = 10;
+					if(client.options.attackKey.isPressed() && player.handSwingProgress == 0)
+						obj.hitTimer = 20;
 
 					if(!ArcanusComponents.isOwnerOfBlock(player, hitResult.getBlockPos()) || obj.hitTimer > 0) {
 						BlockPos blockPos = hitResult.getBlockPos();
-						float alpha = 1 - player.handSwingProgress;
+						float alpha = obj.hitTimer / 20f;
 
 						renderWardedBlock(matrices, vertices, world, cameraPos, blockPos, alpha);
 						player.sendMessage(Arcanus.translate("text", "block_is_warded").formatted(Formatting.RED), true);
@@ -193,9 +193,8 @@ public class ArcanusClient implements ClientModInitializer {
 				}
 
 				if(player.getMainHandStack().isIn(ArcanusTags.STAVES) || player.getOffHandStack().isIn(ArcanusTags.STAVES)) {
-					float alpha = (float) (Math.sin(world.getTime() * 0.06f) * 0.4f + 0.6f);
-
 					AtomicReferenceArray<WorldChunk> chunks = context.world().getChunkManager().chunks.chunks;
+					float alpha = (float) (Math.sin(world.getTime() * 0.06f) * 0.4f + 0.6f);
 
 					for(int i = 0; i < chunks.length(); i++) {
 						Chunk chunk = chunks.get(i);
