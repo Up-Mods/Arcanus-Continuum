@@ -21,7 +21,13 @@ public enum ArcanusArmourMaterials implements StringIdentifiable, ArmorMaterial 
 		map.put(ArmorItem.ArmorSlot.LEGGINGS, 2);
 		map.put(ArmorItem.ArmorSlot.CHESTPLATE, 3);
 		map.put(ArmorItem.ArmorSlot.HELMET, 1);
-	}), 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.ofItems(Items.LEATHER));
+	}), 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0f, 0f, () -> Ingredient.ofItems(Items.LEATHER)),
+	BATTLE_MAGE("battle_mage", 35, Util.make(new EnumMap<>(ArmorItem.ArmorSlot.class), (map) -> {
+		map.put(ArmorItem.ArmorSlot.BOOTS, 2);
+		map.put(ArmorItem.ArmorSlot.LEGGINGS, 5);
+		map.put(ArmorItem.ArmorSlot.CHESTPLATE, 6);
+		map.put(ArmorItem.ArmorSlot.HELMET, 3);
+	}), 25, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0f, 0f, () -> Ingredient.ofItems(Items.AMETHYST_SHARD));
 
 	public static final Codec<ArmorMaterials> CODEC = StringIdentifiable.createCodec(ArmorMaterials::values);
 	private static final EnumMap<ArmorItem.ArmorSlot, Integer> BASE_DURABILITY_VALUES = Util.make(new EnumMap<>(ArmorItem.ArmorSlot.class), (map) -> {

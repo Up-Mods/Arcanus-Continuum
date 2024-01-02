@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"key": {
+		"#": {
+			"item": "minecraft:amethyst_shard"
+		},
+		"C": {
+			"item": "minecraft:smooth_basalt"
+		},
+		"S": {
+			"item": "arcanuscontinuum:battle_mage_upgrade_smithing_template"
+		}
+	},
+	"pattern": [
+		"#S#",
+		"#C#",
+		"###"
+	],
+	"result": {
+		"count": 2,
+		"item": "arcanuscontinuum:battle_mage_upgrade_smithing_template"
+	},
+	"show_notification": true
+}

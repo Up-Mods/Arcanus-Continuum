@@ -4,13 +4,14 @@ import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.ItemStack;
@@ -33,6 +34,7 @@ public class WizardArmorItem extends DyeableArmorItem {
 
 	public WizardArmorItem(ArmorMaterial armorMaterial, ArmorSlot equipmentSlot, double manaRegen, double magicResist, double spellPotency) {
 		super(armorMaterial, equipmentSlot, new QuiltItemSettings().maxCount(1));
+
 		this.attributeModifiers = Suppliers.memoize(() -> {
 			UUID modifierID = MODIFIER_IDS.get(equipmentSlot);
 			return ImmutableMultimap.<EntityAttribute, EntityAttributeModifier>builder()
@@ -50,10 +52,9 @@ public class WizardArmorItem extends DyeableArmorItem {
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
 		super.inventoryTick(stack, world, entity, slot, selected);
-		NbtCompound tag = stack.getOrCreateSubNbt("display");
 
-		if (!world.isClient() && entity instanceof PlayerEntity player && player.getUuidAsString().equals("1b44461a-f605-4b29-a7a9-04e649d1981c") && !tag.contains("color", 99))
-			tag.putInt("color", 0xff005a);
+		if(!world.isClient() && stack.isDamaged() && entity instanceof LivingEntity livingEntity && ArcanusComponents.drainMana(livingEntity, 1, false))
+			stack.setDamage(stack.getDamage() - 1);
 	}
 
 	@Override

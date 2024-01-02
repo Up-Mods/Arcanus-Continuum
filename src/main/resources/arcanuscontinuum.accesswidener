@@ -3,7 +3,9 @@ accessible       class     net/minecraft/client/render/RenderLayer$MultiPhasePar
 accessible       class     net/minecraft/client/render/RenderPhase$Texture
 accessible       class     net/minecraft/client/render/RenderPhase$OffsetTexturing
 accessible       class     net/minecraft/client/world/ClientChunkManager$ClientChunkMap
-accessible       field     net/minecraft/entity/mob/CreeperEntity                          CHARGED         Lnet/minecraft/entity/data/TrackedData;
-accessible       field     net/minecraft/client/world/ClientChunkManager                   chunks          Lnet/minecraft/client/world/ClientChunkManager$ClientChunkMap;
-accessible       field     net/minecraft/client/world/ClientChunkManager$ClientChunkMap    chunks          Ljava/util/concurrent/atomic/AtomicReferenceArray;
-extendable       method    net/minecraft/entity/mob/AbstractSkeletonEntity                 getStepSound    ()Lnet/minecraft/sound/SoundEvent;
+accessible       field     net/minecraft/item/SmithingTemplateItem                         AMETHYST_ICON    Lnet/minecraft/util/Identifier;
+accessible       field     net/minecraft/entity/mob/CreeperEntity                          CHARGED          Lnet/minecraft/entity/data/TrackedData;
+accessible       field     net/minecraft/client/world/ClientChunkManager                   chunks           Lnet/minecraft/client/world/ClientChunkManager$ClientChunkMap;
+accessible       field     net/minecraft/client/world/ClientChunkManager$ClientChunkMap    chunks           Ljava/util/concurrent/atomic/AtomicReferenceArray;
+extendable       method    net/minecraft/entity/mob/AbstractSkeletonEntity                 getStepSound     ()Lnet/minecraft/sound/SoundEvent;
+accessible       method    net/minecraft/item/SmithingTemplateItem                         getArmorIcons    ()Ljava/util/List;
