@@ -8,7 +8,9 @@ import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusDamageTypes;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
@@ -28,12 +30,12 @@ public class DamageSpellEffect extends SpellEffect {
 			Entity entity = entityHit.getEntity();
 			float damage = 1.5F;
 
-			if(entity instanceof Targetable targetable && targetable.arcanuscontinuum$canBeTargeted()) {
+			if(caster != null && entity instanceof Targetable targetable && targetable.arcanuscontinuum$canBeTargeted()) {
 				if(entity.isWet() && effects.contains(ArcanusSpellComponents.ELECTRIC.get()))
 					damage *= 2F;
 
 				entity.timeUntilRegen = 0;
-				entity.damage(ArcanusDamageTypes.getMagicDamage(caster), (float) (damage * effects.stream().filter(ArcanusSpellComponents.DAMAGE::is).count() * potency));
+				entity.damage(sourceEntity instanceof ProjectileEntity projectile ? ArcanusDamageTypes.getMagicDamage(projectile, caster) : ArcanusDamageTypes.getMagicDamage(caster), (float) (damage * effects.stream().filter(ArcanusSpellComponents.DAMAGE::is).count() * potency));
 			}
 		}
 	}
