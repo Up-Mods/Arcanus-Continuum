@@ -8,6 +8,7 @@
 		"common.AbstractBlockStateMixin",
 		"common.EntityPartMixin",
 		"common.EntityViewMixin",
+		"common.ExplosionMixin",
 		"common.FallingBlockMixin",
 		"common.HungerManagerMixin",
 		"common.ItemEntityMixin",

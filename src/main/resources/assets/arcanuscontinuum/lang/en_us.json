@@ -59,6 +59,7 @@
 	"effect.arcanuscontinuum.anti_gravity": "Anti-Gravity",
 	"effect.arcanuscontinuum.mana_wings": "Mana Wings",
 	"effect.arcanuscontinuum.stockpile": "Stockpile",
+	"effect.arcanuscontinuum.danger_sense": "Danger Sense",
 
 	"advancements.arcanuscontinuum.root.title": "Arcanus: Continuum",
 	"advancements.arcanuscontinuum.root.description": "[insert witty sales pitch for something you're already playing]",
@@ -146,6 +147,7 @@
 	"spell_component.arcanuscontinuum.anti_gravity_effect": "Anti-Gravity Effect",
 	"spell_component.arcanuscontinuum.mana_wings_effect": "Mana Wings Effect",
 	"spell_component.arcanuscontinuum.stockpile_effect": "Stockpile Effect",
+	"spell_component.arcanuscontinuum.danger_sense_effect": "Danger Sense",
 
 	"item.arcanuscontinuum.compendium_arcanus.landing_text": "Arcanus: Continuum introduces a new magic system to the world of Minecraft. Players can create their own custom spells to suit however they like to play the game!",
 
@@ -425,6 +427,13 @@
 	"arcanuscontinuum.midnightconfig.manaShieldEffectProperties.manaCost": "Mana Cost",
 	"arcanuscontinuum.midnightconfig.manaShieldEffectProperties.coolDown": "Cool Down",
 	"arcanuscontinuum.midnightconfig.manaShieldEffectProperties.minimumLevel": "Minimum Level",
+
+	"arcanuscontinuum.midnightconfig.dangerSenseEffectProperties": "Danger Sense Effect Properties",
+	"arcanuscontinuum.midnightconfig.dangerSenseEffectProperties.enabled": "Enabled",
+	"arcanuscontinuum.midnightconfig.dangerSenseEffectProperties.weight": "Weight",
+	"arcanuscontinuum.midnightconfig.dangerSenseEffectProperties.manaCost": "Mana Cost",
+	"arcanuscontinuum.midnightconfig.dangerSenseEffectProperties.coolDown": "Cool Down",
+	"arcanuscontinuum.midnightconfig.dangerSenseEffectProperties.minimumLevel": "Minimum Level",
 
 
 

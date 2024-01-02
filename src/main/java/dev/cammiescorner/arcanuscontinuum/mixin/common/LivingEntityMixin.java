@@ -21,16 +21,21 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -63,11 +68,13 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 	@Shadow public abstract boolean addStatusEffect(StatusEffectInstance effect);
 	@Shadow public abstract float getMovementSpeed();
 
+	@Shadow public abstract boolean teleport(double x, double y, double z, boolean particleEffects);
+
 	public LivingEntityMixin(EntityType<?> type, World world) {
 		super(type, world);
 	}
 
-	@Inject(method = "damage", at = @At("HEAD"))
+	@Inject(method = "damage", at = @At("HEAD"), cancellable = true)
 	private void arcanuscontinuum$onDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
 		if(amount > 0 && !blockedByShield(source)) {
 			if(hasStatusEffect(ArcanusStatusEffects.MANA_WINGS.get()))
@@ -82,6 +89,44 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 					clearStatusEffects();
 
 					addStatusEffect(new StatusEffectInstance(stockpile.getEffectType(), stockpile.getDuration(), stockpile.getAmplifier() + MathHelper.floor(Math.round(amount) / 10f)));
+				}
+			}
+
+			if(hasStatusEffect(ArcanusStatusEffects.DANGER_SENSE.get()) && (source.isTypeIn(DamageTypeTags.IS_PROJECTILE) || source.isTypeIn(DamageTypeTags.IS_EXPLOSION))) {
+				StatusEffectInstance dangerSense = getStatusEffect(ArcanusStatusEffects.DANGER_SENSE.get());
+
+				if(random.nextFloat() < 0.025 * (dangerSense.getAmplifier() + 1)) {
+					if(getWorld() instanceof ServerWorld world) {
+						double d = getX();
+						double e = getY();
+						double f = getZ();
+
+						for(int i = 0; i < 16; ++i) {
+							double g = getX() + (random.nextDouble() - 0.5) * 16.0;
+							double h = MathHelper.clamp(
+									getY() + random.nextInt(16) - 8,
+									world.getBottomY(),
+									world.getBottomY() + world.getLogicalHeight() - 1
+							);
+							double j = getZ() + (random.nextDouble() - 0.5) * 16.0;
+
+							if(hasVehicle())
+								stopRiding();
+
+							Vec3d vec3d = getPos();
+
+							if(teleport(g, h, j, true)) {
+								world.emitGameEvent(GameEvent.TELEPORT, vec3d, GameEvent.Context.create(self));
+								SoundEvent soundEvent = self instanceof FoxEntity ? SoundEvents.ENTITY_FOX_TELEPORT : SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT;
+								world.playSound(null, d, e, f, soundEvent, SoundCategory.PLAYERS, 1f, 1f);
+								playSound(soundEvent, 1f, 1f);
+								break;
+							}
+						}
+					}
+
+					removeStatusEffect(ArcanusStatusEffects.DANGER_SENSE.get());
+					info.setReturnValue(false);
 				}
 			}
 		}

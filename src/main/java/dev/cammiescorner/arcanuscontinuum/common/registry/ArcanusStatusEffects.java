@@ -24,4 +24,5 @@ public class ArcanusStatusEffects {
 	public static final RegistrySupplier<StatusEffect> ANTI_GRAVITY = STATUS_EFFECTS.register("anti_gravity", () -> new ArcanusStatusEffect(StatusEffectType.NEUTRAL, 0xceffff));
 	public static final RegistrySupplier<StatusEffect> MANA_WINGS = STATUS_EFFECTS.register("mana_wings", () -> new ArcanusStatusEffect(StatusEffectType.BENEFICIAL, 0x716e8c));
 	public static final RegistrySupplier<StatusEffect> STOCKPILE = STATUS_EFFECTS.register("stockpile", () -> new ArcanusStatusEffect(StatusEffectType.BENEFICIAL, 0x550000));
+	public static final RegistrySupplier<StatusEffect> DANGER_SENSE = STATUS_EFFECTS.register("danger_sense", () -> new ArcanusStatusEffect(StatusEffectType.BENEFICIAL, 0xaeeff2));
 }

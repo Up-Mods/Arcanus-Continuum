@@ -72,6 +72,7 @@ public class ArcanusConfig extends MidnightConfig {
 	@Entry public static SpellEffectProperties copperCurseEffectProperties = new SpellEffectProperties(true, Weight.NONE, 8, 0, 8) {
 		@Entry public int baseEffectDuration = 24000;
 		@Entry public int effectDurationModifier = 12000;
+		@Entry public double baseChanceToActivate = 0.0625;
 	};
 	@Entry public static SpellEffectProperties discombobulateEffectProperties = new SpellEffectProperties(true, Weight.NONE, 6, 0, 5) {
 		@Entry public int baseEffectDuration = 60;
@@ -99,6 +100,10 @@ public class ArcanusConfig extends MidnightConfig {
 	@Entry public static SpellEffectProperties manaShieldEffectProperties = new SpellEffectProperties(true, Weight.NONE, 8, 0, 10) {
 		@Entry public int baseLifeSpan = 100;
 		@Entry public int lifeSpanModifier = 40;
+	};
+	@Entry public static SpellEffectProperties dangerSenseEffectProperties = new SpellEffectProperties(true, Weight.NONE, 5, 0, 8) {
+		@Entry public int baseEffectDuration = 100;
+		@Entry public double baseChanceToActivate = 0.025;
 	};
 //	@Entry public static SpellEffectProperties temporalDilationEffectProperties = new SpellEffectProperties(true, Weight.NONE, 10, 0, 10) {
 //		@Entry public int baseEffectDuration = 100;
