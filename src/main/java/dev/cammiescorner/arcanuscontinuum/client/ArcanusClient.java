@@ -167,7 +167,7 @@ public class ArcanusClient implements ClientModInitializer {
 				renderFirstPersonBolt(context);
 		});
 
-		WorldRenderEvents.AFTER_TRANSLUCENT.register(context -> {
+		WorldRenderEvents.BEFORE_BLOCK_OUTLINE.register((context, outlineContext) -> {
 			ClientPlayerInteractionManager interactionManager = client.interactionManager;
 			ClientPlayerEntity player = client.player;
 			ClientWorld world = context.world();
@@ -208,6 +208,8 @@ public class ArcanusClient implements ClientModInitializer {
 					}
 				}
 			}
+
+			return true;
 		});
 
 		HudRenderCallback.EVENT.register((gui, tickDelta) -> {
