@@ -95,7 +95,7 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 			if(hasStatusEffect(ArcanusStatusEffects.DANGER_SENSE.get()) && (source.isTypeIn(DamageTypeTags.IS_PROJECTILE) || source.isTypeIn(DamageTypeTags.IS_EXPLOSION))) {
 				StatusEffectInstance dangerSense = getStatusEffect(ArcanusStatusEffects.DANGER_SENSE.get());
 
-				if(random.nextFloat() < 0.025 * (dangerSense.getAmplifier() + 1)) {
+				if(random.nextFloat() < 0.035 * (dangerSense.getAmplifier() + 1)) {
 					if(getWorld() instanceof ServerWorld world) {
 						double d = getX();
 						double e = getY();
@@ -152,19 +152,21 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 
 	@ModifyArg(method = "fall", at = @At(value = "INVOKE", target = "Lnet/minecraft/particle/BlockStateParticleEffect;<init>(Lnet/minecraft/particle/ParticleType;Lnet/minecraft/block/BlockState;)V"))
 	private BlockState arcanuscontinuum$bouncy(BlockState value) {
-		if (hasStatusEffect(ArcanusStatusEffects.BOUNCY.get()))
+		if(hasStatusEffect(ArcanusStatusEffects.BOUNCY.get()))
 			return Blocks.SLIME_BLOCK.getDefaultState();
+		if(hasStatusEffect(ArcanusStatusEffects.ANTI_GRAVITY.get()))
+			fallDistance = 0;
 
 		return value;
 	}
 
 	@Inject(method = "handleFallDamage", at = @At("HEAD"), cancellable = true)
 	private void arcanuscontinuum$negateFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> info) {
-		if (prevVelocity != null && !getDamageSources().create(DamageTypes.STALAGMITE).equals(damageSource) && fallDistance > getSafeFallDistance() && hasStatusEffect(ArcanusStatusEffects.BOUNCY.get())) {
-			if (!getWorld().isClient) {
+		if(prevVelocity != null && !getDamageSources().create(DamageTypes.STALAGMITE).equals(damageSource) && fallDistance > getSafeFallDistance() && hasStatusEffect(ArcanusStatusEffects.BOUNCY.get())) {
+			if(!getWorld().isClient) {
 				getWorld().playSoundFromEntity(null, this, SoundEvents.BLOCK_SLIME_BLOCK_FALL, getSoundCategory(), 1, 1);
 
-				if (!bypassesLandingEffects()) {
+				if(!bypassesLandingEffects()) {
 					setVelocity(getVelocity().getX(), -prevVelocity.getY() * 0.99, getVelocity().getZ());
 					velocityModified = true;
 				}

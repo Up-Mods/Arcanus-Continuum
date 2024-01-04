@@ -15,6 +15,7 @@ reach_attr = "2.4.0"
 modmenu = "7.2.2"
 lazydfu = "0.1.3"
 smartbrainlib = "4981378"
+resourceful_config = "2.1.1"
 firstperson = "gah8AMuD"
 pehkui = "3.7.8+1.14.4-1.20.1"
 kanos = "0.4.1"
@@ -43,6 +44,7 @@ reach_attr = { module = "com.jamieswhiteshirt:reach-entity-attributes", version.
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
 lazydfu = { module = "maven.modrinth:lazydfu", version.ref = "lazydfu" }
 smartbrainlib = { module = "curse.maven:smartbrainlib-661293", version.ref = "smartbrainlib" }
+resourceful_config = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.20.1", version.ref = "resourceful_config" }
 firstperson = { module = "maven.modrinth:first-person-model", version.ref = "firstperson" }
 pehkui = { module = "maven.modrinth:pehkui", version.ref = "pehkui" }
 kanos = { module = "com.github.Virtuoel:KanosConfig", version.ref = "kanos" }

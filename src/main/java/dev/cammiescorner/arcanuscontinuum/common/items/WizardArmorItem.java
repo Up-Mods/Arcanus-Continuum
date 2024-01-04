@@ -52,8 +52,9 @@ public class WizardArmorItem extends DyeableArmorItem {
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
 		super.inventoryTick(stack, world, entity, slot, selected);
+		double manaDrain = 1;
 
-		if(!world.isClient() && stack.isDamaged() && entity instanceof LivingEntity livingEntity && ArcanusComponents.drainMana(livingEntity, 1, false))
+		if(!world.isClient() && stack.isDamaged() && entity instanceof LivingEntity livingEntity && livingEntity.getEquippedStack(getPreferredSlot()).equals(stack) && ArcanusComponents.getMana(livingEntity) >= manaDrain && ArcanusComponents.drainMana(livingEntity, manaDrain, false))
 			stack.setDamage(stack.getDamage() - 1);
 	}
 

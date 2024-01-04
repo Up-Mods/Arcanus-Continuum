@@ -34,4 +34,9 @@ public class SpatialRiftSpellEffect extends SpellEffect {
 			ArcanusComponents.createPortal(player, (ServerWorld) world, pos, effects.stream().filter(ArcanusSpellComponents.SPATIAL_RIFT::is).count() * potency);
 		}
 	}
+
+	@Override
+	public boolean shouldTriggerOnceOnExplosion() {
+		return true;
+	}
 }

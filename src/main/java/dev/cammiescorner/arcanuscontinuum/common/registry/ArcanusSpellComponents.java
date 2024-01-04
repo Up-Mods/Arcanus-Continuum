@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-import static dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusConfig.*;
+import static dev.cammiescorner.arcanuscontinuum.ArcanusConfig.*;
 
 public class ArcanusSpellComponents {
 	public static final RegistryHandler<SpellComponent> SPELL_COMPONENTS = RegistryHandler.create(Arcanus.SPELL_COMPONENTS_REGISTRY_KEY, Arcanus.MOD_ID);

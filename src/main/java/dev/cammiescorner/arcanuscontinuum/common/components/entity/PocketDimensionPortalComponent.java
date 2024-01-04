@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanuscontinuum.common.components.entity;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.PocketDimensionPortalEntity;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
 import dev.onyxstudios.cca.api.v3.component.Component;
 import net.minecraft.entity.Entity;
@@ -65,6 +66,7 @@ public class PocketDimensionPortalComponent implements Component {
 			worldKey = world.getRegistryKey();
 			portalPos = pos;
 
+			world.getProperties().getComponent(ArcanusComponents.POCKET_DIMENSION_COMPONENT).setExit(player, world, pos);
 			portal.setProperties(player.getUuid(), pos, pullStrength, Arcanus.getMagicColour(player.getGameProfile().getId()));
 			world.spawnEntity(portal);
 		}

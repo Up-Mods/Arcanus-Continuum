@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.components.chunk;
 
-import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusConfig;
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,10 +16,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public class WardedBlocksComponent implements AutoSyncedComponent {
-	private static final Supplier<Boolean> canOtherPlayersRemoveBlock = ArcanusConfig.getConfigOption(ArcanusConfig.wardingEffectProperties, "canBeRemovedByOthers");
 	private final Map<BlockPos, UUID> wardedBlocks = new HashMap<>();
 	private final Chunk chunk;
 
@@ -69,7 +67,9 @@ public class WardedBlocksComponent implements AutoSyncedComponent {
 	}
 
 	public void removeWardedBlock(PlayerEntity player, BlockPos pos) {
-		if(canOtherPlayersRemoveBlock.get() || isOwnerOfBlock(player, pos)) {
+		boolean canOtherPlayersRemoveBlock = ArcanusConfig.wardingEffectProperties.getProperty("canBeRemovedByOthers");
+
+		if(canOtherPlayersRemoveBlock || isOwnerOfBlock(player, pos)) {
 			wardedBlocks.remove(pos);
 			chunk.syncComponent(ArcanusComponents.WARDED_BLOCKS_COMPONENT);
 			chunk.setNeedsSaving(true);

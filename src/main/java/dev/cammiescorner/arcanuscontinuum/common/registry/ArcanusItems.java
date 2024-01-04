@@ -1,7 +1,10 @@
 package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
-import dev.cammiescorner.arcanuscontinuum.common.items.*;
+import dev.cammiescorner.arcanuscontinuum.common.items.ScrollOfKnowledgeItem;
+import dev.cammiescorner.arcanuscontinuum.common.items.SpellBookItem;
+import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
+import dev.cammiescorner.arcanuscontinuum.common.items.WizardArmorItem;
 import dev.cammiescorner.arcanuscontinuum.common.util.StaffType;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
@@ -9,8 +12,6 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.*;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.text.component.TranslatableComponent;
 import net.minecraft.util.Formatting;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
@@ -36,12 +37,12 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> WIZARD_ROBES = ITEMS.register("wizard_robes", () -> new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.CHESTPLATE, 1.5, 0.15, 0.4));
 	public static final RegistrySupplier<Item> WIZARD_PANTS = ITEMS.register("wizard_pants", () -> new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.LEGGINGS, 1.5, 0.15, 0.3));
 	public static final RegistrySupplier<Item> WIZARD_BOOTS = ITEMS.register("wizard_boots", () -> new WizardArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.ArmorSlot.BOOTS, 1.5, 0.15, 0.1));
-	public static final RegistrySupplier<Item> BATTLE_MAGE_HELMET = ITEMS.register("battle_mage_helmet", () -> new WizardArmorItem(ArcanusArmourMaterials.BATTLE_MAGE, ArmorItem.ArmorSlot.HELMET, 0.5, 0.1, 0.1));
-	public static final RegistrySupplier<Item> BATTLE_MAGE_CHESTPLATE = ITEMS.register("battle_mage_chestplate", () -> new WizardArmorItem(ArcanusArmourMaterials.BATTLE_MAGE, ArmorItem.ArmorSlot.CHESTPLATE, 0.5, 0.1, 0.2));
-	public static final RegistrySupplier<Item> BATTLE_MAGE_LEGGINGS = ITEMS.register("battle_mage_leggings", () -> new WizardArmorItem(ArcanusArmourMaterials.BATTLE_MAGE, ArmorItem.ArmorSlot.LEGGINGS, 0.5, 0.1, 0.15));
-	public static final RegistrySupplier<Item> BATTLE_MAGE_BOOTS = ITEMS.register("battle_mage_boots", () -> new WizardArmorItem(ArcanusArmourMaterials.BATTLE_MAGE, ArmorItem.ArmorSlot.BOOTS, 0.5, 0.1, 0.05));
-
-	public static final RegistrySupplier<Item> BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE = ITEMS.register("battle_mage_upgrade_smithing_template", ArcanusItems::getBattleMageUpgrade);
+//	public static final RegistrySupplier<Item> BATTLE_MAGE_HELMET = ITEMS.register("battle_mage_helmet", () -> new WizardArmorItem(ArcanusArmourMaterials.BATTLE_MAGE, ArmorItem.ArmorSlot.HELMET, 0.5, 0.1, 0.1));
+//	public static final RegistrySupplier<Item> BATTLE_MAGE_CHESTPLATE = ITEMS.register("battle_mage_chestplate", () -> new WizardArmorItem(ArcanusArmourMaterials.BATTLE_MAGE, ArmorItem.ArmorSlot.CHESTPLATE, 0.5, 0.1, 0.2));
+//	public static final RegistrySupplier<Item> BATTLE_MAGE_LEGGINGS = ITEMS.register("battle_mage_leggings", () -> new WizardArmorItem(ArcanusArmourMaterials.BATTLE_MAGE, ArmorItem.ArmorSlot.LEGGINGS, 0.5, 0.1, 0.15));
+//	public static final RegistrySupplier<Item> BATTLE_MAGE_BOOTS = ITEMS.register("battle_mage_boots", () -> new WizardArmorItem(ArcanusArmourMaterials.BATTLE_MAGE, ArmorItem.ArmorSlot.BOOTS, 0.5, 0.1, 0.05));
+//
+//	public static final RegistrySupplier<Item> BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE = ITEMS.register("battle_mage_upgrade_smithing_template", ArcanusItems::getBattleMageUpgrade);
 	public static final RegistrySupplier<Item> SPELL_BOOK = ITEMS.register("spell_book", SpellBookItem::new);
 	public static final RegistrySupplier<Item> SCROLL_OF_KNOWLEDGE = ITEMS.register("scroll_of_knowledge", ScrollOfKnowledgeItem::new);
 	public static final RegistrySupplier<Item> WIZARD_SPAWN_EGG = ITEMS.register("wizard_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.WIZARD.get(), 0x52392a, 0xffd87c, new QuiltItemSettings()));
@@ -73,11 +74,11 @@ public class ArcanusItems {
 			entries.addItem(WIZARD_ROBES.get());
 			entries.addItem(WIZARD_PANTS.get());
 			entries.addItem(WIZARD_BOOTS.get());
-			entries.addItem(BATTLE_MAGE_HELMET.get());
-			entries.addItem(BATTLE_MAGE_CHESTPLATE.get());
-			entries.addItem(BATTLE_MAGE_LEGGINGS.get());
-			entries.addItem(BATTLE_MAGE_BOOTS.get());
-			entries.addItem(BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get());
+//			entries.addItem(BATTLE_MAGE_HELMET.get());
+//			entries.addItem(BATTLE_MAGE_CHESTPLATE.get());
+//			entries.addItem(BATTLE_MAGE_LEGGINGS.get());
+//			entries.addItem(BATTLE_MAGE_BOOTS.get());
+//			entries.addItem(BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get());
 
 			entries.addItem(WIZARD_SPAWN_EGG.get());
 			entries.addItem(OPOSSUM_SPAWN_EGG.get());

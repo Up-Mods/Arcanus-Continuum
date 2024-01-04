@@ -20,6 +20,7 @@
 		"common.PlayerEntityMixin",
 		"common.ScreenHandlerTypeMixin",
 		"common.ServerWorldMixin",
+		"common.ThrownEntityMixin",
 		"common.WorldMixin",
 		"compat.pehkui.LivingEntityMixin"
 	],

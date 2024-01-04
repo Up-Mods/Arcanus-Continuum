@@ -5,6 +5,7 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicProjectileEntity;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
@@ -32,6 +33,8 @@ public class ProjectileSpellShape extends SpellShape {
 
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+		float projectileSpeed = ArcanusConfig.projectileShapeProperties.getProperty("projectileSpeed");
+		float lobSpeed = ArcanusConfig.lobShapeProperties.getProperty("projectileSpeed");
 		potency += getPotencyModifier();
 
 		if(caster != null) {
@@ -42,7 +45,7 @@ public class ProjectileSpellShape extends SpellShape {
 			for(int i = 0; i < list.size() - 20; i++)
 				list.get(i).kill();
 
-			if(ArcanusSpellComponents.PROJECTILE.is(this) && target instanceof EntityHitResult hitResult) {
+			if(((ArcanusSpellComponents.PROJECTILE.is(this) && projectileSpeed > 3f) || (ArcanusSpellComponents.LOB.is(this) && lobSpeed > 3f)) && target instanceof EntityHitResult hitResult) {
 				for(SpellEffect effect : new HashSet<>(effects))
 					effect.effect(caster, sourceEntity, world, target, effects, stack, potency);
 
@@ -53,7 +56,7 @@ public class ProjectileSpellShape extends SpellShape {
 				MagicProjectileEntity projectile = ArcanusEntities.MAGIC_PROJECTILE.get().create(world);
 
 				if(projectile != null) {
-					projectile.setProperties(caster, castSource, this, stack, effects, spellGroups, groupIndex, potency, ArcanusSpellComponents.LOB.is(this) ? 2F : 4F, !ArcanusSpellComponents.LOB.is(this), Arcanus.DEFAULT_MAGIC_COLOUR);
+					projectile.setProperties(caster, castSource, this, stack, effects, spellGroups, groupIndex, potency, ArcanusSpellComponents.LOB.is(this) ? lobSpeed : projectileSpeed, !ArcanusSpellComponents.LOB.is(this), Arcanus.DEFAULT_MAGIC_COLOUR);
 
 					if(caster instanceof PlayerEntity player)
 						projectile.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));

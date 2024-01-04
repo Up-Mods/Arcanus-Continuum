@@ -86,9 +86,15 @@ public class BurnoutComponent implements AutoSyncedComponent, ServerTickingCompo
 	}
 
 	public boolean drainBurnout(double amount, boolean simulate) {
+		double maxMana = ArcanusComponents.getMaxMana(entity) - ArcanusComponents.getManaLock(entity);
+
 		if(getBurnout() > 0) {
-			if(!simulate)
-				setBurnout(Math.max(0, getBurnout() - amount));
+			if(!simulate) {
+				if(burnout > maxMana)
+					setBurnout(Math.max(0, maxMana - amount));
+				else
+					setBurnout(Math.max(0, getBurnout() - amount));
+			}
 
 			return true;
 		}

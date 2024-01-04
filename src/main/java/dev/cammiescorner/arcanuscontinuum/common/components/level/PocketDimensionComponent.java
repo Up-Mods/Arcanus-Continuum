@@ -29,10 +29,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldProperties;
 import org.quiltmc.qsl.worldgen.dimension.api.QuiltDimensions;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public class PocketDimensionComponent implements Component {
 	public static final RegistryKey<World> POCKET_DIM = RegistryKey.of(RegistryKeys.WORLD, Arcanus.id("pocket_dimension"));
@@ -111,25 +108,25 @@ public class PocketDimensionComponent implements Component {
 
 			ServerWorld pocketDim = entity.getServer().getWorld(POCKET_DIM);
 
-			if(pocketDim != null) {
-				if(entity instanceof PlayerEntity player)
-					exitSpot.put(player.getUuid(), new Pair<>(player.getWorld().getRegistryKey(), player.getPos()));
-
+			if(pocketDim != null)
 				QuiltDimensions.teleport(entity, pocketDim, new TeleportTarget(existingPlots.get(ownerOfPocket.getUuid()).getCenter().subtract(0, 11, 0), Vec3d.ZERO, entity.getYaw(), entity.getPitch()));
-			}
 		}
 	}
 
 	public void teleportOutOfPocketDimension(ServerPlayerEntity player) {
 		if(!player.getWorld().isClient() && player.getWorld().getRegistryKey() == POCKET_DIM) {
-			Pair<RegistryKey<World>, Vec3d> pair = exitSpot.get(player.getUuid());
+			Optional<Map.Entry<UUID, Box>> entry = existingPlots.entrySet().stream().filter(entry1 -> entry1.getValue().intersects(player.getBoundingBox())).findFirst();
 
-			if(pair == null)
-				pair = new Pair<>(World.OVERWORLD, Vec3d.ofBottomCenter(player.getServer().getOverworld().getSpawnPos()));
+			if(entry.isPresent()) {
+				UUID ownerId = entry.get().getKey();
+				Pair<RegistryKey<World>, Vec3d> pair = exitSpot.get(ownerId);
 
-			exitSpot.remove(player.getUuid());
-			ArcanusComponents.setPortalCoolDown(player, 200);
-			QuiltDimensions.teleport(player, player.getServer().getWorld(pair.getLeft()), new TeleportTarget(pair.getRight(), Vec3d.ZERO, player.getYaw(), player.getPitch()));
+				if(pair == null)
+					pair = new Pair<>(World.OVERWORLD, Vec3d.ofBottomCenter(player.getServer().getOverworld().getSpawnPos()));
+
+				ArcanusComponents.setPortalCoolDown(player, 200);
+				QuiltDimensions.teleport(player, player.getServer().getWorld(pair.getLeft()), new TeleportTarget(pair.getRight(), Vec3d.ZERO, player.getYaw(), player.getPitch()));
+			}
 		}
 	}
 
@@ -196,5 +193,9 @@ public class PocketDimensionComponent implements Component {
 				}
 			}
 		}
+	}
+
+	public void setExit(PlayerEntity ownerOfPocket, World world, Vec3d pos) {
+		exitSpot.put(ownerOfPocket.getUuid(), new Pair<>(world.getRegistryKey(), pos));
 	}
 }

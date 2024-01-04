@@ -53,6 +53,9 @@ repositories {
 		url = "https://maven.uuid.gg/releases"
 	}
 	maven {
+		url = "https://nexus.resourcefulbees.com/repository/maven-public/"
+	}
+	maven {
 		name = "Modrinth"
 		url = "https://api.modrinth.com/maven"
 		content {
@@ -107,6 +110,7 @@ dependencies {
 
 	modImplementation libs.midnightlib
 	modImplementation libs.smartbrainlib
+	modImplementation libs.resourceful.config
 
 	modImplementation libs.reach.attr
 	include libs.reach.attr

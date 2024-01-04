@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Set;
 
 public class ArcanusMixinConfig implements IMixinConfigPlugin {
-
 	private static final String COMPAT_MIXIN_PACKAGE = "dev.cammiescorner.arcanuscontinuum.mixin.compat";
 	private static final Logger LOGGER = LogManager.getLogger(ArcanusMixinConfig.class);
 

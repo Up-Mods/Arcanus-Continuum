@@ -70,6 +70,11 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 				dataTracker.set(TARGET_ID, getTarget().getId());
 		}
 
+		setYaw(getTarget().getYaw());
+		setBodyYaw(getTarget().bodyYaw);
+		setHeadYaw(getTarget().headYaw);
+		setPitch(getTarget().getPitch());
+
 		double cosYaw = Math.cos(Math.toRadians(-getTarget().bodyYaw));
 		double sinYaw = Math.sin(Math.toRadians(-getTarget().bodyYaw));
 		Vec3d rotation = new Vec3d(sinYaw, 0, cosYaw).multiply(getTarget().getWidth() / 2 + 0.2).rotateY((float) Math.toRadians(105));
@@ -79,7 +84,6 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 
 		if(age % 8 == 0) {
 			Vec3d vel = (direction.lengthSquared() <= 1 ? direction : direction.normalize()).multiply(0.125f);
-
 			getWorld().addParticle(ParticleTypes.END_ROD, getX(), getY() + getHeight() / 2, getZ(), vel.getX(), vel.getY(), vel.getZ());
 		}
 
@@ -105,7 +109,7 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 	}
 
 	@Override
-	public void kill() {
+	public void remove(RemovalReason reason) {
 		if(!getWorld().isClient() && getCaster() != null && getTarget() != null) {
 			EntityAttributeInstance inst = getCaster().getAttributeInstance(ArcanusEntityAttributes.MANA_LOCK.get());
 
@@ -115,7 +119,7 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 			SpellShape.castNext(getCaster(), getTarget().getPos(), getTarget(), (ServerWorld) getWorld(), stack, groups, groupIndex, potency);
 		}
 
-		super.kill();
+		super.remove(reason);
 	}
 
 	@Override

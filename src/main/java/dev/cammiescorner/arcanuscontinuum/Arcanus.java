@@ -1,11 +1,11 @@
 package dev.cammiescorner.arcanuscontinuum;
 
+import com.teamresourceful.resourcefulconfig.common.config.Configurator;
 import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.MagicDoorBlock;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.MagicDoorBlockEntity;
-import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.*;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStatusEffectPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncSupporterData;
@@ -13,7 +13,6 @@ import dev.cammiescorner.arcanuscontinuum.common.registry.*;
 import dev.cammiescorner.arcanuscontinuum.common.structures.WizardTowerProcessor;
 import dev.cammiescorner.arcanuscontinuum.common.util.SupporterData;
 import dev.upcraft.sparkweave.api.registry.RegistryService;
-import eu.midnightdust.lib.config.MidnightConfig;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.entity.event.v1.EntityElytraEvents;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
@@ -75,6 +74,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Arcanus implements ModInitializer {
+	public static final Configurator configurator = new Configurator();
 	public static final String URL = "https://cammiescorner.dev/data/supporters.json";
 	public static final String MOD_ID = "arcanuscontinuum";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -113,7 +113,8 @@ public class Arcanus implements ModInitializer {
 
 	@Override
 	public void onInitialize(ModContainer mod) {
-		MidnightConfig.init(MOD_ID, ArcanusConfig.class);
+//		MidnightConfig.init(MOD_ID, ArcanusConfig.class);
+		configurator.registerConfig(ArcanusConfig.class);
 
 		RegistryService registryService = RegistryService.get();
 		ArcanusEntityAttributes.registerAll(registryService);
