@@ -1,5 +1,8 @@
 package dev.cammiescorner.arcanuscontinuum.common.components.entity;
 
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.TameableEntity;
@@ -44,7 +47,8 @@ public class SizeComponent  implements ServerTickingComponent {
 		tag.putInt("Timer", timer);
 	}
 
-	public void setScale(float scale, double strength) {
+	public void setScale(SpellEffect effect, double strength) {
+		float scale = ArcanusSpellComponents.SHRINK.is(effect) ? ArcanusConfig.UtilityEffects.ShrinkEffectProperties.baseShrinkAmount : ArcanusConfig.UtilityEffects.EnlargeEffectProperties.baseEnlargeAmount;
 		ScaleData heightData = ScaleTypes.HEIGHT.getScaleData(entity);
 		ScaleData widthData = ScaleTypes.WIDTH.getScaleData(entity);
 		ScaleData reachData = ScaleTypes.REACH.getScaleData(entity);
@@ -60,7 +64,7 @@ public class SizeComponent  implements ServerTickingComponent {
 		reachData.setTargetScale((float) MathHelper.clamp(reachData.getBaseScale() * scale, 0.125, 6));
 		speedData.setTargetScale((float) MathHelper.clamp(speedData.getBaseScale() * scale, 0.125, 6));
 
-		timer = (int) Math.round(100 * strength);
+		timer = (int) Math.round((ArcanusSpellComponents.SHRINK.is(effect) ? ArcanusConfig.UtilityEffects.ShrinkEffectProperties.baseEffectDuration : ArcanusConfig.UtilityEffects.EnlargeEffectProperties.baseEffectDuration) * strength);
 	}
 
 	public void resetScale() {

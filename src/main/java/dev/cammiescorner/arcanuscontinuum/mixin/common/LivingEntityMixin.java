@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
@@ -77,12 +78,12 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 	@Inject(method = "damage", at = @At("HEAD"), cancellable = true)
 	private void arcanuscontinuum$onDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
 		if(amount > 0 && !blockedByShield(source)) {
-			if(hasStatusEffect(ArcanusStatusEffects.MANA_WINGS.get()))
+			if(hasStatusEffect(ArcanusStatusEffects.MANA_WINGS.get()) && ArcanusConfig.MovementEffects.ManaWingsEffectProperties.removedUponTakingDamage)
 				removeStatusEffect(ArcanusStatusEffects.MANA_WINGS.get());
-			if(hasStatusEffect(ArcanusStatusEffects.ANTI_GRAVITY.get()))
+			if(hasStatusEffect(ArcanusStatusEffects.ANTI_GRAVITY.get()) && ArcanusConfig.MovementEffects.AntiGravityEffectProperties.removedUponTakingDamage)
 				removeStatusEffect(ArcanusStatusEffects.ANTI_GRAVITY.get());
 
-			if(hasStatusEffect(ArcanusStatusEffects.STOCKPILE.get()) && amount >= 10f) {
+			if(hasStatusEffect(ArcanusStatusEffects.STOCKPILE.get()) && amount >= ArcanusConfig.AttackEffects.StockpileEffectProperties.damageNeededToIncrease) {
 				StatusEffectInstance stockpile = getStatusEffect(ArcanusStatusEffects.STOCKPILE.get());
 
 				if(stockpile.getAmplifier() < 9) {
@@ -95,7 +96,7 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 			if(hasStatusEffect(ArcanusStatusEffects.DANGER_SENSE.get()) && (source.isTypeIn(DamageTypeTags.IS_PROJECTILE) || source.isTypeIn(DamageTypeTags.IS_EXPLOSION))) {
 				StatusEffectInstance dangerSense = getStatusEffect(ArcanusStatusEffects.DANGER_SENSE.get());
 
-				if(random.nextFloat() < 0.035 * (dangerSense.getAmplifier() + 1)) {
+				if(random.nextFloat() < ArcanusConfig.SupportEffects.DangerSenseEffectProperties.baseChanceToActivate * (dangerSense.getAmplifier() + 1)) {
 					if(getWorld() instanceof ServerWorld world) {
 						double d = getX();
 						double e = getY();

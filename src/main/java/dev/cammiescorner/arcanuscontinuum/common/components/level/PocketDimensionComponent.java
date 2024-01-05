@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.components.level;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.SpatialRiftExitBlock;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.SpatialRiftExitEdgeBlock;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.MagicBlockEntity;
@@ -131,8 +132,11 @@ public class PocketDimensionComponent implements Component {
 	}
 
 	public void generateNewPlot(PlayerEntity player) {
+		int pocketWidth = Math.round(ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.pocketWidth / 2f) + 1;
+		int pocketHeight = Math.round(ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.pocketHeight / 2f) + 1;
+
 		var boxContainer = new Object() {
-			Box box = new Box(-13, -13, -13, 13, 13, 13);
+			Box box = new Box(-pocketWidth, -pocketHeight, -pocketWidth, pocketWidth, pocketHeight, pocketWidth);
 		};
 
 		while(existingPlots.entrySet().stream().anyMatch(entry -> entry.getValue().intersects(boxContainer.box.expand(38))))

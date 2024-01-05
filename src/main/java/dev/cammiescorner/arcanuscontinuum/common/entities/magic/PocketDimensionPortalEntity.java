@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.magic;
 
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.entity.Entity;
@@ -31,33 +32,35 @@ public class PocketDimensionPortalEntity extends Entity implements Targetable {
 
 	@Override
 	public void tick() {
-		if(!getWorld().isClient() && (getCaster() == null || !getCaster().isAlive()) || getTrueAge() > 720) {
+		if(!getWorld().isClient() && (getCaster() == null || !getCaster().isAlive()) || getTrueAge() > ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.baseLifeSpan + 20) {
 			kill();
 			return;
 		}
 
-		if(getTrueAge() <= 700) {
+		if(getTrueAge() <= ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.baseLifeSpan) {
 			Box box = new Box(0, 0, 0, 0, 0, 0).expand(4 + pullStrength).offset(getPos());
 			double boxRadius = box.getXLength() / 2;
 			double boxRadiusSq = boxRadius * boxRadius;
 
-			if(getTrueAge() > 100) {
+			if(getTrueAge() > ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.portalGrowTime) {
 				getWorld().getEntitiesByClass(Entity.class, getBoundingBox(), entity -> entity.canUsePortals() && !entity.isSpectator() && (!(entity instanceof PlayerEntity player) || !ArcanusComponents.hasPortalCoolDown(player))).forEach(entity -> {
 					if(!(entity instanceof PocketDimensionPortalEntity))
 						ArcanusComponents.teleportToPocketDimension(getWorld().getProperties(), getCaster(), entity);
 				});
 
-				getWorld().getEntitiesByClass(Entity.class, box, entity -> entity.isAlive() && !entity.isSpectator() && !(entity instanceof PlayerEntity player && (player.isCreative() || ArcanusComponents.hasPortalCoolDown(player)))).forEach(entity -> {
-					double distanceSq = getPos().squaredDistanceTo(entity.getPos());
+				if(ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.canSuckEntitiesIn) {
+					getWorld().getEntitiesByClass(Entity.class, box, entity -> entity.isAlive() && !entity.isSpectator() && !(entity instanceof PlayerEntity player && (player.isCreative() || ArcanusComponents.hasPortalCoolDown(player)))).forEach(entity -> {
+						double distanceSq = getPos().squaredDistanceTo(entity.getPos());
 
-					if(!(entity instanceof PocketDimensionPortalEntity) && distanceSq <= boxRadiusSq && distanceSq != 0) {
-						Vec3d direction = getPos().subtract(entity.getPos()).normalize();
-						double inverseSq = 1 / distanceSq;
+						if(!(entity instanceof PocketDimensionPortalEntity) && distanceSq <= boxRadiusSq && distanceSq != 0) {
+							Vec3d direction = getPos().subtract(entity.getPos()).normalize();
+							double inverseSq = 1 / distanceSq;
 
-						entity.addVelocity(direction.multiply(inverseSq));
-						entity.velocityModified = true;
-					}
-				});
+							entity.addVelocity(direction.multiply(inverseSq));
+							entity.velocityModified = true;
+						}
+					});
+				}
 			}
 
 			for(int i = 0; i < boxRadius * 2; ++i) {

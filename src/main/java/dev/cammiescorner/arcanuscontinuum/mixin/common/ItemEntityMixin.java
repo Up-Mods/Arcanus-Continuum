@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanuscontinuum.mixin.common;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusStatusEffects;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusTags;
 import net.minecraft.entity.Entity;
@@ -28,7 +29,7 @@ public abstract class ItemEntityMixin extends Entity implements Ownable {
 			int originalStackCount = stack.getCount();
 
 			for(int i = 0; i < originalStackCount; i++)
-				if(random.nextFloat() < 0.0625f)
+				if(random.nextFloat() < ArcanusConfig.AttackEffects.CopperCurseEffectProperties.baseChanceToActivate)
 					stack.decrement(1);
 
 			if(originalStackCount - stack.getCount() > 0)

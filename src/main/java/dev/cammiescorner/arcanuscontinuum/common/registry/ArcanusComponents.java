@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanuscontinuum.common.compat.PehkuiCompat;
@@ -289,8 +290,8 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 		SPELL_SHAPE.get(entity).setSpellShape(shape);
 	}
 
-	public static void setScale(Entity entity, float scale, double strength) {
-		SIZE.get(entity).setScale(scale, strength);
+	public static void setScale(Entity entity, SpellEffect effect, double strength) {
+		SIZE.get(entity).setScale(effect, strength);
 	}
 
 	public static void resetScale(Entity entity) {

@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanuscontinuum.mixin.client;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
+import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
 import dev.cammiescorner.arcanuscontinuum.client.utils.ClientUtils;
 import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.AggressorbEntity;
@@ -47,6 +48,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 	@Shadow @Nullable public ClientWorld world;
 
 	@Shadow public abstract float getTickDelta();
+	@Shadow public abstract boolean isInSingleplayer();
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void arcanuscontinuum$tick(CallbackInfo info) {
@@ -122,7 +124,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 
 		if(player != null && !player.isSpectator() && world != null) {
 			if(player.getMainHandStack().getItem() instanceof StaffItem staff) {
-				if(player.getAttackCooldownProgress(getTickDelta()) >= ((ArcanusConfig.castingSpeedHasCoolDown || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15F) && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
+				if(player.getAttackCooldownProgress(getTickDelta()) >= (((isInSingleplayer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15F) && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
 					timer = 20;
 					pattern.add(Pattern.LEFT);
 					SyncPatternPacket.send(pattern);
@@ -147,19 +149,6 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 		}
 	}
 
-	@Unique
-	private void shootOrbs(List<UUID> orbIds) {
-		for(Entity entity : world.getEntities()) {
-			if(entity instanceof AggressorbEntity orb && orbIds.get(0).equals(entity.getUuid()) && orb.isBoundToTarget()) {
-				orb.setBoundToTarget(false);
-				orb.setPosition(orb.getTarget().getEyePos());
-				orb.setProperties(orb.getTarget(), orb.getTarget().getPitch(), orb.getTarget().getYaw(), 0F, 3f, 1F);
-
-				break;
-			}
-		}
-	}
-
 	@Inject(method = "handleInputEvents", at = @At(value = "INVOKE",
 			target = "Lnet/minecraft/client/MinecraftClient;doItemUse()V",
 			ordinal = 0
@@ -169,7 +158,7 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 			info.cancel();
 
 		if(player != null && !player.isSpectator() && world != null && player.getMainHandStack().getItem() instanceof StaffItem staff) {
-			if(player.getAttackCooldownProgress(getTickDelta()) >= ((ArcanusConfig.castingSpeedHasCoolDown || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15F) && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
+			if(player.getAttackCooldownProgress(getTickDelta()) >= (((isInSingleplayer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15F) && player.getItemCooldownManager().getCooldownProgress(staff, getTickDelta()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
 				timer = 20;
 				pattern.add(Pattern.RIGHT);
 				SyncPatternPacket.send(pattern);
@@ -197,5 +186,18 @@ public abstract class MinecraftClientMixin implements ClientUtils {
 	@Override
 	public boolean isCasting() {
 		return isCasting && timer > 0;
+	}
+
+	@Unique
+	private void shootOrbs(List<UUID> orbIds) {
+		for(Entity entity : world.getEntities()) {
+			if(entity instanceof AggressorbEntity orb && orbIds.get(0).equals(entity.getUuid()) && orb.isBoundToTarget()) {
+				orb.setBoundToTarget(false);
+				orb.setPosition(orb.getTarget().getEyePos());
+				orb.setProperties(orb.getTarget(), orb.getTarget().getPitch(), orb.getTarget().getYaw(), 0F, ArcanusConfig.SpellShapes.AggressorbShapeProperties.projectileSpeed, 1F);
+
+				break;
+			}
+		}
 	}
 }

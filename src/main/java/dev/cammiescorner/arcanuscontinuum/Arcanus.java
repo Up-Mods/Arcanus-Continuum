@@ -7,6 +7,7 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.MagicDoorBlock;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.MagicDoorBlockEntity;
 import dev.cammiescorner.arcanuscontinuum.common.packets.c2s.*;
+import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncConfigValuesPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStatusEffectPacket;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncSupporterData;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
@@ -144,6 +145,9 @@ public class Arcanus implements ModInitializer {
 		EntityElytraEvents.CUSTOM.register((entity, tickElytra) -> entity.hasStatusEffect(ArcanusStatusEffects.MANA_WINGS.get()));
 
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+			if(!server.isSingleplayer())
+				SyncConfigValuesPacket.send(handler.player);
+
 			Arcanus.refreshSupporterData(server, false);
 			SyncSupporterData.send(handler.player);
 			SyncStatusEffectPacket.sendToAll(handler.player, ArcanusStatusEffects.ANONYMITY.get(), handler.player.hasStatusEffect(ArcanusStatusEffects.ANONYMITY.get()));

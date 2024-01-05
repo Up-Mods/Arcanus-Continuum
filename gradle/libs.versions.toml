@@ -9,7 +9,6 @@ cca = "5.2.2"
 trinkets = "3.7.1"
 sparkweave = "0.4.1"
 patchouli = "1.20.1-84-FABRIC"
-midnightlib = "1.4.1-quilt"
 mixinextras = "0.2.2"
 reach_attr = "2.4.0"
 modmenu = "7.2.2"
@@ -38,7 +37,6 @@ cca_chunk = { module = "dev.onyxstudios.cardinal-components-api:cardinal-compone
 trinkets = { module = "dev.emi:trinkets", version.ref = "trinkets" }
 sparkweave = { module = "dev.upcraft:Sparkweave", version.ref = "sparkweave" }
 patchouli = { module = "vazkii.patchouli:Patchouli", version.ref = "patchouli" }
-midnightlib = { module = "maven.modrinth:midnightlib", version.ref = "midnightlib" }
 mixinextras = { module = "io.github.llamalad7:mixinextras-fabric", version.ref = "mixinextras" }
 reach_attr = { module = "com.jamieswhiteshirt:reach-entity-attributes", version.ref = "reach_attr" }
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }

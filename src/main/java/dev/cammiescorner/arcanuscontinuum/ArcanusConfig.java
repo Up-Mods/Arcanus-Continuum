@@ -6,1245 +6,1298 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
 
 @Config(Arcanus.MOD_ID)
 public final class ArcanusConfig {
-	@ConfigEntry(id = "castingSpeedHasCoolDown", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".castingSpeedHasCoolDown") public static boolean castingSpeedHasCoolDown = false;
-
-	@Category(id = "selfShapeProperties", translation = "config." + Arcanus.MOD_ID + ".selfShapeProperties") public static final class SelfShapeProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.VERY_LIGHT;
+	@ConfigEntry(id = "castingSpeedHasCoolDown", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".castingSpeedHasCoolDown")
+	public static boolean castingSpeedHasCoolDown = false;
 
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double manaCost = 0;
+	@Category(id = "spellShapeProperties", translation = "config." + Arcanus.MOD_ID + ".spellShapesCategory")
+	public static final class SpellShapes {
+		@Category(id = "selfShapeProperties", translation = "config." + Arcanus.MOD_ID + ".selfShapeProperties") public static final class SelfShapeProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
 
-		@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
-		public static double manaMultiplier = 0.85;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 10;
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.VERY_LIGHT;
 
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 0, max = 10)
-		public static int minimumLevel = 1;
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double manaCost = 0;
 
-		@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
-		public static double potencyModifier = 0;
-	}
-	@Category(id = "touchShapeProperties", translation = "config." + Arcanus.MOD_ID + ".touchShapeProperties") public static final class TouchShapeProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
+			public static double manaMultiplier = 0.85;
 
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.VERY_LIGHT;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double manaCost = 0;
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 10;
 
-		@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
-		public static double manaMultiplier = 1;
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 0, max = 10)
+			public static int minimumLevel = 1;
 
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 15;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 0, max = 10)
-		public static int minimumLevel = 1;
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
+			public static double potencyModifier = 0;
+		}
 
-		@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
-		public static double potencyModifier = 0.2;
-	}
-	@Category(id = "projectileShapeProperties", translation = "config." + Arcanus.MOD_ID + ".projectileShapeProperties") public static final class ProjectileShapeProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
+		@Category(id = "touchShapeProperties", translation = "config." + Arcanus.MOD_ID + ".touchShapeProperties") public static final class TouchShapeProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
 
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.LIGHT;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double manaCost = 0;
-
-		@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
-		public static double manaMultiplier = 1;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 10;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 0, max = 10)
-		public static int minimumLevel = 3;
-
-		@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
-		public static double potencyModifier = -0.25;
-
-		@ConfigEntry(id = "projectileSpeed", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".projectileSpeed")
-		public static float projectileSpeed = 4f;
-
-		@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseLifeSpan")
-		@IntRange(min = 1, max = Integer.MAX_VALUE)
-		public static int baseLifeSpan = 20;
-	}
-	@Category(id = "lobShapeProperties", translation = "config." + Arcanus.MOD_ID + ".lobShapeProperties") public static final class LobShapeProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.LIGHT;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double manaCost = 0;
-
-		@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
-		public static double manaMultiplier = 1;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 20;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 0, max = 10)
-		public static int minimumLevel = 3;
-
-		@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
-		public static double potencyModifier = 0;
-
-		@ConfigEntry(id = "projectileSpeed", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".projectileSpeed")
-		public static float projectileSpeed = 2f;
-	}
-	@Category(id = "boltShapeProperties", translation = "config." + Arcanus.MOD_ID + ".boltShapeProperties") public static final class BoltShapeProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.MEDIUM;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double manaCost = 0;
-
-		@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
-		public static double manaMultiplier = 1;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 15;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 0, max = 10)
-		public static int minimumLevel = 5;
-
-		@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
-		public static double potencyModifier = 0;
-
-		@ConfigEntry(id = "range", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".range")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double range = 6;
-	}
-	@Category(id = "beamShapeProperties", translation = "config." + Arcanus.MOD_ID + ".beamShapeProperties") public static final class BeamShapeProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.MEDIUM;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double manaCost = 0;
-
-		@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
-		public static double manaMultiplier = 1.25;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 30;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 0, max = 10)
-		public static int minimumLevel = 5;
-
-		@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
-		public static double potencyModifier = 0.25;
-
-		@ConfigEntry(id = "range", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".range")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double range = 16;
-
-		@ConfigEntry(id = "delay", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".delay")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int delay = 40;
-	}
-	@Category(id = "runeShapeProperties", translation = "config." + Arcanus.MOD_ID + ".runeShapeProperties") public static final class RuneShapeProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.HEAVY;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double manaCost = 0;
-
-		@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
-		public static double manaMultiplier = 1;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 50;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 0, max = 10)
-		public static int minimumLevel = 7;
-
-		@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
-		public static double potencyModifier = 0;
-
-		@ConfigEntry(id = "delay", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".delay")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int delay = 60;
-	}
-	@Category(id = "explosionShapeProperties", translation = "config." + Arcanus.MOD_ID + ".explosionShapeProperties") public static final class ExplosionShapeProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.VERY_HEAVY;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double manaCost = 0;
-
-		@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
-		public static double manaMultiplier = 1.25;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 60;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 0, max = 10)
-		public static int minimumLevel = 7;
-
-		@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
-		public static double potencyModifier = 0;
-
-		@ConfigEntry(id = "strength", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".strength")
-		@FloatRange(min = 0, max = Float.MAX_VALUE)
-		public static float strength = 2.5f;
-	}
-	@Category(id = "aoeShapeProperties", translation = "config." + Arcanus.MOD_ID + ".aoeShapeProperties") public static final class AOEShapeProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.VERY_HEAVY;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double manaCost = 0;
-
-		@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
-		public static double manaMultiplier = 4;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 60;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 0, max = 10)
-		public static int minimumLevel = 9;
-
-		@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
-		public static double potencyModifier = 0;
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.VERY_LIGHT;
 
-		@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseLifeSpan")
-		@IntRange(min = 1, max = Integer.MAX_VALUE)
-		public static int baseLifeSpan = 100;
-	}
-	@Category(id = "smiteShapeProperties", translation = "config." + Arcanus.MOD_ID + ".smiteShapeProperties") public static final class SmiteShapeProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double manaCost = 0;
 
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.VERY_HEAVY;
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
+			public static double manaMultiplier = 1;
 
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double manaCost = 0;
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 15;
 
-		@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
-		public static double manaMultiplier = 1.75;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 60;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 0, max = 10)
-		public static int minimumLevel = 9;
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 0, max = 10)
+			public static int minimumLevel = 1;
 
-		@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
-		public static double potencyModifier = 0.5;
-	}
-	@Category(id = "guardianOrbShapeProperties", translation = "config." + Arcanus.MOD_ID + ".guardianOrbShapeProperties") public static final class GuardianOrbShapeProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.VERY_HEAVY;
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
+			public static double potencyModifier = 0.2;
+		}
 
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double manaCost = 0;
-
-		@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
-		public static double manaMultiplier = 1.5;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 100;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 0, max = 10)
-		public static int minimumLevel = 10;
-
-		@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
-		public static double potencyModifier = 0;
-
-		@ConfigEntry(id = "maximumManaLock", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".maximumManaLock")
-		@DoubleRange(min = 0, max = 1)
-		public static double maximumManaLock = 0.9;
-	}
-	@Category(id = "aggressorbShapeProperties", translation = "config." + Arcanus.MOD_ID + ".aggressorbShapeProperties") public static final class AggressorbShapeProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.VERY_HEAVY;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double manaCost = 0;
-
-		@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
-		public static double manaMultiplier = 0.8;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 200;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 0, max = 10)
-		public static int minimumLevel = 10;
-
-		@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
-		public static double potencyModifier = 0;
-
-		@ConfigEntry(id = "maximumAggressorbs", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".maximumAggressorbs")
-		@IntRange(min = 0, max = 16)
-		public static int maximumAggressorbs = 6;
-
-		@ConfigEntry(id = "projectileSpeed", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".projectileSpeed")
-		public static float projectileSpeed = 3f;
-	}
-
-
-
-	@Category(id = "damageEffectProperties", translation = "config." + Arcanus.MOD_ID + ".damageEffectProperties") public static final class DamageEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 4;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 1;
-
-		@ConfigEntry(id = "baseDamage", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".baseDamage")
-		@FloatRange(min = 0, max = Float.MAX_VALUE)
-		public static float baseDamage = 1.5f;
-	}
-	@Category(id = "fireEffectProperties", translation = "config." + Arcanus.MOD_ID + ".fireEffectProperties") public static final class FireEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 2;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 2;
-
-		@ConfigEntry(id = "baseTimeOnFire", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseTimeOnFire")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseTimeOnFire = 3;
-	}
-	@Category(id = "electricEffectProperties", translation = "config." + Arcanus.MOD_ID + ".electricEffectProperties") public static final class ElectricEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 2;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 2;
-
-		@ConfigEntry(id = "baseStunTime", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".baseStunTime")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static float baseStunTime = 2;
-
-		@ConfigEntry(id = "wetEntityDamageMultiplier", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".wetEntityDamageMultiplier")
-		@FloatRange(min = 1, max = Float.MAX_VALUE)
-		public static float wetEntityDamageMultiplier = 2f;
-	}
-	@Category(id = "iceEffectProperties", translation = "config." + Arcanus.MOD_ID + ".iceEffectProperties") public static final class IceEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 2;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 2;
-
-		@ConfigEntry(id = "baseFreezingTime", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseFreezingTime")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseFreezingTime = 20;
-	}
-	@Category(id = "vulnerabilityEffectProperties", translation = "config." + Arcanus.MOD_ID + ".vulnerabilityEffectProperties") public static final class VulnerabilityEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 5;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 5;
-
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 300;
-	}
-	@Category(id = "manaLockEffectProperties", translation = "config." + Arcanus.MOD_ID + ".manaLockEffectProperties") public static final class ManaLockEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 8;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 9;
-
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 200;
-	}
-	@Category(id = "witheringEffectProperties", translation = "config." + Arcanus.MOD_ID + ".witheringEffectProperties") public static final class WitheringEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 6.5;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 7;
-
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 60;
-	}
-	@Category(id = "necromancyEffectProperties", translation = "config." + Arcanus.MOD_ID + ".necromancyEffectProperties") public static final class NecromancyEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 8;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 9;
-
-		@ConfigEntry(id = "baseHealth", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseHealth")
-		@IntRange(min = 1, max = Integer.MAX_VALUE)
-		public static int baseHealth = 10;
-	}
-	@Category(id = "manaSplitEffectProperties", translation = "config." + Arcanus.MOD_ID + ".manaSplitEffectProperties") public static final class ManaSplitEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 6.5;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 6;
-	}
-	@Category(id = "copperCurseEffectProperties", translation = "config." + Arcanus.MOD_ID + ".copperCurseEffectProperties") public static final class CopperCurseEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 8;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 8;
-
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 24000;
-
-		@ConfigEntry(id = "effectDurationModifier", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".effectDurationModifier")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int effectDurationModifier = 12000;
-
-		@ConfigEntry(id = "baseChanceToActivate", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseChanceToActivate")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double baseChanceToActivate = 0.0625;
-	}
-	@Category(id = "discombobulateEffectProperties", translation = "config." + Arcanus.MOD_ID + ".discombobulateEffectProperties") public static final class DiscombobulateEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 6;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 5;
-
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 60;
-
-		@ConfigEntry(id = "effectDurationModifier", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".effectDurationModifier")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int effectDurationModifier = 15;
-	}
-	@Category(id = "stockpileEffectProperties", translation = "config." + Arcanus.MOD_ID + ".stockpileEffectProperties") public static final class StockpileEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 4.5;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 6;
-
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 100;
-
-		@ConfigEntry(id = "effectDurationModifier", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".effectDurationModifier")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int effectDurationModifier = 30;
-
-		@ConfigEntry(id = "damageNeededToIncrease", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".damageNeededToIncrease")
-		@FloatRange(min = 0, max = Float.MAX_VALUE)
-		public static float damageNeededToIncrease = 10f;
+		@Category(id = "projectileShapeProperties", translation = "config." + Arcanus.MOD_ID + ".projectileShapeProperties") public static final class ProjectileShapeProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.LIGHT;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double manaCost = 0;
+
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
+			public static double manaMultiplier = 1;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 10;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 0, max = 10)
+			public static int minimumLevel = 3;
+
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
+			public static double potencyModifier = -0.25;
+
+			@ConfigEntry(id = "projectileSpeed", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".projectileSpeed")
+			public static float projectileSpeed = 4f;
+
+			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseLifeSpan")
+			@IntRange(min = 1, max = Integer.MAX_VALUE)
+			public static int baseLifeSpan = 20;
+		}
+
+		@Category(id = "lobShapeProperties", translation = "config." + Arcanus.MOD_ID + ".lobShapeProperties") public static final class LobShapeProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.LIGHT;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double manaCost = 0;
+
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
+			public static double manaMultiplier = 1;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 20;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 0, max = 10)
+			public static int minimumLevel = 3;
+
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
+			public static double potencyModifier = 0;
+
+			@ConfigEntry(id = "projectileSpeed", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".projectileSpeed")
+			public static float projectileSpeed = 2f;
+		}
+
+		@Category(id = "boltShapeProperties", translation = "config." + Arcanus.MOD_ID + ".boltShapeProperties") public static final class BoltShapeProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.MEDIUM;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double manaCost = 0;
+
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
+			public static double manaMultiplier = 1;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 15;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 0, max = 10)
+			public static int minimumLevel = 5;
+
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
+			public static double potencyModifier = 0;
+
+			@ConfigEntry(id = "range", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".range")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double range = 6;
+		}
+
+		@Category(id = "beamShapeProperties", translation = "config." + Arcanus.MOD_ID + ".beamShapeProperties") public static final class BeamShapeProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.MEDIUM;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double manaCost = 0;
+
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
+			public static double manaMultiplier = 1.25;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 30;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 0, max = 10)
+			public static int minimumLevel = 5;
+
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
+			public static double potencyModifier = 0.25;
+
+			@ConfigEntry(id = "range", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".range")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double range = 16;
+
+			@ConfigEntry(id = "delay", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".delay")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int delay = 40;
+		}
+
+		@Category(id = "runeShapeProperties", translation = "config." + Arcanus.MOD_ID + ".runeShapeProperties") public static final class RuneShapeProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.HEAVY;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double manaCost = 0;
+
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
+			public static double manaMultiplier = 1;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 50;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 0, max = 10)
+			public static int minimumLevel = 7;
+
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
+			public static double potencyModifier = 0;
+
+			@ConfigEntry(id = "delay", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".delay")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int delay = 60;
+		}
+
+		@Category(id = "explosionShapeProperties", translation = "config." + Arcanus.MOD_ID + ".explosionShapeProperties") public static final class ExplosionShapeProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.VERY_HEAVY;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double manaCost = 0;
+
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
+			public static double manaMultiplier = 1.25;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 60;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 0, max = 10)
+			public static int minimumLevel = 7;
+
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
+			public static double potencyModifier = 0;
+
+			@ConfigEntry(id = "strength", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".strength")
+			@FloatRange(min = 0, max = Float.MAX_VALUE)
+			public static float strength = 3.5f;
+		}
+
+		@Category(id = "aoeShapeProperties", translation = "config." + Arcanus.MOD_ID + ".aoeShapeProperties") public static final class AOEShapeProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.VERY_HEAVY;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double manaCost = 0;
+
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
+			public static double manaMultiplier = 4;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 60;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 0, max = 10)
+			public static int minimumLevel = 9;
+
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
+			public static double potencyModifier = 0;
+
+			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseLifeSpan")
+			@IntRange(min = 1, max = Integer.MAX_VALUE)
+			public static int baseLifeSpan = 100;
+		}
+
+		@Category(id = "smiteShapeProperties", translation = "config." + Arcanus.MOD_ID + ".smiteShapeProperties") public static final class SmiteShapeProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.VERY_HEAVY;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double manaCost = 0;
+
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
+			public static double manaMultiplier = 1.75;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 60;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 0, max = 10)
+			public static int minimumLevel = 9;
+
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
+			public static double potencyModifier = 0.5;
+		}
+
+		@Category(id = "guardianOrbShapeProperties", translation = "config." + Arcanus.MOD_ID + ".guardianOrbShapeProperties") public static final class GuardianOrbShapeProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.VERY_HEAVY;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double manaCost = 0;
+
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
+			public static double manaMultiplier = 1.5;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 100;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 0, max = 10)
+			public static int minimumLevel = 10;
+
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
+			public static double potencyModifier = 0;
+
+			@ConfigEntry(id = "maximumManaLock", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".maximumManaLock")
+			@DoubleRange(min = 0, max = 1)
+			public static double maximumManaLock = 0.9;
+		}
+
+		@Category(id = "aggressorbShapeProperties", translation = "config." + Arcanus.MOD_ID + ".aggressorbShapeProperties") public static final class AggressorbShapeProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.VERY_HEAVY;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double manaCost = 0;
+
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
+			public static double manaMultiplier = 0.8;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 200;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 0, max = 10)
+			public static int minimumLevel = 10;
+
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
+			public static double potencyModifier = 0;
+
+			@ConfigEntry(id = "maximumAggressorbs", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".maximumAggressorbs")
+			@IntRange(min = 0, max = 16)
+			public static int maximumAggressorbs = 6;
+
+			@ConfigEntry(id = "projectileSpeed", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".projectileSpeed")
+			public static float projectileSpeed = 3f;
+		}
 	}
 
-	@Category(id = "healEffectProperties", translation = "config." + Arcanus.MOD_ID + ".healEffectProperties") public static final class HealEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 5;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 1;
-
-		@ConfigEntry(id = "baseHealAmount", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".baseHealAmount")
-		@FloatRange(min = 0, max = Float.MAX_VALUE)
-		public static float baseHealAmount = 3f;
-	}
-	@Category(id = "dispelEffectProperties", translation = "config." + Arcanus.MOD_ID + ".dispelEffectProperties") public static final class DispelEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 5;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 6;
-	}
-	@Category(id = "regenerateEffectProperties", translation = "config." + Arcanus.MOD_ID + ".regenerateEffectProperties") public static final class RegenerateEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 6;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 7;
-
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 100;
-	}
-	@Category(id = "fortifyEffectProperties", translation = "config." + Arcanus.MOD_ID + ".fortifyEffectProperties") public static final class FortifyEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 6.5;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 5;
-
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 500;
-	}
-	@Category(id = "hasteEffectProperties", translation = "config." + Arcanus.MOD_ID + ".hasteEffectProperties") public static final class HasteEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 7;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 4;
-
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 200;
-	}
-	@Category(id = "manaShieldEffectProperties", translation = "config." + Arcanus.MOD_ID + ".manaShieldEffectProperties") public static final class ManaShieldEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 8;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 10;
-
-		@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseLifeSpan")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseLifeSpan = 100;
-
-		@ConfigEntry(id = "lifeSpanModifier", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".lifeSpanModifier")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int lifeSpanModifier = 40;
-	}
-	@Category(id = "dangerSenseEffectProperties", translation = "config." + Arcanus.MOD_ID + ".dangerSenseEffectProperties") public static final class DangerSenseEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 5;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 8;
-
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 100;
-
-		@ConfigEntry(id = "baseChanceToActivate", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseChanceToActivate")
-		@DoubleRange(min = 0, max = 1)
-		public static double baseChanceToActivate = 0.035;
-	}
-//	@Category(id = "temporalDilationEffectProperties", translation = "config." + Arcanus.MOD_ID + ".temporalDilationEffectProperties") public static final class SpellEffectProperties temporalDilationEffectProperties = new SpellEffectProperties(true, Weight.NONE, 10, 0, 10) {
-//		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration") public static int baseEffectDuration = 100;
-//		@ConfigEntry(id = "affectsPlayers", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".affectsPlayers") public static boolean affectsPlayers = true;
-//	}
-
-	@Category(id = "pushEffectProperties", translation = "config." + Arcanus.MOD_ID + ".pushEffectProperties") public static final class PushEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 1;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 3;
-
-		@ConfigEntry(id = "pushAmount", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".pushAmount")
-		@DoubleRange(min = 0, max = 10)
-		public static double pushAmount = 0.2;
-	}
-	@Category(id = "pullEffectProperties", translation = "config." + Arcanus.MOD_ID + ".pullEffectProperties") public static final class PullEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 1;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 3;
-
-		@ConfigEntry(id = "pullAmount", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".pullAmount")
-		@DoubleRange(min = 0, max = 10)
-		public static double pullAmount = 0.2;
-	}
-	@Category(id = "powerEffectProperties", translation = "config." + Arcanus.MOD_ID + ".powerEffectProperties") public static final class PowerEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 2;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 4;
-
-		@ConfigEntry(id = "basePower", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".basePower")
-		@IntRange(min = 0, max = 16)
-		public static int basePower = 4;
-	}
-	@Category(id = "anonymityEffectProperties", translation = "config." + Arcanus.MOD_ID + ".anonymityEffectProperties") public static final class AnonymityEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 5;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 5;
-
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 220;
-	}
-	@Category(id = "mineEffectProperties", translation = "config." + Arcanus.MOD_ID + ".mineEffectProperties") public static final class MineEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 7;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 4;
-	}
-	@Category(id = "growthEffectProperties", translation = "config." + Arcanus.MOD_ID + ".growthEffectProperties") public static final class GrowthEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 6;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 4;
-	}
-	@Category(id = "shrinkEffectProperties", translation = "config." + Arcanus.MOD_ID + ".shrinkEffectProperties") public static final class ShrinkEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 2.5;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 9;
-
-		@ConfigEntry(id = "shrinkAmount", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".shrinkAmount")
-		@DoubleRange(min = 0, max = 1)
-		public static double shrinkAmount = 0.5;
-
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 100;
-	}
-	@Category(id = "enlargeEffectProperties", translation = "config." + Arcanus.MOD_ID + ".enlargeEffectProperties") public static final class EnlargeEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 2.5;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 9;
-
-		@ConfigEntry(id = "enlargeAmount", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".enlargeAmount")
-		@DoubleRange(min = 1, max = 2)
-		public static double enlargeAmount = 1.5;
-
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 100;
-	}
-	@Category(id = "spatialRiftEffectProperties", translation = "config." + Arcanus.MOD_ID + ".spatialRiftEffectProperties") public static final class SpatialRiftEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 10;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 7;
-
-		@ConfigEntry(id = "canSuckEntitiesIn", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".canSuckEntitiesIn")
-		public static boolean canSuckEntitiesIn = true;
-
-		@ConfigEntry(id = "portalGrowTime", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".portalGrowTime")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int portalGrowTime = 100;
-
-		@ConfigEntry(id = "pocketWidth", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".pocketWidth")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int pocketWidth = 24;
-
-		@ConfigEntry(id = "pocketHeight", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".pocketHeight")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int pocketHeight = 24;
-
-		@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseLifeSpan")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseLifeSpan = 100;
-	}
-	@Category(id = "wardingEffectProperties", translation = "config." + Arcanus.MOD_ID + ".wardingEffectProperties") public static final class WardingEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
-
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
-
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 4;
-
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
-
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 6;
-
-		@ConfigEntry(id = "canBeRemovedByOthers", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".canBeRemovedByOthers")
-		public static boolean canBeRemovedByOthers = true;
+	@Category(id = "attackEffectsCategory", translation = "config." + Arcanus.MOD_ID + ".attackEffectsCategory")
+	public static final class AttackEffects {
+		@Category(id = "damageEffectProperties", translation = "config." + Arcanus.MOD_ID + ".damageEffectProperties") public static final class DamageEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 4;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 1;
+
+			@ConfigEntry(id = "baseDamage", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".baseDamage")
+			@FloatRange(min = 0, max = Float.MAX_VALUE)
+			public static float baseDamage = 1.5f;
+		}
+
+		@Category(id = "fireEffectProperties", translation = "config." + Arcanus.MOD_ID + ".fireEffectProperties") public static final class FireEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 2;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 2;
+
+			@ConfigEntry(id = "baseTimeOnFire", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseTimeOnFire")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseTimeOnFire = 3;
+		}
+
+		@Category(id = "electricEffectProperties", translation = "config." + Arcanus.MOD_ID + ".electricEffectProperties") public static final class ElectricEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 2;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 2;
+
+			@ConfigEntry(id = "baseStunTime", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".baseStunTime")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseStunTime = 2;
+
+			@ConfigEntry(id = "wetEntityDamageMultiplier", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".wetEntityDamageMultiplier")
+			@FloatRange(min = 1, max = Float.MAX_VALUE)
+			public static float wetEntityDamageMultiplier = 2f;
+		}
+
+		@Category(id = "iceEffectProperties", translation = "config." + Arcanus.MOD_ID + ".iceEffectProperties") public static final class IceEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 2;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 2;
+
+			@ConfigEntry(id = "baseFreezingTime", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseFreezingTime")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseFreezingTime = 20;
+		}
+
+		@Category(id = "vulnerabilityEffectProperties", translation = "config." + Arcanus.MOD_ID + ".vulnerabilityEffectProperties") public static final class VulnerabilityEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 5;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 5;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 300;
+		}
+
+		@Category(id = "manaLockEffectProperties", translation = "config." + Arcanus.MOD_ID + ".manaLockEffectProperties") public static final class ManaLockEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 8;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 9;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 200;
+		}
+
+		@Category(id = "witheringEffectProperties", translation = "config." + Arcanus.MOD_ID + ".witheringEffectProperties") public static final class WitheringEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 6.5;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 7;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 60;
+		}
+
+		@Category(id = "necromancyEffectProperties", translation = "config." + Arcanus.MOD_ID + ".necromancyEffectProperties") public static final class NecromancyEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 8;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 9;
+
+			@ConfigEntry(id = "baseHealth", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseHealth")
+			@IntRange(min = 1, max = Integer.MAX_VALUE)
+			public static int baseHealth = 10;
+		}
+
+		@Category(id = "manaSplitEffectProperties", translation = "config." + Arcanus.MOD_ID + ".manaSplitEffectProperties") public static final class ManaSplitEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 6.5;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 6;
+		}
+
+		@Category(id = "copperCurseEffectProperties", translation = "config." + Arcanus.MOD_ID + ".copperCurseEffectProperties") public static final class CopperCurseEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 8;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 8;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 24000;
+
+			@ConfigEntry(id = "effectDurationModifier", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".effectDurationModifier")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int effectDurationModifier = 12000;
+
+			@ConfigEntry(id = "baseChanceToActivate", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseChanceToActivate")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double baseChanceToActivate = 0.0625;
+		}
+
+		@Category(id = "discombobulateEffectProperties", translation = "config." + Arcanus.MOD_ID + ".discombobulateEffectProperties") public static final class DiscombobulateEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 6;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 5;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 60;
+
+			@ConfigEntry(id = "effectDurationModifier", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".effectDurationModifier")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int effectDurationModifier = 15;
+		}
+
+		@Category(id = "stockpileEffectProperties", translation = "config." + Arcanus.MOD_ID + ".stockpileEffectProperties") public static final class StockpileEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 4.5;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 6;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 100;
+
+			@ConfigEntry(id = "effectDurationModifier", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".effectDurationModifier")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int effectDurationModifier = 30;
+
+			@ConfigEntry(id = "damageNeededToIncrease", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".damageNeededToIncrease")
+			@FloatRange(min = 0, max = Float.MAX_VALUE)
+			public static float damageNeededToIncrease = 10f;
+		}
 	}
 
-	@Category(id = "buildEffectProperties", translation = "config." + Arcanus.MOD_ID + ".buildEffectProperties") public static final class BuildEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
+	@Category(id = "supportEffectsCategory", translation = "config." + Arcanus.MOD_ID + ".supportEffectsCategory")
+	public static final class SupportEffects {
+		@Category(id = "healEffectProperties", translation = "config." + Arcanus.MOD_ID + ".healEffectProperties") public static final class HealEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
 
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
 
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 5;
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 5;
 
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
 
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 7;
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 1;
 
-		@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseLifeSpan")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseLifeSpan = 220;
+			@ConfigEntry(id = "baseHealAmount", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".baseHealAmount")
+			@FloatRange(min = 0, max = Float.MAX_VALUE)
+			public static float baseHealAmount = 3f;
+		}
+
+		@Category(id = "dispelEffectProperties", translation = "config." + Arcanus.MOD_ID + ".dispelEffectProperties") public static final class DispelEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 5;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 6;
+		}
+
+		@Category(id = "regenerateEffectProperties", translation = "config." + Arcanus.MOD_ID + ".regenerateEffectProperties") public static final class RegenerateEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 6;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 7;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 100;
+		}
+
+		@Category(id = "fortifyEffectProperties", translation = "config." + Arcanus.MOD_ID + ".fortifyEffectProperties") public static final class FortifyEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 6.5;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 5;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 500;
+		}
+
+		@Category(id = "hasteEffectProperties", translation = "config." + Arcanus.MOD_ID + ".hasteEffectProperties") public static final class HasteEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 7;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 4;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 200;
+		}
+
+		@Category(id = "manaShieldEffectProperties", translation = "config." + Arcanus.MOD_ID + ".manaShieldEffectProperties") public static final class ManaShieldEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 8;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 10;
+
+			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseLifeSpan")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseLifeSpan = 100;
+
+			@ConfigEntry(id = "lifeSpanModifier", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".lifeSpanModifier")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int lifeSpanModifier = 40;
+		}
+
+		@Category(id = "dangerSenseEffectProperties", translation = "config." + Arcanus.MOD_ID + ".dangerSenseEffectProperties") public static final class DangerSenseEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 5;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 8;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 100;
+
+			@ConfigEntry(id = "baseChanceToActivate", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseChanceToActivate")
+			@DoubleRange(min = 0, max = 1)
+			public static double baseChanceToActivate = 0.035;
+		}
 	}
-	@Category(id = "levitateEffectProperties", translation = "config." + Arcanus.MOD_ID + ".levitateEffectProperties") public static final class LevitateEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
 
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
+	@Category(id = "utilityEffectsCategory", translation = "config." + Arcanus.MOD_ID + ".utilityEffectsCategory")
+	public static final class UtilityEffects {
+		@Category(id = "buildEffectProperties", translation = "config." + Arcanus.MOD_ID + ".buildEffectProperties") public static final class BuildEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
 
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 3;
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
 
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 5;
 
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 6;
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
 
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 60;
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 7;
+
+			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseLifeSpan")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseLifeSpan = 220;
+		}
+
+		@Category(id = "powerEffectProperties", translation = "config." + Arcanus.MOD_ID + ".powerEffectProperties") public static final class PowerEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 2;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 4;
+
+			@ConfigEntry(id = "basePower", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".basePower")
+			@IntRange(min = 0, max = 16)
+			public static int basePower = 4;
+		}
+
+		@Category(id = "anonymityEffectProperties", translation = "config." + Arcanus.MOD_ID + ".anonymityEffectProperties") public static final class AnonymityEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 5;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 5;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 220;
+		}
+
+		@Category(id = "mineEffectProperties", translation = "config." + Arcanus.MOD_ID + ".mineEffectProperties") public static final class MineEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 7;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 4;
+		}
+
+		@Category(id = "growthEffectProperties", translation = "config." + Arcanus.MOD_ID + ".growthEffectProperties") public static final class GrowthEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 6;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 4;
+		}
+
+		@Category(id = "shrinkEffectProperties", translation = "config." + Arcanus.MOD_ID + ".shrinkEffectProperties") public static final class ShrinkEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 2.5;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 9;
+
+			@ConfigEntry(id = "baseShrinkAmount", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseShrinkAmount")
+			@FloatRange(min = 0, max = 1)
+			public static float baseShrinkAmount = 0.5f;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 100;
+		}
+
+		@Category(id = "enlargeEffectProperties", translation = "config." + Arcanus.MOD_ID + ".enlargeEffectProperties") public static final class EnlargeEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 2.5;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 9;
+
+			@ConfigEntry(id = "baseEnlargeAmount", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseEnlargeAmount")
+			@FloatRange(min = 1, max = 2)
+			public static float baseEnlargeAmount = 1.5f;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 100;
+		}
+
+		@Category(id = "spatialRiftEffectProperties", translation = "config." + Arcanus.MOD_ID + ".spatialRiftEffectProperties") public static final class SpatialRiftEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 10;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 7;
+
+			@ConfigEntry(id = "canSuckEntitiesIn", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".canSuckEntitiesIn")
+			public static boolean canSuckEntitiesIn = true;
+
+			@ConfigEntry(id = "portalGrowTime", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".portalGrowTime")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int portalGrowTime = 100;
+
+			@ConfigEntry(id = "pocketWidth", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".pocketWidth")
+			@Comment(value = "Needs to be an even number")
+			@IntRange(min = 2, max = 48)
+			public static int pocketWidth = 24;
+
+			@ConfigEntry(id = "pocketHeight", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".pocketHeight")
+			@Comment(value = "Needs to be an even number")
+			@IntRange(min = 2, max = 48)
+			public static int pocketHeight = 24;
+
+			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseLifeSpan")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseLifeSpan = 700;
+		}
+
+		@Category(id = "wardingEffectProperties", translation = "config." + Arcanus.MOD_ID + ".wardingEffectProperties") public static final class WardingEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 4;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 6;
+
+			@ConfigEntry(id = "canBeRemovedByOthers", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".canBeRemovedByOthers")
+			public static boolean canBeRemovedByOthers = true;
+		}
 	}
-	@Category(id = "speedEffectProperties", translation = "config." + Arcanus.MOD_ID + ".speedEffectProperties") public static final class SpeedEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
 
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
+	@Category(id = "movementEffectsCategory", translation = "config." + Arcanus.MOD_ID + ".movementEffectsCategory")
+	public static final class MovementEffects {
+		@Category(id = "pushEffectProperties", translation = "config." + Arcanus.MOD_ID + ".pushEffectProperties") public static final class PushEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
 
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 7;
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
 
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 1;
 
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 8;
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
 
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 300;
-	}
-	@Category(id = "teleportEffectProperties", translation = "config." + Arcanus.MOD_ID + ".teleportEffectProperties") public static final class TeleportEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 3;
 
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
+			@ConfigEntry(id = "basePushAmount", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".basePushAmount")
+			@DoubleRange(min = 0, max = 10)
+			public static double basePushAmount = 0.2;
+		}
 
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 7.5;
+		@Category(id = "pullEffectProperties", translation = "config." + Arcanus.MOD_ID + ".pullEffectProperties") public static final class PullEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
 
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
 
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 10;
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 1;
 
-		@ConfigEntry(id = "baseTeleportDistance", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseTeleportDistance")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double baseTeleportDistance = 5;
-	}
-	@Category(id = "exchangeEffectProperties", translation = "config." + Arcanus.MOD_ID + ".exchangeEffectProperties") public static final class ExchangeEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
 
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 3;
 
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 6;
+			@ConfigEntry(id = "basePullAmount", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".basePullAmount")
+			@DoubleRange(min = 0, max = 10)
+			public static double basePullAmount = 0.2;
+		}
 
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
+		@Category(id = "levitateEffectProperties", translation = "config." + Arcanus.MOD_ID + ".levitateEffectProperties") public static final class LevitateEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
 
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 7;
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
 
-		@ConfigEntry(id = "baseTeleportDistance", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseTeleportDistance")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static double baseTeleportDistance = 5;
-	}
-	@Category(id = "bouncyEffectProperties", translation = "config." + Arcanus.MOD_ID + ".bouncyEffectProperties") public static final class BouncyEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 3;
 
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
 
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 5;
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 6;
 
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 60;
+		}
 
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 8;
+		@Category(id = "speedEffectProperties", translation = "config." + Arcanus.MOD_ID + ".speedEffectProperties") public static final class SpeedEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
 
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 220;
-	}
-	@Category(id = "featherEffectProperties", translation = "config." + Arcanus.MOD_ID + ".featherEffectProperties") public static final class FeatherEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
 
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 7;
 
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 5;
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
 
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 8;
 
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 8;
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 300;
+		}
 
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 100;
-	}
-	@Category(id = "antiGravityEffectProperties", translation = "config." + Arcanus.MOD_ID + ".antiGravityEffectProperties") public static final class AntiGravityEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
+		@Category(id = "teleportEffectProperties", translation = "config." + Arcanus.MOD_ID + ".teleportEffectProperties") public static final class TeleportEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
 
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
 
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 10;
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 7.5;
 
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
 
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 5;
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 10;
 
-		@ConfigEntry(id = "removedUponTakingDamage", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".removedUponTakingDamage")
-		public static boolean removedUponTakingDamage = true;
+			@ConfigEntry(id = "baseTeleportDistance", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseTeleportDistance")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double baseTeleportDistance = 5;
+		}
 
-		@ConfigEntry(id = "baseMovementSpeed", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".baseMovementSpeed")
-		@DoubleRange(min = 0, max = Double.MAX_VALUE)
-		public static float baseMovementSpeed = 0.1f;
-	}
-	@Category(id = "manaWingsEffectProperties", translation = "config." + Arcanus.MOD_ID + ".manaWingsEffectProperties") public static final class ManaWingsEffectProperties {
-		@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-		public static boolean enabled = true;
+		@Category(id = "exchangeEffectProperties", translation = "config." + Arcanus.MOD_ID + ".exchangeEffectProperties") public static final class ExchangeEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
 
-		@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-		public static Weight weight = Weight.NONE;
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
 
-		@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-		public static double manaCost = 8.5;
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 6;
 
-		@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int coolDown = 0;
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
 
-		@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-		@IntRange(min = 1, max = 10)
-		public static int minimumLevel = 10;
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 7;
 
-		@ConfigEntry(id = "removedUponTakingDamage", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".removedUponTakingDamage")
-		public static boolean removedUponTakingDamage = true;
+			@ConfigEntry(id = "baseTeleportDistance", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseTeleportDistance")
+			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			public static double baseTeleportDistance = 5;
+		}
 
-		@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int baseEffectDuration = 200;
+		@Category(id = "bouncyEffectProperties", translation = "config." + Arcanus.MOD_ID + ".bouncyEffectProperties") public static final class BouncyEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
 
-		@ConfigEntry(id = "effectDurationModifier", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".effectDurationModifier")
-		@IntRange(min = 0, max = Integer.MAX_VALUE)
-		public static int effectDurationModifier = 100;
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 5;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 8;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 220;
+		}
+
+		@Category(id = "featherEffectProperties", translation = "config." + Arcanus.MOD_ID + ".featherEffectProperties") public static final class FeatherEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 5;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 8;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 100;
+		}
+
+		@Category(id = "antiGravityEffectProperties", translation = "config." + Arcanus.MOD_ID + ".antiGravityEffectProperties") public static final class AntiGravityEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 10;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 5;
+
+			@ConfigEntry(id = "removedUponTakingDamage", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".removedUponTakingDamage")
+			public static boolean removedUponTakingDamage = true;
+		}
+
+		@Category(id = "manaWingsEffectProperties", translation = "config." + Arcanus.MOD_ID + ".manaWingsEffectProperties") public static final class ManaWingsEffectProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.NONE;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			public static double manaCost = 8.5;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int coolDown = 0;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 1, max = 10)
+			public static int minimumLevel = 10;
+
+			@ConfigEntry(id = "removedUponTakingDamage", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".removedUponTakingDamage")
+			public static boolean removedUponTakingDamage = true;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int baseEffectDuration = 200;
+
+			@ConfigEntry(id = "effectDurationModifier", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".effectDurationModifier")
+			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			public static int effectDurationModifier = 100;
+		}
 	}
 }

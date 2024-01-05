@@ -108,7 +108,6 @@ dependencies {
 	modCompileOnly libs.patchouli
 	modLocalRuntime libs.patchouli
 
-	modImplementation libs.midnightlib
 	modImplementation libs.smartbrainlib
 	modImplementation libs.resourceful.config
 

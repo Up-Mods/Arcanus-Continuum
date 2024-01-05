@@ -42,7 +42,7 @@ public class MagicProjectileEntity extends PersistentProjectileEntity implements
 
 	@Override
 	public void tick() {
-		int lifeSpan = ArcanusConfig.ProjectileShapeProperties.baseLifeSpan;
+		int lifeSpan = ArcanusConfig.SpellShapes.ProjectileShapeProperties.baseLifeSpan;
 
 		if(!getWorld().isClient() && (getOwner() == null || !getOwner().isAlive() || (ArcanusSpellComponents.PROJECTILE.is(getShape()) && age >= lifeSpan))) {
 			kill();

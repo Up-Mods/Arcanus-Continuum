@@ -30,7 +30,7 @@ public class BoltSpellShape extends SpellShape {
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		potency += getPotencyModifier();
-		double range = ArcanusConfig.BoltShapeProperties.range;
+		double range = ArcanusConfig.SpellShapes.BoltShapeProperties.range;
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		Box box = new Box(castFrom.add(-range, -range, -range), castFrom.add(range, range, range));
 		List<Entity> affectedEntities = world.getOtherEntities(sourceEntity, box);

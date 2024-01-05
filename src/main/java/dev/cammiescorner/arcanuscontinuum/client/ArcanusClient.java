@@ -24,10 +24,7 @@ import dev.cammiescorner.arcanuscontinuum.client.renderer.item.StaffItemRenderer
 import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanuscontinuum.common.compat.FirstPersonCompat;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
-import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStaffTemplatePacket;
-import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncStatusEffectPacket;
-import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncSupporterData;
-import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncWorkbenchModePacket;
+import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.*;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
 import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
@@ -78,6 +75,7 @@ public class ArcanusClient implements ClientModInitializer {
 	public static final RenderLayer LAYER = ArcanusClient.getMagicCircles(Arcanus.id("textures/block/warded_block.png"));
 	public static BooleanSupplier FIRST_PERSON_MODEL_ENABLED = () -> false;
 	public static BooleanSupplier FIRST_PERSON_SHOW_HANDS = () -> true;
+	public static boolean castingSpeedHasCoolDown;
 	private final MinecraftClient client = MinecraftClient.getInstance();
 
 	@Override
@@ -128,6 +126,7 @@ public class ArcanusClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(SyncWorkbenchModePacket.ID, SyncWorkbenchModePacket::handle);
 		ClientPlayNetworking.registerGlobalReceiver(SyncStaffTemplatePacket.ID, SyncStaffTemplatePacket::handle);
 		ClientPlayNetworking.registerGlobalReceiver(SyncSupporterData.ID, SyncSupporterData::handle);
+		ClientPlayNetworking.registerGlobalReceiver(SyncConfigValuesPacket.ID, SyncConfigValuesPacket::handle);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? StaffItem.getPrimaryColour(stack) : tintIndex == 1 ? StaffItem.getSecondaryColour(stack) : 0xffffff,
 			ArcanusItems.WOODEN_STAFF.get(),

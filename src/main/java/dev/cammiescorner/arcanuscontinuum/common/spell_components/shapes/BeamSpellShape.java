@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes;
 
-import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
@@ -29,7 +29,7 @@ public class BeamSpellShape extends SpellShape {
 
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
-		double range = caster != null ? ReachEntityAttributes.getAttackRange(caster, 16) : 16;
+		double range = ArcanusConfig.SpellShapes.BeamShapeProperties.range;
 		potency += getPotencyModifier();
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		HitResult target = ArcanusHelper.raycast(sourceEntity, range, true, true);
@@ -38,7 +38,7 @@ public class BeamSpellShape extends SpellShape {
 			BeamEntity beam = ArcanusEntities.BEAM.get().create(world);
 
 			if(beam != null) {
-				beam.setProperties(caster, stack, effects, spellGroups, groupIndex, 40, Arcanus.DEFAULT_MAGIC_COLOUR, potency, target.getType() == HitResult.Type.ENTITY);
+				beam.setProperties(caster, stack, effects, spellGroups, groupIndex, ArcanusConfig.SpellShapes.BeamShapeProperties.delay, Arcanus.DEFAULT_MAGIC_COLOUR, potency, target.getType() == HitResult.Type.ENTITY);
 
 				if(caster instanceof PlayerEntity player)
 					beam.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));

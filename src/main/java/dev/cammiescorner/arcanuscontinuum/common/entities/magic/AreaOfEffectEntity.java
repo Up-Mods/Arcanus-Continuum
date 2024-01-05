@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.magic;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
@@ -95,7 +96,7 @@ public class AreaOfEffectEntity extends Entity implements Targetable {
 				}
 			}
 
-			if(trueAge >= 100)
+			if(trueAge >= ArcanusConfig.SpellShapes.AOEShapeProperties.baseLifeSpan)
 				kill();
 		}
 

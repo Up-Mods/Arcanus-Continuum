@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes;
 
 import com.google.common.collect.Sets;
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
@@ -34,7 +35,7 @@ public class ExplosionSpellShape extends SpellShape {
 	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		potency += getPotencyModifier();
-		float strength = 3.5F;
+		float strength = ArcanusConfig.SpellShapes.ExplosionShapeProperties.strength;
 
 		world.emitGameEvent(caster, GameEvent.EXPLODE, new Vec3d(castFrom.getX(), castFrom.getY(), castFrom.getZ()));
 		Set<BlockPos> affectedBlocks = Sets.newHashSet();

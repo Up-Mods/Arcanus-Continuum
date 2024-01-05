@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.magic;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
@@ -47,7 +48,7 @@ public class MagicRuneEntity extends Entity implements Targetable {
 			return;
 		}
 
-		if(getWorld() instanceof ServerWorld serverWorld && age > 60) {
+		if(getWorld() instanceof ServerWorld serverWorld && age > ArcanusConfig.SpellShapes.RuneShapeProperties.delay) {
 			LivingEntity entity = getWorld().getClosestEntity(LivingEntity.class, TargetPredicate.createNonAttackable().setPredicate(livingEntity -> livingEntity.isAlive() && !livingEntity.isSpectator() && livingEntity instanceof Targetable targetable && targetable.arcanuscontinuum$canBeTargeted()), null, getX(), getY(), getZ(), new Box(-0.5, 0, -0.5, 0.5, 0.2, 0.5).offset(getPos()));
 
 			if(entity != null) {

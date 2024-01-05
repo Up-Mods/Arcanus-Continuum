@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
@@ -30,7 +31,7 @@ public class AggressorbSpellShape extends SpellShape {
 		Entity sourceEntity = castSource != null ? castSource : caster;
 
 		if(sourceEntity instanceof LivingEntity target) {
-			if(ArcanusComponents.orbCount(target) < 6) {
+			if(ArcanusComponents.orbCount(target) < ArcanusConfig.SpellShapes.AggressorbShapeProperties.maximumAggressorbs) {
 				AggressorbEntity aggressorb = ArcanusEntities.AGGRESSORB.get().create(world);
 
 				if(aggressorb != null) {

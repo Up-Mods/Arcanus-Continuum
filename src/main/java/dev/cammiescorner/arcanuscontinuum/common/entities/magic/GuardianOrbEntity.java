@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.entities.magic;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
@@ -212,7 +213,7 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 			EntityAttributeInstance manaLock = caster.getAttributeInstance(ArcanusEntityAttributes.MANA_LOCK.get());
 
 			if(maxMana != null && manaLock != null) {
-				double maximumManaLock = 0.9;
+				double maximumManaLock = ArcanusConfig.SpellShapes.GuardianOrbShapeProperties.maximumManaLock;
 
 				manaLock.addPersistentModifier(new EntityAttributeModifier(casterId, "Orb Mana Lock", maxMana.getValue() * (effects.size() * (maximumManaLock / 11)), EntityAttributeModifier.Operation.ADDITION));
 			}
