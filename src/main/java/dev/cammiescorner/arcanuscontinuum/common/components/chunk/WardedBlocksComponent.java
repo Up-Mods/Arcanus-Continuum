@@ -67,7 +67,7 @@ public class WardedBlocksComponent implements AutoSyncedComponent {
 	}
 
 	public void removeWardedBlock(PlayerEntity player, BlockPos pos) {
-		boolean canOtherPlayersRemoveBlock = ArcanusConfig.wardingEffectProperties.getProperty("canBeRemovedByOthers");
+		boolean canOtherPlayersRemoveBlock = ArcanusConfig.WardingEffectProperties.canBeRemovedByOthers;
 
 		if(canOtherPlayersRemoveBlock || isOwnerOfBlock(player, pos)) {
 			wardedBlocks.remove(pos);

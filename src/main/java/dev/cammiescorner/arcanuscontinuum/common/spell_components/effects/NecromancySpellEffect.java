@@ -15,8 +15,6 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.TypeFilter;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -31,30 +29,22 @@ public class NecromancySpellEffect extends SpellEffect {
 	@Override
 	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
 		if(target.getType() != HitResult.Type.MISS && caster != null) {
+			NecroSkeletonEntity skeleton = ArcanusEntities.NECRO_SKELETON.get().create(world);
 			int effectCount = (int) effects.stream().filter(ArcanusSpellComponents.NECROMANCY::is).count();
-			double healthModifier = (effectCount - 1) / 10F;
-			List<? extends NecroSkeletonEntity> list = ((ServerWorld) world).getEntitiesByType(TypeFilter.instanceOf(NecroSkeletonEntity.class), necroSkeletonEntity -> necroSkeletonEntity.getOwnerId().equals(caster.getUuid()));
 
-			for(int i = 0; i < effectCount; i++) {
-				if(list.size() + i >= 20)
-					return;
+			if(skeleton != null) {
+				EntityAttributeInstance damage = skeleton.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 
-				NecroSkeletonEntity skeleton = ArcanusEntities.NECRO_SKELETON.get().create(world);
+				skeleton.setPosition(target.getPos());
+				skeleton.setMaxHealth((10 + effectCount) * potency);
+				skeleton.setOwner(caster);
+				skeleton.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
+				skeleton.equipStack(EquipmentSlot.HEAD, new ItemStack(ArcanusItems.WIZARD_HAT.get()));
 
-				if(skeleton != null) {
-					EntityAttributeInstance damage = skeleton.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+				if(damage != null)
+					damage.addPersistentModifier(new EntityAttributeModifier("Attack Damage", (effectCount / 2d) * potency, EntityAttributeModifier.Operation.ADDITION));
 
-					skeleton.setPosition(target.getPos());
-					skeleton.setMaxHealth((11 - healthModifier) * potency);
-					skeleton.setOwner(caster);
-					skeleton.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
-					skeleton.equipStack(EquipmentSlot.HEAD, new ItemStack(ArcanusItems.WIZARD_HAT.get()));
-
-					if(damage != null)
-						damage.addPersistentModifier(new EntityAttributeModifier("Attack Damage", -(effectCount / 2D) / potency, EntityAttributeModifier.Operation.ADDITION));
-
-					world.spawnEntity(skeleton);
-				}
+				world.spawnEntity(skeleton);
 			}
 		}
 	}

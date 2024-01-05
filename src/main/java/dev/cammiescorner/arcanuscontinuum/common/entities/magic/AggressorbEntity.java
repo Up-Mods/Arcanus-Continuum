@@ -98,7 +98,7 @@ public class AggressorbEntity extends ThrownEntity implements Targetable {
 			for(SpellEffect effect : new HashSet<>(effects))
 				effect.effect(getCaster(), this, getWorld(), entityHitResult, effects, stack, potency);
 
-			SpellShape.castNext(getCaster(), getTarget().getPos(), entityHitResult.getEntity(), (ServerWorld) getWorld(), stack, groups, groupIndex, potency);
+			SpellShape.castNext(getCaster(), getPos(), entityHitResult.getEntity(), (ServerWorld) getWorld(), stack, groups, groupIndex, potency);
 
 			kill();
 		}
@@ -110,7 +110,7 @@ public class AggressorbEntity extends ThrownEntity implements Targetable {
 			for(SpellEffect effect : new HashSet<>(effects))
 				effect.effect(getCaster(), this, getWorld(), blockHitResult, effects, stack, potency);
 
-			SpellShape.castNext(getCaster(), getTarget().getPos(), this, (ServerWorld) getWorld(), stack, groups, groupIndex, potency);
+			SpellShape.castNext(getCaster(), getPos(), this, (ServerWorld) getWorld(), stack, groups, groupIndex, potency);
 
 			super.onBlockHit(blockHitResult);
 			kill();

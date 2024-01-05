@@ -32,7 +32,8 @@
 			"init": "dev.cammiescorner.arcanuscontinuum.Arcanus",
 			"client_init": "dev.cammiescorner.arcanuscontinuum.client.ArcanusClient",
 			"cardinal-components": "dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents",
-			"dynamiclights": "dev.cammiescorner.arcanuscontinuum.common.compat.DynamicLightsCompat"
+			"dynamiclights": "dev.cammiescorner.arcanuscontinuum.common.compat.DynamicLightsCompat",
+			"modmenu": "dev.cammiescorner.arcanuscontinuum.common.compat.ModMenuCompat"
 		},
 		"depends": [
 			{

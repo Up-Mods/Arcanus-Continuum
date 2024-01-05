@@ -113,7 +113,6 @@ public class Arcanus implements ModInitializer {
 
 	@Override
 	public void onInitialize(ModContainer mod) {
-//		MidnightConfig.init(MOD_ID, ArcanusConfig.class);
 		configurator.registerConfig(ArcanusConfig.class);
 
 		RegistryService registryService = RegistryService.get();

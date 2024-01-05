@@ -134,7 +134,7 @@ dependencies {
 	modLocalRuntime libs.spruceui
 
 	// modmenu
-	modLocalRuntime libs.modmenu
+	modImplementation libs.modmenu
 
 	// LazyDFU
 	modLocalRuntime libs.lazydfu
