@@ -19,14 +19,14 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.VERY_LIGHT;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
 			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
 			public static double manaMultiplier = 0.85;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 10;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -45,14 +45,14 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.VERY_LIGHT;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
 			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
 			public static double manaMultiplier = 1;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 15;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -71,14 +71,14 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.LIGHT;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
 			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
 			public static double manaMultiplier = 1;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 10;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -92,7 +92,7 @@ public final class ArcanusConfig {
 			public static float projectileSpeed = 4f;
 
 			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseLifeSpan")
-			@IntRange(min = 1, max = Integer.MAX_VALUE)
+			@IntRange(min = 1, max = 24000)
 			public static int baseLifeSpan = 20;
 		}
 
@@ -104,14 +104,14 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.LIGHT;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
 			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
 			public static double manaMultiplier = 1;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 20;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -133,14 +133,14 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.MEDIUM;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
 			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
 			public static double manaMultiplier = 1;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 15;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -151,7 +151,7 @@ public final class ArcanusConfig {
 			public static double potencyModifier = 0;
 
 			@ConfigEntry(id = "range", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".range")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 32)
 			public static double range = 6;
 		}
 
@@ -163,14 +163,14 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.MEDIUM;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
 			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
 			public static double manaMultiplier = 1.25;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 30;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -181,11 +181,11 @@ public final class ArcanusConfig {
 			public static double potencyModifier = 0.25;
 
 			@ConfigEntry(id = "range", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".range")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 32)
 			public static double range = 16;
 
 			@ConfigEntry(id = "delay", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".delay")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int delay = 40;
 		}
 
@@ -197,14 +197,14 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.HEAVY;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
 			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
 			public static double manaMultiplier = 1;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 50;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -215,7 +215,7 @@ public final class ArcanusConfig {
 			public static double potencyModifier = 0;
 
 			@ConfigEntry(id = "delay", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".delay")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int delay = 60;
 		}
 
@@ -227,14 +227,14 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.VERY_HEAVY;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
 			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
 			public static double manaMultiplier = 1.25;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 60;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -245,7 +245,7 @@ public final class ArcanusConfig {
 			public static double potencyModifier = 0;
 
 			@ConfigEntry(id = "strength", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".strength")
-			@FloatRange(min = 0, max = Float.MAX_VALUE)
+			@FloatRange(min = 0, max = 10)
 			public static float strength = 3.5f;
 		}
 
@@ -257,14 +257,14 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.VERY_HEAVY;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
 			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
 			public static double manaMultiplier = 4;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 60;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -275,7 +275,7 @@ public final class ArcanusConfig {
 			public static double potencyModifier = 0;
 
 			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseLifeSpan")
-			@IntRange(min = 1, max = Integer.MAX_VALUE)
+			@IntRange(min = 1, max = 24000)
 			public static int baseLifeSpan = 100;
 		}
 
@@ -287,14 +287,14 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.VERY_HEAVY;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
 			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
 			public static double manaMultiplier = 1.75;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 60;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -313,14 +313,14 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.VERY_HEAVY;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
 			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
 			public static double manaMultiplier = 1.5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 100;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -343,14 +343,14 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.VERY_HEAVY;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
 			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
 			public static double manaMultiplier = 0.8;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 200;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -379,10 +379,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 4;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -390,7 +391,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 1;
 
 			@ConfigEntry(id = "baseDamage", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".baseDamage")
-			@FloatRange(min = 0, max = Float.MAX_VALUE)
+			@FloatRange(min = 0, max = 1000)
 			public static float baseDamage = 1.5f;
 		}
 
@@ -402,10 +403,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 2;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -413,7 +415,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 2;
 
 			@ConfigEntry(id = "baseTimeOnFire", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseTimeOnFire")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 100)
 			public static int baseTimeOnFire = 3;
 		}
 
@@ -425,22 +427,23 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 2;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 2;
 
-			@ConfigEntry(id = "baseStunTime", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".baseStunTime")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@ConfigEntry(id = "baseStunTime", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseStunTime")
+			@IntRange(min = 0, max = 100)
 			public static int baseStunTime = 2;
 
 			@ConfigEntry(id = "wetEntityDamageMultiplier", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".wetEntityDamageMultiplier")
-			@FloatRange(min = 1, max = Float.MAX_VALUE)
+			@FloatRange(min = 1, max = 1000)
 			public static float wetEntityDamageMultiplier = 2f;
 		}
 
@@ -452,10 +455,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 2;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -463,7 +467,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 2;
 
 			@ConfigEntry(id = "baseFreezingTime", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseFreezingTime")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 100)
 			public static int baseFreezingTime = 20;
 		}
 
@@ -475,10 +479,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -486,7 +491,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 5;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 300;
 		}
 
@@ -498,10 +503,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 8;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -509,7 +515,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 9;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 200;
 		}
 
@@ -521,10 +527,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 6.5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -532,7 +539,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 7;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 60;
 		}
 
@@ -544,10 +551,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 8;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -555,7 +563,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 9;
 
 			@ConfigEntry(id = "baseHealth", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseHealth")
-			@IntRange(min = 1, max = Integer.MAX_VALUE)
+			@IntRange(min = 1, max = 100)
 			public static int baseHealth = 10;
 		}
 
@@ -567,10 +575,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 6.5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -586,10 +595,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 8;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -597,15 +607,15 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 8;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 24000;
 
 			@ConfigEntry(id = "effectDurationModifier", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".effectDurationModifier")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int effectDurationModifier = 12000;
 
 			@ConfigEntry(id = "baseChanceToActivate", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseChanceToActivate")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 1)
 			public static double baseChanceToActivate = 0.0625;
 		}
 
@@ -617,10 +627,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 6;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -628,11 +639,11 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 5;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 60;
 
 			@ConfigEntry(id = "effectDurationModifier", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".effectDurationModifier")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int effectDurationModifier = 15;
 		}
 
@@ -644,10 +655,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 4.5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -655,15 +667,15 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 6;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
 
 			@ConfigEntry(id = "effectDurationModifier", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".effectDurationModifier")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int effectDurationModifier = 30;
 
 			@ConfigEntry(id = "damageNeededToIncrease", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".damageNeededToIncrease")
-			@FloatRange(min = 0, max = Float.MAX_VALUE)
+			@FloatRange(min = 0, max = 1000)
 			public static float damageNeededToIncrease = 10f;
 		}
 	}
@@ -678,10 +690,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -689,7 +702,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 1;
 
 			@ConfigEntry(id = "baseHealAmount", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".baseHealAmount")
-			@FloatRange(min = 0, max = Float.MAX_VALUE)
+			@FloatRange(min = 0, max = 1000)
 			public static float baseHealAmount = 3f;
 		}
 
@@ -701,10 +714,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -720,10 +734,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 6;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -731,7 +746,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 7;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
 		}
 
@@ -743,10 +758,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 6.5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -754,7 +770,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 5;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 500;
 		}
 
@@ -766,10 +782,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 7;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -777,7 +794,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 4;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 200;
 		}
 
@@ -789,10 +806,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 8;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -800,11 +818,11 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 10;
 
 			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseLifeSpan")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseLifeSpan = 100;
 
 			@ConfigEntry(id = "lifeSpanModifier", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".lifeSpanModifier")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int lifeSpanModifier = 40;
 		}
 
@@ -816,10 +834,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -827,7 +846,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 8;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
 
 			@ConfigEntry(id = "baseChanceToActivate", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseChanceToActivate")
@@ -846,10 +865,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -857,7 +877,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 7;
 
 			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseLifeSpan")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseLifeSpan = 220;
 		}
 
@@ -869,10 +889,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 2;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -892,10 +913,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -903,7 +925,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 5;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 220;
 		}
 
@@ -915,10 +937,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 7;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -934,10 +957,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 6;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -953,22 +977,23 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 2.5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 9;
 
-			@ConfigEntry(id = "baseShrinkAmount", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseShrinkAmount")
+			@ConfigEntry(id = "baseShrinkAmount", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".baseShrinkAmount")
 			@FloatRange(min = 0, max = 1)
 			public static float baseShrinkAmount = 0.5f;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
 		}
 
@@ -980,22 +1005,23 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 2.5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 9;
 
-			@ConfigEntry(id = "baseEnlargeAmount", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseEnlargeAmount")
+			@ConfigEntry(id = "baseEnlargeAmount", type = EntryType.FLOAT, translation = "config." + Arcanus.MOD_ID + ".baseEnlargeAmount")
 			@FloatRange(min = 1, max = 2)
 			public static float baseEnlargeAmount = 1.5f;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
 		}
 
@@ -1007,10 +1033,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 10;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -1021,7 +1048,7 @@ public final class ArcanusConfig {
 			public static boolean canSuckEntitiesIn = true;
 
 			@ConfigEntry(id = "portalGrowTime", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".portalGrowTime")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int portalGrowTime = 100;
 
 			@ConfigEntry(id = "pocketWidth", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".pocketWidth")
@@ -1035,7 +1062,7 @@ public final class ArcanusConfig {
 			public static int pocketHeight = 24;
 
 			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseLifeSpan")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseLifeSpan = 700;
 		}
 
@@ -1047,10 +1074,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 4;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -1072,10 +1100,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 1;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -1095,10 +1124,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 1;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -1118,10 +1148,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 3;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -1129,7 +1160,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 6;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 60;
 		}
 
@@ -1141,10 +1172,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 7;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -1152,7 +1184,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 8;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 300;
 		}
 
@@ -1164,10 +1196,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 7.5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -1175,7 +1208,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 10;
 
 			@ConfigEntry(id = "baseTeleportDistance", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseTeleportDistance")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 32)
 			public static double baseTeleportDistance = 5;
 		}
 
@@ -1187,10 +1220,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 6;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -1198,7 +1232,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 7;
 
 			@ConfigEntry(id = "baseTeleportDistance", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseTeleportDistance")
-			@DoubleRange(min = 0, max = Double.MAX_VALUE)
+			@DoubleRange(min = 0, max = 32)
 			public static double baseTeleportDistance = 5;
 		}
 
@@ -1210,10 +1244,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -1221,7 +1256,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 8;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 220;
 		}
 
@@ -1233,10 +1268,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -1244,7 +1280,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 8;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
 		}
 
@@ -1256,10 +1292,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 10;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -1278,10 +1315,11 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 8.5;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
@@ -1292,11 +1330,11 @@ public final class ArcanusConfig {
 			public static boolean removedUponTakingDamage = true;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 200;
 
 			@ConfigEntry(id = "effectDurationModifier", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".effectDurationModifier")
-			@IntRange(min = 0, max = Integer.MAX_VALUE)
+			@IntRange(min = 0, max = 24000)
 			public static int effectDurationModifier = 100;
 		}
 	}
