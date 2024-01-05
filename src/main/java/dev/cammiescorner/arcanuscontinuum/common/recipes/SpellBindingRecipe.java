@@ -120,10 +120,6 @@ public class SpellBindingRecipe extends SpecialCraftingRecipe {
 
 		for(int i = 0; i < spells.size(); i++) {
 			Spell spell = spells.get(i);
-
-			if(spell.getComponentGroups().get(0).isEmpty())
-				continue;
-
 			list.set(i, spell.toNbt());
 		}
 
