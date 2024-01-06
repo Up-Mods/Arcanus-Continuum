@@ -27,9 +27,7 @@ public class ArcanusHelper {
 		Vec3d endPos = startPos.add(rotation.multiply(maxDistance));
 		HitResult hitResult = origin.getWorld().raycast(new RaycastContext(startPos, endPos, RaycastContext.ShapeType.COLLIDER, includeFluids ? RaycastContext.FluidHandling.ANY : RaycastContext.FluidHandling.NONE, origin));
 
-		if(hitResult.getType() != HitResult.Type.MISS)
-			endPos = hitResult.getPos();
-
+		endPos = hitResult.getPos();
 		maxDistance *= maxDistance;
 		HitResult entityHitResult = ProjectileUtil.raycast(origin, startPos, endPos, origin.getBoundingBox().stretch(rotation.multiply(maxDistance)).expand(1.0D, 1D, 1D), entity -> !entity.isSpectator() && entity instanceof Targetable targetable && targetable.arcanuscontinuum$canBeTargeted(), maxDistance);
 

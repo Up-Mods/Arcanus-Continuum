@@ -25,18 +25,16 @@ public class TeleportSpellEffect extends SpellEffect {
 
 	@Override
 	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
-		if(target.getType() != HitResult.Type.MISS) {
-			if(caster != null && caster.getPos().distanceTo(target.getPos()) <= ArcanusConfig.MovementEffects.TeleportEffectProperties.baseTeleportDistance * effects.stream().filter(ArcanusSpellComponents.TELEPORT::is).count() * potency) {
-				Vec3d pos = target.getPos();
+		if(caster != null && caster.getPos().distanceTo(target.getPos()) <= ArcanusConfig.MovementEffects.TeleportEffectProperties.baseTeleportDistance * effects.stream().filter(ArcanusSpellComponents.TELEPORT::is).count() * potency) {
+			Vec3d pos = target.getPos();
 
-				if(target.getType() == HitResult.Type.BLOCK) {
-					BlockHitResult blockHit = (BlockHitResult) target;
-					pos = pos.add(blockHit.getSide().getOffsetX() * 0.5, blockHit.getSide() == Direction.DOWN ? -2 : 0, blockHit.getSide().getOffsetZ() * 0.5);
-				}
-
-				caster.requestTeleportAndDismount(pos.getX(), pos.getY(), pos.getZ());
-				world.sendEntityStatus(caster, EntityStatuses.ADD_PORTAL_PARTICLES);
+			if(target.getType() == HitResult.Type.BLOCK) {
+				BlockHitResult blockHit = (BlockHitResult) target;
+				pos = pos.add(blockHit.getSide().getOffsetX() * 0.5, blockHit.getSide() == Direction.DOWN ? -2 : 0, blockHit.getSide().getOffsetZ() * 0.5);
 			}
+
+			caster.requestTeleportAndDismount(pos.getX(), pos.getY(), pos.getZ());
+			world.sendEntityStatus(caster, EntityStatuses.ADD_PORTAL_PARTICLES);
 		}
 	}
 }

@@ -31,10 +31,9 @@ public class TouchSpellShape extends SpellShape {
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		HitResult target = ArcanusHelper.raycast(sourceEntity, range, true, true);
 
-		if(target.getType() != HitResult.Type.MISS) {
+		if(target.getType() != HitResult.Type.MISS)
 			for(SpellEffect effect : new HashSet<>(effects))
 				effect.effect(caster, sourceEntity, world, target, effects, stack, potency);
-		}
 
 		Entity targetEntity = target.getType() == HitResult.Type.ENTITY ? ((EntityHitResult) target).getEntity() : castSource;
 		castNext(caster, target.getPos(), targetEntity, world, stack, spellGroups, groupIndex, potency);

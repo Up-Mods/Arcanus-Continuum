@@ -44,7 +44,15 @@ public class MagicProjectileEntity extends PersistentProjectileEntity implements
 	public void tick() {
 		int lifeSpan = ArcanusConfig.SpellShapes.ProjectileShapeProperties.baseLifeSpan;
 
-		if(!getWorld().isClient() && (getOwner() == null || !getOwner().isAlive() || (ArcanusSpellComponents.PROJECTILE.is(getShape()) && age >= lifeSpan))) {
+		if(getWorld() instanceof ServerWorld server && (getOwner() == null || !getOwner().isAlive() || (ArcanusSpellComponents.PROJECTILE.is(getShape()) && age >= lifeSpan))) {
+			EntityHitResult target = new EntityHitResult(this);
+
+			for(SpellEffect effect : new HashSet<>(effects))
+				effect.effect((LivingEntity) getOwner(), this, getWorld(), target, effects, stack, potency);
+
+			if(getOwner() instanceof LivingEntity caster)
+				SpellShape.castNext(caster, target.getPos(), null, server, stack, spellGroups, groupIndex, potency);
+
 			kill();
 			return;
 		}

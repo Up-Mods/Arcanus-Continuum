@@ -29,7 +29,7 @@ public class NecromancySpellEffect extends SpellEffect {
 
 	@Override
 	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, World world, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
-		if(target.getType() != HitResult.Type.MISS && caster != null) {
+		if(caster != null) {
 			NecroSkeletonEntity skeleton = ArcanusEntities.NECRO_SKELETON.get().create(world);
 			int effectCount = (int) effects.stream().filter(ArcanusSpellComponents.NECROMANCY::is).count();
 

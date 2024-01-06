@@ -212,6 +212,7 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 			EntityAttributeInstance maxMana = caster.getAttributeInstance(ArcanusEntityAttributes.MAX_MANA.get());
 			EntityAttributeInstance manaLock = caster.getAttributeInstance(ArcanusEntityAttributes.MANA_LOCK.get());
 
+			// FIXME move over to component
 			if(maxMana != null && manaLock != null) {
 				double maximumManaLock = ArcanusConfig.SpellShapes.GuardianOrbShapeProperties.maximumManaLock;
 
