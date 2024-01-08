@@ -2,7 +2,7 @@
   "name": "Area of Effect Shape",
   "icon": "arcanuscontinuum:textures/spell_components/shapes/colored/aoe_shape.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 10,
+  "sortnum": 11,
   "advancement": "arcanuscontinuum:arcane/wizard_level_9",
   "pages": [
     {

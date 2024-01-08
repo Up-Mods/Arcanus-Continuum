@@ -2,7 +2,7 @@
   "name": "Guardian Orb Shape",
   "icon": "arcanuscontinuum:textures/spell_components/shapes/colored/guardian_orb_shape.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 12,
+  "sortnum": 13,
   "advancement": "arcanuscontinuum:arcane/wizard_level_10",
   "pages": [
     {

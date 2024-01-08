@@ -249,6 +249,36 @@ public final class ArcanusConfig {
 			public static float strength = 3.5f;
 		}
 
+		@Category(id = "counterShapeProperties", translation = "config." + Arcanus.MOD_ID + ".counterShapeProperties") public static final class CounterShapeProperties {
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
+			public static boolean enabled = true;
+
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
+			public static Weight weight = Weight.HEAVY;
+
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
+			@DoubleRange(min = 0, max = 200)
+			public static double manaCost = 0;
+
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaMultiplier")
+			public static double manaMultiplier = 1.2;
+
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
+			@IntRange(min = 0, max = 24000)
+			public static int coolDown = 300;
+
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
+			@IntRange(min = 0, max = 10)
+			public static int minimumLevel = 7;
+
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".potencyModifier")
+			public static double potencyModifier = 0;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = 24000)
+			public static int baseEffectDuration = 100;
+		}
+
 		@Category(id = "aoeShapeProperties", translation = "config." + Arcanus.MOD_ID + ".aoeShapeProperties") public static final class AOEShapeProperties {
 			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
 			public static boolean enabled = true;

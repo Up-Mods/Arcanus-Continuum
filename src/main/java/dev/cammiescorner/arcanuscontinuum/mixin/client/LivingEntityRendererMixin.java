@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.mixin.client;
 
+import dev.cammiescorner.arcanuscontinuum.client.renderer.feature.CounterFeatureRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.feature.ManaWingsFeatureRenderer;
 import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
@@ -34,6 +35,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void arcanuscontinuum$init(EntityRendererFactory.Context ctx, EntityModel model, float shadowRadius, CallbackInfo ci) {
 		addFeature(new ManaWingsFeatureRenderer<>(this));
+		addFeature(new CounterFeatureRenderer<>(this));
 	}
 
 	@Inject(method = "render(Lnet/minecraft/entity/LivingEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At(value = "INVOKE",

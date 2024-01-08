@@ -34,6 +34,9 @@ public class DispelSpellEffect extends SpellEffect {
 
 				for(int i = 0; i < Math.min(statusEffects.size(), (int) (dispelCount * 2 * potency)); i++)
 					livingEntity.removeStatusEffect(statusEffects.get(i));
+
+				if(ArcanusComponents.isCounterActive(livingEntity))
+					ArcanusComponents.removeCounter(livingEntity);
 			}
 
 			ArcanusComponents.resetScale(entityHit.getEntity());

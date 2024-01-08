@@ -2,7 +2,7 @@
   "name": "Smite Shape",
   "icon": "arcanuscontinuum:textures/spell_components/shapes/colored/smite_shape.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 11,
+  "sortnum": 12,
   "advancement": "arcanuscontinuum:arcane/wizard_level_9",
   "pages": [
     {

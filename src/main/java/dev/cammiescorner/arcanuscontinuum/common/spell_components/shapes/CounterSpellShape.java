@@ -5,8 +5,7 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
-import dev.cammiescorner.arcanuscontinuum.common.entities.magic.GuardianOrbEntity;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,28 +16,23 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class GuardianOrbSpellShape extends SpellShape {
-	public GuardianOrbSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel, double potencyModifier) {
+public class CounterSpellShape extends SpellShape {
+	public CounterSpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel, double potencyModifier) {
 		super(isEnabled, weight, manaCost, manaMultiplier, coolDown, minLevel, potencyModifier);
 	}
 
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3d castFrom, @Nullable Entity castSource, ServerWorld world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		potency += getPotencyModifier();
-		GuardianOrbEntity guardianOrb = ArcanusEntities.GUARDIAN_ORB.get().create(world);
 		LivingEntity targetEntity = castSource instanceof LivingEntity livingEntity ? livingEntity : caster;
 
-		if(targetEntity != null && guardianOrb != null) {
-			List<? extends GuardianOrbEntity> oldOrbs = world.getEntitiesByType(ArcanusEntities.GUARDIAN_ORB.get(), t -> caster != null && t.getCaster().getUuid() == caster.getUuid());
-			oldOrbs.forEach(Entity::kill);
-
-			guardianOrb.setProperties(caster, targetEntity, stack, effects, spellGroups, groupIndex, Arcanus.DEFAULT_MAGIC_COLOUR, potency);
-			guardianOrb.setPosition(castFrom);
+		if(targetEntity != null) {
+			int colour = Arcanus.DEFAULT_MAGIC_COLOUR;
 
 			if(caster instanceof PlayerEntity player)
-				guardianOrb.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
+				colour = Arcanus.getMagicColour(player.getGameProfile().getId());
 
-			world.spawnEntity(guardianOrb);
+			ArcanusComponents.setCounterProperties(targetEntity, caster, stack, effects, spellGroups, groupIndex, colour, potency, world.getTime());
 		}
 	}
 }

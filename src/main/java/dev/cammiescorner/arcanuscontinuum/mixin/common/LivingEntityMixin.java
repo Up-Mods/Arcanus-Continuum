@@ -78,6 +78,9 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 	@Inject(method = "damage", at = @At("HEAD"), cancellable = true)
 	private void arcanuscontinuum$onDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
 		if(amount > 0 && !blockedByShield(source)) {
+			if(ArcanusComponents.isCounterActive(self) && source.getSource() instanceof LivingEntity attacker)
+				ArcanusComponents.castCounter(self, attacker);
+
 			if(hasStatusEffect(ArcanusStatusEffects.MANA_WINGS.get()) && ArcanusConfig.MovementEffects.ManaWingsEffectProperties.removedUponTakingDamage)
 				removeStatusEffect(ArcanusStatusEffects.MANA_WINGS.get());
 			if(hasStatusEffect(ArcanusStatusEffects.ANTI_GRAVITY.get()) && ArcanusConfig.MovementEffects.FloatEffectProperties.removedUponTakingDamage)

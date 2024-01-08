@@ -111,7 +111,8 @@
 		"arcanuscontinuum:slow_time",
 		"arcanuscontinuum:aggressorb",
 		"arcanuscontinuum:guardian_orb",
-		"arcanuscontinuum:portal_cool_down"
+		"arcanuscontinuum:portal_cool_down",
+		"arcanuscontinuum:counter"
 	],
 	"mc-publish": {
 		"curseforge": "905345",

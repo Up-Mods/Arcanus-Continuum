@@ -106,6 +106,7 @@
 	"spell_component.arcanuscontinuum.smite_shape": "Smite Shape",
 	"spell_component.arcanuscontinuum.aoe_shape": "AOE Shape",
 	"spell_component.arcanuscontinuum.explosion_shape": "Explosion Shape",
+  "spell_component.arcanuscontinuum.counter_shape": "Counter Shape",
 	"spell_component.arcanuscontinuum.guardian_orb_shape": "Guardian Orb Shape",
 	"spell_component.arcanuscontinuum.aggressorb_shape": "Aggressorb Shape",
 
@@ -254,6 +255,7 @@
 	"config.arcanuscontinuum.beamShapeProperties": "Beam Shape",
 	"config.arcanuscontinuum.runeShapeProperties": "Rune Shape",
 	"config.arcanuscontinuum.explosionShapeProperties": "Explosion Shape",
+  "config.arcanuscontinuum.counterShapeProperties": "Counter Shape",
 	"config.arcanuscontinuum.aoeShapeProperties": "Area Of Effect Shape",
 	"config.arcanuscontinuum.smiteShapeProperties": "Smite Shape",
 	"config.arcanuscontinuum.guardianOrbShapeProperties": "Guardian Orb Shape",

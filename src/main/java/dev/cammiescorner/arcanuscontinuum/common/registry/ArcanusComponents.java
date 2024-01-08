@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.common.registry;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
+import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanuscontinuum.common.compat.PehkuiCompat;
@@ -23,6 +24,7 @@ import dev.onyxstudios.cca.api.v3.level.LevelComponentInitializer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -62,6 +64,7 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 	public static final ComponentKey<AggressorbComponent> AGGRESSORB_COMPONENT = createComponent("aggressorb", AggressorbComponent.class);
 	public static final ComponentKey<GuardianOrbComponent> GUARDIAN_ORB_COMPONENT = createComponent("guardian_orb", GuardianOrbComponent.class);
 	public static final ComponentKey<PortalCoolDownComponent> PORTAL_COOL_DOWN_COMPONENT = createComponent("portal_cool_down", PortalCoolDownComponent.class);
+	public static final ComponentKey<CounterComponent> COUNTER_COMPONENT = createComponent("counter", CounterComponent.class);
 
 	@Override
 	public void registerLevelComponentFactories(LevelComponentFactoryRegistry registry) {
@@ -99,6 +102,7 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 		registry.beginRegistration(LivingEntity.class, AGGRESSORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(AggressorbComponent::new);
 		registry.beginRegistration(LivingEntity.class, GUARDIAN_ORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(GuardianOrbComponent::new);
 		registry.beginRegistration(PlayerEntity.class, PORTAL_COOL_DOWN_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PortalCoolDownComponent::new);
+		registry.beginRegistration(LivingEntity.class, COUNTER_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(CounterComponent::new);
 
 		ArcanusCompat.PEHKUI.ifEnabled(() -> () -> PehkuiCompat.registerEntityComponents(registry));
 	}
@@ -362,5 +366,29 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 
 	public static boolean hasPortalCoolDown(PlayerEntity player) {
 		return player.getComponent(PORTAL_COOL_DOWN_COMPONENT).hasCoolDown();
+	}
+
+	public static void setCounterProperties(LivingEntity entity, @Nullable LivingEntity caster, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, int colour, double potency, long worldTime) {
+		entity.getComponent(COUNTER_COMPONENT).setProperties(caster, stack, effects, groups, groupIndex, colour, potency, worldTime);
+	}
+
+	public static void removeCounter(LivingEntity entity) {
+		entity.getComponent(COUNTER_COMPONENT).removeCounter();
+	}
+
+	public static void castCounter(LivingEntity entity, LivingEntity attackingEntity) {
+		entity.getComponent(COUNTER_COMPONENT).castCounter(attackingEntity);
+	}
+
+	public static boolean isCounterActive(LivingEntity entity) {
+		return entity.getComponent(COUNTER_COMPONENT).hasCounterActive(entity.getWorld());
+	}
+
+	public static int getCounterColour(LivingEntity entity) {
+		return entity.getComponent(COUNTER_COMPONENT).getColour();
+	}
+
+	public static long getCounterEnd(LivingEntity entity) {
+		return entity.getComponent(COUNTER_COMPONENT).getEndTime();
 	}
 }

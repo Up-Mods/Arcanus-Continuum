@@ -2,7 +2,7 @@
   "name": "Aggressorb Shape",
   "icon": "arcanuscontinuum:textures/spell_components/shapes/colored/aggressorb_shape.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 13,
+  "sortnum": 14,
   "advancement": "arcanuscontinuum:arcane/wizard_level_10",
   "pages": [
     {
