@@ -60,6 +60,7 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 	public static final ComponentKey<PocketDimensionPortalComponent> POCKET_DIMENSION_PORTAL_COMPONENT = createComponent("pocket_dimension_portal", PocketDimensionPortalComponent.class);
 	public static final ComponentKey<SlowTimeComponent> SLOW_TIME_COMPONENT = createComponent("slow_time", SlowTimeComponent.class);
 	public static final ComponentKey<AggressorbComponent> AGGRESSORB_COMPONENT = createComponent("aggressorb", AggressorbComponent.class);
+	public static final ComponentKey<GuardianOrbComponent> GUARDIAN_ORB_COMPONENT = createComponent("guardian_orb", GuardianOrbComponent.class);
 	public static final ComponentKey<PortalCoolDownComponent> PORTAL_COOL_DOWN_COMPONENT = createComponent("portal_cool_down", PortalCoolDownComponent.class);
 
 	@Override
@@ -96,6 +97,7 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 		registry.beginRegistration(MagicProjectileEntity.class, SPELL_SHAPE).end(SpellShapeComponent::new);
 		registry.beginRegistration(Entity.class, SLOW_TIME_COMPONENT).end(SlowTimeComponent::new);
 		registry.beginRegistration(LivingEntity.class, AGGRESSORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(AggressorbComponent::new);
+		registry.beginRegistration(LivingEntity.class, GUARDIAN_ORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(GuardianOrbComponent::new);
 		registry.beginRegistration(PlayerEntity.class, PORTAL_COOL_DOWN_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PortalCoolDownComponent::new);
 
 		ArcanusCompat.PEHKUI.ifEnabled(() -> () -> PehkuiCompat.registerEntityComponents(registry));
@@ -330,20 +332,28 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 		entity.getComponent(SLOW_TIME_COMPONENT).setBlockUpdatesInterval(interval);
 	}
 
-	public static int orbCount(LivingEntity entity) {
+	public static int aggressorbCount(LivingEntity entity) {
 		return entity.getComponent(AGGRESSORB_COMPONENT).orbCount();
 	}
 
-	public static int orbIndex(LivingEntity entity, AggressorbEntity orb) {
+	public static int aggressorbIndex(LivingEntity entity, AggressorbEntity orb) {
 		return entity.getComponent(AGGRESSORB_COMPONENT).orbIndex(orb);
 	}
 
-	public static void addOrbToEntity(LivingEntity entity, UUID orbId) {
+	public static void addAggressorbToEntity(LivingEntity entity, UUID orbId) {
 		entity.getComponent(AGGRESSORB_COMPONENT).addOrbToEntity(orbId);
 	}
 
-	public static void removeOrbFromEntity(LivingEntity entity, UUID orbId) {
+	public static void removeAggressorbFromEntity(LivingEntity entity, UUID orbId) {
 		entity.getComponent(AGGRESSORB_COMPONENT).removeOrbFromEntity(orbId);
+	}
+
+	public static UUID getGuardianOrbId(LivingEntity entity) {
+		return entity.getComponent(GUARDIAN_ORB_COMPONENT).getOrbId();
+	}
+
+	public static void setGuardianOrbManaLock(LivingEntity entity, UUID orbId, int strength) {
+		entity.getComponent(GUARDIAN_ORB_COMPONENT).setManaLock(orbId, strength);
 	}
 
 	public static void setPortalCoolDown(PlayerEntity player, int coolDown) {

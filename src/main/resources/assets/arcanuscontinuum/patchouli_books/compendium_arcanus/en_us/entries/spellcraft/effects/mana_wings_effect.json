@@ -2,7 +2,7 @@
   "name": "Mana Wings Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/mana_wings_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 408,
+  "sortnum": 407,
   "advancement": "arcanuscontinuum:arcane/wizard_level_10",
   "pages": [
     {

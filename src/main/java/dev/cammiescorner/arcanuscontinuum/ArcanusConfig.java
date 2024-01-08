@@ -332,7 +332,11 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "maximumManaLock", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".maximumManaLock")
 			@DoubleRange(min = 0, max = 1)
-			public static double maximumManaLock = 0.9;
+			public static double maximumManaLock = 0.5;
+
+			@ConfigEntry(id = "baseManaDrain", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseManaDrain")
+			@DoubleRange(min = 0, max = 200)
+			public static double baseManaDrain = 2;
 		}
 
 		@Category(id = "aggressorbShapeProperties", translation = "config." + Arcanus.MOD_ID + ".aggressorbShapeProperties") public static final class AggressorbShapeProperties {
@@ -1212,30 +1216,6 @@ public final class ArcanusConfig {
 			public static double baseTeleportDistance = 5;
 		}
 
-		@Category(id = "exchangeEffectProperties", translation = "config." + Arcanus.MOD_ID + ".exchangeEffectProperties") public static final class ExchangeEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
-			public static boolean enabled = true;
-
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config." + Arcanus.MOD_ID + ".weight")
-			public static Weight weight = Weight.NONE;
-
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".manaCost")
-			@DoubleRange(min = 0, max = 200)
-			public static double manaCost = 6;
-
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".coolDown")
-			@IntRange(min = 0, max = 24000)
-			public static int coolDown = 0;
-
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".minimumLevel")
-			@IntRange(min = 1, max = 10)
-			public static int minimumLevel = 7;
-
-			@ConfigEntry(id = "baseTeleportDistance", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseTeleportDistance")
-			@DoubleRange(min = 0, max = 32)
-			public static double baseTeleportDistance = 5;
-		}
-
 		@Category(id = "bouncyEffectProperties", translation = "config." + Arcanus.MOD_ID + ".bouncyEffectProperties") public static final class BouncyEffectProperties {
 			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
 			public static boolean enabled = true;
@@ -1284,7 +1264,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 100;
 		}
 
-		@Category(id = "antiGravityEffectProperties", translation = "config." + Arcanus.MOD_ID + ".antiGravityEffectProperties") public static final class AntiGravityEffectProperties {
+		@Category(id = "antiGravityEffectProperties", translation = "config." + Arcanus.MOD_ID + ".antiGravityEffectProperties") public static final class FloatEffectProperties {
 			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".enabled")
 			public static boolean enabled = true;
 

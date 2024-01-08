@@ -22,12 +22,16 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 		NbtList nbtPoses = tag.getList("Positions", NbtElement.COMPOUND_TYPE);
 
 		for(int i = 0; i < nbtEffects.size(); i++)
-			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(new Identifier(nbtEffects.getString(i))));
+			if(Arcanus.SPELL_COMPONENTS.get(new Identifier(nbtEffects.getString(i))) instanceof SpellEffect effect)
+				effects.add(effect);
 
 		for(int i = 0; i < nbtPoses.size(); i++) {
 			NbtCompound nbt = nbtPoses.getCompound(i);
 			positions.add(new Vector2i(nbt.getInt("X"), nbt.getInt("Y")));
 		}
+
+		if(positions.size() != effects.size() + 1)
+			return new SpellGroup((SpellShape) ArcanusSpellComponents.EMPTY.get(), List.of(), List.of());
 
 		return new SpellGroup(shape, effects, positions);
 	}

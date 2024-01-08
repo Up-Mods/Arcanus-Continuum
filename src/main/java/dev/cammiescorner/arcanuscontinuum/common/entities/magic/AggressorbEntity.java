@@ -70,8 +70,8 @@ public class AggressorbEntity extends ThrownEntity implements Targetable {
 		}
 
 		if(isBoundToTarget()) {
-			int orbCount = ArcanusComponents.orbCount(getTarget());
-			int orbIndex = ArcanusComponents.orbIndex(getTarget(), this) + 1;
+			int orbCount = ArcanusComponents.aggressorbCount(getTarget());
+			int orbIndex = ArcanusComponents.aggressorbIndex(getTarget(), this) + 1;
 			double angle = Math.toRadians(360d / orbCount * orbIndex);
 			double cosYaw = Math.cos(Math.toRadians(-getTarget().bodyYaw));
 			double sinYaw = Math.sin(Math.toRadians(-getTarget().bodyYaw));
@@ -140,7 +140,7 @@ public class AggressorbEntity extends ThrownEntity implements Targetable {
 
 		setBoundToTarget(false);
 		setProperties(getTarget(), pitch, yaw, 0F, 3f, 1F);
-		ArcanusComponents.removeOrbFromEntity(getTarget(), getUuid());
+		ArcanusComponents.removeAggressorbFromEntity(getTarget(), getUuid());
 
 		return true;
 	}
@@ -148,7 +148,7 @@ public class AggressorbEntity extends ThrownEntity implements Targetable {
 	@Override
 	public void kill() {
 		if(!getWorld().isClient() && getTarget() != null)
-			ArcanusComponents.removeOrbFromEntity(getTarget(), getUuid());
+			ArcanusComponents.removeAggressorbFromEntity(getTarget(), getUuid());
 
 		super.kill();
 	}
@@ -251,7 +251,7 @@ public class AggressorbEntity extends ThrownEntity implements Targetable {
 			this.dataTracker.set(OWNER_ID, caster.getId());
 		}
 
-		ArcanusComponents.addOrbToEntity(target, getUuid());
+		ArcanusComponents.addAggressorbToEntity(target, getUuid());
 		setBoundToTarget(true);
 
 		this.targetId = target.getUuid();

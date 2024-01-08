@@ -61,7 +61,7 @@ public class ShootOrbsPacket {
 				orb.setPosition(orb.getTarget().getEyePos());
 				orb.setProperties(orb.getTarget(), orb.getTarget().getPitch(), orb.getTarget().getYaw(), 0F, ArcanusConfig.SpellShapes.AggressorbShapeProperties.projectileSpeed, 1F);
 				world.playSound(null, orb.getX(), orb.getY(), orb.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1f, 1f, 1L);
-				ArcanusComponents.removeOrbFromEntity(orb.getTarget(), orbId);
+				ArcanusComponents.removeAggressorbFromEntity(orb.getTarget(), orbId);
 
 				break;
 			}

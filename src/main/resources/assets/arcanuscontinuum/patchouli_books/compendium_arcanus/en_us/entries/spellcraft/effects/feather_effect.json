@@ -2,7 +2,7 @@
   "name": "Feather Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/feather_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 406,
+  "sortnum": 405,
   "advancement": "arcanuscontinuum:arcane/wizard_level_8",
   "pages": [
     {

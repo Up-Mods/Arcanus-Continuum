@@ -80,7 +80,7 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 		if(amount > 0 && !blockedByShield(source)) {
 			if(hasStatusEffect(ArcanusStatusEffects.MANA_WINGS.get()) && ArcanusConfig.MovementEffects.ManaWingsEffectProperties.removedUponTakingDamage)
 				removeStatusEffect(ArcanusStatusEffects.MANA_WINGS.get());
-			if(hasStatusEffect(ArcanusStatusEffects.ANTI_GRAVITY.get()) && ArcanusConfig.MovementEffects.AntiGravityEffectProperties.removedUponTakingDamage)
+			if(hasStatusEffect(ArcanusStatusEffects.ANTI_GRAVITY.get()) && ArcanusConfig.MovementEffects.FloatEffectProperties.removedUponTakingDamage)
 				removeStatusEffect(ArcanusStatusEffects.ANTI_GRAVITY.get());
 
 			if(hasStatusEffect(ArcanusStatusEffects.STOCKPILE.get()) && amount >= ArcanusConfig.AttackEffects.StockpileEffectProperties.damageNeededToIncrease) {

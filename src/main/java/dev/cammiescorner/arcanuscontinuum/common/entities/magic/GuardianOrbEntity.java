@@ -2,7 +2,6 @@ package dev.cammiescorner.arcanuscontinuum.common.entities.magic;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
-import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
@@ -12,8 +11,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -61,25 +58,26 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 
 	@Override
 	public void tick() {
-		if((getCaster() == null || getTarget() == null || getCaster().squaredDistanceTo(getTarget()) > 32 * 32)) {
+		LivingEntity caster = getCaster();
+		LivingEntity target = getTarget();
+
+		if(caster == null || (!getWorld().isClient && !ArcanusComponents.getGuardianOrbId(caster).equals(getUuid())) || target == null || caster.squaredDistanceTo(target) > 32 * 32) {
 			kill();
 			return;
 		}
 
-		if(!getWorld().isClient()) {
-			if(dataTracker.get(TARGET_ID) == -1 && getTarget() != null)
-				dataTracker.set(TARGET_ID, getTarget().getId());
-		}
+		if(!getWorld().isClient() && dataTracker.get(TARGET_ID) == -1)
+				dataTracker.set(TARGET_ID, target.getId());
 
-		setYaw(getTarget().getYaw());
-		setBodyYaw(getTarget().bodyYaw);
-		setHeadYaw(getTarget().headYaw);
-		setPitch(getTarget().getPitch());
+		setYaw(target.getYaw());
+		setBodyYaw(target.bodyYaw);
+		setHeadYaw(target.headYaw);
+		setPitch(target.getPitch());
 
-		double cosYaw = Math.cos(Math.toRadians(-getTarget().bodyYaw));
-		double sinYaw = Math.sin(Math.toRadians(-getTarget().bodyYaw));
-		Vec3d rotation = new Vec3d(sinYaw, 0, cosYaw).multiply(getTarget().getWidth() / 2 + 0.2).rotateY((float) Math.toRadians(105));
-		Vec3d targetPos = getTarget().getPos().add(rotation.getX(), getTarget().getEyeHeight(getTarget().getPose()) - 0.2, rotation.getZ());
+		double cosYaw = Math.cos(Math.toRadians(-target.bodyYaw));
+		double sinYaw = Math.sin(Math.toRadians(-target.bodyYaw));
+		Vec3d rotation = new Vec3d(sinYaw, 0, cosYaw).multiply(target.getWidth() / 2 + 0.2).rotateY((float) Math.toRadians(105));
+		Vec3d targetPos = target.getPos().add(rotation.getX(), target.getEyeHeight(target.getPose()) - 0.2, rotation.getZ());
 		Vec3d direction = targetPos.subtract(getPos());
 		move(MovementType.SELF, direction.multiply(0.25f));
 
@@ -88,11 +86,11 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 			getWorld().addParticle(ParticleTypes.END_ROD, getX(), getY() + getHeight() / 2, getZ(), vel.getX(), vel.getY(), vel.getZ());
 		}
 
-		if(age % 100 == 0) {
-			EntityHitResult target = new EntityHitResult(getTarget());
+		if(age % 100 == 0 && ArcanusComponents.drainMana(caster, ArcanusConfig.SpellShapes.GuardianOrbShapeProperties.baseManaDrain * effects.size(), true)) {
+			EntityHitResult hitResult = new EntityHitResult(target);
 
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(getCaster(), this, getWorld(), target, effects, stack, potency);
+				effect.effect(caster, this, getWorld(), hitResult, effects, stack, potency);
 		}
 
 		super.tick();
@@ -111,14 +109,8 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 
 	@Override
 	public void remove(RemovalReason reason) {
-		if(!getWorld().isClient() && getCaster() != null && getTarget() != null) {
-			EntityAttributeInstance inst = getCaster().getAttributeInstance(ArcanusEntityAttributes.MANA_LOCK.get());
-
-			if(inst != null)
-				inst.removeModifier(casterId);
-
+		if(!getWorld().isClient() && getCaster() != null && getTarget() != null)
 			SpellShape.castNext(getCaster(), getTarget().getPos(), getTarget(), (ServerWorld) getWorld(), stack, groups, groupIndex, potency);
-		}
 
 		super.remove(reason);
 	}
@@ -209,15 +201,8 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 		if(caster != null) {
 			this.casterId = caster.getUuid();
 			this.dataTracker.set(OWNER_ID, caster.getId());
-			EntityAttributeInstance maxMana = caster.getAttributeInstance(ArcanusEntityAttributes.MAX_MANA.get());
-			EntityAttributeInstance manaLock = caster.getAttributeInstance(ArcanusEntityAttributes.MANA_LOCK.get());
 
-			// FIXME move over to component
-			if(maxMana != null && manaLock != null) {
-				double maximumManaLock = ArcanusConfig.SpellShapes.GuardianOrbShapeProperties.maximumManaLock;
-
-				manaLock.addPersistentModifier(new EntityAttributeModifier(casterId, "Orb Mana Lock", maxMana.getValue() * (effects.size() * (maximumManaLock / 11)), EntityAttributeModifier.Operation.ADDITION));
-			}
+			ArcanusComponents.setGuardianOrbManaLock(caster, getUuid(), effects.size());
 		}
 
 		this.targetId = target.getUuid();

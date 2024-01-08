@@ -32,8 +32,14 @@ public class Spell {
 		List<SpellGroup> groups = new ArrayList<>();
 		NbtList nbtList = nbt.getList("ComponentGroups", NbtElement.COMPOUND_TYPE);
 
-		for(int i = 0; i < nbtList.size(); i++)
-			groups.add(SpellGroup.fromNbt(nbtList.getCompound(i)));
+		for(int i = 0; i < nbtList.size(); i++) {
+			SpellGroup group = SpellGroup.fromNbt(nbtList.getCompound(i));
+
+			if(group.isEmpty())
+				return new Spell();
+
+			groups.add(group);
+		}
 
 		return new Spell(groups, nbt.getString("Name"));
 	}

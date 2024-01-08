@@ -2,7 +2,7 @@
   "name": "Bouncy Effect",
   "icon": "arcanuscontinuum:textures/spell_components/effects/colored/bouncy_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 405,
+  "sortnum": 404,
   "advancement": "arcanuscontinuum:arcane/wizard_level_8",
   "pages": [
     {

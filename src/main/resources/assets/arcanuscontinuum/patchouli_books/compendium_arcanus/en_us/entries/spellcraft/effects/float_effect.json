@@ -1,8 +1,8 @@
 {
-  "name": "Anti-Gravity Effect",
-  "icon": "arcanuscontinuum:textures/spell_components/effects/colored/anti_gravity_effect.png",
+  "name": "Float Effect",
+  "icon": "arcanuscontinuum:textures/spell_components/effects/colored/float_effect.png",
   "category": "arcanuscontinuum:spellcraft",
-  "sortnum": 407,
+  "sortnum": 406,
   "advancement": "arcanuscontinuum:arcane/wizard_level_5",
   "pages": [
     {
@@ -13,7 +13,7 @@
       "type": "patchouli:image",
       "border": true,
       "images": [
-        "arcanuscontinuum:textures/gui/patchouli/entries/effects/anti_gravity_effect.png"
+        "arcanuscontinuum:textures/gui/patchouli/entries/effects/float_effect.png"
       ]
     }
   ]

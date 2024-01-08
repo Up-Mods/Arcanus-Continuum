@@ -101,17 +101,14 @@ public class SpellBookScreen extends HandledScreen<SpellBookScreenHandler> {
 		}
 
 		for(SpellGroup group : SPELL_GROUPS) {
-			List<Vector2i> positions = group.positions();
-
-			for(int j = 0; j < positions.size(); j++) {
-				Vector2i pos = positions.get(j);
+			for(Vector2i pos : group.positions()) {
 				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 				gui.drawTexture(PANEL_TEXTURE, pos.x - 3, pos.y - 3, 60, 208, 30, 30, 384, 256);
 
 				RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
 				gui.drawTexture(PANEL_TEXTURE, pos.x - 3, pos.y - 3, 30, 208, 30, 30, 384, 256);
 
-				gui.drawTexture(group.getAllComponents().toList().get(j).getTexture(), pos.x, pos.y, 0, 0, 24, 24, 24, 24);
+				gui.drawTexture(group.getAllComponents().toList().get(group.positions().indexOf(pos)).getTexture(), pos.x, pos.y, 0, 0, 24, 24, 24, 24);
 			}
 		}
 
