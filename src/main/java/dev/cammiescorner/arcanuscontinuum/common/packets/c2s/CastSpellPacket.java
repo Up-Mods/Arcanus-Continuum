@@ -1,7 +1,6 @@
 package dev.cammiescorner.arcanuscontinuum.common.packets.c2s;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
-import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
@@ -59,7 +58,7 @@ public class CastSpellPacket {
 							return;
 						}
 
-						if(!ArcanusComponents.drainMana(player, spell.getManaCost() * player.getAttributeValue(ArcanusEntityAttributes.MANA_COST_MULT.get()), false)) {
+						if(!ArcanusComponents.drainMana(player, spell.getManaCost(), false)) {
 							player.sendMessage(Arcanus.translate("spell", "not_enough_mana").formatted(Formatting.RED, Formatting.ITALIC), true);
 							return;
 						}
