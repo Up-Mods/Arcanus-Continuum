@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.packets.c2s;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
@@ -74,7 +75,7 @@ public class SyncPatternPacket {
 							return;
 						}
 
-						if(!ArcanusComponents.drainMana(player, spell.getManaCost(), player.isCreative())) {
+						if(!ArcanusComponents.drainMana(player, spell.getManaCost() * player.getAttributeValue(ArcanusEntityAttributes.MANA_COST_MULT.get()), player.isCreative())) {
 							player.sendMessage(Arcanus.translate("spell", "not_enough_mana"), true);
 							return;
 						}

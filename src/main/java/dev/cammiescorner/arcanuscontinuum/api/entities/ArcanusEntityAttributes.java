@@ -21,6 +21,7 @@ public class ArcanusEntityAttributes {
 	public static final RegistrySupplier<EntityAttribute> BURNOUT_REGEN = ENTITY_ATTRIBUTES.register("burnout_regen", () -> new ClampedEntityAttribute(Arcanus.translationKey("attribute.name.generic", "burnout_regen"), 0.5D, 0D, 1024D).setTracked(true));
 	public static final RegistrySupplier<EntityAttribute> MANA_LOCK = ENTITY_ATTRIBUTES.register("mana_lock", () -> new ClampedEntityAttribute(Arcanus.translationKey("attribute.name.generic", "mana_lock"), 0D, 0D, 1024D).setTracked(true));
 	public static final RegistrySupplier<EntityAttribute> SPELL_POTENCY = ENTITY_ATTRIBUTES.register("spell_potency", () -> new ClampedEntityAttribute(Arcanus.translationKey("attribute.name.generic", "spell_potency"), 1D, 0D, 1024D).setTracked(true));
+	public static final RegistrySupplier<EntityAttribute> MANA_COST_MULT = ENTITY_ATTRIBUTES.register("mana_cost_multiplier", () -> new ClampedEntityAttribute(Arcanus.translationKey("attribute.name.generic", "mana_cost_multiplier"), 1D, 0D, 1024D).setTracked(true));
 	public static final RegistrySupplier<EntityAttribute> MAGIC_RESISTANCE = ENTITY_ATTRIBUTES.register("magic_resistance", () -> new ClampedEntityAttribute(Arcanus.translationKey("attribute.name.generic", "magic_resistance"), 1D, 0D, 1024D).setTracked(true));
 
 	public static void registerAll(RegistryService registryService) {

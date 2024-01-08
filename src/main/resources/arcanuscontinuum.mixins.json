@@ -12,6 +12,7 @@
 		"common.FallingBlockMixin",
 		"common.HungerManagerMixin",
 		"common.ItemEntityMixin",
+		"common.ItemStackMixin",
 		"common.LecternBlockEntityMixin",
 		"common.LivingEntityMixin",
 		"common.MilkBucketItemMixin",
