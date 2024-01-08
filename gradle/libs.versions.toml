@@ -2,14 +2,13 @@
 # The latest versions are available at https://lambdaurora.dev/tools/import_quilt.html
 minecraft = "1.20.1"
 quilt_mappings = "1.20.1+build.23"
-quilt_loader = "0.20.2"
+quilt_loader = "0.23.0"
 
 quilted_fabric_api = "7.4.0+0.90.0-1.20.1"
 cca = "5.2.2"
 trinkets = "3.7.1"
 sparkweave = "0.4.1"
 patchouli = "1.20.1-84-FABRIC"
-mixinextras = "0.2.2"
 reach_attr = "2.4.0"
 modmenu = "7.2.2"
 lazydfu = "0.1.3"
@@ -37,7 +36,6 @@ cca_chunk = { module = "dev.onyxstudios.cardinal-components-api:cardinal-compone
 trinkets = { module = "dev.emi:trinkets", version.ref = "trinkets" }
 sparkweave = { module = "dev.upcraft:Sparkweave", version.ref = "sparkweave" }
 patchouli = { module = "vazkii.patchouli:Patchouli", version.ref = "patchouli" }
-mixinextras = { module = "io.github.llamalad7:mixinextras-fabric", version.ref = "mixinextras" }
 reach_attr = { module = "com.jamieswhiteshirt:reach-entity-attributes", version.ref = "reach_attr" }
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
 lazydfu = { module = "maven.modrinth:lazydfu", version.ref = "lazydfu" }

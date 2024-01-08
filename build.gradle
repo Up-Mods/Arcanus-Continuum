@@ -90,16 +90,13 @@ dependencies {
 
 	modImplementation libs.quilt.loader
 	modImplementation libs.quilted.fabric.api
-	modRuntimeOnly libs.quilted.fabric.api.deprecated
+	modRuntimeOnly (libs.quilted.fabric.api.deprecated) {
+		exclude(group: "org.quiltmc", module: "quilt-loader")
+	}
 
 	modImplementation (libs.sparkweave) {
 		exclude(group: "io.github.llamalad7")
-		exclude(group: "org.quiltmc")
 	}
-
-	include libs.mixinextras
-	implementation libs.mixinextras
-	annotationProcessor libs.mixinextras
 
 	modImplementation libs.bundles.cca
 
