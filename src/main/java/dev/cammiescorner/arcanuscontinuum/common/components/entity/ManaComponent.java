@@ -84,7 +84,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	}
 
 	public boolean drainMana(double amount, boolean simulate) {
-		amount *= entity.getAttributeValue(ArcanusEntityAttributes.MANA_COST_MULT.get());
+		amount *= entity.getAttributeValue(ArcanusEntityAttributes.MANA_COST.get());
 		if(getMana() >= 0 && getMana() + getTrueMaxMana() >= amount) {
 			if(!simulate) {
 				if(amount > getMana()) {

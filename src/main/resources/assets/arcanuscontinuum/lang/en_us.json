@@ -196,8 +196,9 @@
 	"attribute.name.generic.arcanuscontinuum.burnout_regen": "Burnout Regen",
 	"attribute.name.generic.arcanuscontinuum.mana_lock": "Mana Lock",
 	"attribute.name.generic.arcanuscontinuum.spell_potency": "Spell Potency",
-  "attribute.name.generic.arcanuscontinuum.mana_cost_multiplier": "Mana Cost",
+  "attribute.name.generic.arcanuscontinuum.mana_cost": "Mana Cost",
 	"attribute.name.generic.arcanuscontinuum.magic_resistance": "Magic Resistance",
+  "attribute.name.generic.arcanuscontinuum.spell_cool_down": "Spell Cool Down",
 
 	"config.arcanuscontinuum.spellShapesCategory": "Spell Shapes",
 	"config.arcanuscontinuum.attackEffectsCategory": "Attack Effects",

@@ -43,7 +43,7 @@ public class WizardArmorItem extends DyeableArmorItem {
 				.put(ArcanusEntityAttributes.MANA_REGEN.get(), new EntityAttributeModifier(modifierID, "Armor modifier", manaRegen, EntityAttributeModifier.Operation.ADDITION))
 				.put(ArcanusEntityAttributes.MAGIC_RESISTANCE.get(), new EntityAttributeModifier(modifierID, "Armor modifier", magicResist, EntityAttributeModifier.Operation.MULTIPLY_BASE))
 				.put(ArcanusEntityAttributes.SPELL_POTENCY.get(), new EntityAttributeModifier(modifierID, "Armor modifier", spellPotency, EntityAttributeModifier.Operation.MULTIPLY_BASE))
-				.put(ArcanusEntityAttributes.MANA_COST_MULT.get(), new EntityAttributeModifier(modifierID, "Armor modifier", manaCostMultiplier, EntityAttributeModifier.Operation.MULTIPLY_BASE))
+				.put(ArcanusEntityAttributes.MANA_COST.get(), new EntityAttributeModifier(modifierID, "Armor modifier", manaCostMultiplier, EntityAttributeModifier.Operation.MULTIPLY_BASE))
 				.build();
 		});
 

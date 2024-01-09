@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.packets.c2s;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Spell;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellComponent;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
@@ -70,7 +71,7 @@ public class CastSpellPacket {
 					player.sendMessage(Text.translatable(spell.getName()).formatted(Formatting.GREEN), true);
 
 					for(Holder<Item> holder : TagRegistry.getTag(ArcanusTags.STAVES))
-						player.getItemCooldownManager().set(holder.value(), spell.getCoolDown());
+						player.getItemCooldownManager().set(holder.value(), (int) (spell.getCoolDown() * player.getAttributeValue(ArcanusEntityAttributes.SPELL_COOL_DOWN.get())));
 				}
 			}
 		});
