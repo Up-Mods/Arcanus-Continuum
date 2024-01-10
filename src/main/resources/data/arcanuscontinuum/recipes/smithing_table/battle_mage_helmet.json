@@ -4,7 +4,7 @@
 		"item": "minecraft:amethyst_shard"
 	},
 	"base": {
-		"item": "minecraft:iron_helmet"
+		"item": "minecraft:diamond_helmet"
 	},
 	"result": {
 		"item": "arcanuscontinuum:battle_mage_helmet"

@@ -4,7 +4,7 @@
 		"item": "minecraft:amethyst_shard"
 	},
 	"base": {
-		"item": "minecraft:iron_boots"
+		"item": "minecraft:diamond_boots"
 	},
 	"result": {
 		"item": "arcanuscontinuum:battle_mage_boots"

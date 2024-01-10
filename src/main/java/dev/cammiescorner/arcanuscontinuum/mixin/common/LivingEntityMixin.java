@@ -218,7 +218,8 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 				.add(ArcanusEntityAttributes.MANA_LOCK.get())
 				.add(ArcanusEntityAttributes.SPELL_POTENCY.get())
 				.add(ArcanusEntityAttributes.MAGIC_RESISTANCE.get())
-				.add(ArcanusEntityAttributes.MANA_COST.get());
+				.add(ArcanusEntityAttributes.MANA_COST.get())
+				.add(ArcanusEntityAttributes.SPELL_COOL_DOWN.get());
 		else
 			return builder;
 	}

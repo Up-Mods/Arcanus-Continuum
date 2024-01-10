@@ -4,7 +4,7 @@
 		"item": "minecraft:amethyst_shard"
 	},
 	"base": {
-		"item": "minecraft:iron_leggings"
+		"item": "minecraft:diamond_leggings"
 	},
 	"result": {
 		"item": "arcanuscontinuum:battle_mage_leggings"

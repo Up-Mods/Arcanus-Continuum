@@ -24,8 +24,8 @@ public enum ArcanusArmourMaterials implements StringIdentifiable, ArmorMaterial 
 	}), 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0f, 0f, () -> Ingredient.ofItems(Items.LEATHER)),
 	BATTLE_MAGE("battle_mage", 35, Util.make(new EnumMap<>(ArmorItem.ArmorSlot.class), (map) -> {
 		map.put(ArmorItem.ArmorSlot.BOOTS, 2);
-		map.put(ArmorItem.ArmorSlot.LEGGINGS, 5);
-		map.put(ArmorItem.ArmorSlot.CHESTPLATE, 6);
+		map.put(ArmorItem.ArmorSlot.LEGGINGS, 6);
+		map.put(ArmorItem.ArmorSlot.CHESTPLATE, 8);
 		map.put(ArmorItem.ArmorSlot.HELMET, 3);
 	}), 25, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0f, 0f, () -> Ingredient.ofItems(Items.AMETHYST_SHARD));
 
