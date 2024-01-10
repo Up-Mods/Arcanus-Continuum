@@ -21,7 +21,7 @@ public class ArcanusStatusEffects {
 	public static final RegistrySupplier<StatusEffect> COPPER_CURSE = STATUS_EFFECTS.register("copper_curse", () -> new ArcanusStatusEffect(StatusEffectType.HARMFUL, 0xc15a36));
 	public static final RegistrySupplier<StatusEffect> DISCOMBOBULATE = STATUS_EFFECTS.register("discombobulate", () -> new ArcanusStatusEffect(StatusEffectType.HARMFUL, 0x7b1375));
 //	public static final RegistrySupplier<StatusEffect> TEMPORAL_DILATION = STATUS_EFFECTS.register("temporal_dilation", () -> new ArcanusStatusEffect(StatusEffectType.BENEFICIAL, 0x68e1ff));
-	public static final RegistrySupplier<StatusEffect> ANTI_GRAVITY = STATUS_EFFECTS.register("anti_gravity", () -> new ArcanusStatusEffect(StatusEffectType.NEUTRAL, 0xceffff));
+	public static final RegistrySupplier<StatusEffect> FLOAT = STATUS_EFFECTS.register("float", () -> new ArcanusStatusEffect(StatusEffectType.NEUTRAL, 0xceffff));
 	public static final RegistrySupplier<StatusEffect> MANA_WINGS = STATUS_EFFECTS.register("mana_wings", () -> new ArcanusStatusEffect(StatusEffectType.BENEFICIAL, 0x716e8c));
 	public static final RegistrySupplier<StatusEffect> STOCKPILE = STATUS_EFFECTS.register("stockpile", () -> new ArcanusStatusEffect(StatusEffectType.BENEFICIAL, 0x550000));
 	public static final RegistrySupplier<StatusEffect> DANGER_SENSE = STATUS_EFFECTS.register("danger_sense", () -> new ArcanusStatusEffect(StatusEffectType.BENEFICIAL, 0xaeeff2));

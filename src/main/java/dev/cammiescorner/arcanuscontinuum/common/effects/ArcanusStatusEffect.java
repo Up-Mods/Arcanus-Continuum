@@ -22,7 +22,7 @@ public class ArcanusStatusEffect extends StatusEffect {
 			if(this == ArcanusStatusEffects.ANONYMITY.get() || /*this == ArcanusStatusEffects.TEMPORAL_DILATION.get() ||*/ this == ArcanusStatusEffects.MANA_WINGS.get())
 				SyncStatusEffectPacket.sendToAll(entity, this, true);
 
-			if(this == ArcanusStatusEffects.ANTI_GRAVITY.get())
+			if(this == ArcanusStatusEffects.FLOAT.get())
 				entity.setNoGravity(true);
 		}
 	}
@@ -36,7 +36,7 @@ public class ArcanusStatusEffect extends StatusEffect {
 			if(this == ArcanusStatusEffects.ANONYMITY.get() || /*this == ArcanusStatusEffects.TEMPORAL_DILATION.get() ||*/ this == ArcanusStatusEffects.MANA_WINGS.get())
 				SyncStatusEffectPacket.sendToAll(entity, this, false);
 
-			if(this == ArcanusStatusEffects.ANTI_GRAVITY.get())
+			if(this == ArcanusStatusEffects.FLOAT.get())
 				entity.setNoGravity(false);
 		}
 	}

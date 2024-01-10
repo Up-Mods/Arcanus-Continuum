@@ -1,8 +1,10 @@
 package dev.cammiescorner.arcanuscontinuum.common.spell_components.effects.movement;
 
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellType;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusStatusEffects;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -26,7 +28,7 @@ public class FloatSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.ANTI_GRAVITY.get(), -1, 0, true, false));
+				livingEntity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.FLOAT.get(), (int) (ArcanusConfig.MovementEffects.FloatEffectProperties.baseEffectDuration * (effects.stream().filter(ArcanusSpellComponents.FLOAT::is).count() - 1) * potency), 0, true, false));
 		}
 	}
 }

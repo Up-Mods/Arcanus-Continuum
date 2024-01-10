@@ -1315,6 +1315,10 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "removedUponTakingDamage", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".removedUponTakingDamage")
 			public static boolean removedUponTakingDamage = true;
+
+			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config." + Arcanus.MOD_ID + ".baseEffectDuration")
+			@IntRange(min = 0, max = 24000)
+			public static int baseEffectDuration = 1200;
 		}
 
 		@Category(id = "manaWingsEffectProperties", translation = "config." + Arcanus.MOD_ID + ".manaWingsEffectProperties") public static final class ManaWingsEffectProperties {

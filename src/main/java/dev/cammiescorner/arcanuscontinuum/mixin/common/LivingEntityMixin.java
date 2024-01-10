@@ -83,8 +83,8 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 
 			if(hasStatusEffect(ArcanusStatusEffects.MANA_WINGS.get()) && ArcanusConfig.MovementEffects.ManaWingsEffectProperties.removedUponTakingDamage)
 				removeStatusEffect(ArcanusStatusEffects.MANA_WINGS.get());
-			if(hasStatusEffect(ArcanusStatusEffects.ANTI_GRAVITY.get()) && ArcanusConfig.MovementEffects.FloatEffectProperties.removedUponTakingDamage)
-				removeStatusEffect(ArcanusStatusEffects.ANTI_GRAVITY.get());
+			if(hasStatusEffect(ArcanusStatusEffects.FLOAT.get()) && ArcanusConfig.MovementEffects.FloatEffectProperties.removedUponTakingDamage)
+				removeStatusEffect(ArcanusStatusEffects.FLOAT.get());
 
 			if(hasStatusEffect(ArcanusStatusEffects.STOCKPILE.get()) && amount >= ArcanusConfig.AttackEffects.StockpileEffectProperties.damageNeededToIncrease) {
 				StatusEffectInstance stockpile = getStatusEffect(ArcanusStatusEffects.STOCKPILE.get());
@@ -158,7 +158,7 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 	private BlockState arcanuscontinuum$bouncy(BlockState value) {
 		if(hasStatusEffect(ArcanusStatusEffects.BOUNCY.get()))
 			return Blocks.SLIME_BLOCK.getDefaultState();
-		if(hasStatusEffect(ArcanusStatusEffects.ANTI_GRAVITY.get()))
+		if(hasStatusEffect(ArcanusStatusEffects.FLOAT.get()))
 			fallDistance = 0;
 
 		return value;
@@ -230,7 +230,7 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 	))
 	private Vec3d arcanuscontinuum$floatAround(LivingEntity livingEntity, Operation<Vec3d> original, Vec3d movementInput, float slipperiness) {
 		// FIXME smooth out vertical movement, currently a bit jolting
-		if(hasStatusEffect(ArcanusStatusEffects.ANTI_GRAVITY.get()))
+		if(hasStatusEffect(ArcanusStatusEffects.FLOAT.get()))
 			return getVelocity().add(0, jumping ? getMovementSpeed() : isSneaking() ? -getMovementSpeed() : 0, 0);
 
 		return original.call(livingEntity);

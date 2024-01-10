@@ -300,6 +300,6 @@
 	"config.arcanuscontinuum.teleportEffectProperties": "Teleport Effect",
 	"config.arcanuscontinuum.bouncyEffectProperties": "Bouncy Effect",
 	"config.arcanuscontinuum.featherEffectProperties": "Feather Effect",
-	"config.arcanuscontinuum.antiGravityEffectProperties": "Anti-Gravity Effect",
+	"config.arcanuscontinuum.floatEffectProperties": "Float Effect",
 	"config.arcanuscontinuum.manaWingsEffectProperties": "Mana Wings Effect"
 }
