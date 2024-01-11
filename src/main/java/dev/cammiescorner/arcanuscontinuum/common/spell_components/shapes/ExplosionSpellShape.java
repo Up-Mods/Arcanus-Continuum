@@ -86,7 +86,7 @@ public class ExplosionSpellShape extends SpellShape {
 		int s = MathHelper.floor(castFrom.getY() + f + 1);
 		int t = MathHelper.floor(castFrom.getZ() - f - 1);
 		int u = MathHelper.floor(castFrom.getZ() + f + 1);
-		List<Entity> list = world.getOtherEntities(sourceEntity == caster ? caster : null, new Box(k, r, t, l, s, u), entity -> entity instanceof Targetable targetable && targetable.arcanuscontinuum$canBeTargeted()).stream().toList();
+		List<Entity> affectedEntities = world.getOtherEntities(sourceEntity == caster ? caster : null, new Box(k, r, t, l, s, u), entity -> entity instanceof Targetable targetable && targetable.arcanuscontinuum$canBeTargeted()).stream().toList();
 
 		for(SpellEffect effect : new HashSet<>(effects)) {
 			if(effect.shouldTriggerOnceOnExplosion()) {
@@ -94,7 +94,7 @@ public class ExplosionSpellShape extends SpellShape {
 				continue;
 			}
 
-			for(Entity entity : list)
+			for(Entity entity : affectedEntities)
 				effect.effect(caster, sourceEntity, world, new EntityHitResult(entity), effects, stack, potency);
 			for(BlockPos blockPos : affectedBlocks)
 				effect.effect(caster, sourceEntity, world, new BlockHitResult(Vec3d.ofCenter(blockPos), Direction.UP, blockPos, true), effects, stack, potency);
