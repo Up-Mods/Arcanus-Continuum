@@ -86,7 +86,7 @@ public class GuardianOrbEntity extends Entity implements Targetable {
 			getWorld().addParticle(ParticleTypes.END_ROD, getX(), getY() + getHeight() / 2, getZ(), vel.getX(), vel.getY(), vel.getZ());
 		}
 
-		if(age % 100 == 0 && ArcanusComponents.drainMana(caster, ArcanusConfig.SpellShapes.GuardianOrbShapeProperties.baseManaDrain * effects.size(), true)) {
+		if(age % 100 == 0 && ArcanusComponents.drainMana(caster, ArcanusConfig.SpellShapes.GuardianOrbShapeProperties.baseManaDrain * effects.size(), false)) {
 			EntityHitResult hitResult = new EntityHitResult(target);
 
 			for(SpellEffect effect : new HashSet<>(effects))

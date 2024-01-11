@@ -366,7 +366,7 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "baseManaDrain", type = EntryType.DOUBLE, translation = "config." + Arcanus.MOD_ID + ".baseManaDrain")
 			@DoubleRange(min = 0, max = 200)
-			public static double baseManaDrain = 2;
+			public static double baseManaDrain = 3;
 		}
 
 		@Category(id = "aggressorbShapeProperties", translation = "config." + Arcanus.MOD_ID + ".aggressorbShapeProperties") public static final class AggressorbShapeProperties {
