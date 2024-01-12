@@ -353,10 +353,10 @@ public class ArcanusClient implements ClientModInitializer {
 		colour = (((int) r << 16) | ((int) g << 8) | (int) b);
 
 		for(Direction direction : Direction.values()) {
-			BlockPos blockToSide = blockPos.offset(direction);
-			BlockState stateToSide = world.getBlockState(blockToSide);
+			BlockPos posToSide = blockPos.offset(direction);
+			BlockState stateToSide = world.getBlockState(posToSide);
 
-			if(stateToSide.isSideSolid(world, blockToSide, direction.getOpposite(), SideShapeType.FULL))
+			if(stateToSide.isSideSolid(world, posToSide, direction.getOpposite(), SideShapeType.FULL) || ArcanusComponents.isBlockWarded(world, posToSide))
 				continue;
 
 			switch(direction) {
