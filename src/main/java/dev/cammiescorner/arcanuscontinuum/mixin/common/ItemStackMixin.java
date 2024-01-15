@@ -40,6 +40,6 @@ public abstract class ItemStackMixin {
 		target = "Lnet/minecraft/text/MutableText;formatted(Lnet/minecraft/util/Formatting;)Lnet/minecraft/text/MutableText;"
 	))
 	private Formatting arcanuscontinuum$switchColour(Formatting formatting, @Share("entry") LocalRef<Map.Entry<EntityAttribute, EntityAttributeModifier>> ref) {
-		return ref.get().getKey() == ArcanusEntityAttributes.MANA_COST.get() || ref.get().getKey() == ArcanusEntityAttributes.SPELL_COOL_DOWN.get() ? (formatting == Formatting.BLUE ? Formatting.RED : Formatting.BLUE) : formatting;
+		return ref.get() != null && (ref.get().getKey() == ArcanusEntityAttributes.MANA_COST.get() || ref.get().getKey() == ArcanusEntityAttributes.SPELL_COOL_DOWN.get()) ? (formatting == Formatting.BLUE ? Formatting.RED : Formatting.BLUE) : formatting;
 	}
 }
