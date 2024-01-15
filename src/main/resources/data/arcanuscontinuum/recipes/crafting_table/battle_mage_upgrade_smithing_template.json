@@ -2,18 +2,18 @@
 	"type": "minecraft:crafting_shaped",
 	"category": "misc",
 	"pattern": [
-		"#S#",
-		"#C#",
-		"###"
+		"CTC",
+		"CSC",
+		"CCC"
 	],
 	"key": {
-		"#": {
+		"C": {
 			"item": "minecraft:copper_block"
 		},
-		"C": {
-			"item": "minecraft:smooth_basalt"
-		},
 		"S": {
+			"item": "minecraft:stone"
+		},
+		"T": {
 			"item": "minecraft:amethyst_shard"
 		}
 	},

@@ -42,6 +42,7 @@ public abstract class ArmorStandEntityMixin extends LivingEntity {
 					BattleMageArmorItem.setWaxed(stack, false);
 					heldStack.damage(1, player, player1 -> player1.sendToolBreakStatus(hand));
 					info.setReturnValue(ActionResult.SUCCESS);
+					return;
 				}
 
 				if(BattleMageArmorItem.getOxidation(stack) != Oxidizable.OxidizationLevel.UNAFFECTED) {
@@ -49,6 +50,7 @@ public abstract class ArmorStandEntityMixin extends LivingEntity {
 					BattleMageArmorItem.setOxidation(stack, Oxidizable.OxidizationLevel.values()[BattleMageArmorItem.getOxidation(stack).ordinal() - 1]);
 					heldStack.damage(1, player, player1 -> player1.sendToolBreakStatus(hand));
 					info.setReturnValue(ActionResult.SUCCESS);
+					return;
 				}
 			}
 

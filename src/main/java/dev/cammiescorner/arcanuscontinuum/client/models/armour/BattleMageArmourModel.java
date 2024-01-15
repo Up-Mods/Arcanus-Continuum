@@ -11,29 +11,29 @@ import net.minecraft.entity.LivingEntity;
 
 public class BattleMageArmourModel<T extends LivingEntity> extends BipedEntityModel<T> {
 	public static final EntityModelLayer MODEL_LAYER = new EntityModelLayer(Arcanus.id("battle_mage_armor"), "main");
-	public final ModelPart armorHead;
-	public final ModelPart armorBody;
+	public final ModelPart helmet;
+	public final ModelPart chestplate;
 	public final ModelPart surcoatFront;
 	public final ModelPart surcoatBack;
-	public final ModelPart armorRightArm;
-	public final ModelPart armorLeftArm;
-	public final ModelPart armorRightLeg;
-	public final ModelPart armorRightBoot;
-	public final ModelPart armorLeftLeg;
-	public final ModelPart armorLeftBoot;
+	public final ModelPart rightGauntlet;
+	public final ModelPart leftGauntlet;
+	public final ModelPart rightGreaves;
+	public final ModelPart rightBoot;
+	public final ModelPart leftGreaves;
+	public final ModelPart leftBoot;
 
 	public BattleMageArmourModel(ModelPart root) {
 		super(root);
-		armorHead = head.getChild("armorHead");
-		armorBody = body.getChild("armorBody");
-		surcoatFront = armorBody.getChild("surcoatFront");
-		surcoatBack = armorBody.getChild("surcoatBack");
-		armorRightArm = rightArm.getChild("armorRightArm");
-		armorLeftArm = leftArm.getChild("armorLeftArm");
-		armorRightLeg = rightLeg.getChild("armorRightLeg");
-		armorLeftLeg = leftLeg.getChild("armorLeftLeg");
-		armorRightBoot = rightLeg.getChild("armorRightBoot");
-		armorLeftBoot = leftLeg.getChild("armorLeftBoot");
+		helmet = head.getChild("armorHead");
+		chestplate = body.getChild("armorBody");
+		surcoatFront = chestplate.getChild("surcoatFront");
+		surcoatBack = chestplate.getChild("surcoatBack");
+		rightGauntlet = rightArm.getChild("armorRightArm");
+		leftGauntlet = leftArm.getChild("armorLeftArm");
+		rightGreaves = rightLeg.getChild("armorRightLeg");
+		leftGreaves = leftLeg.getChild("armorLeftLeg");
+		rightBoot = rightLeg.getChild("armorRightBoot");
+		leftBoot = leftLeg.getChild("armorLeftBoot");
 	}
 
 	public static TexturedModelData getTexturedModelData() {

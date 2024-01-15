@@ -55,16 +55,19 @@ public class BattleMageArmourRenderer implements ArmorRenderer {
 
 			contextModel.setAttributes(model);
 			model.setVisible(true);
-			model.armorHead.visible = slot == EquipmentSlot.HEAD;
-			model.armorBody.visible = slot == EquipmentSlot.CHEST;
+			model.helmet.visible = slot == EquipmentSlot.HEAD;
+			model.chestplate.visible = slot == EquipmentSlot.CHEST;
 			model.surcoatFront.visible = slot == EquipmentSlot.CHEST;
 			model.surcoatBack.visible = slot == EquipmentSlot.CHEST;
-			model.armorRightArm.visible = slot == EquipmentSlot.CHEST;
-			model.armorLeftArm.visible = slot == EquipmentSlot.CHEST;
-			model.armorRightLeg.visible = slot == EquipmentSlot.LEGS;
-			model.armorLeftLeg.visible = slot == EquipmentSlot.LEGS;
-			model.armorRightBoot.visible = slot == EquipmentSlot.FEET;
-			model.armorLeftBoot.visible = slot == EquipmentSlot.FEET;
+			model.rightGauntlet.visible = slot == EquipmentSlot.CHEST;
+			model.leftGauntlet.visible = slot == EquipmentSlot.CHEST;
+			model.rightGreaves.visible = slot == EquipmentSlot.LEGS;
+			model.leftGreaves.visible = slot == EquipmentSlot.LEGS;
+			model.rightBoot.visible = slot == EquipmentSlot.FEET;
+			model.leftBoot.visible = slot == EquipmentSlot.FEET;
+
+			model.surcoatFront.pitch = Math.min(contextModel.leftLeg.pitch, contextModel.rightLeg.pitch) - 0.0436f;
+			model.surcoatBack.pitch = Math.max(contextModel.leftLeg.pitch, contextModel.rightLeg.pitch) + 0.0436f;
 
 			model.render(matrices, ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(mainTexture), false, false), light, OverlayTexture.DEFAULT_UV, 1f, 1f, 1f, 1f);
 			model.render(matrices, ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(overlayTexture), false, false), light, OverlayTexture.DEFAULT_UV, r, g, b, 1f);
