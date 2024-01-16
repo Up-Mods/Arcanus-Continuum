@@ -39,11 +39,13 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
 	}
 
 	private void cycleTemplate(CycleTemplatesButtonWidget widget) {
-		client.interactionManager.clickButton(handler.syncId, widget.isUp ? 1 : 2);
+		if(client != null && client.interactionManager != null)
+			client.interactionManager.clickButton(handler.syncId, widget.isUp ? 1 : 2);
 	}
 
 	private void changeMode(ChangeModeButtonWidget widget) {
-		client.interactionManager.clickButton(handler.syncId, 0);
+		if(client != null && client.interactionManager != null)
+			client.interactionManager.clickButton(handler.syncId, 0);
 	}
 
 	@Override
@@ -89,7 +91,7 @@ public class ArcaneWorkbenchScreen extends HandledScreen<ArcaneWorkbenchScreenHa
 			matrices.pop();
 		}
 		else if(getScreenHandler().getMode() == WorkbenchMode.CUSTOMIZE) {
-			gui.drawItemInSlot(textRenderer, getScreenHandler().getTemplate().getDefaultStack(), 10, 35);
+			gui.drawItem(getScreenHandler().getTemplate().getDefaultStack(), 10, 35);
 		}
 
 		drawMouseoverTooltip(gui, mouseX - x, mouseY - y);
