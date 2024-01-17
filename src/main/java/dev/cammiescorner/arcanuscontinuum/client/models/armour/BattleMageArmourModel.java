@@ -46,34 +46,33 @@ public class BattleMageArmourModel<T extends LivingEntity> extends BipedEntityMo
 		ModelPartData rightLeg = root.getChild(EntityModelPartNames.RIGHT_LEG);
 		ModelPartData leftLeg = root.getChild(EntityModelPartNames.LEFT_LEG);
 
-		ModelPartData armorHead = head.addChild("armorHead", ModelPartBuilder.create().uv(18, 223).cuboid(0f, -17f, -7.5f, 0f, 15f, 18f, new Dilation(0f))
-			.uv(28, 130).cuboid(-1f, -10f, -6f, 2f, 2f, 12f, new Dilation(0f))
-			.uv(52, 128).cuboid(-1f, -8f, -6f, 2f, 6f, 2f, new Dilation(0f))
-			.uv(44, 128).cuboid(-1f, -8f, 4f, 2f, 8f, 2f, new Dilation(0f))
-			.uv(32, 144).cuboid(-4f, -8f, -4f, 8f, 8f, 8f, new Dilation(0.55f)), ModelTransform.pivot(0f, 0f, 0f));
-		ModelPartData armet_r1 = armorHead.addChild("armet_r1", ModelPartBuilder.create().uv(49, 137).cuboid(-4.5f, 2.25f, -4.75f, 9f, 2f, 3f, new Dilation(0f)), ModelTransform.of(0f, 0f, 0f, -1.0472f, 0f, 0f));
+		ModelPartData armorHead = head.addChild("armorHead", ModelPartBuilder.create().uv(18, 223).cuboid(0.0F, -17.0F, -7.5F, 0.0F, 15.0F, 18.0F, new Dilation(0.0F))
+			.uv(61, 130).cuboid(-1.0F, -10.0F, -6.0F, 2.0F, 10.0F, 12.0F, new Dilation(0.0F))
+			.uv(0, 144).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.55F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-		ModelPartData armorBody = body.addChild("armorBody", ModelPartBuilder.create().uv(0, 192).cuboid(-4.5f, 9.2f, -2.5f, 9f, 7f, 5f, new Dilation(0f))
-			.uv(40, 160).cuboid(-5f, 0f, -2f, 10f, 4f, 4f, new Dilation(0.66f))
-			.uv(0, 204).cuboid(-4f, 0f, -2f, 8, 8, 4, new Dilation(0.51f)), ModelTransform.pivot(0f, 0f, 0f));
-		ModelPartData surcoatFront = armorBody.addChild("surcoatFront", ModelPartBuilder.create().uv(0, 216).cuboid(-4f, 0.5f, 0.5f, 8f, 8f, 2f, new Dilation(0.51f)), ModelTransform.of(0f, 8.5f, -2.5f, -0.0436f, 0f, 0f));
-		ModelPartData surcoatBack = armorBody.addChild("surcoatBack", ModelPartBuilder.create().uv(20, 216).cuboid(-4f, 0.5f, -2.5f, 8f, 8f, 2f, new Dilation(0.51f)), ModelTransform.of(0f, 8.5f, 2.5f, 0.0436f, 0f, 0f));
-		ModelPartData trinketStuff = armorBody.addChild("trinketStuff", ModelPartBuilder.create().uv(0, 226).cuboid(-5f, 9f, -2.75f, 10f, 2f, 3f, new Dilation(0f))
-			.uv(0, 231).cuboid(-5f, 9f, -0.25f, 10f, 2f, 3f, new Dilation(0f)), ModelTransform.pivot(0f, 0f, 0f));
+		ModelPartData armet = armorHead.addChild("armet", ModelPartBuilder.create().uv(49, 137).cuboid(-4.5F, 2.25F, -4.75F, 9.0F, 2.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, -1.0472F, 0.0F, 0.0F));
 
-		ModelPartData armorRightArm = rightArm.addChild("armorRightArm", ModelPartBuilder.create().uv(60, 191).cuboid(-3f, -2f, -2f, 5f, 6f, 4f, new Dilation(0.55f))
-			.uv(40, 168).cuboid(-4.5f, -3.75f, -1f, 2f, 6f, 2f, new Dilation(0f))
-			.uv(44, 191).cuboid(-3f, -2f, -2f, 4f, 12f, 4f, new Dilation(0.41f)), ModelTransform.pivot(0f, 0f, 0f));
-		ModelPartData armorLeftArm = leftArm.addChild("armorLeftArm", ModelPartBuilder.create().uv(60, 191).mirrored().cuboid(-2f, -2f, -2f, 5f, 6f, 4f, new Dilation(0.55f)).mirrored(false)
-			.uv(40, 168).mirrored().cuboid(2.5f, -3.75f, -1f, 2f, 6f, 2f, new Dilation(0f)).mirrored(false)
-			.uv(44, 191).mirrored().cuboid(-1f, -2f, -2f, 4f, 12f, 4f, new Dilation(0.41f)).mirrored(false), ModelTransform.pivot(0f, 0f, 0f));
+		ModelPartData armorBody = body.addChild("armorBody", ModelPartBuilder.create().uv(0, 192).cuboid(-4.5F, 9.2F, -2.5F, 9.0F, 7.0F, 5.0F, new Dilation(0.0F))
+			.uv(40, 160).cuboid(-5.0F, 0.0F, -2.0F, 10.0F, 4.0F, 4.0F, new Dilation(0.66F))
+			.uv(0, 160).cuboid(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new Dilation(0.42F))
+			.uv(0, 204).cuboid(-4.0F, 0.0F, -2.0F, 8.0F, 8.0F, 4.0F, new Dilation(0.51F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData surcoatFront = armorBody.addChild("surcoatFront", ModelPartBuilder.create().uv(0, 216).cuboid(-4.0F, 0.5F, 0.5F, 8.0F, 8.0F, 2.0F, new Dilation(0.51F)), ModelTransform.of(0.0F, 8.5F, -2.5F, -0.0436F, 0.0F, 0.0F));
+		ModelPartData surcoatBack = armorBody.addChild("surcoatBack", ModelPartBuilder.create().uv(20, 216).cuboid(-4.0F, 0.5F, -2.5F, 8.0F, 8.0F, 2.0F, new Dilation(0.51F)), ModelTransform.of(0.0F, 8.5F, 2.5F, 0.0436F, 0.0F, 0.0F));
+		ModelPartData trinketStuff = armorBody.addChild("trinketStuff", ModelPartBuilder.create().uv(0, 226).cuboid(-5.0F, 9.0F, -3.0F, 10.0F, 2.0F, 6.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-		ModelPartData armorRightLeg = rightLeg.addChild("armorRightLeg", ModelPartBuilder.create().uv(0, 176).cuboid(-1.9f, 0f, -2f, 4f, 12f, 4f, new Dilation(0.3f)), ModelTransform.pivot(0f, 0f, 0f));
-		ModelPartData rightTasset = armorRightLeg.addChild("rightTasset", ModelPartBuilder.create().uv(32, 176).cuboid(-2.55f, -1f, -2.55f, 4f, 11f, 4f, new Dilation(0f)), ModelTransform.pivot(0f, 0f, 0f));
-		ModelPartData armorRightBoot = rightLeg.addChild("armorRightBoot", ModelPartBuilder.create().uv(16, 176).cuboid(-1.9f, 0f, -2f, 4f, 12f, 4f, new Dilation(0.35f)), ModelTransform.pivot(0f, 0f, 0f));
-		ModelPartData armorLeftLeg = leftLeg.addChild("armorLeftLeg", ModelPartBuilder.create().uv(0, 176).mirrored().cuboid(-2.1f, 0f, -2f, 4f, 12f, 4f, new Dilation(0.3f)).mirrored(false), ModelTransform.pivot(0f, 0f, 0f));
-		ModelPartData leftTasset = armorLeftLeg.addChild("leftTasset", ModelPartBuilder.create().uv(32, 176).mirrored().cuboid(-1.45f, -1f, -2.55f, 4f, 11f, 4f, new Dilation(0f)).mirrored(false), ModelTransform.pivot(0f, 0f, 0f));
-		ModelPartData armorLeftBoot = leftLeg.addChild("armorLeftBoot", ModelPartBuilder.create().uv(16, 176).mirrored().cuboid(-2.1f, 0f, -2f, 4f, 12f, 4f, new Dilation(0.35f)).mirrored(false), ModelTransform.pivot(0f, 0f, 0f));
+		ModelPartData armorRightArm = rightArm.addChild("armorRightArm", ModelPartBuilder.create().uv(60, 191).cuboid(-3.0F, -2.0F, -2.0F, 5.0F, 6.0F, 4.0F, new Dilation(0.6F))
+			.uv(40, 168).cuboid(-4.5F, -3.75F, -1.0F, 2.0F, 6.0F, 2.0F, new Dilation(0.0F))
+			.uv(44, 191).cuboid(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.41F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData armorLeftArm = leftArm.addChild("armorLeftArm", ModelPartBuilder.create().uv(60, 191).mirrored().cuboid(-2.0F, -2.0F, -2.0F, 5.0F, 6.0F, 4.0F, new Dilation(0.6F)).mirrored(false)
+			.uv(40, 168).mirrored().cuboid(2.5F, -3.75F, -1.0F, 2.0F, 6.0F, 2.0F, new Dilation(0.0F)).mirrored(false)
+			.uv(44, 191).mirrored().cuboid(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.41F)).mirrored(false), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+
+		ModelPartData armorRightLeg = rightLeg.addChild("armorRightLeg", ModelPartBuilder.create().uv(0, 176).cuboid(-1.9F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.3F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData rightTasset = armorRightLeg.addChild("rightTasset", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData armorRightBoot = rightLeg.addChild("armorRightBoot", ModelPartBuilder.create().uv(16, 176).cuboid(-1.9F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.35F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData armorLeftLeg = leftLeg.addChild("armorLeftLeg", ModelPartBuilder.create().uv(0, 176).mirrored().cuboid(-2.1F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.3F)).mirrored(false), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData leftTasset = armorLeftLeg.addChild("leftTasset", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData armorLeftBoot = leftLeg.addChild("armorLeftBoot", ModelPartBuilder.create().uv(16, 176).mirrored().cuboid(-2.1F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.35F)).mirrored(false), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
 		return TexturedModelData.of(data, 128, 256);
 	}
