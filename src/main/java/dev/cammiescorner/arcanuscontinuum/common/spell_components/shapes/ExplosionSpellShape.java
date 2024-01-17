@@ -2,7 +2,6 @@ package dev.cammiescorner.arcanuscontinuum.common.spell_components.shapes;
 
 import com.google.common.collect.Sets;
 import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
-import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
@@ -86,7 +85,7 @@ public class ExplosionSpellShape extends SpellShape {
 		int s = MathHelper.floor(castFrom.getY() + f + 1);
 		int t = MathHelper.floor(castFrom.getZ() - f - 1);
 		int u = MathHelper.floor(castFrom.getZ() + f + 1);
-		List<Entity> affectedEntities = world.getOtherEntities(sourceEntity == caster ? caster : null, new Box(k, r, t, l, s, u), entity -> entity instanceof Targetable targetable && targetable.arcanuscontinuum$canBeTargeted()).stream().toList();
+		List<Entity> affectedEntities = world.getOtherEntities(sourceEntity == caster ? caster : null, new Box(k, r, t, l, s, u), entity -> entity.isAlive() && !entity.isSpectator()).stream().toList();
 
 		for(SpellEffect effect : new HashSet<>(effects)) {
 			if(effect.shouldTriggerOnceOnExplosion()) {
