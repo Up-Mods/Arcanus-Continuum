@@ -28,7 +28,7 @@ public class FloatSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.FLOAT.get(), (int) (ArcanusConfig.MovementEffects.FloatEffectProperties.baseEffectDuration * (effects.stream().filter(ArcanusSpellComponents.FLOAT::is).count() - 1) * potency), 0, true, false));
+				livingEntity.addStatusEffect(new StatusEffectInstance(ArcanusStatusEffects.FLOAT.get(), (int) (ArcanusConfig.MovementEffects.FloatEffectProperties.baseEffectDuration * effects.stream().filter(ArcanusSpellComponents.FLOAT::is).count() * potency), 0, true, false));
 		}
 	}
 }
