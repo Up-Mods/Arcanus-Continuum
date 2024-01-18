@@ -28,10 +28,10 @@ public class PullSpellEffect extends SpellEffect {
 			double amount = -effects.stream().filter(ArcanusSpellComponents.PULL::is).count() * ArcanusConfig.MovementEffects.PullEffectProperties.basePullAmount * potency;
 
 			if(sourceEntity != null) {
-				if(sourceEntity.equals(caster))
-					entity.addVelocity(entity.getPos().subtract(sourceEntity.getPos()).normalize().multiply(amount));
-				else
+				if(entity.equals(caster))
 					entity.addVelocity(sourceEntity.getRotationVector().multiply(amount));
+				else
+					entity.addVelocity(entity.getPos().subtract(sourceEntity.getPos()).normalize().multiply(amount));
 
 				entity.velocityModified = true;
 			}

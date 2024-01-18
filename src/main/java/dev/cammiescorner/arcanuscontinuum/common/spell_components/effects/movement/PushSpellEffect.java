@@ -28,10 +28,11 @@ public class PushSpellEffect extends SpellEffect {
 			double amount = effects.stream().filter(ArcanusSpellComponents.PUSH::is).count() * ArcanusConfig.MovementEffects.PushEffectProperties.basePushAmount * potency;
 
 			if(sourceEntity != null) {
-				if(sourceEntity.equals(caster))
-					entity.addVelocity(sourceEntity.getPos().subtract(entity.getPos()).normalize().multiply(amount));
-				else
+				if(entity.equals(caster))
 					entity.addVelocity(sourceEntity.getRotationVector().multiply(amount));
+				else
+					entity.addVelocity(sourceEntity.getPos().subtract(entity.getPos()).normalize().multiply(amount));
+
 				entity.velocityModified = true;
 			}
 		}
