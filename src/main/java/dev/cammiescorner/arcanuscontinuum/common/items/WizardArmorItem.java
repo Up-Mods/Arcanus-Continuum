@@ -16,6 +16,7 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.world.World;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
@@ -62,8 +63,8 @@ public class WizardArmorItem extends DyeableArmorItem {
 
 	@Override
 	public int getColor(ItemStack stack) {
-		NbtCompound tag = stack.getSubNbt("display");
-		return tag != null && tag.contains("color", 99) ? tag.getInt("color") : 0x52392a;
+		NbtCompound tag = stack.getSubNbt(ItemStack.DISPLAY_KEY);
+		return tag != null && tag.contains(ItemStack.COLOR_KEY, NbtElement.NUMBER_TYPE) ? tag.getInt(ItemStack.COLOR_KEY) : 0x52392a;
 	}
 
 	@Override

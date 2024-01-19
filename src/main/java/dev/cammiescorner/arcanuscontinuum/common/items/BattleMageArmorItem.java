@@ -25,7 +25,7 @@ public class BattleMageArmorItem extends WizardArmorItem {
 		if(world instanceof ServerWorld serverWorld && entity instanceof LivingEntity living && living.getEquippedStack(getPreferredSlot()).equals(stack) && !isWaxed(stack)) {
 			int randomTickSpeed = serverWorld.getGameRules().getInt(GameRules.RANDOM_TICK_SPEED);
 			int oxidation = getOxidation(stack).ordinal();
-			NbtCompound nbt = stack.getOrCreateSubNbt("display");
+			NbtCompound nbt = stack.getOrCreateSubNbt(ItemStack.DISPLAY_KEY);
 
 			if(serverWorld.random.nextFloat() < 0.00001 * randomTickSpeed && oxidation < Oxidizable.OxidizationLevel.values().length - 1)
 				nbt.putInt("oxidation", oxidation + 1);
@@ -44,29 +44,29 @@ public class BattleMageArmorItem extends WizardArmorItem {
 
 	@Override
 	public int getColor(ItemStack stack) {
-		NbtCompound tag = stack.getSubNbt("display");
-		return tag != null && tag.contains("color", NbtElement.NUMBER_TYPE) ? tag.getInt("color") : 0xb38ef3;
+		NbtCompound tag = stack.getSubNbt(ItemStack.DAMAGE_KEY);
+		return tag != null && tag.contains(ItemStack.COLOR_KEY, NbtElement.NUMBER_TYPE) ? tag.getInt(ItemStack.COLOR_KEY) : 0xb38ef3;
 	}
 
 	public static boolean isWaxed(ItemStack stack) {
-		NbtCompound tag = stack.getSubNbt("display");
+		NbtCompound tag = stack.getSubNbt(ItemStack.DISPLAY_KEY);
 		return tag != null && tag.contains("waxed") && tag.getBoolean("waxed");
 	}
 
 	public static void setWaxed(ItemStack stack, boolean waxed) {
-		NbtCompound tag = stack.getOrCreateSubNbt("display");
+		NbtCompound tag = stack.getOrCreateSubNbt(ItemStack.DISPLAY_KEY);
 
 		if(tag != null)
 			tag.putBoolean("waxed", waxed);
 	}
 
 	public static Oxidizable.OxidizationLevel getOxidation(ItemStack stack) {
-		NbtCompound tag = stack.getSubNbt("display");
+		NbtCompound tag = stack.getSubNbt(ItemStack.DISPLAY_KEY);
 		return tag != null && tag.contains("oxidation", NbtElement.NUMBER_TYPE) ? Oxidizable.OxidizationLevel.values()[tag.getInt("oxidation")] : Oxidizable.OxidizationLevel.UNAFFECTED;
 	}
 
 	public static void setOxidation(ItemStack stack, Oxidizable.OxidizationLevel oxidizationLevel) {
-		NbtCompound tag = stack.getSubNbt("display");
+		NbtCompound tag = stack.getSubNbt(ItemStack.DISPLAY_KEY);
 		if(tag != null)
 			tag.putInt("oxidation", oxidizationLevel.ordinal());
 	}
