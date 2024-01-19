@@ -7,14 +7,11 @@ import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.registry.RegistryKeys;
-import org.jetbrains.annotations.ApiStatus;
 
 public class ArcanusEntityAttributes {
 
 	private static boolean isInitialized = false;
-
-	@ApiStatus.Internal
-	public static RegistryHandler<EntityAttribute> ENTITY_ATTRIBUTES = RegistryHandler.create(RegistryKeys.ENTITY_ATTRIBUTE, Arcanus.MOD_ID);
+	private static final RegistryHandler<EntityAttribute> ENTITY_ATTRIBUTES = RegistryHandler.create(RegistryKeys.ENTITY_ATTRIBUTE, Arcanus.MOD_ID);
 
 	public static final RegistrySupplier<EntityAttribute> MAX_MANA = ENTITY_ATTRIBUTES.register("max_mana", () -> new ClampedEntityAttribute(Arcanus.translationKey("attribute.name.generic", "max_mana"), 10d, 0d, 1024d).setTracked(true));
 	public static final RegistrySupplier<EntityAttribute> MANA_REGEN = ENTITY_ATTRIBUTES.register("mana_regen", () -> new ClampedEntityAttribute(Arcanus.translationKey("attribute.name.generic", "mana_regen"), 0.5d, 0d, 1024d).setTracked(true));
