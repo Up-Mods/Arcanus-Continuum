@@ -18,11 +18,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.UUID;
-import java.util.random.RandomGenerator;
 
 public class PocketDimensionPortalEntity extends Entity implements Targetable {
 	private static final TrackedData<Integer> TRUE_AGE = DataTracker.registerData(PocketDimensionPortalEntity.class, TrackedDataHandlerRegistry.INTEGER);
-	private final RandomGenerator rand = RandomGenerator.getDefault();
 	private UUID casterId = Util.NIL_UUID;
 	private double pullStrength;
 
@@ -64,9 +62,9 @@ public class PocketDimensionPortalEntity extends Entity implements Targetable {
 			}
 
 			for(int i = 0; i < boxRadius * 2; ++i) {
-				double particleX = getPos().getX() + (rand.nextDouble(-boxRadius, boxRadius + 1));
+				double particleX = getPos().getX() + random.nextGaussian() * boxRadius;
 				double particleY = getPos().getY();
-				double particleZ = getPos().getZ() + (rand.nextDouble(-boxRadius, boxRadius + 1));
+				double particleZ = getPos().getZ() + random.nextGaussian() * boxRadius;
 				Vec3d particlePos = new Vec3d(particleX, particleY, particleZ);
 				Vec3d particleVelocity = particlePos.subtract(getPos());
 
