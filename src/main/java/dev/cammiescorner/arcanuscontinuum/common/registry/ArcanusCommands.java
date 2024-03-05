@@ -5,9 +5,9 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import dev.cammiescorner.arcanuscontinuum.common.components.level.PocketDimensionComponent;
 import net.minecraft.command.CommandBuildContext;
 import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -59,7 +59,7 @@ public class ArcanusCommands {
 
 	private static class RegenPocketCommand {
 		public static int regeneratePocket(CommandContext<ServerCommandSource> context, ServerPlayerEntity player) throws CommandSyntaxException {
-			context.getSource().getWorld().getProperties().getComponent(ArcanusComponents.POCKET_DIMENSION_COMPONENT).generateNewPlot(player);
+			context.getSource().getWorld().getProperties().getComponent(ArcanusComponents.POCKET_DIMENSION_COMPONENT).generateNewPlot(player, context.getSource().getServer().getWorld(PocketDimensionComponent.POCKET_DIM));
 			context.getSource().sendFeedback(() -> Text.literal(String.format("Regenerated %s's pocket dimension", player.getEntityName())), false);
 
 			return Command.SINGLE_SUCCESS;

@@ -16,15 +16,11 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProperties;
@@ -51,7 +47,7 @@ public class PocketDimensionComponent implements Component {
 		existingPlots.clear();
 		exitSpot.clear();
 
-		for(int i = 0; i < plotNbtList.size(); i++) {
+		for (int i = 0; i < plotNbtList.size(); i++) {
 			NbtCompound entry = plotNbtList.getCompound(i);
 			existingPlots.put(
 				entry.getUuid("OwnerUuid"),
@@ -59,14 +55,14 @@ public class PocketDimensionComponent implements Component {
 			);
 		}
 
-		for(int i = 0; i < exitNbtList.size(); i++) {
+		for (int i = 0; i < exitNbtList.size(); i++) {
 			NbtCompound entry = exitNbtList.getCompound(i);
 			exitSpot.put(
-					entry.getUuid("EntityId"),
-					new Pair<>(
-							RegistryKey.of(RegistryKeys.WORLD, new Identifier(entry.getString("WorldKey"))),
+				entry.getUuid("EntityId"),
+				new Pair<>(
+					RegistryKey.of(RegistryKeys.WORLD, new Identifier(entry.getString("WorldKey"))),
 					new Vec3d(entry.getDouble("X"), entry.getDouble("Y"), entry.getDouble("Z"))
-					)
+				)
 			);
 		}
 	}
@@ -102,36 +98,61 @@ public class PocketDimensionComponent implements Component {
 		tag.put("ExitSpots", exitNbtList);
 	}
 
-	public void teleportToPocketDimension(PlayerEntity ownerOfPocket, Entity entity) {
-		if(!entity.getWorld().isClient()) {
-			if(!existingPlots.containsKey(ownerOfPocket.getUuid()))
-				generateNewPlot(ownerOfPocket);
+	private static boolean chunksExist(Box plot, PlayerEntity owner, ServerWorld pocketDim) {
+		var chunkManager = pocketDim.getChunkManager();
 
-			ServerWorld pocketDim = entity.getServer().getWorld(POCKET_DIM);
+		var passed = BlockPos.stream(plot)
+			.map(ChunkPos::new).distinct()
+			.map(cPos -> chunkManager.getWorldChunk(cPos.x, cPos.z, false))
+			.noneMatch(Objects::isNull);
 
-			if(pocketDim != null)
-				QuiltDimensions.teleport(entity, pocketDim, new TeleportTarget(existingPlots.get(ownerOfPocket.getUuid()).getCenter().subtract(0, 11, 0), Vec3d.ZERO, entity.getYaw(), entity.getPitch()));
+		if (!passed) {
+			Arcanus.LOGGER.warn("Pocket dimension plot for player {} failed integrity check! regenerating...", owner.getGameProfile().getName());
 		}
+
+		return passed;
 	}
 
-	public void teleportOutOfPocketDimension(ServerPlayerEntity player) {
-		if(!player.getWorld().isClient() && player.getWorld().getRegistryKey() == POCKET_DIM) {
-			Optional<Map.Entry<UUID, Box>> entry = existingPlots.entrySet().stream().filter(entry1 -> entry1.getValue().intersects(player.getBoundingBox())).findFirst();
+	public void teleportToPocketDimension(PlayerEntity ownerOfPocket, Entity entity) {
+		if (!entity.getWorld().isClient()) {
+			ServerWorld pocketDim = entity.getServer().getWorld(POCKET_DIM);
+			if (pocketDim != null) {
+				Box plot = existingPlots.get(ownerOfPocket.getUuid());
+				if (plot == null || !chunksExist(plot, ownerOfPocket, pocketDim)) {
+					generateNewPlot(ownerOfPocket, pocketDim);
+				}
+				plot = existingPlots.get(ownerOfPocket.getUuid());
 
-			if(entry.isPresent()) {
-				UUID ownerId = entry.get().getKey();
-				Pair<RegistryKey<World>, Vec3d> pair = exitSpot.get(ownerId);
-
-				if(pair == null)
-					pair = new Pair<>(World.OVERWORLD, Vec3d.ofBottomCenter(player.getServer().getOverworld().getSpawnPos()));
-
-				ArcanusComponents.setPortalCoolDown(player, 200);
-				QuiltDimensions.teleport(player, player.getServer().getWorld(pair.getLeft()), new TeleportTarget(pair.getRight(), Vec3d.ZERO, player.getYaw(), player.getPitch()));
+				QuiltDimensions.teleport(entity, pocketDim, new TeleportTarget(plot.getCenter().subtract(0, 11, 0), Vec3d.ZERO, entity.getYaw(), entity.getPitch()));
 			}
 		}
 	}
 
-	public void generateNewPlot(PlayerEntity player) {
+	public void teleportOutOfPocketDimension(ServerPlayerEntity player) {
+		if (!player.getWorld().isClient() && player.getWorld().getRegistryKey() == POCKET_DIM) {
+			Optional<Map.Entry<UUID, Box>> entry = existingPlots.entrySet().stream().filter(entry1 -> entry1.getValue().intersects(player.getBoundingBox())).findFirst();
+
+			if (entry.isPresent()) {
+				UUID ownerId = entry.get().getKey();
+				Pair<RegistryKey<World>, Vec3d> pair = exitSpot.get(ownerId);
+
+				ServerWorld targetWorld;
+				Vec3d targetPos;
+
+				if (pair == null || (targetWorld = player.getServer().getWorld(pair.getLeft())) == null) {
+					targetWorld = player.getServer().getOverworld();
+					targetPos = Vec3d.ofBottomCenter(targetWorld.getSpawnPos());
+				} else {
+					targetPos = pair.getRight();
+				}
+
+				ArcanusComponents.setPortalCoolDown(player, 200);
+				QuiltDimensions.teleport(player, targetWorld, new TeleportTarget(targetPos, Vec3d.ZERO, player.getYaw(), player.getPitch()));
+			}
+		}
+	}
+
+	public void generateNewPlot(PlayerEntity player, ServerWorld pocketDim) {
 		int pocketWidth = Math.round(ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.pocketWidth / 2f) + 1;
 		int pocketHeight = Math.round(ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.pocketHeight / 2f) + 1;
 
@@ -139,62 +160,56 @@ public class PocketDimensionComponent implements Component {
 			Box box = new Box(-pocketWidth, -pocketHeight, -pocketWidth, pocketWidth, pocketHeight, pocketWidth);
 		};
 
-		while(existingPlots.entrySet().stream().anyMatch(entry -> entry.getValue().intersects(boxContainer.box.expand(38))))
+		while (existingPlots.entrySet().stream().anyMatch(entry -> entry.getValue().intersects(boxContainer.box.expand(38))))
 			boxContainer.box = boxContainer.box.offset(random.nextInt(-468748, 468749) * 64, random.nextInt(-3, 4) * 64, random.nextInt(-468748, 468749) * 64);
 
 		existingPlots.put(player.getUuid(), boxContainer.box);
 
-		MinecraftServer server = player.getServer();
+		for (BlockPos pos : BlockPos.iterate((int) Math.round(boxContainer.box.minX), (int) Math.round(boxContainer.box.minY), (int) Math.round(boxContainer.box.minZ), (int) Math.round(boxContainer.box.maxX - 1), (int) Math.round(boxContainer.box.maxY - 1), (int) Math.round(boxContainer.box.maxZ - 1))) {
+			if (pos.getX() > boxContainer.box.minX && pos.getX() < boxContainer.box.maxX - 1 && pos.getY() > boxContainer.box.minY && pos.getY() < boxContainer.box.maxY - 1 && pos.getZ() > boxContainer.box.minZ && pos.getZ() < boxContainer.box.maxZ - 1)
+				continue;
 
-		if(server != null) {
-			ServerWorld pocketDim = server.getWorld(POCKET_DIM);
+			pocketDim.setBlockState(pos, ArcanusBlocks.UNBREAKABLE_MAGIC_BLOCK.get().getDefaultState());
 
-			if(pocketDim != null) {
-				for(BlockPos pos : BlockPos.iterate((int) Math.round(boxContainer.box.minX), (int) Math.round(boxContainer.box.minY), (int) Math.round(boxContainer.box.minZ), (int) Math.round(boxContainer.box.maxX - 1), (int) Math.round(boxContainer.box.maxY - 1), (int) Math.round(boxContainer.box.maxZ - 1))) {
-					if(pos.getX() > boxContainer.box.minX && pos.getX() < boxContainer.box.maxX - 1 && pos.getY() > boxContainer.box.minY && pos.getY() < boxContainer.box.maxY - 1 && pos.getZ() > boxContainer.box.minZ && pos.getZ() < boxContainer.box.maxZ - 1)
-						continue;
+			if (pocketDim.getBlockEntity(pos) instanceof MagicBlockEntity magicBlock)
+				magicBlock.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
+		}
 
-					pocketDim.setBlockState(pos, ArcanusBlocks.UNBREAKABLE_MAGIC_BLOCK.get().getDefaultState());
+		for (int x = 0; x < 4; x++) {
+			for (int z = 0; z < 4; z++) {
+				BlockPos pos = new BlockPos((int) Math.round(boxContainer.box.getCenter().getX()) + (x - 2), (int) Math.round(boxContainer.box.minY), (int) Math.round(boxContainer.box.getCenter().getZ()) + (z - 2));
 
-					if(pocketDim.getBlockEntity(pos) instanceof MagicBlockEntity magicBlock)
-						magicBlock.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
-				}
-
-				for(int x = 0; x < 4; x++) {
-					for(int z = 0; z < 4; z++) {
-						BlockPos pos = new BlockPos((int) Math.round(boxContainer.box.getCenter().getX()) + (x - 2), (int) Math.round(boxContainer.box.minY), (int) Math.round(boxContainer.box.getCenter().getZ()) + (z - 2));
-
-						if(x == 0) {
-							switch(z) {
-								case 0 -> pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.CORNER, true));
-								case 1, 2 -> pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.FACING, Direction.WEST));
-								case 3 -> pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.FACING, Direction.WEST).with(SpatialRiftExitEdgeBlock.CORNER, true));
-							}
-						}
-						else if(x == 3) {
-							switch(z) {
-								case 0 -> pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.FACING, Direction.EAST).with(SpatialRiftExitEdgeBlock.CORNER, true));
-								case 1, 2 -> pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.FACING, Direction.EAST));
-								case 3 -> pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.FACING, Direction.SOUTH).with(SpatialRiftExitEdgeBlock.CORNER, true));
-							}
-						}
-						else if(z == 0) {
-							pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.FACING, Direction.NORTH));
-						}
-						else if(z == 3) {
-							pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.FACING, Direction.SOUTH));
-						}
-						else {
-							pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT.get().getDefaultState().with(SpatialRiftExitBlock.ACTIVE, x == 1 && z == 1));
-
-							if(pocketDim.getBlockEntity(pos) instanceof SpatialRiftExitBlockEntity exitBlockEntity)
-								exitBlockEntity.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
-						}
-
-						if(pocketDim.getBlockEntity(pos) instanceof MagicBlockEntity magicBlock)
-							magicBlock.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
+				if (x == 0) {
+					switch (z) {
+						case 0 ->
+							pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.CORNER, true));
+						case 1, 2 ->
+							pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.FACING, Direction.WEST));
+						case 3 ->
+							pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.FACING, Direction.WEST).with(SpatialRiftExitEdgeBlock.CORNER, true));
 					}
+				} else if (x == 3) {
+					switch (z) {
+						case 0 ->
+							pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.FACING, Direction.EAST).with(SpatialRiftExitEdgeBlock.CORNER, true));
+						case 1, 2 ->
+							pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.FACING, Direction.EAST));
+						case 3 ->
+							pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.FACING, Direction.SOUTH).with(SpatialRiftExitEdgeBlock.CORNER, true));
+					}
+				} else if (z == 0) {
+					pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.FACING, Direction.NORTH));
+				} else if (z == 3) {
+					pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get().getDefaultState().with(SpatialRiftExitEdgeBlock.FACING, Direction.SOUTH));
+				} else {
+					pocketDim.setBlockState(pos, ArcanusBlocks.SPATIAL_RIFT_EXIT.get().getDefaultState().with(SpatialRiftExitBlock.ACTIVE, x == 1 && z == 1));
+
+					if (pocketDim.getBlockEntity(pos) instanceof SpatialRiftExitBlockEntity exitBlockEntity)
+						exitBlockEntity.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
 				}
+
+				if (pocketDim.getBlockEntity(pos) instanceof MagicBlockEntity magicBlock)
+					magicBlock.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
 			}
 		}
 	}
