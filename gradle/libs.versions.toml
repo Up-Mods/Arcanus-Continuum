@@ -2,9 +2,9 @@
 # The latest versions are available at https://lambdaurora.dev/tools/import_quilt.html
 minecraft = "1.20.1"
 quilt_mappings = "1.20.1+build.23"
-quilt_loader = "0.23.0"
+quilt_loader = "0.24.0"
 
-quilted_fabric_api = "7.4.0+0.90.0-1.20.1"
+quilted_fabric_api = "7.5.0+0.91.0-1.20.1"
 cca = "5.2.2"
 trinkets = "3.7.1"
 sparkweave = "0.4.1"
@@ -34,7 +34,7 @@ cca_entity = { module = "dev.onyxstudios.cardinal-components-api:cardinal-compon
 cca_level = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-level", version.ref = "cca" }
 cca_chunk = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-chunk", version.ref = "cca" }
 trinkets = { module = "dev.emi:trinkets", version.ref = "trinkets" }
-sparkweave = { module = "dev.upcraft:Sparkweave", version.ref = "sparkweave" }
+sparkweave = { module = "dev.upcraft.sparkweave:Sparkweave-Quilt", version.ref = "sparkweave" }
 patchouli = { module = "vazkii.patchouli:Patchouli", version.ref = "patchouli" }
 reach_attr = { module = "com.jamieswhiteshirt:reach-entity-attributes", version.ref = "reach_attr" }
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
