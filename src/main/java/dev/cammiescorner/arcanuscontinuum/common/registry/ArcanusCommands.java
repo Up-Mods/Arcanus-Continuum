@@ -59,9 +59,15 @@ public class ArcanusCommands {
 
 	private static class RegenPocketCommand {
 		public static int regeneratePocket(CommandContext<ServerCommandSource> context, ServerPlayerEntity player) throws CommandSyntaxException {
-			context.getSource().getWorld().getProperties().getComponent(ArcanusComponents.POCKET_DIMENSION_COMPONENT).generateNewPlot(player, context.getSource().getServer().getWorld(PocketDimensionComponent.POCKET_DIM));
-			context.getSource().sendFeedback(() -> Text.literal(String.format("Regenerated %s's pocket dimension", player.getEntityName())), false);
+			var pocketDimension = context.getSource().getServer().getWorld(PocketDimensionComponent.POCKET_DIM);
+			var component = context.getSource().getWorld().getProperties().getComponent(ArcanusComponents.POCKET_DIMENSION_COMPONENT);
 
+			if(!component.generatePlotSpace(player, pocketDimension)) {
+				context.getSource().sendError(Text.literal("Pocket dimension location not found for player %s".formatted(player.getEntityName())));
+				return 0;
+			}
+
+			context.getSource().sendFeedback(() -> Text.literal("Regenerated %s's pocket dimension".formatted(player.getEntityName())), false);
 			return Command.SINGLE_SUCCESS;
 		}
 	}

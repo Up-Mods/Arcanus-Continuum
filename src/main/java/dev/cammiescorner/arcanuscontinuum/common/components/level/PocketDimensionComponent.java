@@ -98,19 +98,15 @@ public class PocketDimensionComponent implements Component {
 		tag.put("ExitSpots", exitNbtList);
 	}
 
-	private static boolean chunksExist(Box plot, PlayerEntity owner, ServerWorld pocketDim) {
+	// FIXME this check is too eager sometimes.
+	//  not too bad for the moment but should be looked into.
+	private static boolean chunksExist(Box plot, ServerWorld pocketDim) {
 		var chunkManager = pocketDim.getChunkManager();
 
-		var passed = BlockPos.stream(plot)
+		return BlockPos.stream(plot)
 			.map(ChunkPos::new).distinct()
 			.map(cPos -> chunkManager.getWorldChunk(cPos.x, cPos.z, false))
 			.noneMatch(Objects::isNull);
-
-		if (!passed) {
-			Arcanus.LOGGER.warn("Pocket dimension plot for player {} failed integrity check! regenerating...", owner.getGameProfile().getName());
-		}
-
-		return passed;
 	}
 
 	public void teleportToPocketDimension(PlayerEntity ownerOfPocket, Entity entity) {
@@ -118,10 +114,14 @@ public class PocketDimensionComponent implements Component {
 			ServerWorld pocketDim = entity.getServer().getWorld(POCKET_DIM);
 			if (pocketDim != null) {
 				Box plot = existingPlots.get(ownerOfPocket.getUuid());
-				if (plot == null || !chunksExist(plot, ownerOfPocket, pocketDim)) {
-					generateNewPlot(ownerOfPocket, pocketDim);
+				if (plot == null) {
+					plot = assignNewPlot(ownerOfPocket, pocketDim);
+					generatePlotSpace(ownerOfPocket, pocketDim);
 				}
-				plot = existingPlots.get(ownerOfPocket.getUuid());
+				else if (!chunksExist(plot, pocketDim)) {
+					Arcanus.LOGGER.warn("Pocket dimension plot for player {} failed integrity check! regenerating boundary...", ownerOfPocket.getGameProfile().getName());
+					generatePlotSpace(ownerOfPocket, pocketDim);
+				}
 
 				QuiltDimensions.teleport(entity, pocketDim, new TeleportTarget(plot.getCenter().subtract(0, 11, 0), Vec3d.ZERO, entity.getYaw(), entity.getPitch()));
 			}
@@ -152,7 +152,7 @@ public class PocketDimensionComponent implements Component {
 		}
 	}
 
-	public void generateNewPlot(PlayerEntity player, ServerWorld pocketDim) {
+	public Box assignNewPlot(PlayerEntity player, ServerWorld pocketDim) {
 		int pocketWidth = Math.round(ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.pocketWidth / 2f) + 1;
 		int pocketHeight = Math.round(ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.pocketHeight / 2f) + 1;
 
@@ -165,8 +165,19 @@ public class PocketDimensionComponent implements Component {
 
 		existingPlots.put(player.getUuid(), boxContainer.box);
 
-		for (BlockPos pos : BlockPos.iterate((int) Math.round(boxContainer.box.minX), (int) Math.round(boxContainer.box.minY), (int) Math.round(boxContainer.box.minZ), (int) Math.round(boxContainer.box.maxX - 1), (int) Math.round(boxContainer.box.maxY - 1), (int) Math.round(boxContainer.box.maxZ - 1))) {
-			if (pos.getX() > boxContainer.box.minX && pos.getX() < boxContainer.box.maxX - 1 && pos.getY() > boxContainer.box.minY && pos.getY() < boxContainer.box.maxY - 1 && pos.getZ() > boxContainer.box.minZ && pos.getZ() < boxContainer.box.maxZ - 1)
+		return boxContainer.box;
+	}
+
+	public boolean generatePlotSpace(PlayerEntity player, ServerWorld pocketDim) {
+		var box = existingPlots.get(player.getUuid());
+
+		// might happen if the command is ran before a player first enters their pocket dimension
+		if(box == null) {
+			return false;
+		}
+
+		for (BlockPos pos : BlockPos.iterate((int) Math.round(box.minX), (int) Math.round(box.minY), (int) Math.round(box.minZ), (int) Math.round(box.maxX - 1), (int) Math.round(box.maxY - 1), (int) Math.round(box.maxZ - 1))) {
+			if (pos.getX() > box.minX && pos.getX() < box.maxX - 1 && pos.getY() > box.minY && pos.getY() < box.maxY - 1 && pos.getZ() > box.minZ && pos.getZ() < box.maxZ - 1)
 				continue;
 
 			pocketDim.setBlockState(pos, ArcanusBlocks.UNBREAKABLE_MAGIC_BLOCK.get().getDefaultState());
@@ -177,7 +188,7 @@ public class PocketDimensionComponent implements Component {
 
 		for (int x = 0; x < 4; x++) {
 			for (int z = 0; z < 4; z++) {
-				BlockPos pos = new BlockPos((int) Math.round(boxContainer.box.getCenter().getX()) + (x - 2), (int) Math.round(boxContainer.box.minY), (int) Math.round(boxContainer.box.getCenter().getZ()) + (z - 2));
+				BlockPos pos = new BlockPos((int) Math.round(box.getCenter().getX()) + (x - 2), (int) Math.round(box.minY), (int) Math.round(box.getCenter().getZ()) + (z - 2));
 
 				if (x == 0) {
 					switch (z) {
@@ -212,6 +223,8 @@ public class PocketDimensionComponent implements Component {
 					magicBlock.setColour(Arcanus.getMagicColour(player.getGameProfile().getId()));
 			}
 		}
+
+		return true;
 	}
 
 	public void setExit(PlayerEntity ownerOfPocket, World world, Vec3d pos) {
