@@ -23,7 +23,7 @@ public class SizeComponent implements ServerTickingComponent {
 
 	@Override
 	public void serverTick() {
-		if (!ArcanusConfig.sizeChangingIsPermanent) {
+		if (ArcanusConfig.sizeChangingIsPermanent) {
 			return;
 		}
 
