@@ -137,7 +137,14 @@ dependencies {
 }
 
 loom {
-	accessWidenerPath = file("src/main/resources/arcanuscontinuum.accesswidener")
+	mods {
+		"arcanuscontinuum" {
+			// Tell Loom about each source set used by your mod here. This ensures that your mod's classes are properly transformed by Loader.
+			sourceSet("main")
+		}
+	}
+
+	accessWidenerPath.set(project.file("src/main/resources/arcanuscontinuum.accesswidener"))
 }
 
 processResources {
