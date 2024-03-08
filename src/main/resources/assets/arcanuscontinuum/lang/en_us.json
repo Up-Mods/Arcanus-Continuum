@@ -235,6 +235,7 @@
 	"config.arcanuscontinuum.movementEffectsCategory": "Movement Effects",
 
 	"config.arcanuscontinuum.castingSpeedHasCoolDown": "Use Attack Cool Down for Casting?",
+	"config.arcanuscontinuum.sizeChangingIsPermanent": "Size Changing Effects are Permanent for Players and Tamed Animals (Requires Pehkui)",
 	"config.arcanuscontinuum.enabled": "Enabled (Requires Restart)",
 	"config.arcanuscontinuum.weight": "Weight (Requires Restart)",
 	"config.arcanuscontinuum.manaCost": "Mana Cost (Requires Restart)",

@@ -9,6 +9,9 @@ public final class ArcanusConfig {
 	@ConfigEntry(id = "castingSpeedHasCoolDown", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".castingSpeedHasCoolDown")
 	public static boolean castingSpeedHasCoolDown = false;
 
+	@ConfigEntry(id = "sizeChangingIsPermanent", type = EntryType.BOOLEAN, translation = "config." + Arcanus.MOD_ID + ".sizeChangingIsPermanent")
+	public static boolean sizeChangingIsPermanent = false;
+
 	@Category(id = "spellShapeProperties", translation = "config." + Arcanus.MOD_ID + ".spellShapesCategory", sortOrder = 0)
 	public static final class SpellShapes {
 		@Category(id = "selfShapeProperties", translation = "config." + Arcanus.MOD_ID + ".selfShapeProperties", sortOrder = 0) public static final class SelfShapeProperties {

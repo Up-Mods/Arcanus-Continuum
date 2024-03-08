@@ -13,7 +13,7 @@ import net.minecraft.util.math.MathHelper;
 import virtuoel.pehkui.api.ScaleData;
 import virtuoel.pehkui.api.ScaleTypes;
 
-public class SizeComponent  implements ServerTickingComponent {
+public class SizeComponent implements ServerTickingComponent {
 	private final Entity entity;
 	private int timer = 0;
 
@@ -23,14 +23,17 @@ public class SizeComponent  implements ServerTickingComponent {
 
 	@Override
 	public void serverTick() {
-		if(entity instanceof PlayerEntity || (entity instanceof TameableEntity tameable && tameable.getOwnerUuid() != null)) {
-			if(timer <= 0) {
+		if (!ArcanusConfig.sizeChangingIsPermanent) {
+			return;
+		}
+
+		if (entity instanceof PlayerEntity || (entity instanceof TameableEntity tameable && tameable.getOwnerUuid() != null)) {
+			if (timer <= 0) {
 				float normalHeight = ScaleTypes.HEIGHT.getDefaultBaseScale() / ScaleTypes.HEIGHT.getScaleData(entity).getBaseScale();
 
-				if(entity.getHeight() > normalHeight || entity.getWorld().isSpaceEmpty(entity, new Box(entity.getBoundingBox().minX, entity.getBoundingBox().minY, entity.getBoundingBox().minZ, entity.getBoundingBox().maxX, entity.getBoundingBox().maxY * normalHeight, entity.getBoundingBox().maxZ)))
+				if (entity.getHeight() > normalHeight || entity.getWorld().isSpaceEmpty(entity, new Box(entity.getBoundingBox().minX, entity.getBoundingBox().minY, entity.getBoundingBox().minZ, entity.getBoundingBox().maxX, entity.getBoundingBox().maxY * normalHeight, entity.getBoundingBox().maxZ)))
 					resetScale();
-			}
-			else {
+			} else {
 				timer--;
 			}
 		}
