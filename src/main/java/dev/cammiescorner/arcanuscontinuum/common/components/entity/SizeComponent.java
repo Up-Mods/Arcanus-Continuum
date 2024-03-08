@@ -26,9 +26,8 @@ public class SizeComponent  implements ServerTickingComponent {
 		if(entity instanceof PlayerEntity || (entity instanceof TameableEntity tameable && tameable.getOwnerUuid() != null)) {
 			if(timer <= 0) {
 				float normalHeight = ScaleTypes.HEIGHT.getDefaultBaseScale() / ScaleTypes.HEIGHT.getScaleData(entity).getBaseScale();
-				Box box = new Box(entity.getBoundingBox().minX, entity.getBoundingBox().minY, entity.getBoundingBox().minZ, entity.getBoundingBox().maxX, entity.getBoundingBox().maxY * normalHeight, entity.getBoundingBox().maxZ);
 
-				if(entity.getWorld().isSpaceEmpty(entity, box) || ScaleTypes.HEIGHT.getScaleData(entity).getBaseScale() > ScaleTypes.HEIGHT.getDefaultBaseScale())
+				if(entity.getHeight() > normalHeight || entity.getWorld().isSpaceEmpty(entity, new Box(entity.getBoundingBox().minX, entity.getBoundingBox().minY, entity.getBoundingBox().minZ, entity.getBoundingBox().maxX, entity.getBoundingBox().maxY * normalHeight, entity.getBoundingBox().maxZ)))
 					resetScale();
 			}
 			else {
