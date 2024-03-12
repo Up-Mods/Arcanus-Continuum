@@ -87,6 +87,14 @@
 				"mc-publish": {
 					"ignore": true
 				}
+			},
+			{
+				"id": "firstperson",
+				"versions": "^2.3.0",
+				"optional": true,
+				"mc-publish": {
+					"ignore": true
+				}
 			}
 		]
 	},

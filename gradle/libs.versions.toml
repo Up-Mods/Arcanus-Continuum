@@ -1,4 +1,6 @@
 [versions]
+quilt_loom = "1.4.+"
+
 # The latest versions are available at https://lambdaurora.dev/tools/import_quilt.html
 minecraft = "1.20.1"
 quilt_mappings = "1.20.1+build.23"
@@ -14,7 +16,7 @@ modmenu = "7.2.2"
 lazydfu = "0.1.3"
 smartbrainlib = "4981378"
 resourceful_config = "2.1.2"
-firstperson = "gah8AMuD"
+firstperson = "UtdDBPeE"
 pehkui = "3.7.8+1.14.4-1.20.1"
 kanos = "0.4.1"
 lambdynamiclights = "2.3.2+1.20.1"
@@ -55,4 +57,4 @@ quilted_fabric_api = ["quilted_fabric_api", "quilted_fabric_api_deprecated"]
 cca = ["cca_base", "cca_entity", "cca_level", "cca_chunk"]
 
 [plugins]
-quilt_loom = { id = "org.quiltmc.loom", version = "1.4.+" }
+quilt_loom = { id = "org.quiltmc.loom", version.ref = "quilt_loom" }
