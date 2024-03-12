@@ -129,7 +129,7 @@ public class PocketDimensionComponent implements Component {
 	}
 
 	public void teleportOutOfPocketDimension(ServerPlayerEntity player) {
-		if (!player.getWorld().isClient() && player.getWorld().getRegistryKey() == POCKET_DIM) {
+		if (player.getWorld().getRegistryKey() == POCKET_DIM) {
 			Optional<Map.Entry<UUID, Box>> entry = existingPlots.entrySet().stream().filter(entry1 -> entry1.getValue().intersects(player.getBoundingBox())).findFirst();
 
 			if (entry.isPresent()) {
@@ -148,6 +148,17 @@ public class PocketDimensionComponent implements Component {
 
 				ArcanusComponents.setPortalCoolDown(player, 200);
 				QuiltDimensions.teleport(player, targetWorld, new TeleportTarget(targetPos, Vec3d.ZERO, player.getYaw(), player.getPitch()));
+			}
+			else {
+				var spawnPos = player.getSpawnPointPosition();
+				var angle = player.getSpawnAngle();
+				var world = player.getServer().getWorld(player.getSpawnPointDimension());
+				if(!player.isSpawnPointSet() || world == null || spawnPos == null) {
+					world = player.getServer().getOverworld();
+					spawnPos = world.getSpawnPos();
+					angle = player.getYaw();
+				}
+				QuiltDimensions.teleport(player, world, new TeleportTarget(Vec3d.ofBottomCenter(spawnPos), Vec3d.ZERO, angle, player.getPitch()));
 			}
 		}
 	}
