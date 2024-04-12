@@ -19,6 +19,6 @@ public class ExplosiveEnhancementCompat {
 				ExplosiveEnhancement.LOGGER.info("particle is underwater!");
 		}
 
-		ExplosiveApi.spawnParticles(world, x, y, z, power, isUnderWater, didDestroyBlocks);
+		ExplosiveApi.spawnParticles(world, x, y, z, power, isUnderWater, didDestroyBlocks, true);
 	}
 }
