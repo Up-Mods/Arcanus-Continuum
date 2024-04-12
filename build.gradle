@@ -120,6 +120,9 @@ dependencies {
 	// iris
 	modImplementation libs.iris
 
+	// explosive enhancement
+	modImplementation libs.explosive.enhancement
+
 	// pehkui
 	modCompileOnly libs.pehkui
 	modRuntimeOnly libs.pehkui

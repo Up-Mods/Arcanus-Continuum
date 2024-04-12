@@ -6,12 +6,14 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
+import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncExplosionParticlesPacket;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -20,6 +22,7 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.*;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
+import org.quiltmc.qsl.networking.api.PlayerLookup;
 
 import java.util.HashSet;
 import java.util.List;
@@ -100,7 +103,10 @@ public class ExplosionSpellShape extends SpellShape {
 		}
 
 		world.playSound(null, castFrom.getX(), castFrom.getY(), castFrom.getZ(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F, 1L);
-		world.spawnParticles(ParticleTypes.EXPLOSION_EMITTER, castFrom.getX(), castFrom.getY(), castFrom.getZ(), 1, 1, 0, 0, 1);
+
+		for(ServerPlayerEntity player : PlayerLookup.tracking(world, BlockPos.create(castFrom.getX(), castFrom.getY(), castFrom.getZ())))
+			SyncExplosionParticlesPacket.send(player, castFrom.getX(), castFrom.getY(), castFrom.getZ(), strength, effects.contains(ArcanusSpellComponents.MINE.get()));
+
 		castNext(caster, castFrom, castSource, world, stack, spellGroups, groupIndex, potency);
 	}
 }
