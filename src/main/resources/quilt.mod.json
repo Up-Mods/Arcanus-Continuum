@@ -17,7 +17,8 @@
 			"contact": {
 				"homepage": "https://cammiescorner.dev",
 				"issues": "https://github.com/Up-Mods/Arcanus-Continuum/issues",
-				"sources": "https://github.com/Up-Mods/Arcanus-Continuum"
+				"sources": "https://github.com/Up-Mods/Arcanus-Continuum",
+				"discord": "https://mods.upcraft.dev/discord"
 			},
 			"license": {
 				"name": "Custom License",
