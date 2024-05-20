@@ -117,7 +117,7 @@ public class Arcanus implements ModInitializer {
 		configurator.registerConfig(ArcanusConfig.class);
 
 		RegistryService registryService = RegistryService.get();
-		ArcanusEntityAttributes.registerAll(registryService);
+		ArcanusEntityAttributes.registerAll();
 		ArcanusEntities.ENTITY_TYPES.accept(registryService);
 		ArcanusBlocks.BLOCKS.accept(registryService);
 		ArcanusItems.ITEM_GROUPS.accept(registryService);

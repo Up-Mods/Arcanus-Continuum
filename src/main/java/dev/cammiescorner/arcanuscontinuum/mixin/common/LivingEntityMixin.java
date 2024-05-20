@@ -210,18 +210,17 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 
 	@ModifyReturnValue(method = "createAttributes", at = @At("RETURN"))
 	private static DefaultAttributeContainer.Builder arcanuscontinuum$createPlayerAttributes(DefaultAttributeContainer.Builder builder) {
-		if(ArcanusEntityAttributes.isInitialized())
-			return builder
-				.add(ArcanusEntityAttributes.MAX_MANA.get())
-				.add(ArcanusEntityAttributes.MANA_REGEN.get())
-				.add(ArcanusEntityAttributes.BURNOUT_REGEN.get())
-				.add(ArcanusEntityAttributes.MANA_LOCK.get())
-				.add(ArcanusEntityAttributes.SPELL_POTENCY.get())
-				.add(ArcanusEntityAttributes.MAGIC_RESISTANCE.get())
-				.add(ArcanusEntityAttributes.MANA_COST.get())
-				.add(ArcanusEntityAttributes.SPELL_COOL_DOWN.get());
-		else
-			return builder;
+		ArcanusEntityAttributes.registerAll();
+
+		return builder
+			.add(ArcanusEntityAttributes.MAX_MANA.get())
+			.add(ArcanusEntityAttributes.MANA_REGEN.get())
+			.add(ArcanusEntityAttributes.BURNOUT_REGEN.get())
+			.add(ArcanusEntityAttributes.MANA_LOCK.get())
+			.add(ArcanusEntityAttributes.SPELL_POTENCY.get())
+			.add(ArcanusEntityAttributes.MAGIC_RESISTANCE.get())
+			.add(ArcanusEntityAttributes.MANA_COST.get())
+			.add(ArcanusEntityAttributes.SPELL_COOL_DOWN.get());
 	}
 
 	@WrapOperation(method = "handleFrictionAndCalculateMovement", at = @At(value = "INVOKE",
