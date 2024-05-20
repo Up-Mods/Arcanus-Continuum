@@ -38,11 +38,11 @@
 		"depends": [
 			{
 				"id": "quilt_loader",
-				"versions": ">=0.18.1-"
+				"versions": ">=0.25.0"
 			},
 			{
 				"id": "quilted_fabric_api",
-				"versions": ">=5.0.0-",
+				"versions": ">=7.0.0-",
 				"mc-publish": {
 					"curseforge": "634179",
 					"modrinth": "qvIfYCYJ"

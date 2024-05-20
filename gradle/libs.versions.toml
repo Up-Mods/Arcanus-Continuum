@@ -1,10 +1,10 @@
 [versions]
-quilt_loom = "1.4.+"
+quilt_loom = "1.6.+"
 
 # The latest versions are available at https://lambdaurora.dev/tools/import_quilt.html
 minecraft = "1.20.1"
 quilt_mappings = "1.20.1+build.23"
-quilt_loader = "0.24.0"
+quilt_loader = "0.26.0-beta.2"
 
 quilted_fabric_api = "7.5.0+0.91.0-1.20.1"
 cca = "5.2.2"
