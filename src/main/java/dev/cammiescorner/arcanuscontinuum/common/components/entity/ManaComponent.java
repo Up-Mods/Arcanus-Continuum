@@ -22,8 +22,9 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	public void serverTick() {
 		EntityAttributeInstance manaRegenAttr = entity.getAttributeInstance(ArcanusEntityAttributes.MANA_REGEN.get());
 
-		if (manaRegenAttr != null && addMana(manaRegenAttr.getValue(), true))
+		if(manaRegenAttr != null) {
 			addMana(manaRegenAttr.getValue() / (entity instanceof PlayerEntity player && player.isCreative() ? 1 : 20), false);
+		}
 	}
 
 	@Override
@@ -42,9 +43,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 
 	public void setMana(double mana) {
 		this.mana = MathHelper.clamp(mana, 0, getTrueMaxMana());
-
-		if (entity instanceof PlayerEntity)
-			ArcanusComponents.MANA_COMPONENT.sync(entity);
+		ArcanusComponents.MANA_COMPONENT.sync(entity);
 	}
 
 	public double getTrueMaxMana() {
@@ -72,13 +71,10 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	public boolean addMana(double amount, boolean simulate) {
 		if (getMana() < getTrueMaxMana()) {
 			if (!simulate)
-				setMana(Math.min(getTrueMaxMana(), getMana() + amount));
+				setMana(getMana() + amount);
 
 			return true;
 		}
-
-		if (getMana() > getTrueMaxMana())
-			setMana(getTrueMaxMana());
 
 		return false;
 	}
