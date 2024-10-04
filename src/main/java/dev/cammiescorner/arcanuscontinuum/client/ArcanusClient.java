@@ -30,6 +30,7 @@ import dev.cammiescorner.arcanuscontinuum.common.items.StaffItem;
 import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.*;
 import dev.cammiescorner.arcanuscontinuum.common.registry.*;
 import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
+import dev.upcraft.sparkweave.api.util.modcompat.CompatHelper;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
@@ -137,6 +138,8 @@ public class ArcanusClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(SyncSupporterData.ID, SyncSupporterData::handle);
 		ClientPlayNetworking.registerGlobalReceiver(SyncConfigValuesPacket.ID, SyncConfigValuesPacket::handle);
 		ClientPlayNetworking.registerGlobalReceiver(SyncExplosionParticlesPacket.ID, SyncExplosionParticlesPacket::handle);
+		if (ArcanusCompat.PEHKUI.isEnabled())
+			ClientPlayNetworking.registerGlobalReceiver(SyncScalePacket.ID, SyncScalePacket::handle);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? StaffItem.getPrimaryColour(stack) : tintIndex == 1 ? StaffItem.getSecondaryColour(stack) : 0xffffff,
 			ArcanusItems.WOODEN_STAFF.get(),
