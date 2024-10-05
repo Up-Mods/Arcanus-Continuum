@@ -104,7 +104,10 @@ public class ArcanusComponents implements EntityComponentInitializer, LevelCompo
 		registry.beginRegistration(PlayerEntity.class, PORTAL_COOL_DOWN_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PortalCoolDownComponent::new);
 		registry.beginRegistration(LivingEntity.class, COUNTER_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(CounterComponent::new);
 
-		ArcanusCompat.PEHKUI.ifEnabled(() -> () -> PehkuiCompat.registerEntityComponents(registry));
+		ArcanusCompat.PEHKUI.ifEnabled(() -> () -> {
+			PehkuiCompat.registerEntityComponents(registry);
+			PehkuiCompat.registerModifiers();
+		});
 	}
 
 	private static <T extends Component> ComponentKey<T> createComponent(String name, Class<T> component) {
