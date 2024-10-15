@@ -138,8 +138,7 @@ public class ArcanusClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(SyncSupporterData.ID, SyncSupporterData::handle);
 		ClientPlayNetworking.registerGlobalReceiver(SyncConfigValuesPacket.ID, SyncConfigValuesPacket::handle);
 		ClientPlayNetworking.registerGlobalReceiver(SyncExplosionParticlesPacket.ID, SyncExplosionParticlesPacket::handle);
-		if (ArcanusCompat.PEHKUI.isEnabled())
-			ClientPlayNetworking.registerGlobalReceiver(SyncScalePacket.ID, SyncScalePacket::handle);
+		ArcanusCompat.PEHKUI.ifEnabled(() -> () -> ClientPlayNetworking.registerGlobalReceiver(SyncScalePacket.ID, SyncScalePacket::handle));
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? StaffItem.getPrimaryColour(stack) : tintIndex == 1 ? StaffItem.getSecondaryColour(stack) : 0xffffff,
 			ArcanusItems.WOODEN_STAFF.get(),
