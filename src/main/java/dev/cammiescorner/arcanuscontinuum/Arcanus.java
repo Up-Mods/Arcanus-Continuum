@@ -21,7 +21,6 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -32,7 +31,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.structure.processor.StructureProcessorType;
 import net.minecraft.text.MutableText;
@@ -41,17 +39,11 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.poi.PointOfInterest;
-import net.minecraft.world.poi.PointOfInterestStorage;
 import org.jetbrains.annotations.Nullable;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.loader.api.ModMetadata;
 import org.quiltmc.loader.api.QuiltLoader;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
-import org.quiltmc.qsl.chat.api.QuiltChatEvents;
-import org.quiltmc.qsl.chat.api.QuiltMessageType;
-import org.quiltmc.qsl.chat.api.types.ChatC2SMessage;
 import org.quiltmc.qsl.command.api.CommandRegistrationCallback;
 import org.quiltmc.qsl.lifecycle.api.event.ServerLifecycleEvents;
 import org.quiltmc.qsl.networking.api.EntityTrackingEvents;
@@ -71,8 +63,6 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Arcanus implements ModInitializer {
 	public static final Configurator configurator = new Configurator();
@@ -171,38 +161,6 @@ public class Arcanus implements ModInitializer {
 			var server = ctx.server();
 			if (server != null)
 				Arcanus.refreshSupporterData(server, true);
-		});
-
-		QuiltChatEvents.CANCEL.register(EnumSet.of(QuiltMessageType.CHAT), abstractMessage -> {
-			PlayerEntity player = abstractMessage.getPlayer();
-			World world = player.getWorld();
-
-			if(world instanceof ServerWorld server && abstractMessage instanceof ChatC2SMessage packet) {
-				String message = packet.getMessage();
-
-				CompletableFuture<Boolean> future = CompletableFuture.supplyAsync(() -> {
-					PointOfInterestStorage poiStorage = server.getChunkManager().getPointOfInterestStorage();
-					Stream<BlockPos> pointOfInterest = poiStorage.getInSquare(poiTypeHolder -> poiTypeHolder.isRegistryKey(ArcanusPointsOfInterest.MAGIC_DOOR), player.getBlockPos(), 8, PointOfInterestStorage.OccupationStatus.ANY).map(PointOfInterest::getPos);
-					boolean beep = false;
-
-					for(BlockPos pos : pointOfInterest.collect(Collectors.toSet())) {
-						BlockState state = world.getBlockState(pos);
-
-						if(state.getBlock() instanceof MagicDoorBlock doorBlock && world.getBlockEntity(pos) instanceof MagicDoorBlockEntity door) {
-							if (message.toLowerCase(Locale.ROOT).equals(door.getPassword())) {
-								doorBlock.setOpen(null, world, state, pos, true);
-								player.sendMessage(translate("door", "access_granted").formatted(Formatting.GRAY, Formatting.ITALIC), true);
-								beep = true;
-							}
-						}
-					}
-					return beep;
-				}, world.getServer());
-
-				return future.join();
-			}
-
-			return false;
 		});
 
 		EntitySleepEvents.STOP_SLEEPING.register((entity, sleepingPos) -> {
