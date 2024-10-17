@@ -20,6 +20,7 @@
 		"common.MobEntityMixin",
 		"common.PistonBlockMixin",
 		"common.PlayerEntityMixin",
+    "common.PlayerManagerMixin",
 		"common.ScreenHandlerTypeMixin",
 		"common.ServerWorldMixin",
 		"common.ThrownEntityMixin",
