@@ -7,7 +7,6 @@ import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
 import dev.cammiescorner.arcanuscontinuum.common.data.ArcanusEntityTags;
-import dev.cammiescorner.arcanuscontinuum.common.util.PlayerHelper;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -141,7 +140,7 @@ public class MagicRune extends Entity implements Targetable {
 	}
 
 	private static boolean isValidTarget(LivingEntity livingEntity) {
-		if(!livingEntity.isAlive() || livingEntity.isSpectator() || livingEntity.isIgnoringBlockTriggers() || PlayerHelper.isFakePlayer(livingEntity)) {
+		if(!livingEntity.isAlive() || livingEntity.isSpectator() || livingEntity.isIgnoringBlockTriggers()) {
 			return false;
 		}
 

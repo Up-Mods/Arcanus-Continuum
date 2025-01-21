@@ -1,12 +1,12 @@
 package dev.cammiescorner.arcanuscontinuum.api.entities;
 
-import dev.cammiescorner.arcanuscontinuum.common.util.PlayerHelper;
-import net.minecraft.world.entity.Entity;
+import dev.upcraft.sparkweave.api.util.fakeplayer.FakePlayerHelper;
+import net.minecraft.world.entity.player.Player;
 
 public interface Targetable {
 	default boolean arcanus$canBeTargeted() {
-		if(this instanceof Entity self) {
-			return !PlayerHelper.isFakePlayer(self);
+		if(this instanceof Player player) {
+			return !FakePlayerHelper.isFakePlayer(player);
 		}
 
 		return false;

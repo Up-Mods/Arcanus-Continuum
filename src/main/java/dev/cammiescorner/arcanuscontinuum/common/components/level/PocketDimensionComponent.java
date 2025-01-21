@@ -9,7 +9,7 @@ import dev.cammiescorner.arcanuscontinuum.common.blocks.SpatialRiftExitEdgeBlock
 import dev.cammiescorner.arcanuscontinuum.common.data.ArcanusDimensions;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
-import dev.cammiescorner.arcanuscontinuum.common.util.PlayerHelper;
+import dev.upcraft.sparkweave.api.util.fakeplayer.FakePlayerHelper;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -28,6 +28,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -145,7 +146,7 @@ public class PocketDimensionComponent implements dev.onyxstudios.cca.api.v3.comp
 	}
 
 	public boolean teleportOutOfPocketDimension(Entity entity) {
-		if(PlayerHelper.isFakePlayer(entity) || entity.level().isClientSide() || entity.level().dimension() != ArcanusDimensions.POCKET_DIMENSION)
+		if((entity instanceof Player player && FakePlayerHelper.isFakePlayer(player)) || entity.level().isClientSide() || entity.level().dimension() != ArcanusDimensions.POCKET_DIMENSION)
 			return false;
 
 		UUID ownerId = existingPlots.values().stream().filter(plot -> entity.getBoundingBox().intersects(AABB.of(plot.getBounds()))).map(PocketDimensionPlot::ownerId).findFirst().orElse(null);
@@ -273,7 +274,7 @@ public class PocketDimensionComponent implements dev.onyxstudios.cca.api.v3.comp
 
 		if(regenerateType.clearInterior()) {
 			pocketDim.getEntitiesOfClass(Entity.class, AABB.of(plot.getBounds())).forEach(entity -> {
-				if(PlayerHelper.isFakePlayer(entity) || !(entity instanceof ServerPlayer player)) {
+				if(!(entity instanceof ServerPlayer player) || FakePlayerHelper.isFakePlayer(player)) {
 					entity.discard();
 					return;
 				}
