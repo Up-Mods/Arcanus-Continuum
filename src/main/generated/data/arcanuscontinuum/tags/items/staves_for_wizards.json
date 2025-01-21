@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "arcanuscontinuum:wooden_staff",
+    "arcanuscontinuum:crystal_staff",
+    "arcanuscontinuum:divination_staff",
+    "arcanuscontinuum:crescent_staff",
+    "arcanuscontinuum:ancient_staff"
+  ]
+}

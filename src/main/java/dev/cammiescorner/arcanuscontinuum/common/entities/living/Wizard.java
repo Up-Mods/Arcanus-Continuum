@@ -7,6 +7,7 @@ import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusTradeOffers;
 import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -28,7 +29,6 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
@@ -175,22 +175,12 @@ public class Wizard extends AbstractVillager implements NeutralMob {
 		return null;
 	}
 
-	@Override
-	public boolean canBeLeashed(Player player) {
-		return false;
-	}
-
 	private ItemStack getRandomStaff(RandomSource random) {
-		// TODO use a tag for this
-		List<Item> staves = List.of(
-			ArcanusItems.WOODEN_STAFF.get(),
-			ArcanusItems.CRYSTAL_STAFF.get(),
-			ArcanusItems.DIVINATION_STAFF.get(),
-			ArcanusItems.CRESCENT_STAFF.get(),
-			ArcanusItems.ANCIENT_STAFF.get()
+		return new ItemStack(BuiltInRegistries.ITEM.getOrCreateTag(ArcanusItemTags.STAVES_FOR_WIZARDS)
+			.getRandomElement(random)
+			.orElse(BuiltInRegistries.ITEM.wrapAsHolder(ArcanusItems.CRYSTAL_STAFF.get()))
+			.value()
 		);
-
-		return new ItemStack(staves.get(random.nextInt(staves.size())));
 	}
 
 	public void setRobeColor(int color) {

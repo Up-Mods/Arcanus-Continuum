@@ -62,6 +62,13 @@ public class ArcanusItemTagsProvider extends FabricTagProvider.ItemTagProvider {
 			.add(ArcanusItems.MAGIC_TOME.get())
 			.add(ArcanusItems.MAGE_PISTOL.get());
 
+		getOrCreateTagBuilder(ArcanusItemTags.STAVES_FOR_WIZARDS)
+			.add(ArcanusItems.WOODEN_STAFF.get())
+			.add(ArcanusItems.CRYSTAL_STAFF.get())
+			.add(ArcanusItems.DIVINATION_STAFF.get())
+			.add(ArcanusItems.CRESCENT_STAFF.get())
+			.add(ArcanusItems.ANCIENT_STAFF.get());
+
 		getOrCreateTagBuilder(ArcanusItemTags.WIZARD_ARMOR)
 			.add(ArcanusItems.WIZARD_HAT.get())
 			.add(ArcanusItems.WIZARD_ROBES.get())
