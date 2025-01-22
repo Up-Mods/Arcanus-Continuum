@@ -1,8 +1,8 @@
 package dev.cammiescorner.arcanuscontinuum.mixin.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import dev.cammiescorner.arcanuscontinuum.common.entities.magic.TemporalDilationField;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusMobEffects;
+import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
@@ -23,7 +23,7 @@ public class MouseHandlerMixin {
 		target = "Lnet/minecraft/client/player/LocalPlayer;turn(DD)V"
 	))
 	private void slowMouse(Args args) {
-		if(minecraft.player != null && minecraft.player.level().getEntities(minecraft.player, minecraft.player.getBoundingBox(), entity -> entity instanceof TemporalDilationField).isEmpty()) {
+		if(minecraft.player != null && ArcanusHelper.shouldTimeDilate(minecraft.player, minecraft.player.level())) {
 			double x = args.get(0);
 			double y = args.get(1);
 			args.setAll(x * 0.5, y * 0.5);

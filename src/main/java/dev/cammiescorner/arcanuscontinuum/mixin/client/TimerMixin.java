@@ -1,10 +1,9 @@
 package dev.cammiescorner.arcanuscontinuum.mixin.client;
 
-import dev.cammiescorner.arcanuscontinuum.common.entities.magic.TemporalDilationField;
+import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Timer;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,10 +25,7 @@ public abstract class TimerMixin {
 		LocalPlayer player = Minecraft.getInstance().player;
 
 		if(player != null) {
-			Level level = player.level();
-			boolean isInsideTemporalField = !level.getEntities(player, player.getBoundingBox(), entity -> entity instanceof TemporalDilationField).isEmpty();
-
-			if(isInsideTemporalField)
+			if(ArcanusHelper.shouldTimeDilate(player, player.level()))
 				msPerTick = 1000f / (ticksPerSecond / 2f);
 			else
 				msPerTick = 1000f / ticksPerSecond;

@@ -34,13 +34,12 @@ public class TemporalDilationFieldRenderer extends EntityRenderer<TemporalDilati
 		Vec3 cameraPos = client.getCameraEntity() != null ? new Vec3(client.getCameraEntity().getX(), 0, client.getCameraEntity().getZ()) : Vec3.ZERO;
 		Vec3 fieldPos = new Vec3(entity.getX(), 0, entity.getZ());
 		Vec3 directionToCamera = cameraPos.subtract(fieldPos);
-		float scale = (float) (entity.getBoundingBox().getXsize() / 3f);
 		float handProgress = (float) Math.toRadians((360f / entity.getMaxAge()) * entity.getAge() + partialTick);
 
 		poseStack.pushPose();
 		poseStack.mulPose(Axis.XP.rotationDegrees(180));
-		poseStack.scale(scale, scale, scale);
-		poseStack.translate(0, -1.51, 0);
+		poseStack.scale(3, 3, 3);
+		poseStack.translate(0, -3.01, 0);
 
 		model.xPlaneRing.yRot = (float) Mth.atan2(directionToCamera.z(), directionToCamera.x());
 		model.yPlaneRing.yRot = (float) (Math.toRadians(-90) + Mth.atan2(directionToCamera.z(), directionToCamera.x()));

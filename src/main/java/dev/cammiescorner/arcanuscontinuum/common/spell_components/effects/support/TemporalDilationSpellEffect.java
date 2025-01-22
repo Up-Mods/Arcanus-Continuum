@@ -34,12 +34,11 @@ public class TemporalDilationSpellEffect extends SpellEffect {
 
 		if(!level.isClientSide() && castSource != null) {
 			TemporalDilationField dilationField = ArcanusEntities.TEMPORAL_DILATION_FIELD.get().create(level);
-			double count = effects.stream().filter(ArcanusSpellComponents.TEMPORAL_DILATION::is).count() * potency;
+			double count = (effects.stream().filter(ArcanusSpellComponents.TEMPORAL_DILATION::is).count() - 1) * potency;
 
 			if(dilationField != null) {
-				dilationField.setPos(target.getLocation());
-				dilationField.setBoundingBox(dilationField.getBoundingBox().inflate(count - 1)); // TODO not inflating bounding box for some reason?
-				dilationField.extendMaxAge(((int) count - 1) * 20);
+				dilationField.extendMaxAge((int) count * 20);
+				dilationField.setPos(target.getLocation().add(0, -4.5, 0));
 				ArcanusHelper.copyMagicColor(dilationField, caster);
 				level.addFreshEntity(dilationField);
 			}

@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.common.util;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.common.components.MagicColorComponent;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.TemporalDilationField;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.util.supporters.WizardData;
 import net.minecraft.Util;
@@ -11,6 +12,7 @@ import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -18,6 +20,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 public class ArcanusHelper {
+	public static boolean shouldTimeDilate(Entity target, Level level) {
+		// TODO replace !instanceof check with tag
+		return !(target instanceof TemporalDilationField) && !level.getEntities(target, target.getBoundingBox(), entity -> entity instanceof TemporalDilationField && entity.position().add(0, 4.5, 0).distanceTo(target.position()) <= entity.getBbWidth() / 2).isEmpty();
+	}
 
 	public static Color getMagicColor(@Nullable Object provider) {
 		if(provider == null) {
