@@ -350,6 +350,7 @@
   "tag.entity_type.arcanuscontinuum.dispellable": "Dispellable",
   "tag.entity_type.arcanuscontinuum.magic_rune_ignored": "Does not trigger Magic Runes",
   "tag.entity_type.arcanuscontinuum.spatial_rift_immune": "Immune to Spatial Rifts",
+  "tag.entity_type.arcanuscontinuum.temporal_dilation_immune": "Immune to Temporal Dilation Fields",
   "tag.entity_type.c.immovable": "Immovable",
   "tag.item.arcanuscontinuum.copper_curse_immune": "Ignored by Copper Curse",
   "tag.item.arcanuscontinuum.crafting.spellbinding_acceptable_spellbooks": "Spellbooks",

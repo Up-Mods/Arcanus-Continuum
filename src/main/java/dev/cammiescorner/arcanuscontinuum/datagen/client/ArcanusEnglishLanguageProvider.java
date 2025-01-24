@@ -148,6 +148,7 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		tag(builder, ArcanusEntityTags.DISPELLABLE, "Dispellable");
 		tag(builder, ArcanusEntityTags.RUNE_TRIGGER_IGNORED, "Does not trigger Magic Runes");
 		tag(builder, ArcanusEntityTags.SPATIAL_RIFT_IMMUNE, "Immune to Spatial Rifts");
+		tag(builder, ArcanusEntityTags.TEMPORAL_DILATION_IMMUNE, "Immune to Temporal Dilation Fields");
 
 		tag(builder, ArcanusEnchantmentTags.MANA_POOL_COMPATIBLE_WITH, "Compatible enchantments for Mana Pool");
 

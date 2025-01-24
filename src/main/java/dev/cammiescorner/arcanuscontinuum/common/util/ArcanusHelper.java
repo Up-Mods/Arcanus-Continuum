@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.common.util;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.common.components.MagicColorComponent;
+import dev.cammiescorner.arcanuscontinuum.common.data.ArcanusEntityTags;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.TemporalDilationField;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanuscontinuum.common.util.supporters.WizardData;
@@ -21,8 +22,7 @@ import java.util.UUID;
 
 public class ArcanusHelper {
 	public static boolean shouldTimeDilate(Entity target, Level level) {
-		// TODO replace !instanceof check with tag
-		return !(target instanceof TemporalDilationField) && !level.getEntities(target, target.getBoundingBox(), entity -> entity instanceof TemporalDilationField && entity.position().add(0, 4.5, 0).distanceTo(target.position()) <= entity.getBbWidth() / 2).isEmpty();
+		return !target.getType().is(ArcanusEntityTags.TEMPORAL_DILATION_IMMUNE) && !level.getEntities(target, target.getBoundingBox(), entity -> entity instanceof TemporalDilationField && entity.position().add(0, 4.5, 0).distanceTo(target.position()) <= entity.getBbWidth() / 2).isEmpty();
 	}
 
 	public static Color getMagicColor(@Nullable Object provider) {

@@ -33,7 +33,8 @@ public class ArcanusEntityTagsProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(ArcanusEntities.MAGIC_RUNE.get())
 			.add(ArcanusEntities.MANA_SHIELD.get())
 			.add(ArcanusEntities.NECRO_SKELETON.get())
-			.add(ArcanusEntities.PORTAL.get());
+			.add(ArcanusEntities.PORTAL.get())
+			.add(ArcanusEntities.TEMPORAL_DILATION_FIELD.getId());
 
 		getOrCreateTagBuilder(ArcanusEntityTags.SPATIAL_RIFT_IMMUNE)
 			.forceAddTag(ConventionalEntityTypeTags.BOSSES)
@@ -53,6 +54,9 @@ public class ArcanusEntityTagsProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.PAINTING)
 			.add(EntityType.TEXT_DISPLAY)
 			.add(ArcanusEntities.PORTAL.get());
+
+		getOrCreateTagBuilder(ArcanusEntityTags.TEMPORAL_DILATION_IMMUNE)
+			.add(ArcanusEntities.TEMPORAL_DILATION_FIELD.get());
 
 		getOrCreateTagBuilder(ArcanusEntityTags.RUNE_TRIGGER_IGNORED)
 			.addOptionalTag(ArcanusEntityTags.C_IMMOVABLE);
