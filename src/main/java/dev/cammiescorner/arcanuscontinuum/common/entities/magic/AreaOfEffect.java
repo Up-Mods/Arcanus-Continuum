@@ -37,7 +37,6 @@ public class AreaOfEffect extends Entity implements Targetable {
 	private int groupIndex;
 	private double potency;
 	private int trueAge;
-	private boolean isFocused = true;
 
 	public AreaOfEffect(EntityType<?> variant, Level world) {
 		super(variant, world);
@@ -69,33 +68,40 @@ public class AreaOfEffect extends Entity implements Targetable {
 		}
 
 		if(!level().isClientSide()) {
-			if(trueAge <= 90 && trueAge > 0) {
-				if(trueAge % 30 == 0) {
-					AABB box = new AABB(-2, 0, -2, 2, 2.5, 2).move(position());
+			int baseLifeSpan = ArcanusConfig.SpellShapes.AOEShapeProperties.baseLifeSpan;
+			int timesToApplyEffects = ArcanusConfig.SpellShapes.AOEShapeProperties.timesToApplyEffects;
+			int timesToCastNextShape = ArcanusConfig.SpellShapes.AOEShapeProperties.timesToCastNextShape;
+			int actualLifeSpan = (int) (baseLifeSpan * 0.9);
 
-					for(SpellEffect effect : new HashSet<>(effects)) {
-						if(effect.shouldTriggerOnceOnExplosion())
-							continue;
+			if(trueAge > 0) {
+				if(trueAge <= actualLifeSpan) {
+					if(trueAge % (actualLifeSpan / timesToApplyEffects) == 0) {
+						AABB box = new AABB(-2, 0, -2, 2, 2.5, 2).move(position());
 
-						level().getEntitiesOfClass(Entity.class, box, entity -> entity.isAlive() && !entity.isSpectator() && entity instanceof Targetable targetable && targetable.arcanus$canBeTargeted()).forEach(entity -> {
-							effect.effect(getCaster(), this, level(), new EntityHitResult(entity), effects, stack, potency);
-						});
+						for(SpellEffect effect : new HashSet<>(effects)) {
+							if(effect.shouldTriggerOnceOnExplosion())
+								continue;
+
+							level().getEntitiesOfClass(Entity.class, box, entity -> entity.isAlive() && !entity.isSpectator() && entity instanceof Targetable targetable && targetable.arcanus$canBeTargeted()).forEach(entity -> {
+								effect.effect(getCaster(), this, level(), new EntityHitResult(entity), effects, stack, potency);
+							});
+						}
 					}
 
-					SpellShape.castNext(getCaster(), position(), this, (ServerLevel) level(), stack, spellGroups, groupIndex, potency);
+					if(trueAge == actualLifeSpan) {
+						for(int i = 0; i < timesToCastNextShape; i++) {
+							SpellShape.castNext(getCaster(), position(), this, (ServerLevel) level(), stack, spellGroups, groupIndex, potency);
+							setYRot(getYRot() + (360f / timesToCastNextShape));
+						}
 
-					if(!isFocused)
-						setYRot(getYRot() + 110 + random.nextInt(21));
-				}
-
-				if(trueAge % 50 == 0) {
-					for(SpellEffect effect : new HashSet<>(effects))
-						if(effect.shouldTriggerOnceOnExplosion())
-							effect.effect(getCaster(), this, level(), new EntityHitResult(this), effects, stack, potency);
+						for(SpellEffect effect : new HashSet<>(effects))
+							if(effect.shouldTriggerOnceOnExplosion())
+								effect.effect(getCaster(), this, level(), new EntityHitResult(this), effects, stack, potency);
+					}
 				}
 			}
 
-			if(trueAge >= ArcanusConfig.SpellShapes.AOEShapeProperties.baseLifeSpan)
+			if(trueAge >= baseLifeSpan)
 				kill();
 		}
 
@@ -176,9 +182,7 @@ public class AreaOfEffect extends Entity implements Targetable {
 	public void setProperties(UUID casterId, Entity sourceEntity, Vec3 pos, ItemStack stack, List<SpellEffect> effects, double potency, List<SpellGroup> groups, int groupIndex) {
 		setPosRaw(pos.x(), pos.y(), pos.z());
 		setYRot(sourceEntity.getYRot());
-		setXRot(sourceEntity.getXRot());
 		this.casterId = casterId;
-		this.isFocused = sourceEntity instanceof AreaOfEffect aoe ? aoe.isFocused : sourceEntity.getUUID().equals(casterId) && sourceEntity.isShiftKeyDown();
 		this.stack = stack;
 		this.effects = effects;
 		this.spellGroups = groups;

@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
 import dev.cammiescorner.arcanuscontinuum.client.models.entity.magic.AreaOfEffectModel;
 import dev.cammiescorner.arcanuscontinuum.common.entities.magic.AreaOfEffect;
@@ -28,7 +29,7 @@ public class AreaOfEffectEntityRenderer extends EntityRenderer<AreaOfEffect> {
 	public void render(AreaOfEffect entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
 		super.render(entity, yaw, tickDelta, matrices, vertices, light);
 		Color color = ArcanusHelper.getMagicColor(entity);
-		float alpha = 1 - (Mth.clamp(entity.getTrueAge() - 80, 0, 20) / 20F);
+		float alpha = 1 - (Mth.clamp(entity.getTrueAge() - (ArcanusConfig.SpellShapes.AOEShapeProperties.baseLifeSpan * 0.9f), 0f, 10f) / 10f);
 		float r = color.redF() * alpha;
 		float g = color.greenF() * alpha;
 		float b = color.blueF() * alpha;
@@ -37,9 +38,9 @@ public class AreaOfEffectEntityRenderer extends EntityRenderer<AreaOfEffect> {
 		matrices.pushPose();
 		matrices.mulPose(Axis.XP.rotationDegrees(180));
 		matrices.translate(0, -1.51, 0);
-		model.base.yRot = (entity.tickCount + tickDelta) * 0.015F;
+		model.base.yRot = (entity.tickCount + tickDelta) * 0.015f;
 		model.pillar.yRot = -model.base.yRot;
-		model.walls.yRot = -(entity.tickCount + tickDelta) * 0.035F;
+		model.walls.yRot = -(entity.tickCount + tickDelta) * 0.035f;
 		model.renderToBuffer(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), light, OverlayTexture.NO_OVERLAY, color.redF(), color.greenF(), color.blueF(), color.alphaF());
 		matrices.popPose();
 	}

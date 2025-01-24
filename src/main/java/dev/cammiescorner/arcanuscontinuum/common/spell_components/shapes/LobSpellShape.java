@@ -37,7 +37,7 @@ public class LobSpellShape extends SpellShape {
 
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
-		float projectileSpeed = ArcanusConfig.SpellShapes.ProjectileShapeProperties.projectileSpeed;
+		float projectileSpeed = ArcanusConfig.SpellShapes.LobShapeProperties.projectileSpeed;
 		potency += getPotencyModifier();
 
 		if(caster != null) {

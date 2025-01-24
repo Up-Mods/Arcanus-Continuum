@@ -364,6 +364,12 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseLifeSpan")
 			@IntRange(min = 1, max = 24000)
 			public static int baseLifeSpan = 100;
+
+			@ConfigEntry(id = "timesToApplyEffects", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.timesToApplyEffects")
+			public static int timesToApplyEffects = 3;
+
+			@ConfigEntry(id = "timesToCastNextShape", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.timesToCastNextShape")
+			public static int timesToCastNextShape = 3;
 		}
 
 		@Category(id = "smiteShapeProperties", translation = "config.arcanuscontinuum.smiteShapeProperties", sortOrder = 10)

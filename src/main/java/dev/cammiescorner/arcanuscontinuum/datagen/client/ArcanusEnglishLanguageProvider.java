@@ -379,6 +379,8 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add("config.arcanuscontinuum.burstShapeProperties", "Burst Shape");
 		builder.add("config.arcanuscontinuum.counterShapeProperties", "Counter Shape");
 		builder.add("config.arcanuscontinuum.aoeShapeProperties", "Area Of Effect Shape");
+		builder.add("config.arcanuscontinuum.timesToApplyEffects", "Number of Times to Apply Spell Effects");
+		builder.add("config.arcanuscontinuum.timesToCastNextShape", "Number of Times to Cast Next Spell Shape");
 		builder.add("config.arcanuscontinuum.smiteShapeProperties", "Smite Shape");
 		builder.add("config.arcanuscontinuum.entangledOrbShapeProperties", "Entangled Orb Shape");
 		builder.add("config.arcanuscontinuum.aggressorbShapeProperties", "Aggressorb Shape");
