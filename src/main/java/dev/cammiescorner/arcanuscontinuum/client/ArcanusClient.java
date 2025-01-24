@@ -20,8 +20,8 @@ import dev.cammiescorner.arcanuscontinuum.client.renderer.armour.BattleMageArmou
 import dev.cammiescorner.arcanuscontinuum.client.renderer.armour.WizardArmourRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.block.MagicBlockEntityRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.block.SpatialRiftExitBlockEntityRenderer;
-import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.OpossumEntityRenderer;
-import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.WizardEntityRenderer;
+import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.OpossumRenderer;
+import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.living.WizardRenderer;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.entity.magic.*;
 import dev.cammiescorner.arcanuscontinuum.client.renderer.item.StaffItemRenderer;
 import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusCompat;
@@ -116,19 +116,20 @@ public class ArcanusClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(AggressorbModel.MODEL_LAYER, AggressorbModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(TemporalDilationFieldModel.MODEL_LAYER, TemporalDilationFieldModel::getTexturedModelData);
 
-		EntityRendererRegistry.register(ArcanusEntities.WIZARD.get(), WizardEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.OPOSSUM.get(), OpossumEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.WIZARD.get(), WizardRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.OPOSSUM.get(), OpossumRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.NECRO_SKELETON.get(), SkeletonRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.MANA_SHIELD.get(), ManaShieldEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.MISSILE.get(), MissileEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.LOB.get(), LobEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.AOE.get(), AreaOfEffectEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.SMITE.get(), SmiteEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.MAGIC_RUNE.get(), MagicRuneEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.BEAM.get(), BeamEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.ENTANGLED_ORB.get(), EntangledOrbEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.PORTAL.get(), PocketDimensionPortalEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.AGGRESSORB.get(), AggressorbEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.MANA_SHIELD.get(), ManaShieldRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.MISSILE.get(), MissileRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.LOB.get(), LobRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.AOE.get(), AreaOfEffectRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.SMITE.get(), SmiteRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.MAGIC_RUNE.get(), MagicRuneRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.GUIDED_SHOT.get(), GuidedShotRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.BEAM.get(), BeamRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.ENTANGLED_ORB.get(), EntangledOrbRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.PORTAL.get(), PocketDimensionPortalRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.AGGRESSORB.get(), AggressorbRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.TEMPORAL_DILATION_FIELD.get(), TemporalDilationFieldRenderer::new);
 
 		ArmorRenderer.register(new WizardArmourRenderer(), ArcanusItems.WIZARD_HAT.get(), ArcanusItems.WIZARD_ROBES.get(), ArcanusItems.WIZARD_PANTS.get(), ArcanusItems.WIZARD_BOOTS.get());

@@ -14,11 +14,11 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
-public class LobEntityRenderer extends ArrowRenderer<Lob> {
+public class LobRenderer extends ArrowRenderer<Lob> {
 	private static final ResourceLocation LOB_TEXTURE = Arcanus.id("textures/entity/magic/lob.png");
 	private final MagicLobModel lobModel;
 
-	public LobEntityRenderer(EntityRendererProvider.Context context) {
+	public LobRenderer(EntityRendererProvider.Context context) {
 		super(context);
 		lobModel = new MagicLobModel(context.getModelSet().bakeLayer(MagicLobModel.MODEL_LAYER));
 	}

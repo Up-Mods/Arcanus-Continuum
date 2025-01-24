@@ -16,11 +16,11 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class AreaOfEffectEntityRenderer extends EntityRenderer<AreaOfEffect> {
+public class AreaOfEffectRenderer extends EntityRenderer<AreaOfEffect> {
 	private static final ResourceLocation TEXTURE = Arcanus.id("textures/entity/magic/area_of_effect.png");
 	private final AreaOfEffectModel model;
 
-	public AreaOfEffectEntityRenderer(EntityRendererProvider.Context ctx) {
+	public AreaOfEffectRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 		model = new AreaOfEffectModel(ctx.getModelSet().bakeLayer(AreaOfEffectModel.MODEL_LAYER));
 	}

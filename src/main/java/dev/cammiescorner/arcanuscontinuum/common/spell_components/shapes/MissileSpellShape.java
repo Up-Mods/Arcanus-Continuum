@@ -36,12 +36,12 @@ public class MissileSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		float projectileSpeed = ArcanusConfig.SpellShapes.MissileShapeProperties.projectileSpeed;
 		potency += getPotencyModifier();
 
 		if(caster != null) {
-			List<? extends Missile> list = world.getEntities(EntityTypeTest.forClass(Missile.class), entity -> caster.equals(entity.getOwner()));
+			List<? extends Missile> list = level.getEntities(EntityTypeTest.forClass(Missile.class), entity -> caster.equals(entity.getOwner()));
 			Entity sourceEntity = castSource != null ? castSource : caster;
 			HitResult target = ArcanusHelper.raycast(sourceEntity, 4.5, true, true);
 
@@ -50,17 +50,17 @@ public class MissileSpellShape extends SpellShape {
 
 			if(projectileSpeed > 3f && target instanceof EntityHitResult hitResult) {
 				for(SpellEffect effect : new HashSet<>(effects))
-					effect.effect(caster, sourceEntity, world, target, effects, stack, potency);
+					effect.effect(caster, sourceEntity, level, target, effects, stack, potency);
 
-				SpellShape.castNext(caster, target.getLocation(), hitResult.getEntity(), world, stack, spellGroups, groupIndex, potency);
-				world.playSound(hitResult.getEntity(), hitResult.getEntity().blockPosition(), SoundEvents.ARROW_HIT, SoundSource.NEUTRAL, 1f, 1.2f / (world.random.nextFloat() * 0.2f + 0.9f));
+				SpellShape.castNext(caster, target.getLocation(), hitResult.getEntity(), level, stack, spellGroups, groupIndex, potency);
+				level.playSound(hitResult.getEntity(), hitResult.getEntity().blockPosition(), SoundEvents.ARROW_HIT, SoundSource.NEUTRAL, 1f, 1.2f / (level.random.nextFloat() * 0.2f + 0.9f));
 			}
 			else {
-				Missile projectile = ArcanusEntities.MISSILE.get().create(world);
+				Missile projectile = ArcanusEntities.MISSILE.get().create(level);
 
 				if(projectile != null) {
 					projectile.setProperties(caster, castSource, stack, effects, spellGroups, groupIndex, potency);
-					world.addFreshEntity(projectile);
+					level.addFreshEntity(projectile);
 				}
 			}
 		}

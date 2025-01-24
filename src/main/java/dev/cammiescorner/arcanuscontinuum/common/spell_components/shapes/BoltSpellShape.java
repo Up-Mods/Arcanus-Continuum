@@ -35,12 +35,12 @@ public class BoltSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		potency += getPotencyModifier();
 		double range = ArcanusConfig.SpellShapes.BoltShapeProperties.range;
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		AABB box = new AABB(castFrom.add(-range, -range, -range), castFrom.add(range, range, range));
-		List<Entity> affectedEntities = world.getEntities(sourceEntity, box);
+		List<Entity> affectedEntities = level.getEntities(sourceEntity, box);
 
 		Predicate<Entity> predicate = entity -> {
 			if(entity.getBoundingBox().intersects(sourceEntity.getBoundingBox()))
@@ -63,14 +63,14 @@ public class BoltSpellShape extends SpellShape {
 				ArcanusComponents.setBoltPos(livingEntity, entityTarget.getBoundingBox().getCenter());
 
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, sourceEntity, world, new EntityHitResult(entityTarget), effects, stack, potency);
+				effect.effect(caster, sourceEntity, level, new EntityHitResult(entityTarget), effects, stack, potency);
 		}
 		else if(sourceEntity != null) {
 			HitResult target = ArcanusHelper.raycast(sourceEntity, range, false, true);
 
 			if(target.getType() == HitResult.Type.BLOCK) {
 				for(SpellEffect effect : new HashSet<>(effects))
-					effect.effect(caster, sourceEntity, world, target, effects, stack, potency);
+					effect.effect(caster, sourceEntity, level, target, effects, stack, potency);
 
 				castAt = target.getLocation();
 			}
@@ -84,7 +84,7 @@ public class BoltSpellShape extends SpellShape {
 			ArcanusComponents.setBoltAge(livingEntity, 0);
 		}
 
-		castNext(caster, castAt, entityTarget, world, stack, spellGroups, groupIndex, potency);
+		castNext(caster, castAt, entityTarget, level, stack, spellGroups, groupIndex, potency);
 	}
 
 	@Nullable

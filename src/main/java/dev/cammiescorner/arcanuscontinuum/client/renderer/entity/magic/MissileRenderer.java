@@ -16,11 +16,11 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class MissileEntityRenderer extends ArrowRenderer<Missile> {
+public class MissileRenderer extends ArrowRenderer<Missile> {
 	private static final ResourceLocation PROJECTILE_TEXTURE = Arcanus.id("textures/entity/magic/projectile.png");
 	private final MagicProjectileModel projectileModel;
 
-	public MissileEntityRenderer(EntityRendererProvider.Context context) {
+	public MissileRenderer(EntityRendererProvider.Context context) {
 		super(context);
 		projectileModel = new MagicProjectileModel(context.getModelSet().bakeLayer(MagicProjectileModel.MODEL_LAYER));
 	}

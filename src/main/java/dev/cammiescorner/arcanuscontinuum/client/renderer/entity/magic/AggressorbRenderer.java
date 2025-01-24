@@ -4,8 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.client.ArcanusClient;
-import dev.cammiescorner.arcanuscontinuum.client.models.entity.magic.EntangledOrbModel;
-import dev.cammiescorner.arcanuscontinuum.common.entities.magic.EntangledOrb;
+import dev.cammiescorner.arcanuscontinuum.client.models.entity.magic.AggressorbModel;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.Aggressorb;
 import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import dev.cammiescorner.arcanuscontinuum.common.util.Color;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -14,17 +14,17 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
-public class EntangledOrbEntityRenderer extends EntityRenderer<EntangledOrb> {
+public class AggressorbRenderer extends EntityRenderer<Aggressorb> {
 	private static final ResourceLocation TEXTURE = Arcanus.id("textures/entity/magic/lob.png");
-	private final EntangledOrbModel model;
+	private final AggressorbModel model;
 
-	public EntangledOrbEntityRenderer(EntityRendererProvider.Context context) {
+	public AggressorbRenderer(EntityRendererProvider.Context context) {
 		super(context);
-		model = new EntangledOrbModel(context.getModelSet().bakeLayer(EntangledOrbModel.MODEL_LAYER));
+		model = new AggressorbModel(context.getModelSet().bakeLayer(AggressorbModel.MODEL_LAYER));
 	}
 
 	@Override
-	public void render(EntangledOrb entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
+	public void render(Aggressorb entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
 		VertexConsumer consumer = vertices.getBuffer(ArcanusClient.getMagicCircles(getTextureLocation(entity)));
 		Color color = ArcanusHelper.getMagicColor(entity);
 
@@ -41,7 +41,7 @@ public class EntangledOrbEntityRenderer extends EntityRenderer<EntangledOrb> {
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(EntangledOrb entity) {
+	public ResourceLocation getTextureLocation(Aggressorb entity) {
 		return TEXTURE;
 	}
 }

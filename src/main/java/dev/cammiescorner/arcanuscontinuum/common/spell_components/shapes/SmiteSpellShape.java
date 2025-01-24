@@ -31,23 +31,23 @@ public class SmiteSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		potency += getPotencyModifier();
 
 		if(caster != null) {
-			List<? extends Smite> list = world.getEntities(EntityTypeTest.forClass(Smite.class), entity -> caster.getUUID().equals(entity.getCasterId()));
+			List<? extends Smite> list = level.getEntities(EntityTypeTest.forClass(Smite.class), entity -> caster.getUUID().equals(entity.getCasterId()));
 
 			for(int i = 0; i < list.size() - 50; i++)
 				list.get(i).kill();
 
-			Smite smite = ArcanusEntities.SMITE.get().create(world);
+			Smite smite = ArcanusEntities.SMITE.get().create(level);
 
 			if(smite != null) {
 				smite.setProperties(caster.getUUID(), sourceEntity, castFrom, stack, effects, potency);
 				ArcanusHelper.copyMagicColor(smite, caster);
-				world.addFreshEntity(smite);
-				castNext(caster, smite.position(), smite, world, stack, spellGroups, groupIndex, potency);
+				level.addFreshEntity(smite);
+				castNext(caster, smite.position(), smite, level, stack, spellGroups, groupIndex, potency);
 			}
 		}
 	}

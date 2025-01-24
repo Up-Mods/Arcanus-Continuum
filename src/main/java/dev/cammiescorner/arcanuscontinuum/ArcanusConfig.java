@@ -279,21 +279,21 @@ public final class ArcanusConfig {
 //		@Category(id = "guidedShotShapeProperties", translation = "config.arcanuscontinuum.guidedShotShapeProperties")
 		public static final class GuidedShotShapeProperties {
 			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
-			public static boolean enabled = false;
+			public static boolean enabled = true;
 
 			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
-			public static Weight weight = Weight.HEAVY;
+			public static Weight weight = Weight.MEDIUM;
 
 			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
 			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaMultiplier")
-			public static double manaMultiplier = 1.2;
+			public static double manaMultiplier = 1;
 
 			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
 			@IntRange(min = 0, max = 24000)
-			public static int coolDown = 300;
+			public static int coolDown = 100;
 
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 0, max = 10)

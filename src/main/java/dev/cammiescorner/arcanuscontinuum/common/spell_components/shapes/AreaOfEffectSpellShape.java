@@ -31,22 +31,22 @@ public class AreaOfEffectSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		potency += getPotencyModifier();
 
 		if(caster != null) {
-			List<? extends AreaOfEffect> list = world.getEntities(EntityTypeTest.forClass(AreaOfEffect.class), entity -> caster.getUUID().equals(entity.getCasterId()));
+			List<? extends AreaOfEffect> list = level.getEntities(EntityTypeTest.forClass(AreaOfEffect.class), entity -> caster.getUUID().equals(entity.getCasterId()));
 
 			for(int i = 0; i < list.size() - 20; i++)
 				list.get(i).kill();
 
-			AreaOfEffect areaOfEffect = ArcanusEntities.AOE.get().create(world);
+			AreaOfEffect areaOfEffect = ArcanusEntities.AOE.get().create(level);
 			Entity sourceEntity = castSource != null ? castSource : caster;
 
 			if(areaOfEffect != null) {
 				areaOfEffect.setProperties(caster.getUUID(), sourceEntity, castFrom, stack, effects, potency, spellGroups, groupIndex);
 				ArcanusHelper.copyMagicColor(areaOfEffect, caster);
-				world.addFreshEntity(areaOfEffect);
+				level.addFreshEntity(areaOfEffect);
 			}
 		}
 	}

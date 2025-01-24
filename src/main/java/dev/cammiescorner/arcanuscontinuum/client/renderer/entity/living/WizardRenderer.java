@@ -16,11 +16,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
 
-public class WizardEntityRenderer extends MobRenderer<Wizard, WizardModel> {
+public class WizardRenderer extends MobRenderer<Wizard, WizardModel> {
 	public static final ResourceLocation TEXTURE = Arcanus.id("textures/entity/living/wizard.png");
 	public static final ResourceLocation ROBES_TEXTURE = Arcanus.id("textures/entity/living/wizard_overlay.png");
 
-	public WizardEntityRenderer(EntityRendererProvider.Context context) {
+	public WizardRenderer(EntityRendererProvider.Context context) {
 		super(context, new WizardModel(Minecraft.getInstance().getEntityModels().bakeLayer(WizardModel.MODEL_LAYER)), 0.6F);
 		addLayer(new WizardHeldItemFeatureRenderer<>(this, context.getItemInHandRenderer()));
 	}

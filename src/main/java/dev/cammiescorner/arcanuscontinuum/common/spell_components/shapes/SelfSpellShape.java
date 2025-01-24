@@ -30,14 +30,14 @@ public class SelfSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		potency += getPotencyModifier();
 
 		HitResult hit = new EntityHitResult(caster);
 
 		for(SpellEffect effect : new HashSet<>(effects))
-			effect.effect(caster, caster, world, hit, effects, stack, potency);
+			effect.effect(caster, caster, level, hit, effects, stack, potency);
 
-		castNext(caster, hit.getLocation(), caster, world, stack, spellGroups, groupIndex, potency);
+		castNext(caster, hit.getLocation(), caster, level, stack, spellGroups, groupIndex, potency);
 	}
 }

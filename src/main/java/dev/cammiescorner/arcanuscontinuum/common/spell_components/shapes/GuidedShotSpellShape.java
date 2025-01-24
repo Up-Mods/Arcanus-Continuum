@@ -4,6 +4,8 @@ import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.GuidedShot;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -27,7 +29,14 @@ public class GuidedShotSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+		GuidedShot guidedShot = ArcanusEntities.GUIDED_SHOT.get().create(level);
+		potency += getPotencyModifier();
 
+		if(guidedShot != null) {
+			guidedShot.setPos(castFrom);
+			guidedShot.setProperties(caster, stack, effects, spellGroups, groupIndex, potency);
+			level.addFreshEntity(guidedShot);
+		}
 	}
 }

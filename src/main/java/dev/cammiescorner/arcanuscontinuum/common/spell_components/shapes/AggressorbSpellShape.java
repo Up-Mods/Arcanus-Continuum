@@ -33,7 +33,7 @@ public class AggressorbSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		potency += getPotencyModifier();
 		Entity sourceEntity = castSource != null ? castSource : caster;
 
@@ -46,12 +46,12 @@ public class AggressorbSpellShape extends SpellShape {
 					break;
 				}
 
-				Aggressorb aggressorb = ArcanusEntities.AGGRESSORB.get().create(world);
+				Aggressorb aggressorb = ArcanusEntities.AGGRESSORB.get().create(level);
 
 				if(aggressorb != null) {
 					aggressorb.setProperties(caster, target, stack, effects, spellGroups, groupIndex, potency);
 					aggressorb.setPos(castFrom);
-					world.addFreshEntity(aggressorb);
+					level.addFreshEntity(aggressorb);
 				}
 			}
 		}

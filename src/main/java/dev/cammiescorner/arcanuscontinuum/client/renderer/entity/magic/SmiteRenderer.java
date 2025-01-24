@@ -19,10 +19,10 @@ import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-public class SmiteEntityRenderer extends EntityRenderer<Smite> {
+public class SmiteRenderer extends EntityRenderer<Smite> {
 	private static final ResourceLocation TEXTURE = Arcanus.id("textures/block/magic_block.png");
 
-	public SmiteEntityRenderer(EntityRendererProvider.Context ctx) {
+	public SmiteRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 	}
 

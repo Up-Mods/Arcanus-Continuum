@@ -31,22 +31,22 @@ public class RuneSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		potency += getPotencyModifier();
 
 		if(caster != null) {
-			List<? extends MagicRune> list = world.getEntities(EntityTypeTest.forClass(MagicRune.class), entity -> caster.getUUID().equals(entity.getCasterId()));
+			List<? extends MagicRune> list = level.getEntities(EntityTypeTest.forClass(MagicRune.class), entity -> caster.getUUID().equals(entity.getCasterId()));
 
 			for(int i = 0; i < list.size() - 100; i++)
 				list.get(i).kill();
 
-			MagicRune magicRune = ArcanusEntities.MAGIC_RUNE.get().create(world);
+			MagicRune magicRune = ArcanusEntities.MAGIC_RUNE.get().create(level);
 			Entity sourceEntity = castSource != null ? castSource : caster;
 
 			if(magicRune != null) {
 				magicRune.setProperties(caster.getUUID(), sourceEntity, castFrom, stack, effects, potency, spellGroups, groupIndex);
 				ArcanusHelper.copyMagicColor(magicRune, caster);
-				world.addFreshEntity(magicRune);
+				level.addFreshEntity(magicRune);
 			}
 		}
 	}

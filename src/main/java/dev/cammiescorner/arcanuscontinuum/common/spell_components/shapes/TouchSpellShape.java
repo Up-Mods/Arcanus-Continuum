@@ -33,7 +33,7 @@ public class TouchSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		potency += getPotencyModifier();
 		double range = caster != null ? ReachEntityAttributes.getAttackRange(caster, caster instanceof Player player && player.isCreative() ? 5 : 4.5) : 4.5;
 		Entity sourceEntity = castSource != null ? castSource : caster;
@@ -41,9 +41,9 @@ public class TouchSpellShape extends SpellShape {
 
 		if(target.getType() != HitResult.Type.MISS)
 			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, sourceEntity, world, target, effects, stack, potency);
+				effect.effect(caster, sourceEntity, level, target, effects, stack, potency);
 
 		Entity targetEntity = target.getType() == HitResult.Type.ENTITY ? ((EntityHitResult) target).getEntity() : castSource;
-		castNext(caster, target.getLocation(), targetEntity, world, stack, spellGroups, groupIndex, potency);
+		castNext(caster, target.getLocation(), targetEntity, level, stack, spellGroups, groupIndex, potency);
 	}
 }

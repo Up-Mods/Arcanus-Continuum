@@ -22,7 +22,7 @@ import org.joml.Vector3i;
 
 import java.util.List;
 
-public class ManaShieldEntityRenderer extends EntityRenderer<ManaShield> {
+public class ManaShieldRenderer extends EntityRenderer<ManaShield> {
 	private static final ResourceLocation TEXTURE = Arcanus.id("textures/block/magic_block.png");
 	private static final RenderType LAYER = ArcanusClient.getMagicCirclesTri(TEXTURE);
 	public static final List<Vector3f> VERTICES = List.of(
@@ -38,7 +38,7 @@ public class ManaShieldEntityRenderer extends EntityRenderer<ManaShield> {
 		new Vector3i(6, 7, 2), new Vector3i(7, 8, 3), new Vector3i(8, 9, 4), new Vector3i(9, 10, 5), new Vector3i(10, 6, 1)
 	);
 
-	public ManaShieldEntityRenderer(EntityRendererProvider.Context ctx) {
+	public ManaShieldRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 	}
 
@@ -68,9 +68,9 @@ public class ManaShieldEntityRenderer extends EntityRenderer<ManaShield> {
 		float b = color.blueF() * alpha;
 
 		for(Vector3i face : FACES) {
-			Vector3f vert1 = ManaShieldEntityRenderer.VERTICES.get(face.x);
-			Vector3f vert2 = ManaShieldEntityRenderer.VERTICES.get(face.y);
-			Vector3f vert3 = ManaShieldEntityRenderer.VERTICES.get(face.z);
+			Vector3f vert1 = ManaShieldRenderer.VERTICES.get(face.x);
+			Vector3f vert2 = ManaShieldRenderer.VERTICES.get(face.y);
+			Vector3f vert3 = ManaShieldRenderer.VERTICES.get(face.z);
 			Vector3f u = new Vector3f(vert2.x - vert1.x, vert2.y - vert1.y, vert2.z - vert1.z);
 			Vector3f v = new Vector3f(vert3.x - vert1.x, vert3.y - vert1.y, vert3.z - vert1.z);
 			Vector3f normal = u.cross(v);

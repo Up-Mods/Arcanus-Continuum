@@ -28,8 +28,8 @@ public class ArcanusSpellComponents {
 	 **/
 	public static final RegistrySupplier<SpellComponent> EMPTY = SPELL_COMPONENTS.register("empty", () -> new SpellShape(true, Weight.NONE, 0, 1, 0, 0, 0) {
 		@Override
-		public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
-			castNext(caster, castFrom, castSource, world, stack, spellGroups, groupIndex, potency);
+		public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+			castNext(caster, castFrom, castSource, level, stack, spellGroups, groupIndex, potency);
 		}
 	});
 

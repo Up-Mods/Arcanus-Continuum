@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
-public class MagicRuneEntityRenderer extends EntityRenderer<MagicRune> {
+public class MagicRuneRenderer extends EntityRenderer<MagicRune> {
 	private static final ResourceLocation TEXTURE = Arcanus.id("textures/entity/magic/rune.png");
 	private final MagicRuneModel model;
 	private final int[] keyFrames = {
@@ -34,7 +34,7 @@ public class MagicRuneEntityRenderer extends EntityRenderer<MagicRune> {
 		4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 16, 16
 	};
 
-	public MagicRuneEntityRenderer(EntityRendererProvider.Context ctx) {
+	public MagicRuneRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 		model = new MagicRuneModel(Minecraft.getInstance().getEntityModels().bakeLayer(MagicRuneModel.MODEL_LAYER));
 	}

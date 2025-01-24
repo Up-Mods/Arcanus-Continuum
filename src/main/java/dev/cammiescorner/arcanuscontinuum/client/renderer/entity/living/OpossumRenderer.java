@@ -18,11 +18,11 @@ import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
-public class OpossumEntityRenderer extends MobRenderer<Opossum, OpossumModel> {
+public class OpossumRenderer extends MobRenderer<Opossum, OpossumModel> {
 	public static final ResourceLocation TEXTURE = Arcanus.id("textures/entity/living/opossum.png");
 	public static final ResourceLocation HAT_TEXTURE = Arcanus.id("textures/entity/living/opossum_hat.png");
 
-	public OpossumEntityRenderer(EntityRendererProvider.Context context) {
+	public OpossumRenderer(EntityRendererProvider.Context context) {
 		super(context, new OpossumModel(Minecraft.getInstance().getEntityModels().bakeLayer(OpossumModel.MODEL_LAYER)), 0.3F);
 	}
 

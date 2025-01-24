@@ -29,17 +29,17 @@ public class EntangledOrbSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		LivingEntity targetEntity = castSource instanceof LivingEntity livingEntity ? livingEntity : caster;
 
 		if(targetEntity != null) {
-			EntangledOrb orb = ArcanusEntities.ENTANGLED_ORB.get().create(world);
+			EntangledOrb orb = ArcanusEntities.ENTANGLED_ORB.get().create(level);
 			orb.setProperties(caster, targetEntity, stack, effects, spellGroups, groupIndex, potency + getPotencyModifier());
 			orb.setPos(castFrom);
-			world.addFreshEntity(orb);
+			level.addFreshEntity(orb);
 
 			if(caster != null) {
-				List<? extends EntangledOrb> oldOrbs = world.getEntities(ArcanusEntities.ENTANGLED_ORB.get(), existingOrb -> existingOrb != orb && existingOrb.getCaster().getUUID().equals(caster.getUUID()));
+				List<? extends EntangledOrb> oldOrbs = level.getEntities(ArcanusEntities.ENTANGLED_ORB.get(), existingOrb -> existingOrb != orb && existingOrb.getCaster().getUUID().equals(caster.getUUID()));
 				oldOrbs.forEach(Entity::discard);
 			}
 		}

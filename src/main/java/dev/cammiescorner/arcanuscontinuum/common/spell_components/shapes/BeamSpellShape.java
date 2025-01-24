@@ -33,14 +33,14 @@ public class BeamSpellShape extends SpellShape {
 	}
 
 	@Override
-	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		double range = ArcanusConfig.SpellShapes.BeamShapeProperties.range;
 		potency += getPotencyModifier();
 		Entity sourceEntity = castSource != null ? castSource : caster;
 		HitResult target = ArcanusHelper.raycast(sourceEntity, range, true, true);
 
 		if(target.getType() != HitResult.Type.MISS) {
-			Beam beam = ArcanusEntities.BEAM.get().create(world);
+			Beam beam = ArcanusEntities.BEAM.get().create(level);
 
 			if(beam != null) {
 				beam.setProperties(caster, stack, effects, spellGroups, groupIndex, ArcanusConfig.SpellShapes.BeamShapeProperties.delay, potency, target.getType() == HitResult.Type.ENTITY);
@@ -52,7 +52,7 @@ public class BeamSpellShape extends SpellShape {
 				else
 					beam.setPos(Vec3.atCenterOf(((BlockHitResult) target).getBlockPos()));
 
-				world.addFreshEntity(beam);
+				level.addFreshEntity(beam);
 			}
 		}
 	}

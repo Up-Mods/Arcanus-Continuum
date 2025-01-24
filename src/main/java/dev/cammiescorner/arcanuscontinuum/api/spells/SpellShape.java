@@ -41,13 +41,13 @@ public abstract class SpellShape extends SpellComponent {
 		return (getManaMultiplier() < 0 ? "" : "+") + Arcanus.format(getManaMultiplier() * 100) + "%";
 	}
 
-	public abstract void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency);
+	public abstract void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency);
 
-	public static void castNext(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellGroup> spellGroups, int groupIndex, double potency) {
+	public static void castNext(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		if(spellGroups.size() <= groupIndex + 1)
 			return;
 
 		SpellGroup group = spellGroups.get(groupIndex + 1);
-		group.shape().cast(caster, castFrom, castSource, world, stack, group.effects(), spellGroups, groupIndex + 1, potency);
+		group.shape().cast(caster, castFrom, castSource, level, stack, group.effects(), spellGroups, groupIndex + 1, potency);
 	}
 }

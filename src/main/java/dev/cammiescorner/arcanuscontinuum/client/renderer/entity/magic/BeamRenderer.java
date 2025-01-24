@@ -21,12 +21,12 @@ import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector3d;
 
-public class BeamEntityRenderer extends EntityRenderer<Beam> {
+public class BeamRenderer extends EntityRenderer<Beam> {
 	private static final ResourceLocation BEAM_TEXTURE = Arcanus.id("textures/entity/magic/beam.png");
 	private static final RenderType LAYER = ArcanusClient.getMagicCircles(BEAM_TEXTURE);
 	private static final Vector3d UP = new Vector3d(0, 1, 0);
 
-	public BeamEntityRenderer(EntityRendererProvider.Context ctx) {
+	public BeamRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 	}
 
