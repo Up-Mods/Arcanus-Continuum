@@ -271,9 +271,8 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "strength", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.strength")
-			@FloatRange(min = 0, max = 10)
-			public static float strength = 3.5f;
+			@ConfigEntry(id = "radius", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.burstShape.radius")
+			public static float radius = 4f;
 		}
 
 		// TODO uncomment this when we have guided shot done & set enabled to true
