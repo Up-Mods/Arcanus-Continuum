@@ -4,7 +4,7 @@ import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
-import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicProjectile;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.Lob;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
 import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import net.minecraft.server.level.ServerLevel;
@@ -41,7 +41,7 @@ public class LobSpellShape extends SpellShape {
 		potency += getPotencyModifier();
 
 		if(caster != null) {
-			List<? extends MagicProjectile> list = world.getEntities(EntityTypeTest.forClass(MagicProjectile.class), entity -> caster.equals(entity.getOwner()));
+			List<? extends Lob> list = world.getEntities(EntityTypeTest.forClass(Lob.class), entity -> caster.equals(entity.getOwner()));
 			Entity sourceEntity = castSource != null ? castSource : caster;
 			HitResult target = ArcanusHelper.raycast(sourceEntity, 4.5, true, true);
 
@@ -53,14 +53,14 @@ public class LobSpellShape extends SpellShape {
 					effect.effect(caster, sourceEntity, world, target, effects, stack, potency);
 
 				SpellShape.castNext(caster, target.getLocation(), hitResult.getEntity(), world, stack, spellGroups, groupIndex, potency);
-				world.playSound(hitResult.getEntity(), hitResult.getEntity().blockPosition(), SoundEvents.ARROW_HIT, SoundSource.NEUTRAL, 1F, 1.2F / (world.random.nextFloat() * 0.2F + 0.9F));
+				world.playSound(hitResult.getEntity(), hitResult.getEntity().blockPosition(), SoundEvents.ARROW_HIT, SoundSource.NEUTRAL, 1f, 1.2f / (world.random.nextFloat() * 0.2f + 0.9f));
 			}
 			else {
-				MagicProjectile projectile = ArcanusEntities.MAGIC_PROJECTILE.get().create(world);
+				Lob lob = ArcanusEntities.LOB.get().create(world);
 
-				if(projectile != null) {
-					projectile.setProperties(caster, castSource, this, stack, effects, spellGroups, groupIndex, potency, projectileSpeed, false);
-					world.addFreshEntity(projectile);
+				if(lob != null) {
+					lob.setProperties(caster, castSource, stack, effects, spellGroups, groupIndex, potency);
+					world.addFreshEntity(lob);
 				}
 			}
 		}

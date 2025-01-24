@@ -35,7 +35,7 @@ public class SpatialRiftSpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public boolean shouldTriggerOnceOnExplosion() {
+	public boolean singleCastOnly() {
 		return true;
 	}
 }

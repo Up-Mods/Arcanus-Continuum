@@ -36,7 +36,7 @@ public class ArcanusSpellComponents {
 	//-----Spell Shapes-----//
 	public static final RegistrySupplier<SpellShape> SELF = SPELL_COMPONENTS.register("self_shape", SelfSpellShape::new);
 	public static final RegistrySupplier<SpellShape> TOUCH = SPELL_COMPONENTS.register("touch_shape", TouchSpellShape::new);
-	public static final RegistrySupplier<SpellShape> PROJECTILE = SPELL_COMPONENTS.register("projectile_shape", ProjectileSpellShape::new);
+	public static final RegistrySupplier<SpellShape> MISSILE = SPELL_COMPONENTS.register("missile_shape", MissileSpellShape::new);
 	public static final RegistrySupplier<SpellShape> LOB = SPELL_COMPONENTS.register("lob_shape", LobSpellShape::new);
 	public static final RegistrySupplier<SpellShape> BOLT = SPELL_COMPONENTS.register("bolt_shape", BoltSpellShape::new);
 	public static final RegistrySupplier<SpellShape> BEAM = SPELL_COMPONENTS.register("beam_shape", BeamSpellShape::new);
@@ -46,7 +46,7 @@ public class ArcanusSpellComponents {
 	public static final RegistrySupplier<SpellShape> COUNTER = SPELL_COMPONENTS.register("counter_shape", CounterSpellShape::new);
 	public static final RegistrySupplier<SpellShape> AOE = SPELL_COMPONENTS.register("aoe_shape", AreaOfEffectSpellShape::new);
 	public static final RegistrySupplier<SpellShape> SMITE = SPELL_COMPONENTS.register("smite_shape", SmiteSpellShape::new);
-	public static final RegistrySupplier<SpellShape> ENTANGLED_ORB = SPELL_COMPONENTS.register("entangled_orb_shape", GuardianOrbSpellShape::new);
+	public static final RegistrySupplier<SpellShape> ENTANGLED_ORB = SPELL_COMPONENTS.register("entangled_orb_shape", EntangledOrbSpellShape::new);
 	public static final RegistrySupplier<SpellShape> AGGRESSORB = SPELL_COMPONENTS.register("aggressorb_shape", AggressorbSpellShape::new); // TODO replace name with something better. also change the texture file
 
 	//-----Spell Effects-----//

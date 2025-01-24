@@ -96,7 +96,6 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		registry.beginRegistration(LivingEntity.class, STUN_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(StunComponent::new);
 		registry.beginRegistration(Player.class, QUEST_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(QuestComponent::new);
 		registry.beginRegistration(LivingEntity.class, BOLT_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BoltTargetComponent::new);
-		registry.beginRegistration(MagicProjectile.class, SPELL_SHAPE).end(SpellShapeComponent::new);
 		registry.beginRegistration(LivingEntity.class, AGGRESSORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(AggressorbComponent::new);
 		registry.beginRegistration(LivingEntity.class, GUARDIAN_ORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(GuardianOrbComponent::new);
 		registry.beginRegistration(Player.class, PORTAL_COOL_DOWN_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PortalCoolDownComponent::new);
@@ -107,7 +106,7 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 			AreaOfEffect.class,
 			Beam.class,
 			EntangledOrb.class,
-			MagicProjectile.class,
+			Missile.class,
 			MagicRune.class,
 			ManaShield.class,
 			PocketDimensionPortal.class,

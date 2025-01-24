@@ -120,7 +120,8 @@ public class ArcanusClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ArcanusEntities.OPOSSUM.get(), OpossumEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.NECRO_SKELETON.get(), SkeletonRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.MANA_SHIELD.get(), ManaShieldEntityRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.MAGIC_PROJECTILE.get(), MagicProjectileEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.MISSILE.get(), MissileEntityRenderer::new);
+		EntityRendererRegistry.register(ArcanusEntities.LOB.get(), LobEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.AOE.get(), AreaOfEffectEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.SMITE.get(), SmiteEntityRenderer::new);
 		EntityRendererRegistry.register(ArcanusEntities.MAGIC_RUNE.get(), MagicRuneEntityRenderer::new);

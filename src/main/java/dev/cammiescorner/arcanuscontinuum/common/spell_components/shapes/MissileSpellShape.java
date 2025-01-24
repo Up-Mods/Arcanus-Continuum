@@ -4,7 +4,7 @@ import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
-import dev.cammiescorner.arcanuscontinuum.common.entities.magic.MagicProjectile;
+import dev.cammiescorner.arcanuscontinuum.common.entities.magic.Missile;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusEntities;
 import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import net.minecraft.server.level.ServerLevel;
@@ -22,26 +22,26 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashSet;
 import java.util.List;
 
-public class ProjectileSpellShape extends SpellShape {
-	public ProjectileSpellShape() {
+public class MissileSpellShape extends SpellShape {
+	public MissileSpellShape() {
 		super(
-			ArcanusConfig.SpellShapes.ProjectileShapeProperties.enabled,
-			ArcanusConfig.SpellShapes.ProjectileShapeProperties.weight,
-			ArcanusConfig.SpellShapes.ProjectileShapeProperties.manaCost,
-			ArcanusConfig.SpellShapes.ProjectileShapeProperties.manaMultiplier,
-			ArcanusConfig.SpellShapes.ProjectileShapeProperties.coolDown,
-			ArcanusConfig.SpellShapes.ProjectileShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.ProjectileShapeProperties.potencyModifier
+			ArcanusConfig.SpellShapes.MissileShapeProperties.enabled,
+			ArcanusConfig.SpellShapes.MissileShapeProperties.weight,
+			ArcanusConfig.SpellShapes.MissileShapeProperties.manaCost,
+			ArcanusConfig.SpellShapes.MissileShapeProperties.manaMultiplier,
+			ArcanusConfig.SpellShapes.MissileShapeProperties.coolDown,
+			ArcanusConfig.SpellShapes.MissileShapeProperties.minimumLevel,
+			ArcanusConfig.SpellShapes.MissileShapeProperties.potencyModifier
 		);
 	}
 
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel world, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
-		float projectileSpeed = ArcanusConfig.SpellShapes.ProjectileShapeProperties.projectileSpeed;
+		float projectileSpeed = ArcanusConfig.SpellShapes.MissileShapeProperties.projectileSpeed;
 		potency += getPotencyModifier();
 
 		if(caster != null) {
-			List<? extends MagicProjectile> list = world.getEntities(EntityTypeTest.forClass(MagicProjectile.class), entity -> caster.equals(entity.getOwner()));
+			List<? extends Missile> list = world.getEntities(EntityTypeTest.forClass(Missile.class), entity -> caster.equals(entity.getOwner()));
 			Entity sourceEntity = castSource != null ? castSource : caster;
 			HitResult target = ArcanusHelper.raycast(sourceEntity, 4.5, true, true);
 
@@ -53,13 +53,13 @@ public class ProjectileSpellShape extends SpellShape {
 					effect.effect(caster, sourceEntity, world, target, effects, stack, potency);
 
 				SpellShape.castNext(caster, target.getLocation(), hitResult.getEntity(), world, stack, spellGroups, groupIndex, potency);
-				world.playSound(hitResult.getEntity(), hitResult.getEntity().blockPosition(), SoundEvents.ARROW_HIT, SoundSource.NEUTRAL, 1F, 1.2F / (world.random.nextFloat() * 0.2F + 0.9F));
+				world.playSound(hitResult.getEntity(), hitResult.getEntity().blockPosition(), SoundEvents.ARROW_HIT, SoundSource.NEUTRAL, 1f, 1.2f / (world.random.nextFloat() * 0.2f + 0.9f));
 			}
 			else {
-				MagicProjectile projectile = ArcanusEntities.MAGIC_PROJECTILE.get().create(world);
+				Missile projectile = ArcanusEntities.MISSILE.get().create(world);
 
 				if(projectile != null) {
-					projectile.setProperties(caster, castSource, this, stack, effects, spellGroups, groupIndex, potency, projectileSpeed, false);
+					projectile.setProperties(caster, castSource, stack, effects, spellGroups, groupIndex, potency);
 					world.addFreshEntity(projectile);
 				}
 			}

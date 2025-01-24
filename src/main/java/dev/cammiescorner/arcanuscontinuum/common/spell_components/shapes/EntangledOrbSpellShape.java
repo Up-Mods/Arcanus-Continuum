@@ -15,8 +15,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class GuardianOrbSpellShape extends SpellShape {
-	public GuardianOrbSpellShape() {
+public class EntangledOrbSpellShape extends SpellShape {
+	public EntangledOrbSpellShape() {
 		super(
 			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.enabled,
 			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.weight,

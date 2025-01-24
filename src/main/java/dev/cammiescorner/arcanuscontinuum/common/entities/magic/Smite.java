@@ -50,7 +50,7 @@ public class Smite extends Entity implements Targetable {
 				AABB box = new AABB(getX() - 4, getY() - 1, getZ() - 4, getX() + 4, (level().getHeight() + 2048) - getY(), getZ() + 4);
 
 				for(SpellEffect effect : new HashSet<>(effects)) {
-					if(effect.shouldTriggerOnceOnExplosion()) {
+					if(effect.singleCastOnly()) {
 						effect.effect(getCaster(), this, level(), new EntityHitResult(this), effects, stack, potency);
 						continue;
 					}

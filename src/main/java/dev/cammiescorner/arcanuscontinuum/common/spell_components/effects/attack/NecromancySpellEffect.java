@@ -57,7 +57,7 @@ public class NecromancySpellEffect extends SpellEffect {
 	}
 
 	@Override
-	public boolean shouldTriggerOnceOnExplosion() {
+	public boolean singleCastOnly() {
 		return true;
 	}
 }

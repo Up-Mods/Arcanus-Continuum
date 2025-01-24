@@ -50,7 +50,7 @@ public class BurstSpellShape extends SpellShape {
 		}
 
 		for(SpellEffect effect : new HashSet<>(effects)) {
-			if(effect.shouldTriggerOnceOnExplosion()) {
+			if(effect.singleCastOnly()) {
 				effect.effect(caster, sourceEntity, level, new EntityHitResult(sourceEntity), effects, stack, potency);
 				continue;
 			}

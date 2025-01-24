@@ -23,7 +23,7 @@ public abstract class SpellEffect extends SpellComponent {
 
 	public abstract void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, Level level, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency);
 
-	public boolean shouldTriggerOnceOnExplosion() {
+	public boolean singleCastOnly() {
 		return false;
 	}
 }

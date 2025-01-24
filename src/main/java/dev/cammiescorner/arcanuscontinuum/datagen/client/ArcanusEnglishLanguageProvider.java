@@ -110,7 +110,8 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add(ArcanusEntities.AOE.get(), "Area Of Effect");
 		builder.add(ArcanusEntities.BEAM.get(), "Beam");
 		builder.add(ArcanusEntities.ENTANGLED_ORB.get(), "Entangled Orb");
-		builder.add(ArcanusEntities.MAGIC_PROJECTILE.get(), "Magic Projectile");
+		builder.add(ArcanusEntities.MISSILE.get(), "Missile");
+		builder.add(ArcanusEntities.LOB.get(), "Lob");
 		builder.add(ArcanusEntities.MAGIC_RUNE.get(), "Magic Rune");
 		builder.add(ArcanusEntities.MANA_SHIELD.get(), "Mana Shield");
 		builder.add(ArcanusEntities.NECRO_SKELETON.get(), "Necro Skeleton");
@@ -219,7 +220,7 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		spell(builder, ArcanusSpellComponents.EMPTY, "EMPTY");
 		spell(builder, ArcanusSpellComponents.SELF, "Self Shape");
 		spell(builder, ArcanusSpellComponents.TOUCH, "Touch Shape");
-		spell(builder, ArcanusSpellComponents.PROJECTILE, "Projectile Shape");
+		spell(builder, ArcanusSpellComponents.MISSILE, "Missile Shape");
 		spell(builder, ArcanusSpellComponents.LOB, "Lob Shape");
 		spell(builder, ArcanusSpellComponents.BOLT, "Bolt Shape");
 		spell(builder, ArcanusSpellComponents.BEAM, "Beam Shape");
@@ -371,7 +372,7 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add("config.arcanuscontinuum.baseManaDrain", "Base Mana Drain");
 		builder.add("config.arcanuscontinuum.selfShapeProperties", "Self Shape");
 		builder.add("config.arcanuscontinuum.touchShapeProperties", "Touch Shape");
-		builder.add("config.arcanuscontinuum.projectileShapeProperties", "Projectile Shape");
+		builder.add("config.arcanuscontinuum.missileShapeProperties", "Missile Shape");
 		builder.add("config.arcanuscontinuum.lobShapeProperties", "Lob Shape");
 		builder.add("config.arcanuscontinuum.boltShapeProperties", "Bolt Shape");
 		builder.add("config.arcanuscontinuum.beamShapeProperties", "Beam Shape");

@@ -6,8 +6,6 @@ import dev.cammiescorner.arcanuscontinuum.api.entities.Targetable;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusComponents;
-import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanuscontinuum.common.util.ArcanusHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -30,22 +28,22 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class MagicProjectile extends AbstractArrow implements Targetable {
+public class Missile extends AbstractArrow implements Targetable {
 	private ItemStack stack = ItemStack.EMPTY;
 	private List<SpellEffect> effects = new ArrayList<>();
 	private List<SpellGroup> spellGroups = new ArrayList<>();
 	private int groupIndex;
 	private double potency;
 
-	public MagicProjectile(EntityType<? extends AbstractArrow> entityType, Level world) {
+	public Missile(EntityType<? extends AbstractArrow> entityType, Level world) {
 		super(entityType, world);
 	}
 
 	@Override
 	public void tick() {
-		int lifeSpan = ArcanusConfig.SpellShapes.ProjectileShapeProperties.baseLifeSpan;
+		int lifeSpan = ArcanusConfig.SpellShapes.MissileShapeProperties.baseLifeSpan;
 
-		if(level() instanceof ServerLevel server && (getOwner() == null || !getOwner().isAlive() || (ArcanusSpellComponents.PROJECTILE.is(getShape()) && tickCount >= lifeSpan))) {
+		if(level() instanceof ServerLevel server && (getOwner() == null || !getOwner().isAlive() || tickCount >= lifeSpan)) {
 			EntityHitResult target = new EntityHitResult(this);
 
 			for(SpellEffect effect : new HashSet<>(effects))
@@ -146,18 +144,13 @@ public class MagicProjectile extends AbstractArrow implements Targetable {
 		return ItemStack.EMPTY;
 	}
 
-	public SpellShape getShape() {
-		return ArcanusComponents.getSpellShape(this);
-	}
-
-	public void setProperties(Entity caster, @Nullable Entity castSource, SpellShape shape, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, double potency, float speed, boolean noGravity) {
+	public void setProperties(Entity caster, @Nullable Entity castSource, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, double potency) {
 		Entity sourceEntity = castSource != null ? castSource : caster;
-		shootFromRotation(sourceEntity, sourceEntity.getXRot(), sourceEntity.getYRot(), 0F, speed, 1F);
+		shootFromRotation(sourceEntity, sourceEntity.getXRot(), sourceEntity.getYRot(), 0f, ArcanusConfig.SpellShapes.MissileShapeProperties.projectileSpeed, 1f);
 		setOwner(caster);
 		setPosRaw(sourceEntity.getX(), sourceEntity.getEyeY(), sourceEntity.getZ());
-		setNoGravity(noGravity);
+		setNoGravity(true);
 		setBaseDamage(0);
-		ArcanusComponents.setSpellShape(this, shape);
 		this.stack = stack;
 		this.effects = effects;
 		this.spellGroups = groups;

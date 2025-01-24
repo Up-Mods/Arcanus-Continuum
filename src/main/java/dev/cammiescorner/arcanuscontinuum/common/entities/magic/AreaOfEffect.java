@@ -79,7 +79,7 @@ public class AreaOfEffect extends Entity implements Targetable {
 						AABB box = new AABB(-2, 0, -2, 2, 2.5, 2).move(position());
 
 						for(SpellEffect effect : new HashSet<>(effects)) {
-							if(effect.shouldTriggerOnceOnExplosion())
+							if(effect.singleCastOnly())
 								continue;
 
 							level().getEntitiesOfClass(Entity.class, box, entity -> entity.isAlive() && !entity.isSpectator() && entity instanceof Targetable targetable && targetable.arcanus$canBeTargeted()).forEach(entity -> {
@@ -95,7 +95,7 @@ public class AreaOfEffect extends Entity implements Targetable {
 						}
 
 						for(SpellEffect effect : new HashSet<>(effects))
-							if(effect.shouldTriggerOnceOnExplosion())
+							if(effect.singleCastOnly())
 								effect.effect(getCaster(), this, level(), new EntityHitResult(this), effects, stack, potency);
 					}
 				}

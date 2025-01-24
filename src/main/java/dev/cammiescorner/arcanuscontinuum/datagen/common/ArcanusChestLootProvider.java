@@ -82,7 +82,7 @@ public class ArcanusChestLootProvider extends SimpleFabricLootTableProvider {
 	}
 
 	private static CompoundTag healAllySpell() {
-		var spell = new Spell(List.of(new SpellGroup(ArcanusSpellComponents.PROJECTILE.get(), List.of(ArcanusSpellComponents.HEAL.get(), ArcanusSpellComponents.HEAL.get()), List.of(new Vector2i(80, 84), new Vector2i(133, 48), new Vector2i(139, 118)))), "Heal Ally");
+		var spell = new Spell(List.of(new SpellGroup(ArcanusSpellComponents.MISSILE.get(), List.of(ArcanusSpellComponents.HEAL.get(), ArcanusSpellComponents.HEAL.get()), List.of(new Vector2i(80, 84), new Vector2i(133, 48), new Vector2i(139, 118)))), "Heal Ally");
 		return spell.toNbt();
 	}
 
@@ -100,7 +100,7 @@ public class ArcanusChestLootProvider extends SimpleFabricLootTableProvider {
 	}
 
 	private static CompoundTag magicMissileSpell() {
-		var spell = new Spell(List.of(new SpellGroup(ArcanusSpellComponents.PROJECTILE.get(), List.of(ArcanusSpellComponents.DAMAGE.get(), ArcanusSpellComponents.DAMAGE.get()), List.of(new Vector2i(86, 82), new Vector2i(146, 81), new Vector2i(117, 127)))), "Magic Missile");
+		var spell = new Spell(List.of(new SpellGroup(ArcanusSpellComponents.MISSILE.get(), List.of(ArcanusSpellComponents.DAMAGE.get(), ArcanusSpellComponents.DAMAGE.get()), List.of(new Vector2i(86, 82), new Vector2i(146, 81), new Vector2i(117, 127)))), "Magic Missile");
 		return spell.toNbt();
 	}
 

@@ -84,8 +84,8 @@ public final class ArcanusConfig {
 			public static double potencyModifier = 0.2;
 		}
 
-		@Category(id = "projectileShapeProperties", translation = "config.arcanuscontinuum.projectileShapeProperties", sortOrder = 2)
-		public static final class ProjectileShapeProperties {
+		@Category(id = "missileShapeProperties", translation = "config.arcanuscontinuum.missileShapeProperties", sortOrder = 2)
+		public static final class MissileShapeProperties {
 			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
 			public static boolean enabled = true;
 
