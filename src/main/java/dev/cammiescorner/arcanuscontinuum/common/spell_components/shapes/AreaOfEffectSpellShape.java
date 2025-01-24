@@ -50,4 +50,9 @@ public class AreaOfEffectSpellShape extends SpellShape {
 			}
 		}
 	}
+
+	@Override
+	public boolean singleCastOnly() {
+		return true;
+	}
 }

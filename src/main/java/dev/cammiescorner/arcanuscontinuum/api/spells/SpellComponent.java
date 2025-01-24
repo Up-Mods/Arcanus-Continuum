@@ -82,4 +82,8 @@ public class SpellComponent {
 
 		return Component.translatable(getTranslationKey());
 	}
+
+	public boolean singleCastOnly() {
+		return false;
+	}
 }

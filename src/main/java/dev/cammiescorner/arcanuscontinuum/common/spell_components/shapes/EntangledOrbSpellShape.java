@@ -44,4 +44,9 @@ public class EntangledOrbSpellShape extends SpellShape {
 			}
 		}
 	}
+
+	@Override
+	public boolean singleCastOnly() {
+		return true;
+	}
 }

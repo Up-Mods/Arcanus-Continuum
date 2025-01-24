@@ -62,4 +62,9 @@ public class BurstSpellShape extends SpellShape {
 		// TODO add vfx & sfx for burst
 		castNext(caster, castFrom, castSource, level, stack, spellGroups, groupIndex, potency);
 	}
+
+	@Override
+	public boolean singleCastOnly() {
+		return true;
+	}
 }
