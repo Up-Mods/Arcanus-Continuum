@@ -345,6 +345,7 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add("config.arcanuscontinuum.burstShape.radius", "Burst Radius");
 		builder.add("config.arcanuscontinuum.maximumManaLock", "Maximum Mana Lock");
 		builder.add("config.arcanuscontinuum.maximumAggressorbs", "Maximum Aggressorbs");
+		builder.add("config.arcanuscontinuum.aggressorbsPerCast", "How Many Aggressorbs Spawn per Cast");
 		builder.add("config.arcanuscontinuum.baseDamage", "Base Damage");
 		builder.add("config.arcanuscontinuum.baseTimeOnFire", "Base Time On Fire");
 		builder.add("config.arcanuscontinuum.baseStunTime", "Base Stun Time");

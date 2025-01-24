@@ -463,6 +463,10 @@ public final class ArcanusConfig {
 			@IntRange(min = 0, max = 16)
 			public static int maximumAggressorbs = 6;
 
+			@ConfigEntry(id = "aggressorbsPerCast", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.aggressorbsPerCast")
+			@IntRange(min = 0, max = 16)
+			public static int aggressorbsPerCast = 2;
+
 			@ConfigEntry(id = "projectileSpeed", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.projectileSpeed")
 			public static float projectileSpeed = 3f;
 		}

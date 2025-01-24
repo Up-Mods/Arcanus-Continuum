@@ -34,7 +34,7 @@
               "functions": [
                 {
                   "function": "minecraft:set_nbt",
-                  "tag": "{ComponentGroups:[{Effects:[\"arcanuscontinuum:heal_effect\",\"arcanuscontinuum:heal_effect\"],Positions:[{X:80,Y:84},{X:133,Y:48},{X:139,Y:118}],Shape:\"arcanuscontinuum:projectile_shape\"}],Name:\"Heal Ally\"}"
+                  "tag": "{ComponentGroups:[{Effects:[\"arcanuscontinuum:heal_effect\",\"arcanuscontinuum:heal_effect\"],Positions:[{X:80,Y:84},{X:133,Y:48},{X:139,Y:118}],Shape:\"arcanuscontinuum:missile_shape\"}],Name:\"Heal Ally\"}"
                 }
               ],
               "name": "arcanuscontinuum:spell_book"
@@ -82,7 +82,7 @@
               "functions": [
                 {
                   "function": "minecraft:set_nbt",
-                  "tag": "{ComponentGroups:[{Effects:[\"arcanuscontinuum:damage_effect\",\"arcanuscontinuum:damage_effect\"],Positions:[{X:86,Y:82},{X:146,Y:81},{X:117,Y:127}],Shape:\"arcanuscontinuum:projectile_shape\"}],Name:\"Magic Missile\"}"
+                  "tag": "{ComponentGroups:[{Effects:[\"arcanuscontinuum:damage_effect\",\"arcanuscontinuum:damage_effect\"],Positions:[{X:86,Y:82},{X:146,Y:81},{X:117,Y:127}],Shape:\"arcanuscontinuum:missile_shape\"}],Name:\"Magic Missile\"}"
                 }
               ],
               "name": "arcanuscontinuum:spell_book"

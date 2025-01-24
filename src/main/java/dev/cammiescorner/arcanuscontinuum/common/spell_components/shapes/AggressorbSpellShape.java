@@ -38,7 +38,14 @@ public class AggressorbSpellShape extends SpellShape {
 		Entity sourceEntity = castSource != null ? castSource : caster;
 
 		if(sourceEntity instanceof LivingEntity target) {
-			if(ArcanusComponents.aggressorbCount(target) < ArcanusConfig.SpellShapes.AggressorbShapeProperties.maximumAggressorbs) {
+			for(int i = 0; i < ArcanusConfig.SpellShapes.AggressorbShapeProperties.aggressorbsPerCast; i++) {
+				if(ArcanusComponents.aggressorbCount(target) < ArcanusConfig.SpellShapes.AggressorbShapeProperties.maximumAggressorbs) {
+					if(caster instanceof Player player)
+						player.sendSystemMessage(Component.translatable("text.arcanuscontinuum.too_many_orbs").withStyle(ChatFormatting.RED));
+
+					break;
+				}
+
 				Aggressorb aggressorb = ArcanusEntities.AGGRESSORB.get().create(world);
 
 				if(aggressorb != null) {
@@ -47,8 +54,6 @@ public class AggressorbSpellShape extends SpellShape {
 					world.addFreshEntity(aggressorb);
 				}
 			}
-			else if(caster instanceof Player player)
-				player.sendSystemMessage(Component.translatable("text.arcanuscontinuum.too_many_orbs").withStyle(ChatFormatting.RED));
 		}
 	}
 }
