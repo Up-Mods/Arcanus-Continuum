@@ -17,9 +17,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -151,10 +153,10 @@ public class Smite extends Entity implements Targetable {
 	}
 
 	public void setProperties(UUID casterId, Entity sourceEntity, Vec3 pos, ItemStack stack, List<SpellEffect> effects, double potency) {
-		this.setPos(pos);
-		this.setNoGravity(true);
-		this.setYRot(sourceEntity.getYRot());
-		this.setXRot(sourceEntity.getXRot());
+		HitResult hitResult = level().clip(new ClipContext(pos, pos.add(0, -64, 0), ClipContext.Block.COLLIDER, ClipContext.Fluid.ANY, this));
+		setPos(hitResult.getType() != HitResult.Type.MISS ? hitResult.getLocation() : pos);
+		setNoGravity(true);
+		setYRot(sourceEntity.getYRot());
 		this.casterId = casterId;
 		this.stack = stack;
 		this.effects = effects;

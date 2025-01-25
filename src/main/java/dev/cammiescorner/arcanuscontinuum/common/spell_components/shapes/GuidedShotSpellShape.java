@@ -24,7 +24,8 @@ public class GuidedShotSpellShape extends SpellShape {
 			ArcanusConfig.SpellShapes.GuidedShotShapeProperties.manaMultiplier,
 			ArcanusConfig.SpellShapes.GuidedShotShapeProperties.coolDown,
 			ArcanusConfig.SpellShapes.GuidedShotShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.GuidedShotShapeProperties.potencyModifier
+			ArcanusConfig.SpellShapes.GuidedShotShapeProperties.potencyModifier,
+			ArcanusConfig.SpellShapes.GuidedShotShapeProperties.procsOnce
 		);
 	}
 

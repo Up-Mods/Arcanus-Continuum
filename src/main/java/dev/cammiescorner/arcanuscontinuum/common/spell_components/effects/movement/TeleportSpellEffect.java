@@ -25,7 +25,8 @@ public class TeleportSpellEffect extends SpellEffect {
 			ArcanusConfig.MovementEffects.TeleportEffectProperties.weight,
 			ArcanusConfig.MovementEffects.TeleportEffectProperties.manaCost,
 			ArcanusConfig.MovementEffects.TeleportEffectProperties.coolDown,
-			ArcanusConfig.MovementEffects.TeleportEffectProperties.minimumLevel
+			ArcanusConfig.MovementEffects.TeleportEffectProperties.minimumLevel,
+			ArcanusConfig.MovementEffects.TeleportEffectProperties.procsOnce
 		);
 	}
 

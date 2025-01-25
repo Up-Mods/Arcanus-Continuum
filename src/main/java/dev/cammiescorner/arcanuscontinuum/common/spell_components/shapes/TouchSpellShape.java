@@ -28,7 +28,8 @@ public class TouchSpellShape extends SpellShape {
 			ArcanusConfig.SpellShapes.TouchShapeProperties.manaMultiplier,
 			ArcanusConfig.SpellShapes.TouchShapeProperties.coolDown,
 			ArcanusConfig.SpellShapes.TouchShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.TouchShapeProperties.potencyModifier
+			ArcanusConfig.SpellShapes.TouchShapeProperties.potencyModifier,
+			ArcanusConfig.SpellShapes.TouchShapeProperties.procsOnce
 		);
 	}
 

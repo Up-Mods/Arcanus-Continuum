@@ -24,7 +24,8 @@ public class FloatSpellEffect extends SpellEffect {
 			ArcanusConfig.MovementEffects.FloatEffectProperties.weight,
 			ArcanusConfig.MovementEffects.FloatEffectProperties.manaCost,
 			ArcanusConfig.MovementEffects.FloatEffectProperties.coolDown,
-			ArcanusConfig.MovementEffects.FloatEffectProperties.minimumLevel
+			ArcanusConfig.MovementEffects.FloatEffectProperties.minimumLevel,
+			ArcanusConfig.MovementEffects.FloatEffectProperties.procsOnce
 		);
 	}
 

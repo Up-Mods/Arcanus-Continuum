@@ -26,7 +26,8 @@ public class DamageSpellEffect extends SpellEffect {
 			AttackEffects.DamageEffectProperties.weight,
 			AttackEffects.DamageEffectProperties.manaCost,
 			AttackEffects.DamageEffectProperties.coolDown,
-			AttackEffects.DamageEffectProperties.minimumLevel
+			AttackEffects.DamageEffectProperties.minimumLevel,
+			AttackEffects.DamageEffectProperties.procsOnce
 		);
 	}
 

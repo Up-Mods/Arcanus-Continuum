@@ -24,7 +24,8 @@ public class SpatialRiftSpellEffect extends SpellEffect {
 			ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.weight,
 			ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.manaCost,
 			ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.coolDown,
-			ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.minimumLevel
+			ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.minimumLevel,
+			ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.procsOnce
 		);
 	}
 
@@ -32,10 +33,5 @@ public class SpatialRiftSpellEffect extends SpellEffect {
 	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, Level level, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
 		if(!level.isClientSide() && caster instanceof Player player)
 			ArcanusComponents.createPortal(player, (ServerLevel) level, target.getLocation(), effects.stream().filter(ArcanusSpellComponents.SPATIAL_RIFT::is).count() * potency);
-	}
-
-	@Override
-	public boolean singleCastOnly() {
-		return true;
 	}
 }

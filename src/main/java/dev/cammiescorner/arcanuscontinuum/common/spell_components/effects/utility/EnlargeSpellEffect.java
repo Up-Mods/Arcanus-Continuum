@@ -26,7 +26,8 @@ public class EnlargeSpellEffect extends SpellEffect {
 			ArcanusConfig.UtilityEffects.EnlargeEffectProperties.weight,
 			ArcanusConfig.UtilityEffects.EnlargeEffectProperties.manaCost,
 			ArcanusConfig.UtilityEffects.EnlargeEffectProperties.coolDown,
-			ArcanusConfig.UtilityEffects.EnlargeEffectProperties.minimumLevel
+			ArcanusConfig.UtilityEffects.EnlargeEffectProperties.minimumLevel,
+			ArcanusConfig.UtilityEffects.EnlargeEffectProperties.procsOnce
 		);
 	}
 

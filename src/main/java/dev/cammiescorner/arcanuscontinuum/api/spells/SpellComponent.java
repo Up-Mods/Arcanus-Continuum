@@ -14,15 +14,17 @@ public class SpellComponent {
 	private final double manaCost;
 	private final int coolDown;
 	private final int minLevel;
+	private final boolean procsOnce;
 	private String translationKey;
 	private ResourceLocation texture;
 
-	public SpellComponent(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel) {
+	public SpellComponent(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel, boolean procsOnce) {
 		this.isEnabled = isEnabled;
 		this.weight = weight;
 		this.manaCost = manaCost;
 		this.coolDown = coolDown;
 		this.minLevel = minLevel;
+		this.procsOnce = procsOnce;
 	}
 
 	public boolean isEnabled() {
@@ -84,6 +86,6 @@ public class SpellComponent {
 	}
 
 	public boolean singleCastOnly() {
-		return false;
+		return procsOnce;
 	}
 }

@@ -26,7 +26,8 @@ public class RuneSpellShape extends SpellShape {
 			ArcanusConfig.SpellShapes.RuneShapeProperties.manaMultiplier,
 			ArcanusConfig.SpellShapes.RuneShapeProperties.coolDown,
 			ArcanusConfig.SpellShapes.RuneShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.RuneShapeProperties.potencyModifier
+			ArcanusConfig.SpellShapes.RuneShapeProperties.potencyModifier,
+			ArcanusConfig.SpellShapes.RuneShapeProperties.procsOnce
 		);
 	}
 

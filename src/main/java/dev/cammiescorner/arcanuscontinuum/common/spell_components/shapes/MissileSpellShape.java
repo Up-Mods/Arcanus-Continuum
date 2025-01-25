@@ -31,7 +31,8 @@ public class MissileSpellShape extends SpellShape {
 			ArcanusConfig.SpellShapes.MissileShapeProperties.manaMultiplier,
 			ArcanusConfig.SpellShapes.MissileShapeProperties.coolDown,
 			ArcanusConfig.SpellShapes.MissileShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.MissileShapeProperties.potencyModifier
+			ArcanusConfig.SpellShapes.MissileShapeProperties.potencyModifier,
+			ArcanusConfig.SpellShapes.MissileShapeProperties.procsOnce
 		);
 	}
 

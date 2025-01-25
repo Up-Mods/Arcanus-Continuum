@@ -31,7 +31,8 @@ public class LobSpellShape extends SpellShape {
 			ArcanusConfig.SpellShapes.LobShapeProperties.manaMultiplier,
 			ArcanusConfig.SpellShapes.LobShapeProperties.coolDown,
 			ArcanusConfig.SpellShapes.LobShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.LobShapeProperties.potencyModifier
+			ArcanusConfig.SpellShapes.LobShapeProperties.potencyModifier,
+			ArcanusConfig.SpellShapes.LobShapeProperties.procsOnce
 		);
 	}
 

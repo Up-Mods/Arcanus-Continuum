@@ -18,10 +18,12 @@ import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -179,9 +181,10 @@ public class AreaOfEffect extends Entity implements Targetable {
 		return trueAge;
 	}
 
-	public void setProperties(UUID casterId, Entity sourceEntity, Vec3 pos, ItemStack stack, List<SpellEffect> effects, double potency, List<SpellGroup> groups, int groupIndex) {
-		setPosRaw(pos.x(), pos.y(), pos.z());
-		setYRot(sourceEntity.getYRot());
+	public void setProperties(UUID casterId, Vec3 pos, ItemStack stack, List<SpellEffect> effects, double potency, List<SpellGroup> groups, int groupIndex) {
+		HitResult hitResult = level().clip(new ClipContext(pos, pos.add(0, -64, 0), ClipContext.Block.COLLIDER, ClipContext.Fluid.ANY, this));
+		setPos(hitResult.getType() != HitResult.Type.MISS ? hitResult.getLocation() : pos);
+		setYRot(random.nextFloat() * 360f);
 		this.casterId = casterId;
 		this.stack = stack;
 		this.effects = effects;

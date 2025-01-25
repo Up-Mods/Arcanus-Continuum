@@ -27,7 +27,8 @@ public class PowerSpellEffect extends SpellEffect {
 			ArcanusConfig.UtilityEffects.PowerEffectProperties.weight,
 			ArcanusConfig.UtilityEffects.PowerEffectProperties.manaCost,
 			ArcanusConfig.UtilityEffects.PowerEffectProperties.coolDown,
-			ArcanusConfig.UtilityEffects.PowerEffectProperties.minimumLevel
+			ArcanusConfig.UtilityEffects.PowerEffectProperties.minimumLevel,
+			ArcanusConfig.UtilityEffects.PowerEffectProperties.procsOnce
 		);
 	}
 

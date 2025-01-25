@@ -24,7 +24,8 @@ public class CounterSpellShape extends SpellShape {
 			ArcanusConfig.SpellShapes.CounterShapeProperties.manaMultiplier,
 			ArcanusConfig.SpellShapes.CounterShapeProperties.coolDown,
 			ArcanusConfig.SpellShapes.CounterShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.CounterShapeProperties.potencyModifier
+			ArcanusConfig.SpellShapes.CounterShapeProperties.potencyModifier,
+			ArcanusConfig.SpellShapes.CounterShapeProperties.procsOnce
 		);
 	}
 

@@ -26,7 +26,8 @@ public class DispelSpellEffect extends SpellEffect {
 			ArcanusConfig.SupportEffects.DispelEffectProperties.weight,
 			ArcanusConfig.SupportEffects.DispelEffectProperties.manaCost,
 			ArcanusConfig.SupportEffects.DispelEffectProperties.coolDown,
-			ArcanusConfig.SupportEffects.DispelEffectProperties.minimumLevel
+			ArcanusConfig.SupportEffects.DispelEffectProperties.minimumLevel,
+			ArcanusConfig.SupportEffects.DispelEffectProperties.procsOnce
 		);
 	}
 

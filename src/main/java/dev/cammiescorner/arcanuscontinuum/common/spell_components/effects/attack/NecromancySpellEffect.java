@@ -29,7 +29,8 @@ public class NecromancySpellEffect extends SpellEffect {
 			ArcanusConfig.AttackEffects.NecromancyEffectProperties.weight,
 			ArcanusConfig.AttackEffects.NecromancyEffectProperties.manaCost,
 			ArcanusConfig.AttackEffects.NecromancyEffectProperties.coolDown,
-			ArcanusConfig.AttackEffects.NecromancyEffectProperties.minimumLevel
+			ArcanusConfig.AttackEffects.NecromancyEffectProperties.minimumLevel,
+			ArcanusConfig.AttackEffects.NecromancyEffectProperties.procsOnce
 		);
 	}
 
@@ -54,10 +55,5 @@ public class NecromancySpellEffect extends SpellEffect {
 				level.addFreshEntity(skeleton);
 			}
 		}
-	}
-
-	@Override
-	public boolean singleCastOnly() {
-		return true;
 	}
 }

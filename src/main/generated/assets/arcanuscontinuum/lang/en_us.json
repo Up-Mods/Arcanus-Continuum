@@ -183,6 +183,7 @@
   "config.arcanuscontinuum.portalGrowTime": "Spatial Rift Grow Time",
   "config.arcanuscontinuum.potencyModifier": "Potency Modifier (Requires Restart)",
   "config.arcanuscontinuum.powerEffectProperties": "Power Effect",
+  "config.arcanuscontinuum.procsOnce": "Only Procs Once When Chained (Requires Restart)",
   "config.arcanuscontinuum.projectileSpeed": "Projectile Speed",
   "config.arcanuscontinuum.pullEffectProperties": "Pull Effect",
   "config.arcanuscontinuum.pushEffectProperties": "Push Effect",

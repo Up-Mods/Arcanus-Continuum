@@ -28,7 +28,8 @@ public class IceSpellEffect extends SpellEffect {
 			ArcanusConfig.AttackEffects.IceEffectProperties.weight,
 			ArcanusConfig.AttackEffects.IceEffectProperties.manaCost,
 			ArcanusConfig.AttackEffects.IceEffectProperties.coolDown,
-			ArcanusConfig.AttackEffects.IceEffectProperties.minimumLevel
+			ArcanusConfig.AttackEffects.IceEffectProperties.minimumLevel,
+			ArcanusConfig.AttackEffects.IceEffectProperties.procsOnce
 		);
 	}
 

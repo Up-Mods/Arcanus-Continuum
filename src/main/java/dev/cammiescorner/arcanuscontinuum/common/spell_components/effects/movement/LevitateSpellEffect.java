@@ -24,7 +24,8 @@ public class LevitateSpellEffect extends SpellEffect {
 			ArcanusConfig.MovementEffects.LevitateEffectProperties.weight,
 			ArcanusConfig.MovementEffects.LevitateEffectProperties.manaCost,
 			ArcanusConfig.MovementEffects.LevitateEffectProperties.coolDown,
-			ArcanusConfig.MovementEffects.LevitateEffectProperties.minimumLevel
+			ArcanusConfig.MovementEffects.LevitateEffectProperties.minimumLevel,
+			ArcanusConfig.MovementEffects.LevitateEffectProperties.procsOnce
 		);
 	}
 

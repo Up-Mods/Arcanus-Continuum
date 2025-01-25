@@ -55,6 +55,9 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
 			public static double potencyModifier = 0;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "touchShapeProperties", translation = "config.arcanuscontinuum.touchShapeProperties", sortOrder = 1)
@@ -82,6 +85,9 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
 			public static double potencyModifier = 0.2;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "missileShapeProperties", translation = "config.arcanuscontinuum.missileShapeProperties", sortOrder = 2)
@@ -109,6 +115,9 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
 			public static double potencyModifier = -0.25;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "projectileSpeed", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.projectileSpeed")
 			public static float projectileSpeed = 4f;
@@ -144,6 +153,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
 			public static double potencyModifier = 0;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "projectileSpeed", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.projectileSpeed")
 			public static float projectileSpeed = 2f;
 		}
@@ -173,6 +185,9 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
 			public static double potencyModifier = 0;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "range", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.range")
 			@DoubleRange(min = 0, max = 32)
@@ -204,6 +219,9 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
 			public static double potencyModifier = 0.25;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "range", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.range")
 			@DoubleRange(min = 0, max = 32)
@@ -240,6 +258,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
 			public static double potencyModifier = 0;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = true;
+
 			@ConfigEntry(id = "delay", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.delay")
 			@IntRange(min = 0, max = 24000)
 			public static int delay = 60;
@@ -271,6 +292,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
 			public static double potencyModifier = 0;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = true;
+
 			@ConfigEntry(id = "radius", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.burstShape.radius")
 			public static float radius = 4f;
 		}
@@ -301,6 +325,9 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
 			public static double potencyModifier = 0;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "counterShapeProperties", translation = "config.arcanuscontinuum.counterShapeProperties", sortOrder = 8)
@@ -328,6 +355,9 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
 			public static double potencyModifier = 0;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
@@ -359,6 +389,9 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
 			public static double potencyModifier = 0;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = true;
 
 			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseLifeSpan")
 			@IntRange(min = 1, max = 24000)
@@ -396,6 +429,9 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
 			public static double potencyModifier = 0.5;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "entangledOrbShapeProperties", translation = "config.arcanuscontinuum.entangledOrbShapeProperties", sortOrder = 11)
@@ -423,6 +459,9 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
 			public static double potencyModifier = 0;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = true;
 
 			@ConfigEntry(id = "maximumManaLock", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.maximumManaLock")
 			@DoubleRange(min = 0, max = 1)
@@ -459,6 +498,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
 			public static double potencyModifier = 0;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "maximumAggressorbs", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.maximumAggressorbs")
 			@IntRange(min = 0, max = 16)
 			public static int maximumAggressorbs = 6;
@@ -494,6 +536,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 1;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "baseDamage", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.baseDamage")
 			@FloatRange(min = 0, max = 1000)
 			public static float baseDamage = 1.5f;
@@ -519,6 +564,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 2;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "baseTimeOnFire", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseTimeOnFire")
 			@IntRange(min = 0, max = 100)
 			public static int baseTimeOnFire = 3;
@@ -543,6 +591,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 2;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseStunTime", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseStunTime")
 			@IntRange(min = 0, max = 100)
@@ -573,6 +624,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 2;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "baseFreezingTime", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseFreezingTime")
 			@IntRange(min = 0, max = 100)
 			public static int baseFreezingTime = 20;
@@ -597,6 +651,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 5;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
@@ -623,6 +680,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 9;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 200;
@@ -647,6 +707,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 7;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
@@ -673,6 +736,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 9;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = true;
+
 			@ConfigEntry(id = "baseHealth", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseHealth")
 			@IntRange(min = 1, max = 100)
 			public static int baseHealth = 10;
@@ -697,6 +763,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 6;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "copperCurseEffectProperties", translation = "config.arcanuscontinuum.copperCurseEffectProperties", sortOrder = 9)
@@ -718,6 +787,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 8;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
@@ -752,6 +824,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 5;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 60;
@@ -780,6 +855,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 6;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
@@ -817,6 +895,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 1;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "baseHealAmount", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.baseHealAmount")
 			@FloatRange(min = 0, max = 1000)
 			public static float baseHealAmount = 3f;
@@ -841,6 +922,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 6;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "regenerateEffectProperties", translation = "config.arcanuscontinuum.regenerateEffectProperties", sortOrder = 2)
@@ -862,6 +946,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 7;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
@@ -888,6 +975,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 5;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 500;
@@ -913,6 +1003,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 4;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 200;
@@ -937,6 +1030,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 10;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = true;
 
 			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseLifeSpan")
 			@IntRange(min = 0, max = 24000)
@@ -967,6 +1063,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 8;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
@@ -995,6 +1094,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 10;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 		}
 	}
 
@@ -1019,6 +1121,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 7;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseLifeSpan")
 			@IntRange(min = 0, max = 24000)
@@ -1045,6 +1150,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 4;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "basePower", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.basePower")
 			@IntRange(min = 0, max = 16)
 			public static int basePower = 4;
@@ -1070,6 +1178,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 5;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 220;
@@ -1094,6 +1205,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 4;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "growthEffectProperties", translation = "config.arcanuscontinuum.growthEffectProperties", sortOrder = 4)
@@ -1115,6 +1229,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 4;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "shrinkEffectProperties", translation = "config.arcanuscontinuum.shrinkEffectProperties", sortOrder = 5)
@@ -1136,6 +1253,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 9;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseShrinkAmount", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.baseShrinkAmount")
 			@FloatRange(min = 0, max = 1)
@@ -1166,6 +1286,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 9;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "baseEnlargeAmount", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.baseEnlargeAmount")
 			@FloatRange(min = 1, max = 2)
 			public static float baseEnlargeAmount = 1.5f;
@@ -1194,6 +1317,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 7;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = true;
 
 			@ConfigEntry(id = "canSuckEntitiesIn", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.canSuckEntitiesIn")
 			public static boolean canSuckEntitiesIn = true;
@@ -1237,6 +1363,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 6;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "canBeRemovedByOthers", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.canBeRemovedByOthers")
 			public static boolean canBeRemovedByOthers = true;
 		}
@@ -1264,6 +1393,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 3;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "basePushAmount", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.basePushAmount")
 			@DoubleRange(min = 0, max = 10)
 			public static double basePushAmount = 0.2;
@@ -1288,6 +1420,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 3;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "basePullAmount", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.basePullAmount")
 			@DoubleRange(min = 0, max = 10)
@@ -1314,6 +1449,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 6;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 60;
@@ -1338,6 +1476,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 8;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
@@ -1364,6 +1505,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 10;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "baseTeleportDistance", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.baseTeleportDistance")
 			@DoubleRange(min = 0, max = 32)
 			public static double baseTeleportDistance = 5;
@@ -1388,6 +1532,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 8;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
@@ -1414,6 +1561,9 @@ public final class ArcanusConfig {
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 8;
 
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
+
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
 			@IntRange(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
@@ -1438,6 +1588,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 5;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "removedUponTakingDamage", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.removedUponTakingDamage")
 			public static boolean removedUponTakingDamage = true;
@@ -1466,6 +1619,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 10;
+
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "removedUponTakingDamage", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.removedUponTakingDamage")
 			public static boolean removedUponTakingDamage = true;

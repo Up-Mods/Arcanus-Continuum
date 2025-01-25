@@ -25,7 +25,8 @@ public class StockpileSpellEffect extends SpellEffect {
 			ArcanusConfig.AttackEffects.StockpileEffectProperties.weight,
 			ArcanusConfig.AttackEffects.StockpileEffectProperties.manaCost,
 			ArcanusConfig.AttackEffects.StockpileEffectProperties.coolDown,
-			ArcanusConfig.AttackEffects.StockpileEffectProperties.minimumLevel
+			ArcanusConfig.AttackEffects.StockpileEffectProperties.minimumLevel,
+			ArcanusConfig.AttackEffects.StockpileEffectProperties.procsOnce
 		);
 	}
 

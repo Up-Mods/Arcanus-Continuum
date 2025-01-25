@@ -28,7 +28,8 @@ public class BeamSpellShape extends SpellShape {
 			ArcanusConfig.SpellShapes.BeamShapeProperties.manaMultiplier,
 			ArcanusConfig.SpellShapes.BeamShapeProperties.coolDown,
 			ArcanusConfig.SpellShapes.BeamShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.BeamShapeProperties.potencyModifier
+			ArcanusConfig.SpellShapes.BeamShapeProperties.potencyModifier,
+			ArcanusConfig.SpellShapes.BeamShapeProperties.procsOnce
 		);
 	}
 

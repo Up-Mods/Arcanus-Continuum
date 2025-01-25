@@ -26,7 +26,8 @@ public class ShrinkSpellEffect extends SpellEffect {
 			ArcanusConfig.UtilityEffects.ShrinkEffectProperties.weight,
 			ArcanusConfig.UtilityEffects.ShrinkEffectProperties.manaCost,
 			ArcanusConfig.UtilityEffects.ShrinkEffectProperties.coolDown,
-			ArcanusConfig.UtilityEffects.ShrinkEffectProperties.minimumLevel
+			ArcanusConfig.UtilityEffects.ShrinkEffectProperties.minimumLevel,
+			ArcanusConfig.UtilityEffects.ShrinkEffectProperties.procsOnce
 		);
 	}
 

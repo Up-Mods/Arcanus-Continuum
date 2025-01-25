@@ -24,7 +24,8 @@ public class EntangledOrbSpellShape extends SpellShape {
 			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.manaMultiplier,
 			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.coolDown,
 			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.potencyModifier
+			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.potencyModifier,
+			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.procsOnce
 		);
 	}
 
@@ -43,10 +44,5 @@ public class EntangledOrbSpellShape extends SpellShape {
 				oldOrbs.forEach(Entity::discard);
 			}
 		}
-	}
-
-	@Override
-	public boolean singleCastOnly() {
-		return true;
 	}
 }

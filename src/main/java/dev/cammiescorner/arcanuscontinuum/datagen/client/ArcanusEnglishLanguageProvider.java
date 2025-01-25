@@ -337,6 +337,7 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add("config.arcanuscontinuum.manaMultiplier", "Mana Multiplier (Requires Restart)");
 		builder.add("config.arcanuscontinuum.coolDown", "Cool Down (Requires Restart)");
 		builder.add("config.arcanuscontinuum.minimumLevel", "Minimum Level (Requires Restart)");
+		builder.add("config.arcanuscontinuum.procsOnce", "Only Procs Once When Chained (Requires Restart)");
 		builder.add("config.arcanuscontinuum.potencyModifier", "Potency Modifier (Requires Restart)");
 		builder.add("config.arcanuscontinuum.projectileSpeed", "Projectile Speed");
 		builder.add("config.arcanuscontinuum.baseLifeSpan", "Base Life Span");

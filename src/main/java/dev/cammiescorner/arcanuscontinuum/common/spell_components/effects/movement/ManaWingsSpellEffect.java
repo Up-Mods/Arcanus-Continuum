@@ -24,7 +24,8 @@ public class ManaWingsSpellEffect extends SpellEffect {
 			ArcanusConfig.MovementEffects.ManaWingsEffectProperties.weight,
 			ArcanusConfig.MovementEffects.ManaWingsEffectProperties.manaCost,
 			ArcanusConfig.MovementEffects.ManaWingsEffectProperties.coolDown,
-			ArcanusConfig.MovementEffects.ManaWingsEffectProperties.minimumLevel
+			ArcanusConfig.MovementEffects.ManaWingsEffectProperties.minimumLevel,
+			ArcanusConfig.MovementEffects.ManaWingsEffectProperties.procsOnce
 		);
 	}
 

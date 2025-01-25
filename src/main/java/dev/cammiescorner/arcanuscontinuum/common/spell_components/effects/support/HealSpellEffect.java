@@ -22,7 +22,8 @@ public class HealSpellEffect extends SpellEffect {
 			ArcanusConfig.SupportEffects.HealEffectProperties.weight,
 			ArcanusConfig.SupportEffects.HealEffectProperties.manaCost,
 			ArcanusConfig.SupportEffects.HealEffectProperties.coolDown,
-			ArcanusConfig.SupportEffects.HealEffectProperties.minimumLevel
+			ArcanusConfig.SupportEffects.HealEffectProperties.minimumLevel,
+			ArcanusConfig.SupportEffects.HealEffectProperties.procsOnce
 		);
 	}
 

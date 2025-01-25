@@ -26,7 +26,7 @@ public class ArcanusSpellComponents {
 	/**
 	 * DO NOT DELETE OR DISABLE. WILL BREAK THE ENTIRE MOD.
 	 **/
-	public static final RegistrySupplier<SpellComponent> EMPTY = SPELL_COMPONENTS.register("empty", () -> new SpellShape(true, Weight.NONE, 0, 1, 0, 0, 0) {
+	public static final RegistrySupplier<SpellComponent> EMPTY = SPELL_COMPONENTS.register("empty", () -> new SpellShape(true, Weight.NONE, 0, 1, 0, 0, 0, true) {
 		@Override
 		public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 			castNext(caster, castFrom, castSource, level, stack, spellGroups, groupIndex, potency);

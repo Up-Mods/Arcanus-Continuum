@@ -28,7 +28,8 @@ public class BurstSpellShape extends SpellShape {
 			ArcanusConfig.SpellShapes.BurstShapeProperties.manaMultiplier,
 			ArcanusConfig.SpellShapes.BurstShapeProperties.coolDown,
 			ArcanusConfig.SpellShapes.BurstShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.BurstShapeProperties.potencyModifier
+			ArcanusConfig.SpellShapes.BurstShapeProperties.potencyModifier,
+			ArcanusConfig.SpellShapes.BurstShapeProperties.procsOnce
 		);
 	}
 
@@ -61,10 +62,5 @@ public class BurstSpellShape extends SpellShape {
 
 		// TODO add vfx & sfx for burst
 		castNext(caster, castFrom, castSource, level, stack, spellGroups, groupIndex, potency);
-	}
-
-	@Override
-	public boolean singleCastOnly() {
-		return true;
 	}
 }

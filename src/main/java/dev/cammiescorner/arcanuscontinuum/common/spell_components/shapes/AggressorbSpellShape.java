@@ -28,7 +28,8 @@ public class AggressorbSpellShape extends SpellShape {
 			ArcanusConfig.SpellShapes.AggressorbShapeProperties.manaMultiplier,
 			ArcanusConfig.SpellShapes.AggressorbShapeProperties.coolDown,
 			ArcanusConfig.SpellShapes.AggressorbShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.AggressorbShapeProperties.potencyModifier
+			ArcanusConfig.SpellShapes.AggressorbShapeProperties.potencyModifier,
+			ArcanusConfig.SpellShapes.AggressorbShapeProperties.procsOnce
 		);
 	}
 

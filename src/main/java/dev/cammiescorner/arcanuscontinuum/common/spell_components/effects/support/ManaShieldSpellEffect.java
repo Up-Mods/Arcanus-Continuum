@@ -26,7 +26,8 @@ public class ManaShieldSpellEffect extends SpellEffect {
 			ArcanusConfig.SupportEffects.ManaShieldEffectProperties.weight,
 			ArcanusConfig.SupportEffects.ManaShieldEffectProperties.manaCost,
 			ArcanusConfig.SupportEffects.ManaShieldEffectProperties.coolDown,
-			ArcanusConfig.SupportEffects.ManaShieldEffectProperties.minimumLevel
+			ArcanusConfig.SupportEffects.ManaShieldEffectProperties.minimumLevel,
+			ArcanusConfig.SupportEffects.ManaShieldEffectProperties.procsOnce
 		);
 	}
 
@@ -46,10 +47,5 @@ public class ManaShieldSpellEffect extends SpellEffect {
 				level.addFreshEntity(manaShield);
 			}
 		}
-	}
-
-	@Override
-	public boolean singleCastOnly() {
-		return true;
 	}
 }

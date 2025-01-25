@@ -26,7 +26,8 @@ public class AreaOfEffectSpellShape extends SpellShape {
 			ArcanusConfig.SpellShapes.AOEShapeProperties.manaMultiplier,
 			ArcanusConfig.SpellShapes.AOEShapeProperties.coolDown,
 			ArcanusConfig.SpellShapes.AOEShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.AOEShapeProperties.potencyModifier
+			ArcanusConfig.SpellShapes.AOEShapeProperties.potencyModifier,
+			ArcanusConfig.SpellShapes.AOEShapeProperties.procsOnce
 		);
 	}
 
@@ -44,15 +45,10 @@ public class AreaOfEffectSpellShape extends SpellShape {
 			Entity sourceEntity = castSource != null ? castSource : caster;
 
 			if(areaOfEffect != null) {
-				areaOfEffect.setProperties(caster.getUUID(), sourceEntity, castFrom, stack, effects, potency, spellGroups, groupIndex);
+				areaOfEffect.setProperties(caster.getUUID(), castFrom, stack, effects, potency, spellGroups, groupIndex);
 				ArcanusHelper.copyMagicColor(areaOfEffect, caster);
 				level.addFreshEntity(areaOfEffect);
 			}
 		}
-	}
-
-	@Override
-	public boolean singleCastOnly() {
-		return true;
 	}
 }

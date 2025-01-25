@@ -30,7 +30,8 @@ public class BoltSpellShape extends SpellShape {
 			ArcanusConfig.SpellShapes.BoltShapeProperties.manaMultiplier,
 			ArcanusConfig.SpellShapes.BoltShapeProperties.coolDown,
 			ArcanusConfig.SpellShapes.BoltShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.BoltShapeProperties.potencyModifier
+			ArcanusConfig.SpellShapes.BoltShapeProperties.potencyModifier,
+			ArcanusConfig.SpellShapes.BoltShapeProperties.procsOnce
 		);
 	}
 
