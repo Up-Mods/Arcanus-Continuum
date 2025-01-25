@@ -1603,7 +1603,7 @@ public final class ArcanusConfig {
 		@Category(id = "manaWingsEffectProperties", translation = "config.arcanuscontinuum.manaWingsEffectProperties", sortOrder = 8)
 		public static final class ManaWingsEffectProperties {
 			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
-			public static boolean enabled = true;
+			public static boolean enabled = false;
 
 			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
 			public static Weight weight = Weight.NONE;
