@@ -114,7 +114,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 3;
 
 			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
-			public static double potencyModifier = -0.25;
+			public static double potencyModifier = 0;
 
 			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
 			public static boolean procsOnce = false;
