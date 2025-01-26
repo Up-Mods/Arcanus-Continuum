@@ -42,7 +42,6 @@ public class TemporalDilationFieldRenderer extends EntityRenderer<TemporalDilati
 		poseStack.translate(0, -3.01, 0);
 
 		model.xPlaneRing.yRot = (float) Mth.atan2(directionToCamera.z(), directionToCamera.x());
-		model.yPlaneRing.yRot = (float) (Math.toRadians(-90) + Mth.atan2(directionToCamera.z(), directionToCamera.x()));
 		model.xClockHand.xRot = -handProgress;
 		model.yClockHand.yRot = handProgress;
 
