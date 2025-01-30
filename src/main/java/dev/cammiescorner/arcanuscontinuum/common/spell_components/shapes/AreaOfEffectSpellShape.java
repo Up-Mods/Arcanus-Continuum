@@ -37,12 +37,10 @@ public class AreaOfEffectSpellShape extends SpellShape {
 
 		if(caster != null) {
 			List<? extends AreaOfEffect> list = level.getEntities(EntityTypeTest.forClass(AreaOfEffect.class), entity -> caster.getUUID().equals(entity.getCasterId()));
+			AreaOfEffect areaOfEffect = ArcanusEntities.AOE.get().create(level);
 
 			for(int i = 0; i < list.size() - 20; i++)
 				list.get(i).kill();
-
-			AreaOfEffect areaOfEffect = ArcanusEntities.AOE.get().create(level);
-			Entity sourceEntity = castSource != null ? castSource : caster;
 
 			if(areaOfEffect != null) {
 				areaOfEffect.setProperties(caster.getUUID(), castFrom, stack, effects, potency, spellGroups, groupIndex);

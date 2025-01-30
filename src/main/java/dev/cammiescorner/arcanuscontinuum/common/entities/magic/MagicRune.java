@@ -131,7 +131,11 @@ public class MagicRune extends Entity implements Targetable {
 
 	public void setProperties(UUID casterId, Entity sourceEntity, Vec3 pos, ItemStack stack, List<SpellEffect> effects, double potency, List<SpellGroup> groups, int groupIndex) {
 		HitResult hitResult = level().clip(new ClipContext(pos, pos.add(0, -64, 0), ClipContext.Block.COLLIDER, ClipContext.Fluid.ANY, this));
-		setPos(hitResult.getType() != HitResult.Type.MISS ? hitResult.getLocation() : pos);
+		setPos(pos);
+
+		// TODO clips into ground by one pixel for some reason?
+//		if(hitResult.getType() != HitResult.Type.MISS)
+//			setPos(hitResult.getLocation());
 		setYRot(sourceEntity.getYRot());
 		setXRot(sourceEntity.getXRot());
 		this.casterId = casterId;

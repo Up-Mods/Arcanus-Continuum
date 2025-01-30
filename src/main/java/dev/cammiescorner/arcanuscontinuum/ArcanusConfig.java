@@ -303,7 +303,7 @@ public final class ArcanusConfig {
 //		@Category(id = "guidedShotShapeProperties", translation = "config.arcanuscontinuum.guidedShotShapeProperties")
 		public static final class GuidedShotShapeProperties {
 			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
-			public static boolean enabled = true;
+			public static boolean enabled = false;
 
 			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
 			public static Weight weight = Weight.MEDIUM;

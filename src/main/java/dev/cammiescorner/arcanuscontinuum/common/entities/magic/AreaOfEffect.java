@@ -183,7 +183,12 @@ public class AreaOfEffect extends Entity implements Targetable {
 
 	public void setProperties(UUID casterId, Vec3 pos, ItemStack stack, List<SpellEffect> effects, double potency, List<SpellGroup> groups, int groupIndex) {
 		HitResult hitResult = level().clip(new ClipContext(pos, pos.add(0, -64, 0), ClipContext.Block.COLLIDER, ClipContext.Fluid.ANY, this));
-		setPos(hitResult.getType() != HitResult.Type.MISS ? hitResult.getLocation() : pos);
+		setPos(pos);
+
+		// TODO clips into ground by one pixel for some reason?
+//		if(hitResult.getType() != HitResult.Type.MISS)
+//			setPos(hitResult.getLocation());
+
 		setYRot(random.nextFloat() * 360f);
 		this.casterId = casterId;
 		this.stack = stack;

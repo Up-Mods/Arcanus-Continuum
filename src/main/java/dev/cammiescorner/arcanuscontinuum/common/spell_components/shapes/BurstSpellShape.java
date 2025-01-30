@@ -4,12 +4,19 @@ import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellShape;
+import dev.cammiescorner.arcanuscontinuum.common.packets.s2c.SyncExplosionParticlesPacket;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusSpellComponents;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -61,6 +68,12 @@ public class BurstSpellShape extends SpellShape {
 		}
 
 		// TODO add vfx & sfx for burst
+		level.gameEvent(caster, GameEvent.EXPLODE, new Vec3(castFrom.x(), castFrom.y(), castFrom.z()));
+		level.playSeededSound(null, castFrom.x(), castFrom.y(), castFrom.z(), SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4f, (1f + (level.random.nextFloat() - level.random.nextFloat()) * 0.2f) * 0.7f, 1);
+
+		for(ServerPlayer player : PlayerLookup.tracking(level, BlockPos.containing(castFrom.x(), castFrom.y(), castFrom.z())))
+			SyncExplosionParticlesPacket.send(player, castFrom.x(), castFrom.y(), castFrom.z(), 4f, effects.contains(ArcanusSpellComponents.MINE.get()));
+
 		castNext(caster, castFrom, castSource, level, stack, spellGroups, groupIndex, potency);
 	}
 }
