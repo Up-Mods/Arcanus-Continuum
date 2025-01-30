@@ -208,6 +208,7 @@
   "config.arcanuscontinuum.supporter_settings.pocket_dimension_color": "Pocket Dimension Color",
   "config.arcanuscontinuum.supporter_settings.save_and_exit": "Save and Exit",
   "config.arcanuscontinuum.teleportEffectProperties": "Teleport Effect",
+  "config.arcanuscontinuum.temporalDilationEffectProperties": "Temporal Dilation Effect",
   "config.arcanuscontinuum.timesToApplyEffects": "Number of Times to Apply Spell Effects",
   "config.arcanuscontinuum.timesToCastNextShape": "Number of Times to Cast Next Spell Shape",
   "config.arcanuscontinuum.touchShapeProperties": "Touch Shape",

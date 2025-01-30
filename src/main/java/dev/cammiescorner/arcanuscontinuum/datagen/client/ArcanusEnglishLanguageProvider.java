@@ -407,6 +407,7 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add("config.arcanuscontinuum.hasteEffectProperties", "Haste Effect");
 		builder.add("config.arcanuscontinuum.manaShieldEffectProperties", "Mana Shield Effect");
 		builder.add("config.arcanuscontinuum.dangerSenseEffectProperties", "Danger Sense Effect");
+		builder.add("config.arcanuscontinuum.temporalDilationEffectProperties", "Temporal Dilation Effect");
 		builder.add("config.arcanuscontinuum.pushEffectProperties", "Push Effect");
 		builder.add("config.arcanuscontinuum.pullEffectProperties", "Pull Effect");
 		builder.add("config.arcanuscontinuum.powerEffectProperties", "Power Effect");
