@@ -147,7 +147,6 @@ public class Lob extends AbstractArrow implements Targetable {
 		shootFromRotation(sourceEntity, sourceEntity.getXRot(), sourceEntity.getYRot(), 0f, ArcanusConfig.SpellShapes.LobShapeProperties.projectileSpeed, 1f);
 		setOwner(caster);
 		setPosRaw(sourceEntity.getX(), sourceEntity.getEyeY(), sourceEntity.getZ());
-		setNoGravity(true);
 		setBaseDamage(0);
 		this.stack = stack;
 		this.effects = effects;
