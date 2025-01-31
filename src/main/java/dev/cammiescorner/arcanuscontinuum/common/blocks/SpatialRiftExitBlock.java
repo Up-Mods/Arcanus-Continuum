@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanuscontinuum.common.blocks;
 import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.SpatialRiftExitBlockEntity;
 import dev.cammiescorner.arcanuscontinuum.common.components.level.PocketDimensionComponent;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusBlocks;
+import dev.upcraft.sparkweave.api.util.scheduler.Tasks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -28,11 +29,14 @@ public class SpatialRiftExitBlock extends Block implements EntityBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if(!world.isClientSide() && !PocketDimensionComponent.get(world).teleportOutOfPocketDimension(player))
-			return InteractionResult.FAIL;
+	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		if(!level.isClientSide()) {
+			// the game assumes that at the end of the right click, the player is still in the same dimension.
+			// therefore we need to schedule the teleportation at some later point
+			Tasks.scheduleEphemeral(() -> PocketDimensionComponent.get(level).teleportOutOfPocketDimension(player), 0L);
+		}
 
-		return InteractionResult.sidedSuccess(world.isClientSide());
+		return InteractionResult.sidedSuccess(level.isClientSide());
 	}
 
 	@Override

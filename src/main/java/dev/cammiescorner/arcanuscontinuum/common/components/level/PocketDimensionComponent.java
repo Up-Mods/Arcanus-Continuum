@@ -146,7 +146,7 @@ public class PocketDimensionComponent implements dev.onyxstudios.cca.api.v3.comp
 	}
 
 	public boolean teleportOutOfPocketDimension(Entity entity) {
-		if((entity instanceof Player player && FakePlayerHelper.isFakePlayer(player)) || entity.level().isClientSide() || entity.level().dimension() != ArcanusDimensions.POCKET_DIMENSION)
+		if((entity instanceof Player player && FakePlayerHelper.isFakePlayer(player)) || entity.level().dimension() != ArcanusDimensions.POCKET_DIMENSION)
 			return false;
 
 		UUID ownerId = existingPlots.values().stream().filter(plot -> entity.getBoundingBox().intersects(AABB.of(plot.getBounds()))).map(PocketDimensionPlot::ownerId).findFirst().orElse(null);
