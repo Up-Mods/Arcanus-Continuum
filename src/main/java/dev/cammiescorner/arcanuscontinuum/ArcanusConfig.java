@@ -1506,7 +1506,7 @@ public final class ArcanusConfig {
 			public static int minimumLevel = 10;
 
 			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
-			public static boolean procsOnce = false;
+			public static boolean procsOnce = true;
 
 			@ConfigEntry(id = "baseTeleportDistance", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.baseTeleportDistance")
 			@DoubleRange(min = 0, max = 32)

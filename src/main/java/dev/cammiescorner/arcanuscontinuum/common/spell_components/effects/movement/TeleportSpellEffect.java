@@ -32,22 +32,25 @@ public class TeleportSpellEffect extends SpellEffect {
 
 	@Override
 	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, Level level, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
-		if(caster != null && caster.position().distanceTo(target.getLocation()) <= ArcanusConfig.MovementEffects.TeleportEffectProperties.baseTeleportDistance * effects.stream().filter(ArcanusSpellComponents.TELEPORT::is).count() * potency) {
+		if(caster != null) {
 			Vec3 pos = target.getLocation();
+			double maxDistance = ArcanusConfig.MovementEffects.TeleportEffectProperties.baseTeleportDistance * effects.stream().filter(ArcanusSpellComponents.TELEPORT::is).count() * potency;
 
 			if(target.getType() == HitResult.Type.BLOCK) {
 				BlockHitResult blockHit = (BlockHitResult) target;
-				pos = pos.add(blockHit.getDirection().getStepX() * 0.5, blockHit.getDirection() == Direction.DOWN ? -2 : 0, blockHit.getDirection().getStepZ() * 0.5);
+				pos = pos.add(blockHit.getDirection().getStepX() * 0.5, blockHit.getDirection() == Direction.DOWN ? -caster.getBbHeight() : 0, blockHit.getDirection().getStepZ() * 0.5);
 			}
 
-			level.broadcastEntityEvent(caster, EntityEvent.TELEPORT);
+			if(caster.position().distanceTo(pos) <= maxDistance) {
+				level.broadcastEntityEvent(caster, EntityEvent.TELEPORT);
 
-			if(caster.isPassenger())
-				caster.dismountTo(pos.x(), pos.y(), pos.z());
-			else
-				caster.teleportTo(pos.x(), pos.y(), pos.z());
+				if(caster.isPassenger())
+					caster.dismountTo(pos.x(), pos.y(), pos.z());
+				else
+					caster.teleportTo(pos.x(), pos.y(), pos.z());
 
-			level.broadcastEntityEvent(caster, EntityEvent.TELEPORT);
+				level.broadcastEntityEvent(caster, EntityEvent.TELEPORT);
+			}
 		}
 	}
 }

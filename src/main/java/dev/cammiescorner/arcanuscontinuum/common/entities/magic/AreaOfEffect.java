@@ -72,7 +72,7 @@ public class AreaOfEffect extends Entity implements Targetable {
 		if(!level().isClientSide()) {
 			int baseLifeSpan = ArcanusConfig.SpellShapes.AOEShapeProperties.baseLifeSpan;
 			int timesToApplyEffects = ArcanusConfig.SpellShapes.AOEShapeProperties.timesToApplyEffects;
-			int timesToCastNextShape = spellGroups.get(groupIndex + 1).shape().singleCastOnly() ? 1 : ArcanusConfig.SpellShapes.AOEShapeProperties.timesToCastNextShape;
+			int timesToCastNextShape = timesToCastNextShape();
 			int actualLifeSpan = (int) (baseLifeSpan * 0.9);
 
 			if(trueAge > 0) {
@@ -197,5 +197,14 @@ public class AreaOfEffect extends Entity implements Targetable {
 		this.groupIndex = groupIndex;
 		this.potency = potency;
 		this.trueAge = random.nextInt(3);
+	}
+
+	private int timesToCastNextShape() {
+		if(spellGroups.size() <= groupIndex + 1)
+			return 0;
+		else if(spellGroups.get(groupIndex + 1).shape().singleCastOnly())
+			return 1;
+
+		return ArcanusConfig.SpellShapes.AOEShapeProperties.timesToCastNextShape;
 	}
 }
