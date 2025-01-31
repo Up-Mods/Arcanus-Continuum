@@ -156,6 +156,7 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		tag(builder, ArcanusItemTags.CRAFTING_SPELLBINDING_SPELLBOOKS, "Spellbooks");
 		tag(builder, ArcanusItemTags.COPPER_CURSE_IMMUNE, "Ignored by Copper Curse");
 		tag(builder, ArcanusItemTags.STAVES, "Staves");
+		tag(builder, ArcanusItemTags.STAVES_FOR_WIZARDS, "Staves for Wizards");
 		tag(builder, ArcanusItemTags.WIZARD_ARMOR, "Wizard Armor");
 
 		builder.add("text.arcanuscontinuum.block_is_warded", "This block is warded.");
