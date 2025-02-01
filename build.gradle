@@ -223,7 +223,8 @@ java {
 	withSourcesJar()
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(javaVersion)
-		vendor = JvmVendorSpec.MICROSOFT
+		// TODO uncomment when switching to JDK 21
+//		vendor = JvmVendorSpec.MICROSOFT
 	}
 }
 

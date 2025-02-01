@@ -2,8 +2,7 @@ name: Upload Release Artifacts
 
 on:
     push:
-        tags:
-            - '*'
+        tags: [ '*' ]
 
 env:
     JAVA_VERSION: 21
