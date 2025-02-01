@@ -10,13 +10,13 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "arcanuscontinuum:crafting_table/wizard_hat",
-      "recipe2": "arcanuscontinuum:crafting_table/wizard_robes"
+      "recipe": "arcanuscontinuum:wizard_hat",
+      "recipe2": "arcanuscontinuum:wizard_robes"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "arcanuscontinuum:crafting_table/wizard_pants",
-      "recipe2": "arcanuscontinuum:crafting_table/wizard_boots"
+      "recipe": "arcanuscontinuum:wizard_pants",
+      "recipe2": "arcanuscontinuum:wizard_boots"
     }
   ]
 }

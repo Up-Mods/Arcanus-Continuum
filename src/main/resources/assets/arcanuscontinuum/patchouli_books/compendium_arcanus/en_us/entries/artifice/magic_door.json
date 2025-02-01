@@ -10,7 +10,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "arcanuscontinuum:crafting_table/magic_door",
+      "recipe": "arcanuscontinuum:magic_door",
       "text": "You can change the magic word/pass phrase of Magic Doors you own by Sneak + $(k:key.use) them while holding a named Name Tag."
     }
   ]

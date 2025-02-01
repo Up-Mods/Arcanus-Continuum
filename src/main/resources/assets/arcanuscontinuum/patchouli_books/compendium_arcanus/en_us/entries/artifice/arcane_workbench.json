@@ -17,7 +17,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "arcanuscontinuum:crafting_table/arcane_workbench"
+      "recipe": "arcanuscontinuum:arcane_workbench"
     }
   ]
 }

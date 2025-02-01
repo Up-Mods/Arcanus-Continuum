@@ -10,7 +10,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "arcanuscontinuum:crafting_table/spell_book"
+      "recipe": "arcanuscontinuum:spell_book"
     }
   ]
 }
