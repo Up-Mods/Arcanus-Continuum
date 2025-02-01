@@ -100,8 +100,9 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		biome(builder, ArcanusBiomes.POCKET_DIMENSION, "Pocket Dimension");
 
 		builder.add(ArcanusBlocks.ARCANE_WORKBENCH.get(), "Arcane Workbench");
-		builder.add(ArcanusBlocks.MAGIC_DOOR.get(), "Magic Door");
+		builder.add(ArcanusBlocks.DUMMY_BOOKSHELF.get(), "[DEVELOPER ONLY] Dummy Chiseled Bookshelf");
 		builder.add(ArcanusBlocks.MAGIC_BLOCK.get(), "Magic Block");
+		builder.add(ArcanusBlocks.MAGIC_DOOR.get(), "Magic Door");
 		builder.add(ArcanusBlocks.SPATIAL_RIFT_EXIT.get(), "Spatial Rift Exit");
 		builder.add(ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get(), "Spatial Rift Wall");
 		builder.add(ArcanusBlocks.SPATIAL_RIFT_WALL.get(), "Spatial Rift Wall");

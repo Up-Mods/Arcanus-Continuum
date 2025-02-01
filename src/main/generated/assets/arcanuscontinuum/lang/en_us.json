@@ -91,6 +91,7 @@
   "attribute.name.generic.arcanuscontinuum.spell_potency": "Spell Potency",
   "biome.arcanuscontinuum.pocket_dimension": "Pocket Dimension",
   "block.arcanuscontinuum.arcane_workbench": "Arcane Workbench",
+  "block.arcanuscontinuum.dummy_bookshelf": "[DEVELOPER ONLY] Dummy Chiseled Bookshelf",
   "block.arcanuscontinuum.magic_block": "Magic Block",
   "block.arcanuscontinuum.magic_door": "Magic Door",
   "block.arcanuscontinuum.spatial_rift_exit": "Spatial Rift Exit",

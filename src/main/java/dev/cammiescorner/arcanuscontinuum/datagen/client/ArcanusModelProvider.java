@@ -28,9 +28,9 @@ public class ArcanusModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateBlockStateModels(BlockModelGenerators gen) {
-		gen.createDoor(ArcanusBlocks.MAGIC_DOOR.get());
-
+		copyModelNoItem(gen, Blocks.BARRIER, ArcanusBlocks.DUMMY_BOOKSHELF.get());
 		gen.createTrivialCube(ArcanusBlocks.MAGIC_BLOCK.get());
+		gen.createDoor(ArcanusBlocks.MAGIC_DOOR.get());
 		copyModelNoItem(gen, ArcanusBlocks.MAGIC_BLOCK.get(), ArcanusBlocks.SPATIAL_RIFT_WALL.get());
 		copyModelNoItem(gen, Blocks.DEEPSLATE_TILES, ArcanusBlocks.SPATIAL_RIFT_EXIT.get());
 	}

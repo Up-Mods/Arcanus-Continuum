@@ -1,27 +1,17 @@
 package dev.cammiescorner.arcanuscontinuum.common.structures;
 
 import com.mojang.serialization.Codec;
-import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.common.blocks.entities.DummyBookshelfBlockEntity;
+import dev.cammiescorner.arcanuscontinuum.common.data.ArcanusLootTables;
+import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusStructureProcessorTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ChiseledBookShelfBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class WizardTowerProcessor extends StructureProcessor {
@@ -30,29 +20,18 @@ public class WizardTowerProcessor extends StructureProcessor {
 
 	@Nullable
 	@Override
-	public StructureTemplate.StructureBlockInfo processBlock(LevelReader world, BlockPos pos, BlockPos pivot, StructureTemplate.StructureBlockInfo localBlockInfo, StructureTemplate.StructureBlockInfo absoluteBlockInfo, StructurePlaceSettings placementData) {
-		if(!absoluteBlockInfo.state().is(Blocks.CHISELED_BOOKSHELF))
-			return absoluteBlockInfo;
+	public StructureTemplate.StructureBlockInfo processBlock(LevelReader level, BlockPos offset, BlockPos pos, StructureTemplate.StructureBlockInfo blockInfo, StructureTemplate.StructureBlockInfo relativeBlockInfo, StructurePlaceSettings placementData) {
+		if(!relativeBlockInfo.state().is(Blocks.CHISELED_BOOKSHELF))
+			return relativeBlockInfo;
 
-		SimpleContainer inventory = new SimpleContainer(6);
-		ResourceLocation lootTableId = Arcanus.id("bookshelves/wizard_tower");
-		long lootTableSeed = placementData.getRandom(absoluteBlockInfo.pos()).nextLong();
-		BlockState blockState = absoluteBlockInfo.state();
+		var random = placementData.getRandom(relativeBlockInfo.pos());
 
-		if(world instanceof ServerLevelAccessor serverWorld) {
-			LootTable lootTable = serverWorld.getServer().getLootData().getLootTable(lootTableId);
-			LootParams.Builder builder = new LootParams.Builder(serverWorld.getLevel()).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(absoluteBlockInfo.pos()));
-			lootTable.fill(inventory, builder.create(LootContextParamSets.CHEST), lootTableSeed);
-			ContainerHelper.saveAllItems(absoluteBlockInfo.nbt(), inventory.items, true);
+		var blockState = DummyBookshelfBlockEntity.copyValues(ArcanusBlocks.DUMMY_BOOKSHELF.get().defaultBlockState(), relativeBlockInfo.state());
+		var be = new DummyBookshelfBlockEntity(offset, blockState);
+		be.setLootTable(ArcanusLootTables.WIZARD_TOWER_BOOKSHELF);
+		be.setLootSeed(random.nextLong());
 
-			for(int j = 0; j < ChiseledBookShelfBlock.SLOT_OCCUPIED_PROPERTIES.size(); ++j) {
-				boolean bl = !inventory.getItem(j).isEmpty();
-				BooleanProperty booleanProperty = ChiseledBookShelfBlock.SLOT_OCCUPIED_PROPERTIES.get(j);
-				blockState = blockState.setValue(booleanProperty, bl);
-			}
-		}
-
-		return new StructureTemplate.StructureBlockInfo(absoluteBlockInfo.pos(), blockState, absoluteBlockInfo.nbt());
+		return new StructureTemplate.StructureBlockInfo(relativeBlockInfo.pos(), blockState, be.saveWithId());
 	}
 
 	@Override
