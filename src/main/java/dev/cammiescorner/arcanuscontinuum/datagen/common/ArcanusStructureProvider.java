@@ -4,7 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.data.*;
 import dev.cammiescorner.arcanuscontinuum.common.structures.WizardTowerProcessor;
-import dev.cammiescorner.arcanuscontinuum.common.util.datagen.DynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.DynamicRegistryEntryProvider;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.Pools;

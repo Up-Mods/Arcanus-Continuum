@@ -28,9 +28,7 @@
 		"common.ServerLevelMixin",
 		"common.ThrowableProjectileMixin",
 		"compat.pehkui.LivingEntityMixin",
-		"datagen.AdvancementBuilderMixin",
-		"datagen.FabricDynamicRegistryProviderEntriesMixin",
-		"datagen.RegistrySetBuilderMixin"
+		"datagen.FabricDynamicRegistryProviderEntriesMixin"
 	],
 	"client": [
 		"client.ClientLevelMixin",

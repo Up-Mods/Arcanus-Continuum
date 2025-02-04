@@ -1,10 +1,11 @@
 package dev.cammiescorner.arcanuscontinuum.datagen;
 
+import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.compat.ArcanusCompat;
-import dev.cammiescorner.arcanuscontinuum.common.util.datagen.DynamicRegistryEntryProvider;
 import dev.cammiescorner.arcanuscontinuum.datagen.client.ArcanusEnglishLanguageProvider;
 import dev.cammiescorner.arcanuscontinuum.datagen.client.ArcanusModelProvider;
 import dev.cammiescorner.arcanuscontinuum.datagen.common.*;
+import dev.upcraft.sparkweave.api.datagen.DynamicRegistryEntryProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
@@ -20,7 +21,7 @@ public class ArcanusDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void buildRegistry(RegistrySetBuilder builder) {
-		DynamicRegistryEntryProvider.builder()
+		DynamicRegistryEntryProvider.builder(Arcanus.MOD_ID)
 			.add(ArcanusBiomeProvider::new)
 			.add(ArcanusDamageTypeProvider::new)
 			.add(ArcanusDimensionProvider::new)
@@ -31,7 +32,7 @@ public class ArcanusDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator generator) {
 		var pack = generator.createPack();
-		pack.addProvider(DynamicRegistryEntryProvider::getGenerator);
+		pack.addProvider((output, registriesFuture) -> DynamicRegistryEntryProvider.getGenerator(Arcanus.MOD_ID, output, registriesFuture));
 
 		var blockTags = pack.addProvider(ArcanusBlockTagsProvider::new);
 		pack.addProvider((output, registriesFuture) -> new ArcanusItemTagsProvider(output, registriesFuture, blockTags));

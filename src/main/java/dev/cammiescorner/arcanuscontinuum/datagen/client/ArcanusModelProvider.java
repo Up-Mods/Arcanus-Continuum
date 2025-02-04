@@ -3,24 +3,16 @@ package dev.cammiescorner.arcanuscontinuum.datagen.client;
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanuscontinuum.common.registry.ArcanusItems;
+import dev.upcraft.sparkweave.api.datagen.SparkweaveModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
-import net.minecraft.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.data.models.blockstates.Variant;
-import net.minecraft.data.models.blockstates.VariantProperties;
 import net.minecraft.data.models.model.ModelLocationUtils;
-import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TextureMapping;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
-public class ArcanusModelProvider extends FabricModelProvider {
-
-	private static final ModelTemplate SPAWN_EGG_TEMPLATE = ModelTemplates.createItem("template_spawn_egg");
+public class ArcanusModelProvider extends SparkweaveModelProvider {
 
 	public ArcanusModelProvider(FabricDataOutput output) {
 		super(output);
@@ -43,8 +35,8 @@ public class ArcanusModelProvider extends FabricModelProvider {
 		gen.generateFlatItem(ArcanusItems.SPELL_BOOK.get(), ModelTemplates.FLAT_ITEM);
 		gen.generateFlatItem(ArcanusItems.SCROLL_OF_KNOWLEDGE.get(), ModelTemplates.FLAT_ITEM);
 
-		gen.generateFlatItem(ArcanusItems.WIZARD_SPAWN_EGG.get(), SPAWN_EGG_TEMPLATE);
-		gen.generateFlatItem(ArcanusItems.OPOSSUM_SPAWN_EGG.get(), SPAWN_EGG_TEMPLATE);
+		gen.createSpawnEgg(ArcanusItems.WIZARD_SPAWN_EGG);
+		gen.createSpawnEgg(ArcanusItems.OPOSSUM_SPAWN_EGG);
 
 		var wizardHatModel = ModelLocationUtils.getModelLocation(ArcanusItems.WIZARD_HAT.get());
 		var wizardHatTexture = TextureMapping.getItemTexture(ArcanusItems.WIZARD_HAT.get());
@@ -54,10 +46,5 @@ public class ArcanusModelProvider extends FabricModelProvider {
 		gen.generateLayeredItem(wizardRobesModel, wizardRobesTexture, wizardRobesTexture.withSuffix("_trim"));
 		gen.generateFlatItem(ArcanusItems.WIZARD_PANTS.get(), ModelTemplates.FLAT_ITEM);
 		gen.generateFlatItem(ArcanusItems.WIZARD_BOOTS.get(), ModelTemplates.FLAT_ITEM);
-	}
-
-	public final void copyModelNoItem(BlockModelGenerators gen, Block sourceBlock, Block targetBlock) {
-		ResourceLocation resourceLocation = ModelLocationUtils.getModelLocation(sourceBlock);
-		gen.blockStateOutput.accept(MultiVariantGenerator.multiVariant(targetBlock, Variant.variant().with(VariantProperties.MODEL, resourceLocation)));
 	}
 }

@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.datagen.common;
 
 import dev.cammiescorner.arcanuscontinuum.common.data.ArcanusBiomes;
-import dev.cammiescorner.arcanuscontinuum.common.util.datagen.DynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.DynamicRegistryEntryProvider;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.biome.Biome;

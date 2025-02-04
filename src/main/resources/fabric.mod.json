@@ -80,12 +80,6 @@
       ],
       "net/minecraft/class_1309": [
         "dev/cammiescorner/arcanuscontinuum/api/entities/Targetable"
-      ],
-      "net/minecraft/class_161\u0024class_162": [
-        "dev/cammiescorner/arcanuscontinuum/common/util/ext/AdvancementBuilderExt"
-      ],
-      "net/minecraft/class_7877": [
-        "dev/cammiescorner/arcanuscontinuum/common/util/ext/RegistrySetBuilderExt"
       ]
     }
   },
@@ -118,7 +112,7 @@
     "minecraft": "=${minecraft_version}",
     "java": ">=${java_version}",
     "fabric-api": "*",
-    "sparkweave": ">=0.7.0 <0.100.0",
+    "sparkweave": ">=0.8.3 <0.100.0",
     "resourcefulconfig": "*",
     "cardinal-components-base": "*",
     "cardinal-components-block": "*",
