@@ -29,7 +29,7 @@ public class WizardLevelCriterion extends SimpleCriterionTrigger<WizardLevelCrit
 
 	public static class TriggerInstance extends AbstractCriterionTriggerInstance {
 
-		private int level;
+		private final int level;
 
 		public TriggerInstance(ContextAwarePredicate player, int level) {
 			super(ID, player);
@@ -40,6 +40,7 @@ public class WizardLevelCriterion extends SimpleCriterionTrigger<WizardLevelCrit
 			return new TriggerInstance(ContextAwarePredicate.ANY, level);
 		}
 
+		@Override
 		public JsonObject serializeToJson(SerializationContext context) {
 			JsonObject json = super.serializeToJson(context);
 			json.addProperty("level", level);
