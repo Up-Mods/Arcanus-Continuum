@@ -13,6 +13,7 @@ fabric_api = "0.92.3+1.20.1"
 cca = "5.2.3"
 sparkweave = "0.8.4"
 patchouli = "1.20.1-84-FABRIC"
+modonomicon = "1.77.5"
 reach_attr = "2.4.0"
 modmenu = "7.2.2"
 emi = "1.1.18+1.20.1"
@@ -42,6 +43,7 @@ cca_entity = { module = "dev.onyxstudios.cardinal-components-api:cardinal-compon
 cca_scoreboard = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-scoreboard", version.ref = "cca" }
 sparkweave = { module = "dev.upcraft.sparkweave:Sparkweave-Fabric", version.ref = "sparkweave" }
 patchouli = { module = "vazkii.patchouli:Patchouli", version.ref = "patchouli" }
+modonomicon = { module = "com.klikli_dev:modonomicon-1.20.1-fabric", version.ref = "modonomicon" }
 reach_attr = { module = "com.jamieswhiteshirt:reach-entity-attributes", version.ref = "reach_attr" }
 datasync_fabric = { module = "dev.upcraft.datasync:datasync-minecraft-1.20.1-fabric", version.ref = "datasync" }
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }

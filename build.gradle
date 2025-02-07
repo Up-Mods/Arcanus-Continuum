@@ -53,6 +53,12 @@ repositories {
 		url = "https://nexus.resourcefulbees.com/repository/maven-public/"
 	}
 	maven {
+		url = "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
+		content {
+			includeGroup "com.klikli_dev"
+		}
+	}
+	maven {
 		name = "Modrinth"
 		url = "https://api.modrinth.com/maven"
 		content {
@@ -99,6 +105,10 @@ dependencies {
 
 	modCompileOnly libs.patchouli
 	modLocalRuntime libs.patchouli
+
+	modImplementation (libs.modonomicon) {
+		transitive = false
+	}
 
 	modImplementation libs.trinkets
 
