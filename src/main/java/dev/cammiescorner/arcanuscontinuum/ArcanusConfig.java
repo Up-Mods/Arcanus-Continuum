@@ -5,25 +5,27 @@ import com.teamresourceful.resourcefulconfig.common.config.EntryType;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Weight;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
+import static dev.cammiescorner.arcanuscontinuum.common.util.TranslationKeys.*;
+
 @Config(Arcanus.MOD_ID)
 public final class ArcanusConfig {
-	@ConfigEntry(id = "castingSpeedHasCoolDown", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.castingSpeedHasCoolDown")
+	@ConfigEntry(id = "castingSpeedHasCoolDown", type = EntryType.BOOLEAN, translation = CONFIG_CASTING_HAS_SPEED_LIMIT)
 	public static boolean castingSpeedHasCoolDown = false;
 
-	@ConfigEntry(id = "sizeChangingIsPermanent", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.sizeChangingIsPermanent")
+	@ConfigEntry(id = "sizeChangingIsPermanent", type = EntryType.BOOLEAN, translation = CONFIG_SIZE_CHANGE_IS_PERMA)
 	public static boolean sizeChangingIsPermanent = false;
 
-	@Category(id = "enchantments", translation = "config.arcanuscontinuum.enchantments_category", sortOrder = -1)
+	@Category(id = "enchantments", translation = CONFIG_ENCHANTS_CATEGORY, sortOrder = -1)
 	public static final class Enchantments {
-		@Category(id = "manaPool", translation = "config.arcanuscontinuum.mana_pool", sortOrder = 0)
+		@Category(id = "manaPool", translation = CONFIG_MANA_POOL_PROPERTIES, sortOrder = 0)
 		public static final class ManaPool {
-			@ConfigEntry(id = "maxEnchantmentLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.max_enchantment_level")
+			@ConfigEntry(id = "maxEnchantmentLevel", type = EntryType.INTEGER, translation = CONFIG_MAX_ENCHANT_LEVEL)
 			public static int maxLevel = 5;
 
-			@ConfigEntry(id = "manaPerLevel", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.mana_per_level")
+			@ConfigEntry(id = "manaPerLevel", type = EntryType.DOUBLE, translation = CONFIG_EXTRA_MANA_PER_LEVEL)
 			public static double manaPerLevel = 0.05;
 
-			@ConfigEntry(id = "manaModifierOperation", type = EntryType.ENUM, translation = "config.arcanuscontinuum.mana_modifier_operation")
+			@ConfigEntry(id = "manaModifierOperation", type = EntryType.ENUM, translation = CONFIG_MANA_MODIFIER_OP)
 			public static AttributeModifier.Operation manaModifierOperation = AttributeModifier.Operation.MULTIPLY_BASE;
 		}
 	}
@@ -32,91 +34,91 @@ public final class ArcanusConfig {
 	public static final class SpellShapes {
 		@Category(id = "selfShapeProperties", translation = "config.arcanuscontinuum.selfShapeProperties", sortOrder = 0)
 		public static final class SelfShapeProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_LIGHT;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
-			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaMultiplier")
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = CONFIG_MANA_MULTIPLIER)
 			public static double manaMultiplier = 0.85;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 10;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 0, max = 10)
 			public static int minimumLevel = 1;
 
-			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "touchShapeProperties", translation = "config.arcanuscontinuum.touchShapeProperties", sortOrder = 1)
 		public static final class TouchShapeProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_LIGHT;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
-			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaMultiplier")
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = CONFIG_MANA_MULTIPLIER)
 			public static double manaMultiplier = 1;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 15;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 0, max = 10)
 			public static int minimumLevel = 1;
 
-			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0.2;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "missileShapeProperties", translation = "config.arcanuscontinuum.missileShapeProperties", sortOrder = 2)
 		public static final class MissileShapeProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.LIGHT;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
-			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaMultiplier")
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = CONFIG_MANA_MULTIPLIER)
 			public static double manaMultiplier = 1;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 10;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 0, max = 10)
 			public static int minimumLevel = 3;
 
-			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "projectileSpeed", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.projectileSpeed")
@@ -129,31 +131,31 @@ public final class ArcanusConfig {
 
 		@Category(id = "lobShapeProperties", translation = "config.arcanuscontinuum.lobShapeProperties", sortOrder = 3)
 		public static final class LobShapeProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.LIGHT;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
-			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaMultiplier")
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = CONFIG_MANA_MULTIPLIER)
 			public static double manaMultiplier = 1;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 20;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 0, max = 10)
 			public static int minimumLevel = 3;
 
-			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "projectileSpeed", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.projectileSpeed")
@@ -162,31 +164,31 @@ public final class ArcanusConfig {
 
 		@Category(id = "boltShapeProperties", translation = "config.arcanuscontinuum.boltShapeProperties", sortOrder = 4)
 		public static final class BoltShapeProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.MEDIUM;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
-			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaMultiplier")
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = CONFIG_MANA_MULTIPLIER)
 			public static double manaMultiplier = 1;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 15;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 0, max = 10)
 			public static int minimumLevel = 5;
 
-			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "range", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.range")
@@ -196,31 +198,31 @@ public final class ArcanusConfig {
 
 		@Category(id = "beamShapeProperties", translation = "config.arcanuscontinuum.beamShapeProperties", sortOrder = 5)
 		public static final class BeamShapeProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.MEDIUM;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
-			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaMultiplier")
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = CONFIG_MANA_MULTIPLIER)
 			public static double manaMultiplier = 1.25;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 30;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 0, max = 10)
 			public static int minimumLevel = 5;
 
-			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0.25;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "range", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.range")
@@ -234,31 +236,31 @@ public final class ArcanusConfig {
 
 		@Category(id = "runeShapeProperties", translation = "config.arcanuscontinuum.runeShapeProperties", sortOrder = 6)
 		public static final class RuneShapeProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.HEAVY;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
-			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaMultiplier")
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = CONFIG_MANA_MULTIPLIER)
 			public static double manaMultiplier = 1;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 50;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 0, max = 10)
 			public static int minimumLevel = 7;
 
-			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
 			@ConfigEntry(id = "delay", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.delay")
@@ -268,31 +270,31 @@ public final class ArcanusConfig {
 
 		@Category(id = "burstShapeProperties", translation = "config.arcanuscontinuum.burstShapeProperties", sortOrder = 7)
 		public static final class BurstShapeProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_HEAVY;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
-			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaMultiplier")
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = CONFIG_MANA_MULTIPLIER)
 			public static double manaMultiplier = 1.25;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 60;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 0, max = 10)
 			public static int minimumLevel = 7;
 
-			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
 			@ConfigEntry(id = "radius", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.burstShape.radius")
@@ -302,61 +304,61 @@ public final class ArcanusConfig {
 		// TODO uncomment this when we have guided shot done & set enabled to true
 //		@Category(id = "guidedShotShapeProperties", translation = "config.arcanuscontinuum.guidedShotShapeProperties")
 		public static final class GuidedShotShapeProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = false;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.MEDIUM;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
-			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaMultiplier")
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = CONFIG_MANA_MULTIPLIER)
 			public static double manaMultiplier = 1;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 100;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 0, max = 10)
 			public static int minimumLevel = 7;
 
-			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "counterShapeProperties", translation = "config.arcanuscontinuum.counterShapeProperties", sortOrder = 8)
 		public static final class CounterShapeProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.HEAVY;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
-			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaMultiplier")
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = CONFIG_MANA_MULTIPLIER)
 			public static double manaMultiplier = 1.2;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 300;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 0, max = 10)
 			public static int minimumLevel = 7;
 
-			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -366,31 +368,31 @@ public final class ArcanusConfig {
 
 		@Category(id = "aoeShapeProperties", translation = "config.arcanuscontinuum.aoeShapeProperties", sortOrder = 9)
 		public static final class AOEShapeProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_HEAVY;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
-			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaMultiplier")
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = CONFIG_MANA_MULTIPLIER)
 			public static double manaMultiplier = 4;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 60;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 0, max = 10)
 			public static int minimumLevel = 9;
 
-			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
 			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseLifeSpan")
@@ -406,61 +408,61 @@ public final class ArcanusConfig {
 
 		@Category(id = "smiteShapeProperties", translation = "config.arcanuscontinuum.smiteShapeProperties", sortOrder = 10)
 		public static final class SmiteShapeProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_HEAVY;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
-			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaMultiplier")
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = CONFIG_MANA_MULTIPLIER)
 			public static double manaMultiplier = 1.75;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 60;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 0, max = 10)
 			public static int minimumLevel = 9;
 
-			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0.5;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "entangledOrbShapeProperties", translation = "config.arcanuscontinuum.entangledOrbShapeProperties", sortOrder = 11)
 		public static final class EntangledOrbShapeProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_HEAVY;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
-			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaMultiplier")
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = CONFIG_MANA_MULTIPLIER)
 			public static double manaMultiplier = 1.5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 100;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 0, max = 10)
 			public static int minimumLevel = 10;
 
-			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
 			@ConfigEntry(id = "maximumManaLock", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.maximumManaLock")
@@ -474,31 +476,31 @@ public final class ArcanusConfig {
 
 		@Category(id = "aggressorbShapeProperties", translation = "config.arcanuscontinuum.aggressorbShapeProperties", sortOrder = 12)
 		public static final class AggressorbShapeProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_HEAVY;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 0;
 
-			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaMultiplier")
+			@ConfigEntry(id = "manaMultiplier", type = EntryType.DOUBLE, translation = CONFIG_MANA_MULTIPLIER)
 			public static double manaMultiplier = 0.8;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 200;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 0, max = 10)
 			public static int minimumLevel = 10;
 
-			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.potencyModifier")
+			@ConfigEntry(id = "potencyModifier", type = EntryType.DOUBLE, translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "maximumAggressorbs", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.maximumAggressorbs")
@@ -518,25 +520,25 @@ public final class ArcanusConfig {
 	public static final class AttackEffects {
 		@Category(id = "damageEffectProperties", translation = "config.arcanuscontinuum.damageEffectProperties", sortOrder = 0)
 		public static final class DamageEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 4;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 1;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseDamage", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.baseDamage")
@@ -546,25 +548,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "fireEffectProperties", translation = "config.arcanuscontinuum.fireEffectProperties", sortOrder = 1)
 		public static final class FireEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 2;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 2;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseTimeOnFire", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseTimeOnFire")
@@ -574,25 +576,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "electricEffectProperties", translation = "config.arcanuscontinuum.electricEffectProperties", sortOrder = 2)
 		public static final class ElectricEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 2;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 2;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseStunTime", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseStunTime")
@@ -606,25 +608,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "iceEffectProperties", translation = "config.arcanuscontinuum.iceEffectProperties", sortOrder = 3)
 		public static final class IceEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 2;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 2;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseFreezingTime", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseFreezingTime")
@@ -634,25 +636,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "vulnerabilityEffectProperties", translation = "config.arcanuscontinuum.vulnerabilityEffectProperties", sortOrder = 4)
 		public static final class VulnerabilityEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 5;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -662,25 +664,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "manaLockEffectProperties", translation = "config.arcanuscontinuum.manaLockEffectProperties", sortOrder = 5)
 		public static final class ManaLockEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 8;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 9;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -690,25 +692,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "witheringEffectProperties", translation = "config.arcanuscontinuum.witheringEffectProperties", sortOrder = 6)
 		public static final class WitheringEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 6.5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 7;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -718,25 +720,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "necromancyEffectProperties", translation = "config.arcanuscontinuum.necromancyEffectProperties", sortOrder = 7)
 		public static final class NecromancyEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 8;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 9;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
 			@ConfigEntry(id = "baseHealth", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseHealth")
@@ -746,49 +748,49 @@ public final class ArcanusConfig {
 
 		@Category(id = "manaSplitEffectProperties", translation = "config.arcanuscontinuum.manaSplitEffectProperties", sortOrder = 8)
 		public static final class ManaSplitEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 6.5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 6;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "copperCurseEffectProperties", translation = "config.arcanuscontinuum.copperCurseEffectProperties", sortOrder = 9)
 		public static final class CopperCurseEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 8;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 8;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -806,25 +808,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "discombobulateEffectProperties", translation = "config.arcanuscontinuum.discombobulateEffectProperties", sortOrder = 10)
 		public static final class DiscombobulateEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 6;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 5;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -838,25 +840,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "stockpileEffectProperties", translation = "config.arcanuscontinuum.stockpileEffectProperties", sortOrder = 11)
 		public static final class StockpileEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 4.5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 6;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -877,25 +879,25 @@ public final class ArcanusConfig {
 	public static final class SupportEffects {
 		@Category(id = "healEffectProperties", translation = "config.arcanuscontinuum.healEffectProperties", sortOrder = 0)
 		public static final class HealEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 1;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseHealAmount", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.baseHealAmount")
@@ -905,49 +907,49 @@ public final class ArcanusConfig {
 
 		@Category(id = "dispelEffectProperties", translation = "config.arcanuscontinuum.dispelEffectProperties", sortOrder = 1)
 		public static final class DispelEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 6;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "regenerateEffectProperties", translation = "config.arcanuscontinuum.regenerateEffectProperties", sortOrder = 2)
 		public static final class RegenerateEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 6;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 7;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -957,25 +959,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "fortifyEffectProperties", translation = "config.arcanuscontinuum.fortifyEffectProperties", sortOrder = 3)
 		public static final class FortifyEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 6.5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 5;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -985,25 +987,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "hasteEffectProperties", translation = "config.arcanuscontinuum.hasteEffectProperties", sortOrder = 4)
 		public static final class HasteEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 7;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 4;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -1013,25 +1015,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "manaShieldEffectProperties", translation = "config.arcanuscontinuum.manaShieldEffectProperties", sortOrder = 5)
 		public static final class ManaShieldEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 8;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 10;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
 			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseLifeSpan")
@@ -1045,25 +1047,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "dangerSenseEffectProperties", translation = "config.arcanuscontinuum.dangerSenseEffectProperties", sortOrder = 6)
 		public static final class DangerSenseEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 8;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -1077,25 +1079,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "temporalDilationEffectProperties", translation = "config.arcanuscontinuum.temporalDilationEffectProperties", sortOrder = 7)
 		public static final class TemporalDilationEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 8;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 10;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 		}
 	}
@@ -1104,25 +1106,25 @@ public final class ArcanusConfig {
 	public static final class UtilityEffects {
 		@Category(id = "buildEffectProperties", translation = "config.arcanuscontinuum.buildEffectProperties", sortOrder = 0)
 		public static final class BuildEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 7;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseLifeSpan", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseLifeSpan")
@@ -1132,25 +1134,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "powerEffectProperties", translation = "config.arcanuscontinuum.powerEffectProperties", sortOrder = 1)
 		public static final class PowerEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 2;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 4;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "basePower", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.basePower")
@@ -1160,25 +1162,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "anonymityEffectProperties", translation = "config.arcanuscontinuum.anonymityEffectProperties", sortOrder = 2)
 		public static final class AnonymityEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 5;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -1188,73 +1190,73 @@ public final class ArcanusConfig {
 
 		@Category(id = "mineEffectProperties", translation = "config.arcanuscontinuum.mineEffectProperties", sortOrder = 3)
 		public static final class MineEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 7;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 4;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "growthEffectProperties", translation = "config.arcanuscontinuum.growthEffectProperties", sortOrder = 4)
 		public static final class GrowthEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 6;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 4;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 		}
 
 		@Category(id = "shrinkEffectProperties", translation = "config.arcanuscontinuum.shrinkEffectProperties", sortOrder = 5)
 		public static final class ShrinkEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 2.5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 9;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseShrinkAmount", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.baseShrinkAmount")
@@ -1268,25 +1270,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "enlargeEffectProperties", translation = "config.arcanuscontinuum.enlargeEffectProperties", sortOrder = 6)
 		public static final class EnlargeEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 2.5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 9;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEnlargeAmount", type = EntryType.FLOAT, translation = "config.arcanuscontinuum.baseEnlargeAmount")
@@ -1300,25 +1302,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "spatialRiftEffectProperties", translation = "config.arcanuscontinuum.spatialRiftEffectProperties", sortOrder = 7)
 		public static final class SpatialRiftEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 10;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 7;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
 			@ConfigEntry(id = "canSuckEntitiesIn", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.canSuckEntitiesIn")
@@ -1345,25 +1347,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "wardingEffectProperties", translation = "config.arcanuscontinuum.wardingEffectProperties", sortOrder = 8)
 		public static final class WardingEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 4;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 6;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "canBeRemovedByOthers", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.canBeRemovedByOthers")
@@ -1375,25 +1377,25 @@ public final class ArcanusConfig {
 	public static final class MovementEffects {
 		@Category(id = "pushEffectProperties", translation = "config.arcanuscontinuum.pushEffectProperties", sortOrder = 0)
 		public static final class PushEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 1;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 3;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "basePushAmount", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.basePushAmount")
@@ -1403,25 +1405,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "pullEffectProperties", translation = "config.arcanuscontinuum.pullEffectProperties", sortOrder = 1)
 		public static final class PullEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 1;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 3;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "basePullAmount", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.basePullAmount")
@@ -1431,25 +1433,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "levitateEffectProperties", translation = "config.arcanuscontinuum.levitateEffectProperties", sortOrder = 2)
 		public static final class LevitateEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 3;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 6;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -1459,25 +1461,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "speedEffectProperties", translation = "config.arcanuscontinuum.speedEffectProperties", sortOrder = 3)
 		public static final class SpeedEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 7;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 8;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -1487,25 +1489,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "teleportEffectProperties", translation = "config.arcanuscontinuum.teleportEffectProperties", sortOrder = 4)
 		public static final class TeleportEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 7.5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 10;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
 			@ConfigEntry(id = "baseTeleportDistance", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.baseTeleportDistance")
@@ -1515,25 +1517,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "bouncyEffectProperties", translation = "config.arcanuscontinuum.bouncyEffectProperties", sortOrder = 5)
 		public static final class BouncyEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 8;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -1543,25 +1545,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "featherEffectProperties", translation = "config.arcanuscontinuum.featherEffectProperties", sortOrder = 6)
 		public static final class FeatherEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 8;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.baseEffectDuration")
@@ -1571,25 +1573,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "floatEffectProperties", translation = "config.arcanuscontinuum.floatEffectProperties", sortOrder = 7)
 		public static final class FloatEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 10;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 5;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "removedUponTakingDamage", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.removedUponTakingDamage")
@@ -1602,25 +1604,25 @@ public final class ArcanusConfig {
 
 		@Category(id = "manaWingsEffectProperties", translation = "config.arcanuscontinuum.manaWingsEffectProperties", sortOrder = 8)
 		public static final class ManaWingsEffectProperties {
-			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.enabled")
+			@ConfigEntry(id = "enabled", type = EntryType.BOOLEAN, translation = CONFIG_ENABLED)
 			public static boolean enabled = false;
 
-			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = "config.arcanuscontinuum.weight")
+			@ConfigEntry(id = "weight", type = EntryType.ENUM, translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = "config.arcanuscontinuum.manaCost")
+			@ConfigEntry(id = "manaCost", type = EntryType.DOUBLE, translation = CONFIG_MANA_COST)
 			@DoubleRange(min = 0, max = 200)
 			public static double manaCost = 8.5;
 
-			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.coolDown")
+			@ConfigEntry(id = "coolDown", type = EntryType.INTEGER, translation = CONFIG_COOL_DOWN)
 			@IntRange(min = 0, max = 24000)
 			public static int coolDown = 0;
 
-			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = "config.arcanuscontinuum.minimumLevel")
+			@ConfigEntry(id = "minimumLevel", type = EntryType.INTEGER, translation = CONFIG_MIN_LEVEL)
 			@IntRange(min = 1, max = 10)
 			public static int minimumLevel = 10;
 
-			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.procsOnce")
+			@ConfigEntry(id = "procsOnce", type = EntryType.BOOLEAN, translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "removedUponTakingDamage", type = EntryType.BOOLEAN, translation = "config.arcanuscontinuum.removedUponTakingDamage")
