@@ -40,7 +40,7 @@ public class AggressorbSpellShape extends SpellShape {
 
 		if(sourceEntity instanceof LivingEntity target) {
 			for(int i = 0; i < ArcanusConfig.SpellShapes.AggressorbShapeProperties.aggressorbsPerCast; i++) {
-				if(ArcanusComponents.aggressorbCount(target) < ArcanusConfig.SpellShapes.AggressorbShapeProperties.maximumAggressorbs) {
+				if(ArcanusComponents.aggressorbCount(target) >= ArcanusConfig.SpellShapes.AggressorbShapeProperties.maximumAggressorbs) {
 					if(caster instanceof Player player)
 						player.sendSystemMessage(Component.translatable("text.arcanuscontinuum.too_many_orbs").withStyle(ChatFormatting.RED));
 
