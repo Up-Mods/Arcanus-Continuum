@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
@@ -36,16 +37,24 @@ public class SyncExplosionParticlesPacket {
 		double x = buf.readDouble();
 		double y = buf.readDouble();
 		double z = buf.readDouble();
+
 		float strength = buf.readFloat();
 		boolean didDestroyBlocks = buf.readBoolean();
 
-		client.execute(() -> {
-			Level world = client.level;
+		client.execute(() -> explode(client, x, y, z, strength, didDestroyBlocks));
+	}
 
-			if(ArcanusCompat.EXPLOSIVE_ENHANCEMENT.isEnabled())
-				ExplosiveEnhancementCompat.spawnEnhancedBooms(world, x, y, z, strength, didDestroyBlocks);
-			else
-				world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1, 1, 1);
-		});
+	/**
+	 * this needs to be a separate method, because a capturing lambda
+	 * would try to load {@link ClientLevel} on the server...
+	 */
+	@Environment(EnvType.CLIENT)
+	private static void explode(Minecraft client, double x, double y, double z, float strength, boolean didDestroyBlocks) {
+		Level world = client.level;
+
+		if(ArcanusCompat.EXPLOSIVE_ENHANCEMENT.isEnabled())
+			ExplosiveEnhancementCompat.spawnEnhancedBooms(world, x, y, z, strength, didDestroyBlocks);
+		else
+			world.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1, 1, 1);
 	}
 }
