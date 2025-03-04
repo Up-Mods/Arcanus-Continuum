@@ -33,7 +33,6 @@ public class ArcanusTradeOffers {
 			new SellItemFactory(ArcanusItems.DIVINATION_STAFF.get(), 5, 1, 100, 3),
 			new SellItemFactory(ArcanusItems.CRESCENT_STAFF.get(), 5, 1, 100, 3),
 			new SellItemFactory(ArcanusItems.ANCIENT_STAFF.get(), 5, 1, 100, 3),
-			new SellItemFactory(ArcanusItems.MAGIC_TOME.get(), 5, 1, 100, 3),
 			new SellItemFactory(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.INVISIBILITY), 10, 100, 5),
 			new SellItemFactory(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.NIGHT_VISION), 10, 100, 5),
 			new SellItemFactory(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.LEAPING), 10, 100, 5),
