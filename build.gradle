@@ -58,17 +58,25 @@ repositories {
 			includeGroup "com.klikli_dev"
 		}
 	}
-	maven {
-		name = "Modrinth"
-		url = "https://api.modrinth.com/maven"
-		content {
+	exclusiveContent {
+		forRepository {
+			maven {
+				name = "Modrinth"
+				url = "https://api.modrinth.com/maven"
+			}
+		}
+		filter {
 			includeGroup "maven.modrinth"
 		}
 	}
-	maven {
-		name = "CurseMaven"
-		url = "https://cursemaven.com"
-		content {
+	exclusiveContent {
+		forRepository {
+			maven {
+				name = "CurseMaven"
+				url = "https://cursemaven.com"
+			}
+		}
+		filter {
 			includeGroup "curse.maven"
 		}
 	}
