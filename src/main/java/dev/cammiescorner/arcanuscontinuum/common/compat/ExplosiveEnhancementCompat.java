@@ -9,13 +9,15 @@ import net.superkat.explosiveenhancement.api.ExplosiveApi;
 
 public class ExplosiveEnhancementCompat {
 	public static void spawnEnhancedBooms(Level world, double x, double y, double z, float power, boolean didDestroyBlocks) {
+
+
 		boolean isUnderWater = false;
 		BlockPos pos = BlockPos.containing(x, y, z);
 
-		if(ExplosiveEnhancementClient.config.underwaterExplosions && world.getFluidState(pos).is(FluidTags.WATER)) {
+		if(ExplosiveEnhancementClient.CONFIG.underwaterExplosions && world.getFluidState(pos).is(FluidTags.WATER)) {
 			isUnderWater = true;
 
-			if(ExplosiveEnhancementClient.config.debugLogs)
+			if(ExplosiveEnhancementClient.CONFIG.debugLogs)
 				ExplosiveEnhancement.LOGGER.info("particle is underwater!");
 		}
 
