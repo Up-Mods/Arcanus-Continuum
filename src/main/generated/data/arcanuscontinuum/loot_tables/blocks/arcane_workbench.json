@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "arcanuscontinuum:arcane_workbench"
+          "name": "arcanus:arcane_workbench"
         }
       ],
       "rolls": 1.0

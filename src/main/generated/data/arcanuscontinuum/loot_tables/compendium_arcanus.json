@@ -9,7 +9,7 @@
           "functions": [
             {
               "function": "minecraft:set_nbt",
-              "tag": "{\"patchouli:book\":\"arcanuscontinuum:compendium_arcanus\"}"
+              "tag": "{\"patchouli:book\":\"arcanus:compendium_arcanus\"}"
             }
           ],
           "name": "patchouli:guide_book"

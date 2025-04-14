@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "arcanuscontinuum:block/magic_block"
+    "all": "arcanus:block/magic_block"
   }
 }

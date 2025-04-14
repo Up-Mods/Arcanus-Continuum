@@ -9,16 +9,16 @@
     "announce_to_chat": false,
     "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
     "description": {
-      "translate": "advancements.arcanuscontinuum.arcane.root.description"
+      "translate": "advancements.arcanus.arcane.root.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "arcanuscontinuum:crystal_staff"
+      "item": "arcanus:crystal_staff"
     },
     "show_toast": false,
     "title": {
-      "translate": "advancements.arcanuscontinuum.arcane.root.title"
+      "translate": "advancements.arcanus.arcane.root.title"
     }
   },
   "requirements": [

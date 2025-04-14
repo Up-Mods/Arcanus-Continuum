@@ -1,0 +1,25 @@
+package dev.cammiescorner.arcanus.mixin.common;
+
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import dev.cammiescorner.arcanus.common.entities.magic.Missile;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.level.Level;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+
+@Mixin(AbstractArrow.class)
+public abstract class AbstractArrowMixin extends Projectile {
+	public AbstractArrowMixin(EntityType<? extends Projectile> entityType, Level world) {
+		super(entityType, world);
+	}
+
+	@ModifyExpressionValue(method = "tick", at = @At(
+		value = "INVOKE",
+		target = "Lnet/minecraft/world/entity/player/Player;canHarmPlayer(Lnet/minecraft/world/entity/player/Player;)Z"
+	))
+	private boolean ignorePvpFlag(boolean original) {
+		return original || ((Object) this) instanceof Missile;
+	}
+}

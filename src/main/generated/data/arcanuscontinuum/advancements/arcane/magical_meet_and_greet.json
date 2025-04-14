@@ -1,5 +1,5 @@
 {
-  "parent": "arcanuscontinuum:arcane/a_magical_crystal",
+  "parent": "arcanus:arcane/a_magical_crystal",
   "criteria": {
     "discovered_wizard_tower": {
       "conditions": {
@@ -9,7 +9,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "structure": "arcanuscontinuum:wizard_tower"
+                "structure": "arcanus:wizard_tower"
               }
             }
           }
@@ -21,17 +21,17 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.arcanuscontinuum.arcane.magical_meet_and_greet.description"
+      "translate": "advancements.arcanus.arcane.magical_meet_and_greet.description"
     },
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "arcanuscontinuum:wizard_hat",
+      "item": "arcanus:wizard_hat",
       "nbt": "{Damage:0}"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.arcanuscontinuum.arcane.magical_meet_and_greet.title"
+      "translate": "advancements.arcanus.arcane.magical_meet_and_greet.title"
     }
   },
   "requirements": [

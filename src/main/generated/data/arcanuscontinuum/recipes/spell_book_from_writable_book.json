@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "group": "arcanuscontinuum:spell_book",
+  "group": "arcanus:spell_book",
   "ingredients": [
     {
       "item": "minecraft:writable_book"
@@ -11,6 +11,6 @@
     }
   ],
   "result": {
-    "item": "arcanuscontinuum:spell_book"
+    "item": "arcanus:spell_book"
   }
 }

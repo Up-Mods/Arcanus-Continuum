@@ -7,9 +7,9 @@
     "item": "minecraft:diamond_leggings"
   },
   "result": {
-    "item": "arcanuscontinuum:battle_mage_leggings"
+    "item": "arcanus:battle_mage_leggings"
   },
   "template": {
-    "item": "arcanuscontinuum:battle_mage_upgrade_smithing_template"
+    "item": "arcanus:battle_mage_upgrade_smithing_template"
   }
 }

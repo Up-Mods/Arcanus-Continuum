@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "arcanuscontinuum:wizard_boots"
+        "recipe": "arcanus:wizard_boots"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "arcanuscontinuum:wizard_boots"
+      "arcanus:wizard_boots"
     ]
   },
   "sends_telemetry_event": false

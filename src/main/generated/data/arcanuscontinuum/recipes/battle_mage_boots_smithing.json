@@ -7,9 +7,9 @@
     "item": "minecraft:diamond_boots"
   },
   "result": {
-    "item": "arcanuscontinuum:battle_mage_boots"
+    "item": "arcanus:battle_mage_boots"
   },
   "template": {
-    "item": "arcanuscontinuum:battle_mage_upgrade_smithing_template"
+    "item": "arcanus:battle_mage_upgrade_smithing_template"
   }
 }

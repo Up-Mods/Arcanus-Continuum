@@ -12,7 +12,7 @@
   ],
   "rewards": {
     "loot": [
-      "arcanuscontinuum:compendium_arcanus"
+      "arcanus:compendium_arcanus"
     ]
   },
   "sends_telemetry_event": false

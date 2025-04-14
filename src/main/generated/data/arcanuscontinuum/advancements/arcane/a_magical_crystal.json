@@ -1,5 +1,5 @@
 {
-  "parent": "arcanuscontinuum:arcane/root",
+  "parent": "arcanus:arcane/root",
   "criteria": {
     "has_amethyst": {
       "conditions": {
@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.arcanuscontinuum.arcane.a_magical_crystal.description"
+      "translate": "advancements.arcanus.arcane.a_magical_crystal.description"
     },
     "frame": "goal",
     "hidden": false,
@@ -26,7 +26,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.arcanuscontinuum.arcane.a_magical_crystal.title"
+      "translate": "advancements.arcanus.arcane.a_magical_crystal.title"
     }
   },
   "requirements": [

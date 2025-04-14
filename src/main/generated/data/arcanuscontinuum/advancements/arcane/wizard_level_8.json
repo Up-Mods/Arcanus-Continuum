@@ -1,26 +1,26 @@
 {
-  "parent": "arcanuscontinuum:arcane/wizard_level_7",
+  "parent": "arcanus:arcane/wizard_level_7",
   "criteria": {
     "has_level_8": {
       "conditions": {
         "level": 8
       },
-      "trigger": "arcanuscontinuum:wizard_level"
+      "trigger": "arcanus:wizard_level"
     }
   },
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancements.arcanuscontinuum.arcane.wizard_level_8.description"
+      "translate": "advancements.arcanus.arcane.wizard_level_8.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "arcanuscontinuum:scroll_of_knowledge"
+      "item": "arcanus:scroll_of_knowledge"
     },
     "show_toast": false,
     "title": {
-      "translate": "advancements.arcanuscontinuum.arcane.wizard_level_8.title"
+      "translate": "advancements.arcanus.arcane.wizard_level_8.title"
     }
   },
   "requirements": [

@@ -1,13 +1,13 @@
 {
   "replace": false,
   "values": [
-    "arcanuscontinuum:aggressorb",
-    "arcanuscontinuum:area_of_effect",
-    "arcanuscontinuum:entangled_orb",
-    "arcanuscontinuum:magic_rune",
-    "arcanuscontinuum:mana_shield",
-    "arcanuscontinuum:necro_skeleton",
-    "arcanuscontinuum:pocket_dimension_portal",
-    "arcanuscontinuum:temporal_dilation_field"
+    "arcanus:aggressorb",
+    "arcanus:area_of_effect",
+    "arcanus:entangled_orb",
+    "arcanus:magic_rune",
+    "arcanus:mana_shield",
+    "arcanus:necro_skeleton",
+    "arcanus:pocket_dimension_portal",
+    "arcanus:temporal_dilation_field"
   ]
 }

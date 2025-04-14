@@ -1,26 +1,26 @@
 {
-  "parent": "arcanuscontinuum:arcane/wizard_level_3",
+  "parent": "arcanus:arcane/wizard_level_3",
   "criteria": {
     "has_level_4": {
       "conditions": {
         "level": 4
       },
-      "trigger": "arcanuscontinuum:wizard_level"
+      "trigger": "arcanus:wizard_level"
     }
   },
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancements.arcanuscontinuum.arcane.wizard_level_4.description"
+      "translate": "advancements.arcanus.arcane.wizard_level_4.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "arcanuscontinuum:scroll_of_knowledge"
+      "item": "arcanus:scroll_of_knowledge"
     },
     "show_toast": false,
     "title": {
-      "translate": "advancements.arcanuscontinuum.arcane.wizard_level_4.title"
+      "translate": "advancements.arcanus.arcane.wizard_level_4.title"
     }
   },
   "requirements": [

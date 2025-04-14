@@ -8,10 +8,7 @@ def ENV = System.getenv()
 def NOW = new Date()
 def buildTime = ENV.BUILD_TIME ?: NOW.format('yy.MMdd.HHmm')
 
-def javaVersion = 17
-
-// TODO increment when updating the compendium
-def book_version = 3
+def javaVersion = 21
 
 group = maven_group_id
 
@@ -111,19 +108,9 @@ dependencies {
 
 	modImplementation libs.bundles.cca
 
-	modCompileOnly libs.patchouli
-	modLocalRuntime libs.patchouli
-
-	modImplementation (libs.modonomicon) {
-		transitive = false
-	}
-
 	modImplementation libs.trinkets
 
 	modImplementation libs.resourceful.config
-
-	modImplementation libs.reach.attr
-	include libs.reach.attr
 
 	modImplementation libs.datasync.fabric
 	include libs.datasync.fabric
@@ -139,14 +126,6 @@ dependencies {
 	modCompileOnly libs.iris
 	modLocalRuntime libs.iris
 
-	// explosive enhancement
-	modCompileOnly libs.explosive.enhancement
-//	modLocalRuntime libs.explosive.enhancement
-
-	// pehkui
-	modCompileOnly libs.pehkui
-	modLocalRuntime libs.bundles.pehkui.runtime
-
 	// lambdynamiclights
 	modCompileOnly libs.lambdynamiclights
 	modLocalRuntime libs.bundles.lambdynamiclights.runtime
@@ -158,9 +137,6 @@ dependencies {
 	// emi
 	modCompileOnly variantOf(libs.emi) { classifier 'api' }
 	modLocalRuntime libs.emi
-
-	// LazyDFU
-	modLocalRuntime libs.lazydfu
 }
 
 loom {
@@ -220,11 +196,7 @@ processResources {
 	filesMatching(["fabric.mod.json", "*.mixins.json"]) {
 		expand expandProps
 	}
-	filesMatching("**/patchouli_books/compendium_arcanus/book.json") {
-		expand "book_version": book_version
-	}
 
-	inputs.property "book_version", book_version
 	inputs.properties(expandProps)
 }
 
@@ -241,8 +213,7 @@ java {
 	withSourcesJar()
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(javaVersion)
-		// TODO uncomment when switching to JDK 21
-//		vendor = JvmVendorSpec.MICROSOFT
+		vendor = JvmVendorSpec.MICROSOFT
 	}
 }
 
@@ -277,7 +248,7 @@ sourcesJar {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			artifactId = "Arcanus-Continuum-Fabric"
+			artifactId = "Arcanus-Fabric"
 			from components.java
 		}
 	}

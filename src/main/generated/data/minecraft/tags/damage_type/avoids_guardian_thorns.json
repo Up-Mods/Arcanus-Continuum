@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "arcanuscontinuum:magic",
-    "arcanuscontinuum:magic_projectile"
+    "arcanus:magic",
+    "arcanus:magic_projectile"
   ]
 }

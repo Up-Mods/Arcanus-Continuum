@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     "minecraft:chiseled_bookshelf",
-    "arcanuscontinuum:arcane_workbench",
-    "arcanuscontinuum:magic_door"
+    "arcanus:arcane_workbench",
+    "arcanus:magic_door"
   ]
 }

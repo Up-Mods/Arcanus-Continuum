@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "arcanuscontinuum:battle_mage_upgrade_smithing_template"
+        "recipe": "arcanus:battle_mage_upgrade_smithing_template"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "arcanuscontinuum:battle_mage_upgrade_smithing_template"
+      "arcanus:battle_mage_upgrade_smithing_template"
     ]
   },
   "sends_telemetry_event": false

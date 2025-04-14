@@ -20,6 +20,6 @@
     "minecraft:marker",
     "minecraft:painting",
     "minecraft:text_display",
-    "arcanuscontinuum:pocket_dimension_portal"
+    "arcanus:pocket_dimension_portal"
   ]
 }

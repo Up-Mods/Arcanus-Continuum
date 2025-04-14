@@ -1,12 +1,12 @@
 {
-  "parent": "arcanuscontinuum:arcane/a_magical_crystal",
+  "parent": "arcanus:arcane/a_magical_crystal",
   "criteria": {
     "has_arcane_workbench": {
       "conditions": {
         "items": [
           {
             "items": [
-              "arcanuscontinuum:arcane_workbench"
+              "arcanus:arcane_workbench"
             ]
           }
         ]
@@ -17,16 +17,16 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.arcanuscontinuum.arcane.arcane_artifice.description"
+      "translate": "advancements.arcanus.arcane.arcane_artifice.description"
     },
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "arcanuscontinuum:arcane_workbench"
+      "item": "arcanus:arcane_workbench"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.arcanuscontinuum.arcane.arcane_artifice.title"
+      "translate": "advancements.arcanus.arcane.arcane_artifice.title"
     }
   },
   "requirements": [

@@ -11,8 +11,8 @@
     "minecraft:elytra",
     "#minecraft:trim_templates",
     "minecraft:netherite_upgrade_smithing_template",
-    "arcanuscontinuum:battle_mage_upgrade_smithing_template",
+    "arcanus:battle_mage_upgrade_smithing_template",
     "#minecraft:decorated_pot_sherds",
-    "#arcanuscontinuum:wizard_armor"
+    "#arcanus:wizard_armor"
   ]
 }

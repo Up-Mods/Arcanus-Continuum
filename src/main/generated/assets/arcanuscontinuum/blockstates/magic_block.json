@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "arcanuscontinuum:block/magic_block"
+      "model": "arcanus:block/magic_block"
     }
   }
 }

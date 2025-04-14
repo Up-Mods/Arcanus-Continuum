@@ -7,9 +7,9 @@
     "item": "minecraft:diamond_helmet"
   },
   "result": {
-    "item": "arcanuscontinuum:battle_mage_helmet"
+    "item": "arcanus:battle_mage_helmet"
   },
   "template": {
-    "item": "arcanuscontinuum:battle_mage_upgrade_smithing_template"
+    "item": "arcanus:battle_mage_upgrade_smithing_template"
   }
 }
