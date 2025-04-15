@@ -68,7 +68,8 @@ public class Arcanus implements ModInitializer {
 		RegistryService registryService = RegistryService.get();
 		ArcanusEntityAttributes.registerAll();
 		ArcanusEntities.ENTITY_TYPES.accept(registryService);
-		ArcanusEnchantments.ENCHANTMENTS.accept(registryService);
+		ArcanusArmourMaterials.MATERIALS.accept(registryService);
+		ArcanusDataComponents.DATA_COMPONENTS.accept(registryService);
 		ArcanusBlocks.BLOCKS.accept(registryService);
 		ArcanusItems.ITEM_GROUPS.accept(registryService);
 		ArcanusItems.ITEMS.accept(registryService);

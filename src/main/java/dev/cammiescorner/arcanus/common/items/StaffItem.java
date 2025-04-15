@@ -27,6 +27,7 @@ public class StaffItem extends Item {
 	public final Color defaultSecondaryColor;
 	public final boolean isDonorOnly;
 
+	// TODO add data component for attached spell books
 	public StaffItem(StaffType staffType, Color defaultPrimaryColor, Color defaultSecondaryColor) {
 		this(staffType, defaultPrimaryColor, defaultSecondaryColor, false);
 	}
