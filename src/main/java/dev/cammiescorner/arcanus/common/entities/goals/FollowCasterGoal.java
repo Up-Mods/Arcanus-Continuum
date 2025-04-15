@@ -11,7 +11,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 
 import java.util.EnumSet;
@@ -77,14 +77,14 @@ public class FollowCasterGoal<T extends Mob & Summon> extends Goal {
 
 	public void start() {
 		timeToRecalcPath = 0;
-		oldWaterCost = summon.getPathfindingMalus(BlockPathTypes.WATER);
-		summon.setPathfindingMalus(BlockPathTypes.WATER, 0f);
+		oldWaterCost = summon.getPathfindingMalus(PathType.WATER);
+		summon.setPathfindingMalus(PathType.WATER, 0f);
 	}
 
 	public void stop() {
 		owner = null;
 		navigation.stop();
-		summon.setPathfindingMalus(BlockPathTypes.WATER, oldWaterCost);
+		summon.setPathfindingMalus(PathType.WATER, oldWaterCost);
 	}
 
 	public void tick() {
@@ -130,8 +130,8 @@ public class FollowCasterGoal<T extends Mob & Summon> extends Goal {
 	}
 
 	private boolean canTeleportTo(BlockPos pos) {
-		BlockPathTypes blockPathTypes = WalkNodeEvaluator.getBlockPathTypeStatic(level, pos.mutable());
-		if(blockPathTypes != BlockPathTypes.WALKABLE) {
+		PathType pathType = WalkNodeEvaluator.getPathTypeStatic(summon, pos.mutable());
+		if(pathType != PathType.WALKABLE) {
 			return false;
 		}
 		else {

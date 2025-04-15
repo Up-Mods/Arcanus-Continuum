@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.components;
 
 import dev.cammiescorner.arcanus.common.util.Color;
-import dev.onyxstudios.cca.api.v3.component.Component;
+import org.ladysnake.cca.api.v3.component.Component;
 
 import java.util.UUID;
 

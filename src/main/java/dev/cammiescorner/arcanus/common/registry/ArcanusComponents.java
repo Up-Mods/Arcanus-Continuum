@@ -6,8 +6,6 @@ import dev.cammiescorner.arcanus.api.spells.SpellEffect;
 import dev.cammiescorner.arcanus.api.spells.SpellGroup;
 import dev.cammiescorner.arcanus.api.spells.SpellShape;
 import dev.cammiescorner.arcanus.common.blocks.entities.AbstractMagicBlockEntity;
-import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
-import dev.cammiescorner.arcanus.common.compat.PehkuiCompat;
 import dev.cammiescorner.arcanus.common.components.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.components.chunk.WardedBlocksComponent;
 import dev.cammiescorner.arcanus.common.components.color.GenericMagicColorComponent;
@@ -16,18 +14,6 @@ import dev.cammiescorner.arcanus.common.components.entity.*;
 import dev.cammiescorner.arcanus.common.components.level.PocketDimensionComponent;
 import dev.cammiescorner.arcanus.common.entities.magic.*;
 import dev.cammiescorner.arcanus.common.util.Color;
-import dev.onyxstudios.cca.api.v3.block.BlockComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.block.BlockComponentInitializer;
-import dev.onyxstudios.cca.api.v3.chunk.ChunkComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.chunk.ChunkComponentInitializer;
-import dev.onyxstudios.cca.api.v3.component.Component;
-import dev.onyxstudios.cca.api.v3.component.ComponentKey;
-import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
-import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
-import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
-import dev.onyxstudios.cca.api.v3.scoreboard.ScoreboardComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.scoreboard.ScoreboardComponentInitializer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -40,6 +26,18 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.EmptyLevelChunk;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.ladysnake.cca.api.v3.block.BlockComponentFactoryRegistry;
+import org.ladysnake.cca.api.v3.block.BlockComponentInitializer;
+import org.ladysnake.cca.api.v3.chunk.ChunkComponentFactoryRegistry;
+import org.ladysnake.cca.api.v3.chunk.ChunkComponentInitializer;
+import org.ladysnake.cca.api.v3.component.Component;
+import org.ladysnake.cca.api.v3.component.ComponentKey;
+import org.ladysnake.cca.api.v3.component.ComponentRegistry;
+import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
+import org.ladysnake.cca.api.v3.entity.EntityComponentInitializer;
+import org.ladysnake.cca.api.v3.entity.RespawnCopyStrategy;
+import org.ladysnake.cca.api.v3.scoreboard.ScoreboardComponentFactoryRegistry;
+import org.ladysnake.cca.api.v3.scoreboard.ScoreboardComponentInitializer;
 
 import java.util.List;
 import java.util.Map;
@@ -65,7 +63,6 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 	public static final ComponentKey<QuestComponent> QUEST_COMPONENT = createComponent("quests", QuestComponent.class);
 	public static final ComponentKey<BoltTargetComponent> BOLT_TARGET = createComponent("bolt_target", BoltTargetComponent.class);
 	public static final ComponentKey<SpellShapeComponent> SPELL_SHAPE = createComponent("spell_shape", SpellShapeComponent.class);
-	public static final ComponentKey<SizeComponent> SIZE = createComponent("size", SizeComponent.class);
 	public static final ComponentKey<PocketDimensionPortalComponent> POCKET_DIMENSION_PORTAL_COMPONENT = createComponent("pocket_dimension_portal", PocketDimensionPortalComponent.class);
 	public static final ComponentKey<AggressorbComponent> AGGRESSORB_COMPONENT = createComponent("aggressorb", AggressorbComponent.class);
 	public static final ComponentKey<GuardianOrbComponent> GUARDIAN_ORB_COMPONENT = createComponent("guardian_orb", GuardianOrbComponent.class);
@@ -118,11 +115,6 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 				.end(GenericMagicColorComponent::new)
 		);
 		registry.registerForPlayers(MAGIC_COLOR, PlayerMagicColorComponent::new, RespawnCopyStrategy.NEVER_COPY);
-
-		ArcanusCompat.PEHKUI.ifEnabled(() -> () -> {
-			PehkuiCompat.registerEntityComponents(registry);
-			PehkuiCompat.registerModifiers();
-		});
 	}
 
 	private static <T extends Component> ComponentKey<T> createComponent(String name, Class<T> component) {
@@ -304,14 +296,6 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 
 	public static void setSpellShape(Entity entity, SpellShape shape) {
 		SPELL_SHAPE.get(entity).setSpellShape(shape);
-	}
-
-	public static void setScale(Entity entity, SpellEffect effect, double strength) {
-		SIZE.get(entity).setScale(effect, strength);
-	}
-
-	public static void resetScale(Entity entity) {
-		entity.getComponent(SIZE).resetScale();
 	}
 
 	public static void createPortal(Player player, ServerLevel world, Vec3 pos, double pullStrength) {

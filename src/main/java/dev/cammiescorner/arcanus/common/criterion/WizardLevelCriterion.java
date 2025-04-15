@@ -1,50 +1,46 @@
 package dev.cammiescorner.arcanus.common.criterion;
 
-import com.google.gson.JsonObject;
-import dev.cammiescorner.arcanus.Arcanus;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import net.minecraft.advancements.critereon.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.GsonHelper;
+
+import java.util.Optional;
 
 public class WizardLevelCriterion extends SimpleCriterionTrigger<WizardLevelCriterion.TriggerInstance> {
-
-	public static final ResourceLocation ID = Arcanus.id("wizard_level");
-
-	@Override
-	protected TriggerInstance createInstance(JsonObject json, ContextAwarePredicate predicate, DeserializationContext deserializationContext) {
-		int level = GsonHelper.getAsInt(json, "level");
-		return new TriggerInstance(predicate, level);
-	}
+	public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		Codec.INT.fieldOf("level").forGetter(TriggerInstance::getWizardLevel)
+	).apply(instance, TriggerInstance::new));
 
 	public void trigger(ServerPlayer player) {
 		this.trigger(player, triggerInstance -> ArcanusComponents.WIZARD_LEVEL_COMPONENT.get(player).getLevel() >= triggerInstance.level);
 	}
 
 	@Override
-	public ResourceLocation getId() {
-		return ID;
+	public Codec<TriggerInstance> codec() {
+		return CODEC;
 	}
 
-	public static class TriggerInstance extends AbstractCriterionTriggerInstance {
-
+	public static class TriggerInstance implements SimpleInstance {
 		private final int level;
 
-		public TriggerInstance(ContextAwarePredicate player, int level) {
-			super(ID, player);
+		public TriggerInstance(int level) {
 			this.level = level;
 		}
 
+		public int getWizardLevel() {
+			return level;
+		}
+
 		public static TriggerInstance hasWizardLevel(int level) {
-			return new TriggerInstance(ContextAwarePredicate.ANY, level);
+			return new TriggerInstance(level);
 		}
 
 		@Override
-		public JsonObject serializeToJson(SerializationContext context) {
-			JsonObject json = super.serializeToJson(context);
-			json.addProperty("level", level);
-			return json;
+		public Optional<ContextAwarePredicate> player() {
+			return Optional.empty();
 		}
 	}
 }

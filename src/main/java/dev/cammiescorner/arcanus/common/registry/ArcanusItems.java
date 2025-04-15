@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class ArcanusItems {
-
 	public static final RegistryHandler<CreativeModeTab> ITEM_GROUPS = RegistryHandler.create(Registries.CREATIVE_MODE_TAB, Arcanus.MOD_ID);
 	public static final RegistryHandler<Item> ITEMS = RegistryHandler.create(Registries.ITEM, Arcanus.MOD_ID);
 
@@ -34,14 +33,14 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> MAGIC_TOME = ITEMS.register("magic_tome", () -> new StaffItem(StaffType.BOOK, Color.fromRGB(139, 69, 19), Color.fromRGB(30, 27, 27), true));
 	public static final RegistrySupplier<Item> MAGE_PISTOL = ITEMS.register("mage_pistol", () -> new StaffItem(StaffType.GUN, Color.fromRGB(255, 255, 255), Color.fromRGB(255, 255, 255), true));
 
-	public static final RegistrySupplier<Item> WIZARD_HAT = ITEMS.register("wizard_hat", () -> new WizardRobesArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.Type.HELMET, 1, 0.1, 0, 0, -0.06));
-	public static final RegistrySupplier<Item> WIZARD_ROBES = ITEMS.register("wizard_robes", () -> new WizardRobesArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.Type.CHESTPLATE, 2, 0.2, 0, 0, -0.12));
-	public static final RegistrySupplier<Item> WIZARD_PANTS = ITEMS.register("wizard_pants", () -> new WizardRobesArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.Type.LEGGINGS, 2, 0.2, 0, 0, -0.1));
-	public static final RegistrySupplier<Item> WIZARD_BOOTS = ITEMS.register("wizard_boots", () -> new WizardRobesArmorItem(ArcanusArmourMaterials.WIZARD, ArmorItem.Type.BOOTS, 1, 0.1, 0, 0, -0.05));
-	public static final RegistrySupplier<Item> BATTLE_MAGE_HELMET = ITEMS.register("battle_mage_helmet", () -> new BattleMageArmorItem(ArcanusArmourMaterials.BATTLE_MAGE, ArmorItem.Type.HELMET, 0.25, 0, 0.2, 0.06, 0));
-	public static final RegistrySupplier<Item> BATTLE_MAGE_CHESTPLATE = ITEMS.register("battle_mage_chestplate", () -> new BattleMageArmorItem(ArcanusArmourMaterials.BATTLE_MAGE, ArmorItem.Type.CHESTPLATE, 0.75, 0, 0.3, 0.12, 0));
-	public static final RegistrySupplier<Item> BATTLE_MAGE_LEGGINGS = ITEMS.register("battle_mage_leggings", () -> new BattleMageArmorItem(ArcanusArmourMaterials.BATTLE_MAGE, ArmorItem.Type.LEGGINGS, 0.75, 0, 0.3, 0.1, 0));
-	public static final RegistrySupplier<Item> BATTLE_MAGE_BOOTS = ITEMS.register("battle_mage_boots", () -> new BattleMageArmorItem(ArcanusArmourMaterials.BATTLE_MAGE, ArmorItem.Type.BOOTS, 0.25, 0, 0.2, 0.05, 0));
+	public static final RegistrySupplier<Item> WIZARD_HAT = ITEMS.register("wizard_hat", () -> new WizardRobesArmorItem(ArcanusArmourMaterials.WIZARD.get(), ArmorItem.Type.HELMET, 1, 0.1, 0, 0, -0.06));
+	public static final RegistrySupplier<Item> WIZARD_ROBES = ITEMS.register("wizard_robes", () -> new WizardRobesArmorItem(ArcanusArmourMaterials.WIZARD.get(), ArmorItem.Type.CHESTPLATE, 2, 0.2, 0, 0, -0.12));
+	public static final RegistrySupplier<Item> WIZARD_PANTS = ITEMS.register("wizard_pants", () -> new WizardRobesArmorItem(ArcanusArmourMaterials.WIZARD.get(), ArmorItem.Type.LEGGINGS, 2, 0.2, 0, 0, -0.1));
+	public static final RegistrySupplier<Item> WIZARD_BOOTS = ITEMS.register("wizard_boots", () -> new WizardRobesArmorItem(ArcanusArmourMaterials.WIZARD.get(), ArmorItem.Type.BOOTS, 1, 0.1, 0, 0, -0.05));
+	public static final RegistrySupplier<Item> BATTLE_MAGE_HELMET = ITEMS.register("battle_mage_helmet", () -> new BattleMageArmorItem(ArcanusArmourMaterials.BATTLE_MAGE.get(), ArmorItem.Type.HELMET, 0.25, 0, 0.2, 0.06, 0));
+	public static final RegistrySupplier<Item> BATTLE_MAGE_CHESTPLATE = ITEMS.register("battle_mage_chestplate", () -> new BattleMageArmorItem(ArcanusArmourMaterials.BATTLE_MAGE.get(), ArmorItem.Type.CHESTPLATE, 0.75, 0, 0.3, 0.12, 0));
+	public static final RegistrySupplier<Item> BATTLE_MAGE_LEGGINGS = ITEMS.register("battle_mage_leggings", () -> new BattleMageArmorItem(ArcanusArmourMaterials.BATTLE_MAGE.get(), ArmorItem.Type.LEGGINGS, 0.75, 0, 0.3, 0.1, 0));
+	public static final RegistrySupplier<Item> BATTLE_MAGE_BOOTS = ITEMS.register("battle_mage_boots", () -> new BattleMageArmorItem(ArcanusArmourMaterials.BATTLE_MAGE.get(), ArmorItem.Type.BOOTS, 0.25, 0, 0.2, 0.05, 0));
 
 	public static final RegistrySupplier<Item> BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE = ITEMS.register("battle_mage_upgrade_smithing_template", ArcanusItems::getBattleMageUpgrade);
 	public static final RegistrySupplier<Item> SPELL_BOOK = ITEMS.register("spell_book", SpellBookItem::new);

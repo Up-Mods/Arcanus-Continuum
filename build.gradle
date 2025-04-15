@@ -127,8 +127,14 @@ dependencies {
 	modLocalRuntime libs.iris
 
 	// lambdynamiclights
-	modCompileOnly libs.lambdynamiclights
-	modLocalRuntime libs.bundles.lambdynamiclights.runtime
+	modCompileOnly(libs.lambdynamiclights) {
+		capabilities {
+			requireCapability("dev.lambdaurora.lambdynamiclights:api-mojmap")
+		}
+	}
+
+	// explosive enhancement
+	modCompileOnly libs.explosive.enhancement
 
 	// modmenu
 	modCompileOnly libs.modmenu

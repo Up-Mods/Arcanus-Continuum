@@ -9,8 +9,6 @@ import net.superkat.explosiveenhancement.api.ExplosiveApi;
 
 public class ExplosiveEnhancementCompat {
 	public static void spawnEnhancedBooms(Level world, double x, double y, double z, float power, boolean didDestroyBlocks) {
-
-
 		boolean isUnderWater = false;
 		BlockPos pos = BlockPos.containing(x, y, z);
 

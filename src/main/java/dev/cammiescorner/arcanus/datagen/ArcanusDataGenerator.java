@@ -1,24 +1,14 @@
 package dev.cammiescorner.arcanus.datagen;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.datagen.client.ArcanusEnglishLanguageProvider;
 import dev.cammiescorner.arcanus.datagen.client.ArcanusModelProvider;
 import dev.cammiescorner.arcanus.datagen.common.*;
-import dev.upcraft.sparkweave.api.datagen.DynamicRegistryEntryProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
 
 public class ArcanusDataGenerator implements DataGeneratorEntrypoint {
-
-	static {
-		// need patchouli to generate the book
-		ArcanusCompat.PATCHOULI.orThrow();
-		// need pehkui to generate spell effect entries
-		ArcanusCompat.PEHKUI.orThrow();
-	}
-
 	@Override
 	public void buildRegistry(RegistrySetBuilder builder) {
 		DynamicRegistryEntryProvider.builder(Arcanus.MOD_ID)

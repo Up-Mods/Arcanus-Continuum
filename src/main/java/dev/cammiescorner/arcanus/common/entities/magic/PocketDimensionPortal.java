@@ -2,10 +2,11 @@ package dev.cammiescorner.arcanus.common.entities.magic;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entities.Targetable;
+import dev.cammiescorner.arcanus.common.components.entity.PocketDimensionPortalComponent;
 import dev.cammiescorner.arcanus.common.components.level.PocketDimensionComponent;
 import dev.cammiescorner.arcanus.common.data.ArcanusEntityTags;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import dev.upcraft.sparkweave.api.util.fakeplayer.FakePlayerHelper;
+import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.minecraft.Util;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -23,8 +24,6 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.UUID;
 
-import static dev.cammiescorner.arcanus.common.components.entity.PocketDimensionPortalComponent.POCKET_DIMENSION_WORLD_KEY;
-
 public class PocketDimensionPortal extends Entity implements Targetable {
 	private static final EntityDataAccessor<Integer> TRUE_AGE = SynchedEntityData.defineId(PocketDimensionPortal.class, EntityDataSerializers.INT);
 	private UUID casterId = Util.NIL_UUID;
@@ -32,6 +31,11 @@ public class PocketDimensionPortal extends Entity implements Targetable {
 
 	public PocketDimensionPortal(EntityType<?> variant, Level world) {
 		super(variant, world);
+	}
+
+	@Override
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(TRUE_AGE, 0);
 	}
 
 	@Override
@@ -49,15 +53,17 @@ public class PocketDimensionPortal extends Entity implements Targetable {
 
 			if(caster instanceof ServerPlayer serverCaster) {
 				if(getTrueAge() > ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.portalGrowTime) {
-					level().getEntities(this, getBoundingBox(), entity -> canTeleportSafely(entity) && !ArcanusComponents.hasPortalCoolDown(entity)).forEach(entity -> {
-						if(level().dimension() != POCKET_DIMENSION_WORLD_KEY)
+					Level destination = getServer().getLevel(level().dimension() != PocketDimensionPortalComponent.POCKET_DIMENSION_WORLD_KEY ? PocketDimensionPortalComponent.POCKET_DIMENSION_WORLD_KEY : level().dimension());
+
+					level().getEntities(this, getBoundingBox(), entity -> canTeleportSafely(entity, destination) && !ArcanusComponents.hasPortalCoolDown(entity)).forEach(entity -> {
+						if(destination.dimension() == PocketDimensionPortalComponent.POCKET_DIMENSION_WORLD_KEY)
 							PocketDimensionComponent.get(getServer()).teleportToPocketDimension(serverCaster.getGameProfile(), entity);
 						else
 							PocketDimensionComponent.get(level()).teleportOutOfPocketDimension(entity);
 					});
 
 					if(ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.canSuckEntitiesIn) {
-						level().getEntities(this, box, entity -> canTeleportSafely(entity) && !ArcanusComponents.hasPortalCoolDown(entity)).forEach(entity -> {
+						level().getEntities(this, box, entity -> canTeleportSafely(entity, destination) && !ArcanusComponents.hasPortalCoolDown(entity)).forEach(entity -> {
 							double distanceSq = position().distanceToSqr(entity.position());
 
 							if(distanceSq <= boxRadiusSq && distanceSq != 0) {
@@ -90,11 +96,6 @@ public class PocketDimensionPortal extends Entity implements Targetable {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		entityData.define(TRUE_AGE, 0);
-	}
-
-	@Override
 	public boolean isPickable() {
 		return true;
 	}
@@ -105,7 +106,7 @@ public class PocketDimensionPortal extends Entity implements Targetable {
 	}
 
 	@Override
-	public boolean canChangeDimensions() {
+	public boolean canChangeDimensions(Level oldLevel, Level newLevel) {
 		return false;
 	}
 
@@ -144,8 +145,8 @@ public class PocketDimensionPortal extends Entity implements Targetable {
 		this.pullStrength = pullStrength;
 	}
 
-	private static boolean canTeleportSafely(Entity entity) {
-		if(entity.isSpectator() || !entity.isAlive() || !entity.canChangeDimensions() || (entity instanceof Player player && FakePlayerHelper.isFakePlayer(player)))
+	private static boolean canTeleportSafely(Entity entity, Level destination) {
+		if(entity.isSpectator() || !entity.isAlive() || !entity.canChangeDimensions(entity.level(), destination) || (entity instanceof Player player && player instanceof FakePlayer))
 			return false;
 
 		return !entity.getType().is(ArcanusEntityTags.SPATIAL_RIFT_IMMUNE);

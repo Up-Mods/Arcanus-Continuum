@@ -1,24 +1,37 @@
 package dev.cammiescorner.arcanus.common.compat;
 
-import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.common.compat.lambdynamiclights.MagicEntityLuminance;
+import dev.cammiescorner.arcanus.common.compat.lambdynamiclights.BoltEntityLuminance;
+import dev.cammiescorner.arcanus.common.compat.lambdynamiclights.SmiteEntityLuminance;
 import dev.cammiescorner.arcanus.common.registry.ArcanusEntities;
-import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
-import dev.lambdaurora.lambdynlights.api.DynamicLightHandlers;
+import dev.lambdaurora.lambdynlights.api.DynamicLightsContext;
 import dev.lambdaurora.lambdynlights.api.DynamicLightsInitializer;
+import dev.lambdaurora.lambdynlights.api.entity.luminance.EntityLuminance;
+import dev.lambdaurora.lambdynlights.api.item.ItemLightSourceManager;
 import net.minecraft.world.entity.EntityType;
 
 public class DynamicLightsCompat implements DynamicLightsInitializer {
+	public static final EntityLuminance.Type MAGIC_ENTITY_LUMINANCE = EntityLuminance.Type.register(Arcanus.id("magic_entity"), MagicEntityLuminance.CODEC);
+	public static final EntityLuminance.Type SMITE_ENTITY_LUMINANCE = EntityLuminance.Type.register(Arcanus.id("smite_entity"), SmiteEntityLuminance.CODEC);
+	public static final EntityLuminance.Type BOLT_ENTITY_LUMINANCE = EntityLuminance.Type.register(Arcanus.id("bolt_entity"), BoltEntityLuminance.CODEC);
+
 	@Override
-	public void onInitializeDynamicLights() {
-		DynamicLightHandlers.registerDynamicLightHandler(ArcanusEntities.AOE.get(), entity -> (int) (Math.abs(Math.sin(entity.tickCount * 0.05)) * 7 + 8));
-		DynamicLightHandlers.registerDynamicLightHandler(ArcanusEntities.BEAM.get(), entity -> (int) (Math.abs(Math.sin(entity.tickCount * 0.05)) * 4 + 5));
-		DynamicLightHandlers.registerDynamicLightHandler(ArcanusEntities.ENTANGLED_ORB.get(), entity -> (int) (Math.abs(Math.sin(entity.tickCount * 0.05)) * 5 + 6));
-		DynamicLightHandlers.registerDynamicLightHandler(ArcanusEntities.AGGRESSORB.get(), entity -> (int) (Math.abs(Math.sin(entity.tickCount * 0.05)) * 5 + 6));
-		DynamicLightHandlers.registerDynamicLightHandler(ArcanusEntities.MISSILE.get(), entity -> (int) (Math.abs(Math.sin(entity.tickCount * 0.05)) * 3 + 4));
-		DynamicLightHandlers.registerDynamicLightHandler(ArcanusEntities.MAGIC_RUNE.get(), entity -> (int) (Math.abs(Math.sin(entity.tickCount * 0.05)) * 3 + 4));
-		DynamicLightHandlers.registerDynamicLightHandler(ArcanusEntities.MANA_SHIELD.get(), entity -> (int) (Math.abs(Math.sin(entity.tickCount * 0.05)) * 7 + 8));
-		DynamicLightHandlers.registerDynamicLightHandler(ArcanusEntities.SMITE.get(), entity -> (int) (-0.103501 * entity.tickCount * entity.tickCount + 2.15793 * entity.tickCount + 3.38905));
-		DynamicLightHandlers.registerDynamicLightHandler(ArcanusEntities.PORTAL.get(), entity -> (int) (Math.abs(Math.sin(entity.tickCount * 0.05)) * 7 + 8));
-		DynamicLightHandlers.registerDynamicLightHandler(EntityType.PLAYER, playerEntity -> ArcanusComponents.shouldRenderBolt(playerEntity) || playerEntity.hasEffect(ArcanusMobEffects.MANA_WINGS.get()) ? 15 : 0);
+	public void onInitializeDynamicLights(DynamicLightsContext context) {
+		context.entityLightSourceManager().onRegisterEvent().register(ctx -> {
+			ctx.register(ArcanusEntities.AOE.get(), new MagicEntityLuminance(7, 8));
+			ctx.register(ArcanusEntities.BEAM.get(), new MagicEntityLuminance(4, 5));
+			ctx.register(ArcanusEntities.ENTANGLED_ORB.get(), new MagicEntityLuminance(5, 6));
+			ctx.register(ArcanusEntities.AGGRESSORB.get(), new MagicEntityLuminance(5, 6));
+			ctx.register(ArcanusEntities.MISSILE.get(), new MagicEntityLuminance(3, 4));
+			ctx.register(ArcanusEntities.MAGIC_RUNE.get(), new MagicEntityLuminance(3, 4));
+			ctx.register(ArcanusEntities.MANA_SHIELD.get(), new MagicEntityLuminance(7, 8));
+			ctx.register(ArcanusEntities.SMITE.get(), new SmiteEntityLuminance());
+			ctx.register(ArcanusEntities.PORTAL.get(), new MagicEntityLuminance(7, 8));
+			ctx.register(EntityType.PLAYER, new BoltEntityLuminance());
+		});
 	}
+
+	@Override
+	public void onInitializeDynamicLights(ItemLightSourceManager itemLightSourceManager) { }
 }

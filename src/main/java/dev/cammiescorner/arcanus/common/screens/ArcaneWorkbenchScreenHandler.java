@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanus.common.screens;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.packets.s2c.SyncStaffTemplatePacket;
 import dev.cammiescorner.arcanus.common.packets.s2c.SyncWorkbenchModePacket;
+import dev.cammiescorner.arcanus.common.recipes.SpellBindingRecipe;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusScreenHandlers;
 import dev.cammiescorner.arcanus.common.util.Color;
@@ -17,16 +18,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
 import java.util.Optional;
 
-public class ArcaneWorkbenchScreenHandler extends RecipeBookMenu<TransientCraftingContainer> {
+public class ArcaneWorkbenchScreenHandler extends RecipeBookMenu<CraftingInput, SpellBindingRecipe> {
 	private final ResultContainer result = new ResultContainer();
 	private final Inventory playerInventory;
 	private final ContainerLevelAccess context;
@@ -233,13 +231,13 @@ public class ArcaneWorkbenchScreenHandler extends RecipeBookMenu<TransientCrafti
 			ItemStack itemStack = ItemStack.EMPTY;
 
 			if(handler.getMode() == WorkbenchMode.SPELLBINDING) {
-				Optional<CraftingRecipe> optional = world.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, world);
+				Optional<RecipeHolder<CraftingRecipe>> optional = world.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input.asCraftInput(), world);
 
 				if(optional.isPresent()) {
-					CraftingRecipe craftingRecipe = optional.get();
+					RecipeHolder<CraftingRecipe> craftingRecipe = optional.get();
 
 					if(result.setRecipeUsed(world, serverPlayer, craftingRecipe)) {
-						ItemStack itemStack2 = craftingRecipe.assemble(input, world.registryAccess());
+						ItemStack itemStack2 = craftingRecipe.value().assemble(input.asCraftInput(), world.registryAccess());
 
 						if(itemStack2.isItemEnabled(world.enabledFeatures()))
 							itemStack = itemStack2;
@@ -251,7 +249,7 @@ public class ArcaneWorkbenchScreenHandler extends RecipeBookMenu<TransientCrafti
 
 				if(staffStack.getItem() instanceof StaffItem && handler.getTemplate() instanceof StaffItem) {
 					ItemStack itemStack2 = new ItemStack(handler.getTemplate(), staffStack.getCount());
-					itemStack2.setTag(staffStack.copy().getTag());
+//					itemStack2.setTag(staffStack.copy().getTag());
 
 					if(input.getItem(1).getItem() instanceof DyeItem dye) {
 						StaffItem.setPrimaryColor(itemStack2, Color.fromInt(dye.getDyeColor().getFireworkColor(), Color.Ordering.RGB));

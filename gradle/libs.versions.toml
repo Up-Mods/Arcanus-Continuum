@@ -17,7 +17,7 @@ emi = "1.1.22+1.21.1"
 resourceful_config = "3.0.10"
 firstperson = "5nFUshwm" # 2.4.9
 lambdynamiclights = "4.1.0+1.21.1"
-spruceui = "6.2.0+1.21"
+explosive_enhancement = "1.3.2-1.21-1.21.1"
 sodium = "mc1.21.1-0.6.13-fabric"
 iris = "1.8.8+1.21.1-fabric"
 datasync = "0.10.0"
@@ -40,8 +40,8 @@ modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
 emi = { module = "dev.emi:emi-fabric", version.ref = "emi" }
 resourceful_config = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.21", version.ref = "resourceful_config" }
 firstperson = { module = "maven.modrinth:first-person-model", version.ref = "firstperson" }
-lambdynamiclights = { module = "maven.modrinth:lambdynamiclights", version.ref = "lambdynamiclights" }
-spruceui = { module = "dev.lambdaurora:spruceui", version.ref = "spruceui" }
+lambdynamiclights = { module = "dev.lambdaurora.lambdynamiclights:lambdynamiclights-api", version.ref = "lambdynamiclights" }
+explosive_enhancement = { module = "maven.modrinth:explosive-enhancement", version.ref = "explosive_enhancement" }
 sodium = { module = "maven.modrinth:sodium", version.ref = "sodium" }
 iris = { module = "maven.modrinth:iris", version.ref = "iris" }
 trinkets = { module = "dev.emi:trinkets", version.ref = "trinkets" }
@@ -49,7 +49,6 @@ trinkets = { module = "dev.emi:trinkets", version.ref = "trinkets" }
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]
 cca = ["cca_base", "cca_block", "cca_chunk", "cca_entity", "cca_scoreboard"]
-lambdynamiclights_runtime = ["lambdynamiclights", "spruceui"]
 
 [plugins]
 fabric_loom = { id = "fabric-loom", version.ref = "fabric_loom" }

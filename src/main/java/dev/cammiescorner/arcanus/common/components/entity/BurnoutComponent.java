@@ -1,21 +1,22 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
+import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-
-import java.util.UUID;
+import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
+import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
 public class BurnoutComponent implements AutoSyncedComponent, ServerTickingComponent {
-	public static final UUID ATTACK_SPEED_MODIFIER = UUID.fromString("c2223d02-f2f0-4fa9-b9d8-5b2c265a8195");
-	public static final UUID MOVE_SPEED_MODIFIER = UUID.fromString("38e12f7a-64d8-4054-b609-039e240eb2a9");
+	public static final ResourceLocation ATTACK_SPEED_MODIFIER = Arcanus.id("burnout_attack_speed_modifier");
+	public static final ResourceLocation MOVE_SPEED_MODIFIER = Arcanus.id("burnout_move_speed_modifier");
 	private final LivingEntity entity;
 	private double burnout;
 
@@ -25,7 +26,7 @@ public class BurnoutComponent implements AutoSyncedComponent, ServerTickingCompo
 
 	@Override
 	public void serverTick() {
-		AttributeInstance burnoutRegenAttr = entity.getAttribute(ArcanusEntityAttributes.BURNOUT_REGEN.get());
+		AttributeInstance burnoutRegenAttr = entity.getAttribute(ArcanusEntityAttributes.BURNOUT_REGEN.holder());
 		AttributeInstance attackSpeedAttr = entity.getAttribute(Attributes.ATTACK_SPEED);
 		AttributeInstance moveSpeedAttr = entity.getAttribute(Attributes.MOVEMENT_SPEED);
 
@@ -38,26 +39,26 @@ public class BurnoutComponent implements AutoSyncedComponent, ServerTickingCompo
 
 		if(attackSpeedAttr != null) {
 			if(burnout > 0 && attackSpeedAttr.getModifier(ATTACK_SPEED_MODIFIER) == null)
-				attackSpeedAttr.addPermanentModifier(new AttributeModifier(ATTACK_SPEED_MODIFIER, "Burnout modifier", -0.5, AttributeModifier.Operation.MULTIPLY_BASE));
+				attackSpeedAttr.addPermanentModifier(new AttributeModifier(ATTACK_SPEED_MODIFIER, -0.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
 			if(burnout <= 0 && attackSpeedAttr.getModifier(ATTACK_SPEED_MODIFIER) != null)
 				attackSpeedAttr.removeModifier(ATTACK_SPEED_MODIFIER);
 		}
 
 		if(moveSpeedAttr != null) {
 			if(burnout > 0 && moveSpeedAttr.getModifier(MOVE_SPEED_MODIFIER) == null)
-				moveSpeedAttr.addPermanentModifier(new AttributeModifier(MOVE_SPEED_MODIFIER, "Burnout modifier", -0.1, AttributeModifier.Operation.MULTIPLY_BASE));
+				moveSpeedAttr.addPermanentModifier(new AttributeModifier(MOVE_SPEED_MODIFIER, -0.1, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
 			if(burnout <= 0 && moveSpeedAttr.getModifier(MOVE_SPEED_MODIFIER) != null)
 				moveSpeedAttr.removeModifier(MOVE_SPEED_MODIFIER);
 		}
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		burnout = tag.getDouble("Burnout");
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		tag.putDouble("Burnout", burnout);
 	}
 

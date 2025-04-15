@@ -3,9 +3,8 @@ package dev.cammiescorner.arcanus.common.blocks;
 import dev.cammiescorner.arcanus.common.blocks.entities.SpatialRiftExitBlockEntity;
 import dev.cammiescorner.arcanus.common.components.level.PocketDimensionComponent;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
-import dev.upcraft.sparkweave.api.util.scheduler.Tasks;
+import dev.upcraft.sparkweave.api.scheduler.Tasks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -24,12 +23,12 @@ public class SpatialRiftExitBlock extends Block implements EntityBlock {
 	public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 
 	public SpatialRiftExitBlock() {
-		super(BlockBehaviour.Properties.copy(ArcanusBlocks.SPATIAL_RIFT_WALL.get()).sound(SoundType.STONE).lightLevel(value -> 7));
+		super(BlockBehaviour.Properties.ofFullCopy(ArcanusBlocks.SPATIAL_RIFT_WALL.get()).sound(SoundType.STONE).lightLevel(value -> 7));
 		registerDefaultState(getStateDefinition().any().setValue(ACTIVE, false));
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
 		if(!level.isClientSide()) {
 			// the game assumes that at the end of the right click, the player is still in the same dimension.
 			// therefore we need to schedule the teleportation at some later point

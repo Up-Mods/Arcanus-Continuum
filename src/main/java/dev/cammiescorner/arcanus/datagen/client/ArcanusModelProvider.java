@@ -3,7 +3,6 @@ package dev.cammiescorner.arcanus.datagen.client;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
-import dev.upcraft.sparkweave.api.datagen.SparkweaveModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
@@ -13,7 +12,6 @@ import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.world.level.block.Blocks;
 
 public class ArcanusModelProvider extends SparkweaveModelProvider {
-
 	public ArcanusModelProvider(FabricDataOutput output) {
 		super(output);
 	}
