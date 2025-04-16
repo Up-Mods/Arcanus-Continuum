@@ -6,7 +6,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
-@Config(value = "Arcanus", categories = {
+@Config(value = Arcanus.MOD_ID, categories = {
 	ArcanusConfig.Enchantments.class,
 	ArcanusConfig.SpellShapes.class,
 	ArcanusConfig.AttackEffects.class,
