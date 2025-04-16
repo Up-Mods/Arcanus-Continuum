@@ -120,10 +120,10 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "projectileSpeed", translation = "config.arcanus.projectileSpeed")
+			@ConfigEntry(id = "projectileSpeed", translation = CONFIG_PROJECTILE_SPEED)
 			public static float projectileSpeed = 4f;
 
-			@ConfigEntry(id = "baseLifeSpan", translation = "config.arcanus.baseLifeSpan")
+			@ConfigEntry(id = "baseLifeSpan", translation = CONFIG_BASE_LIFE_SPAN)
 			@ConfigOption.Range(min = 1, max = 24000)
 			public static int baseLifeSpan = 20;
 		}
@@ -157,7 +157,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "projectileSpeed", translation = "config.arcanus.projectileSpeed")
+			@ConfigEntry(id = "projectileSpeed", translation = CONFIG_PROJECTILE_SPEED)
 			public static float projectileSpeed = 2f;
 		}
 
@@ -190,7 +190,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "range", translation = "config.arcanus.range")
+			@ConfigEntry(id = "range", translation = CONFIG_RANGE)
 			@ConfigOption.Range(min = 0, max = 32)
 			public static double range = 6;
 		}
@@ -224,11 +224,11 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "range", translation = "config.arcanus.range")
+			@ConfigEntry(id = "range", translation = CONFIG_RANGE)
 			@ConfigOption.Range(min = 0, max = 32)
 			public static double range = 16;
 
-			@ConfigEntry(id = "delay", translation = "config.arcanus.delay")
+			@ConfigEntry(id = "delay", translation = CONFIG_DELAY)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int delay = 40;
 		}
@@ -262,7 +262,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
-			@ConfigEntry(id = "delay", translation = "config.arcanus.delay")
+			@ConfigEntry(id = "delay", translation = CONFIG_DELAY)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int delay = 60;
 		}
@@ -296,7 +296,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
-			@ConfigEntry(id = "radius", translation = "config.arcanus.burstShape.radius")
+			@ConfigEntry(id = "radius", translation = CONFIG_BURST_SHAPE_RADIUS)
 			public static float radius = 4f;
 		}
 
@@ -359,7 +359,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
 		}
@@ -393,14 +393,14 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
-			@ConfigEntry(id = "baseLifeSpan", translation = "config.arcanus.baseLifeSpan")
+			@ConfigEntry(id = "baseLifeSpan", translation = CONFIG_BASE_LIFE_SPAN)
 			@ConfigOption.Range(min = 1, max = 24000)
 			public static int baseLifeSpan = 100;
 
-			@ConfigEntry(id = "timesToApplyEffects", translation = "config.arcanus.timesToApplyEffects")
+			@ConfigEntry(id = "timesToApplyEffects", translation = CONFIG_TIMES_TO_APPLY_EFFECTS)
 			public static int timesToApplyEffects = 3;
 
-			@ConfigEntry(id = "timesToCastNextShape", translation = "config.arcanus.timesToCastNextShape")
+			@ConfigEntry(id = "timesToCastNextShape", translation = CONFIG_TIMES_TO_CAST_NEXT_SHAPE)
 			public static int timesToCastNextShape = 3;
 		}
 
@@ -463,11 +463,11 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
-			@ConfigEntry(id = "maximumManaLock", translation = "config.arcanus.maximumManaLock")
+			@ConfigEntry(id = "maximumManaLock", translation = CONFIG_MAX_MANA_LOCK)
 			@ConfigOption.Range(min = 0, max = 1)
 			public static double maximumManaLock = 0.5;
 
-			@ConfigEntry(id = "baseManaDrain", translation = "config.arcanus.baseManaDrain")
+			@ConfigEntry(id = "baseManaDrain", translation = CONFIG_BASE_MANA_DRAIN)
 			@ConfigOption.Range(min = 0, max = 200)
 			public static double baseManaDrain = 3;
 		}
@@ -501,15 +501,15 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "maximumAggressorbs", translation = "config.arcanus.maximumAggressorbs")
+			@ConfigEntry(id = "maximumAggressorbs", translation = CONFIG_MAX_AGGRESSORBS)
 			@ConfigOption.Range(min = 0, max = 16)
 			public static int maximumAggressorbs = 6;
 
-			@ConfigEntry(id = "aggressorbsPerCast", translation = "config.arcanus.aggressorbsPerCast")
+			@ConfigEntry(id = "aggressorbsPerCast", translation = CONFIG_AGGRESSORBS_PER_CAST)
 			@ConfigOption.Range(min = 0, max = 16)
 			public static int aggressorbsPerCast = 2;
 
-			@ConfigEntry(id = "projectileSpeed", translation = "config.arcanus.projectileSpeed")
+			@ConfigEntry(id = "projectileSpeed", translation = CONFIG_PROJECTILE_SPEED)
 			public static float projectileSpeed = 3f;
 		}
 	}
@@ -539,9 +539,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseDamage", translation = "config.arcanus.baseDamage")
+			@ConfigEntry(id = "baseDamage", translation = CONFIG_BASE_DAMAGE)
 			@ConfigOption.Range(min = 0, max = 1000)
-			public static float baseDamage = 1.5f;
+			public static float baseDamage = 2f;
 		}
 
 		@Category("fireEffectProperties")
@@ -567,7 +567,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseTimeOnFire", translation = "config.arcanus.baseTimeOnFire")
+			@ConfigEntry(id = "baseTimeOnFire", translation = CONFIG_BASE_TIME_ON_FIRE)
 			@ConfigOption.Range(min = 0, max = 100)
 			public static int baseTimeOnFire = 3;
 		}
@@ -595,13 +595,13 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseStunTime", translation = "config.arcanus.baseStunTime")
+			@ConfigEntry(id = "baseStunTime", translation = CONFIG_BASE_STUN_TIME)
 			@ConfigOption.Range(min = 0, max = 100)
 			public static int baseStunTime = 2;
 
-			@ConfigEntry(id = "wetEntityDamageMultiplier", translation = "config.arcanus.wetEntityDamageMultiplier")
+			@ConfigEntry(id = "wetEntityDamageMultiplier", translation = CONFIG_WET_ENTITY_DAMAGE_MULTIPLIER)
 			@ConfigOption.Range(min = 1, max = 1000)
-			public static float wetEntityDamageMultiplier = 2f;
+			public static float wetEntityDamageMultiplier = 1.5f;
 		}
 
 		@Category("iceEffectProperties")
@@ -627,7 +627,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseFreezingTime", translation = "config.arcanus.baseFreezingTime")
+			@ConfigEntry(id = "baseFreezingTime", translation = CONFIG_BASE_FREEZING_TIME)
 			@ConfigOption.Range(min = 0, max = 100)
 			public static int baseFreezingTime = 20;
 		}
@@ -655,7 +655,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 300;
 		}
@@ -683,7 +683,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 200;
 		}
@@ -711,7 +711,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 60;
 		}
@@ -739,7 +739,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
-			@ConfigEntry(id = "baseHealth", translation = "config.arcanus.baseHealth")
+			@ConfigEntry(id = "baseHealth", translation = CONFIG_BASE_HEALTH)
 			@ConfigOption.Range(min = 1, max = 100)
 			public static int baseHealth = 10;
 		}
@@ -791,15 +791,15 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 24000;
 
-			@ConfigEntry(id = "effectDurationModifier", translation = "config.arcanus.effectDurationModifier")
+			@ConfigEntry(id = "effectDurationModifier", translation = CONFIG_EFFECT_DURATION_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int effectDurationModifier = 12000;
 
-			@ConfigEntry(id = "baseChanceToActivate", translation = "config.arcanus.baseChanceToActivate")
+			@ConfigEntry(id = "baseChanceToActivate", translation = CONFIG_BASE_ACTIVATION_CHANCE)
 			@ConfigOption.Range(min = 0, max = 1)
 			public static double baseChanceToActivate = 0.0625;
 		}
@@ -827,11 +827,11 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 60;
 
-			@ConfigEntry(id = "effectDurationModifier", translation = "config.arcanus.effectDurationModifier")
+			@ConfigEntry(id = "effectDurationModifier", translation = CONFIG_EFFECT_DURATION_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int effectDurationModifier = 15;
 		}
@@ -859,15 +859,15 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
 
-			@ConfigEntry(id = "effectDurationModifier", translation = "config.arcanus.effectDurationModifier")
+			@ConfigEntry(id = "effectDurationModifier", translation = CONFIG_EFFECT_DURATION_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int effectDurationModifier = 30;
 
-			@ConfigEntry(id = "damageNeededToIncrease", translation = "config.arcanus.damageNeededToIncrease")
+			@ConfigEntry(id = "damageNeededToIncrease", translation = CONFIG_DAMAGE_TO_INCREASE)
 			@ConfigOption.Range(min = 0, max = 1000)
 			public static float damageNeededToIncrease = 10f;
 		}
@@ -898,7 +898,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseHealAmount", translation = "config.arcanus.baseHealAmount")
+			@ConfigEntry(id = "baseHealAmount", translation = CONFIG_BASE_HEAL_AMOUNT)
 			@ConfigOption.Range(min = 0, max = 1000)
 			public static float baseHealAmount = 3f;
 		}
@@ -950,7 +950,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
 		}
@@ -978,7 +978,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 500;
 		}
@@ -1006,7 +1006,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 200;
 		}
@@ -1034,11 +1034,11 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
-			@ConfigEntry(id = "baseLifeSpan", translation = "config.arcanus.baseLifeSpan")
+			@ConfigEntry(id = "baseLifeSpan", translation = CONFIG_BASE_LIFE_SPAN)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseLifeSpan = 100;
 
-			@ConfigEntry(id = "lifeSpanModifier", translation = "config.arcanus.lifeSpanModifier")
+			@ConfigEntry(id = "lifeSpanModifier", translation = CONFIG_LIFE_SPAN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int lifeSpanModifier = 40;
 		}
@@ -1066,11 +1066,11 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
 
-			@ConfigEntry(id = "baseChanceToActivate", translation = "config.arcanus.baseChanceToActivate")
+			@ConfigEntry(id = "baseChanceToActivate", translation = CONFIG_BASE_ACTIVATION_CHANCE)
 			@ConfigOption.Range(min = 0, max = 1)
 			public static double baseChanceToActivate = 0.035;
 		}
@@ -1125,37 +1125,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseLifeSpan", translation = "config.arcanus.baseLifeSpan")
+			@ConfigEntry(id = "baseLifeSpan", translation = CONFIG_BASE_LIFE_SPAN)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseLifeSpan = 220;
-		}
-
-		@Category("powerEffectProperties")
-		public static final class PowerEffectProperties {
-			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
-			public static boolean enabled = true;
-
-			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
-			public static Weight weight = Weight.NONE;
-
-			@ConfigEntry(id = "manaCost", translation = CONFIG_MANA_COST)
-			@ConfigOption.Range(min = 0, max = 200)
-			public static double manaCost = 2;
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
-			@ConfigEntry(id = "minimumLevel", translation = CONFIG_MIN_LEVEL)
-			@ConfigOption.Range(min = 1, max = 10)
-			public static int minimumLevel = 4;
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
-
-			@ConfigEntry(id = "basePower", translation = "config.arcanus.basePower")
-			@ConfigOption.Range(min = 0, max = 16)
-			public static int basePower = 4;
 		}
 
 		@Category("anonymityEffectProperties")
@@ -1181,7 +1153,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 220;
 		}
@@ -1257,11 +1229,11 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseShrinkAmount", translation = "config.arcanus.baseShrinkAmount")
+			@ConfigEntry(id = "baseShrinkAmount", translation = CONFIG_BASE_SHRINK_AMOUNT)
 			@ConfigOption.Range(min = 0, max = 1)
 			public static float baseShrinkAmount = 0.5f;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
 		}
@@ -1289,11 +1261,11 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEnlargeAmount", translation = "config.arcanus.baseEnlargeAmount")
+			@ConfigEntry(id = "baseEnlargeAmount", translation = CONFIG_BASE_ENLARGE_AMOUNT)
 			@ConfigOption.Range(min = 1, max = 2)
 			public static float baseEnlargeAmount = 1.5f;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
 		}
@@ -1321,26 +1293,26 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
-			@ConfigEntry(id = "canSuckEntitiesIn", translation = "config.arcanus.canSuckEntitiesIn")
+			@ConfigEntry(id = "canSuckEntitiesIn", translation = CONFIG_CAN_SUCK_ENTITIES_IN)
 			public static boolean canSuckEntitiesIn = true;
 
-			@ConfigEntry(id = "portalGrowTime", translation = "config.arcanus.portalGrowTime")
+			@ConfigEntry(id = "portalGrowTime", translation = CONFIG_PORTAL_GROW_TIME)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int portalGrowTime = 100;
 
-			@ConfigEntry(id = "pocketWidth", translation = "config.arcanus.pocketWidth")
+			@ConfigEntry(id = "pocketWidth", translation = CONFIG_POCKET_WIDTH)
 			@Comment(value = "Needs to be an even number")
 			@ConfigOption.Range(min = 2, max = 48)
 			public static int pocketWidth = 24;
 
-			@ConfigEntry(id = "pocketHeight", translation = "config.arcanus.pocketHeight")
+			@ConfigEntry(id = "pocketHeight", translation = CONFIG_POCKET_HEIGHT)
 			@Comment(value = "Needs to be an even number")
 			@ConfigOption.Range(min = 2, max = 48)
 			public static int pocketHeight = 24;
 
-			@ConfigEntry(id = "baseLifeSpan", translation = "config.arcanus.baseLifeSpan")
+			@ConfigEntry(id = "baseLifeSpan", translation = CONFIG_BASE_LIFE_SPAN)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static int baseLifeSpan = 700;
+			public static int baseLifeSpan = 300;
 		}
 
 		@Category("wardingEffectProperties")
@@ -1366,7 +1338,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "canBeRemovedByOthers", translation = "config.arcanus.canBeRemovedByOthers")
+			@ConfigEntry(id = "canBeRemovedByOthers", translation = CONFIG_CAN_BE_REMOVED_BY_OTHERS)
 			public static boolean canBeRemovedByOthers = true;
 		}
 	}
@@ -1396,9 +1368,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "basePushAmount", translation = "config.arcanus.basePushAmount")
+			@ConfigEntry(id = "basePushStrength", translation = CONFIG_BASE_PUSH_STRENGTH)
 			@ConfigOption.Range(min = 0, max = 10)
-			public static double basePushAmount = 0.2;
+			public static double basePushStrength = 0.2;
 		}
 
 		@Category("pullEffectProperties")
@@ -1424,9 +1396,9 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "basePullAmount", translation = "config.arcanus.basePullAmount")
+			@ConfigEntry(id = "basePullStrength", translation = CONFIG_BASE_PULL_STRENGTH)
 			@ConfigOption.Range(min = 0, max = 10)
-			public static double basePullAmount = 0.2;
+			public static double basePullStrength = 0.2;
 		}
 
 		@Category("levitateEffectProperties")
@@ -1452,7 +1424,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 60;
 		}
@@ -1480,7 +1452,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 300;
 		}
@@ -1508,7 +1480,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
-			@ConfigEntry(id = "baseTeleportDistance", translation = "config.arcanus.baseTeleportDistance")
+			@ConfigEntry(id = "baseTeleportDistance", translation = CONFIG_BASE_TELEPORT_DISTANCE)
 			@ConfigOption.Range(min = 0, max = 32)
 			public static double baseTeleportDistance = 5;
 		}
@@ -1536,7 +1508,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 220;
 		}
@@ -1564,7 +1536,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
 		}
@@ -1592,10 +1564,10 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "removedUponTakingDamage", translation = "config.arcanus.removedUponTakingDamage")
+			@ConfigEntry(id = "removedUponTakingDamage", translation = CONFIG_REMOVED_ON_DAMAGE_TAKEN)
 			public static boolean removedUponTakingDamage = true;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 1200;
 		}
@@ -1623,14 +1595,14 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "removedUponTakingDamage", translation = "config.arcanus.removedUponTakingDamage")
+			@ConfigEntry(id = "removedUponTakingDamage", translation = CONFIG_REMOVED_ON_DAMAGE_TAKEN)
 			public static boolean removedUponTakingDamage = true;
 
-			@ConfigEntry(id = "baseEffectDuration", translation = "config.arcanus.baseEffectDuration")
+			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 200;
 
-			@ConfigEntry(id = "effectDurationModifier", translation = "config.arcanus.effectDurationModifier")
+			@ConfigEntry(id = "effectDurationModifier", translation = CONFIG_EFFECT_DURATION_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int effectDurationModifier = 100;
 		}

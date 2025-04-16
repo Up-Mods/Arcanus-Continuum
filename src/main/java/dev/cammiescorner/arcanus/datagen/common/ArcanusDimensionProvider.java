@@ -1,9 +1,10 @@
 package dev.cammiescorner.arcanus.datagen.common;
 
+import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.data.ArcanusBiomes;
 import dev.cammiescorner.arcanus.common.data.ArcanusDimensionTypes;
 import dev.cammiescorner.arcanus.common.data.ArcanusDimensions;
-import dev.upcraft.sparkweave.api.datagen.DynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
@@ -18,10 +19,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.OptionalLong;
 
-public class ArcanusDimensionProvider extends DynamicRegistryEntryProvider {
-
+public class ArcanusDimensionProvider extends SparkweaveDynamicRegistryEntryProvider {
 	@Override
-	protected void generate(RegistrySetBuilder builder) {
+	public void generate(RegistrySetBuilder builder) {
 		builder.add(Registries.DIMENSION_TYPE, context -> {
 			context.register(ArcanusDimensionTypes.POCKET_DIMENSION, new DimensionType(OptionalLong.of(12000), false, false, false, false, 1.0D, false, false, -256, 512, 512, BlockTags.INFINIBURN_OVERWORLD, BuiltinDimensionTypes.END_EFFECTS, 15.0F, new DimensionType.MonsterSettings(true, false, ConstantInt.of(0), 0)));
 		});
@@ -30,5 +30,10 @@ public class ArcanusDimensionProvider extends DynamicRegistryEntryProvider {
 			var biomes = context.lookup(Registries.BIOME);
 			context.register(Registries.levelToLevelStem(ArcanusDimensions.POCKET_DIMENSION), new LevelStem(dimensionTypes.getOrThrow(ArcanusDimensionTypes.POCKET_DIMENSION), new FlatLevelSource(new FlatLevelGeneratorSettings(Optional.empty(), biomes.getOrThrow(ArcanusBiomes.POCKET_DIMENSION), List.of()))));
 		});
+	}
+
+	@Override
+	public String getName() {
+		return Arcanus.MOD_ID;
 	}
 }

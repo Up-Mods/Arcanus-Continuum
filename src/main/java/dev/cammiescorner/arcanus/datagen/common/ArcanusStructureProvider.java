@@ -4,14 +4,14 @@ import com.mojang.datafixers.util.Pair;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.data.*;
 import dev.cammiescorner.arcanus.common.structures.WizardTowerProcessor;
-import dev.upcraft.sparkweave.api.datagen.DynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.Pools;
-import net.minecraft.data.worldgen.Structures;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.heightproviders.ConstantHeight;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
@@ -23,10 +23,9 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 
 import java.util.List;
 
-public class ArcanusStructureProvider extends DynamicRegistryEntryProvider {
-
+public class ArcanusStructureProvider extends SparkweaveDynamicRegistryEntryProvider {
 	@Override
-	protected void generate(RegistrySetBuilder builder) {
+	public void generate(RegistrySetBuilder builder) {
 
 		builder.add(Registries.PROCESSOR_LIST, context -> {
 			context.register(ArcanusStructureProcessors.WIZARD_TOWER_PROCESSORS, new StructureProcessorList(List.of(new WizardTowerProcessor())));
@@ -47,7 +46,9 @@ public class ArcanusStructureProvider extends DynamicRegistryEntryProvider {
 			var pools = context.lookup(Registries.TEMPLATE_POOL);
 
 			context.register(ArcanusStructures.WIZARD_TOWER, new JigsawStructure(
-				Structures.structure(biomes.getOrThrow(ArcanusBiomeTags.HAS_WIZARD_TOWER), TerrainAdjustment.BEARD_THIN),
+				new Structure.StructureSettings.Builder(biomes.getOrThrow(ArcanusBiomeTags.HAS_WIZARD_TOWER))
+					.terrainAdapation(TerrainAdjustment.BEARD_THIN)
+					.build(),
 				pools.getOrThrow(ArcanusStructurePools.WIZARD_TOWER),
 				1,
 				ConstantHeight.of(VerticalAnchor.absolute(0)),
@@ -60,5 +61,10 @@ public class ArcanusStructureProvider extends DynamicRegistryEntryProvider {
 			var structures = context.lookup(Registries.STRUCTURE);
 			context.register(ArcanusStructureSets.WIZARD_TOWER, new StructureSet(structures.getOrThrow(ArcanusStructures.WIZARD_TOWER), new RandomSpreadStructurePlacement(67, 19, RandomSpreadType.LINEAR, 203785912)));
 		});
+	}
+
+	@Override
+	public String getName() {
+		return Arcanus.MOD_ID;
 	}
 }

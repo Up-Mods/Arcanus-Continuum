@@ -2,7 +2,6 @@ package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.*;
-import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.common.spell_components.effects.attack.*;
 import dev.cammiescorner.arcanus.common.spell_components.effects.movement.*;
 import dev.cammiescorner.arcanus.common.spell_components.effects.support.*;
@@ -73,12 +72,11 @@ public class ArcanusSpellComponents {
 	public static final RegistrySupplier<SpellEffect> DANGER_SENSE = SPELL_COMPONENTS.register("danger_sense_effect", DangerSenseSpellEffect::new);
 
 	public static final RegistrySupplier<SpellEffect> BUILD = SPELL_COMPONENTS.register("build_effect", BuildSpellEffect::new);
-	public static final RegistrySupplier<SpellEffect> POWER = SPELL_COMPONENTS.register("power_effect", PowerSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> ANONYMITY = SPELL_COMPONENTS.register("anonymity_effect", AnonymitySpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> MINE = SPELL_COMPONENTS.register("mine_effect", MineSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> GROWTH = SPELL_COMPONENTS.register("growth_effect", GrowthSpellEffect::new);
-	@Nullable public static final RegistrySupplier<SpellEffect> SHRINK = ArcanusCompat.PEHKUI.orElse(() -> () -> SPELL_COMPONENTS.register("shrink_effect", ShrinkSpellEffect::new), null);
-	@Nullable public static final RegistrySupplier<SpellEffect> ENLARGE = ArcanusCompat.PEHKUI.orElse(() -> () -> SPELL_COMPONENTS.register("enlarge_effect", EnlargeSpellEffect::new), null);
+	public static final RegistrySupplier<SpellEffect> SHRINK = SPELL_COMPONENTS.register("shrink_effect", ShrinkSpellEffect::new);
+	public static final RegistrySupplier<SpellEffect> ENLARGE = SPELL_COMPONENTS.register("enlarge_effect", EnlargeSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> SPATIAL_RIFT = SPELL_COMPONENTS.register("spatial_rift_effect", SpatialRiftSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> WARDING = SPELL_COMPONENTS.register("warding_effect", WardingSpellEffect::new);
 

@@ -1,7 +1,8 @@
 package dev.cammiescorner.arcanus.datagen.common;
 
+import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.data.ArcanusBiomes;
-import dev.upcraft.sparkweave.api.datagen.DynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.biome.Biome;
@@ -9,10 +10,9 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 
-public class ArcanusBiomeProvider extends DynamicRegistryEntryProvider {
-
+public class ArcanusBiomeProvider extends SparkweaveDynamicRegistryEntryProvider {
 	@Override
-	protected void generate(RegistrySetBuilder builder) {
+	public void generate(RegistrySetBuilder builder) {
 		builder.add(Registries.BIOME, context -> {
 			var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
 			var worldCarvers = context.lookup(Registries.CONFIGURED_CARVER);
@@ -25,5 +25,10 @@ public class ArcanusBiomeProvider extends DynamicRegistryEntryProvider {
 				.mobSpawnSettings(new MobSpawnSettings.Builder().build())
 				.generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers).build()).build());
 		});
+	}
+
+	@Override
+	public String getName() {
+		return Arcanus.MOD_ID;
 	}
 }

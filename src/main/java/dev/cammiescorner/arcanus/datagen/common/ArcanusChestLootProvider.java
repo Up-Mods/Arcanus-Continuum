@@ -8,17 +8,16 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootTableReference;
 import net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
-import net.minecraft.world.level.storage.loot.functions.SetNbtFunction;
+import net.minecraft.world.level.storage.loot.functions.SetCustomDataFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -36,36 +35,36 @@ public class ArcanusChestLootProvider extends SimpleFabricLootTableProvider {
 	}
 
 	@Override
-	public void generate(BiConsumer<ResourceLocation, LootTable.Builder> output) {
-		output.accept(ArcanusLootTables.WIZARD_TOWER_CHEST, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootTableReference.lootTableReference(BuiltInLootTables.IGLOO_CHEST))));
+	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
+		output.accept(ArcanusLootTables.WIZARD_TOWER_CHEST, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1f)).add(LootTableReference.lootTableReference(BuiltInLootTables.IGLOO_CHEST))));
 		output.accept(ArcanusLootTables.WIZARD_TOWER_BOOKSHELF, LootTable.lootTable()
 			.withPool(LootPool.lootPool()
 				.setRolls(UniformGenerator.between(0, 6))
 				.add(AlternativesEntry.alternatives(
 					LootItem.lootTableItem(ArcanusItems.SPELL_BOOK.get())
 						.apply(setSpellNbt(ArcanusChestLootProvider::healSelfSpell))
-						.when(LootItemRandomChanceCondition.randomChance(0.25F)),
+						.when(LootItemRandomChanceCondition.randomChance(0.25f)),
 					LootItem.lootTableItem(ArcanusItems.SPELL_BOOK.get())
 						.apply(setSpellNbt(ArcanusChestLootProvider::healAllySpell))
-						.when(LootItemRandomChanceCondition.randomChance(0.25F)),
+						.when(LootItemRandomChanceCondition.randomChance(0.25f)),
 					LootItem.lootTableItem(ArcanusItems.SPELL_BOOK.get())
 						.apply(setSpellNbt(ArcanusChestLootProvider::paladinsShieldSpell))
-						.when(LootItemRandomChanceCondition.randomChance(0.25F)),
+						.when(LootItemRandomChanceCondition.randomChance(0.25f)),
 					LootItem.lootTableItem(ArcanusItems.SPELL_BOOK.get())
 						.apply(setSpellNbt(ArcanusChestLootProvider::fireballSpell))
-						.when(LootItemRandomChanceCondition.randomChance(0.25F)),
+						.when(LootItemRandomChanceCondition.randomChance(0.25f)),
 					LootItem.lootTableItem(ArcanusItems.SPELL_BOOK.get())
 						.apply(setSpellNbt(ArcanusChestLootProvider::magicMissileSpell))
-						.when(LootItemRandomChanceCondition.randomChance(0.25F)),
+						.when(LootItemRandomChanceCondition.randomChance(0.25f)),
 					LootItem.lootTableItem(ArcanusItems.SPELL_BOOK.get())
 						.apply(setSpellNbt(ArcanusChestLootProvider::smiteSpell))
-						.when(LootItemRandomChanceCondition.randomChance(0.25F)),
+						.when(LootItemRandomChanceCondition.randomChance(0.25f)),
 					LootItem.lootTableItem(ArcanusItems.SPELL_BOOK.get())
 						.apply(setSpellNbt(ArcanusChestLootProvider::blinkSpell))
-						.when(LootItemRandomChanceCondition.randomChance(0.25F)),
+						.when(LootItemRandomChanceCondition.randomChance(0.25f)),
 					LootItem.lootTableItem(ArcanusItems.SPELL_BOOK.get())
 						.apply(setSpellNbt(ArcanusChestLootProvider::zoomiesSpell))
-						.when(LootItemRandomChanceCondition.randomChance(0.25F))
+						.when(LootItemRandomChanceCondition.randomChance(0.25f))
 				))
 				.add(LootItem.lootTableItem(Items.WRITABLE_BOOK).setWeight(5))
 				.add(LootItem.lootTableItem(Items.BOOK).setWeight(5))
@@ -79,9 +78,9 @@ public class ArcanusChestLootProvider extends SimpleFabricLootTableProvider {
 	}
 
 	public static LootItemConditionalFunction.Builder<?> setSpellNbt(Supplier<Spell> spell) {
-		var outerTag = new CompoundTag();
+		CompoundTag outerTag = new CompoundTag();
 		outerTag.put("Spell", spell.get().toNbt());
-		return SetNbtFunction.setTag(outerTag);
+		return SetCustomDataFunction.setCustomData(outerTag);
 	}
 
 	private static Spell healSelfSpell() {

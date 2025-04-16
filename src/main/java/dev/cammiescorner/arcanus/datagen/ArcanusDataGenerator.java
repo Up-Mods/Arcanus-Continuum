@@ -4,41 +4,43 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.datagen.client.ArcanusEnglishLanguageProvider;
 import dev.cammiescorner.arcanus.datagen.client.ArcanusModelProvider;
 import dev.cammiescorner.arcanus.datagen.common.*;
+import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
+import dev.upcraft.sparkweave.api.datagen.DynamicRegistryBuilder;
+import dev.upcraft.sparkweave.api.datagen.Pack;
+import dev.upcraft.sparkweave.api.entrypoint.DataGenerationEntryPoint;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.RegistrySetBuilder;
+import org.jetbrains.annotations.Nullable;
 
-public class ArcanusDataGenerator implements DataGeneratorEntrypoint {
+public class ArcanusDataGenerator implements DataGenerationEntryPoint {
 	@Override
-	public void buildRegistry(RegistrySetBuilder builder) {
-		DynamicRegistryEntryProvider.builder(Arcanus.MOD_ID)
-			.add(ArcanusBiomeProvider::new)
-			.add(ArcanusDamageTypeProvider::new)
-			.add(ArcanusDimensionProvider::new)
-			.add(ArcanusStructureProvider::new)
-			.build(builder);
+	public void generateDynamicRegistryEntries(DynamicRegistryBuilder builder) {
+		builder.add(ArcanusBiomeProvider::new);
+		builder.add(ArcanusDamageTypeProvider::new);
+		builder.add(ArcanusDimensionProvider::new);
+		builder.add(ArcanusStructureProvider::new);
 	}
 
 	@Override
-	public void onInitializeDataGenerator(FabricDataGenerator generator) {
-		var pack = generator.createPack();
-		pack.addProvider((output, registriesFuture) -> DynamicRegistryEntryProvider.getGenerator(Arcanus.MOD_ID, output, registriesFuture));
+	public void generate(DataGenerationContext ctx) {
+		Pack pack = ctx.getDefaultPack();
+		FabricTagProvider.BlockTagProvider blockTags = pack.addProvider(DataGenerationContext::includeClient, ArcanusBlockTagsProvider::new);
 
-		var blockTags = pack.addProvider(ArcanusBlockTagsProvider::new);
-		pack.addProvider((output, registriesFuture) -> new ArcanusItemTagsProvider(output, registriesFuture, blockTags));
-		pack.addProvider(ArcanusBiomeTagsProvider::new);
-		pack.addProvider(ArcanusDamageTagsProvider::new);
-		pack.addProvider(ArcanusEntityTagsProvider::new);
-		pack.addProvider(ArcanusEnchantmentTagsProvider::new);
-		pack.addProvider(ArcanusDimensionTagsProvider::new);
-		pack.addProvider(ArcanusAdvancementRewardProvider::new);
-		pack.addProvider(ArcanusBlockLootProvider::new);
-		pack.addProvider(ArcanusChestLootProvider::new);
-		pack.addProvider(ArcanusRecipeProvider::new);
-		pack.addProvider(ArcanusAdvancementProvider::new);
-		pack.addProvider(ArcanusLevelStemProvider::new);
+		pack.addProvider(DataGenerationContext::includeClient, (output, registriesFuture) -> new ArcanusItemTagsProvider(output, registriesFuture, blockTags));
+		pack.addProvider(DataGenerationContext::includeClient, ArcanusBiomeTagsProvider::new);
+		pack.addProvider(DataGenerationContext::includeClient, ArcanusDamageTagsProvider::new);
+		pack.addProvider(DataGenerationContext::includeClient, ArcanusEntityTagsProvider::new);
+		pack.addProvider(DataGenerationContext::includeClient, ArcanusEnchantmentTagsProvider::new);
+		pack.addProvider(DataGenerationContext::includeClient, ArcanusDimensionTagsProvider::new);
+		pack.addProvider(DataGenerationContext::includeClient, ArcanusBlockLootProvider::new);
+		pack.addProvider(DataGenerationContext::includeClient, ArcanusChestLootProvider::new);
+		pack.addProvider(DataGenerationContext::includeClient, ArcanusRecipeProvider::new);
+		pack.addProvider(DataGenerationContext::includeClient, ArcanusAdvancementProvider::new);
+		pack.addProvider(DataGenerationContext::includeClient, ArcanusLevelStemProvider::new);
 
-		pack.addProvider(ArcanusEnglishLanguageProvider::new);
-		pack.addProvider(ArcanusModelProvider::new);
+		pack.addProvider(DataGenerationContext::includeClient, ArcanusEnglishLanguageProvider::new);
+		pack.addProvider(DataGenerationContext::includeClient, ArcanusModelProvider::new);
 	}
 }

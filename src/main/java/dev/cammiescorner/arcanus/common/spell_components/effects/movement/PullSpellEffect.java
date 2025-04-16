@@ -32,7 +32,7 @@ public class PullSpellEffect extends SpellEffect {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 			Entity entity = entityHit.getEntity();
-			double amount = -effects.stream().filter(ArcanusSpellComponents.PULL::is).count() * ArcanusConfig.MovementEffects.PullEffectProperties.basePullAmount * potency;
+			double amount = -effects.stream().filter(ArcanusSpellComponents.PULL::is).count() * ArcanusConfig.MovementEffects.PullEffectProperties.basePullStrength * potency;
 
 			if(sourceEntity != null) {
 				if(entity.equals(caster))

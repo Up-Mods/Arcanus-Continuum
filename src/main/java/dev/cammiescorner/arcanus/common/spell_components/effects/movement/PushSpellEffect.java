@@ -32,7 +32,7 @@ public class PushSpellEffect extends SpellEffect {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 			Entity entity = entityHit.getEntity();
-			double amount = effects.stream().filter(ArcanusSpellComponents.PUSH::is).count() * ArcanusConfig.MovementEffects.PushEffectProperties.basePushAmount * potency;
+			double amount = effects.stream().filter(ArcanusSpellComponents.PUSH::is).count() * ArcanusConfig.MovementEffects.PushEffectProperties.basePushStrength * potency;
 
 			if(sourceEntity != null) {
 				if(entity.equals(caster))

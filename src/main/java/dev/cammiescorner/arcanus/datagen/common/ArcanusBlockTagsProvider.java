@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.Blocks;
 import java.util.concurrent.CompletableFuture;
 
 public class ArcanusBlockTagsProvider extends FabricTagProvider.BlockTagProvider {
-
 	public ArcanusBlockTagsProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
