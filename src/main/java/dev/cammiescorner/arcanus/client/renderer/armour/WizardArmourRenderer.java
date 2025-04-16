@@ -11,7 +11,9 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Sheep;
@@ -30,21 +32,16 @@ public class WizardArmourRenderer implements ArmorRenderer {
 			model = new WizardArmourModel<>(client.getEntityModels().bakeLayer(WizardArmourModel.MODEL_LAYER));
 
 		if(stack.getItem() instanceof WizardRobesArmorItem wizardArmour) {
-			int hexColour = wizardArmour.getColor(stack);
-			float r = (hexColour >> 16 & 255) / 255F;
-			float g = (hexColour >> 8 & 255) / 255F;
-			float b = (hexColour & 255) / 255F;
+			int hexColor = wizardArmour.getColor(stack); // TODO probably need to add alpha
 
-			if(stack.hasCustomHoverName() && stack.getHoverName().getString().equals("jeb_")) {
-				int m = 15;
-				int n = entity.tickCount / m + entity.getId();
-				int o = DyeColor.values().length;
-				float f = ((entity.tickCount % m) + client.getFrameTime()) / 15F;
-				float[] fs = Sheep.getColorArray(DyeColor.byId(n % o));
-				float[] gs = Sheep.getColorArray(DyeColor.byId((n + 1) % o));
-				r = fs[0] * (1F - f) + gs[0] * f;
-				g = fs[1] * (1F - f) + gs[1] * f;
-				b = fs[2] * (1F - f) + gs[2] * f;
+			if(stack.has(DataComponents.CUSTOM_NAME) && stack.getHoverName().getString().equals("jeb_")) {
+				int interval = 15;
+				int idfk = entity.tickCount / interval + entity.getId();
+				int colorCount = DyeColor.values().length;
+				float f = ((entity.tickCount % interval) + client.getFrameTimeNs()) / 15f;
+				int color1 = Sheep.getColor(DyeColor.byId(idfk % colorCount));
+				int color2 = Sheep.getColor(DyeColor.byId((idfk + 1) % colorCount));
+				hexColor = FastColor.ARGB32.lerp(f, color1, color2);
 			}
 
 			contextModel.copyPropertiesTo(model);
@@ -58,8 +55,8 @@ public class WizardArmourRenderer implements ArmorRenderer {
 			model.rightBoot.visible = slot == EquipmentSlot.FEET;
 			model.leftBoot.visible = slot == EquipmentSlot.FEET;
 
-			model.renderToBuffer(matrices, ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(mainTexture), false, false), light, OverlayTexture.NO_OVERLAY, r, g, b, 1F);
-			model.renderToBuffer(matrices, ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(overlayTexture), false, false), light, OverlayTexture.NO_OVERLAY, 1F, 1F, 1F, 1F);
+			model.renderToBuffer(matrices, ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(mainTexture), false), light, OverlayTexture.NO_OVERLAY, hexColor);
+			model.renderToBuffer(matrices, ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(overlayTexture), false), light, OverlayTexture.NO_OVERLAY, 0xffffffff);
 		}
 	}
 }

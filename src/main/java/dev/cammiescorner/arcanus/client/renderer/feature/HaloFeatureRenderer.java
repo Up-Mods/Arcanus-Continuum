@@ -8,7 +8,7 @@ import dev.cammiescorner.arcanus.client.models.feature.HaloModel;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import dev.cammiescorner.arcanus.common.util.StaffType;
 import dev.cammiescorner.arcanus.common.util.supporters.HaloData;
 import net.minecraft.client.Minecraft;
@@ -34,7 +34,7 @@ public class HaloFeatureRenderer<T extends Player, M extends EntityModel<T>> ext
 
 	@Override
 	public void render(PoseStack matrices, MultiBufferSource vertices, int light, T player, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-		if(!player.hasEffect(ArcanusMobEffects.ANONYMITY.get())) {
+		if(!player.hasEffect(ArcanusMobEffects.ANONYMITY.holder())) {
 			HaloData data = player.datasync$getOrDefault(Arcanus.HALO_DATA, HaloData.empty());
 
 			if(data.shouldShow()) {
@@ -49,7 +49,7 @@ public class HaloFeatureRenderer<T extends Player, M extends EntityModel<T>> ext
 				if(ArcanusComponents.isCasting(player) && player.getMainHandItem().getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF)
 					matrices.mulPose(Axis.YP.rotationDegrees(player.getMainArm() == HumanoidArm.RIGHT ? 65 : -65));
 
-				model.renderToBuffer(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.redF(), color.greenF(), color.blueF(), 1.0F);
+				model.renderToBuffer(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
 				matrices.popPose();
 			}
 		}

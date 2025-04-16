@@ -10,7 +10,7 @@ public class ConventionsHelper {
 	public static final String COMMON_NAMESPACE = "c";
 
 	public static ResourceLocation id(String path) {
-		return new ResourceLocation(COMMON_NAMESPACE, path);
+		return ResourceLocation.fromNamespaceAndPath(COMMON_NAMESPACE, path);
 	}
 
 	public static <T> TagKey<T> tag(ResourceKey<Registry<T>> registry, String path) {

@@ -35,7 +35,7 @@ public class MouseHandlerMixin {
 		target = "Lnet/minecraft/client/player/LocalPlayer;turn(DD)V"
 	))
 	public void invertMouseMovements(Args args) {
-		if(minecraft.player != null && minecraft.player.hasEffect(ArcanusMobEffects.DISCOMBOBULATE.get())) {
+		if(minecraft.player != null && minecraft.player.hasEffect(ArcanusMobEffects.DISCOMBOBULATE.holder())) {
 			double x = args.get(0);
 			double y = args.get(1);
 			args.setAll(-x, -y);
@@ -47,7 +47,7 @@ public class MouseHandlerMixin {
 		target = "Lcom/mojang/blaze3d/platform/InputConstants$Type;getOrCreate(I)Lcom/mojang/blaze3d/platform/InputConstants$Key;"
 	), index = 0)
 	public int invertMouseButtons(int i) {
-		if(minecraft.player != null && minecraft.player.hasEffect(ArcanusMobEffects.DISCOMBOBULATE.get())) {
+		if(minecraft.player != null && minecraft.player.hasEffect(ArcanusMobEffects.DISCOMBOBULATE.holder())) {
 			return switch(i) {
 				case 0 -> {
 					KeyMapping.set(InputConstants.Type.MOUSE.getOrCreate(0), false);

@@ -28,9 +28,9 @@ public class TemporalDilationField extends Entity implements Targetable {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		entityData.define(TRUE_AGE, 0);
-		entityData.define(MAX_AGE, 100);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(TRUE_AGE, 0);
+		builder.define(MAX_AGE, 100);
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class TemporalDilationField extends Entity implements Targetable {
 	}
 
 	@Override
-	public boolean canChangeDimensions() {
+	public boolean canChangeDimensions(Level oldLevel, Level newLevel) {
 		return false;
 	}
 

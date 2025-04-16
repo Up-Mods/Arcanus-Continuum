@@ -11,7 +11,6 @@ import net.minecraft.world.entity.EntityType;
 import java.util.concurrent.CompletableFuture;
 
 public class ArcanusEntityTagsProvider extends FabricTagProvider.EntityTypeTagProvider {
-
 	public ArcanusEntityTagsProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
 		super(output, completableFuture);
 	}

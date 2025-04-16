@@ -7,7 +7,7 @@ import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.models.entity.magic.TemporalDilationFieldModel;
 import dev.cammiescorner.arcanus.common.entities.magic.TemporalDilationField;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -45,7 +45,7 @@ public class TemporalDilationFieldRenderer extends EntityRenderer<TemporalDilati
 		model.xClockHand.xRot = -handProgress;
 		model.yClockHand.yRot = handProgress;
 
-		model.renderToBuffer(poseStack, buffer.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY, color.redF(), color.greenF(), color.blueF(), color.alphaF());
+		model.renderToBuffer(poseStack, buffer.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY, color.asIntARGB());
 		poseStack.popPose();
 	}
 

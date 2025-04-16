@@ -6,6 +6,7 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.upcraft.sparkweave.api.SparkweaveApi;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
@@ -28,7 +29,7 @@ public class WardedBlocksComponent implements AutoSyncedComponent {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		ListTag nbtList = tag.getList("WardedBlocksMap", Tag.TAG_COMPOUND);
 		wardedBlocks.clear();
 
@@ -42,14 +43,13 @@ public class WardedBlocksComponent implements AutoSyncedComponent {
 				Arcanus.WIZARD_DATA.get(ownerUuid);
 			}
 
-			for(int j = 0; j < blockPosList.size(); j++) {
-				wardedBlocks.put(NbtUtils.readBlockPos(blockPosList.getCompound(j)), ownerUuid);
-			}
+			for(int j = 0; j < blockPosList.size(); j++)
+				wardedBlocks.put(NbtUtils.readBlockPos(blockPosList.getCompound(j), "").get(), ownerUuid); // TODO might need to figure out a name?
 		}
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		ListTag nbtList = new ListTag();
 		Map<UUID, ListTag> map = new HashMap<>();
 

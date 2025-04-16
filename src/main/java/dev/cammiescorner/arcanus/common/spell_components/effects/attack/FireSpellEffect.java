@@ -45,7 +45,7 @@ public class FireSpellEffect extends SpellEffect {
 				return;
 
 			if(entity instanceof LivingEntity livingEntity)
-				livingEntity.setSecondsOnFire((int) (ArcanusConfig.AttackEffects.FireEffectProperties.baseTimeOnFire * effects.stream().filter(ArcanusSpellComponents.FIRE::is).count() * potency));
+				livingEntity.setRemainingFireTicks((int) (ArcanusConfig.AttackEffects.FireEffectProperties.baseTimeOnFire * effects.stream().filter(ArcanusSpellComponents.FIRE::is).count() * potency));
 		}
 		else if(target.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult blockHit = (BlockHitResult) target;

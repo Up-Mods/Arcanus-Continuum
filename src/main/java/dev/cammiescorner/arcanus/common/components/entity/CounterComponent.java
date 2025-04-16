@@ -6,16 +6,15 @@ import dev.cammiescorner.arcanus.api.spells.SpellEffect;
 import dev.cammiescorner.arcanus.api.spells.SpellGroup;
 import dev.cammiescorner.arcanus.api.spells.SpellShape;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import dev.cammiescorner.arcanus.common.util.Color;
 import dev.cammiescorner.arcanus.common.util.NBTHelper;
-import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
-import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.Util;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,6 +23,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
+import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
+import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -52,24 +53,24 @@ public class CounterComponent implements AutoSyncedComponent, ServerTickingCompo
 	}
 
 	@Override
-	public void writeSyncPacket(FriendlyByteBuf buf, ServerPlayer recipient) {
+	public void writeSyncPacket(RegistryFriendlyByteBuf buf, ServerPlayer recipient) {
 		buf.writeInt(color.asInt(Color.Ordering.ARGB));
 		buf.writeLong(endTime);
 	}
 
 	@Override
-	public void applySyncPacket(FriendlyByteBuf buf) {
+	public void applySyncPacket(RegistryFriendlyByteBuf buf) {
 		color = Color.fromInt(buf.readInt(), Color.Ordering.ARGB);
 		endTime = buf.readLong();
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		effects.clear();
 		groups.clear();
 
 		casterId = tag.getUUID("CasterId");
-		stack = ItemStack.of(tag.getCompound("ItemStack"));
+		stack = ItemStack.parseOptional(registryLookup, tag.getCompound("ItemStack"));
 		color = NBTHelper.readColor(tag, "Color");
 		groupIndex = tag.getInt("GroupIndex");
 		potency = tag.getDouble("Potency");
@@ -79,18 +80,18 @@ public class CounterComponent implements AutoSyncedComponent, ServerTickingCompo
 		ListTag groupsList = tag.getList("SpellGroups", Tag.TAG_COMPOUND);
 
 		for(int i = 0; i < effectList.size(); i++)
-			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(new ResourceLocation(effectList.getString(i))));
+			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(ResourceLocation.parse(effectList.getString(i))));
 		for(int i = 0; i < groupsList.size(); i++)
 			groups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		ListTag effectList = new ListTag();
 		ListTag groupsList = new ListTag();
 
 		tag.putUUID("CasterId", casterId);
-		tag.put("ItemStack", stack.save(new CompoundTag()));
+		tag.put("ItemStack", stack.save(registryLookup));
 		NBTHelper.writeColor(tag, color, "Color");
 		tag.putInt("GroupIndex", groupIndex);
 		tag.putDouble("Potency", potency);

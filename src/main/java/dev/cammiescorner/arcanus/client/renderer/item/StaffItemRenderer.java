@@ -25,7 +25,7 @@ public class StaffItemRenderer implements BuiltinItemRendererRegistry.DynamicIte
 	private BakedModel worldItemModel;
 
 	public StaffItemRenderer(ResourceLocation itemId) {
-		this.id = new ResourceLocation(itemId.getNamespace(), itemId.getPath() + "_renderer");
+		this.id = ResourceLocation.fromNamespaceAndPath(itemId.getNamespace(), itemId.getPath() + "_renderer");
 		this.itemId = itemId;
 	}
 

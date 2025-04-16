@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.entities.living;
 
+import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.entities.Summon;
 import dev.cammiescorner.arcanus.common.entities.goals.CasterHurtByTargetGoal;
 import dev.cammiescorner.arcanus.common.entities.goals.CasterHurtTargetGoal;
@@ -9,6 +10,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -40,7 +42,7 @@ import java.util.Arrays;
 import java.util.UUID;
 
 public class NecroSkeleton extends AbstractSkeleton implements Summon {
-	private static final UUID HEALTH_UUID = UUID.fromString("65691cf4-6e7e-445f-8e5c-bb37a2b660d4");
+	private static final ResourceLocation HEALTH_MODIFIER = Arcanus.id("necro_skele_health_modifier");
 	private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(NecroSkeleton.class, EntityDataSerializers.INT);
 	;
 	private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
@@ -70,9 +72,10 @@ public class NecroSkeleton extends AbstractSkeleton implements Summon {
 		targetSelector.addGoal(6, new ResetUniversalAngerTargetGoal<>(this, true));
 	}
 
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		entityData.define(DATA_REMAINING_ANGER_TIME, 0);
+	@Override
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(DATA_REMAINING_ANGER_TIME, 0);
 	}
 
 	@Override
@@ -166,10 +169,10 @@ public class NecroSkeleton extends AbstractSkeleton implements Summon {
 		AttributeInstance healthAttr = getAttribute(Attributes.MAX_HEALTH);
 
 		if(healthAttr != null) {
-			if(healthAttr.getModifier(HEALTH_UUID) != null)
-				healthAttr.removeModifier(HEALTH_UUID);
+			if(healthAttr.getModifier(HEALTH_MODIFIER) != null)
+				healthAttr.removeModifier(HEALTH_MODIFIER);
 
-			healthAttr.addPermanentModifier(new AttributeModifier(HEALTH_UUID, "Health modifier", health, AttributeModifier.Operation.ADDITION));
+			healthAttr.addPermanentModifier(new AttributeModifier(HEALTH_MODIFIER, health, AttributeModifier.Operation.ADD_VALUE));
 			setHealth(getMaxHealth());
 		}
 	}

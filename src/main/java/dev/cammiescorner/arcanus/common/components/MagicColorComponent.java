@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.components;
 
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import org.ladysnake.cca.api.v3.component.Component;
 
 import java.util.UUID;

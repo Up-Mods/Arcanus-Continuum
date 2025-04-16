@@ -68,9 +68,9 @@ public class ManaShield extends Entity implements Targetable {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		entityData.define(MAX_AGE, 0);
-		entityData.define(TRUE_AGE, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(MAX_AGE, 0);
+		builder.define(TRUE_AGE, 0);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class ManaShield extends Entity implements Targetable {
 	}
 
 	@Override
-	public boolean canChangeDimensions() {
+	public boolean canChangeDimensions(Level oldLevel, Level newLevel) {
 		return false;
 	}
 

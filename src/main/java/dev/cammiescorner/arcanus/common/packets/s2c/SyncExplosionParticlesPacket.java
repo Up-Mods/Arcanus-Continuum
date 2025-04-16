@@ -7,7 +7,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
@@ -29,7 +28,7 @@ public class SyncExplosionParticlesPacket {
 		buf.writeFloat(strength);
 		buf.writeBoolean(didDestroyBlocks);
 
-		ServerPlayNetworking.send(player, ID, buf);
+//		ServerPlayNetworking.send(player, ID, buf);
 	}
 
 	@Environment(EnvType.CLIENT)

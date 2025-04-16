@@ -112,7 +112,7 @@
     "minecraft": "=${minecraft_version}",
     "java": ">=${java_version}",
     "fabric-api": "*",
-    "sparkweave": ">=0.8.8 <0.100.0",
+    "sparkweave": ">=0.502.0",
     "resourcefulconfig": "*",
     "cardinal-components-base": "*",
     "cardinal-components-block": "*",

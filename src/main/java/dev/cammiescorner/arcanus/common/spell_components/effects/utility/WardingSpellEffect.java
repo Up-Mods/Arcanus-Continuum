@@ -6,13 +6,14 @@ import dev.cammiescorner.arcanus.api.spells.SpellType;
 import dev.cammiescorner.arcanus.common.data.ArcanusBlockTags;
 import dev.cammiescorner.arcanus.common.data.ArcanusDimensionTags;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
@@ -47,8 +48,7 @@ public class WardingSpellEffect extends SpellEffect {
 						ArcanusComponents.removeWardedBlock(player, pos);
 					}
 					else {
-						var dimensionTypes = level.registryAccess().lookupOrThrow(Registries.DIMENSION_TYPE);
-						var dimensionHolder = dimensionTypes.getOrThrow(level.dimensionTypeId());
+						Holder<DimensionType> dimensionHolder = level.dimensionTypeRegistration();
 
 						if(dimensionHolder.is(ArcanusDimensionTags.WARDING_NOT_ALLOWED))
 							player.sendSystemMessage(Component.translatable("text.arcanus.cannot_ward_in_dimension"));

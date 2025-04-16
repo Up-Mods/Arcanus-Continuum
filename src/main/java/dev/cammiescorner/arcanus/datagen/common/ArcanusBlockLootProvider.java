@@ -3,12 +3,14 @@ package dev.cammiescorner.arcanus.datagen.common;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.block.Blocks;
 
-public class ArcanusBlockLootProvider extends FabricBlockLootTableProvider {
+import java.util.concurrent.CompletableFuture;
 
-	public ArcanusBlockLootProvider(FabricDataOutput dataOutput) {
-		super(dataOutput);
+public class ArcanusBlockLootProvider extends FabricBlockLootTableProvider {
+	public ArcanusBlockLootProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+		super(dataOutput, registryLookup);
 	}
 
 	@Override

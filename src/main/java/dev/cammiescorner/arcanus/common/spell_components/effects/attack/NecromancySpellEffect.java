@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.spell_components.effects.attack;
 
+import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spells.SpellEffect;
 import dev.cammiescorner.arcanus.api.spells.SpellType;
@@ -50,7 +51,7 @@ public class NecromancySpellEffect extends SpellEffect {
 				skeleton.setItemSlot(EquipmentSlot.HEAD, new ItemStack(ArcanusItems.WIZARD_HAT.get()));
 
 				if(damage != null)
-					damage.addPermanentModifier(new AttributeModifier("Attack Damage", (effectCount / 2d) * potency, AttributeModifier.Operation.ADDITION));
+					damage.addPermanentModifier(new AttributeModifier(Arcanus.id("necro_skele_attack_modifier"), (effectCount / 2d) * potency, AttributeModifier.Operation.ADD_VALUE));
 
 				level.addFreshEntity(skeleton);
 			}

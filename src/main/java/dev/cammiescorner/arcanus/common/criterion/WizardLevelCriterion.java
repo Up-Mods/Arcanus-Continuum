@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanus.common.criterion;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.server.level.ServerPlayer;
@@ -34,8 +35,8 @@ public class WizardLevelCriterion extends SimpleCriterionTrigger<WizardLevelCrit
 			return level;
 		}
 
-		public static TriggerInstance hasWizardLevel(int level) {
-			return new TriggerInstance(level);
+		public static Criterion<?> hasWizardLevel(int level) {
+			return new Criterion<>(null, new TriggerInstance(level));
 		}
 
 		@Override

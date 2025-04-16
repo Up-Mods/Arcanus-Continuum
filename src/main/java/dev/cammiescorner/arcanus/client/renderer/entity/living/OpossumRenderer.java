@@ -11,7 +11,9 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.Sheep;
@@ -34,29 +36,24 @@ public class OpossumRenderer extends MobRenderer<Opossum, OpossumModel> {
 		super.render(opossum, yaw, tickDelta, matrices, verteces, i);
 
 		if(hatStack.getItem() instanceof WizardRobesArmorItem wizardArmour) {
-			int hexColour = wizardArmour.getColor(hatStack);
-			float r = (hexColour >> 16 & 255) / 255F;
-			float g = (hexColour >> 8 & 255) / 255F;
-			float b = (hexColour & 255) / 255F;
+			int hexColor = wizardArmour.getColor(hatStack); // TODO probably need to add alpha
 
-			if(hatStack.hasCustomHoverName() && hatStack.getHoverName().getString().equals("jeb_")) {
-				int m = 15;
-				int n = opossum.tickCount / m + opossum.getId();
-				int o = DyeColor.values().length;
-				float f = ((opossum.tickCount % m) + tickDelta) / 15F;
-				float[] fs = Sheep.getColorArray(DyeColor.byId(n % o));
-				float[] gs = Sheep.getColorArray(DyeColor.byId((n + 1) % o));
-				r = fs[0] * (1F - f) + gs[0] * f;
-				g = fs[1] * (1F - f) + gs[1] * f;
-				b = fs[2] * (1F - f) + gs[2] * f;
+			if(hatStack.has(DataComponents.CUSTOM_NAME) && hatStack.getHoverName().getString().equals("jeb_")) {
+				int interval = 15;
+				int idfk = opossum.tickCount / interval + opossum.getId();
+				int colorCount = DyeColor.values().length;
+				float f = ((opossum.tickCount % interval) + tickDelta) / 15f;
+				int color1 = Sheep.getColor(DyeColor.byId(idfk % colorCount));
+				int color2 = Sheep.getColor(DyeColor.byId((idfk + 1) % colorCount));
+				hexColor = FastColor.ARGB32.lerp(f, color1, color2);
 			}
 
 			matrices.pushPose();
-			setupRotations(opossum, matrices, 0, Mth.rotLerp(tickDelta, opossum.yBodyRotO, opossum.yBodyRot), tickDelta);
+			setupRotations(opossum, matrices, 0, Mth.rotLerp(tickDelta, opossum.yBodyRotO, opossum.yBodyRot), tickDelta, 1f);
 			matrices.scale(-1.0F, -1.0F, 1.0F);
 			scale(opossum, matrices, tickDelta);
 			matrices.translate(0.0, -1.5, 0.0);
-			model.renderToBuffer(matrices, verteces.getBuffer(RenderType.entityCutout(HAT_TEXTURE)), i, OverlayTexture.NO_OVERLAY, r, g, b, 1F);
+			model.renderToBuffer(matrices, verteces.getBuffer(RenderType.entityCutout(HAT_TEXTURE)), i, OverlayTexture.NO_OVERLAY, hexColor);
 			matrices.popPose();
 		}
 	}

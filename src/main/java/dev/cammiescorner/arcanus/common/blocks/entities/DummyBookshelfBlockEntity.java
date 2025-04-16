@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanus.common.blocks.entities;
 
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
@@ -14,10 +15,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.OptionalLong;
@@ -50,8 +47,8 @@ public class DummyBookshelfBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag tag) {
-		super.saveAdditional(tag);
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
 		if (lootTableId != null) {
 			tag.putString("LootTable", lootTableId.toString());
 		}
@@ -62,19 +59,18 @@ public class DummyBookshelfBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void load(CompoundTag tag) {
-		super.load(tag);
-		if (tag.contains("LootTable", Tag.TAG_STRING)) {
-			lootTableId = ResourceLocation.tryParse(tag.getString("LootTable"));
-		}
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
 
-		if (tag.contains("Seed", Tag.TAG_LONG)) {
+		if(tag.contains("LootTable", Tag.TAG_STRING))
+			lootTableId = ResourceLocation.tryParse(tag.getString("LootTable"));
+
+		if(tag.contains("Seed", Tag.TAG_LONG))
 			lootTableSeed = tag.getLong("Seed");
-		}
 	}
 
 	public static void tick(Level level, BlockPos blockPos, BlockState state, DummyBookshelfBlockEntity blockEntity) {
-		if (level instanceof ServerLevel serverLevel) {
+		if(level instanceof ServerLevel serverLevel) {
 			level.setBlock(blockPos, copyValues(Blocks.CHISELED_BOOKSHELF.defaultBlockState(), state), Block.UPDATE_SUPPRESS_DROPS);
 
 			var lootTableId = blockEntity.getLootTable();
@@ -83,13 +79,14 @@ public class DummyBookshelfBlockEntity extends BlockEntity {
 			level.getBlockEntity(blockPos, BlockEntityType.CHISELED_BOOKSHELF).ifPresent(be -> {
 				var bookshelfState = be.getBlockState();
 
-				if (lootTableId != null) {
-					var lootTable = serverLevel.getServer().getLootData().getLootTable(lootTableId);
-					var builder = new LootParams.Builder(serverLevel).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(be.getBlockPos()));
-					lootTable.fill(be, builder.create(LootContextParamSets.CHEST), lootTableSeed.orElseGet(() -> serverLevel.getRandom().nextLong()));
+				if(lootTableId != null) {
+					// TODO figure out what happened to getLootData()
+//					var lootTable = serverLevel.getServer().getLootData().getLootTable(lootTableId);
+//					var builder = new LootParams.Builder(serverLevel).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(be.getBlockPos()));
+//					lootTable.fill(be, builder.create(LootContextParamSets.CHEST), lootTableSeed.orElseGet(() -> serverLevel.getRandom().nextLong()));
 					be.setChanged();
 
-					for (int i = 0; i < ChiseledBookShelfBlock.SLOT_OCCUPIED_PROPERTIES.size(); i++) {
+					for(int i = 0; i < ChiseledBookShelfBlock.SLOT_OCCUPIED_PROPERTIES.size(); i++) {
 						boolean bl = !be.getItem(i).isEmpty();
 						var property = ChiseledBookShelfBlock.SLOT_OCCUPIED_PROPERTIES.get(i);
 						bookshelfState = bookshelfState.setValue(property, bl);

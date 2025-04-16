@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class SpatialRiftWallBlock extends Block implements EntityBlock {
 	public SpatialRiftWallBlock() {
-		super(BlockBehaviour.Properties.copy(Blocks.BEDROCK)
+		super(BlockBehaviour.Properties.ofFullCopy(Blocks.BEDROCK)
 			.sound(SoundType.GLASS)
 			.lightLevel(value -> 12)
 			.noOcclusion()

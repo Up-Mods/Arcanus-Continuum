@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.blocks;
 
+import com.mojang.serialization.MapCodec;
 import dev.cammiescorner.arcanus.common.blocks.entities.DummyBookshelfBlockEntity;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -15,10 +16,16 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.Nullable;
 
 public class DummyBookshelfBlock extends BaseEntityBlock {
+	public static final MapCodec<DummyBookshelfBlock> CODEC = simpleCodec(properties -> new DummyBookshelfBlock());
 
 	public DummyBookshelfBlock() {
-		super(Properties.copy(Blocks.CHISELED_BOOKSHELF).noLootTable());
+		super(Properties.ofFullCopy(Blocks.CHISELED_BOOKSHELF).noLootTable());
 		this.registerDefaultState(this.stateDefinition.any().setValue(HorizontalDirectionalBlock.FACING, Direction.NORTH));
+	}
+
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return CODEC;
 	}
 
 	@Override

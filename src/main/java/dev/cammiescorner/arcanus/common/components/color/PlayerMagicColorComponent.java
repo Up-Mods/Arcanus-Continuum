@@ -2,14 +2,14 @@ package dev.cammiescorner.arcanus.common.components.color;
 
 import dev.cammiescorner.arcanus.common.components.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.UUID;
 
 public class PlayerMagicColorComponent implements MagicColorComponent {
-
 	private final Player player;
 
 	public PlayerMagicColorComponent(Player player) {
@@ -37,12 +37,12 @@ public class PlayerMagicColorComponent implements MagicColorComponent {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		// NO-OP
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		// NO-OP
 	}
 }

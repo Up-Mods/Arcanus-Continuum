@@ -40,7 +40,7 @@ public class CopperCurseSpellEffect extends SpellEffect {
 				return;
 
 			if(entity instanceof LivingEntity livingEntity)
-				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.COPPER_CURSE.get(), ArcanusConfig.AttackEffects.CopperCurseEffectProperties.baseEffectDuration + (ArcanusConfig.AttackEffects.CopperCurseEffectProperties.effectDurationModifier * ((int) ((effects.stream().filter(ArcanusSpellComponents.COPPER_CURSE::is).count() - 1) * potency))), 0, true, false));
+				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.COPPER_CURSE.holder(), ArcanusConfig.AttackEffects.CopperCurseEffectProperties.baseEffectDuration + (ArcanusConfig.AttackEffects.CopperCurseEffectProperties.effectDurationModifier * ((int) ((effects.stream().filter(ArcanusSpellComponents.COPPER_CURSE::is).count() - 1) * potency))), 0, true, false));
 		}
 	}
 }

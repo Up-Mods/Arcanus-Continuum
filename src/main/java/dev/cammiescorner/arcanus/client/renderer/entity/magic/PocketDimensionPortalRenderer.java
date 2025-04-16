@@ -9,7 +9,7 @@ import dev.cammiescorner.arcanus.client.models.entity.magic.SpatialRiftSigilMode
 import dev.cammiescorner.arcanus.client.utils.StencilBuffer;
 import dev.cammiescorner.arcanus.common.entities.magic.PocketDimensionPortal;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -50,7 +50,7 @@ public class PocketDimensionPortalRenderer extends EntityRenderer<PocketDimensio
 		matrices.translate(0, 1.625, 0);
 		matrices.mulPose(Axis.ZP.rotationDegrees(180));
 		matrices.scale(scale, 1, scale);
-		portalModel.skybox.render(matrices, vertices.getBuffer(RenderType.entitySolid(PORTAL_TEXTURE)), light, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+		portalModel.skybox.render(matrices, vertices.getBuffer(RenderType.entitySolid(PORTAL_TEXTURE)), light, OverlayTexture.NO_OVERLAY, 0xffffffff);
 		matrices.popPose();
 
 		matrices.pushPose();
@@ -85,7 +85,7 @@ public class PocketDimensionPortalRenderer extends EntityRenderer<PocketDimensio
 		matrices.translate(-0.375, 0, 0);
 		matrices.mulPose(Axis.ZP.rotationDegrees(90));
 		matrices.scale(maxScale, maxScale, maxScale);
-		portalModel.renderToBuffer(matrices, vertices.getBuffer(portalLayer), light, OverlayTexture.NO_OVERLAY, pocketDimColor.redF(), pocketDimColor.greenF(), pocketDimColor.blueF(), 1.0F);
+		portalModel.renderToBuffer(matrices, vertices.getBuffer(portalLayer), light, OverlayTexture.NO_OVERLAY, pocketDimColor.asIntARGB());
 		matrices.popPose();
 
 		if(vertices instanceof MultiBufferSource.BufferSource immediate) {
@@ -119,7 +119,7 @@ public class PocketDimensionPortalRenderer extends EntityRenderer<PocketDimensio
 		matrices.mulPose(Axis.XP.rotationDegrees(180.0F));
 		matrices.scale(scale / maxScale, 1.0F, scale / maxScale);
 		sigilModel.sigil.yRot = (entity.tickCount + tickDelta) * 0.015F;
-		sigilModel.renderToBuffer(matrices, vertices.getBuffer(sigilLayer), light, OverlayTexture.NO_OVERLAY, magicColor.redF(), magicColor.greenF(), magicColor.blueF(), 1.0F);
+		sigilModel.renderToBuffer(matrices, vertices.getBuffer(sigilLayer), light, OverlayTexture.NO_OVERLAY, magicColor.asIntARGB());
 		matrices.popPose();
 	}
 
@@ -129,12 +129,12 @@ public class PocketDimensionPortalRenderer extends EntityRenderer<PocketDimensio
 	}
 
 	public static void drawStencil(PoseStack matrices, Tesselator tessellator) {
-		BufferBuilder builder = tessellator.getBuilder();
-		builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
-		builder.vertex(matrices.last().pose(), 0, -1, -1).endVertex();
-		builder.vertex(matrices.last().pose(), 0, 1, -1).endVertex();
-		builder.vertex(matrices.last().pose(), 0, 1, 1).endVertex();
-		builder.vertex(matrices.last().pose(), 0, -1, 1).endVertex();
-		tessellator.end();
+		BufferBuilder builder = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
+		builder.addVertex(matrices.last().pose(), 0, -1, -1);
+		builder.addVertex(matrices.last().pose(), 0, 1, -1);
+		builder.addVertex(matrices.last().pose(), 0, 1, 1);
+		builder.addVertex(matrices.last().pose(), 0, -1, 1);
+
+		BufferUploader.drawWithShader(builder.build());
 	}
 }

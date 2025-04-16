@@ -6,8 +6,6 @@ import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.client.gui.screens.ArcaneWorkbenchScreen;
-import dev.cammiescorner.arcanus.client.gui.screens.SpellBookScreen;
-import dev.cammiescorner.arcanus.client.gui.screens.SpellcraftScreen;
 import dev.cammiescorner.arcanus.client.models.armour.BattleMageArmourModel;
 import dev.cammiescorner.arcanus.client.models.armour.WizardArmourModel;
 import dev.cammiescorner.arcanus.client.models.entity.living.OpossumModel;
@@ -31,7 +29,7 @@ import dev.cammiescorner.arcanus.common.items.BattleMageArmorItem;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -92,8 +90,8 @@ public class ArcanusClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		ArcanusCompat.FIRST_PERSON.ifEnabled(() -> FirstPersonCompat::init);
 
-		MenuScreens.register(ArcanusScreenHandlers.SPELLCRAFT_SCREEN_HANDLER.get(), SpellcraftScreen::new);
-		MenuScreens.register(ArcanusScreenHandlers.SPELL_BOOK_SCREEN_HANDLER.get(), SpellBookScreen::new);
+//		MenuScreens.register(ArcanusScreenHandlers.SPELLCRAFT_SCREEN_HANDLER.get(), SpellcraftScreen::new);
+//		MenuScreens.register(ArcanusScreenHandlers.SPELL_BOOK_SCREEN_HANDLER.get(), SpellBookScreen::new);
 		MenuScreens.register(ArcanusScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER.get(), ArcaneWorkbenchScreen::new);
 
 		EntityModelLayerRegistry.registerModelLayer(WizardArmourModel.MODEL_LAYER, WizardArmourModel::getTexturedModelData);
@@ -506,7 +504,7 @@ public class ArcanusClient implements ClientModInitializer {
 		bufferBuilder.addVertex(scaledWidth, 0f, -90f).setUv(1f, 0f);
 		bufferBuilder.addVertex(0f, 0f, -90f).setUv(0f, 0f);
 
-		MeshData meshData = bufferBuilder.build();
+		BufferUploader.drawWithShader(bufferBuilder.build());
 		RenderSystem.depthMask(true);
 		RenderSystem.enableDepthTest();
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

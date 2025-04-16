@@ -7,7 +7,7 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.common.entities.magic.Smite;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -15,7 +15,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
@@ -52,7 +51,6 @@ public class SmiteRenderer extends EntityRenderer<Smite> {
 		VertexConsumer vertexConsumer = provider.getBuffer(ArcanusClient.getMagicCircles(TEXTURE));
 		PoseStack.Pose entry = matrices.last();
 		Matrix4f matrix4f = entry.pose();
-		Matrix3f matrix3f = matrices.last().normal();
 		float vertX1 = 0F;
 		float vertY1 = radius;
 
@@ -63,10 +61,10 @@ public class SmiteRenderer extends EntityRenderer<Smite> {
 			Vector3f v = new Vector3f(vertX1 - vertX2, vertY1 - vertY2, -length);
 			Vector3f normal = u.cross(v);
 
-			vertexConsumer.vertex(matrix4f, vertX1, vertY1, 0F).color(r, g, b, 1.0F).uv(0, 0).overlayCoords(overlay).uv2(light).normal(matrix3f, normal.x, normal.y, normal.z).endVertex();
-			vertexConsumer.vertex(matrix4f, vertX1, vertY1, length).color(r, g, b, 1.0F).uv(0, 0).overlayCoords(overlay).uv2(light).normal(matrix3f, normal.x, normal.y, normal.z).endVertex();
-			vertexConsumer.vertex(matrix4f, vertX2, vertY2, length).color(r, g, b, 1.0F).uv(0, 0).overlayCoords(overlay).uv2(light).normal(matrix3f, normal.x, normal.y, normal.z).endVertex();
-			vertexConsumer.vertex(matrix4f, vertX2, vertY2, 0F).color(r, g, g, 1.0F).uv(0, 0).overlayCoords(overlay).uv2(light).normal(matrix3f, normal.x, normal.y, normal.z).endVertex();
+			vertexConsumer.addVertex(matrix4f, vertX1, vertY1, 0F).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(entry, normal.x, normal.y, normal.z);
+			vertexConsumer.addVertex(matrix4f, vertX1, vertY1, length).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(entry, normal.x, normal.y, normal.z);
+			vertexConsumer.addVertex(matrix4f, vertX2, vertY2, length).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(entry, normal.x, normal.y, normal.z);
+			vertexConsumer.addVertex(matrix4f, vertX2, vertY2, 0F).setColor(r, g, g, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(entry, normal.x, normal.y, normal.z);
 
 			vertX1 = vertX2;
 			vertY1 = vertY2;

@@ -1,33 +1,28 @@
 package dev.cammiescorner.arcanus.datagen.common;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
-import dev.cammiescorner.arcanus.common.compat.patchouli.ShapelessBookRecipeBuilder;
 import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
+import dev.cammiescorner.arcanus.common.recipes.SpellBindingRecipe;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
-import dev.cammiescorner.arcanus.common.registry.ArcanusRecipes;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 public class ArcanusRecipeProvider extends FabricRecipeProvider {
-
-	public ArcanusRecipeProvider(FabricDataOutput output) {
-		super(output);
+	public ArcanusRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		super(output, registriesFuture);
 	}
 
 	@Override
-	public void buildRecipes(Consumer<FinishedRecipe> exporter) {
+	public void buildRecipes(RecipeOutput exporter) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, Blocks.CHISELED_BOOKSHELF)
 			.pattern("###")
 			.pattern("XXX")
@@ -47,15 +42,16 @@ public class ArcanusRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
 			.save(exporter);
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get())
-			.pattern("#A#")
-			.pattern("#S#")
-			.pattern("###")
-			.define('#', Blocks.COPPER_BLOCK)
-			.define('S', Blocks.STONE)
-			.define('A', Items.AMETHYST_SHARD)
-			.unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
-			.save(exporter);
+		// TODO smithing templates once again
+//		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get())
+//			.pattern("#A#")
+//			.pattern("#S#")
+//			.pattern("###")
+//			.define('#', Blocks.COPPER_BLOCK)
+//			.define('S', Blocks.STONE)
+//			.define('A', Items.AMETHYST_SHARD)
+//			.unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
+//			.save(exporter);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ArcanusItems.CRYSTAL_STAFF.get())
 			.pattern("  A")
@@ -125,17 +121,16 @@ public class ArcanusRecipeProvider extends FabricRecipeProvider {
 			.group(Arcanus.id("spell_book").toString())
 			.save(exporter, Arcanus.id("spell_book_from_writable_book"));
 
-		battleMageSmithing(exporter, Items.DIAMOND_HELMET, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_HELMET.get());
-		battleMageSmithing(exporter, Items.DIAMOND_CHESTPLATE, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_CHESTPLATE.get());
-		battleMageSmithing(exporter, Items.DIAMOND_LEGGINGS, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_LEGGINGS.get());
-		battleMageSmithing(exporter, Items.DIAMOND_BOOTS, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_BOOTS.get());
+		// TODO smithing template issues here too
+//		battleMageSmithing(exporter, Items.DIAMOND_HELMET, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_HELMET.get());
+//		battleMageSmithing(exporter, Items.DIAMOND_CHESTPLATE, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_CHESTPLATE.get());
+//		battleMageSmithing(exporter, Items.DIAMOND_LEGGINGS, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_LEGGINGS.get());
+//		battleMageSmithing(exporter, Items.DIAMOND_BOOTS, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_BOOTS.get());
 
-		SpecialRecipeBuilder.special(ArcanusRecipes.SPELL_BINDING.get()).save(exporter, Arcanus.id("spell_binding").toString());
-
-		ShapelessBookRecipeBuilder.book(RecipeCategory.MISC, Arcanus.id("compendium_arcanus")).requires(Items.BOOK).requires(Items.AMETHYST_SHARD, 3).unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD)).save(withConditions(exporter, DefaultResourceConditions.allModsLoaded(ArcanusCompat.PATCHOULI.modid())));
+		SpecialRecipeBuilder.special(SpellBindingRecipe::new).save(exporter, Arcanus.id("spell_binding").toString());
 	}
 
-	public static void battleMageSmithing(Consumer<FinishedRecipe> finishedRecipeConsumer, Item ingredientItem, RecipeCategory category, Item resultItem) {
-		SmithingTransformRecipeBuilder.smithing(Ingredient.of(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get()), Ingredient.of(ingredientItem), Ingredient.of(Items.AMETHYST_SHARD), category, resultItem).unlocks("has_amethyst", has(Items.AMETHYST_SHARD)).save(finishedRecipeConsumer, getItemName(resultItem) + "_smithing");
-	}
+//	public static void battleMageSmithing(RecipeOutput finishedRecipeConsumer, Item ingredientItem, RecipeCategory category, Item resultItem) {
+//		SmithingTransformRecipeBuilder.smithing(Ingredient.of(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get()), Ingredient.of(ingredientItem), Ingredient.of(Items.AMETHYST_SHARD), category, resultItem).unlocks("has_amethyst", has(Items.AMETHYST_SHARD)).save(finishedRecipeConsumer, getItemName(resultItem) + "_smithing");
+//	}
 }

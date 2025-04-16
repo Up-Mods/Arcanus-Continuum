@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -23,7 +24,7 @@ public class ItemRendererMixin {
 	@Inject(method = "getModel", at = @At("HEAD"), cancellable = true)
 	private void getHeldItemModel(ItemStack stack, Level world, LivingEntity entity, int seed, CallbackInfoReturnable<BakedModel> cir) {
 		if(stack.getItem() instanceof StaffItem) {
-			BakedModel bakedModel = itemModelShaper.getModelManager().getModel(new ModelResourceLocation("minecraft", "trident_in_hand", "inventory"));
+			BakedModel bakedModel = itemModelShaper.getModelManager().getModel(new ModelResourceLocation(ResourceLocation.withDefaultNamespace("trident_in_hand"), "inventory"));
 			ClientLevel clientWorld = world instanceof ClientLevel cWorld ? cWorld : null;
 			BakedModel bakedModel2 = bakedModel.getOverrides().resolve(bakedModel, stack, clientWorld, entity, seed);
 			cir.setReturnValue(bakedModel2 == null ? itemModelShaper.getModelManager().getMissingModel() : bakedModel2);

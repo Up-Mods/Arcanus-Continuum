@@ -7,11 +7,14 @@ import dev.cammiescorner.arcanus.common.data.ArcanusEntityTags;
 import dev.cammiescorner.arcanus.common.entities.magic.TemporalDilationField;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.Util;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
@@ -104,7 +107,7 @@ public class ArcanusHelper {
 	}
 
 	public static ItemStack applyColorToItem(ItemStack stack, int color) {
-		stack.getOrCreateTagElement(ItemStack.TAG_DISPLAY).putInt(ItemStack.TAG_COLOR, color);
+		stack.set(DataComponents.DYED_COLOR, new DyedItemColor(color, false));
 		return stack;
 	}
 

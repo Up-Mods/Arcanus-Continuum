@@ -35,7 +35,7 @@ public class DangerSenseSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.DANGER_SENSE.get(), ArcanusConfig.SupportEffects.DangerSenseEffectProperties.baseEffectDuration, (int) ((effects.stream().filter(ArcanusSpellComponents.DANGER_SENSE::is).count() - 1) * potency), true, false));
+				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.DANGER_SENSE.holder(), ArcanusConfig.SupportEffects.DangerSenseEffectProperties.baseEffectDuration, (int) ((effects.stream().filter(ArcanusSpellComponents.DANGER_SENSE::is).count() - 1) * potency), true, false));
 		}
 	}
 }

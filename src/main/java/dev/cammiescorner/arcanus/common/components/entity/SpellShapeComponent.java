@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanus.common.components.entity;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.SpellShape;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import net.minecraft.core.HolderLookup;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -17,12 +18,12 @@ public class SpellShapeComponent implements AutoSyncedComponent {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag) {
-		shape = (SpellShape) Arcanus.SPELL_COMPONENTS.get(new ResourceLocation(tag.getString("SpellShape")));
+	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+		shape = (SpellShape) Arcanus.SPELL_COMPONENTS.get(ResourceLocation.parse(tag.getString("SpellShape")));
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		tag.putString("SpellShape", Arcanus.SPELL_COMPONENTS.getKey(shape).toString());
 	}
 

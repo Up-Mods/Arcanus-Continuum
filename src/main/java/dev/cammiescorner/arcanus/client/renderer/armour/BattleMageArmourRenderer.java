@@ -51,8 +51,8 @@ public class BattleMageArmourRenderer implements ArmorRenderer {
 			model.surcoatFront.xRot = Math.min(contextModel.leftLeg.xRot, contextModel.rightLeg.xRot) - 0.0436f;
 			model.surcoatBack.xRot = Math.max(contextModel.leftLeg.xRot, contextModel.rightLeg.xRot) + 0.0436f;
 
-			model.renderToBuffer(matrices, ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(mainTexture), false, false), light, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
-			model.renderToBuffer(matrices, ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(overlayTexture), false, false), light, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+			model.renderToBuffer(matrices, ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(mainTexture), false), light, OverlayTexture.NO_OVERLAY, 0xffffffff);
+			model.renderToBuffer(matrices, ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(overlayTexture), false), light, OverlayTexture.NO_OVERLAY, 0xffffffff);
 		}
 	}
 }

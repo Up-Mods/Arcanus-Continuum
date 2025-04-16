@@ -35,7 +35,7 @@ public class PlayerListMixin {
 		target = "Ljava/util/List;iterator()Ljava/util/Iterator;"
 	))
 	private List<ServerPlayer> restrictMagicDoorChatMessage(List<ServerPlayer> original, PlayerChatMessage chatMessage, Predicate<ServerPlayer> predicate, @Nullable ServerPlayer player, ChatType.Bound parameters) {
-		if(player != null && this.registries.compositeAccess().registryOrThrow(Registries.CHAT_TYPE).getResourceKey(parameters.chatType()).map(key -> key.equals(ChatType.CHAT)).orElse(false)) {
+		if(player != null && this.registries.compositeAccess().registryOrThrow(Registries.CHAT_TYPE).getResourceKey(parameters.chatType().value()).map(key -> key.equals(ChatType.CHAT)).orElse(false)) {
 			ServerLevel world = player.serverLevel();
 			PoiManager poiStorage = world.getChunkSource().getPoiManager();
 

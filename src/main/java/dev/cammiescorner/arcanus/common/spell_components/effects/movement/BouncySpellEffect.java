@@ -35,7 +35,7 @@ public class BouncySpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.BOUNCY.get(), ArcanusConfig.MovementEffects.BouncyEffectProperties.baseEffectDuration * (int) (effects.stream().filter(ArcanusSpellComponents.BOUNCY::is).count() * potency), 0, true, false));
+				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.BOUNCY.holder(), ArcanusConfig.MovementEffects.BouncyEffectProperties.baseEffectDuration * (int) (effects.stream().filter(ArcanusSpellComponents.BOUNCY::is).count() * potency), 0, true, false));
 		}
 	}
 }

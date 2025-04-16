@@ -52,9 +52,9 @@ public class EntangledOrb extends Entity implements Targetable {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		entityData.define(OWNER_ID, -1);
-		entityData.define(TARGET_ID, -1);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(OWNER_ID, -1);
+		builder.define(TARGET_ID, -1);
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public class EntangledOrb extends Entity implements Targetable {
 
 		casterId = tag.getUUID("CasterId");
 		targetId = tag.getUUID("TargetId");
-		stack = ItemStack.of(tag.getCompound("ItemStack"));
+		stack = ItemStack.parseOptional(registryAccess(), tag.getCompound("ItemStack"));
 		groupIndex = tag.getInt("GroupIndex");
 		potency = tag.getDouble("Potency");
 
@@ -136,7 +136,7 @@ public class EntangledOrb extends Entity implements Targetable {
 		ListTag groupsList = tag.getList("SpellGroups", Tag.TAG_COMPOUND);
 
 		for(int i = 0; i < effectList.size(); i++)
-			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(new ResourceLocation(effectList.getString(i))));
+			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(ResourceLocation.parse(effectList.getString(i))));
 		for(int i = 0; i < groupsList.size(); i++)
 			groups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
 	}
@@ -148,7 +148,7 @@ public class EntangledOrb extends Entity implements Targetable {
 
 		tag.putUUID("CasterId", casterId);
 		tag.putUUID("TargetId", targetId);
-		tag.put("ItemStack", stack.save(new CompoundTag()));
+		tag.put("ItemStack", stack.save(registryAccess()));
 		tag.putInt("GroupIndex", groupIndex);
 		tag.putDouble("Potency", potency);
 

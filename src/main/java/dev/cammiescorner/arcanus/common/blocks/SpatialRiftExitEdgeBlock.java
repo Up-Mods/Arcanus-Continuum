@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.blocks;
 
+import com.mojang.serialization.MapCodec;
 import dev.cammiescorner.arcanus.common.blocks.entities.SpatialRiftWallBlockEntity;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import net.minecraft.core.BlockPos;
@@ -14,10 +15,11 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
 public class SpatialRiftExitEdgeBlock extends HorizontalDirectionalBlock implements EntityBlock {
+	public static final MapCodec<SpatialRiftExitEdgeBlock> CODEC = simpleCodec(properties -> new SpatialRiftExitEdgeBlock());
 	public static final BooleanProperty CORNER = BooleanProperty.create("corner");
 
 	public SpatialRiftExitEdgeBlock() {
-		super(BlockBehaviour.Properties.copy(ArcanusBlocks.SPATIAL_RIFT_WALL.get())
+		super(BlockBehaviour.Properties.ofFullCopy(ArcanusBlocks.SPATIAL_RIFT_WALL.get())
 			.sound(SoundType.STONE)
 			.lightLevel(value -> 9)
 		);
@@ -43,5 +45,10 @@ public class SpatialRiftExitEdgeBlock extends HorizontalDirectionalBlock impleme
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new SpatialRiftWallBlockEntity(pos, state);
+	}
+
+	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		return CODEC;
 	}
 }

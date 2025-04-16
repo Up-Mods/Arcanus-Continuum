@@ -1,6 +1,5 @@
 package dev.cammiescorner.arcanus.common.screens;
 
-import dev.cammiescorner.arcanus.common.registry.ArcanusScreenHandlers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
@@ -19,7 +18,8 @@ public class SpellcraftScreenHandler extends AbstractContainerMenu {
 	}
 
 	public SpellcraftScreenHandler(int syncId, Container inventory, ContainerLevelAccess context, BlockPos pos, ItemStack stack) {
-		super(ArcanusScreenHandlers.SPELLCRAFT_SCREEN_HANDLER.get(), syncId);
+//		super(ArcanusScreenHandlers.SPELLCRAFT_SCREEN_HANDLER.get(), syncId);
+		super(null, syncId);
 		this.inventory = inventory;
 		this.stack = stack;
 		this.pos = pos;

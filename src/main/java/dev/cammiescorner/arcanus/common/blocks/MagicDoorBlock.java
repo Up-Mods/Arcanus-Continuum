@@ -5,11 +5,12 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -30,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class MagicDoorBlock extends DoorBlock implements EntityBlock, BlockItemProvider {
 	public MagicDoorBlock() {
-		super(BlockBehaviour.Properties.of().strength(2F, 3F).sound(SoundType.WOOD).noOcclusion(), BlockSetType.OAK);
+		super(BlockSetType.OAK, BlockBehaviour.Properties.of().strength(2F, 3F).sound(SoundType.WOOD).noOcclusion());
 	}
 
 	@Override
@@ -48,14 +49,14 @@ public class MagicDoorBlock extends DoorBlock implements EntityBlock, BlockItemP
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if(world.isClientSide) return InteractionResult.SUCCESS;
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if(level.isClientSide)
+			return ItemInteractionResult.SUCCESS;
 
-		ItemStack stack = player.getItemInHand(hand);
-		MagicDoorBlockEntity door = getBlockEntity(world, state, pos);
+		MagicDoorBlockEntity door = getBlockEntity(level, state, pos);
 		LivingEntity owner = door.getOwner();
 
-		if(owner != null && stack.is(Items.NAME_TAG) && stack.hasCustomHoverName())
+		if(owner != null && stack.is(Items.NAME_TAG) && stack.has(DataComponents.CUSTOM_NAME))
 			if(owner.getUUID().equals(player.getUUID())) {
 				String password = stack.getHoverName().getString();
 
@@ -67,7 +68,7 @@ public class MagicDoorBlock extends DoorBlock implements EntityBlock, BlockItemP
 				player.displayClientMessage(Component.translatable("door.arcanus.not_owner").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
 		else
 			player.displayClientMessage(Component.translatable("door.arcanus.say_magic_word").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
-		return InteractionResult.SUCCESS;
+		return ItemInteractionResult.SUCCESS;
 	}
 
 	@Override
@@ -78,7 +79,7 @@ public class MagicDoorBlock extends DoorBlock implements EntityBlock, BlockItemP
 		if(door != null) {
 			door.setOwner(placer);
 
-			if(stack.hasCustomHoverName())
+			if(stack.has(DataComponents.CUSTOM_NAME))
 				door.setPassword(stack.getHoverName().getString());
 		}
 	}

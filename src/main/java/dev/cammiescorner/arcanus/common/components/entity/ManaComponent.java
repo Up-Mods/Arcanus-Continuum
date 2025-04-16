@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanus.common.components.entity;
 
 import dev.cammiescorner.arcanus.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,7 +21,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 
 	@Override
 	public void serverTick() {
-		AttributeInstance manaRegenAttr = entity.getAttribute(ArcanusEntityAttributes.MANA_REGEN.get());
+		AttributeInstance manaRegenAttr = entity.getAttribute(ArcanusEntityAttributes.MANA_REGEN.holder());
 
 		if(manaRegenAttr != null)
 			addMana(manaRegenAttr.getValue() / (entity instanceof Player player && player.isCreative() ? 1 : 20), false);
@@ -30,12 +31,12 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		mana = tag.getDouble("Mana");
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		tag.putDouble("Mana", mana);
 	}
 
@@ -53,7 +54,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	}
 
 	public double getMaxMana() {
-		AttributeInstance maxManaAttr = entity.getAttribute(ArcanusEntityAttributes.MAX_MANA.get());
+		AttributeInstance maxManaAttr = entity.getAttribute(ArcanusEntityAttributes.MAX_MANA.holder());
 
 		if(maxManaAttr != null)
 			return maxManaAttr.getValue();
@@ -62,7 +63,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	}
 
 	public double getManaLock() {
-		AttributeInstance manaLockAttr = entity.getAttribute(ArcanusEntityAttributes.MANA_LOCK.get());
+		AttributeInstance manaLockAttr = entity.getAttribute(ArcanusEntityAttributes.MANA_LOCK.holder());
 
 		if(manaLockAttr != null)
 			return manaLockAttr.getValue();
@@ -82,7 +83,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	}
 
 	public boolean drainMana(double amount, boolean simulate) {
-		AttributeInstance instance = entity.getAttribute(ArcanusEntityAttributes.MANA_COST.get());
+		AttributeInstance instance = entity.getAttribute(ArcanusEntityAttributes.MANA_COST.holder());
 		if(instance != null) {
 			amount *= instance.getValue();
 		}

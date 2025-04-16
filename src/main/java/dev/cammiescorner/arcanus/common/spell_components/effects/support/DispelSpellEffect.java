@@ -6,6 +6,7 @@ import dev.cammiescorner.arcanus.api.spells.SpellType;
 import dev.cammiescorner.arcanus.common.data.ArcanusEntityTags;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
+import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -37,7 +38,7 @@ public class DispelSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity) {
-				List<MobEffect> statusEffects = livingEntity.getActiveEffects().stream().map(MobEffectInstance::getEffect).filter(effect -> !effect.isBeneficial()).toList();
+				List<Holder<MobEffect>> statusEffects = livingEntity.getActiveEffects().stream().map(MobEffectInstance::getEffect).filter(effect -> !effect.value().isBeneficial()).toList();
 				long dispelCount = effects.stream().filter(ArcanusSpellComponents.DISPEL::is).count();
 
 				for(int i = 0; i < Math.min(statusEffects.size(), (int) (dispelCount * 2 * potency)); i++)
@@ -46,8 +47,6 @@ public class DispelSpellEffect extends SpellEffect {
 				if(ArcanusComponents.isCounterActive(livingEntity))
 					ArcanusComponents.removeCounter(livingEntity);
 			}
-
-			ArcanusComponents.resetScale(entityHit.getEntity());
 
 			if(entityHit.getEntity().getType().is(ArcanusEntityTags.DISPELLABLE))
 				entityHit.getEntity().kill();

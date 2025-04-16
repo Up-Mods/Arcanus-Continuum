@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanus.common.blocks.entities;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,19 +22,18 @@ public class MagicDoorBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void load(CompoundTag nbt) {
-		super.load(nbt);
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
 
-		ownerId = nbt.getUUID("OwnerId");
-		password = nbt.getString("Password");
+		tag.putUUID("OwnerId", ownerId);
+		tag.putString("Password", password);
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag nbt) {
-		super.saveAdditional(nbt);
-
-		nbt.putUUID("OwnerId", ownerId);
-		nbt.putString("Password", password);
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
+		ownerId = tag.getUUID("OwnerId");
+		password = tag.getString("Password");
 	}
 
 	public LivingEntity getOwner() {

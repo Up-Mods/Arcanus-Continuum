@@ -9,15 +9,14 @@ import dev.cammiescorner.arcanus.common.blocks.entities.MagicDoorBlockEntity;
 import dev.cammiescorner.arcanus.common.packets.s2c.SyncConfigValuesPacket;
 import dev.cammiescorner.arcanus.common.packets.s2c.SyncStatusEffectPacket;
 import dev.cammiescorner.arcanus.common.registry.*;
-import dev.cammiescorner.arcanus.common.util.Color;
 import dev.cammiescorner.arcanus.common.util.supporters.HaloData;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
 import dev.upcraft.datasync.api.DataSyncAPI;
 import dev.upcraft.datasync.api.SyncToken;
+import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.entity.event.v1.EntityElytraEvents;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
@@ -109,8 +108,6 @@ public class Arcanus implements ModInitializer {
 //				attributeModifiers.put(ArcanusEntityAttributes.MAX_MANA.get(), maxManaModifier);
 //			}
 //		});
-
-		EntityElytraEvents.CUSTOM.register((entity, tickElytra) -> entity.hasEffect(ArcanusMobEffects.MANA_WINGS.holder()));
 
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 			var hostProfile = server.getSingleplayerProfile();

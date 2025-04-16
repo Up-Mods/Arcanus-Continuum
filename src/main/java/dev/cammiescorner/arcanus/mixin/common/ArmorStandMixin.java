@@ -41,7 +41,7 @@ public abstract class ArmorStandMixin extends LivingEntity {
 				if(BattleMageArmorItem.isWaxed(stack)) {
 					level().playSound(player, blockPosition(), SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1f, 1f);
 					BattleMageArmorItem.setWaxed(stack, false);
-					heldStack.hurtAndBreak(1, player, player1 -> player1.broadcastBreakEvent(hand));
+					heldStack.hurtAndBreak(1, player, slot);
 					info.setReturnValue(InteractionResult.SUCCESS);
 					return;
 				}
@@ -49,7 +49,7 @@ public abstract class ArmorStandMixin extends LivingEntity {
 				if(BattleMageArmorItem.getOxidation(stack) != WeatheringCopper.WeatherState.UNAFFECTED) {
 					level().playSound(player, blockPosition(), SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1f, 1f);
 					BattleMageArmorItem.setOxidation(stack, WeatheringCopper.WeatherState.values()[BattleMageArmorItem.getOxidation(stack).ordinal() - 1]);
-					heldStack.hurtAndBreak(1, player, player1 -> player1.broadcastBreakEvent(hand));
+					heldStack.hurtAndBreak(1, player, slot);
 					info.setReturnValue(InteractionResult.SUCCESS);
 					return;
 				}

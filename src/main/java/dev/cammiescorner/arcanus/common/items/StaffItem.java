@@ -1,8 +1,8 @@
 package dev.cammiescorner.arcanus.common.items;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.util.Color;
 import dev.cammiescorner.arcanus.common.util.StaffType;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
@@ -12,7 +12,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
@@ -33,7 +32,7 @@ public class StaffItem extends Item {
 	}
 
 	public StaffItem(StaffType staffType, Color defaultPrimaryColor, Color defaultSecondaryColor, boolean isDonorOnly) {
-		super(new Item.Properties().stacksTo(1));
+		super(new Item.Properties().stacksTo(1).attributes(createAttributes()));
 		this.staffType = staffType;
 		this.defaultPrimaryColor = defaultPrimaryColor;
 		this.defaultSecondaryColor = defaultSecondaryColor;
@@ -111,7 +110,7 @@ public class StaffItem extends Item {
 		return false;
 	}
 
-	public static ItemAttributeModifiers createAttributes(Tier tier, int attackDamage, float attackSpeed) {
+	public static ItemAttributeModifiers createAttributes() {
 		return ItemAttributeModifiers.builder()
 			.add(Attributes.ATTACK_SPEED, new AttributeModifier(Arcanus.id("attack_speed_modifier"), -1, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
 			.add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(Arcanus.id("entity_interact_range_modifier"), 0.5, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)

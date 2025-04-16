@@ -110,7 +110,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftScreenHa
 
 	@Override
 	protected void renderBg(GuiGraphics gui, float delta, int mouseX, int mouseY) {
-		this.renderBackground(gui);
+		this.renderBackground(gui, mouseX, mouseY, delta);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		gui.blit(BOOK_TEXTURE, leftPos, topPos, 0, 0, 256, 180, 256, 256);
 
@@ -130,32 +130,32 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftScreenHa
 		gui.blit(PANEL_TEXTURE, leftKnob.x(), leftKnob.y(), draggingLeft ? 12 : 0, 184, leftKnob.width(), leftKnob.height(), 384, 256);
 		gui.blit(PANEL_TEXTURE, rightKnob.x(), rightKnob.y(), draggingRight ? 12 : 0, 184, rightKnob.width(), rightKnob.height(), 384, 256);
 
-		drawWidgets(gui, mouseX, mouseY, Minecraft.getInstance().getFrameTime());
+		drawWidgets(gui, mouseX, mouseY, Minecraft.getInstance().getFrameTimeNs());
 
 		super.renderLabels(gui, mouseX, mouseY);
 	}
 
 	@Override
-	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+	public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
 		if(isHovering(-62, 1, 58, 178, mouseX, mouseY)) {
-			if(leftScroll > 0 && amount > 0)
+			if(leftScroll > 0 && scrollY > 0)
 				leftScroll--;
-			if(leftScroll < spellShapes.size() * 2 - 12 && amount < 0)
+			if(leftScroll < spellShapes.size() * 2 - 12 && scrollY < 0)
 				leftScroll++;
 
 			leftKnobPos = leftScroll * (148F / (spellShapes.size() * 2 - 12));
 		}
 
 		if(isHovering(260, 1, 58, 178, mouseX, mouseY)) {
-			if(rightScroll > 0 && amount > 0)
+			if(rightScroll > 0 && scrollY > 0)
 				rightScroll--;
-			if(rightScroll < spellEffects.size() * 2 - 12 && amount < 0)
+			if(rightScroll < spellEffects.size() * 2 - 12 && scrollY < 0)
 				rightScroll++;
 
 			rightKnobPos = rightScroll * (148F / (spellEffects.size() * 2 - 12));
 		}
 
-		return super.mouseScrolled(mouseX, mouseY, amount);
+		return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
 	}
 
 	@Override
@@ -299,9 +299,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftScreenHa
 			List<Vector2i> positions = group.positions();
 			RenderSystem.setShader(GameRenderer::getPositionShader);
 			RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
-			BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
-
-			bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+			BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 			matrices.pushPose();
 			matrices.translate(12, 12, 0);
 			Matrix4f matrix = matrices.last().pose();
@@ -325,13 +323,13 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftScreenHa
 				float dx = Mth.cos(angle);
 				float dy = Mth.sin(angle);
 
-				bufferBuilder.vertex(matrix, x2 - dx, y2 - dy, 0).color(0).endVertex();
-				bufferBuilder.vertex(matrix, x2 + dx, y2 + dy, 0).color(0).endVertex();
-				bufferBuilder.vertex(matrix, x1 + dx, y1 + dy, 0).color(0).endVertex();
-				bufferBuilder.vertex(matrix, x1 - dx, y1 - dy, 0).color(0).endVertex();
+				bufferBuilder.addVertex(matrix, x2 - dx, y2 - dy, 0).setColor(0);
+				bufferBuilder.addVertex(matrix, x2 + dx, y2 + dy, 0).setColor(0);
+				bufferBuilder.addVertex(matrix, x1 + dx, y1 + dy, 0).setColor(0);
+				bufferBuilder.addVertex(matrix, x1 - dx, y1 - dy, 0).setColor(0);
 			}
 
-			BufferUploader.drawWithShader(bufferBuilder.end());
+			BufferUploader.drawWithShader(bufferBuilder.build());
 			matrices.popPose();
 		}
 

@@ -12,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -66,7 +67,7 @@ public class MagicRune extends Entity implements Targetable {
 	}
 
 	@Override
-	protected void defineSynchedData() {
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 
 	}
 
@@ -86,7 +87,7 @@ public class MagicRune extends Entity implements Targetable {
 		spellGroups.clear();
 
 		casterId = tag.getUUID("CasterId");
-		stack = ItemStack.of(tag.getCompound("ItemStack"));
+		stack = ItemStack.parseOptional(registryAccess(), tag.getCompound("ItemStack"));
 		groupIndex = tag.getInt("GroupIndex");
 		potency = tag.getDouble("Potency");
 
@@ -94,7 +95,7 @@ public class MagicRune extends Entity implements Targetable {
 		ListTag groupsList = tag.getList("SpellGroups", Tag.TAG_COMPOUND);
 
 		for(int i = 0; i < effectList.size(); i++)
-			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(new ResourceLocation(effectList.getString(i))));
+			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(ResourceLocation.parse(effectList.getString(i))));
 		for(int i = 0; i < groupsList.size(); i++)
 			spellGroups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
 	}
@@ -105,7 +106,7 @@ public class MagicRune extends Entity implements Targetable {
 		ListTag groupsList = new ListTag();
 
 		tag.putUUID("CasterId", casterId);
-		tag.put("ItemStack", stack.save(new CompoundTag()));
+		tag.put("ItemStack", stack.save(registryAccess()));
 		tag.putInt("GroupIndex", groupIndex);
 		tag.putDouble("Potency", potency);
 

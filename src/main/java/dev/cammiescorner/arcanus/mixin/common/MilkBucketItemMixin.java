@@ -25,8 +25,8 @@ public abstract class MilkBucketItemMixin extends Item {
 		target = "Lnet/minecraft/world/entity/LivingEntity;removeAllEffects()Z"
 	))
 	private void dontClearCopperCurse(ItemStack stack, Level world, LivingEntity user, CallbackInfoReturnable<ItemStack> info, @Share("copperCurse") LocalRef<MobEffectInstance> copperCurse) {
-		if(user.hasEffect(ArcanusMobEffects.COPPER_CURSE.get()))
-			copperCurse.set(user.getEffect(ArcanusMobEffects.COPPER_CURSE.get()));
+		if(user.hasEffect(ArcanusMobEffects.COPPER_CURSE.holder()))
+			copperCurse.set(user.getEffect(ArcanusMobEffects.COPPER_CURSE.holder()));
 	}
 
 	@Inject(method = "finishUsingItem", at = @At(

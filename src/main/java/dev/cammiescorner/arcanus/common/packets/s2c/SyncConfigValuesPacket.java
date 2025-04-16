@@ -7,7 +7,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.FriendlyByteBuf;
@@ -22,7 +21,7 @@ public class SyncConfigValuesPacket {
 
 		buf.writeBoolean(ArcanusConfig.castingSpeedHasCoolDown);
 
-		ServerPlayNetworking.send(player, ID, buf);
+//		ServerPlayNetworking.send(player, ID, buf);
 	}
 
 	@Environment(EnvType.CLIENT)

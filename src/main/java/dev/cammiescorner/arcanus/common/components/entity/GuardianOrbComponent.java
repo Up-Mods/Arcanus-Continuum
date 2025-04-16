@@ -1,8 +1,11 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
+import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.common.entities.magic.EntangledOrb;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceLocation;
 import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
@@ -14,7 +17,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import java.util.UUID;
 
 public class GuardianOrbComponent implements ServerTickingComponent {
-	public static final UUID uUID = UUID.fromString("ef75422a-3096-4111-965f-9526c3ed55e0");
+	public static final ResourceLocation uUID = Arcanus.id("guardian_orb_mana_lock");
 	private final LivingEntity entity;
 	private UUID orbId = Util.NIL_UUID;
 	private int strength = 0;
@@ -38,14 +41,14 @@ public class GuardianOrbComponent implements ServerTickingComponent {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		orbId = tag.getUUID("OrbId");
 		strength = tag.getInt("Strength");
 		dirty = true;
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		tag.putUUID("OrbId", orbId);
 		tag.putInt("Strength", strength);
 	}
@@ -55,13 +58,13 @@ public class GuardianOrbComponent implements ServerTickingComponent {
 	}
 
 	public void setManaLock(UUID orbId, int strength) {
-		AttributeInstance maxMana = entity.getAttribute(ArcanusEntityAttributes.MAX_MANA.get());
-		AttributeInstance manaLock = entity.getAttribute(ArcanusEntityAttributes.MANA_LOCK.get());
+		AttributeInstance maxMana = entity.getAttribute(ArcanusEntityAttributes.MAX_MANA.holder());
+		AttributeInstance manaLock = entity.getAttribute(ArcanusEntityAttributes.MANA_LOCK.holder());
 
 		if(manaLock != null)
 			manaLock.removeModifier(uUID);
 		if(maxMana != null && manaLock != null && !orbId.equals(Util.NIL_UUID))
-			manaLock.addPermanentModifier(new AttributeModifier(uUID, "Orb Mana Lock", maxMana.getValue() * (strength * (ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.maximumManaLock / 11)), AttributeModifier.Operation.ADDITION));
+			manaLock.addPermanentModifier(new AttributeModifier(uUID, maxMana.getValue() * (strength * (ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.maximumManaLock / 11)), AttributeModifier.Operation.ADD_VALUE));
 
 		this.orbId = orbId;
 		this.strength = strength;

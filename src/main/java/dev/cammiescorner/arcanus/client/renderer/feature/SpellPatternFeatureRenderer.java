@@ -8,7 +8,7 @@ import dev.cammiescorner.arcanus.client.models.feature.SpellPatternModel;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import dev.cammiescorner.arcanus.common.util.StaffType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
@@ -66,18 +66,18 @@ public class SpellPatternFeatureRenderer<T extends Player, M extends EntityModel
 		}
 
 		matrices.pushPose();
-		matrices.translate(0, 0, Mth.sin((player.tickCount + player.getId() + client.getFrameTime()) / (Mth.PI * 2)) * 0.05F);
-		model.first.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.redF(), color.greenF(), color.blueF(), color.alphaF());
+		matrices.translate(0, 0, Mth.sin((player.tickCount + player.getId() + client.getFrameTimeNs()) / (Mth.PI * 2)) * 0.05F);
+		model.first.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
 		matrices.popPose();
 
 		matrices.pushPose();
-		matrices.translate(0, 0, Mth.cos((player.tickCount + player.getId() + client.getFrameTime()) / (Mth.PI * 2)) * 0.05F);
-		model.second.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.redF(), color.greenF(), color.blueF(), color.alphaF());
+		matrices.translate(0, 0, Mth.cos((player.tickCount + player.getId() + client.getFrameTimeNs()) / (Mth.PI * 2)) * 0.05F);
+		model.second.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
 		matrices.popPose();
 
 		matrices.pushPose();
-		matrices.translate(0, 0, Mth.sin((player.tickCount + player.getId() + client.getFrameTime()) / (Mth.PI * 2)) * 0.05F);
-		model.third.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.redF(), color.greenF(), color.blueF(), color.alphaF());
+		matrices.translate(0, 0, Mth.sin((player.tickCount + player.getId() + client.getFrameTimeNs()) / (Mth.PI * 2)) * 0.05F);
+		model.third.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
 		matrices.popPose();
 
 		matrices.popPose();

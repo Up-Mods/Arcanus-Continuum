@@ -59,17 +59,6 @@ public class OpossumModel extends EntityModel<Opossum> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-		head.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		body.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		leftForeleg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		rightForeleg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		leftHindleg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		rightHindleg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		tailBase.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-	}
-
-	@Override
 	public void setupAnim(Opossum entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		head.xRot = headPitch * 0.017453292F;
 		head.yRot = netHeadYaw * 0.017453292F;
@@ -97,5 +86,16 @@ public class OpossumModel extends EntityModel<Opossum> {
 			tailBase.xRot = (float) Math.toRadians(-35);
 			tailEnd.xRot = (float) Math.toRadians(15);
 		}
+	}
+
+	@Override
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+		head.render(poseStack, buffer, packedLight, packedOverlay, color);
+		body.render(poseStack, buffer, packedLight, packedOverlay, color);
+		leftForeleg.render(poseStack, buffer, packedLight, packedOverlay, color);
+		rightForeleg.render(poseStack, buffer, packedLight, packedOverlay, color);
+		leftHindleg.render(poseStack, buffer, packedLight, packedOverlay, color);
+		rightHindleg.render(poseStack, buffer, packedLight, packedOverlay, color);
+		tailBase.render(poseStack, buffer, packedLight, packedOverlay, color);
 	}
 }

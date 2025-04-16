@@ -7,7 +7,7 @@ import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.models.entity.magic.MagicRuneModel;
 import dev.cammiescorner.arcanus.common.entities.magic.MagicRune;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -52,7 +52,7 @@ public class MagicRuneRenderer extends EntityRenderer<MagicRune> {
 		matrices.pushPose();
 		matrices.translate(0, Math.sin((entity.tickCount + tickDelta) * 0.125) * 0.05, 0);
 		matrices.mulPose(Axis.YP.rotationDegrees(entity.tickCount + tickDelta));
-		model.renderToBuffer(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.redF(), color.greenF(), color.blueF(), color.alphaF());
+		model.renderToBuffer(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
 		matrices.popPose();
 	}
 

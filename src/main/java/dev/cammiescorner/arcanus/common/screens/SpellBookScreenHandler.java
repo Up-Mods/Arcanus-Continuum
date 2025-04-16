@@ -1,7 +1,5 @@
 package dev.cammiescorner.arcanus.common.screens;
 
-import dev.cammiescorner.arcanus.common.registry.ArcanusScreenHandlers;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
@@ -9,8 +7,9 @@ import net.minecraft.world.item.ItemStack;
 public class SpellBookScreenHandler extends AbstractContainerMenu {
 	private final ItemStack stack;
 
-	public SpellBookScreenHandler(int syncId, Container inventory, ItemStack stack) {
-		super(ArcanusScreenHandlers.SPELL_BOOK_SCREEN_HANDLER.get(), syncId);
+	public SpellBookScreenHandler(int syncId, ItemStack stack) {
+//		super(ArcanusScreenHandlers.SPELL_BOOK_SCREEN_HANDLER.get(), syncId);
+		super(null, syncId);
 		this.stack = stack;
 	}
 

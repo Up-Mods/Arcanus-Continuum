@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.client.gui.screens;
 
 import com.mojang.authlib.GameProfile;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import dev.cammiescorner.arcanus.common.util.StandardColors;
 import dev.cammiescorner.arcanus.common.util.supporters.HaloData;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
@@ -135,10 +135,10 @@ public class SupporterScreen extends Screen {
 	}
 
 	@Override
-	public void renderBackground(GuiGraphics graphics) {
-		this.renderDirtBackground(graphics);
+	public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+//		this.renderDirtBackground(graphics);
 		graphics.setColor(0.125f, 0.125f, 0.125f, 1f);
-		graphics.blit(Screen.BACKGROUND_LOCATION, 16, 32, 0, 0, width - 32, height - 65, 32, 32);
+		graphics.blit(Screen.MENU_BACKGROUND, 16, 32, 0, 0, width - 32, height - 65, 32, 32);
 		graphics.setColor(1f, 1f, 1f, 1f);
 
 		// top shadow
@@ -171,7 +171,7 @@ public class SupporterScreen extends Screen {
 
 	@Override
 	public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-		renderBackground(graphics);
+		renderBackground(graphics, mouseX, mouseY, delta);
 
 		int centerX = width / 2;
 		int centerY = height / 2;

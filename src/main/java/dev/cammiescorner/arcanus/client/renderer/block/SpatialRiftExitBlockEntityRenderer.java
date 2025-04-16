@@ -6,7 +6,7 @@ import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.models.entity.magic.SpatialRiftSigilModel;
 import dev.cammiescorner.arcanus.common.blocks.entities.SpatialRiftExitBlockEntity;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -34,7 +34,7 @@ public class SpatialRiftExitBlockEntityRenderer implements BlockEntityRenderer<S
 			matrices.translate(1.0F, 0.0F, 1.0F);
 			matrices.scale(0.75F, 0.75F, 0.75F);
 			sigilModel.sigil.yRot = ageDelta * 0.015F;
-			sigilModel.renderToBuffer(matrices, vertices.getBuffer(LAYER), light, OverlayTexture.NO_OVERLAY, color.redF(), color.greenF(), color.blueF(), 1.0F);
+			sigilModel.renderToBuffer(matrices, vertices.getBuffer(LAYER), light, OverlayTexture.NO_OVERLAY, color.asIntARGB());
 			matrices.popPose();
 		}
 	}

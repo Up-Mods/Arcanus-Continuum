@@ -35,7 +35,7 @@ public class AnonymitySpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.ANONYMITY.get(), ArcanusConfig.UtilityEffects.AnonymityEffectProperties.baseEffectDuration * (int) (effects.stream().filter(ArcanusSpellComponents.ANONYMITY::is).count() * potency), 0, true, false));
+				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.ANONYMITY.holder(), ArcanusConfig.UtilityEffects.AnonymityEffectProperties.baseEffectDuration * (int) (effects.stream().filter(ArcanusSpellComponents.ANONYMITY::is).count() * potency), 0, true, false));
 		}
 	}
 }

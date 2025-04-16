@@ -40,7 +40,7 @@ public class ManaLockSpellEffect extends SpellEffect {
 				return;
 
 			if(entity instanceof LivingEntity livingEntity)
-				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.MANA_LOCK.get(), ArcanusConfig.AttackEffects.ManaLockEffectProperties.baseEffectDuration, (int) ((effects.stream().filter(ArcanusSpellComponents.MANA_LOCK::is).count() - 1) * potency), true, false));
+				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.MANA_LOCK.holder(), ArcanusConfig.AttackEffects.ManaLockEffectProperties.baseEffectDuration, (int) ((effects.stream().filter(ArcanusSpellComponents.MANA_LOCK::is).count() - 1) * potency), true, false));
 		}
 	}
 }

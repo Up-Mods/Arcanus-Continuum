@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.blocks;
 
+import com.mojang.serialization.MapCodec;
 import dev.cammiescorner.arcanus.common.blocks.entities.ArcaneWorkbenchBlockEntity;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
@@ -8,7 +9,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
@@ -31,6 +31,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ArcaneWorkbenchBlock extends HorizontalDirectionalBlock implements EntityBlock, BlockItemProvider {
+	public static final MapCodec<ArcaneWorkbenchBlock> CODEC = simpleCodec(properties -> new ArcaneWorkbenchBlock());
 	private static final VoxelShape SHAPE = Shapes.or(
 		Shapes.box(0, 0.1875, 0, 1, 0.8125, 1),
 		Shapes.box(0, 0, 0, 0.125, 0.1875, 0.125),
@@ -45,8 +46,8 @@ public class ArcaneWorkbenchBlock extends HorizontalDirectionalBlock implements 
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if(!world.isClientSide && world.getBlockEntity(pos) instanceof ArcaneWorkbenchBlockEntity arcaneWorkbench)
+	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+		if(!level.isClientSide && level.getBlockEntity(pos) instanceof ArcaneWorkbenchBlockEntity arcaneWorkbench)
 			player.openMenu(arcaneWorkbench);
 
 		return InteractionResult.SUCCESS;
@@ -113,5 +114,10 @@ public class ArcaneWorkbenchBlock extends HorizontalDirectionalBlock implements 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new ArcaneWorkbenchBlockEntity(pos, state);
+	}
+
+	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		return CODEC;
 	}
 }

@@ -40,7 +40,7 @@ public class StockpileSpellEffect extends SpellEffect {
 				return;
 
 			if(entity instanceof LivingEntity livingEntity)
-				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.STOCKPILE.get(), ArcanusConfig.AttackEffects.StockpileEffectProperties.baseEffectDuration + ArcanusConfig.AttackEffects.StockpileEffectProperties.effectDurationModifier * (int) (effects.stream().filter(ArcanusSpellComponents.STOCKPILE::is).count() * potency), 0, true, false));
+				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.STOCKPILE.holder(), ArcanusConfig.AttackEffects.StockpileEffectProperties.baseEffectDuration + ArcanusConfig.AttackEffects.StockpileEffectProperties.effectDurationModifier * (int) (effects.stream().filter(ArcanusSpellComponents.STOCKPILE::is).count() * potency), 0, true, false));
 		}
 	}
 }

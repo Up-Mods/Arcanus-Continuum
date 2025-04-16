@@ -49,8 +49,8 @@ public class GuidedShot extends ThrowableItemProjectile implements Targetable {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		entityData.define(OWNER_ID, -1);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(OWNER_ID, -1);
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class GuidedShot extends ThrowableItemProjectile implements Targetable {
 		spellGroups.clear();
 
 		casterId = tag.getUUID("CasterId");
-		stack = ItemStack.of(tag.getCompound("ItemStack"));
+		stack = ItemStack.parseOptional(registryAccess(), tag.getCompound("ItemStack"));
 		groupIndex = tag.getInt("GroupIndex");
 		potency = tag.getDouble("Potency");
 
@@ -107,7 +107,7 @@ public class GuidedShot extends ThrowableItemProjectile implements Targetable {
 		ListTag groupsList = tag.getList("SpellGroups", Tag.TAG_COMPOUND);
 
 		for(int i = 0; i < effectList.size(); i++)
-			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(new ResourceLocation(effectList.getString(i))));
+			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(ResourceLocation.parse(effectList.getString(i))));
 		for(int i = 0; i < groupsList.size(); i++)
 			spellGroups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
 	}
@@ -118,7 +118,7 @@ public class GuidedShot extends ThrowableItemProjectile implements Targetable {
 		ListTag groupsList = new ListTag();
 
 		tag.putUUID("CasterId", casterId);
-		tag.put("ItemStack", stack.save(new CompoundTag()));
+		tag.put("ItemStack", stack.save(registryAccess()));
 		tag.putInt("GroupIndex", groupIndex);
 		tag.putDouble("Potency", potency);
 

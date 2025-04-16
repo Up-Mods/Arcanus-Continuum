@@ -13,7 +13,7 @@ import dev.cammiescorner.arcanus.common.components.color.PlayerMagicColorCompone
 import dev.cammiescorner.arcanus.common.components.entity.*;
 import dev.cammiescorner.arcanus.common.components.level.PocketDimensionComponent;
 import dev.cammiescorner.arcanus.common.entities.magic.*;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;

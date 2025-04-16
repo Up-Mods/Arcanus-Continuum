@@ -7,7 +7,7 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.common.entities.magic.ManaShield;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -15,7 +15,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector3i;
@@ -62,7 +61,6 @@ public class ManaShieldRenderer extends EntityRenderer<ManaShield> {
 
 	public static void drawIcosahedron(PoseStack matrices, VertexConsumer consumer, Color color, float alpha, int light, int overlay) {
 		Matrix4f matrix4f = matrices.last().pose();
-		Matrix3f matrix3f = matrices.last().normal();
 		float r = color.redF() * alpha;
 		float g = color.greenF() * alpha;
 		float b = color.blueF() * alpha;
@@ -75,9 +73,9 @@ public class ManaShieldRenderer extends EntityRenderer<ManaShield> {
 			Vector3f v = new Vector3f(vert3.x - vert1.x, vert3.y - vert1.y, vert3.z - vert1.z);
 			Vector3f normal = u.cross(v);
 
-			consumer.vertex(matrix4f, vert1.x, vert1.y, vert1.z).color(r, g, b, 1.0F).uv(0, 0).overlayCoords(overlay).uv2(light).normal(matrix3f, normal.x, normal.y, normal.z).endVertex();
-			consumer.vertex(matrix4f, vert2.x, vert2.y, vert2.z).color(r, g, b, 1.0F).uv(0, 0).overlayCoords(overlay).uv2(light).normal(matrix3f, normal.x, normal.y, normal.z).endVertex();
-			consumer.vertex(matrix4f, vert3.x, vert3.y, vert3.z).color(r, g, b, 1.0F).uv(0, 0).overlayCoords(overlay).uv2(light).normal(matrix3f, normal.x, normal.y, normal.z).endVertex();
+			consumer.addVertex(matrix4f, vert1.x, vert1.y, vert1.z).setColor(r, g, b, 1.0F).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), normal.x, normal.y, normal.z);
+			consumer.addVertex(matrix4f, vert2.x, vert2.y, vert2.z).setColor(r, g, b, 1.0F).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), normal.x, normal.y, normal.z);
+			consumer.addVertex(matrix4f, vert3.x, vert3.y, vert3.z).setColor(r, g, b, 1.0F).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), normal.x, normal.y, normal.z);
 		}
 	}
 }

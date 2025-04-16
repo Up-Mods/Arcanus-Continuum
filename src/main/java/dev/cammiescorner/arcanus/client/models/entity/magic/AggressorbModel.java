@@ -34,14 +34,14 @@ public class AggressorbModel extends EntityModel<Aggressorb> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-		cube1.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		cube2.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		cube3.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+	public void setupAnim(Aggressorb entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+
 	}
 
 	@Override
-	public void setupAnim(Aggressorb entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+		cube1.render(poseStack, buffer, packedLight, packedOverlay, color);
+		cube2.render(poseStack, buffer, packedLight, packedOverlay, color);
+		cube3.render(poseStack, buffer, packedLight, packedOverlay, color);
 	}
 }

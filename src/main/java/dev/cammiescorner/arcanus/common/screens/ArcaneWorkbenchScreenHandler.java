@@ -6,7 +6,7 @@ import dev.cammiescorner.arcanus.common.packets.s2c.SyncWorkbenchModePacket;
 import dev.cammiescorner.arcanus.common.recipes.SpellBindingRecipe;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusScreenHandlers;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import dev.cammiescorner.arcanus.common.util.WorkbenchMode;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
 import net.minecraft.core.registries.BuiltInRegistries;

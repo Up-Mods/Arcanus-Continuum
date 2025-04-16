@@ -15,25 +15,16 @@ import java.util.stream.Stream;
 
 public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vector2i> positions) {
 	public static SpellGroup fromNbt(CompoundTag tag) {
-		SpellShape shape = (SpellShape) Arcanus.SPELL_COMPONENTS.get(new ResourceLocation(tag.getString("Shape")));
+		SpellShape shape = (SpellShape) Arcanus.SPELL_COMPONENTS.get(ResourceLocation.parse(tag.getString("Shape")));
 		List<SpellEffect> effects = new ArrayList<>();
 		List<Vector2i> positions = new ArrayList<>();
 		ListTag nbtEffects = tag.getList("Effects", Tag.TAG_STRING);
 		ListTag nbtPoses = tag.getList("Positions", Tag.TAG_COMPOUND);
 
 		for(int i = 0; i < nbtEffects.size(); i++) {
-			// TODO remove in 1.21.1
 			String nbtId = nbtEffects.getString(i);
-			ResourceLocation correctedId = switch(nbtId) {
-				case "arcanus:projectile_shape" -> ArcanusSpellComponents.MISSILE.getId();
-				case "arcanus:lob_shape" -> ArcanusSpellComponents.LOB.getId();
-				case "arcanus:explosion_shape" -> ArcanusSpellComponents.BURST.getId();
-				case "arcanus:guardian_orb_shape" -> ArcanusSpellComponents.ENTANGLED_ORB.getId();
-				case "arcanus:aggressorb_shape" -> ArcanusSpellComponents.AGGRESSORB.getId();
-				default -> new ResourceLocation(nbtId);
-			};
 
-			if(Arcanus.SPELL_COMPONENTS.get(correctedId) instanceof SpellEffect effect)
+			if(Arcanus.SPELL_COMPONENTS.get(ResourceLocation.parse(nbtId)) instanceof SpellEffect effect)
 				effects.add(effect);
 		}
 

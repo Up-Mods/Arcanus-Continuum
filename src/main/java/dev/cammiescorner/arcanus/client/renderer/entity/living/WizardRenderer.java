@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
@@ -29,29 +30,24 @@ public class WizardRenderer extends MobRenderer<Wizard, WizardModel> {
 	public void render(Wizard wizard, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
 		super.render(wizard, yaw, tickDelta, matrices, vertices, light);
 
-		int hexColor = wizard.getRobeColor();
-		float r = (hexColor >> 16 & 255) / 255F;
-		float g = (hexColor >> 8 & 255) / 255F;
-		float b = (hexColor & 255) / 255F;
+		int hexColor = wizard.getRobeColor(); // TODO probably need to add alpha
 
 		if(wizard.hasCustomName() && wizard.getName().getString().equals("jeb_")) {
-			int m = 15;
-			int n = wizard.tickCount / m + wizard.getId();
-			int o = DyeColor.values().length;
-			float f = ((wizard.tickCount % m) + tickDelta) / 15F;
-			float[] fs = Sheep.getColorArray(DyeColor.byId(n % o));
-			float[] gs = Sheep.getColorArray(DyeColor.byId((n + 1) % o));
-			r = fs[0] * (1F - f) + gs[0] * f;
-			g = fs[1] * (1F - f) + gs[1] * f;
-			b = fs[2] * (1F - f) + gs[2] * f;
+			int interval = 15;
+			int idfk = wizard.tickCount / interval + wizard.getId();
+			int colorCount = DyeColor.values().length;
+			float f = ((wizard.tickCount % interval) + tickDelta) / 15f;
+			int color1 = Sheep.getColor(DyeColor.byId(idfk % colorCount));
+			int color2 = Sheep.getColor(DyeColor.byId((idfk + 1) % colorCount));
+			hexColor = FastColor.ARGB32.lerp(f, color1, color2);
 		}
 
 		matrices.pushPose();
-		setupRotations(wizard, matrices, 0, Mth.rotLerp(tickDelta, wizard.yBodyRotO, wizard.yBodyRot), tickDelta);
+		setupRotations(wizard, matrices, 0, Mth.rotLerp(tickDelta, wizard.yBodyRotO, wizard.yBodyRot), tickDelta, 1f);
 		matrices.scale(-1.0F, -1.0F, 1.0F);
 		scale(wizard, matrices, tickDelta);
 		matrices.translate(0.0, -1.5, 0.0);
-		model.renderToBuffer(matrices, vertices.getBuffer(RenderType.entityCutout(ROBES_TEXTURE)), light, OverlayTexture.NO_OVERLAY, r, g, b, 1F);
+		model.renderToBuffer(matrices, vertices.getBuffer(RenderType.entityCutout(ROBES_TEXTURE)), light, OverlayTexture.NO_OVERLAY, hexColor);
 		matrices.popPose();
 	}
 

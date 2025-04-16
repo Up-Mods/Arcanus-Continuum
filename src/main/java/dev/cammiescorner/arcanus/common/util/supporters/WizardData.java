@@ -3,8 +3,8 @@ package dev.cammiescorner.arcanus.common.util.supporters;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.util.Color;
 import dev.upcraft.datasync.api.util.Entitlements;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.UUID;

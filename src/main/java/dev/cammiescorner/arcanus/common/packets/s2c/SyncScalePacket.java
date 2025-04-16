@@ -2,13 +2,11 @@ package dev.cammiescorner.arcanus.common.packets.s2c;
 
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.SpellEffect;
-import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.FriendlyByteBuf;
@@ -24,7 +22,7 @@ public class SyncScalePacket {
 		buf.writeInt(target.getId());
 		buf.writeBoolean(ArcanusSpellComponents.SHRINK.is(effect));
 		buf.writeDouble(strength);
-		ServerPlayNetworking.send(receiver, ID, buf);
+//		ServerPlayNetworking.send(receiver, ID, buf);
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -32,8 +30,5 @@ public class SyncScalePacket {
 		int entityId = buf.readInt();
 		SpellEffect effect = buf.readBoolean() ? ArcanusSpellComponents.SHRINK.get() : ArcanusSpellComponents.ENLARGE.get();
 		double strength = buf.readDouble();
-
-		client.execute(() ->
-			ArcanusComponents.setScale(client.level.getEntity(entityId), effect, strength));
 	}
 }

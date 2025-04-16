@@ -49,10 +49,10 @@ public class Beam extends Entity implements Targetable {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		entityData.define(OWNER_ID, -1);
-		entityData.define(MAX_AGE, 40);
-		entityData.define(IS_ON_ENTITY, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(OWNER_ID, -1);
+		builder.define(MAX_AGE, 40);
+		builder.define(IS_ON_ENTITY, false);
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class Beam extends Entity implements Targetable {
 	}
 
 	@Override
-	public boolean canChangeDimensions() {
+	public boolean canChangeDimensions(Level oldLevel, Level newLevel) {
 		return false;
 	}
 
@@ -108,7 +108,7 @@ public class Beam extends Entity implements Targetable {
 		entityData.set(MAX_AGE, tag.getInt("MaxAge"));
 		entityData.set(IS_ON_ENTITY, tag.getBoolean("IsOnBoolean"));
 		casterId = tag.getUUID("CasterId");
-		stack = ItemStack.of(tag.getCompound("ItemStack"));
+		stack = ItemStack.parseOptional(registryAccess(), tag.getCompound("ItemStack"));
 		groupIndex = tag.getInt("GroupIndex");
 		potency = tag.getDouble("Potency");
 
@@ -116,7 +116,7 @@ public class Beam extends Entity implements Targetable {
 		ListTag groupsList = tag.getList("SpellGroups", Tag.TAG_COMPOUND);
 
 		for(int i = 0; i < effectList.size(); i++)
-			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(new ResourceLocation(effectList.getString(i))));
+			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(ResourceLocation.parse(effectList.getString(i))));
 		for(int i = 0; i < groupsList.size(); i++)
 			groups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
 	}
@@ -130,7 +130,7 @@ public class Beam extends Entity implements Targetable {
 		tag.putInt("MaxAge", entityData.get(MAX_AGE));
 		tag.putBoolean("IsOnBoolean", entityData.get(IS_ON_ENTITY));
 		tag.putUUID("CasterId", casterId);
-		tag.put("ItemStack", stack.save(new CompoundTag()));
+		tag.put("ItemStack", stack.save(registryAccess()));
 		tag.putInt("GroupIndex", groupIndex);
 		tag.putDouble("Potency", potency);
 

@@ -9,6 +9,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.*;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -86,7 +87,7 @@ public class Smite extends Entity implements Targetable {
 	}
 
 	@Override
-	protected void defineSynchedData() {
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 
 	}
 
@@ -96,7 +97,7 @@ public class Smite extends Entity implements Targetable {
 	}
 
 	@Override
-	public boolean canChangeDimensions() {
+	public boolean canChangeDimensions(Level oldLevel, Level newLevel) {
 		return false;
 	}
 
@@ -106,14 +107,14 @@ public class Smite extends Entity implements Targetable {
 		hasHit.clear();
 
 		casterId = tag.getUUID("CasterId");
-		stack = ItemStack.of(tag.getCompound("ItemStack"));
+		stack = ItemStack.parseOptional(registryAccess(), tag.getCompound("ItemStack"));
 		potency = tag.getDouble("Potency");
 
 		ListTag effectList = tag.getList("Effects", Tag.TAG_STRING);
 		ListTag entityList = tag.getList("HasHit", Tag.TAG_INT_ARRAY);
 
 		for(int i = 0; i < effectList.size(); i++) {
-			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(new ResourceLocation(effectList.getString(i))));
+			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(ResourceLocation.parse(effectList.getString(i))));
 		}
 		for(Tag nbtElement : entityList) {
 			hasHit.add(NbtUtils.loadUUID(nbtElement));
@@ -126,7 +127,7 @@ public class Smite extends Entity implements Targetable {
 		ListTag entityList = new ListTag();
 
 		tag.putUUID("CasterId", casterId);
-		tag.put("ItemStack", stack.save(new CompoundTag()));
+		tag.put("ItemStack", stack.save(registryAccess()));
 		tag.putDouble("Potency", potency);
 
 		for(SpellEffect effect : effects) {

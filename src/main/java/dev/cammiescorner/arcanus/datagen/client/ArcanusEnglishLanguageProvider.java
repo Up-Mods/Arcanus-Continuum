@@ -55,7 +55,8 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add(ArcanusItems.WIZARD_SPAWN_EGG.get(), "Wizard Spawn Egg");
 		builder.add(ArcanusItems.OPOSSUM_SPAWN_EGG.get(), "Opossum Spawn Egg");
 
-		builder.add(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get(), "Smithing Template");
+		// TODO smithing template shit
+//		builder.add(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get(), "Smithing Template");
 		builder.add(BATTLE_MAGE_UPGRADE, "Battle Mage Upgrade");
 		builder.add(BATTLE_MAGE_UPGRADE_APPLIES_TO, "Diamond Armor");
 		builder.add(BATTLE_MAGE_UPGRADE_INGREDIENTS, "Amethyst Shard");
@@ -122,8 +123,6 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add(ArcanusEntities.SMITE.get(), "Smite");
 		builder.add(ArcanusEntities.WIZARD.get(), "Wizard");
 
-		builder.add(ArcanusEnchantments.MANA_POOL.holder(), "Mana Pool");
-
 		builder.add(ArcanusMobEffects.ANONYMITY.get(), "Anonymity");
 		builder.add(ArcanusMobEffects.BOUNCY.get(), "Bouncy");
 		builder.add(ArcanusMobEffects.COPPER_CURSE.get(), "Copper Curse");
@@ -132,7 +131,6 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add(ArcanusMobEffects.FLOAT.get(), "Float");
 		builder.add(ArcanusMobEffects.FORTIFY.get(), "Fortify");
 		builder.add(ArcanusMobEffects.MANA_LOCK.get(), "Mana Lock");
-		builder.add(ArcanusMobEffects.MANA_WINGS.get(), "Mana Wings");
 		builder.add(ArcanusMobEffects.STOCKPILE.get(), "Stockpile");
 		builder.add(ArcanusMobEffects.VULNERABILITY.get(), "Vulnerability");
 		builder.add(ArcanusMobEffects.SHRINK.get(), "Shrink");
@@ -253,7 +251,6 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		spell(builder, ArcanusSpellComponents.FORTIFY, "Fortify Effect");
 		spell(builder, ArcanusSpellComponents.BOUNCY, "Bouncy Effect");
 		spell(builder, ArcanusSpellComponents.FEATHER, "Feather Effect");
-		spell(builder, ArcanusSpellComponents.POWER, "Power Effect");
 		spell(builder, ArcanusSpellComponents.NECROMANCY, "Necromancy Effect");
 		spell(builder, ArcanusSpellComponents.MANA_SPLIT, "Mana Split Effect");
 		spell(builder, ArcanusSpellComponents.ANONYMITY, "Anonymity Effect");
@@ -272,7 +269,6 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		spell(builder, ArcanusSpellComponents.DISCOMBOBULATE, "Discombobulate Effect");
 		spell(builder, ArcanusSpellComponents.HASTE, "Haste Effect");
 		spell(builder, ArcanusSpellComponents.FLOAT, "Float Effect");
-		spell(builder, ArcanusSpellComponents.MANA_WINGS, "Mana Wings Effect");
 		spell(builder, ArcanusSpellComponents.STOCKPILE, "Stockpile Effect");
 		spell(builder, ArcanusSpellComponents.DANGER_SENSE, "Danger Sense Effect");
 

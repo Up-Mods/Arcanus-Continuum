@@ -5,7 +5,6 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.common.entities.magic.Aggressorb;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -34,7 +33,7 @@ public class ShootOrbsPacket {
 		for(UUID orbId : orbIds)
 			buf.writeUUID(orbId);
 
-		ClientPlayNetworking.send(ID, buf);
+//		ClientPlayNetworking.send(ID, buf);
 	}
 
 	public static void handler(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender sender) {

@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.client.renderer.feature;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 
 public class CounterFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
-	private static final ResourceLocation TEXTURE = new ResourceLocation("textures/misc/white.png");
+	private static final ResourceLocation TEXTURE = ResourceLocation.withDefaultNamespace("textures/misc/white.png");
 	private final EntityModel<T> model;
 
 	public CounterFeatureRenderer(RenderLayerParent<T, M> context) {
@@ -34,7 +34,7 @@ public class CounterFeatureRenderer<T extends LivingEntity, M extends EntityMode
 
 			matrices.pushPose();
 			matrices.scale(1.1F, 1.1F, 1.1F);
-			model.renderToBuffer(matrices, verticies.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), light, OverlayTexture.NO_OVERLAY, r, g, b, 1.0F);
+			model.renderToBuffer(matrices, verticies.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), light, OverlayTexture.NO_OVERLAY, Color.fromFloatsRGBA(r, g, b, 1f).asIntARGB());
 			matrices.popPose();
 		}
 	}

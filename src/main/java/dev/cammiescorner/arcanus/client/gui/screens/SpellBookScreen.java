@@ -47,7 +47,7 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookScreenHand
 
 	@Override
 	protected void renderBg(GuiGraphics gui, float delta, int mouseX, int mouseY) {
-		this.renderBackground(gui);
+		this.renderBackground(gui, mouseX, mouseY, delta);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		gui.blit(BOOK_TEXTURE, leftPos, topPos, 0, 0, 256, 180, 256, 256);
 	}
@@ -63,9 +63,7 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookScreenHand
 			List<Vector2i> positions = group.positions();
 			RenderSystem.setShader(GameRenderer::getPositionShader);
 			RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
-			BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
-
-			bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+			BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 			matrices.pushPose();
 			matrices.translate(12, 12, 0);
 			Matrix4f matrix = matrices.last().pose();
@@ -89,13 +87,13 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookScreenHand
 				float dx = Mth.cos(angle);
 				float dy = Mth.sin(angle);
 
-				bufferBuilder.vertex(matrix, x2 - dx, y2 - dy, 0).color(0).endVertex();
-				bufferBuilder.vertex(matrix, x2 + dx, y2 + dy, 0).color(0).endVertex();
-				bufferBuilder.vertex(matrix, x1 + dx, y1 + dy, 0).color(0).endVertex();
-				bufferBuilder.vertex(matrix, x1 - dx, y1 - dy, 0).color(0).endVertex();
+				bufferBuilder.addVertex(matrix, x2 - dx, y2 - dy, 0).setColor(0);
+				bufferBuilder.addVertex(matrix, x2 + dx, y2 + dy, 0).setColor(0);
+				bufferBuilder.addVertex(matrix, x1 + dx, y1 + dy, 0).setColor(0);
+				bufferBuilder.addVertex(matrix, x1 - dx, y1 - dy, 0).setColor(0);
 			}
 
-			BufferUploader.drawWithShader(bufferBuilder.end());
+			BufferUploader.drawWithShader(bufferBuilder.build());
 			matrices.popPose();
 		}
 

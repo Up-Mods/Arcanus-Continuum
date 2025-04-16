@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class MagicBlock extends Block implements EntityBlock {
 	public MagicBlock() {
-		super(BlockBehaviour.Properties.copy(Blocks.OBSIDIAN)
+		super(BlockBehaviour.Properties.ofFullCopy(Blocks.OBSIDIAN)
 			.sound(SoundType.GLASS)
 			.lightLevel(value -> 12)
 			.noOcclusion()

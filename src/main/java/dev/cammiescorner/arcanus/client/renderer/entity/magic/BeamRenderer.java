@@ -6,7 +6,7 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.common.entities.magic.Beam;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -17,7 +17,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector3d;
 
@@ -85,9 +84,8 @@ public class BeamRenderer extends EntityRenderer<Beam> {
 
 	private static void vertex(VertexConsumer vertex, PoseStack matrices, Vec3 vert, Color color, float u, float v) {
 		Matrix4f modelMatrix = matrices.last().pose();
-		Matrix3f normalMatrix = matrices.last().normal();
 
-		vertex.vertex(modelMatrix, (float) vert.x(), (float) vert.y(), (float) vert.z()).color(color.red(), color.green(), color.blue(), color.alpha()).uv(u, v).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(15728880).normal(normalMatrix, 0F, 1F, 0F).endVertex();
+		vertex.addVertex(modelMatrix, (float) vert.x(), (float) vert.y(), (float) vert.z()).setColor(color.asIntARGB()).setUv(u, v).setOverlay(OverlayTexture.NO_OVERLAY).setLight(15728880).setNormal(matrices.last(), 0f, 1f, 0f);
 	}
 
 	@Override

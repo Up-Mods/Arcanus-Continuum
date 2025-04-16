@@ -8,7 +8,7 @@ import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.models.entity.magic.MagicProjectileModel;
 import dev.cammiescorner.arcanus.common.entities.magic.Missile;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -38,7 +38,7 @@ public class MissileRenderer extends ArrowRenderer<Missile> {
 		projectileModel.ring1.zRot = (entity.tickCount + tickDelta) * 0.1f;
 		projectileModel.ring2.zRot = -(entity.tickCount + tickDelta) * 0.125f;
 		projectileModel.ring3.zRot = (entity.tickCount + tickDelta) * 0.15f;
-		projectileModel.renderToBuffer(matrices, consumer, light, OverlayTexture.NO_OVERLAY, color.redF(), color.greenF(), color.blueF(), 1f);
+		projectileModel.renderToBuffer(matrices, consumer, light, OverlayTexture.NO_OVERLAY, color.asIntARGB());
 
 		matrices.popPose();
 	}

@@ -29,13 +29,13 @@ public class SupporterSavingScreen extends Screen {
 	}
 
 	@Override
-	public void renderBackground(GuiGraphics graphics) {
-		this.renderDirtBackground(graphics);
+	public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+//		this.renderDirtBackground(graphics);
 	}
 
 	@Override
 	public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-		this.renderBackground(graphics);
+		this.renderBackground(graphics, mouseX, mouseY, delta);
 
 		int centerX = width / 2;
 		int centerY = height / 2;

@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanus.common.components.entity;
 
 import dev.cammiescorner.arcanus.common.entities.magic.Aggressorb;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import net.minecraft.core.HolderLookup;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -25,7 +26,7 @@ public class AggressorbComponent implements AutoSyncedComponent {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		orbs.clear();
 
 		ListTag nbtList = tag.getList("Orbs", Tag.TAG_INT_ARRAY);
@@ -35,7 +36,7 @@ public class AggressorbComponent implements AutoSyncedComponent {
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		ListTag nbtList = new ListTag();
 
 		for(UUID uuid : orbs)

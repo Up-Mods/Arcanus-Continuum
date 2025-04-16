@@ -4,8 +4,6 @@ import dev.cammiescorner.arcanus.common.items.SpellBookItem;
 import dev.cammiescorner.arcanus.common.screens.SpellcraftScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
@@ -41,11 +39,12 @@ public abstract class LecternBlockEntityMixin extends BlockEntity implements Cle
 			info.setReturnValue(new SpellcraftScreenHandler(i, bookAccess, ContainerLevelAccess.create(getLevel(), getBlockPos()), getBlockPos(), getBook()));
 	}
 
-	@Override
-	public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
-		if(getBook().getItem() instanceof SpellBookItem) {
-			buf.writeBlockPos(getBlockPos());
-			buf.writeItem(getBook());
-		}
-	}
+	// TODO method doesnt exist anymore
+//	@Override
+//	public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
+//		if(getBook().getItem() instanceof SpellBookItem) {
+//			buf.writeBlockPos(getBlockPos());
+//			buf.writeItem(getBook());
+//		}
+//	}
 }

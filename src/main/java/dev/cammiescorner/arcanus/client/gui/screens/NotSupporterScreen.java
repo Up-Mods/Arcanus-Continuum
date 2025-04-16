@@ -18,8 +18,7 @@ import java.net.URISyntaxException;
 import java.util.Objects;
 
 public class NotSupporterScreen extends Screen {
-
-	private static final ResourceLocation DEMO_BACKGROUND_LOCATION = new ResourceLocation("textures/gui/demo_background.png");
+	private static final ResourceLocation DEMO_BACKGROUND_LOCATION = ResourceLocation.withDefaultNamespace("textures/gui/demo_background.png");
 	private static final String CAMMIE_KOFI_URL = "https://ko-fi.com/camellias";
 	private static final String UP_KOFI_URL = "https://upcraft.dev/links/ko-fi";
 
@@ -58,7 +57,7 @@ public class NotSupporterScreen extends Screen {
 
 	@Override
 	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		renderBackground(guiGraphics);
+		renderBackground(guiGraphics, mouseX, mouseY, partialTick);
 
 		int x = (this.width - 248) / 2 + 10;
 		int y = (this.height - 166) / 2 + 8;
@@ -71,8 +70,8 @@ public class NotSupporterScreen extends Screen {
 	}
 
 	@Override
-	public void renderBackground(GuiGraphics guiGraphics) {
-		renderDirtBackground(guiGraphics);
+	public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+//		renderDirtBackground(guiGraphics);
 
 		int centerX = (this.width - 248) / 2;
 		int centerY = (this.height - 166) / 2;

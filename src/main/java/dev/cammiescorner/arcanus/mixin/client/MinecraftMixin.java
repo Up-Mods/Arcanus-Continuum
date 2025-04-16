@@ -47,9 +47,8 @@ public abstract class MinecraftMixin implements ClientUtils {
 	@Shadow @Final public Options options;
 	@Shadow @Nullable public ClientLevel level;
 
-	@Shadow public abstract float getFrameTime();
-
 	@Shadow public abstract boolean isLocalServer();
+	@Shadow public abstract long getFrameTimeNs();
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void tick(CallbackInfo info) {
@@ -76,7 +75,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 				if(isCasting) {
 					mouseDownTimer++;
 
-					if(player.getCooldowns().getCooldownPercent(staff, getFrameTime()) == 0) {
+					if(player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0) {
 						int index = Arcanus.getSpellIndex(pattern);
 						CastSpellPacket.send(index);
 						timer = 20;
@@ -97,7 +96,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 		if((!isCasting() || ArcanusComponents.getMana(player) <= 0) && ArcanusComponents.isCasting(player))
 			SetCastingPacket.send(false);
 
-		if(timer > 0 && player.getAttackStrengthScale(getFrameTime()) == 1F && player.getCooldowns().getCooldownPercent(stack.getItem(), getFrameTime()) == 0)
+		if(timer > 0 && player.getAttackStrengthScale(getFrameTimeNs()) == 1F && player.getCooldowns().getCooldownPercent(stack.getItem(), getFrameTimeNs()) == 0)
 			timer--;
 	}
 
@@ -127,7 +126,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 
 		if(player != null && !player.isSpectator() && level != null) {
 			if(player.getMainHandItem().getItem() instanceof StaffItem staff) {
-				if(player.getAttackStrengthScale(getFrameTime()) >= (((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15F) && player.getCooldowns().getCooldownPercent(staff, getFrameTime()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
+				if(player.getAttackStrengthScale(getFrameTimeNs()) >= (((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15F) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
 					timer = 20;
 					pattern.add(Pattern.LEFT);
 					SyncPatternPacket.send(pattern);
@@ -162,7 +161,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 			info.cancel();
 
 		if(player != null && !player.isSpectator() && level != null && player.getMainHandItem().getItem() instanceof StaffItem staff) {
-			if(player.getAttackStrengthScale(getFrameTime()) >= (((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15F) && player.getCooldowns().getCooldownPercent(staff, getFrameTime()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
+			if(player.getAttackStrengthScale(getFrameTimeNs()) >= (((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15F) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
 				timer = 20;
 				pattern.add(Pattern.RIGHT);
 				SyncPatternPacket.send(pattern);

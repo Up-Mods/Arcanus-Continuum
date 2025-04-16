@@ -6,7 +6,14 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
-@Config(Arcanus.MOD_ID)
+@Config(value = "Arcanus", categories = {
+	ArcanusConfig.Enchantments.class,
+	ArcanusConfig.SpellShapes.class,
+	ArcanusConfig.AttackEffects.class,
+	ArcanusConfig.SupportEffects.class,
+	ArcanusConfig.UtilityEffects.class,
+	ArcanusConfig.MovementEffects.class
+})
 public final class ArcanusConfig {
 	@ConfigEntry(id = "castingSpeedHasCoolDown", translation = CONFIG_CASTING_HAS_SPEED_LIMIT)
 	public static boolean castingSpeedHasCoolDown = false;
@@ -14,9 +21,11 @@ public final class ArcanusConfig {
 	@ConfigEntry(id = "sizeChangingIsPermanent", translation = CONFIG_SIZE_CHANGE_IS_PERMA)
 	public static boolean sizeChangingIsPermanent = false;
 
-	@Category("enchantments")
+	@Category(value = "Enchantments", categories = {
+		Enchantments.ManaPool.class
+	})
 	public static final class Enchantments {
-		@Category("manaPool")
+		@Category("Mana Pool")
 		public static final class ManaPool {
 			@ConfigEntry(id = "maxEnchantmentLevel", translation = CONFIG_MAX_ENCHANT_LEVEL)
 			public static int maxLevel = 5;
@@ -29,9 +38,24 @@ public final class ArcanusConfig {
 		}
 	}
 
-	@Category("spellShapeProperties")
+	@Category(value = "Spell Shapes", categories = {
+		SpellShapes.SelfShapeProperties.class,
+		SpellShapes.TouchShapeProperties.class,
+		SpellShapes.MissileShapeProperties.class,
+		SpellShapes.LobShapeProperties.class,
+		SpellShapes.BoltShapeProperties.class,
+		SpellShapes.BeamShapeProperties.class,
+		SpellShapes.RuneShapeProperties.class,
+		SpellShapes.BurstShapeProperties.class,
+		SpellShapes.GuidedShotShapeProperties.class,
+		SpellShapes.CounterShapeProperties.class,
+		SpellShapes.AOEShapeProperties.class,
+		SpellShapes.SmiteShapeProperties.class,
+		SpellShapes.EntangledOrbShapeProperties.class,
+		SpellShapes.AggressorbShapeProperties.class
+	})
 	public static final class SpellShapes {
-		@Category("selfShapeProperties")
+		@Category("Self")
 		public static final class SelfShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -61,7 +85,7 @@ public final class ArcanusConfig {
 			public static boolean procsOnce = false;
 		}
 
-		@Category("touchShapeProperties")
+		@Category("Touch")
 		public static final class TouchShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -91,7 +115,7 @@ public final class ArcanusConfig {
 			public static boolean procsOnce = false;
 		}
 
-		@Category("missileShapeProperties")
+		@Category("Missile")
 		public static final class MissileShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -128,7 +152,7 @@ public final class ArcanusConfig {
 			public static int baseLifeSpan = 20;
 		}
 
-		@Category("lobShapeProperties")
+		@Category("Lob")
 		public static final class LobShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -161,7 +185,7 @@ public final class ArcanusConfig {
 			public static float projectileSpeed = 2f;
 		}
 
-		@Category("boltShapeProperties")
+		@Category("Bolt")
 		public static final class BoltShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -195,7 +219,7 @@ public final class ArcanusConfig {
 			public static double range = 6;
 		}
 
-		@Category("beamShapeProperties")
+		@Category("Beam")
 		public static final class BeamShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -233,7 +257,7 @@ public final class ArcanusConfig {
 			public static int delay = 40;
 		}
 
-		@Category("runeShapeProperties")
+		@Category("Rune")
 		public static final class RuneShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -267,7 +291,7 @@ public final class ArcanusConfig {
 			public static int delay = 60;
 		}
 
-		@Category("burstShapeProperties")
+		@Category("Burst")
 		public static final class BurstShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -300,7 +324,7 @@ public final class ArcanusConfig {
 			public static float radius = 4f;
 		}
 
-		@Category("guidedShotShapeProperties")
+		@Category("Guided Shot")
 		public static final class GuidedShotShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = false;
@@ -330,7 +354,7 @@ public final class ArcanusConfig {
 			public static boolean procsOnce = false;
 		}
 
-		@Category("counterShapeProperties")
+		@Category("Counter")
 		public static final class CounterShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -364,7 +388,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 100;
 		}
 
-		@Category("aoeShapeProperties")
+		@Category("AOE")
 		public static final class AOEShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -404,7 +428,7 @@ public final class ArcanusConfig {
 			public static int timesToCastNextShape = 3;
 		}
 
-		@Category("smiteShapeProperties")
+		@Category("Smite")
 		public static final class SmiteShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -434,7 +458,7 @@ public final class ArcanusConfig {
 			public static boolean procsOnce = false;
 		}
 
-		@Category("entangledOrbShapeProperties")
+		@Category("Entangled Orb")
 		public static final class EntangledOrbShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -472,7 +496,7 @@ public final class ArcanusConfig {
 			public static double baseManaDrain = 3;
 		}
 
-		@Category("aggressorbShapeProperties")
+		@Category("Aggressorb")
 		public static final class AggressorbShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -514,9 +538,22 @@ public final class ArcanusConfig {
 		}
 	}
 
-	@Category("attackEffectsCategory")
+	@Category(value = "Attack Effects", categories = {
+		AttackEffects.DamageEffectProperties.class,
+		AttackEffects.FireEffectProperties.class,
+		AttackEffects.ElectricEffectProperties.class,
+		AttackEffects.IceEffectProperties.class,
+		AttackEffects.VulnerabilityEffectProperties.class,
+		AttackEffects.ManaLockEffectProperties.class,
+		AttackEffects.WitheringEffectProperties.class,
+		AttackEffects.NecromancyEffectProperties.class,
+		AttackEffects.ManaSplitEffectProperties.class,
+		AttackEffects.CopperCurseEffectProperties.class,
+		AttackEffects.DiscombobulateEffectProperties.class,
+		AttackEffects.StockpileEffectProperties.class
+	})
 	public static final class AttackEffects {
-		@Category("damageEffectProperties")
+		@Category("Damage")
 		public static final class DamageEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -544,7 +581,7 @@ public final class ArcanusConfig {
 			public static float baseDamage = 2f;
 		}
 
-		@Category("fireEffectProperties")
+		@Category("Fire")
 		public static final class FireEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -569,10 +606,10 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "baseTimeOnFire", translation = CONFIG_BASE_TIME_ON_FIRE)
 			@ConfigOption.Range(min = 0, max = 100)
-			public static int baseTimeOnFire = 3;
+			public static int baseTimeOnFire = 60;
 		}
 
-		@Category("electricEffectProperties")
+		@Category("Electric")
 		public static final class ElectricEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -597,14 +634,14 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "baseStunTime", translation = CONFIG_BASE_STUN_TIME)
 			@ConfigOption.Range(min = 0, max = 100)
-			public static int baseStunTime = 2;
+			public static int baseStunTime = 10;
 
 			@ConfigEntry(id = "wetEntityDamageMultiplier", translation = CONFIG_WET_ENTITY_DAMAGE_MULTIPLIER)
 			@ConfigOption.Range(min = 1, max = 1000)
 			public static float wetEntityDamageMultiplier = 1.5f;
 		}
 
-		@Category("iceEffectProperties")
+		@Category("Ice")
 		public static final class IceEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -629,10 +666,10 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "baseFreezingTime", translation = CONFIG_BASE_FREEZING_TIME)
 			@ConfigOption.Range(min = 0, max = 100)
-			public static int baseFreezingTime = 20;
+			public static int baseFreezingTime = 60;
 		}
 
-		@Category("vulnerabilityEffectProperties")
+		@Category("Vulnerability")
 		public static final class VulnerabilityEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -660,7 +697,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 300;
 		}
 
-		@Category("manaLockEffectProperties")
+		@Category("Mana Lock")
 		public static final class ManaLockEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -688,7 +725,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 200;
 		}
 
-		@Category("witheringEffectProperties")
+		@Category("Withering")
 		public static final class WitheringEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -716,7 +753,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 60;
 		}
 
-		@Category("necromancyEffectProperties")
+		@Category("Necromancy")
 		public static final class NecromancyEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -744,7 +781,7 @@ public final class ArcanusConfig {
 			public static int baseHealth = 10;
 		}
 
-		@Category("manaSplitEffectProperties")
+		@Category("Mana Split")
 		public static final class ManaSplitEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -768,7 +805,7 @@ public final class ArcanusConfig {
 			public static boolean procsOnce = false;
 		}
 
-		@Category("copperCurseEffectProperties")
+		@Category("Copper Curse")
 		public static final class CopperCurseEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -804,7 +841,7 @@ public final class ArcanusConfig {
 			public static double baseChanceToActivate = 0.0625;
 		}
 
-		@Category("discombobulateEffectProperties")
+		@Category("Discombobulate")
 		public static final class DiscombobulateEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -836,7 +873,7 @@ public final class ArcanusConfig {
 			public static int effectDurationModifier = 15;
 		}
 
-		@Category("stockpileEffectProperties")
+		@Category("Stockpile")
 		public static final class StockpileEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -873,9 +910,18 @@ public final class ArcanusConfig {
 		}
 	}
 
-	@Category("supportEffectsCategory")
+	@Category(value = "Support Effects", categories = {
+		SupportEffects.HealEffectProperties.class,
+		SupportEffects.DispelEffectProperties.class,
+		SupportEffects.RegenerateEffectProperties.class,
+		SupportEffects.FortifyEffectProperties.class,
+		SupportEffects.HasteEffectProperties.class,
+		SupportEffects.ManaShieldEffectProperties.class,
+		SupportEffects.DangerSenseEffectProperties.class,
+		SupportEffects.TemporalDilationEffectProperties.class
+	})
 	public static final class SupportEffects {
-		@Category("healEffectProperties")
+		@Category("Heal")
 		public static final class HealEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -903,7 +949,7 @@ public final class ArcanusConfig {
 			public static float baseHealAmount = 3f;
 		}
 
-		@Category("dispelEffectProperties")
+		@Category("Dispel")
 		public static final class DispelEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -927,7 +973,7 @@ public final class ArcanusConfig {
 			public static boolean procsOnce = false;
 		}
 
-		@Category("regenerateEffectProperties")
+		@Category("Regenerate")
 		public static final class RegenerateEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -955,7 +1001,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 100;
 		}
 
-		@Category("fortifyEffectProperties")
+		@Category("Fortify")
 		public static final class FortifyEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -983,7 +1029,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 500;
 		}
 
-		@Category("hasteEffectProperties")
+		@Category("Haste")
 		public static final class HasteEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1011,7 +1057,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 200;
 		}
 
-		@Category("manaShieldEffectProperties")
+		@Category("Mana Shield")
 		public static final class ManaShieldEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1043,7 +1089,7 @@ public final class ArcanusConfig {
 			public static int lifeSpanModifier = 40;
 		}
 
-		@Category("dangerSenseEffectProperties")
+		@Category("Danger Sense")
 		public static final class DangerSenseEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1075,7 +1121,7 @@ public final class ArcanusConfig {
 			public static double baseChanceToActivate = 0.035;
 		}
 
-		@Category("temporalDilationEffectProperties")
+		@Category("Temporal Dilation")
 		public static final class TemporalDilationEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1100,9 +1146,18 @@ public final class ArcanusConfig {
 		}
 	}
 
-	@Category("utilityEffectsCategory")
+	@Category(value = "Utility Effects", categories = {
+		UtilityEffects.BuildEffectProperties.class,
+		UtilityEffects.AnonymityEffectProperties.class,
+		UtilityEffects.MineEffectProperties.class,
+		UtilityEffects.GrowthEffectProperties.class,
+		UtilityEffects.ShrinkEffectProperties.class,
+		UtilityEffects.EnlargeEffectProperties.class,
+		UtilityEffects.SpatialRiftEffectProperties.class,
+		UtilityEffects.WardingEffectProperties.class
+	})
 	public static final class UtilityEffects {
-		@Category("buildEffectProperties")
+		@Category("Build")
 		public static final class BuildEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1130,7 +1185,7 @@ public final class ArcanusConfig {
 			public static int baseLifeSpan = 220;
 		}
 
-		@Category("anonymityEffectProperties")
+		@Category("Anonymity")
 		public static final class AnonymityEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1158,7 +1213,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 220;
 		}
 
-		@Category("mineEffectProperties")
+		@Category("Mine")
 		public static final class MineEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1182,7 +1237,7 @@ public final class ArcanusConfig {
 			public static boolean procsOnce = false;
 		}
 
-		@Category("growthEffectProperties")
+		@Category("Growth")
 		public static final class GrowthEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1206,7 +1261,7 @@ public final class ArcanusConfig {
 			public static boolean procsOnce = false;
 		}
 
-		@Category("shrinkEffectProperties")
+		@Category("Shrink")
 		public static final class ShrinkEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1238,7 +1293,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 100;
 		}
 
-		@Category("enlargeEffectProperties")
+		@Category("Enlarge")
 		public static final class EnlargeEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1270,7 +1325,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 100;
 		}
 
-		@Category("spatialRiftEffectProperties")
+		@Category("Spatial Rift")
 		public static final class SpatialRiftEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1315,7 +1370,7 @@ public final class ArcanusConfig {
 			public static int baseLifeSpan = 300;
 		}
 
-		@Category("wardingEffectProperties")
+		@Category("Warding")
 		public static final class WardingEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1343,9 +1398,18 @@ public final class ArcanusConfig {
 		}
 	}
 
-	@Category("movementEffectsCategory")
+	@Category(value = "Movement Effects", categories = {
+		MovementEffects.PushEffectProperties.class,
+		MovementEffects.PullEffectProperties.class,
+		MovementEffects.LevitateEffectProperties.class,
+		MovementEffects.SpeedEffectProperties.class,
+		MovementEffects.TeleportEffectProperties.class,
+		MovementEffects.BouncyEffectProperties.class,
+		MovementEffects.FeatherEffectProperties.class,
+		MovementEffects.FloatEffectProperties.class
+	})
 	public static final class MovementEffects {
-		@Category("pushEffectProperties")
+		@Category("Push")
 		public static final class PushEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1373,7 +1437,7 @@ public final class ArcanusConfig {
 			public static double basePushStrength = 0.2;
 		}
 
-		@Category("pullEffectProperties")
+		@Category("Pull")
 		public static final class PullEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1401,7 +1465,7 @@ public final class ArcanusConfig {
 			public static double basePullStrength = 0.2;
 		}
 
-		@Category("levitateEffectProperties")
+		@Category("Levitate")
 		public static final class LevitateEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1429,7 +1493,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 60;
 		}
 
-		@Category("speedEffectProperties")
+		@Category("Speed")
 		public static final class SpeedEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1457,7 +1521,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 300;
 		}
 
-		@Category("teleportEffectProperties")
+		@Category("Teleport")
 		public static final class TeleportEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1485,7 +1549,7 @@ public final class ArcanusConfig {
 			public static double baseTeleportDistance = 5;
 		}
 
-		@Category("bouncyEffectProperties")
+		@Category("Bouncy")
 		public static final class BouncyEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1513,7 +1577,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 220;
 		}
 
-		@Category("featherEffectProperties")
+		@Category("Feather")
 		public static final class FeatherEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1541,7 +1605,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 100;
 		}
 
-		@Category("floatEffectProperties")
+		@Category("Float")
 		public static final class FloatEffectProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
@@ -1570,41 +1634,6 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 1200;
-		}
-
-		@Category("manaWingsEffectProperties")
-		public static final class ManaWingsEffectProperties {
-			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
-			public static boolean enabled = false;
-
-			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
-			public static Weight weight = Weight.NONE;
-
-			@ConfigEntry(id = "manaCost", translation = CONFIG_MANA_COST)
-			@ConfigOption.Range(min = 0, max = 200)
-			public static double manaCost = 8.5;
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
-			@ConfigEntry(id = "minimumLevel", translation = CONFIG_MIN_LEVEL)
-			@ConfigOption.Range(min = 1, max = 10)
-			public static int minimumLevel = 10;
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
-
-			@ConfigEntry(id = "removedUponTakingDamage", translation = CONFIG_REMOVED_ON_DAMAGE_TAKEN)
-			public static boolean removedUponTakingDamage = true;
-
-			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int baseEffectDuration = 200;
-
-			@ConfigEntry(id = "effectDurationModifier", translation = CONFIG_EFFECT_DURATION_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int effectDurationModifier = 100;
 		}
 	}
 }

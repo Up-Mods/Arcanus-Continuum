@@ -11,7 +11,6 @@ import net.minecraft.world.level.dimension.DimensionType;
 import java.util.concurrent.CompletableFuture;
 
 public class ArcanusDimensionTagsProvider extends FabricTagProvider<DimensionType> {
-
 	public ArcanusDimensionTagsProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, Registries.DIMENSION_TYPE, registriesFuture);
 	}

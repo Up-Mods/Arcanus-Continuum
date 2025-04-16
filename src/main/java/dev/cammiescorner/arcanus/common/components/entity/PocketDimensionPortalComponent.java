@@ -6,6 +6,7 @@ import dev.cammiescorner.arcanus.common.components.level.PocketDimensionComponen
 import dev.cammiescorner.arcanus.common.entities.magic.PocketDimensionPortal;
 import dev.cammiescorner.arcanus.common.registry.ArcanusEntities;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
+import net.minecraft.core.HolderLookup;
 import org.ladysnake.cca.api.v3.component.Component;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -38,18 +39,18 @@ public class PocketDimensionPortalComponent implements Component {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		ListTag list = tag.getList("PortalIds", Tag.TAG_COMPOUND);
 		portalIds.clear();
 
 		for(int i = 0; i < list.size(); i++) {
 			CompoundTag nbt = list.getCompound(i);
-			portalIds.put(ResourceKey.create(Registries.DIMENSION, new ResourceLocation(nbt.getString("WorldKey"))), new Pair<>(nbt.getUUID("PortalId"), new Vec3(tag.getInt("PortalPosX"), tag.getInt("PortalPosY"), tag.getInt("PortalPosZ"))));
+			portalIds.put(ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(nbt.getString("WorldKey"))), new Pair<>(nbt.getUUID("PortalId"), new Vec3(tag.getInt("PortalPosX"), tag.getInt("PortalPosY"), tag.getInt("PortalPosZ"))));
 		}
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		ListTag list = new ListTag();
 
 		for(ResourceKey<Level> levelKey : portalIds.keySet()) {

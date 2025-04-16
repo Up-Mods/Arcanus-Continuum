@@ -8,7 +8,7 @@ import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.models.entity.magic.AreaOfEffectModel;
 import dev.cammiescorner.arcanus.common.entities.magic.AreaOfEffect;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import dev.cammiescorner.arcanus.common.util.Color;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -41,7 +41,7 @@ public class AreaOfEffectRenderer extends EntityRenderer<AreaOfEffect> {
 		model.base.yRot = (entity.tickCount + tickDelta) * 0.015f;
 		model.pillar.yRot = -model.base.yRot;
 		model.walls.yRot = -(entity.tickCount + tickDelta) * 0.035f;
-		model.renderToBuffer(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), light, OverlayTexture.NO_OVERLAY, color.redF(), color.greenF(), color.blueF(), color.alphaF());
+		model.renderToBuffer(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), light, OverlayTexture.NO_OVERLAY, color.asIntARGB());
 		matrices.popPose();
 	}
 

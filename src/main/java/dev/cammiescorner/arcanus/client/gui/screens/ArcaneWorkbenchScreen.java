@@ -50,7 +50,7 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
 
 	@Override
 	protected void renderBg(GuiGraphics gui, float delta, int mouseX, int mouseY) {
-		this.renderBackground(gui);
+		this.renderBackground(gui, mouseX, mouseY, delta);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		gui.blit(getTexture(), leftPos, topPos, 0, 0, 176, 166, 256, 256);
 

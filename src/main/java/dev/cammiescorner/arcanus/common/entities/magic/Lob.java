@@ -95,7 +95,7 @@ public class Lob extends AbstractArrow implements Targetable {
 		effects.clear();
 		spellGroups.clear();
 
-		stack = ItemStack.of(tag.getCompound("ItemStack"));
+		stack = ItemStack.parseOptional(registryAccess(), tag.getCompound("ItemStack"));
 		potency = tag.getDouble("Potency");
 		groupIndex = tag.getInt("GroupIndex");
 
@@ -103,7 +103,7 @@ public class Lob extends AbstractArrow implements Targetable {
 		ListTag groupsList = tag.getList("SpellGroups", Tag.TAG_COMPOUND);
 
 		for(int i = 0; i < effectList.size(); i++)
-			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(new ResourceLocation(effectList.getString(i))));
+			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(ResourceLocation.parse(effectList.getString(i))));
 		for(int i = 0; i < groupsList.size(); i++)
 			spellGroups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
 	}
@@ -114,7 +114,7 @@ public class Lob extends AbstractArrow implements Targetable {
 		ListTag effectList = new ListTag();
 		ListTag groupsList = new ListTag();
 
-		tag.put("ItemStack", stack.save(new CompoundTag()));
+		tag.put("ItemStack", stack.save(registryAccess()));
 		tag.putDouble("Potency", potency);
 		tag.putInt("GroupIndex", groupIndex);
 
@@ -134,11 +134,16 @@ public class Lob extends AbstractArrow implements Targetable {
 
 	@Override
 	protected float getWaterInertia() {
-		return 1F;
+		return 1f;
 	}
 
 	@Override
 	protected ItemStack getPickupItem() {
+		return ItemStack.EMPTY;
+	}
+
+	@Override
+	protected ItemStack getDefaultPickupItem() {
 		return ItemStack.EMPTY;
 	}
 

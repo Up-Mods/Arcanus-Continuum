@@ -7,7 +7,6 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.FriendlyByteBuf;
@@ -20,7 +19,7 @@ public class SyncWorkbenchModePacket {
 	public static void send(ServerPlayer receiver, WorkbenchMode mode) {
 		FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
 		buf.writeVarInt(mode.ordinal());
-		ServerPlayNetworking.send(receiver, ID, buf);
+//		ServerPlayNetworking.send(receiver, ID, buf);
 	}
 
 	@Environment(EnvType.CLIENT)

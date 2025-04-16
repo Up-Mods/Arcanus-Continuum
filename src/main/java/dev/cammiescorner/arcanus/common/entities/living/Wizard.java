@@ -68,9 +68,9 @@ public class Wizard extends AbstractVillager implements NeutralMob {
 	}
 
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityNbt) {
-		populateDefaultEquipmentSlots(world.getRandom(), difficulty);
-		return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+		populateDefaultEquipmentSlots(level.getRandom(), difficulty);
+		return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
 	}
 
 	@Override
@@ -85,9 +85,9 @@ public class Wizard extends AbstractVillager implements NeutralMob {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		entityData.define(ROBE_COLOR, 0xFFFFFF);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(ROBE_COLOR, 0xffffff);
 	}
 
 	@Override

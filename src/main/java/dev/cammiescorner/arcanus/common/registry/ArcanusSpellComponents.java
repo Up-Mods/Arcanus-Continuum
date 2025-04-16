@@ -88,5 +88,4 @@ public class ArcanusSpellComponents {
 	public static final RegistrySupplier<SpellEffect> BOUNCY = SPELL_COMPONENTS.register("bouncy_effect", BouncySpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> FEATHER = SPELL_COMPONENTS.register("feather_effect", FeatherSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> FLOAT = SPELL_COMPONENTS.register("float_effect", FloatSpellEffect::new);
-	public static final RegistrySupplier<SpellEffect> MANA_WINGS = SPELL_COMPONENTS.register("mana_wings_effect", ManaWingsSpellEffect::new);
 }

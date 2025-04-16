@@ -36,7 +36,7 @@ public class Opossum extends TamableAnimal {
 	protected void registerGoals() {
 		goalSelector.addGoal(1, new FloatGoal(this));
 		goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
-		goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 2, 4, false));
+		goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 2, 4));
 		goalSelector.addGoal(4, new TemptGoal(this, 1, Ingredient.of(Items.CARROT), false));
 		goalSelector.addGoal(4, new BreedGoal(this, 1));
 		goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1));
@@ -116,7 +116,7 @@ public class Opossum extends TamableAnimal {
 
 		if(uUID != null && opossum != null) {
 			opossum.setOwnerUUID(uUID);
-			opossum.setTame(true);
+			opossum.setTame(true, false);
 		}
 
 		return opossum;

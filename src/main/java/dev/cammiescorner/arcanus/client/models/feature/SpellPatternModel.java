@@ -74,9 +74,9 @@ public class SpellPatternModel<T extends Player> extends HumanoidModel<T> {
 		base.y = 0;
 		base.x = 0;
 		base.z = 0;
-		first.zRot = (float) Math.toRadians((player.tickCount + player.getId() + client.getFrameTime()) * 5);
-		second.zRot = (float) Math.toRadians((player.tickCount + player.getId() + client.getFrameTime()) * -8);
-		third.zRot = (float) Math.toRadians((player.tickCount + player.getId() + client.getFrameTime()) * 11);
+		first.zRot = (float) Math.toRadians((player.tickCount + player.getId() + client.getFrameTimeNs()) * 5);
+		second.zRot = (float) Math.toRadians((player.tickCount + player.getId() + client.getFrameTimeNs()) * -8);
+		third.zRot = (float) Math.toRadians((player.tickCount + player.getId() + client.getFrameTimeNs()) * 11);
 
 		if(player.isCrouching()) {
 			base.y = 4.2F;
@@ -90,8 +90,8 @@ public class SpellPatternModel<T extends Player> extends HumanoidModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-		base.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+		base.render(poseStack, buffer, packedLight, packedOverlay, color);
 	}
 
 	public void showMagicCircles(List<Pattern> pattern) {

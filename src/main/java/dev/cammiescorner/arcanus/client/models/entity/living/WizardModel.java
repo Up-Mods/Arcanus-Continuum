@@ -63,16 +63,6 @@ public class WizardModel extends EntityModel<Wizard> implements ArmedModel, Head
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-		head.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		leftArm.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		rightArm.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		body.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		leftLeg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		rightLeg.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-	}
-
-	@Override
 	public void setupAnim(Wizard wizard, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 		rightArm.xRot = Mth.cos(limbAngle * 0.6662F + (float) Math.PI) * 2.0F * limbDistance * 0.5F;
 		leftArm.xRot = Mth.cos(limbAngle * 0.6662F) * 2.0F * limbDistance * 0.5F;
@@ -110,5 +100,15 @@ public class WizardModel extends EntityModel<Wizard> implements ArmedModel, Head
 			leftArm.translateAndRotate(matrices);
 		else
 			rightArm.translateAndRotate(matrices);
+	}
+
+	@Override
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+		head.render(poseStack, buffer, packedLight, packedOverlay, color);
+		leftArm.render(poseStack, buffer, packedLight, packedOverlay, color);
+		rightArm.render(poseStack, buffer, packedLight, packedOverlay, color);
+		body.render(poseStack, buffer, packedLight, packedOverlay, color);
+		leftLeg.render(poseStack, buffer, packedLight, packedOverlay, color);
+		rightLeg.render(poseStack, buffer, packedLight, packedOverlay, color);
 	}
 }

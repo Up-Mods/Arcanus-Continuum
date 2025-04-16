@@ -85,7 +85,7 @@ public class BattleMageArmourModel<T extends LivingEntity> extends HumanoidModel
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
-		super.renderToBuffer(matrices, vertices, light, overlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+		super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, color);
 	}
 }

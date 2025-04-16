@@ -11,7 +11,6 @@ import net.minecraft.world.damagesource.DamageType;
 import java.util.concurrent.CompletableFuture;
 
 public class ArcanusDamageTagsProvider extends FabricTagProvider<DamageType> {
-
 	public ArcanusDamageTagsProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, Registries.DAMAGE_TYPE, registriesFuture);
 	}

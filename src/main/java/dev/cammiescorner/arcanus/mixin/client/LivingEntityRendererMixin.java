@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.renderer.feature.CounterFeatureRenderer;
-import dev.cammiescorner.arcanus.client.renderer.feature.ManaWingsFeatureRenderer;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.util.StaffType;
@@ -36,7 +35,6 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void init(EntityRendererProvider.Context ctx, EntityModel model, float shadowRadius, CallbackInfo ci) {
-		addLayer(new ManaWingsFeatureRenderer<>(this));
 		addLayer(new CounterFeatureRenderer<>(this));
 	}
 

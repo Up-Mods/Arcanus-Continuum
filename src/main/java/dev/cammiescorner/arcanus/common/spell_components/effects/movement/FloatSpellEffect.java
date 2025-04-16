@@ -35,7 +35,7 @@ public class FloatSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.FLOAT.get(), (int) (ArcanusConfig.MovementEffects.FloatEffectProperties.baseEffectDuration * effects.stream().filter(ArcanusSpellComponents.FLOAT::is).count() * potency), 0, true, false));
+				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.FLOAT.holder(), (int) (ArcanusConfig.MovementEffects.FloatEffectProperties.baseEffectDuration * effects.stream().filter(ArcanusSpellComponents.FLOAT::is).count() * potency), 0, true, false));
 		}
 	}
 }

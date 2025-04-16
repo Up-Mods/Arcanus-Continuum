@@ -13,7 +13,6 @@ import net.minecraft.world.level.biome.Biomes;
 import java.util.concurrent.CompletableFuture;
 
 public class ArcanusBiomeTagsProvider extends FabricTagProvider<Biome> {
-
 	public ArcanusBiomeTagsProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, Registries.BIOME, registriesFuture);
 	}

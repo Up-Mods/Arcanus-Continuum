@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.util;
 
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.nbt.CompoundTag;
 
 public class NBTHelper {

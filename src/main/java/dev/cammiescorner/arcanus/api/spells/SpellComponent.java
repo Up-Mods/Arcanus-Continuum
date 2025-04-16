@@ -65,7 +65,7 @@ public class SpellComponent {
 			if(this instanceof SpellEffect)
 				extra = "effects/";
 
-			texture = new ResourceLocation(id.getNamespace(), "textures/spell_components/" + extra + id.getPath() + ".png");
+			texture = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "textures/spell_components/" + extra + id.getPath() + ".png");
 		}
 
 		return texture;

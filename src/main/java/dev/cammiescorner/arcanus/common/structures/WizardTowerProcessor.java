@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.structures;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import dev.cammiescorner.arcanus.common.blocks.entities.DummyBookshelfBlockEntity;
 import dev.cammiescorner.arcanus.common.data.ArcanusLootTables;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class WizardTowerProcessor extends StructureProcessor {
 	public static final WizardTowerProcessor INSTANCE = new WizardTowerProcessor();
-	public static final Codec<WizardTowerProcessor> CODEC = Codec.unit(() -> WizardTowerProcessor.INSTANCE);
+	public static final MapCodec<WizardTowerProcessor> CODEC = MapCodec.unit(() -> WizardTowerProcessor.INSTANCE);
 
 	@Nullable
 	@Override
@@ -31,7 +31,7 @@ public class WizardTowerProcessor extends StructureProcessor {
 		be.setLootTable(ArcanusLootTables.WIZARD_TOWER_BOOKSHELF);
 		be.setLootSeed(random.nextLong());
 
-		return new StructureTemplate.StructureBlockInfo(relativeBlockInfo.pos(), blockState, be.saveWithId());
+		return new StructureTemplate.StructureBlockInfo(relativeBlockInfo.pos(), blockState, be.saveWithId(level.registryAccess()));
 	}
 
 	@Override
