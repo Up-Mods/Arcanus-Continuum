@@ -14,6 +14,7 @@ import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 	ArcanusConfig.UtilityEffects.class,
 	ArcanusConfig.MovementEffects.class
 })
+@ConfigInfo(title = "Arcanus", description = "")
 public final class ArcanusConfig {
 	@ConfigEntry(id = "castingSpeedHasCoolDown", translation = CONFIG_CASTING_HAS_SPEED_LIMIT)
 	public static boolean castingSpeedHasCoolDown = false;
