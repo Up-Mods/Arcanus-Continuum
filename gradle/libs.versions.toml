@@ -9,6 +9,7 @@ parchment_minecraft = "1.21.1"
 parchment_mappings = "2024.11.17"
 
 jetbrains_annotations = "26.0.1"
+autoservice = "1.1.1"
 fabric_api = "0.115.4+1.21.1"
 cca = "6.1.2"
 sparkweave = "0.508.2"
@@ -27,6 +28,8 @@ trinkets = "3.10.0"
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
 fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_loader" }
 jetbrains_annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains_annotations" }
+autoservice = { module = "com.google.auto.service:auto-service", version.ref = "autoservice" }
+autoservice_annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "autoservice" }
 
 fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api" }
 cca_base = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-base", version.ref = "cca" }

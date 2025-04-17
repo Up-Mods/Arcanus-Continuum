@@ -45,6 +45,7 @@ public class BattleMageArmorItem extends WizardArmorItem {
 	}
 
 	public static boolean isWaxed(ItemStack stack) {
+		// TODO set waxed as component
 //		CompoundTag tag = stack.getTagElement(ItemStack.TAG_DISPLAY);
 //		return tag != null && tag.getBoolean("waxed");
 		return true;

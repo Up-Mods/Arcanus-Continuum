@@ -90,9 +90,6 @@
     "client": [
       "dev.cammiescorner.arcanus.client.ArcanusClient"
     ],
-    "fabric-datagen": [
-      "dev.cammiescorner.arcanus.datagen.ArcanusDataGenerator"
-    ],
     "cardinal-components": [
       "dev.cammiescorner.arcanus.common.registry.ArcanusComponents"
     ],

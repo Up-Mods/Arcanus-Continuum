@@ -1,15 +1,27 @@
 package dev.cammiescorner.arcanus.common.items;
 
+import com.google.common.base.Suppliers;
+import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 public class WizardArmorItem extends ArmorItem {
 	private static final Map<Type, UUID> MODIFIER_IDS = Map.of(
@@ -18,9 +30,31 @@ public class WizardArmorItem extends ArmorItem {
 		Type.CHESTPLATE, UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"),
 		Type.HELMET, UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")
 	);
+	private final Supplier<ItemAttributeModifiers> defaultModifiers;
 
 	public WizardArmorItem(Holder<ArmorMaterial> armorMaterial, Type equipmentSlot, double manaRegen, double magicResist, double spellPotency, double manaCostMultiplier, double spellCoolDown) {
 		super(armorMaterial, equipmentSlot, new Item.Properties().stacksTo(1));
+
+		this.defaultModifiers = Suppliers.memoize(() -> {
+			ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+			EquipmentSlotGroup equipmentSlotGroup = EquipmentSlotGroup.bySlot(type.getSlot());
+			ResourceLocation resourceLocation = Arcanus.id("armor." + type.getName());
+			float knockbackResist = material.value().knockbackResistance();
+
+			builder.add(Attributes.ARMOR, new AttributeModifier(resourceLocation, material.value().getDefense(type), AttributeModifier.Operation.ADD_VALUE), equipmentSlotGroup);
+			builder.add(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(resourceLocation, material.value().toughness(), AttributeModifier.Operation.ADD_VALUE), equipmentSlotGroup);
+
+			if(knockbackResist > 0f)
+				builder.add(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(resourceLocation, knockbackResist, AttributeModifier.Operation.ADD_VALUE), equipmentSlotGroup);
+
+			builder.add(ArcanusEntityAttributes.MANA_REGEN.holder(), new AttributeModifier(resourceLocation, manaRegen, AttributeModifier.Operation.ADD_VALUE), equipmentSlotGroup);
+			builder.add(ArcanusEntityAttributes.MAGIC_RESISTANCE.holder(), new AttributeModifier(resourceLocation, magicResist, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), equipmentSlotGroup);
+			builder.add(ArcanusEntityAttributes.SPELL_POTENCY.holder(), new AttributeModifier(resourceLocation, spellPotency, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), equipmentSlotGroup);
+			builder.add(ArcanusEntityAttributes.MANA_COST.holder(), new AttributeModifier(resourceLocation, manaCostMultiplier, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), equipmentSlotGroup);
+			builder.add(ArcanusEntityAttributes.SPELL_COOL_DOWN.holder(), new AttributeModifier(resourceLocation, spellCoolDown, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), equipmentSlotGroup);
+
+			return builder.build();
+		});
 
 		CauldronInteraction.WATER.map().put(this, CauldronInteraction.DYED_ITEM);
 	}
@@ -34,16 +68,8 @@ public class WizardArmorItem extends ArmorItem {
 			stack.setDamageValue(stack.getDamageValue() - 1);
 	}
 
-	// TODO oh dear gods they made it more confusing
-//	public static ItemAttributeModifiers createAttributes() {
-//		return ItemAttributeModifiers.builder()
-//			.add(Attributes.ARMOR, new AttributeModifier(modifierID, armorMaterial.getDefense(equipmentSlot), AttributeModifier.Operation.ADD_VALUE))
-//			.add(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(modifierID, armorMaterial.toughness(), AttributeModifier.Operation.ADD_VALUE))
-//			.add(ArcanusEntityAttributes.MANA_REGEN.get(), new AttributeModifier(modifierID, manaRegen, AttributeModifier.Operation.ADD_VALUE))
-//			.add(ArcanusEntityAttributes.MAGIC_RESISTANCE.get(), new AttributeModifier(modifierID, magicResist, AttributeModifier.Operation.ADD_MULTIPLIED_BASE))
-//			.add(ArcanusEntityAttributes.SPELL_POTENCY.get(), new AttributeModifier(modifierID, spellPotency, AttributeModifier.Operation.ADD_MULTIPLIED_BASE))
-//			.add(ArcanusEntityAttributes.MANA_COST.get(), new AttributeModifier(modifierID, manaCostMultiplier, AttributeModifier.Operation.ADD_MULTIPLIED_BASE))
-//			.add(ArcanusEntityAttributes.SPELL_COOL_DOWN.get(), new AttributeModifier(modifierID, spellCoolDown, AttributeModifier.Operation.ADD_MULTIPLIED_BASE))
-//			.build();
-//	}
+	@Override
+	public ItemAttributeModifiers getDefaultAttributeModifiers() {
+		return defaultModifiers.get();
+	}
 }

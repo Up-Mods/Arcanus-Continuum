@@ -91,7 +91,10 @@ public class CounterComponent implements AutoSyncedComponent, ServerTickingCompo
 		ListTag groupsList = new ListTag();
 
 		tag.putUUID("CasterId", casterId);
-		tag.put("ItemStack", stack.save(registryLookup));
+
+		if(!stack.isEmpty())
+			tag.put("ItemStack", stack.save(registryLookup));
+
 		NBTHelper.writeColor(tag, color, "Color");
 		tag.putInt("GroupIndex", groupIndex);
 		tag.putDouble("Potency", potency);

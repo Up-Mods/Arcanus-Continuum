@@ -100,6 +100,9 @@ dependencies {
 	}
 
 	compileOnly libs.jetbrains.annotations
+	compileOnly libs.autoservice.annotations
+
+	annotationProcessor libs.autoservice
 
 	modImplementation libs.fabric.loader
 	modImplementation libs.fabric.api
@@ -172,12 +175,31 @@ loom {
 				vmArg("-javaagent:${project.findProperty('mc_java_agent_path')}")
 			}
 		}
+
+		datagen {
+			client()
+			setConfigName("Fabric Data Generation")
+
+			property("fabric-api.datagen")
+			property("fabric-api.datagen.strict-validation", "true") // '--all' sets '--validate' to true as well
+			property("fabric-api.datagen.output-dir", file("src/main/generated").absolutePath)
+			property("sparkweave.datagen.mods", "${mod_id}")
+			runDir("build/datagen")
+		}
 	}
 }
 
-fabricApi {
-	configureDataGeneration()
+tasks.register('generateDatagenDir') {
+	inputs.dir(project.layout.buildDirectory.dir("datagen"))
+
+	doFirst {
+		inputs.files.forEach { it.mkdirs() }
+	}
 }
+
+tasks.ideaSyncTask.finalizedBy(tasks.generateDatagenDir)
+tasks.runDatagen.dependsOn(tasks.generateDatagenDir)
+sourceSets.main.resources { srcDir "src/main/generated" }
 
 processResources {
 	filteringCharset "UTF-8"
