@@ -1,11 +1,15 @@
 package dev.cammiescorner.arcanus.api.spells;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.api.entities.ArcanusEntityAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -16,6 +20,11 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class Spell {
+	public static final Codec<Spell> CODEC = RecordCodecBuilder.create(spellInstance -> spellInstance.group(
+		Codec.list(SpellGroup.CODEC).optionalFieldOf("ComponentGroups", List.of(new SpellGroup(SpellShape.empty(), List.of(), List.of()))).forGetter(Spell::getComponentGroups),
+		Codec.STRING.optionalFieldOf("Name", "Blank").forGetter(Spell::getName)
+	).apply(spellInstance, Spell::new));
+	public static final StreamCodec<RegistryFriendlyByteBuf, Spell> STREAM_CODEC = StreamCodec.of((buffer, spell) -> buffer.writeNbt(spell.toNbt()), buffer -> buffer.readNbt() instanceof CompoundTag tag ? Spell.fromNbt(tag) : new Spell());
 	private final List<SpellGroup> groups;
 	private final String name;
 

@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanus.common.items;
 
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.util.StaffType;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.core.BlockPos;
@@ -32,7 +33,7 @@ public class StaffItem extends Item {
 	}
 
 	public StaffItem(StaffType staffType, Color defaultPrimaryColor, Color defaultSecondaryColor, boolean isDonorOnly) {
-		super(new Item.Properties().stacksTo(1).attributes(createAttributes()));
+		super(new Item.Properties().stacksTo(1).component(ArcanusDataComponents.PRIMARY_COLOR.get(), defaultPrimaryColor).component(ArcanusDataComponents.SECONDARY_COLOR.get(), defaultSecondaryColor).attributes(createAttributes()));
 		this.staffType = staffType;
 		this.defaultPrimaryColor = defaultPrimaryColor;
 		this.defaultSecondaryColor = defaultSecondaryColor;
@@ -118,18 +119,11 @@ public class StaffItem extends Item {
 	}
 
 	public static void setPrimaryColor(ItemStack stack, Color color) {
-//		stack.getOrCreateTagElement(Arcanus.MOD_ID).putInt("PrimaryColor", color.asInt(Color.Ordering.RGB));
+		stack.set(ArcanusDataComponents.PRIMARY_COLOR.get(), color);
 	}
 
 	public static Color getPrimaryColor(ItemStack stack) {
-		var color = ((StaffItem) stack.getItem()).defaultPrimaryColor;
-//		var tag = stack.getTagElement(Arcanus.MOD_ID);
-//
-//		if(tag != null && tag.contains("PrimaryColor", Tag.TAG_INT)) {
-//			color = Color.fromInt(tag.getInt("PrimaryColor"), Color.Ordering.RGB);
-//		}
-
-		return color;
+		return stack.get(ArcanusDataComponents.PRIMARY_COLOR.get());
 	}
 
 	public static int getPrimaryColorRGB(ItemStack stack) {
@@ -137,18 +131,11 @@ public class StaffItem extends Item {
 	}
 
 	public static void setSecondaryColor(ItemStack stack, Color color) {
-//		stack.getOrCreateTagElement(Arcanus.MOD_ID).putInt("SecondaryColor", color.asInt(Color.Ordering.RGB));
+		stack.set(ArcanusDataComponents.SECONDARY_COLOR.get(), color);
 	}
 
 	public static Color getSecondaryColor(ItemStack stack) {
-		var color = ((StaffItem) stack.getItem()).defaultSecondaryColor;
-//		var tag = stack.getTagElement(Arcanus.MOD_ID);
-//
-//		if(tag != null && tag.contains("SecondaryColor", Tag.TAG_INT)) {
-//			color = Color.fromInt(tag.getInt("SecondaryColor"), Color.Ordering.RGB);
-//		}
-
-		return color;
+		return stack.get(ArcanusDataComponents.SECONDARY_COLOR.get());
 	}
 
 	public static int getSecondaryColorRGB(ItemStack stack) {
@@ -156,8 +143,7 @@ public class StaffItem extends Item {
 	}
 
 	public static ItemStack setCraftedBy(ItemStack stack, UUID uuid) {
-//		CompoundTag tag = stack.getOrCreateTagElement(Arcanus.MOD_ID);
-//		tag.putUUID("OwnerId", uuid);
+		stack.set(ArcanusDataComponents.OWNER_ID.get(), uuid);
 		return stack;
 	}
 }

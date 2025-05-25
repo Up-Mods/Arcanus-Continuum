@@ -1,6 +1,8 @@
 package dev.cammiescorner.arcanus.api.spells;
 
-import dev.cammiescorner.arcanus.Arcanus;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.cammiescorner.arcanus.api.util.XtraCodecs;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -14,8 +16,14 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vector2i> positions) {
+	public static final Codec<SpellGroup> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		SpellShape.CODEC.optionalFieldOf("Shape", SpellShape.empty()).forGetter(SpellGroup::shape),
+		Codec.list(SpellEffect.CODEC).optionalFieldOf("Effects", List.of()).forGetter(SpellGroup::effects),
+		Codec.list(XtraCodecs.VEC2I_CODEC).optionalFieldOf("Positions", List.of()).forGetter(SpellGroup::positions)
+	).apply(instance, SpellGroup::new));
+
 	public static SpellGroup fromNbt(CompoundTag tag) {
-		SpellShape shape = (SpellShape) Arcanus.SPELL_COMPONENTS.get(ResourceLocation.parse(tag.getString("Shape")));
+		SpellShape shape = (SpellShape) ArcanusSpellComponents.REGISTRY.get(ResourceLocation.parse(tag.getString("Shape")));
 		List<SpellEffect> effects = new ArrayList<>();
 		List<Vector2i> positions = new ArrayList<>();
 		ListTag nbtEffects = tag.getList("Effects", Tag.TAG_STRING);
@@ -24,7 +32,7 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 		for(int i = 0; i < nbtEffects.size(); i++) {
 			String nbtId = nbtEffects.getString(i);
 
-			if(Arcanus.SPELL_COMPONENTS.get(ResourceLocation.parse(nbtId)) instanceof SpellEffect effect)
+			if(ArcanusSpellComponents.REGISTRY.get(ResourceLocation.parse(nbtId)) instanceof SpellEffect effect)
 				effects.add(effect);
 		}
 
@@ -34,7 +42,7 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 		}
 
 		if(positions.size() != effects.size() + 1)
-			return new SpellGroup((SpellShape) ArcanusSpellComponents.EMPTY.get(), List.of(), List.of());
+			return new SpellGroup(SpellShape.empty(), List.of(), List.of());
 
 		return new SpellGroup(shape, effects, positions);
 	}
@@ -45,7 +53,7 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 		ListTag posesList = new ListTag();
 
 		for(SpellEffect effect : effects)
-			effectsList.add(StringTag.valueOf(Arcanus.SPELL_COMPONENTS.getKey(effect).toString()));
+			effectsList.add(StringTag.valueOf(ArcanusSpellComponents.REGISTRY.getKey(effect).toString()));
 
 		for(Vector2i position : positions) {
 			CompoundTag nbt = new CompoundTag();
@@ -54,7 +62,7 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 			posesList.add(nbt);
 		}
 
-		tag.putString("Shape", Arcanus.SPELL_COMPONENTS.getKey(shape).toString());
+		tag.putString("Shape", ArcanusSpellComponents.REGISTRY.getKey(shape).toString());
 		tag.put("Effects", effectsList);
 		tag.put("Positions", posesList);
 

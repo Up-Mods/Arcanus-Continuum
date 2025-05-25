@@ -1,5 +1,7 @@
 package dev.cammiescorner.arcanus.api.spells;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.server.level.ServerLevel;
@@ -12,6 +14,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public abstract class SpellShape extends SpellComponent {
+	public static final Codec<SpellShape> CODEC = ArcanusSpellComponents.REGISTRY.byNameCodec().flatXmap(spellComponent -> spellComponent instanceof SpellShape shape ? DataResult.success(shape) : DataResult.error(() -> "Not instance of SpellShape"), DataResult::success);
+
 	public static SpellShape empty() {
 		return (SpellShape) ArcanusSpellComponents.EMPTY.get();
 	}

@@ -23,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+// TODO move to Sparkweave
 @Mixin(LecternBlockEntity.class)
 public abstract class LecternBlockEntityMixin extends BlockEntity implements Clearable, MenuProvider, ExtendedScreenHandlerFactory {
 	@Shadow @Final private Container bookAccess;
@@ -39,7 +40,6 @@ public abstract class LecternBlockEntityMixin extends BlockEntity implements Cle
 			info.setReturnValue(new SpellcraftScreenHandler(i, bookAccess, ContainerLevelAccess.create(getLevel(), getBlockPos()), getBlockPos(), getBook()));
 	}
 
-	// TODO method doesnt exist anymore
 //	@Override
 //	public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
 //		if(getBook().getItem() instanceof SpellBookItem) {

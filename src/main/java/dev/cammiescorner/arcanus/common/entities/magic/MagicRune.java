@@ -1,12 +1,12 @@
 package dev.cammiescorner.arcanus.common.entities.magic;
 
-import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entities.Targetable;
 import dev.cammiescorner.arcanus.api.spells.SpellEffect;
 import dev.cammiescorner.arcanus.api.spells.SpellGroup;
 import dev.cammiescorner.arcanus.api.spells.SpellShape;
 import dev.cammiescorner.arcanus.common.data.ArcanusEntityTags;
+import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -95,7 +95,7 @@ public class MagicRune extends Entity implements Targetable {
 		ListTag groupsList = tag.getList("SpellGroups", Tag.TAG_COMPOUND);
 
 		for(int i = 0; i < effectList.size(); i++)
-			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(ResourceLocation.parse(effectList.getString(i))));
+			effects.add((SpellEffect) ArcanusSpellComponents.REGISTRY.get(ResourceLocation.parse(effectList.getString(i))));
 		for(int i = 0; i < groupsList.size(); i++)
 			spellGroups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
 	}
@@ -111,7 +111,7 @@ public class MagicRune extends Entity implements Targetable {
 		tag.putDouble("Potency", potency);
 
 		for(SpellEffect effect : effects)
-			effectList.add(StringTag.valueOf(Arcanus.SPELL_COMPONENTS.getKey(effect).toString()));
+			effectList.add(StringTag.valueOf(ArcanusSpellComponents.REGISTRY.getKey(effect).toString()));
 		for(SpellGroup group : spellGroups)
 			groupsList.add(group.toNbt());
 

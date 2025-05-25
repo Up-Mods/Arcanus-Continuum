@@ -8,21 +8,27 @@ fabric_loader = "0.16.13"
 parchment_minecraft = "1.21.1"
 parchment_mappings = "2024.11.17"
 
+# environment stuff
 jetbrains_annotations = "26.0.1"
 autoservice = "1.1.1"
+
+# required dependencies
 fabric_api = "0.115.4+1.21.1"
 cca = "6.1.2"
 sparkweave = "0.508.2"
+resourceful_config = "3.0.10"
+common_network = "1.0.17-beta.2-1.21.1"
+datasync = "0.10.0"
+trinkets = "3.10.0"
+
+# added compat
 modmenu = "11.0.3"
 emi = "1.1.22+1.21.1"
-resourceful_config = "3.0.10"
 firstperson = "5nFUshwm" # 2.4.9
 lambdynamiclights = "4.1.0+1.21.1"
 explosive_enhancement = "1.3.2-1.21-1.21.1"
 sodium = "mc1.21.1-0.6.13-fabric"
 iris = "1.8.8+1.21.1-fabric"
-datasync = "0.10.0"
-trinkets = "3.10.0"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -39,15 +45,17 @@ cca_entity = { module = "dev.onyxstudios.cardinal-components-api:cardinal-compon
 cca_scoreboard = { module = "dev.onyxstudios.cardinal-components-api:cardinal-components-scoreboard", version.ref = "cca" }
 sparkweave = { module = "dev.upcraft.sparkweave:Sparkweave-Fabric", version.ref = "sparkweave" }
 datasync_fabric = { module = "dev.upcraft.datasync:datasync-minecraft-1.21.1-fabric", version.ref = "datasync" }
+resourceful_config = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.21", version.ref = "resourceful_config" }
+common_network_fabric = { module = "mysticdrew:common-networking-fabric", version.ref = "common_network" }
+trinkets = { module = "dev.emi:trinkets", version.ref = "trinkets" }
+
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
 emi = { module = "dev.emi:emi-fabric", version.ref = "emi" }
-resourceful_config = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.21", version.ref = "resourceful_config" }
 firstperson = { module = "maven.modrinth:first-person-model", version.ref = "firstperson" }
 lambdynamiclights = { module = "dev.lambdaurora.lambdynamiclights:lambdynamiclights-api", version.ref = "lambdynamiclights" }
 explosive_enhancement = { module = "maven.modrinth:explosive-enhancement", version.ref = "explosive_enhancement" }
 sodium = { module = "maven.modrinth:sodium", version.ref = "sodium" }
 iris = { module = "maven.modrinth:iris", version.ref = "iris" }
-trinkets = { module = "dev.emi:trinkets", version.ref = "trinkets" }
 
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]

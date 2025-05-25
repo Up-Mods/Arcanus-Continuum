@@ -89,6 +89,10 @@ repositories {
 		name = "JitPack"
 		url = "https://jitpack.io"
 	}
+	maven {
+		name = "Gserv"
+		url = "https://jm.gserv.me/repository/maven-public/"
+	}
 }
 
 dependencies {
@@ -114,6 +118,8 @@ dependencies {
 	modImplementation libs.trinkets
 
 	modImplementation libs.resourceful.config
+
+	modImplementation libs.common.network.fabric
 
 	modImplementation libs.datasync.fabric
 	include libs.datasync.fabric

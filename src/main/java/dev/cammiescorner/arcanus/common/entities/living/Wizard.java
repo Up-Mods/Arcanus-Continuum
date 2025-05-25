@@ -87,7 +87,7 @@ public class Wizard extends AbstractVillager implements NeutralMob {
 	@Override
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 		super.defineSynchedData(builder);
-		builder.define(ROBE_COLOR, 0xffffff);
+		builder.define(ROBE_COLOR, 0xffffffff);
 	}
 
 	@Override
@@ -195,31 +195,31 @@ public class Wizard extends AbstractVillager implements NeutralMob {
 		// Rare Colors
 		if(random.nextDouble() <= 0.1) {
 			var list = List.of(
-				0xff005a, // Folly Red
-				0xf2dd50 // Lotus Gold
+				0xffff005a, // Folly Red
+				0xfff2dd50 // Lotus Gold
 			);
 			return list.get(random.nextInt(list.size()));
 		}
 
 		// Normal Colors
 		var list = List.of(
-			0xffffff,
-			0xf9801d,
-			0xc74ebd,
-			0x3ab3da,
-			0xfed83d,
-			0x80c71f,
-			0xf38baa,
-			0x474f52,
-			0x9d9d97,
-			0x169c9c,
-			0x8932b8,
-			0x52392a,
-			0x3c44aa,
-			0x5e7c16,
-			0xb02e26,
-			0x1d1d21,
-			0xfcc973
+			0xffffffff,
+			0xfff9801d,
+			0xffc74ebd,
+			0xff3ab3da,
+			0xfffed83d,
+			0xff80c71f,
+			0xfff38baa,
+			0xff474f52,
+			0xff9d9d97,
+			0xff169c9c,
+			0xff8932b8,
+			0xff52392a,
+			0xff3c44aa,
+			0xff5e7c16,
+			0xffb02e26,
+			0xff1d1d21,
+			0xfffcc973
 		);
 
 		return list.get(random.nextInt(list.size()));

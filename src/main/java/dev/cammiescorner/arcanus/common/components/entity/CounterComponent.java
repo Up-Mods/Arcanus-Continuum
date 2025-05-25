@@ -6,6 +6,7 @@ import dev.cammiescorner.arcanus.api.spells.SpellEffect;
 import dev.cammiescorner.arcanus.api.spells.SpellGroup;
 import dev.cammiescorner.arcanus.api.spells.SpellShape;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanus.common.util.NBTHelper;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.Util;
@@ -80,7 +81,7 @@ public class CounterComponent implements AutoSyncedComponent, ServerTickingCompo
 		ListTag groupsList = tag.getList("SpellGroups", Tag.TAG_COMPOUND);
 
 		for(int i = 0; i < effectList.size(); i++)
-			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(ResourceLocation.parse(effectList.getString(i))));
+			effects.add((SpellEffect) ArcanusSpellComponents.REGISTRY.get(ResourceLocation.parse(effectList.getString(i))));
 		for(int i = 0; i < groupsList.size(); i++)
 			groups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
 	}
@@ -101,7 +102,7 @@ public class CounterComponent implements AutoSyncedComponent, ServerTickingCompo
 		tag.putLong("EndTime", endTime);
 
 		for(SpellEffect effect : effects)
-			effectList.add(StringTag.valueOf(Arcanus.SPELL_COMPONENTS.getKey(effect).toString()));
+			effectList.add(StringTag.valueOf(ArcanusSpellComponents.REGISTRY.getKey(effect).toString()));
 		for(SpellGroup group : groups)
 			groupsList.add(group.toNbt());
 

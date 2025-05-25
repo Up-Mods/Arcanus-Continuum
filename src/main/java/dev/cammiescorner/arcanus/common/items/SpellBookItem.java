@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanus.common.items;
 
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.Spell;
+import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -24,7 +25,7 @@ import java.util.Locale;
 
 public class SpellBookItem extends Item {
 	public SpellBookItem() {
-		super(new Item.Properties().stacksTo(1));
+		super(new Item.Properties().stacksTo(1).component(ArcanusDataComponents.SPELL.get(), new Spell()));
 	}
 
 	@Override
@@ -95,8 +96,6 @@ public class SpellBookItem extends Item {
 	}
 
 	public static Spell getSpell(ItemStack stack) {
-		// TODO spell as data component
-//		return stack.hasTag() ? Spell.fromNbt(stack.getTag().getCompound("Spell")) : new Spell();
-		return new Spell();
+		return stack.get(ArcanusDataComponents.SPELL.get());
 	}
 }

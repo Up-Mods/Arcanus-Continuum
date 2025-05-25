@@ -30,7 +30,7 @@ public class WizardRenderer extends MobRenderer<Wizard, WizardModel> {
 	public void render(Wizard wizard, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
 		super.render(wizard, yaw, tickDelta, matrices, vertices, light);
 
-		int hexColor = wizard.getRobeColor(); // TODO probably need to add alpha
+		int hexColor = wizard.getRobeColor();
 
 		if(wizard.hasCustomName() && wizard.getName().getString().equals("jeb_")) {
 			int interval = 15;

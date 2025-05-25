@@ -64,8 +64,8 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftScreenHa
 		leftPos = (width - 256) / 2;
 		topPos = (height - 180) / 2;
 		inventoryLabelY = -10000;
-		spellShapes = Arcanus.SPELL_COMPONENTS.stream().filter(component -> !ArcanusSpellComponents.EMPTY.is(component) && component.isEnabled() && ArcanusComponents.getWizardLevel(Minecraft.getInstance().player) >= component.getMinLevel() && component instanceof SpellShape).toList();
-		spellEffects = Arcanus.SPELL_COMPONENTS.stream().filter(component -> !ArcanusSpellComponents.EMPTY.is(component) && component.isEnabled() && ArcanusComponents.getWizardLevel(Minecraft.getInstance().player) >= component.getMinLevel() && component instanceof SpellEffect).toList();
+		spellShapes = ArcanusSpellComponents.REGISTRY.stream().filter(component -> !ArcanusSpellComponents.EMPTY.is(component) && component.isEnabled() && ArcanusComponents.getWizardLevel(Minecraft.getInstance().player) >= component.getMinLevel() && component instanceof SpellShape).toList();
+		spellEffects = ArcanusSpellComponents.REGISTRY.stream().filter(component -> !ArcanusSpellComponents.EMPTY.is(component) && component.isEnabled() && ArcanusComponents.getWizardLevel(Minecraft.getInstance().player) >= component.getMinLevel() && component instanceof SpellEffect).toList();
 
 		if(minecraft != null) {
 			for(SpellComponent component : spellShapes)

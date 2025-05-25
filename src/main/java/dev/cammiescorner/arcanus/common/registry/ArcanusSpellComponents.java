@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.api.ArcanusRegistries;
 import dev.cammiescorner.arcanus.api.spells.*;
 import dev.cammiescorner.arcanus.common.spell_components.effects.attack.*;
 import dev.cammiescorner.arcanus.common.spell_components.effects.movement.*;
@@ -9,6 +10,7 @@ import dev.cammiescorner.arcanus.common.spell_components.effects.utility.*;
 import dev.cammiescorner.arcanus.common.spell_components.shapes.*;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
+import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,7 +21,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ArcanusSpellComponents {
-	public static final RegistryHandler<SpellComponent> SPELL_COMPONENTS = RegistryHandler.create(Arcanus.SPELL_COMPONENTS_REGISTRY_KEY, Arcanus.MOD_ID);
+	public static final RegistryHandler<SpellComponent> SPELL_COMPONENTS = RegistryHandler.create(ArcanusRegistries.SPELL_COMPONENTS_KEY, Arcanus.MOD_ID);
+	public static final Registry<SpellComponent> REGISTRY = SPELL_COMPONENTS.createNewRegistry(true, Arcanus.id("empty"));
 
 	//-----Empty Spell-----//
 	/**

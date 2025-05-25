@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.items;
 
+import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -26,11 +27,9 @@ public class BattleMageArmorItem extends WizardArmorItem {
 		if(world instanceof ServerLevel serverWorld && entity instanceof LivingEntity living && living.getItemBySlot(getEquipmentSlot()).equals(stack) && !isWaxed(stack)) {
 			int randomTickSpeed = serverWorld.getGameRules().getInt(GameRules.RULE_RANDOMTICKING);
 			int oxidation = getOxidation(stack).ordinal();
-			// TODO oxidation as data component
-//			CompoundTag nbt = stack.getOrCreateTagElement(ItemStack.TAG_DISPLAY);
-//
-//			if(serverWorld.random.nextFloat() < 0.00001 * randomTickSpeed && oxidation < WeatheringCopper.WeatherState.values().length - 1)
-//				nbt.putInt("oxidation", oxidation + 1);
+
+			if(serverWorld.random.nextFloat() < 0.00001f * randomTickSpeed && oxidation < WeatheringCopper.WeatherState.values().length - 1)
+				setOxidation(stack, WeatheringCopper.WeatherState.values()[oxidation + 1]);
 		}
 	}
 
@@ -45,34 +44,27 @@ public class BattleMageArmorItem extends WizardArmorItem {
 	}
 
 	public static boolean isWaxed(ItemStack stack) {
-		// TODO set waxed as component
-//		CompoundTag tag = stack.getTagElement(ItemStack.TAG_DISPLAY);
-//		return tag != null && tag.getBoolean("waxed");
-		return true;
+		return stack.getOrDefault(ArcanusDataComponents.WAXED.get(), false);
 	}
 
 	public static void setWaxed(ItemStack stack, boolean waxed) {
-//		stack.getOrCreateTagElement(ItemStack.TAG_DISPLAY).putBoolean("waxed", waxed);
+		stack.set(ArcanusDataComponents.WAXED.get(), waxed);
 	}
 
 	public static WeatheringCopper.WeatherState getOxidation(ItemStack stack) {
-//		CompoundTag tag = stack.getTagElement(ItemStack.TAG_DISPLAY);
-//		return tag != null && tag.contains("oxidation", Tag.TAG_ANY_NUMERIC) ? WeatheringCopper.WeatherState.values()[tag.getInt("oxidation")] : WeatheringCopper.WeatherState.UNAFFECTED;
-		return WeatheringCopper.WeatherState.UNAFFECTED;
+		return stack.getOrDefault(ArcanusDataComponents.WEATHER_STATE.get(), WeatheringCopper.WeatherState.UNAFFECTED);
 	}
 
 	public static void setOxidation(ItemStack stack, WeatheringCopper.WeatherState oxidizationLevel) {
-//		stack.getOrCreateTagElement(ItemStack.TAG_DISPLAY).putInt("oxidation", oxidizationLevel.ordinal());
+		stack.set(ArcanusDataComponents.WEATHER_STATE.get(), oxidizationLevel);
 	}
 
 	public static ItemStack getStack(Supplier<? extends ItemLike> itemProvider, WeatheringCopper.WeatherState oxidizationLevel, boolean waxed) {
 		var stack = new ItemStack(itemProvider.get());
-		if(waxed) {
-			setWaxed(stack, true);
-		}
-		if(oxidizationLevel != WeatheringCopper.WeatherState.UNAFFECTED) {
-			setOxidation(stack, oxidizationLevel);
-		}
+
+		setWaxed(stack, waxed);
+		setOxidation(stack, oxidizationLevel);
+
 		return stack;
 	}
 }

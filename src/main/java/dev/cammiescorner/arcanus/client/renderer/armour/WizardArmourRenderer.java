@@ -32,7 +32,7 @@ public class WizardArmourRenderer implements ArmorRenderer {
 			model = new WizardArmourModel<>(client.getEntityModels().bakeLayer(WizardArmourModel.MODEL_LAYER));
 
 		if(stack.getItem() instanceof WizardRobesArmorItem wizardArmour) {
-			int hexColor = wizardArmour.getColor(stack); // TODO probably need to add alpha
+			int hexColor = wizardArmour.getColor(stack);
 
 			if(stack.has(DataComponents.CUSTOM_NAME) && stack.getHoverName().getString().equals("jeb_")) {
 				int interval = 15;

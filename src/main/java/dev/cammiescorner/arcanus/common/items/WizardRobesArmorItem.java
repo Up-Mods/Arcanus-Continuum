@@ -11,6 +11,6 @@ public class WizardRobesArmorItem extends WizardArmorItem {
 	}
 
 	public int getColor(ItemStack stack) {
-		return DyedItemColor.getOrDefault(stack, 0x52392a);
+		return DyedItemColor.getOrDefault(stack, 0xff52392a);
 	}
 }

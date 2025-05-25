@@ -1,9 +1,9 @@
 package dev.cammiescorner.arcanus.common.entities.magic;
 
-import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.entities.Targetable;
 import dev.cammiescorner.arcanus.api.spells.SpellEffect;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSoundEvents;
+import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Util;
@@ -114,7 +114,7 @@ public class Smite extends Entity implements Targetable {
 		ListTag entityList = tag.getList("HasHit", Tag.TAG_INT_ARRAY);
 
 		for(int i = 0; i < effectList.size(); i++) {
-			effects.add((SpellEffect) Arcanus.SPELL_COMPONENTS.get(ResourceLocation.parse(effectList.getString(i))));
+			effects.add((SpellEffect) ArcanusSpellComponents.REGISTRY.get(ResourceLocation.parse(effectList.getString(i))));
 		}
 		for(Tag nbtElement : entityList) {
 			hasHit.add(NbtUtils.loadUUID(nbtElement));
@@ -131,7 +131,7 @@ public class Smite extends Entity implements Targetable {
 		tag.putDouble("Potency", potency);
 
 		for(SpellEffect effect : effects) {
-			effectList.add(StringTag.valueOf(Arcanus.SPELL_COMPONENTS.getKey(effect).toString()));
+			effectList.add(StringTag.valueOf(ArcanusSpellComponents.REGISTRY.getKey(effect).toString()));
 		}
 		for(UUID uuid1 : hasHit) {
 			entityList.add(NbtUtils.createUUID(uuid1));

@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanus.api.spells;
 
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
@@ -47,6 +48,10 @@ public class SpellComponent {
 		return minLevel;
 	}
 
+	public boolean singleCastOnly() {
+		return procsOnce;
+	}
+
 	public String getManaCostAsString() {
 		return Arcanus.format(getManaCost());
 	}
@@ -57,7 +62,7 @@ public class SpellComponent {
 
 	public ResourceLocation getTexture() {
 		if(texture == null) {
-			ResourceLocation id = Arcanus.SPELL_COMPONENTS.getKey(this);
+			ResourceLocation id = ArcanusSpellComponents.REGISTRY.getKey(this);
 			String extra = "";
 
 			if(this instanceof SpellShape)
@@ -73,7 +78,7 @@ public class SpellComponent {
 
 	public String getTranslationKey() {
 		if(translationKey == null)
-			translationKey = Util.makeDescriptionId("arcanus.spell_component", Arcanus.SPELL_COMPONENTS.getKey(this));
+			translationKey = Util.makeDescriptionId("arcanus.spell_component", ArcanusSpellComponents.REGISTRY.getKey(this));
 
 		return translationKey;
 	}
@@ -83,9 +88,5 @@ public class SpellComponent {
 			return DISABLED_TRANSLATED_NAME;
 
 		return Component.translatable(getTranslationKey());
-	}
-
-	public boolean singleCastOnly() {
-		return procsOnce;
 	}
 }
