@@ -7,14 +7,16 @@ import dev.cammiescorner.arcanus.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.common.blocks.MagicDoorBlock;
 import dev.cammiescorner.arcanus.common.blocks.entities.MagicDoorBlockEntity;
-import dev.cammiescorner.arcanus.common.packets.clientbound.*;
-import dev.cammiescorner.arcanus.common.packets.serverbound.*;
+import dev.cammiescorner.arcanus.common.networking.clientbound.*;
+import dev.cammiescorner.arcanus.common.networking.serverbound.*;
 import dev.cammiescorner.arcanus.common.registry.*;
+import dev.cammiescorner.arcanus.common.screens.providers.SpellcraftMenuProvider;
 import dev.cammiescorner.arcanus.common.util.supporters.HaloData;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
 import dev.upcraft.datasync.api.DataSyncAPI;
 import dev.upcraft.datasync.api.SyncToken;
 import dev.upcraft.sparkweave.api.color.Color;
+import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -71,7 +73,7 @@ public class Arcanus implements ModInitializer {
 		ArcanusParticles.PARTICLE_TYPES.accept(registryService);
 		ArcanusPointsOfInterest.register();
 		ArcanusRecipes.RECIPE_SERIALIZERS.accept(registryService);
-		ArcanusScreenHandlers.SCREEN_HANDLERS.accept(registryService);
+		ArcanusMenus.MENUS.accept(registryService);
 		ArcanusSpellComponents.SPELL_COMPONENTS.accept(registryService);
 		ArcanusMobEffects.MOB_EFFECTS.accept(registryService);
 		ArcanusStructureProcessorTypes.STRUCTURE_PROCESSORS.accept(registryService);
@@ -91,6 +93,10 @@ public class Arcanus implements ModInitializer {
 		Network.registerPacket(ClientboundWorkbenchModePacket.TYPE, ClientboundWorkbenchModePacket.class, ClientboundWorkbenchModePacket.CODEC, ClientboundWorkbenchModePacket::handle);
 
 		CommandRegistrationCallback.EVENT.register(ArcanusCommands::init);
+
+		RegisterCustomLecternMenuEvent.EVENT.register(event -> {
+			event.register((level, pos, player, blockEntity, stack) -> new SpellcraftMenuProvider(level, stack, pos, blockEntity.bookAccess), ArcanusItems.SPELL_BOOK);
+		});
 
 		// TODO Figure out how to modify item attribute modifiers
 //		ModifyItemAttributeModifiersCallback.EVENT.register((stack, slot, attributeModifiers) -> {

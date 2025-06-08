@@ -12,10 +12,10 @@ import dev.cammiescorner.arcanus.client.gui.util.UndoRedoStack;
 import dev.cammiescorner.arcanus.client.gui.widgets.SpellComponentWidget;
 import dev.cammiescorner.arcanus.client.gui.widgets.UndoRedoButtonWidget;
 import dev.cammiescorner.arcanus.common.items.SpellBookItem;
-import dev.cammiescorner.arcanus.common.packets.serverbound.ServerboundSaveBookDataPacket;
+import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundSaveBookDataPacket;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
-import dev.cammiescorner.arcanus.common.screens.SpellcraftScreenHandler;
+import dev.cammiescorner.arcanus.common.screens.SpellcraftMenu;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -39,7 +39,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
-public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftScreenHandler> {
+public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 	public static final ResourceLocation BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
 	public static final ResourceLocation PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
 	private static final Vector4i VALID_BOUNDS = new Vector4i(30, 40, 197, 114);
@@ -55,7 +55,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftScreenHa
 	private double leftKnobPos, rightKnobPos;
 	private boolean draggingLeft, draggingRight;
 
-	public SpellcraftScreen(SpellcraftScreenHandler screenHandler, Inventory playerInventory, Component text) {
+	public SpellcraftScreen(SpellcraftMenu screenHandler, Inventory playerInventory) {
 		super(screenHandler, playerInventory, Component.empty());
 	}
 

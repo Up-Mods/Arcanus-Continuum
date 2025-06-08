@@ -6,7 +6,7 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.gui.widgets.ChangeModeButtonWidget;
 import dev.cammiescorner.arcanus.client.gui.widgets.CycleTemplatesButtonWidget;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
-import dev.cammiescorner.arcanus.common.screens.ArcaneWorkbenchScreenHandler;
+import dev.cammiescorner.arcanus.common.screens.ArcaneWorkbenchMenu;
 import dev.cammiescorner.arcanus.common.util.WorkbenchMode;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -14,8 +14,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkbenchScreenHandler> {
-	public ArcaneWorkbenchScreen(ArcaneWorkbenchScreenHandler handler, Inventory inventory, Component title) {
+public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
+	public ArcaneWorkbenchScreen(ArcaneWorkbenchMenu handler, Inventory inventory, Component title) {
 		super(handler, inventory, title);
 	}
 

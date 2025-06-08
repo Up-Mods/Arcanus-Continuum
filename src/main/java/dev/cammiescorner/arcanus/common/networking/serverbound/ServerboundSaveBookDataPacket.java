@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanus.common.packets.serverbound;
+package dev.cammiescorner.arcanus.common.networking.serverbound;
 
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;

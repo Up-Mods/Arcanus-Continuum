@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.blocks.entities;
 
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
-import dev.cammiescorner.arcanus.common.screens.ArcaneWorkbenchScreenHandler;
+import dev.cammiescorner.arcanus.common.screens.ArcaneWorkbenchMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
@@ -26,6 +26,6 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements MenuProvi
 	@Nullable
 	@Override
 	public AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player player) {
-		return new ArcaneWorkbenchScreenHandler(i, playerInventory, ContainerLevelAccess.create(getLevel(), getBlockPos()));
+		return new ArcaneWorkbenchMenu(i, playerInventory, ContainerLevelAccess.create(getLevel(), getBlockPos()));
 	}
 }

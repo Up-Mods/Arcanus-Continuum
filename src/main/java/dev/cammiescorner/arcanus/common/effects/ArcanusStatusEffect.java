@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.effects;
 
 import commonnetwork.api.Network;
-import dev.cammiescorner.arcanus.common.packets.clientbound.ClientboundStatusEffectPacket;
+import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundStatusEffectPacket;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;

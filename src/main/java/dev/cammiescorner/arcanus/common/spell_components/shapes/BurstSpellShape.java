@@ -5,7 +5,7 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spells.SpellEffect;
 import dev.cammiescorner.arcanus.api.spells.SpellGroup;
 import dev.cammiescorner.arcanus.api.spells.SpellShape;
-import dev.cammiescorner.arcanus.common.packets.clientbound.ClientboundBurstVfxPacket;
+import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundBurstVfxPacket;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.core.BlockPos;

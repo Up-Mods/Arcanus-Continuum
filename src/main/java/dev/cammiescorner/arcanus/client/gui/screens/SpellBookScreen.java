@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.*;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.*;
 import dev.cammiescorner.arcanus.common.items.SpellBookItem;
-import dev.cammiescorner.arcanus.common.screens.SpellBookScreenHandler;
+import dev.cammiescorner.arcanus.common.screens.SpellBookMenu;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -25,12 +25,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
-public class SpellBookScreen extends AbstractContainerScreen<SpellBookScreenHandler> {
+public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 	public static final ResourceLocation BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
 	public static final ResourceLocation PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
 	public final LinkedList<SpellGroup> SPELL_GROUPS = new LinkedList<>();
 
-	public SpellBookScreen(SpellBookScreenHandler screenHandler, Inventory playerInventory, Component text) {
+	public SpellBookScreen(SpellBookMenu screenHandler, Inventory playerInventory, Component text) {
 		super(screenHandler, playerInventory, text);
 	}
 

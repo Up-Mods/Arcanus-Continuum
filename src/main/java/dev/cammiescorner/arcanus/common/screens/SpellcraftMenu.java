@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.screens;
 
+import dev.cammiescorner.arcanus.common.registry.ArcanusMenus;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
@@ -7,23 +8,22 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 
-public class SpellcraftScreenHandler extends AbstractContainerMenu {
+public class SpellcraftMenu extends AbstractContainerMenu {
 	private final Container inventory;
-	private final ContainerLevelAccess context;
+	private final ContainerLevelAccess access;
 	private final ItemStack stack;
 	private final BlockPos pos;
 
-	public SpellcraftScreenHandler(int syncId, Container inventory, BlockPos pos, ItemStack stack) {
-		this(syncId, inventory, ContainerLevelAccess.NULL, pos, stack);
+	public SpellcraftMenu(int syncId, Container inventory) {
+		this(syncId, inventory, BlockPos.ZERO, ItemStack.EMPTY, ContainerLevelAccess.NULL);
 	}
 
-	public SpellcraftScreenHandler(int syncId, Container inventory, ContainerLevelAccess context, BlockPos pos, ItemStack stack) {
-//		super(ArcanusScreenHandlers.SPELLCRAFT_SCREEN_HANDLER.get(), syncId);
-		super(null, syncId);
+	public SpellcraftMenu(int syncId, Container inventory, BlockPos pos, ItemStack stack, ContainerLevelAccess access) {
+		super(ArcanusMenus.SPELLCRAFT_MENU.get(), syncId);
 		this.inventory = inventory;
 		this.stack = stack;
 		this.pos = pos;
-		this.context = context;
+		this.access = access;
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class SpellcraftScreenHandler extends AbstractContainerMenu {
 		return stack;
 	}
 
-	public ContainerLevelAccess getContext() {
-		return context;
+	public ContainerLevelAccess getAccess() {
+		return access;
 	}
 }

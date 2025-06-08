@@ -2,11 +2,11 @@ package dev.cammiescorner.arcanus.common.screens;
 
 import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
-import dev.cammiescorner.arcanus.common.packets.clientbound.ClientboundStaffTemplatePacket;
-import dev.cammiescorner.arcanus.common.packets.clientbound.ClientboundWorkbenchModePacket;
+import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundStaffTemplatePacket;
+import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundWorkbenchModePacket;
 import dev.cammiescorner.arcanus.common.recipes.SpellBindingRecipe;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
-import dev.cammiescorner.arcanus.common.registry.ArcanusScreenHandlers;
+import dev.cammiescorner.arcanus.common.registry.ArcanusMenus;
 import dev.upcraft.sparkweave.api.color.Color;
 import dev.cammiescorner.arcanus.common.util.WorkbenchMode;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
@@ -25,7 +25,7 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 import java.util.Optional;
 
-public class ArcaneWorkbenchScreenHandler extends RecipeBookMenu<CraftingInput, SpellBindingRecipe> {
+public class ArcaneWorkbenchMenu extends RecipeBookMenu<CraftingInput, SpellBindingRecipe> {
 	private final ResultContainer result = new ResultContainer();
 	private final Inventory playerInventory;
 	private final ContainerLevelAccess context;
@@ -35,12 +35,12 @@ public class ArcaneWorkbenchScreenHandler extends RecipeBookMenu<CraftingInput, 
 	private WorkbenchMode mode;
 	private Item template = Items.AIR;
 
-	public ArcaneWorkbenchScreenHandler(int syncId, Inventory playerInventory) {
+	public ArcaneWorkbenchMenu(int syncId, Inventory playerInventory) {
 		this(syncId, playerInventory, ContainerLevelAccess.NULL);
 	}
 
-	public ArcaneWorkbenchScreenHandler(int syncId, Inventory playerInventory, ContainerLevelAccess context) {
-		super(ArcanusScreenHandlers.ARCANE_WORKBENCH_SCREEN_HANDLER.get(), syncId);
+	public ArcaneWorkbenchMenu(int syncId, Inventory playerInventory, ContainerLevelAccess context) {
+		super(ArcanusMenus.ARCANE_WORKBENCH_MENU.get(), syncId);
 		this.playerInventory = playerInventory;
 		this.mode = WorkbenchMode.CUSTOMIZE;
 		this.context = context;
@@ -227,7 +227,7 @@ public class ArcaneWorkbenchScreenHandler extends RecipeBookMenu<CraftingInput, 
 			addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
 	}
 
-	protected static void updateResult(ArcaneWorkbenchScreenHandler handler, Level world, Player player, TransientCraftingContainer input, ResultContainer result) {
+	protected static void updateResult(ArcaneWorkbenchMenu handler, Level world, Player player, TransientCraftingContainer input, ResultContainer result) {
 		if(!world.isClientSide() && player instanceof ServerPlayer serverPlayer) {
 			ItemStack itemStack = ItemStack.EMPTY;
 

@@ -4,6 +4,7 @@ accessible class net/minecraft/client/renderer/RenderStateShard$TextureStateShar
 accessible class net/minecraft/client/renderer/RenderStateShard$OffsetTexturingStateShard
 accessible class net/minecraft/client/multiplayer/ClientChunkCache$Storage
 
+accessible field net/minecraft/world/level/block/entity/LecternBlockEntity bookAccess Lnet/minecraft/world/Container;
 accessible field net/minecraft/world/entity/monster/Creeper DATA_IS_POWERED Lnet/minecraft/network/syncher/EntityDataAccessor;
 accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_AMETHYST_SHARD Lnet/minecraft/resources/ResourceLocation;
 accessible field net/minecraft/client/multiplayer/ClientChunkCache storage Lnet/minecraft/client/multiplayer/ClientChunkCache$Storage;

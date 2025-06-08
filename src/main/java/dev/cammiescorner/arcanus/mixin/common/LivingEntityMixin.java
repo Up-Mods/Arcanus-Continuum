@@ -12,7 +12,7 @@ import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.common.effects.ArcanusStatusEffect;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
-import dev.cammiescorner.arcanus.common.packets.clientbound.ClientboundStatusEffectPacket;
+import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundStatusEffectPacket;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
