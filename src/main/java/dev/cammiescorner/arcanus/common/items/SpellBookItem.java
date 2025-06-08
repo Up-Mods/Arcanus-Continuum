@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanus.common.items;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
+import dev.cammiescorner.arcanus.common.screens.providers.SpellBookMenuProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -40,7 +41,7 @@ public class SpellBookItem extends Item {
 		Spell spell = getSpell(stack);
 
 		String manaCost = Arcanus.format(spell.getManaCost());
-		String coolDown = Arcanus.format(spell.getCoolDown() / 20D);
+		String coolDown = Arcanus.format(spell.getCoolDown() / 20d);
 
 		// TODO make ALL of it translatable
 		tooltipComponents.add(Component.literal(spell.getName()).withStyle(ChatFormatting.GOLD));
@@ -67,32 +68,16 @@ public class SpellBookItem extends Item {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		Spell spell = getSpell(stack);
 
 		if(spell.isEmpty())
-			return super.use(world, player, hand);
+			return super.use(level, player, hand);
 
-		// TODO use Sparkweave for the menu stuff please
-//		player.openMenu(new ExtendedScreenHandlerFactory() {
-//			@Override
-//			public Object getScreenOpeningData(ServerPlayer player) {
-//				return stack;
-//			}
-//
-//			@Override
-//			public Component getDisplayName() {
-//				return Component.literal(spell.getName());
-//			}
-//
-//			@Override
-//			public AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player playerEntity) {
-//				return new SpellBookScreenHandler(i, playerInventory, stack);
-//			}
-//		});
+		player.openMenu(new SpellBookMenuProvider(stack));
 
-		return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
+		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 	}
 
 	public static Spell getSpell(ItemStack stack) {

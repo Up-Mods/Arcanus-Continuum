@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 
 public class SpellcraftMenu extends AbstractContainerMenu {
-	private final Container inventory;
+	private final Container container;
 	private final ContainerLevelAccess access;
 	private final ItemStack stack;
 	private final BlockPos pos;
@@ -18,9 +18,9 @@ public class SpellcraftMenu extends AbstractContainerMenu {
 		this(syncId, inventory, BlockPos.ZERO, ItemStack.EMPTY, ContainerLevelAccess.NULL);
 	}
 
-	public SpellcraftMenu(int syncId, Container inventory, BlockPos pos, ItemStack stack, ContainerLevelAccess access) {
+	public SpellcraftMenu(int syncId, Container container, BlockPos pos, ItemStack stack, ContainerLevelAccess access) {
 		super(ArcanusMenus.SPELLCRAFT_MENU.get(), syncId);
-		this.inventory = inventory;
+		this.container = container;
 		this.stack = stack;
 		this.pos = pos;
 		this.access = access;
@@ -31,8 +31,8 @@ public class SpellcraftMenu extends AbstractContainerMenu {
 		if(!player.mayBuild())
 			return false;
 
-		ItemStack itemStack = inventory.removeItemNoUpdate(0);
-		inventory.setChanged();
+		ItemStack itemStack = container.removeItemNoUpdate(0);
+		container.setChanged();
 
 		if(!player.getInventory().add(itemStack))
 			player.drop(itemStack, false);
