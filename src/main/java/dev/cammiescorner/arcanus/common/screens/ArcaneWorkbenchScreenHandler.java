@@ -1,8 +1,9 @@
 package dev.cammiescorner.arcanus.common.screens;
 
+import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
-import dev.cammiescorner.arcanus.common.packets.s2c.SyncStaffTemplatePacket;
-import dev.cammiescorner.arcanus.common.packets.s2c.SyncWorkbenchModePacket;
+import dev.cammiescorner.arcanus.common.packets.clientbound.ClientboundStaffTemplatePacket;
+import dev.cammiescorner.arcanus.common.packets.clientbound.ClientboundWorkbenchModePacket;
 import dev.cammiescorner.arcanus.common.recipes.SpellBindingRecipe;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusScreenHandlers;
@@ -58,7 +59,7 @@ public class ArcaneWorkbenchScreenHandler extends RecipeBookMenu<CraftingInput, 
 			}
 
 			if(player instanceof ServerPlayer serverPlayer)
-				SyncWorkbenchModePacket.send(serverPlayer, getMode());
+				Network.getNetworkHandler().sendToClient(new ClientboundWorkbenchModePacket(getMode()), serverPlayer);
 		}
 
 		if(template instanceof StaffItem staff && templates.contains(staff) && (id == 1 || id == 2)) {
@@ -81,7 +82,7 @@ public class ArcaneWorkbenchScreenHandler extends RecipeBookMenu<CraftingInput, 
 			setTemplate(templates.get(index));
 
 			if(player instanceof ServerPlayer serverPlayer)
-				SyncStaffTemplatePacket.send(serverPlayer, getTemplate());
+				Network.getNetworkHandler().sendToClient(new ClientboundStaffTemplatePacket(getTemplate().getDefaultInstance()), serverPlayer);
 		}
 
 		return super.clickMenuButton(player, id);
@@ -187,7 +188,7 @@ public class ArcaneWorkbenchScreenHandler extends RecipeBookMenu<CraftingInput, 
 							input.getItem(i).shrink(1);
 
 						if(player instanceof ServerPlayer serverPlayer)
-							SyncStaffTemplatePacket.send(serverPlayer, Items.AIR);
+							Network.getNetworkHandler().sendToClient(new ClientboundStaffTemplatePacket(ItemStack.EMPTY), serverPlayer);
 					}
 				});
 

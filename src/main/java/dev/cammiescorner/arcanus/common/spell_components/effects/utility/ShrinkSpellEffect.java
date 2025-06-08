@@ -3,11 +3,8 @@ package dev.cammiescorner.arcanus.common.spell_components.effects.utility;
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spells.SpellEffect;
 import dev.cammiescorner.arcanus.api.spells.SpellType;
-import dev.cammiescorner.arcanus.common.packets.s2c.SyncScalePacket;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -38,18 +35,24 @@ public class ShrinkSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 			Entity entity = entityHit.getEntity();
 
-			// TODO make shrink be a potion
-			if(entity instanceof LivingEntity livingEntity)
-				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.SHRINK.holder(), (int) (ArcanusConfig.UtilityEffects.ShrinkEffectProperties.baseEffectDuration * effects.stream().filter(ArcanusSpellComponents.SHRINK::is).count() * potency), 0, false, true, true));
+			if(entity instanceof LivingEntity livingEntity) {
+				MobEffectInstance enlargeEffect = livingEntity.getEffect(ArcanusMobEffects.ENLARGE.holder());
 
-			if(!entity.level().isClientSide()) {
-				var strength = effects.stream().filter(ArcanusSpellComponents.SHRINK::is).count() * potency;
+				if(enlargeEffect != null) {
+					int duration = enlargeEffect.getDuration();
+					int amplifier = Math.max(enlargeEffect.getAmplifier() - 1, 0);
 
-				for(ServerPlayer lookup : PlayerLookup.tracking(entity))
-					SyncScalePacket.send(lookup, entity, this, strength);
+					livingEntity.removeEffect(ArcanusMobEffects.ENLARGE.holder());
 
-				if(entity instanceof ServerPlayer serverPlayer)
-					SyncScalePacket.send(serverPlayer, entity, this, strength);
+					if(amplifier > 0)
+						livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.ENLARGE.holder(), duration, amplifier, false, true, true));
+				}
+				else {
+					MobEffectInstance shrinkEffect = livingEntity.getEffect(ArcanusMobEffects.SHRINK.holder());
+					int amplifier = shrinkEffect != null ? Math.max(shrinkEffect.getAmplifier() + 1, 4) : 0;
+
+					livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.SHRINK.holder(), (int) (ArcanusConfig.UtilityEffects.ShrinkEffectProperties.baseEffectDuration * effects.stream().filter(ArcanusSpellComponents.SHRINK::is).count() * potency), amplifier, false, true, true));
+				}
 			}
 		}
 	}

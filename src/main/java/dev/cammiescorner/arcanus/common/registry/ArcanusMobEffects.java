@@ -9,6 +9,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 
 public class ArcanusMobEffects {
 	public static final RegistryHandler<MobEffect> MOB_EFFECTS = RegistryHandler.create(Registries.MOB_EFFECT, Arcanus.MOD_ID);
@@ -23,6 +24,6 @@ public class ArcanusMobEffects {
 	public static final RegistrySupplier<MobEffect> FLOAT = MOB_EFFECTS.register("float", () -> new ArcanusStatusEffect(MobEffectCategory.NEUTRAL, 0xceffff));
 	public static final RegistrySupplier<MobEffect> STOCKPILE = MOB_EFFECTS.register("stockpile", () -> new ArcanusStatusEffect(MobEffectCategory.BENEFICIAL, 0x550000));
 	public static final RegistrySupplier<MobEffect> DANGER_SENSE = MOB_EFFECTS.register("danger_sense", () -> new ArcanusStatusEffect(MobEffectCategory.BENEFICIAL, 0xaeeff2));
-	public static final RegistrySupplier<MobEffect> SHRINK = MOB_EFFECTS.register("shrink", () -> new ArcanusStatusEffect(MobEffectCategory.NEUTRAL, 0x00ffc8, true, true));
-	public static final RegistrySupplier<MobEffect> ENLARGE = MOB_EFFECTS.register("enlarge", () -> new ArcanusStatusEffect(MobEffectCategory.NEUTRAL, 0xff9600, true, true));
+	public static final RegistrySupplier<MobEffect> SHRINK = MOB_EFFECTS.register("shrink", () -> new ArcanusStatusEffect(MobEffectCategory.NEUTRAL, 0x00ffc8, true, true).addAttributeModifier(Attributes.SCALE, Arcanus.id("shrink_effect"), -0.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+	public static final RegistrySupplier<MobEffect> ENLARGE = MOB_EFFECTS.register("enlarge", () -> new ArcanusStatusEffect(MobEffectCategory.NEUTRAL, 0xff9600, true, true).addAttributeModifier(Attributes.SCALE, Arcanus.id("shrink_effect"), 0.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
 }

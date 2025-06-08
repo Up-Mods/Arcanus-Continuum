@@ -18,6 +18,7 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,13 +28,12 @@ public class StaffItem extends Item {
 	public final Color defaultSecondaryColor;
 	public final boolean isDonorOnly;
 
-	// TODO add data component for attached spell books
 	public StaffItem(StaffType staffType, Color defaultPrimaryColor, Color defaultSecondaryColor) {
 		this(staffType, defaultPrimaryColor, defaultSecondaryColor, false);
 	}
 
 	public StaffItem(StaffType staffType, Color defaultPrimaryColor, Color defaultSecondaryColor, boolean isDonorOnly) {
-		super(new Item.Properties().stacksTo(1).component(ArcanusDataComponents.PRIMARY_COLOR.get(), defaultPrimaryColor).component(ArcanusDataComponents.SECONDARY_COLOR.get(), defaultSecondaryColor).attributes(createAttributes()));
+		super(new Item.Properties().stacksTo(1).component(ArcanusDataComponents.SPELL_LIST.get(), new ArrayList<>(8)).component(ArcanusDataComponents.PRIMARY_COLOR.get(), defaultPrimaryColor).component(ArcanusDataComponents.SECONDARY_COLOR.get(), defaultSecondaryColor).attributes(createAttributes()));
 		this.staffType = staffType;
 		this.defaultPrimaryColor = defaultPrimaryColor;
 		this.defaultSecondaryColor = defaultSecondaryColor;

@@ -3,13 +3,18 @@ package dev.cammiescorner.arcanus.mixin.common;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.api.entities.Targetable;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
+import dev.cammiescorner.arcanus.api.spells.Spell;
+import dev.cammiescorner.arcanus.common.effects.ArcanusStatusEffect;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
+import dev.cammiescorner.arcanus.common.packets.clientbound.ClientboundStatusEffectPacket;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
@@ -25,10 +30,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -48,44 +50,25 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements Targetable {
 	@Unique private final LivingEntity self = (LivingEntity) (Entity) this;
 	@Unique private Vec3 prevVelocity;
-
 	@Shadow protected boolean jumping;
 
-	@Shadow
-	public abstract ItemStack getMainHandItem();
-
-	@Shadow
-	public abstract boolean isDamageSourceBlocked(DamageSource source);
-
-	@Shadow
-	public abstract boolean removeAllEffects();
-
-	@Shadow
-	public abstract boolean addEffect(MobEffectInstance effect);
-
-	@Shadow
-	public abstract float getSpeed();
-
-	@Shadow
-	public abstract boolean randomTeleport(double x, double y, double z, boolean particleEffects);
-
-	@Shadow
-	public abstract boolean hasEffect(Holder<MobEffect> effect);
-
-	@Shadow
-	public abstract boolean removeEffect(Holder<MobEffect> effect);
-
-	@Shadow
-	public abstract @Nullable MobEffectInstance getEffect(Holder<MobEffect> effect);
-
-	@Shadow
-	public abstract @Nullable AttributeInstance getAttribute(Holder<Attribute> attribute);
+	@Shadow public abstract ItemStack getMainHandItem();
+	@Shadow public abstract boolean isDamageSourceBlocked(DamageSource source);
+	@Shadow public abstract boolean removeAllEffects();
+	@Shadow public abstract boolean addEffect(MobEffectInstance effect);
+	@Shadow public abstract float getSpeed();
+	@Shadow public abstract boolean randomTeleport(double x, double y, double z, boolean particleEffects);
+	@Shadow public abstract boolean hasEffect(Holder<MobEffect> effect);
+	@Shadow public abstract boolean removeEffect(Holder<MobEffect> effect);
+	@Shadow public abstract @Nullable MobEffectInstance getEffect(Holder<MobEffect> effect);
+	@Shadow public abstract @Nullable AttributeInstance getAttribute(Holder<Attribute> attribute);
 
 	public LivingEntityMixin(EntityType<?> type, Level world) {
 		super(type, world);
@@ -205,21 +188,19 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 
 			if(speedAttr != null) {
 				if(stack.getItem() instanceof StaffItem && ArcanusComponents.isCasting((LivingEntity) (Object) this) && pattern.size() == 3) {
+					List<Spell> list = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), new ArrayList<>());
 					int index = Arcanus.getSpellIndex(pattern);
-					// TODO more data component shit yay
-//					CompoundTag tag = stack.getOrCreateTagElement(Arcanus.MOD_ID);
-//					ListTag list = tag.getList("Spells", Tag.TAG_COMPOUND);
-//
-//					if(!list.isEmpty() && index < list.size()) {
-//						Spell spell = Spell.fromNbt(list.getCompound(index));
-//						AttributeModifier speedMod = new AttributeModifier(Arcanus.SPELL_SPEED_MODIFIER_ID, "Spell Speed Modifier", spell.getWeight().getSlowdown(), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-//
-//						if(!speedAttr.hasModifier(Arcanus.SPELL_SPEED_MODIFIER_ID))
-//							speedAttr.addTransientModifier(speedMod);
-//					}
+
+					if(!list.isEmpty() && index < list.size()) {
+						Spell spell = list.get(index);
+						AttributeModifier speedMod = new AttributeModifier(Arcanus.SPELL_SPEED_MODIFIER_ID, spell.getWeight().getSlowdown(), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+
+						if(!speedAttr.hasModifier(Arcanus.SPELL_SPEED_MODIFIER_ID))
+							speedAttr.addTransientModifier(speedMod);
+					}
 				}
-//				else if(speedAttr.getModifier(Arcanus.SPELL_SPEED_MODIFIER_ID) != null)
-//					speedAttr.removeModifier(Arcanus.SPELL_SPEED_MODIFIER_ID);
+				else if(speedAttr.getModifier(Arcanus.SPELL_SPEED_MODIFIER_ID) != null)
+					speedAttr.removeModifier(Arcanus.SPELL_SPEED_MODIFIER_ID);
 			}
 		}
 	}
@@ -253,9 +234,17 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 	}
 
 	@Inject(method = "onEffectRemoved", at = @At("HEAD"), cancellable = true)
-	private void cantRemoveCurse(MobEffectInstance effect, CallbackInfo info) {
-		if(effect.getEffect() == ArcanusMobEffects.COPPER_CURSE.get())
+	private void attemptToRemoveEffect(MobEffectInstance effectInstance, CallbackInfo info) {
+		if(effectInstance.getEffect() == ArcanusMobEffects.COPPER_CURSE.get())
 			info.cancel();
+
+		if(level() instanceof ServerLevel level && effectInstance.getEffect().value() instanceof ArcanusStatusEffect effect) {
+			if(effect.shouldSync)
+				Network.getNetworkHandler().sendToAllClients(new ClientboundStatusEffectPacket(getId(), effectInstance.getEffect(), true), level.getServer());
+
+			if(effect == ArcanusMobEffects.FLOAT.get())
+				setNoGravity(true);
+		}
 	}
 
 	@ModifyVariable(method = "travel", at = @At("HEAD"), argsOnly = true)

@@ -44,7 +44,7 @@ public class WardedBlocksComponent implements AutoSyncedComponent {
 			}
 
 			for(int j = 0; j < blockPosList.size(); j++)
-				wardedBlocks.put(NbtUtils.readBlockPos(blockPosList.getCompound(j), "").get(), ownerUuid); // TODO might need to figure out a name?
+				wardedBlocks.put(NbtUtils.readBlockPos(blockPosList.getCompound(j), "Pos" + j).get(), ownerUuid);
 		}
 	}
 

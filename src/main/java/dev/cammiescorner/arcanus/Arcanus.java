@@ -1,12 +1,14 @@
 package dev.cammiescorner.arcanus;
 
+import com.mojang.authlib.GameProfile;
 import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
+import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.api.entities.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.common.blocks.MagicDoorBlock;
 import dev.cammiescorner.arcanus.common.blocks.entities.MagicDoorBlockEntity;
-import dev.cammiescorner.arcanus.common.packets.s2c.SyncConfigValuesPacket;
-import dev.cammiescorner.arcanus.common.packets.s2c.SyncStatusEffectPacket;
+import dev.cammiescorner.arcanus.common.packets.clientbound.*;
+import dev.cammiescorner.arcanus.common.packets.serverbound.*;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.cammiescorner.arcanus.common.util.supporters.HaloData;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
@@ -19,6 +21,7 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -39,7 +42,6 @@ import org.slf4j.LoggerFactory;
 
 import java.text.DecimalFormat;
 import java.util.List;
-import java.util.UUID;
 
 public class Arcanus implements ModInitializer {
 	public static final String MOD_ID = "arcanus";
@@ -51,7 +53,7 @@ public class Arcanus implements ModInitializer {
 
 	public static final SyncToken<WizardData> WIZARD_DATA = DataSyncAPI.register(WizardData.class, WizardData.ID, WizardData.CODEC);
 	public static final SyncToken<HaloData> HALO_DATA = DataSyncAPI.register(HaloData.class, HaloData.ID, HaloData.CODEC);
-	public static final UUID SPELL_SPEED_MODIFIER_ID = UUID.fromString("e348efa3-7987-4912-b82a-03c5c75eccb1");
+	public static final ResourceLocation SPELL_SPEED_MODIFIER_ID = Arcanus.id("speed_effect_modifier");
 
 	@Override
 	public void onInitialize() {
@@ -76,16 +78,21 @@ public class Arcanus implements ModInitializer {
 
 		ArcanusCriteriaTriggers.register();
 
-		// TODO move packets to common network
-//		ServerPlayNetworking.registerGlobalReceiver(CastSpellPacket.ID, CastSpellPacket::handler);
-//		ServerPlayNetworking.registerGlobalReceiver(SetCastingPacket.ID, SetCastingPacket::handler);
-//		ServerPlayNetworking.registerGlobalReceiver(SaveBookDataPacket.ID, SaveBookDataPacket::handler);
-//		ServerPlayNetworking.registerGlobalReceiver(SyncPatternPacket.ID, SyncPatternPacket::handler);
-//		ServerPlayNetworking.registerGlobalReceiver(ShootOrbsPacket.ID, ShootOrbsPacket::handler);
+		Network.registerPacket(ServerboundCastSpellPacket.TYPE, ServerboundCastSpellPacket.class, ServerboundCastSpellPacket.CODEC, ServerboundCastSpellPacket::handle);
+		Network.registerPacket(ServerboundIsCastingPacket.TYPE, ServerboundIsCastingPacket.class, ServerboundIsCastingPacket.CODEC, ServerboundIsCastingPacket::handle);
+		Network.registerPacket(ServerboundSaveBookDataPacket.TYPE, ServerboundSaveBookDataPacket.class, ServerboundSaveBookDataPacket.CODEC, ServerboundSaveBookDataPacket::handle);
+		Network.registerPacket(ServerboundShootOrbsPacket.TYPE, ServerboundShootOrbsPacket.class, ServerboundShootOrbsPacket.CODEC, ServerboundShootOrbsPacket::handle);
+		Network.registerPacket(ServerboundSyncPatternPacket.TYPE, ServerboundSyncPatternPacket.class, ServerboundSyncPatternPacket.CODEC, ServerboundSyncPatternPacket::handle);
+
+		Network.registerPacket(ClientboundEnforceConfigPacket.TYPE, ClientboundEnforceConfigPacket.class, ClientboundEnforceConfigPacket.CODEC, ClientboundEnforceConfigPacket::handle);
+		Network.registerPacket(ClientboundBurstVfxPacket.TYPE, ClientboundBurstVfxPacket.class, ClientboundBurstVfxPacket.CODEC, ClientboundBurstVfxPacket::handle);
+		Network.registerPacket(ClientboundStaffTemplatePacket.TYPE, ClientboundStaffTemplatePacket.class, ClientboundStaffTemplatePacket.CODEC, ClientboundStaffTemplatePacket::handle);
+		Network.registerPacket(ClientboundStatusEffectPacket.TYPE, ClientboundStatusEffectPacket.class, ClientboundStatusEffectPacket.CODEC, ClientboundStatusEffectPacket::handle);
+		Network.registerPacket(ClientboundWorkbenchModePacket.TYPE, ClientboundWorkbenchModePacket.class, ClientboundWorkbenchModePacket.CODEC, ClientboundWorkbenchModePacket::handle);
 
 		CommandRegistrationCallback.EVENT.register(ArcanusCommands::init);
 
-		// TODO Figure out this shit
+		// TODO Figure out how to modify item attribute modifiers
 //		ModifyItemAttributeModifiersCallback.EVENT.register((stack, slot, attributeModifiers) -> {
 //			if(ArcanusConfig.Enchantments.ManaPool.maxLevel <= 0)
 //				return;
@@ -103,17 +110,17 @@ public class Arcanus implements ModInitializer {
 //		});
 
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-			var hostProfile = server.getSingleplayerProfile();
-			if(hostProfile == null || !hostProfile.getId().equals(handler.player.getGameProfile().getId())) {
-				SyncConfigValuesPacket.send(handler.player);
-			}
+			GameProfile hostProfile = server.getSingleplayerProfile();
 
-			SyncStatusEffectPacket.sendToAll(handler.player, ArcanusMobEffects.ANONYMITY.get(), handler.player.hasEffect(ArcanusMobEffects.ANONYMITY.holder()));
+			if(hostProfile == null || !hostProfile.getId().equals(handler.player.getGameProfile().getId()))
+				Network.getNetworkHandler().sendToClient(new ClientboundEnforceConfigPacket(ArcanusConfig.castingSpeedHasCoolDown), handler.player);
+
+			Network.getNetworkHandler().sendToClients(new ClientboundStatusEffectPacket(handler.player.getId(), ArcanusMobEffects.ANONYMITY.holder(), handler.player.hasEffect(ArcanusMobEffects.ANONYMITY.holder())), List.copyOf(PlayerLookup.tracking(handler.player)));
 		});
 
 		EntityTrackingEvents.START_TRACKING.register((trackedEntity, player) -> {
 			if(trackedEntity instanceof ServerPlayer playerEntity)
-				SyncStatusEffectPacket.sendTo(player, playerEntity, ArcanusMobEffects.ANONYMITY.get(), playerEntity.hasEffect(ArcanusMobEffects.ANONYMITY.holder()));
+				Network.getNetworkHandler().sendToClient(new ClientboundStatusEffectPacket(playerEntity.getId(), ArcanusMobEffects.ANONYMITY.holder(), playerEntity.hasEffect(ArcanusMobEffects.ANONYMITY.holder())), player);
 		});
 
 		EntitySleepEvents.STOP_SLEEPING.register((entity, sleepingPos) -> {

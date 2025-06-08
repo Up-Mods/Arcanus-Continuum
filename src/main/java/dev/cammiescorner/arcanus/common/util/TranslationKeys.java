@@ -2,10 +2,10 @@ package dev.cammiescorner.arcanus.common.util;
 
 public class TranslationKeys {
 	public static final String BATTLE_MAGE_UPGRADE = "upgrade.arcanus.battle_mage_upgrade";
-	public static final String BATTLE_MAGE_UPGRADE_APPLIES_TO = "item.arcanus.smithing_template.battle_mage_upgrade.applies_to";
-	public static final String BATTLE_MAGE_UPGRADE_INGREDIENTS = "item.arcanus.smithing_template.battle_mage_upgrade.ingredients";
-	public static final String BATTLE_MAGE_UPGRADE_BASE_SLOT_DESC = "item.arcanus.smithing_template.battle_mage_upgrade.base_slot_description";
-	public static final String BATTLE_MAGE_UPGRADE_ADDITIONS_SLOT_DESC = "item.arcanus.smithing_template.battle_mage_upgrade.additions_slot_description";
+	public static final String BATTLE_MAGE_UPGRADE_APPLIES_TO = "stack.arcanus.smithing_template.battle_mage_upgrade.applies_to";
+	public static final String BATTLE_MAGE_UPGRADE_INGREDIENTS = "stack.arcanus.smithing_template.battle_mage_upgrade.ingredients";
+	public static final String BATTLE_MAGE_UPGRADE_BASE_SLOT_DESC = "stack.arcanus.smithing_template.battle_mage_upgrade.base_slot_description";
+	public static final String BATTLE_MAGE_UPGRADE_ADDITIONS_SLOT_DESC = "stack.arcanus.smithing_template.battle_mage_upgrade.additions_slot_description";
 	public static final String BLOCK_IS_WARDED = "text.arcanus.block_is_warded";
 	public static final String CANT_WARD_IN_DIM = "text.arcanus.cannot_ward_in_dimension";
 	public static final String CANT_WARD_BLOCK = "text.arcanus.cannot_ward_block";
@@ -59,8 +59,8 @@ public class TranslationKeys {
 	public static final String SPELL_TOO_MANY_COMPONENTS = "spell.arcanus.too_many_components";
 	public static final String SPELL_TOO_LOW_LEVEL = "spell.arcanus.too_low_level";
 	public static final String SPELL_NOT_ENOUGH_MANA = "spell.arcanus.not_enough_mana";
-	public static final String COMPENDIUM_ARCANUS = "item.arcanus.compendium_arcanus";
-	public static final String COMPENDIUM_ARCANUS_LANDING = "item.arcanus.compendium_arcanus.landing_text";
+	public static final String COMPENDIUM_ARCANUS = "stack.arcanus.compendium_arcanus";
+	public static final String COMPENDIUM_ARCANUS_LANDING = "stack.arcanus.compendium_arcanus.landing_text";
 	public static final String CONFIG_SUPPORTER_SETTINGS = "config.arcanus.supporter_settings";
 	public static final String CONFIG_SUPPORTER_SETTINGS_MAGIC_COLOR = "config.arcanus.supporter_settings.magic_color";
 	public static final String CONFIG_SUPPORTER_SETTINGS_POCKET_COLOR = "config.arcanus.supporter_settings.pocket_dimension_color";

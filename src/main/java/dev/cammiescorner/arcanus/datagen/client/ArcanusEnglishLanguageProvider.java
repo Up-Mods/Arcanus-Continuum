@@ -438,7 +438,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 			var translationKey = "death.attack." + type.msgId();
 			builder.add(translationKey, defaultTranslation);
 			builder.add(translationKey + ".player", killedByTranslation != null ? killedByTranslation : defaultTranslation);
-			builder.add(translationKey + ".item", killedWithItemTranslation != null ? killedWithItemTranslation : defaultTranslation);
+			builder.add(translationKey + ".stack", killedWithItemTranslation != null ? killedWithItemTranslation : defaultTranslation);
 		});
 	}
 

@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanus.client.gui.screens;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.*;
 import dev.cammiescorner.arcanus.api.util.Rectangle;
@@ -11,7 +12,7 @@ import dev.cammiescorner.arcanus.client.gui.util.UndoRedoStack;
 import dev.cammiescorner.arcanus.client.gui.widgets.SpellComponentWidget;
 import dev.cammiescorner.arcanus.client.gui.widgets.UndoRedoButtonWidget;
 import dev.cammiescorner.arcanus.common.items.SpellBookItem;
-import dev.cammiescorner.arcanus.common.packets.c2s.SaveBookDataPacket;
+import dev.cammiescorner.arcanus.common.packets.serverbound.ServerboundSaveBookDataPacket;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanus.common.screens.SpellcraftScreenHandler;
@@ -432,12 +433,12 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftScreenHa
 
 	protected void addCloseButtons() {
 		addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> {
-			SaveBookDataPacket.send(getMenu().getPos(), getSpell());
+			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().getPos(), getSpell()));
 			onClose();
 		}).pos(width / 2 - 100, topPos + 170).size(98, 20).build());
 
 		addRenderableWidget(Button.builder(Component.translatable("lectern.take_book"), (button) -> {
-			SaveBookDataPacket.send(getMenu().getPos(), getSpell());
+			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().getPos(), getSpell()));
 			minecraft.gameMode.handleInventoryButtonClick(menu.containerId, 0);
 			onClose();
 		}).pos(width / 2 + 2, topPos + 170).size(98, 20).build());

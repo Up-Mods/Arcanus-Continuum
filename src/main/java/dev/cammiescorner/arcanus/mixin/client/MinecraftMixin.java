@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.mixin.client;
 
+import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
@@ -7,10 +8,10 @@ import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.utils.ClientUtils;
 import dev.cammiescorner.arcanus.common.entities.magic.Aggressorb;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
-import dev.cammiescorner.arcanus.common.packets.c2s.CastSpellPacket;
-import dev.cammiescorner.arcanus.common.packets.c2s.SetCastingPacket;
-import dev.cammiescorner.arcanus.common.packets.c2s.ShootOrbsPacket;
-import dev.cammiescorner.arcanus.common.packets.c2s.SyncPatternPacket;
+import dev.cammiescorner.arcanus.common.packets.serverbound.ServerboundCastSpellPacket;
+import dev.cammiescorner.arcanus.common.packets.serverbound.ServerboundIsCastingPacket;
+import dev.cammiescorner.arcanus.common.packets.serverbound.ServerboundShootOrbsPacket;
+import dev.cammiescorner.arcanus.common.packets.serverbound.ServerboundSyncPatternPacket;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -41,7 +42,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 	@Unique private int timer = 0;
 	@Unique private int mouseDownTimer = 0;
 	@Unique private KeyMapping lastMouseDown = null;
-	@Unique private final List<Pattern> pattern = new ArrayList<>(3);
+	@Unique private final List<Pattern> patterns = new ArrayList<>(3);
 
 	@Shadow @Nullable public LocalPlayer player;
 	@Shadow @Final public Options options;
@@ -58,8 +59,8 @@ public abstract class MinecraftMixin implements ClientUtils {
 		ItemStack stack = player.getMainHandItem();
 
 		if(timer == 0 || (lastMouseDown != null && !lastMouseDown.isDown()) || ArcanusComponents.getStunTimer(player) > 0) {
-			pattern.clear();
-			SyncPatternPacket.send(pattern);
+			patterns.clear();
+			Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns));
 			lastMouseDown = null;
 			isCasting = false;
 			timer = 0;
@@ -69,15 +70,15 @@ public abstract class MinecraftMixin implements ClientUtils {
 		}
 
 		if(stack.getItem() instanceof StaffItem staff && (ArcanusComponents.getMana(player) > 0 || player.isCreative())) {
-			if(timer > 0 && pattern.size() >= 3) {
+			if(timer > 0 && patterns.size() >= 3) {
 				isCasting = lastMouseDown != null && lastMouseDown.isDown();
 
 				if(isCasting) {
 					mouseDownTimer++;
 
 					if(player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0) {
-						int index = Arcanus.getSpellIndex(pattern);
-						CastSpellPacket.send(index);
+						int index = Arcanus.getSpellIndex(patterns);
+						Network.getNetworkHandler().sendToServer(new ServerboundCastSpellPacket(index));
 						timer = 20;
 					}
 				}
@@ -92,9 +93,9 @@ public abstract class MinecraftMixin implements ClientUtils {
 		}
 
 		if(isCasting() && !ArcanusComponents.isCasting(player) && mouseDownTimer > 5)
-			SetCastingPacket.send(true);
+			Network.getNetworkHandler().sendToServer(new ServerboundIsCastingPacket(true));
 		if((!isCasting() || ArcanusComponents.getMana(player) <= 0) && ArcanusComponents.isCasting(player))
-			SetCastingPacket.send(false);
+			Network.getNetworkHandler().sendToServer(new ServerboundIsCastingPacket(false));
 
 		if(timer > 0 && player.getAttackStrengthScale(getFrameTimeNs()) == 1F && player.getCooldowns().getCooldownPercent(stack.getItem(), getFrameTimeNs()) == 0)
 			timer--;
@@ -128,13 +129,13 @@ public abstract class MinecraftMixin implements ClientUtils {
 			if(player.getMainHandItem().getItem() instanceof StaffItem staff) {
 				if(player.getAttackStrengthScale(getFrameTimeNs()) >= (((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15F) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
 					timer = 20;
-					pattern.add(Pattern.LEFT);
-					SyncPatternPacket.send(pattern);
+					patterns.add(Pattern.LEFT);
+					Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns));
 					player.swing(InteractionHand.MAIN_HAND);
 					player.resetAttackStrengthTicker();
 					player.level().playSeededSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundSource.PLAYERS, 1F, 1.3F, 1L);
 
-					if(pattern.size() >= 3)
+					if(patterns.size() >= 3)
 						lastMouseDown = options.keyAttack;
 				}
 
@@ -144,7 +145,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 				List<UUID> orbIds = player.getComponent(ArcanusComponents.AGGRESSORB_COMPONENT).getOrbs();
 
 				if(!orbIds.isEmpty()) {
-					ShootOrbsPacket.send(orbIds, player.getUUID());
+					Network.getNetworkHandler().sendToServer(new ServerboundShootOrbsPacket(player.getUUID(), orbIds));
 					shootOrbs(orbIds);
 				}
 			}
@@ -163,13 +164,13 @@ public abstract class MinecraftMixin implements ClientUtils {
 		if(player != null && !player.isSpectator() && level != null && player.getMainHandItem().getItem() instanceof StaffItem staff) {
 			if(player.getAttackStrengthScale(getFrameTimeNs()) >= (((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15F) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
 				timer = 20;
-				pattern.add(Pattern.RIGHT);
-				SyncPatternPacket.send(pattern);
+				patterns.add(Pattern.RIGHT);
+				Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns));
 				player.swing(InteractionHand.MAIN_HAND);
 				player.resetAttackStrengthTicker();
 				player.level().playSeededSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundSource.PLAYERS, 1F, 1.1F, 1L);
 
-				if(pattern.size() >= 3)
+				if(patterns.size() >= 3)
 					lastMouseDown = options.keyUse;
 			}
 

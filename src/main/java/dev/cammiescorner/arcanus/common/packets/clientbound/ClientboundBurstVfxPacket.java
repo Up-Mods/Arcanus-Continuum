@@ -1,0 +1,50 @@
+package dev.cammiescorner.arcanus.common.packets.clientbound;
+
+import commonnetwork.networking.data.PacketContext;
+import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
+import dev.cammiescorner.arcanus.common.compat.ExplosiveEnhancementCompat;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+
+public record ClientboundBurstVfxPacket(Vec3 pos, float strength, boolean didDestroyBlocks) implements CustomPacketPayload {
+	public static final CustomPacketPayload.Type<ClientboundBurstVfxPacket> TYPE = new CustomPacketPayload.Type<>(Arcanus.id("burst_vfx"));
+	public static final StreamCodec<? extends FriendlyByteBuf, ClientboundBurstVfxPacket> CODEC = StreamCodec.of((buffer, packet) -> {
+		buffer.writeVec3(packet.pos);
+		buffer.writeFloat(packet.strength);
+		buffer.writeBoolean(packet.didDestroyBlocks);
+	}, buffer -> {
+		Vec3 pos = buffer.readVec3();
+		float strength = buffer.readFloat();
+		boolean destroyedBlocks = buffer.readBoolean();
+
+		return new ClientboundBurstVfxPacket(pos, strength, destroyedBlocks);
+	});
+
+	public static void handle(PacketContext<ClientboundBurstVfxPacket> context) {
+		Level level = Minecraft.getInstance().level;
+
+		if(level != null) {
+			double x = context.message().pos().x();
+			double y = context.message().pos().y();
+			double z = context.message().pos().z();
+			float strength = context.message().strength();
+			boolean destroyedBlocks = context.message().didDestroyBlocks();
+
+			if(ArcanusCompat.EXPLOSIVE_ENHANCEMENT.isEnabled())
+				ExplosiveEnhancementCompat.spawnEnhancedBooms(level, x, y, z, strength, destroyedBlocks);
+			else
+				level.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1, 1, 1);
+		}
+	}
+
+	@Override
+	public Type<? extends CustomPacketPayload> type() {
+		return TYPE;
+	}
+}

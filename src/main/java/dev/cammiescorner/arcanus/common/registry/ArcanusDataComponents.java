@@ -10,18 +10,25 @@ import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.level.block.WeatheringCopper;
 
+import java.util.List;
 import java.util.UUID;
 
 public class ArcanusDataComponents {
 	public static final RegistryHandler<DataComponentType<?>> DATA_COMPONENTS = RegistryHandler.create(Registries.DATA_COMPONENT_TYPE, Arcanus.MOD_ID);
 
-	// TODO add data component for attached spell books
-
 	public static final RegistrySupplier<DataComponentType<Spell>> SPELL = DATA_COMPONENTS.register("spell", () -> DataComponentType.<Spell>builder()
 		.persistent(Spell.CODEC)
 		.networkSynchronized(Spell.STREAM_CODEC)
+		.cacheEncoding()
+		.build()
+	);
+
+	public static final RegistrySupplier<DataComponentType<List<Spell>>> SPELL_LIST = DATA_COMPONENTS.register("spell_list", () -> DataComponentType.<List<Spell>>builder()
+		.persistent(Codec.list(Spell.CODEC))
+		.networkSynchronized(Spell.STREAM_CODEC.apply(ByteBufCodecs.list()))
 		.cacheEncoding()
 		.build()
 	);

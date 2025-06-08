@@ -1,7 +1,11 @@
 package dev.cammiescorner.arcanus.common.recipes;
 
 import com.google.common.collect.Lists;
+import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
+import dev.cammiescorner.arcanus.common.items.SpellBookItem;
+import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusRecipes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -12,6 +16,8 @@ import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SpellBindingRecipe extends CustomRecipe {
@@ -72,44 +78,37 @@ public class SpellBindingRecipe extends CustomRecipe {
 			return ItemStack.EMPTY;
 		}
 
-		// TODO shift over to data component
-//		CompoundTag tag = result.getOrCreateTagElement(Arcanus.MOD_ID);
-//		ListTag list = tag.getList("Spells", Tag.TAG_COMPOUND);
-//
-//		var spells = new Spell[8];
-//		Arrays.fill(spells, new Spell());
-//
-//		for(int i = 0; i < list.size(); i++) {
-//			try {
-//				spells[i] = Spell.fromNbt(list.getCompound(i));
-//			}
-//			catch(Exception e) {
-//				Arcanus.LOGGER.error("Failed to load spell from NBT", e);
-//			}
-//		}
-//
-//		int count = 0;
-//
-//		for(int i = 0; i < input.size(); i++) {
-//			if(i == 4)
-//				continue;
-//
-//			ItemStack stack = input.getItem(i);
-//			if(stack.is(ArcanusItemTags.CRAFTING_SPELLBINDING_SPELLBOOKS)) {
-//				spells[INDICES[i]] = SpellBookItem.getSpell(stack);
-//				count++;
-//			}
-//		}
-//
-//		if(count == 0 || result.isEmpty())
-//			return ItemStack.EMPTY;
-//
-//		list.clear();
-//
-//		for(Spell spell : spells)
-//			list.add(spell.toNbt());
-//
-//		tag.put("Spells", list);
+		List<Spell> list = result.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), new ArrayList<>());
+		Spell[] spells = new Spell[8];
+		Arrays.fill(spells, new Spell());
+
+		for(int i = 0; i < list.size(); i++) {
+			try {
+				spells[i] = list.get(i);
+			}
+			catch(Exception e) {
+				Arcanus.LOGGER.error("Failed to load spell from Data Component", e);
+			}
+		}
+
+		int count = 0;
+
+		for(int i = 0; i < input.size(); i++) {
+			if(i == 4)
+				continue;
+
+			ItemStack stack = input.getItem(i);
+			if(stack.is(ArcanusItemTags.CRAFTING_SPELLBINDING_SPELLBOOKS)) {
+				spells[INDICES[i]] = SpellBookItem.getSpell(stack);
+				count++;
+			}
+		}
+
+		if(count == 0 || result.isEmpty())
+			return ItemStack.EMPTY;
+
+		list.clear();
+		list.addAll(Arrays.asList(spells));
 
 		return result;
 	}

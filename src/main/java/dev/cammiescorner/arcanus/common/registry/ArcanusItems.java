@@ -93,11 +93,11 @@ public class ArcanusItems {
 
 	// TODO figure out how to construct a smithing template now
 //	private static SmithingTemplateItem getBattleMageUpgrade() {
-//		var appliesToText = Component.translatable("item.arcanus.smithing_template.battle_mage_upgrade.applies_to").withStyle(ChatFormatting.BLUE);
-//		var ingredientsText = Component.translatable("item.arcanus.smithing_template.battle_mage_upgrade.ingredients").withStyle(ChatFormatting.BLUE);
+//		var appliesToText = Component.translatable("stack.arcanus.smithing_template.battle_mage_upgrade.applies_to").withStyle(ChatFormatting.BLUE);
+//		var ingredientsText = Component.translatable("stack.arcanus.smithing_template.battle_mage_upgrade.ingredients").withStyle(ChatFormatting.BLUE);
 //		var upgradeText = Component.translatable("upgrade.arcanus.battle_mage_upgrade").withStyle(ChatFormatting.GRAY);
-//		var baseSlotText = Component.translatable("item.arcanus.smithing_template.battle_mage_upgrade.base_slot_description");
-//		var additionsSlotText = Component.translatable("item.arcanus.smithing_template.battle_mage_upgrade.additions_slot_description");
+//		var baseSlotText = Component.translatable("stack.arcanus.smithing_template.battle_mage_upgrade.base_slot_description");
+//		var additionsSlotText = Component.translatable("stack.arcanus.smithing_template.battle_mage_upgrade.additions_slot_description");
 //		var baseIcons = SmithingTemplateItem.createTrimmableArmorIconList();
 //		var additionsIcons = List.of(SmithingTemplateItem.EMPTY_SLOT_AMETHYST_SHARD);
 //		return new SmithingTemplateItem(appliesToText, ingredientsText, upgradeText, baseSlotText, additionsSlotText, baseIcons, additionsIcons);
