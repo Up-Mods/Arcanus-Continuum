@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.entities.ArcanusEntityAttributes;
+import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;

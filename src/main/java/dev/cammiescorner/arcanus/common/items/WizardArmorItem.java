@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.common.items;
 
 import com.google.common.base.Suppliers;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.entities.ArcanusEntityAttributes;
+import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.cauldron.CauldronInteraction;

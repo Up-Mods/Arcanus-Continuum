@@ -6,7 +6,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.entities.ArcanusEntityAttributes;
+import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.api.entities.Targetable;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.api.spells.Spell;

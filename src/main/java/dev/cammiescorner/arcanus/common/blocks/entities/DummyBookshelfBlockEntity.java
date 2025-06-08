@@ -20,7 +20,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.OptionalLong;
 
 public class DummyBookshelfBlockEntity extends BlockEntity {
-
 	@Nullable
 	private ResourceLocation lootTableId;
 	@Nullable
@@ -31,17 +30,15 @@ public class DummyBookshelfBlockEntity extends BlockEntity {
 	}
 
 	public static BlockState copyValues(BlockState to, BlockState from) {
-		for (var property : from.getProperties()) {
+		for(var property : from.getProperties())
 			to = tryCopyValue(to, from, property);
-		}
 
 		return to;
 	}
 
 	public static <T extends Comparable<T>> BlockState tryCopyValue(BlockState to, BlockState from, Property<T> key) {
-		if (to.getProperties().contains(key)) {
+		if(to.getProperties().contains(key))
 			return to.setValue(key, from.getValue(key));
-		}
 
 		return to;
 	}
@@ -49,13 +46,12 @@ public class DummyBookshelfBlockEntity extends BlockEntity {
 	@Override
 	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.saveAdditional(tag, registries);
-		if (lootTableId != null) {
-			tag.putString("LootTable", lootTableId.toString());
-		}
 
-		if (lootTableSeed != null) {
+		if(lootTableId != null)
+			tag.putString("LootTable", lootTableId.toString());
+
+		if(lootTableSeed != null)
 			tag.putLong("Seed", lootTableSeed);
-		}
 	}
 
 	@Override

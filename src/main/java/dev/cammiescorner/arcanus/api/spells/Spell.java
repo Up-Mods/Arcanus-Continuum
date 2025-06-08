@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.api.spells;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.cammiescorner.arcanus.api.entities.ArcanusEntityAttributes;
+import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;

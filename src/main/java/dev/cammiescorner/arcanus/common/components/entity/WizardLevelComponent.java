@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.entities.ArcanusEntityAttributes;
+import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusCriteriaTriggers;
 import net.minecraft.core.HolderLookup;

@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus;
 import com.mojang.authlib.GameProfile;
 import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
 import commonnetwork.api.Network;
-import dev.cammiescorner.arcanus.api.entities.ArcanusEntityAttributes;
+import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.common.blocks.MagicDoorBlock;
 import dev.cammiescorner.arcanus.common.blocks.entities.MagicDoorBlockEntity;
@@ -97,23 +97,6 @@ public class Arcanus implements ModInitializer {
 		RegisterCustomLecternMenuEvent.EVENT.register(event -> {
 			event.register((level, pos, player, blockEntity, stack) -> new SpellcraftMenuProvider(level, stack, pos, blockEntity.bookAccess), ArcanusItems.SPELL_BOOK);
 		});
-
-		// TODO Figure out how to modify item attribute modifiers
-//		ModifyItemAttributeModifiersCallback.EVENT.register((stack, slot, attributeModifiers) -> {
-//			if(ArcanusConfig.Enchantments.ManaPool.maxLevel <= 0)
-//				return;
-//
-//			int manaPoolLevel = EnchantmentHelper.getItemEnchantmentLevel(ArcanusEnchantments.MANA_POOL.get(), stack);
-//
-//			if(slot.isArmor() && manaPoolLevel > 0) {
-//				if(stack.getItem() instanceof ArmorItem armorItem && armorItem.getEquipmentSlot() != slot)
-//					return;
-//
-//				AttributeModifier maxManaModifier = new AttributeModifier(ManaPoolEnchantment.getUuidForSlot(slot), "Mana Pool Max Mana Modifier", ArcanusConfig.Enchantments.ManaPool.manaPerLevel * manaPoolLevel, ArcanusConfig.Enchantments.ManaPool.manaModifierOperation);
-//
-//				attributeModifiers.put(ArcanusEntityAttributes.MAX_MANA.get(), maxManaModifier);
-//			}
-//		});
 
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 			GameProfile hostProfile = server.getSingleplayerProfile();
