@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements CustomPacketPayload {
-	public static final CustomPacketPayload.Type<ServerboundSyncPatternPacket> TYPE = new CustomPacketPayload.Type<>(Arcanus.id("shoot_orb"));
+	public static final CustomPacketPayload.Type<ServerboundSyncPatternPacket> TYPE = new CustomPacketPayload.Type<>(Arcanus.id("sync_pattern"));
 	public static final StreamCodec<? extends FriendlyByteBuf, ServerboundSyncPatternPacket> CODEC = StreamCodec.of((buffer, packet) -> {
 		buffer.writeVarInt(packet.patterns.size());
 

@@ -6,6 +6,8 @@ import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.client.gui.screens.ArcaneWorkbenchScreen;
+import dev.cammiescorner.arcanus.client.gui.screens.SpellBookScreen;
+import dev.cammiescorner.arcanus.client.gui.screens.SpellcraftScreen;
 import dev.cammiescorner.arcanus.client.models.armour.BattleMageArmourModel;
 import dev.cammiescorner.arcanus.client.models.armour.WizardArmourModel;
 import dev.cammiescorner.arcanus.client.models.entity.living.OpossumModel;
@@ -51,7 +53,6 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
@@ -59,6 +60,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SupportType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -90,8 +92,8 @@ public class ArcanusClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		ArcanusCompat.FIRST_PERSON.ifEnabled(() -> FirstPersonCompat::init);
 
-//		MenuScreens.register(ArcanusScreenHandlers.SPELLCRAFT_SCREEN_HANDLER.get(), SpellcraftScreen::new);
-//		MenuScreens.register(ArcanusScreenHandlers.SPELL_BOOK_SCREEN_HANDLER.get(), SpellBookScreen::new);
+		MenuScreens.register(ArcanusMenus.SPELLCRAFT_MENU.get(), SpellcraftScreen::new);
+		MenuScreens.register(ArcanusMenus.SPELL_BOOK_MENU.get(), SpellBookScreen::new);
 		MenuScreens.register(ArcanusMenus.ARCANE_WORKBENCH_MENU.get(), ArcaneWorkbenchScreen::new);
 
 		EntityModelLayerRegistry.registerModelLayer(WizardArmourModel.MODEL_LAYER, WizardArmourModel::getTexturedModelData);
@@ -153,7 +155,7 @@ public class ArcanusClient implements ClientModInitializer {
 			ArcanusItems.MAGE_PISTOL.get()
 		);
 
-		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? stack.get(DataComponents.DYED_COLOR).rgb() : -1,
+		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? DyedItemColor.getOrDefault(stack, 0xff52392a) : -1,
 			ArcanusItems.WIZARD_HAT.get(),
 			ArcanusItems.WIZARD_ROBES.get(),
 			ArcanusItems.WIZARD_PANTS.get(),
@@ -165,6 +167,7 @@ public class ArcanusClient implements ClientModInitializer {
 		ItemProperties.register(ArcanusItems.BATTLE_MAGE_LEGGINGS.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
 		ItemProperties.register(ArcanusItems.BATTLE_MAGE_BOOTS.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
 
+		// TODO not loading the extra models for some reason
 		ArcanusItems.ITEMS.stream().forEach(holder -> {
 			if(holder.get() instanceof StaffItem item) {
 				ResourceLocation id = holder.getId();

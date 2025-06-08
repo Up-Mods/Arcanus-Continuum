@@ -55,7 +55,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 	private double leftKnobPos, rightKnobPos;
 	private boolean draggingLeft, draggingRight;
 
-	public SpellcraftScreen(SpellcraftMenu screenHandler, Inventory playerInventory) {
+	public SpellcraftScreen(SpellcraftMenu screenHandler, Inventory playerInventory, Component text) {
 		super(screenHandler, playerInventory, Component.empty());
 	}
 
