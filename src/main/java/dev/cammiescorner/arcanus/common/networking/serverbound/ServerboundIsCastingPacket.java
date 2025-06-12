@@ -9,7 +9,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 
 public record ServerboundIsCastingPacket(boolean isCasting) implements CustomPacketPayload{
-	public static final CustomPacketPayload.Type<ServerboundIsCastingPacket> TYPE = new CustomPacketPayload.Type<>(Arcanus.id("set_casting"));
+	public static final CustomPacketPayload.Type<ServerboundIsCastingPacket> TYPE = new CustomPacketPayload.Type<>(Arcanus.id("is_casting"));
 	public static final StreamCodec<? extends FriendlyByteBuf, ServerboundIsCastingPacket> CODEC = StreamCodec.of((buffer, packet) -> {
 		buffer.writeBoolean(packet.isCasting);
 	}, buffer -> {

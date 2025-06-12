@@ -28,15 +28,9 @@ import java.util.List;
 public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements CustomPacketPayload {
 	public static final CustomPacketPayload.Type<ServerboundSyncPatternPacket> TYPE = new CustomPacketPayload.Type<>(Arcanus.id("sync_pattern"));
 	public static final StreamCodec<? extends FriendlyByteBuf, ServerboundSyncPatternPacket> CODEC = StreamCodec.of((buffer, packet) -> {
-		buffer.writeVarInt(packet.patterns.size());
-
-		for(Pattern pattern : packet.patterns)
-			buffer.writeEnum(pattern);
+		buffer.writeCollection(packet.patterns, FriendlyByteBuf::writeEnum);
 	}, buffer -> {
-		List<Pattern> patterns = new ArrayList<>();
-
-		for(int i = 0; i < buffer.readVarInt(); i++)
-			patterns.add(buffer.readEnum(Pattern.class));
+		List<Pattern> patterns = buffer.readCollection(ArrayList::new, buf -> buf.readEnum(Pattern.class));
 
 		return new ServerboundSyncPatternPacket(patterns);
 	});

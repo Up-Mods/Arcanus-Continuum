@@ -10,7 +10,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
 public record ClientboundWorkbenchModePacket(WorkbenchMode mode) implements CustomPacketPayload {
-	public static final CustomPacketPayload.Type<ClientboundWorkbenchModePacket> TYPE = new CustomPacketPayload.Type<>(Arcanus.id("workbench_mode"));
+	public static final CustomPacketPayload.Type<ClientboundWorkbenchModePacket> TYPE = new CustomPacketPayload.Type<>(Arcanus.id("sync_workbench_mode"));
 	public static final StreamCodec<? extends FriendlyByteBuf, ClientboundWorkbenchModePacket> CODEC = StreamCodec.of((buffer, packet) -> {
 		buffer.writeEnum(packet.mode);
 	}, buffer -> {

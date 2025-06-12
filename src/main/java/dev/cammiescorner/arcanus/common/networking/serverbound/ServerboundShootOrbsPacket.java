@@ -22,16 +22,10 @@ public record ServerboundShootOrbsPacket(UUID ownerId, List<UUID> orbIds) implem
 	public static final Type<ServerboundShootOrbsPacket> TYPE = new Type<>(Arcanus.id("shoot_orb"));
 	public static final StreamCodec<? extends FriendlyByteBuf, ServerboundShootOrbsPacket> CODEC = StreamCodec.of((buffer, packet) -> {
 		buffer.writeUUID(packet.ownerId);
-		buffer.writeVarInt(packet.orbIds.size());
-
-		for(UUID orbId : packet.orbIds)
-			buffer.writeUUID(orbId);
+		buffer.writeCollection(packet.orbIds, (buf, uuid) -> buf.writeUUID(uuid));
 	}, buffer -> {
 		UUID ownerId = buffer.readUUID();
-		List<UUID> orbIds = new ArrayList<>();
-
-		for(int i = 0; i < buffer.readVarInt(); i++)
-			orbIds.add(buffer.readUUID());
+		List<UUID> orbIds = buffer.readCollection(ArrayList::new, buf -> buf.readUUID());
 
 		return new ServerboundShootOrbsPacket(ownerId, orbIds);
 	});

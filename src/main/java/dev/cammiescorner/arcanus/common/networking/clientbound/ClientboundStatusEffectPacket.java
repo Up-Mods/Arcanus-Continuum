@@ -14,7 +14,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 
 public record ClientboundStatusEffectPacket(int entityId, Holder<MobEffect> effect, boolean hasEffect) implements CustomPacketPayload {
-	public static final CustomPacketPayload.Type<ClientboundStatusEffectPacket> TYPE = new CustomPacketPayload.Type<>(Arcanus.id("sync_config_values"));
+	public static final CustomPacketPayload.Type<ClientboundStatusEffectPacket> TYPE = new CustomPacketPayload.Type<>(Arcanus.id("sync_status_effects"));
 	public static final StreamCodec<? extends FriendlyByteBuf, ClientboundStatusEffectPacket> CODEC = StreamCodec.of((buffer, packet) -> {
 		if(buffer instanceof RegistryFriendlyByteBuf regBuf) {
 			MobEffect.STREAM_CODEC.encode(regBuf, packet.effect);
