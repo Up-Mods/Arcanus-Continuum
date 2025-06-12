@@ -19,6 +19,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import org.joml.Matrix4f;
 import org.joml.Vector2i;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -28,6 +30,7 @@ import java.util.Locale;
 public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 	public static final ResourceLocation BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
 	public static final ResourceLocation PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
+	private static final Logger log = LoggerFactory.getLogger(SpellBookScreen.class);
 	public final LinkedList<SpellGroup> SPELL_GROUPS = new LinkedList<>();
 
 	public SpellBookScreen(SpellBookMenu screenHandler, Inventory playerInventory, Component text) {
@@ -42,12 +45,11 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 		inventoryLabelY = -10000;
 
 		addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> onClose()).pos(width / 2 - 49, topPos + 170).size(98, 20).build());
-		SPELL_GROUPS.addAll(SpellBookItem.getSpell(getMenu().getSpellBook()).getComponentGroups());
+		SPELL_GROUPS.addAll(SpellBookItem.getSpell(getMenu().getSpellBook()).getComponentGroups()); // TODO getSpellBook() is returning air for some reason
 	}
 
 	@Override
 	protected void renderBg(GuiGraphics gui, float delta, int mouseX, int mouseY) {
-		this.renderBackground(gui, mouseX, mouseY, delta);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		gui.blit(BOOK_TEXTURE, leftPos, topPos, 0, 0, 256, 180, 256, 256);
 	}
@@ -67,6 +69,7 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 			matrices.pushPose();
 			matrices.translate(12, 12, 0);
 			Matrix4f matrix = matrices.last().pose();
+			boolean hasData = false;
 
 			for(int j = 0; j < positions.size(); j++) {
 				Vector2i pos = positions.get(j);
@@ -91,9 +94,13 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 				bufferBuilder.addVertex(matrix, x2 + dx, y2 + dy, 0).setColor(0);
 				bufferBuilder.addVertex(matrix, x1 + dx, y1 + dy, 0).setColor(0);
 				bufferBuilder.addVertex(matrix, x1 - dx, y1 - dy, 0).setColor(0);
+
+				hasData = true;
 			}
 
-			BufferUploader.drawWithShader(bufferBuilder.build());
+			if(hasData)
+				BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
+
 			matrices.popPose();
 		}
 

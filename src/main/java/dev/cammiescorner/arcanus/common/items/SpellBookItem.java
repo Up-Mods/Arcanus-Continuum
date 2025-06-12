@@ -73,7 +73,7 @@ public class SpellBookItem extends Item {
 		Spell spell = getSpell(stack);
 
 		if(spell.isEmpty())
-			return super.use(level, player, hand);
+			return InteractionResultHolder.pass(stack);
 
 		player.openMenu(new SpellBookMenuProvider(stack));
 

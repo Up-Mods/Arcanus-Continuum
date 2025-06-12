@@ -111,7 +111,6 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 	@Override
 	protected void renderBg(GuiGraphics gui, float delta, int mouseX, int mouseY) {
-		this.renderBackground(gui, mouseX, mouseY, delta);
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		gui.blit(BOOK_TEXTURE, leftPos, topPos, 0, 0, 256, 180, 256, 256);
 
@@ -298,12 +297,13 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		for(int i = 0; i < spellGroups.size(); i++) {
 			SpellGroup group = spellGroups.get(i);
 			List<Vector2i> positions = group.positions();
-			RenderSystem.setShader(GameRenderer::getPositionShader);
+			RenderSystem.setShader(GameRenderer::getPositionColorShader);
 			RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
 			BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 			matrices.pushPose();
 			matrices.translate(12, 12, 0);
 			Matrix4f matrix = matrices.last().pose();
+			boolean hasData = false;
 
 			for(int j = 0; j < positions.size(); j++) {
 				Vector2i pos = positions.get(j);
@@ -313,6 +313,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 					List<Vector2i> prevPositions = spellGroups.get(i - 1).positions();
 					prevPos = prevPositions.get(prevPositions.size() - 1);
 				}
+
 				if(pos.equals(prevPos))
 					continue;
 
@@ -328,9 +329,13 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 				bufferBuilder.addVertex(matrix, x2 + dx, y2 + dy, 0).setColor(0);
 				bufferBuilder.addVertex(matrix, x1 + dx, y1 + dy, 0).setColor(0);
 				bufferBuilder.addVertex(matrix, x1 - dx, y1 - dy, 0).setColor(0);
+
+				hasData = true;
 			}
 
-			BufferUploader.drawWithShader(bufferBuilder.build());
+			if(hasData)
+				BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
+
 			matrices.popPose();
 		}
 
