@@ -74,6 +74,7 @@ public class SpellPatternModel<T extends Player> extends HumanoidModel<T> {
 		base.y = 0;
 		base.x = 0;
 		base.z = 0;
+		// TODO spins super fast for some reason
 		first.zRot = (float) Math.toRadians((player.tickCount + player.getId() + client.getFrameTimeNs()) * 5);
 		second.zRot = (float) Math.toRadians((player.tickCount + player.getId() + client.getFrameTimeNs()) * -8);
 		third.zRot = (float) Math.toRadians((player.tickCount + player.getId() + client.getFrameTimeNs()) * 11);
@@ -95,13 +96,13 @@ public class SpellPatternModel<T extends Player> extends HumanoidModel<T> {
 	}
 
 	public void showMagicCircles(List<Pattern> pattern) {
-		first.visible = pattern.size() > 0;
+		first.visible = !pattern.isEmpty();
 		second.visible = pattern.size() > 1;
 		third.visible = pattern.size() > 2;
 
 		if(first.visible) {
-			left1.visible = pattern.get(0) == Pattern.LEFT;
-			right1.visible = pattern.get(0) == Pattern.RIGHT;
+			left1.visible = pattern.getFirst() == Pattern.LEFT;
+			right1.visible = pattern.getFirst() == Pattern.RIGHT;
 		}
 		if(second.visible) {
 			left2.visible = pattern.get(1) == Pattern.LEFT;

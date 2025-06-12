@@ -65,6 +65,7 @@ public class SpellPatternFeatureRenderer<T extends Player, M extends EntityModel
 			}
 		}
 
+		// TODO moves super fast for some reason
 		matrices.pushPose();
 		matrices.translate(0, 0, Mth.sin((player.tickCount + player.getId() + client.getFrameTimeNs()) / (Mth.PI * 2)) * 0.05F);
 		model.first.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
