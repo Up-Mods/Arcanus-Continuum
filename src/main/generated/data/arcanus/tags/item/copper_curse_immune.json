@@ -3,10 +3,7 @@
   "values": [
     "#minecraft:tools",
     "minecraft:fishing_rod",
-    "#c:bows",
-    "#c:shields",
-    "#c:spears",
-    "#c:shears",
+    "#c:tools",
     "#minecraft:trimmable_armor",
     "minecraft:elytra",
     "#minecraft:trim_templates",
