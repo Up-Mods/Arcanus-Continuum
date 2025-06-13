@@ -27,11 +27,14 @@ public class SpellcraftMenu extends AbstractContainerMenu {
 		if(!player.mayBuild())
 			return false;
 
-		ItemStack itemStack = container.removeItemNoUpdate(0);
-		container.setChanged();
+		if(id == 0) {
+			ItemStack itemStack = container.removeItemNoUpdate(0);
 
-		if(!player.getInventory().add(itemStack))
-			player.drop(itemStack, false);
+			if(!player.getInventory().add(itemStack))
+				player.drop(itemStack, false);
+		}
+
+		container.setChanged();
 
 		return true;
 	}

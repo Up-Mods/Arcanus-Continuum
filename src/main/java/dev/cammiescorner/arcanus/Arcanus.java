@@ -85,6 +85,7 @@ public class Arcanus implements ModInitializer {
 		Network.registerPacket(ServerboundShootOrbsPacket.TYPE, ServerboundShootOrbsPacket.class, ServerboundShootOrbsPacket.CODEC, ServerboundShootOrbsPacket::handle);
 		Network.registerPacket(ServerboundSyncPatternPacket.TYPE, ServerboundSyncPatternPacket.class, ServerboundSyncPatternPacket.CODEC, ServerboundSyncPatternPacket::handle);
 
+		Network.registerPacket(ClientboundUpdateSpellcraftScreenPacket.TYPE, ClientboundUpdateSpellcraftScreenPacket.class, ClientboundUpdateSpellcraftScreenPacket.CODEC, ClientboundUpdateSpellcraftScreenPacket::handle);
 		Network.registerPacket(ClientboundEnforceConfigPacket.TYPE, ClientboundEnforceConfigPacket.class, ClientboundEnforceConfigPacket.CODEC, ClientboundEnforceConfigPacket::handle);
 		Network.registerPacket(ClientboundBurstVfxPacket.TYPE, ClientboundBurstVfxPacket.class, ClientboundBurstVfxPacket.CODEC, ClientboundBurstVfxPacket::handle);
 		Network.registerPacket(ClientboundStaffTemplatePacket.TYPE, ClientboundStaffTemplatePacket.class, ClientboundStaffTemplatePacket.CODEC, ClientboundStaffTemplatePacket::handle);
@@ -94,7 +95,7 @@ public class Arcanus implements ModInitializer {
 		CommandRegistrationCallback.EVENT.register(ArcanusCommands::init);
 
 		RegisterCustomLecternMenuEvent.EVENT.register(event -> {
-			event.register((level, pos, player, blockEntity, stack) -> new SpellcraftMenuProvider(level, pos, blockEntity.bookAccess), ArcanusItems.SPELL_BOOK);
+			event.register((level, pos, player, blockEntity, stack) -> new SpellcraftMenuProvider(level, stack, pos, blockEntity.bookAccess), ArcanusItems.SPELL_BOOK);
 		});
 
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {

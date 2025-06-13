@@ -29,6 +29,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix4f;
 import org.joml.Vector2i;
 import org.joml.Vector4i;
@@ -50,6 +51,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 	private final List<SpellComponentWidget> spellEffectWidgets = Lists.newArrayList();
 	private final UndoRedoStack undoRedoStack = new UndoRedoStack();
 	private SpellComponent draggedComponent = ArcanusSpellComponents.EMPTY.get();
+	private ItemStack stack = ItemStack.EMPTY;
 	private EditBox textBox;
 	private int leftScroll, rightScroll;
 	private double leftKnobPos, rightKnobPos;
@@ -85,11 +87,9 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 		addCloseButtons();
 		textBox = addRenderableWidget(new EditBox(minecraft.font, leftPos + 15, topPos + 8, 88, 14, Component.empty()));
-		textBox.setValue(SpellBookItem.getSpell(getMenu().getSpellBook()).getName()); // TODO SpellBookItem.getSpell() returns air for some reason
-		addRenderableWidget(new UndoRedoButtonWidget((width - 48) / 2, topPos - 8, true, undoRedoStack, button -> undoRedoStack.undo()));
-		addRenderableWidget(new UndoRedoButtonWidget(width / 2, topPos - 8, false, undoRedoStack, button -> undoRedoStack.redo()));
+		textBox.setValue(SpellBookItem.getSpell(stack).getName()); // TODO SpellBookItem.getSpell() returns air for some reason
 
-		for(SpellGroup group : SpellBookItem.getSpell(getMenu().getSpellBook()).getComponentGroups()) {
+		for(SpellGroup group : SpellBookItem.getSpell(stack).getComponentGroups()) {
 			if(!group.isEmpty()) {
 				undoRedoStack.addAction(new Action(group.shape(), group.positions().get(0), () -> spellGroups.add(group), () -> spellGroups.remove(group))).Do().run();
 
@@ -107,6 +107,15 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 				}
 			}
 		}
+
+		addRenderableWidget(new UndoRedoButtonWidget((width - 48) / 2, topPos - 8, true, undoRedoStack, button -> {
+			undoRedoStack.undo();
+			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
+		}));
+		addRenderableWidget(new UndoRedoButtonWidget(width / 2, topPos - 8, false, undoRedoStack, button -> {
+			undoRedoStack.redo();
+			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
+		}));
 	}
 
 	@Override
@@ -211,6 +220,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 					action.Do().run();
 				}
+
 				if(draggedComponent instanceof SpellEffect effect && !spellGroups.isEmpty() && !ArcanusSpellComponents.EMPTY.is(spellGroups.getLast().shape())) {
 					Action action = undoRedoStack.addAction(new Action(draggedComponent, pos, () -> {
 						spellGroups.getLast().effects().add(effect);
@@ -222,6 +232,8 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 					action.Do().run();
 				}
+
+				Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
 			}
 
 			draggedComponent = ArcanusSpellComponents.EMPTY.get();
@@ -240,11 +252,12 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		if(textBox.isFocused()) {
 			if(keyCode == GLFW.GLFW_KEY_ESCAPE) {
 				textBox.setFocused(false);
+				Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
 				return false;
 			}
-			if(keyCode == GLFW.GLFW_KEY_E) {
+
+			if(keyCode == GLFW.GLFW_KEY_E)
 				return false;
-			}
 		}
 
 		return super.keyPressed(keyCode, scanCode, modifiers);
@@ -256,6 +269,16 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		spellGroups.clear();
 		spellShapeWidgets.clear();
 		spellEffectWidgets.clear();
+	}
+
+	@Override
+	public void onClose() {
+		Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
+		super.onClose();
+	}
+
+	public void setBook(ItemStack stack) {
+		this.stack = stack;
 	}
 
 	private void drawWidgets(GuiGraphics gui, int mouseX, int mouseY, float delta) {
@@ -438,12 +461,10 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 	protected void addCloseButtons() {
 		addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> {
-			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
 			onClose();
 		}).pos(width / 2 - 100, topPos + 170).size(98, 20).build());
 
 		addRenderableWidget(Button.builder(Component.translatable("lectern.take_book"), (button) -> {
-			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
 			minecraft.gameMode.handleInventoryButtonClick(menu.containerId, 0);
 			onClose();
 		}).pos(width / 2 + 2, topPos + 170).size(98, 20).build());
