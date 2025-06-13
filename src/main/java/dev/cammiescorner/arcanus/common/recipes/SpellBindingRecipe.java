@@ -33,14 +33,15 @@ public class SpellBindingRecipe extends CustomRecipe {
 
 		for(int i = 0; i < list.size(); ++i) {
 			ItemStack stack = input.getItem(i);
-			if(stack.is(ArcanusItemTags.CRAFTING_SPELLBINDING_SPELLBOOKS)) {
+
+			if(stack.is(ArcanusItemTags.CRAFTING_SPELLBINDING_SPELLBOOKS))
 				list.set(i, stack.copy());
-			}
 		}
 
 		return list;
 	}
 
+	// TODO isnt even running yay
 	@Override
 	public boolean matches(CraftingInput input, Level level) {
 		List<ItemStack> spellBooks = Lists.newArrayList();
@@ -51,9 +52,8 @@ public class SpellBindingRecipe extends CustomRecipe {
 
 			if(!stack.isEmpty()) {
 				if(stack.is(ArcanusItemTags.STAVES)) {
-					if(i != 4) {
+					if(i != 4)
 						return false;
-					}
 
 					result = stack.copy();
 				}
@@ -74,9 +74,8 @@ public class SpellBindingRecipe extends CustomRecipe {
 	public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
 		ItemStack result = input.getItem(4).copy();
 
-		if(!result.is(ArcanusItemTags.STAVES)) {
+		if(!result.is(ArcanusItemTags.STAVES))
 			return ItemStack.EMPTY;
-		}
 
 		List<Spell> list = result.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), new ArrayList<>());
 		Spell[] spells = new Spell[8];
