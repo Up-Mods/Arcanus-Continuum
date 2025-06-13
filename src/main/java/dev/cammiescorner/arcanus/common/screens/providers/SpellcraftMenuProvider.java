@@ -9,19 +9,16 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 public class SpellcraftMenuProvider implements MenuProvider {
 	private final Level level;
-	private final ItemStack stack;
 	private final BlockPos pos;
 	private final Container container;
 
-	public SpellcraftMenuProvider(Level level, ItemStack stack, BlockPos pos, Container container) {
+	public SpellcraftMenuProvider(Level level, BlockPos pos, Container container) {
 		this.level = level;
-		this.stack = stack;
 		this.pos = pos;
 		this.container = container;
 	}
@@ -33,6 +30,6 @@ public class SpellcraftMenuProvider implements MenuProvider {
 
 	@Override
 	public @Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-		return new SpellcraftMenu(i, container, pos, stack, ContainerLevelAccess.create(level, pos));
+		return new SpellcraftMenu(i, container, ContainerLevelAccess.create(level, pos));
 	}
 }

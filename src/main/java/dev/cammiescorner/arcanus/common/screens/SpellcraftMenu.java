@@ -1,28 +1,24 @@
 package dev.cammiescorner.arcanus.common.screens;
 
 import dev.cammiescorner.arcanus.common.registry.ArcanusMenus;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.LecternBlockEntity;
 
 public class SpellcraftMenu extends AbstractContainerMenu {
 	private final Container container;
 	private final ContainerLevelAccess access;
-	private final ItemStack stack;
-	private final BlockPos pos;
 
 	public SpellcraftMenu(int syncId, Container inventory) {
-		this(syncId, inventory, BlockPos.ZERO, ItemStack.EMPTY, ContainerLevelAccess.NULL);
+		this(syncId, inventory, ContainerLevelAccess.NULL);
 	}
 
-	public SpellcraftMenu(int syncId, Container container, BlockPos pos, ItemStack stack, ContainerLevelAccess access) {
+	public SpellcraftMenu(int syncId, Container container, ContainerLevelAccess access) {
 		super(ArcanusMenus.SPELLCRAFT_MENU.get(), syncId);
 		this.container = container;
-		this.stack = stack;
-		this.pos = pos;
 		this.access = access;
 	}
 
@@ -50,12 +46,13 @@ public class SpellcraftMenu extends AbstractContainerMenu {
 		return true;
 	}
 
-	public BlockPos getPos() {
-		return pos;
-	}
-
 	public ItemStack getSpellBook() {
-		return stack;
+		return access.evaluate((level, blockPos) -> {
+			if(level.getBlockEntity(blockPos) instanceof LecternBlockEntity lectern)
+				return lectern.getBook();
+
+			return ItemStack.EMPTY;
+		}).orElse(ItemStack.EMPTY);
 	}
 
 	public ContainerLevelAccess getAccess() {

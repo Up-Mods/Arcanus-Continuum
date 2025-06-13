@@ -45,7 +45,7 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 		inventoryLabelY = -10000;
 
 		addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> onClose()).pos(width / 2 - 49, topPos + 170).size(98, 20).build());
-		SPELL_GROUPS.addAll(SpellBookItem.getSpell(getMenu().getSpellBook()).getComponentGroups()); // TODO getSpellBook() is returning air for some reason
+		SPELL_GROUPS.addAll(SpellBookItem.getSpell(getMenu().getSpellBook()).getComponentGroups()); // TODO SpellBookItem.getSpell() returns air for some reason
 	}
 
 	@Override

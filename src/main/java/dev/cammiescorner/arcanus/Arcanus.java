@@ -94,7 +94,7 @@ public class Arcanus implements ModInitializer {
 		CommandRegistrationCallback.EVENT.register(ArcanusCommands::init);
 
 		RegisterCustomLecternMenuEvent.EVENT.register(event -> {
-			event.register((level, pos, player, blockEntity, stack) -> new SpellcraftMenuProvider(level, stack, pos, blockEntity.bookAccess), ArcanusItems.SPELL_BOOK);
+			event.register((level, pos, player, blockEntity, stack) -> new SpellcraftMenuProvider(level, pos, blockEntity.bookAccess), ArcanusItems.SPELL_BOOK);
 		});
 
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {

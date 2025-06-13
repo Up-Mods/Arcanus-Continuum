@@ -51,19 +51,19 @@ public class SpellPatternModel<T extends Player> extends HumanoidModel<T> {
 		PartDefinition root = modelData.getRoot().getChild("body");
 
 
-		PartDefinition base = root.addOrReplaceChild("base", CubeListBuilder.create(), PartPose.offset(0F, 0F, 0F));
+		PartDefinition base = root.addOrReplaceChild("base", CubeListBuilder.create(), PartPose.offset(0f, 0f, 0f));
 
-		PartDefinition first = base.addOrReplaceChild("first", CubeListBuilder.create(), PartPose.offset(0F, -6F, -8F));
-		PartDefinition left1 = first.addOrReplaceChild("left1", CubeListBuilder.create().texOffs(0, 0).addBox(-8.5F, -8.5F, 0F, 17F, 17F, 0F, new CubeDeformation(0F)), PartPose.offset(0F, 0F, 0F));
-		PartDefinition right1 = first.addOrReplaceChild("right1", CubeListBuilder.create().texOffs(0, 24).addBox(-8.5F, -8.5F, 0F, 17F, 17F, 0F, new CubeDeformation(0F)), PartPose.offset(0F, 0F, 0F));
+		PartDefinition first = base.addOrReplaceChild("first", CubeListBuilder.create(), PartPose.offset(0f, -6f, -8f));
+		PartDefinition left1 = first.addOrReplaceChild("left1", CubeListBuilder.create().texOffs(0, 0).addBox(-8.5f, -8.5f, 0f, 17f, 17f, 0f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition right1 = first.addOrReplaceChild("right1", CubeListBuilder.create().texOffs(0, 24).addBox(-8.5f, -8.5f, 0f, 17f, 17f, 0f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
 
-		PartDefinition second = base.addOrReplaceChild("second", CubeListBuilder.create(), PartPose.offset(0F, -6F, -11F));
-		PartDefinition left2 = second.addOrReplaceChild("left2", CubeListBuilder.create().texOffs(34, 0).addBox(-8.5F, -8.5F, 0F, 17F, 17F, 0F, new CubeDeformation(0F)), PartPose.offset(0F, 0F, 0F));
-		PartDefinition right2 = second.addOrReplaceChild("right2", CubeListBuilder.create().texOffs(34, 24).addBox(-8.5F, -8.5F, 0F, 17F, 17F, 0F, new CubeDeformation(0F)), PartPose.offset(0F, 0F, 0F));
+		PartDefinition second = base.addOrReplaceChild("second", CubeListBuilder.create(), PartPose.offset(0f, -6f, -11f));
+		PartDefinition left2 = second.addOrReplaceChild("left2", CubeListBuilder.create().texOffs(34, 0).addBox(-8.5f, -8.5f, 0f, 17f, 17f, 0f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition right2 = second.addOrReplaceChild("right2", CubeListBuilder.create().texOffs(34, 24).addBox(-8.5f, -8.5f, 0f, 17f, 17f, 0f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
 
-		PartDefinition third = base.addOrReplaceChild("third", CubeListBuilder.create(), PartPose.offset(0F, -6F, -14F));
-		PartDefinition left3 = third.addOrReplaceChild("left3", CubeListBuilder.create().texOffs(68, 0).addBox(-8.5F, -8.5F, 0F, 17F, 17F, 0F, new CubeDeformation(0F)), PartPose.offset(0F, 0F, 0F));
-		PartDefinition right3 = third.addOrReplaceChild("right3", CubeListBuilder.create().texOffs(68, 24).addBox(-8.5F, -8.5F, 0F, 17F, 17F, 0F, new CubeDeformation(0F)), PartPose.offset(0F, 0F, 0F));
+		PartDefinition third = base.addOrReplaceChild("third", CubeListBuilder.create(), PartPose.offset(0f, -6f, -14f));
+		PartDefinition left3 = third.addOrReplaceChild("left3", CubeListBuilder.create().texOffs(68, 0).addBox(-8.5f, -8.5f, 0f, 17f, 17f, 0f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition right3 = third.addOrReplaceChild("right3", CubeListBuilder.create().texOffs(68, 24).addBox(-8.5f, -8.5f, 0f, 17f, 17f, 0f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
 
 		return LayerDefinition.create(modelData, 128, 48);
 	}
@@ -71,16 +71,17 @@ public class SpellPatternModel<T extends Player> extends HumanoidModel<T> {
 	@Override
 	public void setupAnim(T player, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 		super.setupAnim(player, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+		float partialTick = client.getTimer().getGameTimeDeltaTicks();
+
 		base.y = 0;
 		base.x = 0;
 		base.z = 0;
-		// TODO spins super fast for some reason
-		first.zRot = (float) Math.toRadians((player.tickCount + player.getId() + client.getFrameTimeNs()) * 5);
-		second.zRot = (float) Math.toRadians((player.tickCount + player.getId() + client.getFrameTimeNs()) * -8);
-		third.zRot = (float) Math.toRadians((player.tickCount + player.getId() + client.getFrameTimeNs()) * 11);
+		first.zRot = (float) Math.toRadians((player.tickCount + player.getId() + partialTick) * 5);
+		second.zRot = (float) Math.toRadians((player.tickCount + player.getId() + partialTick) * -8);
+		third.zRot = (float) Math.toRadians((player.tickCount + player.getId() + partialTick) * 11);
 
 		if(player.isCrouching()) {
-			base.y = 4.2F;
+			base.y = 4.2f;
 
 			if(ArcanusComponents.isCasting(player) && player.getMainHandItem().getItem() instanceof StaffItem staff && staff.staffType == StaffType.STAFF) {
 				base.y = 8;

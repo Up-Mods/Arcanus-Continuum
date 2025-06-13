@@ -63,6 +63,6 @@ public class SpellBookItem extends Item {
 	}
 
 	public static Spell getSpell(ItemStack stack) {
-		return stack.get(ArcanusDataComponents.SPELL.get());
+		return stack.getOrDefault(ArcanusDataComponents.SPELL.get(), new Spell());
 	}
 }

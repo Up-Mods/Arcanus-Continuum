@@ -34,53 +34,52 @@ public class SpellPatternFeatureRenderer<T extends Player, M extends EntityModel
 	}
 
 	@Override
-	public void render(PoseStack matrices, MultiBufferSource vertices, int light, Player player, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
+	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, Player player, float limbAngle, float limbSwingAmount, float partialTick, float ageInTicks, float headYaw, float headPitch) {
 		ItemStack stack = player.getMainHandItem();
 		Color color = ArcanusHelper.getMagicColor(player);
 
 		model.showMagicCircles(ArcanusComponents.getPattern(player));
 
-		matrices.pushPose();
-		matrices.translate(0, 0.65, -0.35);
+		poseStack.pushPose();
+		poseStack.translate(0, 0.65, -0.35);
 
-		model.setupAnim(player, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+		model.setupAnim(player, limbAngle, limbSwingAmount, ageInTicks, headYaw, headPitch);
 		model.showMagicCircles(ArcanusComponents.getPattern(player));
 
 		if(ArcanusComponents.isCasting(player) && stack.getItem() instanceof StaffItem item) {
 			if(item.staffType == StaffType.STAFF) {
-				matrices.translate(player.getMainArm() == HumanoidArm.RIGHT ? -0.35 : 0.35, 0, 0.05);
-				matrices.mulPose(Axis.YP.rotationDegrees(player.getMainArm() == HumanoidArm.RIGHT ? 65 : -65));
+				poseStack.translate(player.getMainArm() == HumanoidArm.RIGHT ? -0.35 : 0.35, 0, 0.05);
+				poseStack.mulPose(Axis.YP.rotationDegrees(player.getMainArm() == HumanoidArm.RIGHT ? 65 : -65));
 			}
 			else if(item.staffType == StaffType.WAND) {
-				matrices.translate(player.getMainArm() == HumanoidArm.RIGHT ? -0.35 : 0.35, -0.05, -0.1);
+				poseStack.translate(player.getMainArm() == HumanoidArm.RIGHT ? -0.35 : 0.35, -0.05, -0.1);
 			}
 			else if(item.staffType == StaffType.GAUNTLET) {
-				matrices.translate(player.getMainArm() == HumanoidArm.RIGHT ? -0.35 : 0.35, -0.05, 0.4);
+				poseStack.translate(player.getMainArm() == HumanoidArm.RIGHT ? -0.35 : 0.35, -0.05, 0.4);
 			}
 			else if(item.staffType == StaffType.BOOK) {
-				matrices.translate(player.getMainArm() == HumanoidArm.RIGHT ? 0.35 : -0.35, -0.05, 0.4);
+				poseStack.translate(player.getMainArm() == HumanoidArm.RIGHT ? 0.35 : -0.35, -0.05, 0.4);
 			}
 			else if(item.staffType == StaffType.GUN) {
-				matrices.translate(0, -0.15, 0.15);
+				poseStack.translate(0, -0.15, 0.15);
 			}
 		}
 
-		// TODO moves super fast for some reason
-		matrices.pushPose();
-		matrices.translate(0, 0, Mth.sin((player.tickCount + player.getId() + client.getFrameTimeNs()) / (Mth.PI * 2)) * 0.05F);
-		model.first.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
-		matrices.popPose();
+		poseStack.pushPose();
+		poseStack.translate(0, 0, Mth.sin((player.tickCount + player.getId() + partialTick) / (Mth.PI * 2)) * 0.05f);
+		model.first.render(poseStack, bufferSource.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
+		poseStack.popPose();
 
-		matrices.pushPose();
-		matrices.translate(0, 0, Mth.cos((player.tickCount + player.getId() + client.getFrameTimeNs()) / (Mth.PI * 2)) * 0.05F);
-		model.second.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
-		matrices.popPose();
+		poseStack.pushPose();
+		poseStack.translate(0, 0, Mth.cos((player.tickCount + player.getId() + partialTick) / (Mth.PI * 2)) * 0.05f);
+		model.second.render(poseStack, bufferSource.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
+		poseStack.popPose();
 
-		matrices.pushPose();
-		matrices.translate(0, 0, Mth.sin((player.tickCount + player.getId() + client.getFrameTimeNs()) / (Mth.PI * 2)) * 0.05F);
-		model.third.render(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
-		matrices.popPose();
+		poseStack.pushPose();
+		poseStack.translate(0, 0, Mth.sin((player.tickCount + player.getId() + partialTick) / (Mth.PI * 2)) * 0.05f);
+		model.third.render(poseStack, bufferSource.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
+		poseStack.popPose();
 
-		matrices.popPose();
+		poseStack.popPose();
 	}
 }

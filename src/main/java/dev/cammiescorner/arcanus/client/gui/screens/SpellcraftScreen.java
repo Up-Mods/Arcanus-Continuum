@@ -85,7 +85,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 		addCloseButtons();
 		textBox = addRenderableWidget(new EditBox(minecraft.font, leftPos + 15, topPos + 8, 88, 14, Component.empty()));
-		textBox.setValue(SpellBookItem.getSpell(getMenu().getSpellBook()).getName());
+		textBox.setValue(SpellBookItem.getSpell(getMenu().getSpellBook()).getName()); // TODO SpellBookItem.getSpell() returns air for some reason
 		addRenderableWidget(new UndoRedoButtonWidget((width - 48) / 2, topPos - 8, true, undoRedoStack, button -> undoRedoStack.undo()));
 		addRenderableWidget(new UndoRedoButtonWidget(width / 2, topPos - 8, false, undoRedoStack, button -> undoRedoStack.redo()));
 
@@ -438,12 +438,12 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 	protected void addCloseButtons() {
 		addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> {
-			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().getPos(), getSpell()));
+			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
 			onClose();
 		}).pos(width / 2 - 100, topPos + 170).size(98, 20).build());
 
 		addRenderableWidget(Button.builder(Component.translatable("lectern.take_book"), (button) -> {
-			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().getPos(), getSpell()));
+			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
 			minecraft.gameMode.handleInventoryButtonClick(menu.containerId, 0);
 			onClose();
 		}).pos(width / 2 + 2, topPos + 170).size(98, 20).build());
