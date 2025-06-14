@@ -10,11 +10,15 @@ import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
 
+import java.util.List;
 import java.util.UUID;
+
+import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 public class ArcanusItems {
 	public static final RegistryHandler<CreativeModeTab> ITEM_GROUPS = RegistryHandler.create(Registries.CREATIVE_MODE_TAB, Arcanus.MOD_ID);
@@ -40,7 +44,7 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> BATTLE_MAGE_LEGGINGS = ITEMS.register("battle_mage_leggings", () -> new BattleMageArmorItem(ArcanusArmourMaterials.BATTLE_MAGE.holder(), ArmorItem.Type.LEGGINGS, 0.75, 0, 0.3, 0.1, 0));
 	public static final RegistrySupplier<Item> BATTLE_MAGE_BOOTS = ITEMS.register("battle_mage_boots", () -> new BattleMageArmorItem(ArcanusArmourMaterials.BATTLE_MAGE.holder(), ArmorItem.Type.BOOTS, 0.25, 0, 0.2, 0.05, 0));
 
-//	public static final RegistrySupplier<Item> BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE = ITEMS.register("battle_mage_upgrade_smithing_template", ArcanusItems::getBattleMageUpgrade);
+	public static final RegistrySupplier<Item> BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE = ITEMS.register("battle_mage_upgrade_smithing_template", ArcanusItems::getBattleMageUpgrade);
 	public static final RegistrySupplier<Item> SPELL_BOOK = ITEMS.register("spell_book", SpellBookItem::new);
 	public static final RegistrySupplier<Item> SCROLL_OF_KNOWLEDGE = ITEMS.register("scroll_of_knowledge", ScrollOfKnowledgeItem::new);
 	public static final RegistrySupplier<Item> WIZARD_SPAWN_EGG = ITEMS.register("wizard_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.WIZARD.get(), 0x52392a, 0xffd87c, new Item.Properties()));
@@ -83,7 +87,7 @@ public class ArcanusItems {
 		entries.accept(BATTLE_MAGE_CHESTPLATE.get());
 		entries.accept(BATTLE_MAGE_LEGGINGS.get());
 		entries.accept(BATTLE_MAGE_BOOTS.get());
-//		entries.accept(BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get());
+		entries.accept(BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get());
 		entries.accept(ArcanusBlocks.MAGIC_DOOR.get());
 		entries.accept(ArcanusBlocks.ARCANE_WORKBENCH.get());
 
@@ -91,15 +95,14 @@ public class ArcanusItems {
 		entries.accept(OPOSSUM_SPAWN_EGG.get());
 	}).build());
 
-	// TODO figure out how to construct a smithing template now
-//	private static SmithingTemplateItem getBattleMageUpgrade() {
-//		var appliesToText = Component.translatable("stack.arcanus.smithing_template.battle_mage_upgrade.applies_to").withStyle(ChatFormatting.BLUE);
-//		var ingredientsText = Component.translatable("stack.arcanus.smithing_template.battle_mage_upgrade.ingredients").withStyle(ChatFormatting.BLUE);
-//		var upgradeText = Component.translatable("upgrade.arcanus.battle_mage_upgrade").withStyle(ChatFormatting.GRAY);
-//		var baseSlotText = Component.translatable("stack.arcanus.smithing_template.battle_mage_upgrade.base_slot_description");
-//		var additionsSlotText = Component.translatable("stack.arcanus.smithing_template.battle_mage_upgrade.additions_slot_description");
-//		var baseIcons = SmithingTemplateItem.createTrimmableArmorIconList();
-//		var additionsIcons = List.of(SmithingTemplateItem.EMPTY_SLOT_AMETHYST_SHARD);
-//		return new SmithingTemplateItem(appliesToText, ingredientsText, upgradeText, baseSlotText, additionsSlotText, baseIcons, additionsIcons);
-//	}
+	private static SmithingTemplateItem getBattleMageUpgrade() {
+		var appliesToText = Component.translatable(BATTLE_MAGE_UPGRADE_APPLIES_TO).withStyle(ChatFormatting.BLUE);
+		var ingredientsText = Component.translatable(BATTLE_MAGE_UPGRADE_INGREDIENTS).withStyle(ChatFormatting.BLUE);
+		var upgradeText = Component.translatable(BATTLE_MAGE_UPGRADE).withStyle(ChatFormatting.GRAY);
+		var baseSlotText = Component.translatable(BATTLE_MAGE_UPGRADE_BASE_SLOT_DESC);
+		var additionsSlotText = Component.translatable(BATTLE_MAGE_UPGRADE_ADDITIONS_SLOT_DESC);
+		var baseIcons = SmithingTemplateItem.createTrimmableArmorIconList();
+		var additionsIcons = List.of(SmithingTemplateItem.EMPTY_SLOT_AMETHYST_SHARD);
+		return new SmithingTemplateItem(appliesToText, ingredientsText, upgradeText, baseSlotText, additionsSlotText, baseIcons, additionsIcons);
+	}
 }

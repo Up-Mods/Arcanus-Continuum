@@ -4,6 +4,7 @@ import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
@@ -27,24 +28,23 @@ public class ArcanusItemTagsProvider extends FabricTagProvider.ItemTagProvider {
 		getOrCreateTagBuilder(ItemTags.LECTERN_BOOKS)
 			.add(ArcanusItems.SPELL_BOOK.get());
 
-		// TODO tags that dont exist anymore or were renamed???
-//		getOrCreateTagBuilder(ItemTags.TOOLS)
-//			.addTag(ArcanusItemTags.STAVES);
-//
-//		getOrCreateTagBuilder(ArcanusItemTags.COPPER_CURSE_IMMUNE)
-//			.forceAddTag(ItemTags.TOOLS)
-//			.add(Items.FISHING_ROD)
-//			.forceAddTag(ConventionalItemTags.BOWS)
-//			.forceAddTag(ConventionalItemTags.SHIELDS)
-//			.forceAddTag(ConventionalItemTags.SPEARS)
-//			.forceAddTag(ConventionalItemTags.SHEARS)
-//			.forceAddTag(ItemTags.TRIMMABLE_ARMOR)
-//			.add(Items.ELYTRA)
-//			.forceAddTag(ItemTags.TRIM_TEMPLATES)
-//			.add(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
-//			.add(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get())
-//			.forceAddTag(ItemTags.DECORATED_POT_SHERDS)
-//			.addTag(ArcanusItemTags.WIZARD_ARMOR);
+		getOrCreateTagBuilder(ConventionalItemTags.TOOLS)
+			.addTag(ArcanusItemTags.STAVES);
+
+		getOrCreateTagBuilder(ArcanusItemTags.COPPER_CURSE_IMMUNE)
+			.forceAddTag(ConventionalItemTags.TOOLS)
+			.add(Items.FISHING_ROD)
+			.forceAddTag(ConventionalItemTags.BOW_TOOLS)
+			.forceAddTag(ConventionalItemTags.SHIELD_TOOLS)
+			.forceAddTag(ConventionalItemTags.SPEAR_TOOLS)
+			.forceAddTag(ConventionalItemTags.SHEAR_TOOLS)
+			.forceAddTag(ItemTags.TRIMMABLE_ARMOR)
+			.add(Items.ELYTRA)
+			.forceAddTag(ItemTags.TRIM_TEMPLATES)
+			.add(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
+			.add(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get())
+			.forceAddTag(ItemTags.DECORATED_POT_SHERDS)
+			.addTag(ArcanusItemTags.WIZARD_ARMOR);
 
 		getOrCreateTagBuilder(ArcanusItemTags.CRAFTING_SPELLBINDING_SPELLBOOKS)
 			.add(ArcanusItems.SPELL_BOOK.get());
