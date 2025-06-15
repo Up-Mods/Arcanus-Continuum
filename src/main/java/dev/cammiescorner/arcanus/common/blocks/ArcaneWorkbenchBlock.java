@@ -41,7 +41,7 @@ public class ArcaneWorkbenchBlock extends HorizontalDirectionalBlock implements 
 	);
 
 	public ArcaneWorkbenchBlock() {
-		super(Properties.of().mapColor(DyeColor.RED).strength(2F, 3F).lightLevel(value -> 12).noOcclusion().randomTicks());
+		super(Properties.of().mapColor(DyeColor.RED).strength(2f, 3f).lightLevel(value -> 12).noOcclusion().randomTicks());
 		registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH));
 	}
 
@@ -73,14 +73,14 @@ public class ArcaneWorkbenchBlock extends HorizontalDirectionalBlock implements 
 		for(Vec3 vec3d : vec3ds) {
 			Vec3 pos = vec3d.add(d);
 
-			if(f < 0.3F)
+			if(f < 0.3f)
 				world.addParticle(ParticleTypes.SMOKE, pos.x, pos.y, pos.z, 0.0, 0.0, 0.0);
 
 			world.addParticle(ParticleTypes.SMALL_FLAME, pos.x, pos.y, pos.z, 0, 0, 0);
 		}
 
-		if(f < 0.17F)
-			world.playLocalSound(blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5, SoundEvents.CANDLE_AMBIENT, SoundSource.BLOCKS, 1F + random.nextFloat(), random.nextFloat() * 0.7F + 0.3F, false);
+		if(f < 0.17f)
+			world.playLocalSound(blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5, SoundEvents.CANDLE_AMBIENT, SoundSource.BLOCKS, 1f + random.nextFloat(), random.nextFloat() * 0.7f + 0.3f, false);
 	}
 
 	@Override

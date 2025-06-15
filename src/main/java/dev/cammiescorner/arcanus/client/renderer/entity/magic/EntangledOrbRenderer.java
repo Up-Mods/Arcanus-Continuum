@@ -30,12 +30,12 @@ public class EntangledOrbRenderer extends EntityRenderer<EntangledOrb> {
 
 		matrices.pushPose();
 		matrices.translate(0, 0.2, 0);
-		model.cube1.xRot = (entity.tickCount + tickDelta) * 0.1F;
-		model.cube1.yRot = (entity.tickCount + tickDelta) * 0.1F;
-		model.cube2.yRot = -(entity.tickCount + tickDelta) * 0.125F;
-		model.cube2.zRot = -(entity.tickCount + tickDelta) * 0.125F;
-		model.cube3.zRot = (entity.tickCount + tickDelta) * 0.15F;
-		model.cube3.xRot = (entity.tickCount + tickDelta) * 0.15F;
+		model.cube1.xRot = (entity.tickCount + tickDelta) * 0.1f;
+		model.cube1.yRot = (entity.tickCount + tickDelta) * 0.1f;
+		model.cube2.yRot = -(entity.tickCount + tickDelta) * 0.125f;
+		model.cube2.zRot = -(entity.tickCount + tickDelta) * 0.125f;
+		model.cube3.zRot = (entity.tickCount + tickDelta) * 0.15f;
+		model.cube3.xRot = (entity.tickCount + tickDelta) * 0.15f;
 		model.renderToBuffer(matrices, consumer, light, OverlayTexture.NO_OVERLAY, color.asIntARGB());
 		matrices.popPose();
 	}

@@ -45,7 +45,7 @@ public class WizardHeldItemFeatureRenderer<T extends Wizard, M extends EntityMod
 		modelPart.xRot = pitch;
 		CustomHeadLayer.translateToHead(matrices, false);
 		boolean bl = arm == HumanoidArm.LEFT;
-		matrices.translate((bl ? -2.5F : 2.5F) / 16F, -0.0625, 0);
+		matrices.translate((bl ? -2.5f : 2.5f) / 16f, -0.0625, 0);
 		itemRenderer.renderItem(entity, stack, ItemDisplayContext.HEAD, false, matrices, vertexConsumers, light);
 		matrices.popPose();
 	}

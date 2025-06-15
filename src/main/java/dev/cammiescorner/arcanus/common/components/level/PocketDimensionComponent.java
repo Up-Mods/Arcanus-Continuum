@@ -195,7 +195,7 @@ public class PocketDimensionComponent implements org.ladysnake.cca.api.v3.compon
 		Preconditions.checkArgument(ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.pocketHeight >= 2, "Pocket dimension plots must be at least 1x2, height is too small. Please fix the config values!");
 		var pocketWidth = ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.pocketWidth;
 		var pocketHeight = ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.pocketHeight;
-		var halfWidth = Mth.ceil(pocketWidth / 2.0F);
+		var halfWidth = Mth.ceil(pocketWidth / 2f);
 
 		final BoundingBox originalBox = new BoundingBox(0, 0, 0, pocketWidth + 1, pocketHeight + 1, pocketWidth + 1).moved(-halfWidth, 0, -halfWidth);
 

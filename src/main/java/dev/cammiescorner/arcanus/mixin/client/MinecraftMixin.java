@@ -97,7 +97,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 		if((!isCasting() || ArcanusComponents.getMana(player) <= 0) && ArcanusComponents.isCasting(player))
 			Network.getNetworkHandler().sendToServer(new ServerboundIsCastingPacket(false));
 
-		if(timer > 0 && player.getAttackStrengthScale(getFrameTimeNs()) == 1F && player.getCooldowns().getCooldownPercent(stack.getItem(), getFrameTimeNs()) == 0)
+		if(timer > 0 && player.getAttackStrengthScale(getFrameTimeNs()) == 1f && player.getCooldowns().getCooldownPercent(stack.getItem(), getFrameTimeNs()) == 0)
 			timer--;
 	}
 
@@ -127,13 +127,13 @@ public abstract class MinecraftMixin implements ClientUtils {
 
 		if(player != null && !player.isSpectator() && level != null) {
 			if(player.getMainHandItem().getItem() instanceof StaffItem staff) {
-				if(player.getAttackStrengthScale(getFrameTimeNs()) >= (((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15F) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
+				if(player.getAttackStrengthScale(getFrameTimeNs()) >= (((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15f) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
 					timer = 20;
 					patterns.add(Pattern.LEFT);
 					Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns));
 					player.swing(InteractionHand.MAIN_HAND);
 					player.resetAttackStrengthTicker();
-					player.level().playSeededSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundSource.PLAYERS, 1F, 1.3F, 1L);
+					player.level().playSeededSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundSource.PLAYERS, 1f, 1.3f, 1L);
 
 					if(patterns.size() >= 3)
 						lastMouseDown = options.keyAttack;
@@ -162,13 +162,13 @@ public abstract class MinecraftMixin implements ClientUtils {
 			info.cancel();
 
 		if(player != null && !player.isSpectator() && level != null && player.getMainHandItem().getItem() instanceof StaffItem staff) {
-			if(player.getAttackStrengthScale(getFrameTimeNs()) >= (((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15F) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
+			if(player.getAttackStrengthScale(getFrameTimeNs()) >= (((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15f) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
 				timer = 20;
 				patterns.add(Pattern.RIGHT);
 				Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns));
 				player.swing(InteractionHand.MAIN_HAND);
 				player.resetAttackStrengthTicker();
-				player.level().playSeededSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundSource.PLAYERS, 1F, 1.1F, 1L);
+				player.level().playSeededSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundSource.PLAYERS, 1f, 1.1f, 1L);
 
 				if(patterns.size() >= 3)
 					lastMouseDown = options.keyUse;
@@ -199,7 +199,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 			if(entity instanceof Aggressorb orb && orbIds.get(0).equals(entity.getUUID()) && orb.isBoundToTarget()) {
 				orb.setBoundToTarget(false);
 				orb.setPos(orb.getTarget().getEyePosition());
-				orb.shootFromRotation(orb.getTarget(), orb.getTarget().getXRot(), orb.getTarget().getYRot(), 0F, ArcanusConfig.SpellShapes.AggressorbShapeProperties.projectileSpeed, 1F);
+				orb.shootFromRotation(orb.getTarget(), orb.getTarget().getXRot(), orb.getTarget().getYRot(), 0f, ArcanusConfig.SpellShapes.AggressorbShapeProperties.projectileSpeed, 1f);
 
 				break;
 			}

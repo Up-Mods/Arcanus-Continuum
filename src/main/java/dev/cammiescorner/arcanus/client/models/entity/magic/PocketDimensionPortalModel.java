@@ -24,10 +24,10 @@ public class PocketDimensionPortalModel extends EntityModel<Entity> {
 		MeshDefinition data = new MeshDefinition();
 		PartDefinition root = data.getRoot();
 
-		PartDefinition box = root.addOrReplaceChild("box", CubeListBuilder.create().texOffs(4, 5).addBox(-24.0F, -32.0F, -24.0F, 48.0F, 32.0F, 48.0F, new CubeDeformation(0.0F))
-			.texOffs(0, 85).addBox(-25.0F, -32.0F, -25.0F, 50.0F, 33.0F, 50.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
+		PartDefinition box = root.addOrReplaceChild("box", CubeListBuilder.create().texOffs(4, 5).addBox(-24f, -32f, -24f, 48f, 32f, 48f, new CubeDeformation(0f))
+			.texOffs(0, 85).addBox(-25f, -32f, -25f, 50f, 33f, 50f, new CubeDeformation(0f)), PartPose.offset(0f, 24f, 0f));
 
-		PartDefinition skybox = root.addOrReplaceChild("skybox", CubeListBuilder.create().texOffs(0, 192).addBox(-32.0F, 1.25F, -32.0F, 64.0F, 0.0F, 64.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
+		PartDefinition skybox = root.addOrReplaceChild("skybox", CubeListBuilder.create().texOffs(0, 192).addBox(-32f, 1.25f, -32f, 64f, 0f, 64f, new CubeDeformation(0f)), PartPose.offset(0f, 24f, 0f));
 
 		return LayerDefinition.create(data, 256, 320);
 	}

@@ -42,14 +42,14 @@ public abstract class ItemInHandRendererMixin {
 			double time = minecraft.player.tickCount + tickDelta;
 
 			if(item.staffType == StaffType.STAFF) {
-				matrices.mulPose(Axis.XP.rotationDegrees(-65F));
+				matrices.mulPose(Axis.XP.rotationDegrees(-65f));
 				matrices.mulPose(Axis.YP.rotationDegrees((float) Math.cos(time * 0.25)));
-				matrices.mulPose(Axis.ZP.rotationDegrees(20F + (float) Math.sin(time * 0.25)));
+				matrices.mulPose(Axis.ZP.rotationDegrees(20f + (float) Math.sin(time * 0.25)));
 				matrices.translate(0.1, 1.2, -0.4);
 			}
 			else if(item.staffType == StaffType.BOOK && (!ArcanusClient.FIRST_PERSON_MODEL_ENABLED.getAsBoolean() || ArcanusClient.FIRST_PERSON_SHOW_HANDS.getAsBoolean())) {
 				float swingProgress = player.getAttackAnim(tickDelta);
-				float equipProgress = 1F - Mth.lerp(tickDelta, oMainHandHeight, mainHandHeight);
+				float equipProgress = 1f - Mth.lerp(tickDelta, oMainHandHeight, mainHandHeight);
 
 				matrices.pushPose();
 				matrices.mulPose(Axis.YP.rotationDegrees((float) Math.cos(time * 0.25)));
@@ -58,9 +58,9 @@ public abstract class ItemInHandRendererMixin {
 				matrices.popPose();
 			}
 			else if(item.staffType == StaffType.WAND) {
-				matrices.mulPose(Axis.XP.rotationDegrees(-65F));
+				matrices.mulPose(Axis.XP.rotationDegrees(-65f));
 				matrices.mulPose(Axis.YP.rotationDegrees((float) Math.cos(time * 0.25)));
-				matrices.mulPose(Axis.ZP.rotationDegrees(20F + (float) Math.sin(time * 0.25)));
+				matrices.mulPose(Axis.ZP.rotationDegrees(20f + (float) Math.sin(time * 0.25)));
 				matrices.translate(0.1, 1, -0.4);
 			}
 			else if(item.staffType == StaffType.GAUNTLET) {

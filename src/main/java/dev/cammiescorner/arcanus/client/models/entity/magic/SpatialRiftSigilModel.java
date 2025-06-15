@@ -21,7 +21,7 @@ public class SpatialRiftSigilModel extends EntityModel<Entity> {
 	public static LayerDefinition getTexturedModelData() {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();
-		PartDefinition sigil = modelPartData.addOrReplaceChild("sigil", CubeListBuilder.create().texOffs(-64, 0).addBox(-32.0F, 0.0F, -32.0F, 64.0F, 0.0F, 64.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
+		PartDefinition sigil = modelPartData.addOrReplaceChild("sigil", CubeListBuilder.create().texOffs(-64, 0).addBox(-32f, 0f, -32f, 64f, 0f, 64f, new CubeDeformation(0f)), PartPose.offset(0f, 24f, 0f));
 		return LayerDefinition.create(modelData, 128, 64);
 	}
 

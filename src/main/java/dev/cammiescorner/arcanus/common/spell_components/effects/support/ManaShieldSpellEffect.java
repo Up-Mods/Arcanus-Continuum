@@ -42,7 +42,7 @@ public class ManaShieldSpellEffect extends SpellEffect {
 			ManaShield manaShield = ArcanusEntities.MANA_SHIELD.get().create(level);
 
 			if(manaShield != null) {
-				manaShield.setProperties(caster.getUUID(), target.getLocation().add(0.0D, -0.7D, 0.0D), (int) ((ArcanusConfig.SupportEffects.ManaShieldEffectProperties.baseLifeSpan + ArcanusConfig.SupportEffects.ManaShieldEffectProperties.lifeSpanModifier * (effects.stream().filter(ArcanusSpellComponents.MANA_SHIELD::is).count() - 1)) * potency));
+				manaShield.setProperties(caster.getUUID(), target.getLocation().add(0d, -0.7d, 0d), (int) ((ArcanusConfig.SupportEffects.ManaShieldEffectProperties.baseLifeSpan + ArcanusConfig.SupportEffects.ManaShieldEffectProperties.lifeSpanModifier * (effects.stream().filter(ArcanusSpellComponents.MANA_SHIELD::is).count() - 1)) * potency));
 				ArcanusHelper.copyMagicColor(manaShield, caster);
 				level.addFreshEntity(manaShield);
 			}

@@ -43,7 +43,7 @@ public class MagicRuneRenderer extends EntityRenderer<MagicRune> {
 	public void render(MagicRune entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
 		super.render(entity, yaw, tickDelta, matrices, vertices, light);
 		Color color = ArcanusHelper.getMagicColor(entity);
-		float alpha = keyFrames[entity.tickCount % keyFrames.length] / 16F;
+		float alpha = keyFrames[entity.tickCount % keyFrames.length] / 16f;
 		float r = color.redF() * alpha;
 		float g = color.greenF() * alpha;
 		float b = color.blueF() * alpha;

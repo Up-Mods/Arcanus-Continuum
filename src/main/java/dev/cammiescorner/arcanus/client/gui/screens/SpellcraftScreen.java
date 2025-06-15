@@ -16,6 +16,7 @@ import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundSaveBo
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanus.common.screens.SpellcraftMenu;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -87,7 +88,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 		addCloseButtons();
 		textBox = addRenderableWidget(new EditBox(minecraft.font, leftPos + 15, topPos + 8, 88, 14, Component.empty()));
-		textBox.setValue(SpellBookItem.getSpell(stack).getName()); // TODO SpellBookItem.getSpell() returns air for some reason
+		textBox.setValue(SpellBookItem.getSpell(stack).getName());
 
 		for(SpellGroup group : SpellBookItem.getSpell(stack).getComponentGroups()) {
 			if(!group.isEmpty()) {
@@ -108,19 +109,13 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 			}
 		}
 
-		addRenderableWidget(new UndoRedoButtonWidget((width - 48) / 2, topPos - 8, true, undoRedoStack, button -> {
-			undoRedoStack.undo();
-			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
-		}));
-		addRenderableWidget(new UndoRedoButtonWidget(width / 2, topPos - 8, false, undoRedoStack, button -> {
-			undoRedoStack.redo();
-			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
-		}));
+		addRenderableWidget(new UndoRedoButtonWidget((width - 48) / 2, topPos - 8, true, undoRedoStack, button -> undoRedoStack.undo()));
+		addRenderableWidget(new UndoRedoButtonWidget(width / 2, topPos - 8, false, undoRedoStack, button -> undoRedoStack.redo()));
 	}
 
 	@Override
 	protected void renderBg(GuiGraphics gui, float delta, int mouseX, int mouseY) {
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 		gui.blit(BOOK_TEXTURE, leftPos, topPos, 0, 0, 256, 180, 256, 256);
 
 		RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
@@ -133,7 +128,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		Rectangle rightKnob = getRightScrollKnob();
 
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 		RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
 
 		gui.blit(PANEL_TEXTURE, leftKnob.x(), leftKnob.y(), draggingLeft ? 12 : 0, 184, leftKnob.width(), leftKnob.height(), 384, 256);
@@ -152,7 +147,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 			if(leftScroll < spellShapes.size() * 2 - 12 && scrollY < 0)
 				leftScroll++;
 
-			leftKnobPos = leftScroll * (148F / (spellShapes.size() * 2 - 12));
+			leftKnobPos = leftScroll * (148f / (spellShapes.size() * 2 - 12));
 		}
 
 		if(isHovering(260, 1, 58, 178, mouseX, mouseY)) {
@@ -161,7 +156,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 			if(rightScroll < spellEffects.size() * 2 - 12 && scrollY < 0)
 				rightScroll++;
 
-			rightKnobPos = rightScroll * (148F / (spellEffects.size() * 2 - 12));
+			rightKnobPos = rightScroll * (148f / (spellEffects.size() * 2 - 12));
 		}
 
 		return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
@@ -252,7 +247,6 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		if(textBox.isFocused()) {
 			if(keyCode == GLFW.GLFW_KEY_ESCAPE) {
 				textBox.setFocused(false);
-				Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
 				return false;
 			}
 
@@ -273,12 +267,34 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 	@Override
 	public void onClose() {
+		// TODO only syncs correctly 50% of the time for some reason
 		Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
 		super.onClose();
 	}
 
 	public void setBook(ItemStack stack) {
 		this.stack = stack;
+		textBox.setValue(SpellBookItem.getSpell(stack).getName());
+		spellGroups.clear();
+
+		for(SpellGroup group : SpellBookItem.getSpell(stack).getComponentGroups()) {
+			if(!group.isEmpty()) {
+				undoRedoStack.addAction(new Action(group.shape(), group.positions().get(0), () -> spellGroups.add(group), () -> spellGroups.remove(group))).Do().run();
+
+				for(int i = 0; i < group.effects().size(); i++) {
+					SpellEffect effect = group.effects().get(i);
+					Vector2i pos = group.positions().get(i + 1);
+
+					undoRedoStack.addAction(new Action(effect, pos, () -> {
+						group.effects().add(effect);
+						group.positions().add(pos);
+					}, () -> {
+						group.effects().remove(effect);
+						group.positions().remove(pos);
+					}));
+				}
+			}
+		}
 	}
 
 	private void drawWidgets(GuiGraphics gui, int mouseX, int mouseY, float delta) {
@@ -293,7 +309,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 			widget.setY(8 + (i * 28) - leftScroll * 14);
 			widget.render(gui, mouseX - leftPos, mouseY - topPos, delta);
 
-			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+			RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
 			if(widget.isHoveredOrFocused())
 				gui.blit(PANEL_TEXTURE, widget.getX() - 3, widget.getY() - 3, 0, 208, 30, 30, 384, 256);
@@ -309,7 +325,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 			widget.setY(8 + (i * 28) - rightScroll * 14);
 			widget.render(gui, mouseX - leftPos, mouseY - topPos, delta);
 
-			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+			RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
 			if(widget.isHoveredOrFocused())
 				gui.blit(PANEL_TEXTURE, widget.getX() - 3, widget.getY() - 3, 0, 208, 30, 30, 384, 256);
@@ -317,11 +333,12 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 		RenderSystem.disableScissor();
 
+		// TODO doesn't draw the lines between components for some reason
 		for(int i = 0; i < spellGroups.size(); i++) {
 			SpellGroup group = spellGroups.get(i);
 			List<Vector2i> positions = group.positions();
 			RenderSystem.setShader(GameRenderer::getPositionColorShader);
-			RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
+			RenderSystem.setShaderColor(0.25f, 0.25f, 0.3f, 1f);
 			BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 			matrices.pushPose();
 			matrices.translate(12, 12, 0);
@@ -367,10 +384,10 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 			for(int j = 0; j < positions.size(); j++) {
 				Vector2i pos = positions.get(j);
-				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+				RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 				gui.blit(PANEL_TEXTURE, pos.x - 3, pos.y - 3, 60, 208, 30, 30, 384, 256);
 
-				RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
+				RenderSystem.setShaderColor(0.25f, 0.25f, 0.3f, 1f);
 				gui.blit(PANEL_TEXTURE, pos.x - 3, pos.y - 3, 30, 208, 30, 30, 384, 256);
 
 				gui.blit(group.getAllComponents().toList().get(j).getTexture(), pos.x, pos.y, 0, 0, 24, 24, 24, 24);
@@ -383,21 +400,21 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 			if((isHovering(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) && (!(draggedComponent instanceof SpellEffect) || (!spellGroups.isEmpty() && !spellGroups.getLast().isEmpty())))
 				colour = 0x00ff00;
 
-			float r = (colour >> 16 & 255) / 255F;
-			float g = (colour >> 8 & 255) / 255F;
-			float b = (colour & 255) / 255F;
+			float r = (colour >> 16 & 255) / 255f;
+			float g = (colour >> 8 & 255) / 255f;
+			float b = (colour & 255) / 255f;
 
-			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+			RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 			gui.blit(PANEL_TEXTURE, mouseX - leftPos - 15, mouseY - topPos - 15, 60, 208, 30, 30, 384, 256);
 
-			RenderSystem.setShaderColor(r, g, b, 1F);
+			RenderSystem.setShaderColor(r, g, b, 1f);
 			gui.blit(PANEL_TEXTURE, mouseX - leftPos - 15, mouseY - topPos - 15, 30, 208, 30, 30, 384, 256);
 
-			RenderSystem.setShaderColor(r, g, b, 1F);
+			RenderSystem.setShaderColor(r, g, b, 1f);
 			gui.blit(draggedComponent.getTexture(), mouseX - leftPos - 12, mouseY - topPos - 12, 0, 0, 24, 24, 24, 24);
 		}
 
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
 		int componentCount = spellComponentCount();
 		int maxComponents = ArcanusComponents.maxSpellSize(minecraft.player);
@@ -413,16 +430,16 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		gui.drawString(font, " / ", 128 - font.width(" / ") / 2, 11, 0x555555, false);
 		gui.drawString(font, maxSpellComponentCount, 138 - font.width(maxSpellComponentCount) / 2, 11, componentCounterColour, false);
 
-		MutableComponent weight = Component.translatable("spell_book.arcanus.weight." + getWeight().toString().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.DARK_GREEN);
+		MutableComponent weight = Component.translatable(getWeight().translationKey()).withStyle(ChatFormatting.DARK_GREEN);
 		MutableComponent mana = Component.literal(Arcanus.format(getManaCost())).withStyle(ChatFormatting.BLUE);
-		MutableComponent coolDown = Component.literal(Arcanus.format(getCoolDown() / 20D)).append(Component.translatable("spell_book.arcanus.seconds")).withStyle(ChatFormatting.RED);
+		MutableComponent coolDown = Component.literal(Arcanus.format(getCoolDown() / 20d) + "s").withStyle(ChatFormatting.RED);
 
 		gui.drawString(font, weight, 240 - font.width(weight), 7, 0xffffff, false);
 		gui.drawString(font, mana, 240 - font.width(mana), 17, 0xffffff, false);
 		gui.drawString(font, coolDown, 240 - font.width(coolDown), 27, 0xffffff, false);
 
 		if(isHovering(109, 8, font.width("12 / 12"), font.lineHeight + 4, mouseX, mouseY))
-			gui.renderTooltip(font, Component.translatable("screen.arcanus.tooltip.component_count"), mouseX - leftPos, mouseY - topPos);
+			gui.renderTooltip(font, Component.translatable(TranslationKeys.SCREEN_SPELL_COMPONENT_COUNT), mouseX - leftPos, mouseY - topPos);
 
 		for(SpellComponentWidget widget : spellShapeWidgets)
 			if(widget.isHoveredOrFocused())
@@ -440,6 +457,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 					List<Component> textList = new ArrayList<>();
 					SpellComponent component = group.getAllComponents().toList().get(i);
 
+					// TODO do all the translation stuff
 					textList.add(component.getName());
 					textList.add(Component.translatable("spell_book.arcanus.weight").append(": ").withStyle(ChatFormatting.GREEN).append(Component.translatable("spell_book.arcanus.weight", component.getWeight().toString().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.GRAY)));
 					textList.add(Component.translatable("spell_book.arcanus.mana_cost").append(": ").withStyle(ChatFormatting.BLUE).append(Component.literal(component.getManaCostAsString()).withStyle(ChatFormatting.GRAY)));
@@ -451,7 +469,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 							textList.add(Component.translatable("spell_book.arcanus.potency_modifier").append(": ").withStyle(ChatFormatting.YELLOW).append(Component.literal(shape.getPotencyModifierAsString()).withStyle(ChatFormatting.GRAY)));
 					}
 
-					textList.add(Component.translatable("spell_book.arcanus.cool_down").append(": ").withStyle(ChatFormatting.RED).append(Component.literal(component.getCoolDownAsString()).append(Component.translatable("spell_book.arcanus.seconds")).withStyle(ChatFormatting.GRAY)));
+					textList.add(Component.translatable("spell_book.arcanus.cool_down").append(": ").withStyle(ChatFormatting.RED).append(Component.literal(component.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)));
 
 					gui.renderComponentTooltip(font, textList, mouseX - leftPos, mouseY - topPos);
 				}

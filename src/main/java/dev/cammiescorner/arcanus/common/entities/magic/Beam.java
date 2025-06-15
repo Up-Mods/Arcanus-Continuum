@@ -42,7 +42,7 @@ public class Beam extends Entity implements Targetable {
 	private UUID casterId = Util.NIL_UUID;
 	private ItemStack stack = ItemStack.EMPTY;
 	private int groupIndex = 0;
-	private double potency = 1F;
+	private double potency = 1f;
 
 	public Beam(EntityType<?> variant, Level world) {
 		super(variant, world);

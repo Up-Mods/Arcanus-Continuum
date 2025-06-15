@@ -199,7 +199,7 @@ public class ArcanusClient implements ClientModInitializer {
 
 					if(!ArcanusComponents.isOwnerOfBlock(player, hitResult.getBlockPos()) || hitTimer > 0) {
 						BlockPos blockPos = hitResult.getBlockPos();
-						float alpha = Mth.clamp(hitTimer / 20f, 0.0F, 1.0F);
+						float alpha = Mth.clamp(hitTimer / 20f, 0f, 1f);
 
 						renderWardedBlock(matrices, vertices, world, cameraPos, blockPos, alpha);
 						player.displayClientMessage(Component.translatable("text.arcanus.block_is_warded").withStyle(ChatFormatting.RED), true);
@@ -239,9 +239,9 @@ public class ArcanusClient implements ClientModInitializer {
 
 				if(stunTimer > 0) {
 					if(stunTimer > 5)
-						renderOverlay(STUN_OVERLAY, Math.min(1F, 0.5F + (stunTimer % 5F) / 10F));
+						renderOverlay(STUN_OVERLAY, Math.min(1f, 0.5f + (stunTimer % 5f) / 10f));
 					else
-						renderOverlay(STUN_OVERLAY, Math.min(1F, stunTimer / 5F));
+						renderOverlay(STUN_OVERLAY, Math.min(1f, stunTimer / 5f));
 				}
 
 				if(!client.gameRenderer.getMainCamera().isDetached() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean()) {
@@ -252,9 +252,9 @@ public class ArcanusClient implements ClientModInitializer {
 						RenderType renderLayer = getMagicCircles(MAGIC_CIRCLES);
 						VertexConsumer vertex = vertices.getBuffer(renderLayer);
 						Color color = ArcanusHelper.getMagicColor(player);
-						float x = client.getWindow().getGuiScaledWidth() / 2F;
-						float y = client.getWindow().getGuiScaledHeight() / 2F;
-						float scale = 3F;
+						float x = client.getWindow().getGuiScaledWidth() / 2f;
+						float y = client.getWindow().getGuiScaledHeight() / 2f;
+						float scale = 3f;
 
 						matrices.pushPose();
 						matrices.translate(x, y, 0);
@@ -293,10 +293,10 @@ public class ArcanusClient implements ClientModInitializer {
 					int x = 0;
 					int y = client.getWindow().getGuiScaledHeight() - 28;
 					int width = 96;
-					float alpha = hudTimer > 20 ? 1F : hudTimer / 20F;
+					float alpha = hudTimer > 20 ? 1f : hudTimer / 20f;
 
 					RenderSystem.enableBlend();
-					RenderSystem.setShaderColor(1F, 1F, 1F, alpha);
+					RenderSystem.setShaderColor(1f, 1f, 1f, alpha);
 
 					// render frame
 					gui.blit(HUD_ELEMENTS, x, y, 0, 0, 101, 28, 256, 256);
@@ -313,7 +313,7 @@ public class ArcanusClient implements ClientModInitializer {
 					gui.blit(HUD_ELEMENTS, x + (width - i), y + 5, width - i, 80, i, 23, 256, 256);
 
 					RenderSystem.disableBlend();
-					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+					RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 				}
 			}
 		});
@@ -340,7 +340,7 @@ public class ArcanusClient implements ClientModInitializer {
 
 		for(int i = currentStep; i < steps; i++) {
 			Vec3 randomOffset = new Vec3(random.nextGaussian(), random.nextIntBetweenInclusive(-1 / (steps * 2), 1 / (steps * 2)), random.nextGaussian());
-			Vec3 nextPos = startPos.add(direction.scale((i + 1) / (float) steps)).add(randomOffset.scale(1 / 12F));
+			Vec3 nextPos = startPos.add(direction.scale((i + 1) / (float) steps)).add(randomOffset.scale(1 / 12f));
 
 			for(int j = 0; j < 4; j++) {
 				Vec3 vert1 = switch(j) {
@@ -379,9 +379,9 @@ public class ArcanusClient implements ClientModInitializer {
 				vertex.addVertex(modelMatrix, (float) vert1.x(), (float) vert1.y(), (float) vert1.z()).setColor(r, g, b, 0.6f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), (float) normal.x(), (float) normal.y(), (float) normal.z());
 			}
 
-			while(recurse && random.nextFloat() < 0.2F) {
+			while(recurse && random.nextFloat() < 0.2f) {
 				Vec3 randomOffset1 = new Vec3(random.nextGaussian(), random.nextGaussian(), random.nextGaussian());
-				renderBolt(matrices, vertex, random, lastPos, endPos.add(randomOffset1.scale(Math.min(random.nextFloat(), 0.6F))), steps, i + 1, false, r, g, b, overlay, light);
+				renderBolt(matrices, vertex, random, lastPos, endPos.add(randomOffset1.scale(Math.min(random.nextFloat(), 0.6f))), steps, i + 1, false, r, g, b, overlay, light);
 			}
 
 			lastPos = nextPos;
@@ -402,9 +402,9 @@ public class ArcanusClient implements ClientModInitializer {
 		int light = world.getMaxLocalRawBrightness(blockPos);
 		int overlay = OverlayTexture.NO_OVERLAY;
 		Color color = ArcanusHelper.getMagicColor(ArcanusComponents.getWardedBlocks(world.getChunk(blockPos)).get(blockPos));
-		float r = Mth.clamp(color.redF() * alpha, 0.0F, 1.0F);
-		float g = Mth.clamp(color.greenF() * alpha, 0.0F, 1.0F);
-		float b = Mth.clamp(color.blueF() * alpha, 0.0F, 1.0F);
+		float r = Mth.clamp(color.redF() * alpha, 0f, 1f);
+		float g = Mth.clamp(color.greenF() * alpha, 0f, 1f);
+		float b = Mth.clamp(color.blueF() * alpha, 0f, 1f);
 
 		color = Color.fromFloatsRGB(r, g, b);
 
@@ -417,17 +417,17 @@ public class ArcanusClient implements ClientModInitializer {
 
 			switch(direction) {
 				case SOUTH ->
-					renderSide(matrix4f, consumer, 0F, 1F, 0F, 1F, 1F, 1F, 1F, 1F, color, light, overlay, matrix3f, Direction.SOUTH);
+					renderSide(matrix4f, consumer, 0f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, color, light, overlay, matrix3f, Direction.SOUTH);
 				case NORTH ->
-					renderSide(matrix4f, consumer, 0F, 1F, 1F, 0F, 0F, 0F, 0F, 0F, color, light, overlay, matrix3f, Direction.NORTH);
+					renderSide(matrix4f, consumer, 0f, 1f, 1f, 0f, 0f, 0f, 0f, 0f, color, light, overlay, matrix3f, Direction.NORTH);
 				case EAST ->
-					renderSide(matrix4f, consumer, 1F, 1F, 1F, 0F, 0F, 1F, 1F, 0F, color, light, overlay, matrix3f, Direction.EAST);
+					renderSide(matrix4f, consumer, 1f, 1f, 1f, 0f, 0f, 1f, 1f, 0f, color, light, overlay, matrix3f, Direction.EAST);
 				case WEST ->
-					renderSide(matrix4f, consumer, 0F, 0F, 0F, 1F, 0F, 1F, 1F, 0F, color, light, overlay, matrix3f, Direction.WEST);
+					renderSide(matrix4f, consumer, 0f, 0f, 0f, 1f, 0f, 1f, 1f, 0f, color, light, overlay, matrix3f, Direction.WEST);
 				case DOWN ->
-					renderSide(matrix4f, consumer, 0F, 1F, 0F, 0F, 0F, 0F, 1F, 1F, color, light, overlay, matrix3f, Direction.DOWN);
+					renderSide(matrix4f, consumer, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 1f, color, light, overlay, matrix3f, Direction.DOWN);
 				case UP ->
-					renderSide(matrix4f, consumer, 0F, 1F, 1F, 1F, 1F, 1F, 0F, 0F, color, light, overlay, matrix3f, Direction.UP);
+					renderSide(matrix4f, consumer, 0f, 1f, 1f, 1f, 1f, 1f, 0f, 0f, color, light, overlay, matrix3f, Direction.UP);
 			}
 		}
 
@@ -488,7 +488,7 @@ public class ArcanusClient implements ClientModInitializer {
 		RenderSystem.depthMask(false);
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, opacity);
+		RenderSystem.setShaderColor(1f, 1f, 1f, opacity);
 		RenderSystem.setShaderTexture(0, texture);
 
 		Tesselator tessellator = Tesselator.getInstance();
@@ -502,6 +502,6 @@ public class ArcanusClient implements ClientModInitializer {
 		BufferUploader.drawWithShader(bufferBuilder.build());
 		RenderSystem.depthMask(true);
 		RenderSystem.enableDepthTest();
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 	}
 }

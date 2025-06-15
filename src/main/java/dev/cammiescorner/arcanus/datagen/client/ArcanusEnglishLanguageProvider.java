@@ -273,7 +273,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		spell(builder, ArcanusSpellComponents.STOCKPILE, "Stockpile Effect");
 		spell(builder, ArcanusSpellComponents.DANGER_SENSE, "Danger Sense Effect");
 
-		builder.add(SCREEN_SPELL_COMPONENT, "Spell Components");
+		builder.add(SCREEN_SPELL_COMPONENT_COUNT, "Spell Components");
 		builder.add(SCREEN_CHANGE_MODE, "Change Mode");
 		builder.add(SCREEN_CYCLE_UP, "Previous Skin");
 		builder.add(SCREEN_CYCLE_DOWN, "Next Skin");
@@ -290,6 +290,8 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(SCREEN_SUPPORT_US_CAMMIE, "Support Cammie!");
 		builder.add(SCREEN_SUPPORT_US_UP, "Support Up!");
 
+		builder.add(TWO_ARGUMENT_KEY, "%1$s: %2$s");
+
 		builder.add(SPELL_BOOK_WEIGHT, "Weight");
 		builder.add(SPELL_BOOK_WEIGHT_NONE, "None");
 		builder.add(SPELL_BOOK_WEIGHT_VERY_LIGHT, "Very Light");
@@ -301,7 +303,6 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(SPELL_BOOK_MANA_MULTIPLIER, "Mana Multiplier");
 		builder.add(SPELL_BOOK_POTENCY_MODIFIER, "Potency Modifier");
 		builder.add(SPELL_BOOK_COOL_DOWN, "Cool Down");
-		builder.add(SPELL_BOOK_SECONDS, "s");
 
 		builder.add(SPELL_TOO_MANY_COMPONENTS, "Too many components!");
 		builder.add(SPELL_TOO_LOW_LEVEL, "Wizard level too low!");

@@ -48,33 +48,33 @@ public class BattleMageArmourModel<T extends LivingEntity> extends HumanoidModel
 		PartDefinition rightLeg = root.getChild(PartNames.RIGHT_LEG);
 		PartDefinition leftLeg = root.getChild(PartNames.LEFT_LEG);
 
-		PartDefinition armorHead = head.addOrReplaceChild("armorHead", CubeListBuilder.create().texOffs(18, 223).addBox(0.0F, -17.0F, -7.5F, 0.0F, 15.0F, 18.0F, new CubeDeformation(0.0F))
-			.texOffs(61, 130).addBox(-1.0F, -10.0F, -6.0F, 2.0F, 10.0F, 12.0F, new CubeDeformation(0.0F))
-			.texOffs(0, 144).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.55F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition armorHead = head.addOrReplaceChild("armorHead", CubeListBuilder.create().texOffs(18, 223).addBox(0f, -17f, -7.5f, 0f, 15f, 18f, new CubeDeformation(0f))
+			.texOffs(61, 130).addBox(-1f, -10f, -6f, 2f, 10f, 12f, new CubeDeformation(0f))
+			.texOffs(0, 144).addBox(-4f, -8f, -4f, 8f, 8f, 8f, new CubeDeformation(0.55f)), PartPose.offset(0f, 0f, 0f));
 
-		PartDefinition armet = armorHead.addOrReplaceChild("armet", CubeListBuilder.create().texOffs(49, 137).addBox(-4.5F, 2.25F, -4.75F, 9.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -1.0472F, 0.0F, 0.0F));
+		PartDefinition armet = armorHead.addOrReplaceChild("armet", CubeListBuilder.create().texOffs(49, 137).addBox(-4.5f, 2.25f, -4.75f, 9f, 2f, 3f, new CubeDeformation(0f)), PartPose.offsetAndRotation(0f, 0f, 0f, -1.0472f, 0f, 0f));
 
-		PartDefinition armorBody = body.addOrReplaceChild("armorBody", CubeListBuilder.create().texOffs(0, 192).addBox(-4.5F, 9.2F, -2.5F, 9.0F, 7.0F, 5.0F, new CubeDeformation(0.0F))
-			.texOffs(40, 160).addBox(-5.0F, 0.0F, -2.0F, 10.0F, 4.0F, 4.0F, new CubeDeformation(0.66F))
-			.texOffs(0, 160).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.42F))
-			.texOffs(0, 204).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 8.0F, 4.0F, new CubeDeformation(0.51F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition surcoatFront = armorBody.addOrReplaceChild("surcoatFront", CubeListBuilder.create().texOffs(0, 216).addBox(-4.0F, 0.5F, 0.5F, 8.0F, 8.0F, 2.0F, new CubeDeformation(0.51F)), PartPose.offsetAndRotation(0.0F, 8.5F, -2.5F, -0.0436F, 0.0F, 0.0F));
-		PartDefinition surcoatBack = armorBody.addOrReplaceChild("surcoatBack", CubeListBuilder.create().texOffs(20, 216).addBox(-4.0F, 0.5F, -2.5F, 8.0F, 8.0F, 2.0F, new CubeDeformation(0.51F)), PartPose.offsetAndRotation(0.0F, 8.5F, 2.5F, 0.0436F, 0.0F, 0.0F));
-		PartDefinition trinketStuff = armorBody.addOrReplaceChild("trinketStuff", CubeListBuilder.create().texOffs(0, 226).addBox(-5.0F, 9.0F, -3.0F, 10.0F, 2.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition armorBody = body.addOrReplaceChild("armorBody", CubeListBuilder.create().texOffs(0, 192).addBox(-4.5f, 9.2f, -2.5f, 9f, 7f, 5f, new CubeDeformation(0f))
+			.texOffs(40, 160).addBox(-5f, 0f, -2f, 10f, 4f, 4f, new CubeDeformation(0.66f))
+			.texOffs(0, 160).addBox(-4f, 0f, -2f, 8f, 12f, 4f, new CubeDeformation(0.42f))
+			.texOffs(0, 204).addBox(-4f, 0f, -2f, 8f, 8f, 4f, new CubeDeformation(0.51f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition surcoatFront = armorBody.addOrReplaceChild("surcoatFront", CubeListBuilder.create().texOffs(0, 216).addBox(-4f, 0.5f, 0.5f, 8f, 8f, 2f, new CubeDeformation(0.51f)), PartPose.offsetAndRotation(0f, 8.5f, -2.5f, -0.0436f, 0f, 0f));
+		PartDefinition surcoatBack = armorBody.addOrReplaceChild("surcoatBack", CubeListBuilder.create().texOffs(20, 216).addBox(-4f, 0.5f, -2.5f, 8f, 8f, 2f, new CubeDeformation(0.51f)), PartPose.offsetAndRotation(0f, 8.5f, 2.5f, 0.0436f, 0f, 0f));
+		PartDefinition trinketStuff = armorBody.addOrReplaceChild("trinketStuff", CubeListBuilder.create().texOffs(0, 226).addBox(-5f, 9f, -3f, 10f, 2f, 6f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
 
-		PartDefinition armorRightArm = rightArm.addOrReplaceChild("armorRightArm", CubeListBuilder.create().texOffs(60, 191).addBox(-3.0F, -2.0F, -2.0F, 5.0F, 6.0F, 4.0F, new CubeDeformation(0.6F))
-			.texOffs(40, 168).addBox(-4.5F, -3.75F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F))
-			.texOffs(44, 191).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.41F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition armorLeftArm = leftArm.addOrReplaceChild("armorLeftArm", CubeListBuilder.create().texOffs(60, 191).mirror().addBox(-2.0F, -2.0F, -2.0F, 5.0F, 6.0F, 4.0F, new CubeDeformation(0.6F)).mirror(false)
-			.texOffs(40, 168).mirror().addBox(2.5F, -3.75F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
-			.texOffs(44, 191).mirror().addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.41F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition armorRightArm = rightArm.addOrReplaceChild("armorRightArm", CubeListBuilder.create().texOffs(60, 191).addBox(-3f, -2f, -2f, 5f, 6f, 4f, new CubeDeformation(0.6f))
+			.texOffs(40, 168).addBox(-4.5f, -3.75f, -1f, 2f, 6f, 2f, new CubeDeformation(0f))
+			.texOffs(44, 191).addBox(-3f, -2f, -2f, 4f, 12f, 4f, new CubeDeformation(0.41f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition armorLeftArm = leftArm.addOrReplaceChild("armorLeftArm", CubeListBuilder.create().texOffs(60, 191).mirror().addBox(-2f, -2f, -2f, 5f, 6f, 4f, new CubeDeformation(0.6f)).mirror(false)
+			.texOffs(40, 168).mirror().addBox(2.5f, -3.75f, -1f, 2f, 6f, 2f, new CubeDeformation(0f)).mirror(false)
+			.texOffs(44, 191).mirror().addBox(-1f, -2f, -2f, 4f, 12f, 4f, new CubeDeformation(0.41f)).mirror(false), PartPose.offset(0f, 0f, 0f));
 
-		PartDefinition armorRightLeg = rightLeg.addOrReplaceChild("armorRightLeg", CubeListBuilder.create().texOffs(0, 176).addBox(-1.9F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.3F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition rightTasset = armorRightLeg.addOrReplaceChild("rightTasset", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition armorRightBoot = rightLeg.addOrReplaceChild("armorRightBoot", CubeListBuilder.create().texOffs(16, 176).addBox(-1.9F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.35F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition armorLeftLeg = leftLeg.addOrReplaceChild("armorLeftLeg", CubeListBuilder.create().texOffs(0, 176).mirror().addBox(-2.1F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.3F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition leftTasset = armorLeftLeg.addOrReplaceChild("leftTasset", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition armorLeftBoot = leftLeg.addOrReplaceChild("armorLeftBoot", CubeListBuilder.create().texOffs(16, 176).mirror().addBox(-2.1F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.35F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition armorRightLeg = rightLeg.addOrReplaceChild("armorRightLeg", CubeListBuilder.create().texOffs(0, 176).addBox(-1.9f, 0f, -2f, 4f, 12f, 4f, new CubeDeformation(0.3f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition rightTasset = armorRightLeg.addOrReplaceChild("rightTasset", CubeListBuilder.create(), PartPose.offset(0f, 0f, 0f));
+		PartDefinition armorRightBoot = rightLeg.addOrReplaceChild("armorRightBoot", CubeListBuilder.create().texOffs(16, 176).addBox(-1.9f, 0f, -2f, 4f, 12f, 4f, new CubeDeformation(0.35f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition armorLeftLeg = leftLeg.addOrReplaceChild("armorLeftLeg", CubeListBuilder.create().texOffs(0, 176).mirror().addBox(-2.1f, 0f, -2f, 4f, 12f, 4f, new CubeDeformation(0.3f)).mirror(false), PartPose.offset(0f, 0f, 0f));
+		PartDefinition leftTasset = armorLeftLeg.addOrReplaceChild("leftTasset", CubeListBuilder.create(), PartPose.offset(0f, 0f, 0f));
+		PartDefinition armorLeftBoot = leftLeg.addOrReplaceChild("armorLeftBoot", CubeListBuilder.create().texOffs(16, 176).mirror().addBox(-2.1f, 0f, -2f, 4f, 12f, 4f, new CubeDeformation(0.35f)).mirror(false), PartPose.offset(0f, 0f, 0f));
 
 		return LayerDefinition.create(data, 128, 256);
 	}

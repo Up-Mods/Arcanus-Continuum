@@ -82,7 +82,7 @@ public class Smite extends Entity implements Targetable {
 	@Environment(EnvType.CLIENT)
 	public void clientTick() {
 		if(tickCount == 1) {
-			level().playLocalSound(getX(), getY(), getZ(), ArcanusSoundEvents.SMITE, SoundSource.NEUTRAL, Mth.clamp(1 - (distanceTo(Minecraft.getInstance().player) / 100F), 0, 1), (1F + (random.nextFloat() - random.nextFloat()) * 0.2F) * 0.7F, false);
+			level().playLocalSound(getX(), getY(), getZ(), ArcanusSoundEvents.SMITE, SoundSource.NEUTRAL, Mth.clamp(1 - (distanceTo(Minecraft.getInstance().player) / 100f), 0, 1), (1f + (random.nextFloat() - random.nextFloat()) * 0.2f) * 0.7f, false);
 		}
 	}
 

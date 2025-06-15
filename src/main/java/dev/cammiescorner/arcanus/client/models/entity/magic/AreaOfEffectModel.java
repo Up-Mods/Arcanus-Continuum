@@ -26,11 +26,11 @@ public class AreaOfEffectModel extends EntityModel<AreaOfEffect> {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition root = modelData.getRoot();
 
-		PartDefinition base = root.addOrReplaceChild("base", CubeListBuilder.create().texOffs(-72, 80).addBox(-36.0F, 0.0F, -36.0F, 72.0F, 0.0F, 72.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
-		PartDefinition pillar = base.addOrReplaceChild("pillar", CubeListBuilder.create().texOffs(192, 0).addBox(-8.0F, -40.0F, -8.0F, 16.0F, 40.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition walls = base.addOrReplaceChild("walls", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition wall1 = walls.addOrReplaceChild("wall1", CubeListBuilder.create().texOffs(0, 0).addBox(-24.0F, -32.0F, -24.0F, 48.0F, 32.0F, 48.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition wall2 = walls.addOrReplaceChild("wall2", CubeListBuilder.create().texOffs(0, 0).addBox(-24.0F, -32.0F, -24.0F, 48.0F, 32.0F, 48.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, -0.7854F, 0.0F));
+		PartDefinition base = root.addOrReplaceChild("base", CubeListBuilder.create().texOffs(-72, 80).addBox(-36f, 0f, -36f, 72f, 0f, 72f, new CubeDeformation(0f)), PartPose.offset(0f, 24f, 0f));
+		PartDefinition pillar = base.addOrReplaceChild("pillar", CubeListBuilder.create().texOffs(192, 0).addBox(-8f, -40f, -8f, 16f, 40f, 16f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition walls = base.addOrReplaceChild("walls", CubeListBuilder.create(), PartPose.offset(0f, 0f, 0f));
+		PartDefinition wall1 = walls.addOrReplaceChild("wall1", CubeListBuilder.create().texOffs(0, 0).addBox(-24f, -32f, -24f, 48f, 32f, 48f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition wall2 = walls.addOrReplaceChild("wall2", CubeListBuilder.create().texOffs(0, 0).addBox(-24f, -32f, -24f, 48f, 32f, 48f, new CubeDeformation(0f)), PartPose.offsetAndRotation(0f, 0f, 0f, 0f, -0.7854f, 0f));
 
 		return LayerDefinition.create(modelData, 256, 256);
 	}

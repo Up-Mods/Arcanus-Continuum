@@ -39,34 +39,34 @@ public class OpossumModel extends EntityModel<Opossum> {
 		MeshDefinition data = new MeshDefinition();
 		PartDefinition root = data.getRoot();
 
-		PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 2).addBox(-2.0F, -1.0F, -3.0F, 4.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)).texOffs(1, 8).addBox(-1.0F, 0.0F, -6.0F, 2.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).texOffs(0, 0).addBox(-3.0F, -3.0F, -1.0F, 6.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 19.0F, -5.0F));
-		PartDefinition hat = head.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 7).addBox(-2.0F, -3.25F, -3.0F, 4.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition hatTip = hat.addOrReplaceChild("hatTip", CubeListBuilder.create().texOffs(48, 7).addBox(-1.0F, -3.75F, -1.0F, 2.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -1.0F, -1.0F, -0.1745F, 0.1745F, 0.0F));
-		PartDefinition hatBase = hat.addOrReplaceChild("hatBase", CubeListBuilder.create().texOffs(32, 0).addBox(-3.0F, -0.75F, -3.0F, 6.0F, 1.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -1.0F, -1.0F, 0.0F, 0.0F, 0.0873F));
+		PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 2).addBox(-2f, -1f, -3f, 4f, 3f, 3f, new CubeDeformation(0f)).texOffs(1, 8).addBox(-1f, 0f, -6f, 2f, 2f, 3f, new CubeDeformation(0f)).texOffs(0, 0).addBox(-3f, -3f, -1f, 6f, 2f, 0f, new CubeDeformation(0f)), PartPose.offset(0f, 19f, -5f));
+		PartDefinition hat = head.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 7).addBox(-2f, -3.25f, -3f, 4f, 2f, 4f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition hatTip = hat.addOrReplaceChild("hatTip", CubeListBuilder.create().texOffs(48, 7).addBox(-1f, -3.75f, -1f, 2f, 2f, 4f, new CubeDeformation(0f)), PartPose.offsetAndRotation(0f, -1f, -1f, -0.1745f, 0.1745f, 0f));
+		PartDefinition hatBase = hat.addOrReplaceChild("hatBase", CubeListBuilder.create().texOffs(32, 0).addBox(-3f, -0.75f, -3f, 6f, 1f, 6f, new CubeDeformation(0f)), PartPose.offsetAndRotation(0f, -1f, -1f, 0f, 0f, 0.0873f));
 
-		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 13).addBox(-3.0F, -2.0F, -4.0F, 6.0F, 5.0F, 8.0F, new CubeDeformation(0.001F)), PartPose.offset(0.0F, 19.0F, -1.0F));
+		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 13).addBox(-3f, -2f, -4f, 6f, 5f, 8f, new CubeDeformation(0.001f)), PartPose.offset(0f, 19f, -1f));
 
-		PartDefinition leftForeleg = root.addOrReplaceChild("leftForeleg", CubeListBuilder.create().texOffs(14, 27).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, 21.0F, -4.0F));
-		PartDefinition rightForeleg = root.addOrReplaceChild("rightForeleg", CubeListBuilder.create().texOffs(14, 27).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 21.0F, -4.0F));
+		PartDefinition leftForeleg = root.addOrReplaceChild("leftForeleg", CubeListBuilder.create().texOffs(14, 27).addBox(-1f, 0f, -1f, 2f, 3f, 2f, new CubeDeformation(0f)), PartPose.offset(2f, 21f, -4f));
+		PartDefinition rightForeleg = root.addOrReplaceChild("rightForeleg", CubeListBuilder.create().texOffs(14, 27).addBox(-1f, 0f, -1f, 2f, 3f, 2f, new CubeDeformation(0f)), PartPose.offset(-2f, 21f, -4f));
 
-		PartDefinition leftHindleg = root.addOrReplaceChild("leftHindleg", CubeListBuilder.create().texOffs(6, 27).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, 21.0F, 2.0F));
-		PartDefinition rightHindleg = root.addOrReplaceChild("rightHindleg", CubeListBuilder.create().texOffs(6, 27).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 21.0F, 2.0F));
+		PartDefinition leftHindleg = root.addOrReplaceChild("leftHindleg", CubeListBuilder.create().texOffs(6, 27).addBox(-1f, 0f, -1f, 2f, 3f, 2f, new CubeDeformation(0f)), PartPose.offset(2f, 21f, 2f));
+		PartDefinition rightHindleg = root.addOrReplaceChild("rightHindleg", CubeListBuilder.create().texOffs(6, 27).addBox(-1f, 0f, -1f, 2f, 3f, 2f, new CubeDeformation(0f)), PartPose.offset(-2f, 21f, 2f));
 
-		PartDefinition tailBase = root.addOrReplaceChild("tailBase", CubeListBuilder.create().texOffs(20, 8).addBox(-1.5F, -1.0F, 0.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 19.0F, 3.0F));
-		PartDefinition tailEnd = tailBase.addOrReplaceChild("tailEnd", CubeListBuilder.create().texOffs(16, 0).addBox(-1.0F, -1.0F, 0.0F, 2.0F, 2.0F, 6.0F, new CubeDeformation(-0.1F)), PartPose.offset(0.0F, 0.5F, 3.0F));
+		PartDefinition tailBase = root.addOrReplaceChild("tailBase", CubeListBuilder.create().texOffs(20, 8).addBox(-1.5f, -1f, 0f, 3f, 3f, 3f, new CubeDeformation(0f)), PartPose.offset(0f, 19f, 3f));
+		PartDefinition tailEnd = tailBase.addOrReplaceChild("tailEnd", CubeListBuilder.create().texOffs(16, 0).addBox(-1f, -1f, 0f, 2f, 2f, 6f, new CubeDeformation(-0.1f)), PartPose.offset(0f, 0.5f, 3f));
 
 		return LayerDefinition.create(data, 64, 32);
 	}
 
 	@Override
 	public void setupAnim(Opossum entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		head.xRot = headPitch * 0.017453292F;
-		head.yRot = netHeadYaw * 0.017453292F;
+		head.xRot = headPitch * 0.017453292f;
+		head.yRot = netHeadYaw * 0.017453292f;
 
-		leftHindleg.xRot = Mth.cos(limbSwing * 0.6662F + 3.1415927F) * 1.4F * limbSwingAmount;
-		rightHindleg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		leftForeleg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		rightForeleg.xRot = Mth.cos(limbSwing * 0.6662F + 3.1415927F) * 1.4F * limbSwingAmount;
+		leftHindleg.xRot = Mth.cos(limbSwing * 0.6662f + 3.1415927f) * 1.4f * limbSwingAmount;
+		rightHindleg.xRot = Mth.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount;
+		leftForeleg.xRot = Mth.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount;
+		rightForeleg.xRot = Mth.cos(limbSwing * 0.6662f + 3.1415927f) * 1.4f * limbSwingAmount;
 		leftHindleg.visible = !entity.isOrderedToSit();
 		rightHindleg.visible = !entity.isOrderedToSit();
 		leftForeleg.visible = !entity.isOrderedToSit();

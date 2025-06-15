@@ -22,7 +22,7 @@ public class WizardRenderer extends MobRenderer<Wizard, WizardModel> {
 	public static final ResourceLocation ROBES_TEXTURE = Arcanus.id("textures/entity/living/wizard_overlay.png");
 
 	public WizardRenderer(EntityRendererProvider.Context context) {
-		super(context, new WizardModel(Minecraft.getInstance().getEntityModels().bakeLayer(WizardModel.MODEL_LAYER)), 0.6F);
+		super(context, new WizardModel(Minecraft.getInstance().getEntityModels().bakeLayer(WizardModel.MODEL_LAYER)), 0.6f);
 		addLayer(new WizardHeldItemFeatureRenderer<>(this, context.getItemInHandRenderer()));
 	}
 
@@ -44,7 +44,7 @@ public class WizardRenderer extends MobRenderer<Wizard, WizardModel> {
 
 		matrices.pushPose();
 		setupRotations(wizard, matrices, 0, Mth.rotLerp(tickDelta, wizard.yBodyRotO, wizard.yBodyRot), tickDelta, 1f);
-		matrices.scale(-1.0F, -1.0F, 1.0F);
+		matrices.scale(-1f, -1f, 1f);
 		scale(wizard, matrices, tickDelta);
 		matrices.translate(0.0, -1.5, 0.0);
 		model.renderToBuffer(matrices, vertices.getBuffer(RenderType.entityCutout(ROBES_TEXTURE)), light, OverlayTexture.NO_OVERLAY, hexColor);

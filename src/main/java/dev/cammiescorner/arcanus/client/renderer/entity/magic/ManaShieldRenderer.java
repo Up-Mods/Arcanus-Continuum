@@ -25,10 +25,10 @@ public class ManaShieldRenderer extends EntityRenderer<ManaShield> {
 	private static final ResourceLocation TEXTURE = Arcanus.id("textures/block/magic_block.png");
 	private static final RenderType LAYER = ArcanusClient.getMagicCirclesTri(TEXTURE);
 	public static final List<Vector3f> VERTICES = List.of(
-		new Vector3f(0, 0, 1), new Vector3f(0.894F, 0F, 0.447F), new Vector3f(0.276F, 0.851F, 0.447F),
-		new Vector3f(-0.724F, 0.526F, 0.447F), new Vector3f(-0.724F, -0.526F, 0.447F), new Vector3f(0.276F, -0.851F, 0.447F),
-		new Vector3f(0.724F, 0.526F, -0.447F), new Vector3f(-0.276F, 0.851F, -0.447F), new Vector3f(-0.894F, 0F, -0.447F),
-		new Vector3f(-0.276F, -0.851F, -0.447F), new Vector3f(0.724F, -0.526F, -0.447F), new Vector3f(0F, 0F, -1F)
+		new Vector3f(0, 0, 1), new Vector3f(0.894f, 0f, 0.447f), new Vector3f(0.276f, 0.851f, 0.447f),
+		new Vector3f(-0.724f, 0.526f, 0.447f), new Vector3f(-0.724f, -0.526f, 0.447f), new Vector3f(0.276f, -0.851f, 0.447f),
+		new Vector3f(0.724f, 0.526f, -0.447f), new Vector3f(-0.276f, 0.851f, -0.447f), new Vector3f(-0.894f, 0f, -0.447f),
+		new Vector3f(-0.276f, -0.851f, -0.447f), new Vector3f(0.724f, -0.526f, -0.447f), new Vector3f(0f, 0f, -1f)
 	);
 	public static final List<Vector3i> FACES = List.of(
 		new Vector3i(0, 1, 2), new Vector3i(0, 2, 3), new Vector3i(0, 3, 4), new Vector3i(0, 4, 5), new Vector3i(0, 5, 1),
@@ -43,12 +43,12 @@ public class ManaShieldRenderer extends EntityRenderer<ManaShield> {
 
 	@Override
 	public void render(ManaShield entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
-		float alpha = Mth.clamp(((entity.getMaxAge() - entity.getTrueAge()) - tickDelta) / 20F, 0, 1);
+		float alpha = Mth.clamp(((entity.getMaxAge() - entity.getTrueAge()) - tickDelta) / 20f, 0, 1);
 
 		matrices.pushPose();
 		matrices.translate(0, 2, 0);
 		matrices.mulPose(Axis.XN.rotationDegrees(90));
-		matrices.mulPose(Axis.ZP.rotationDegrees((entity.tickCount + tickDelta) * 0.25F));
+		matrices.mulPose(Axis.ZP.rotationDegrees((entity.tickCount + tickDelta) * 0.25f));
 		matrices.scale(3 * alpha, 3 * alpha, 3 * alpha);
 		drawIcosahedron(matrices, vertices.getBuffer(LAYER), ArcanusHelper.getMagicColor(entity), alpha, light, OverlayTexture.NO_OVERLAY);
 		matrices.popPose();
@@ -73,9 +73,9 @@ public class ManaShieldRenderer extends EntityRenderer<ManaShield> {
 			Vector3f v = new Vector3f(vert3.x - vert1.x, vert3.y - vert1.y, vert3.z - vert1.z);
 			Vector3f normal = u.cross(v);
 
-			consumer.addVertex(matrix4f, vert1.x, vert1.y, vert1.z).setColor(r, g, b, 1.0F).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), normal.x, normal.y, normal.z);
-			consumer.addVertex(matrix4f, vert2.x, vert2.y, vert2.z).setColor(r, g, b, 1.0F).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), normal.x, normal.y, normal.z);
-			consumer.addVertex(matrix4f, vert3.x, vert3.y, vert3.z).setColor(r, g, b, 1.0F).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), normal.x, normal.y, normal.z);
+			consumer.addVertex(matrix4f, vert1.x, vert1.y, vert1.z).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), normal.x, normal.y, normal.z);
+			consumer.addVertex(matrix4f, vert2.x, vert2.y, vert2.z).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), normal.x, normal.y, normal.z);
+			consumer.addVertex(matrix4f, vert3.x, vert3.y, vert3.z).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), normal.x, normal.y, normal.z);
 		}
 	}
 }

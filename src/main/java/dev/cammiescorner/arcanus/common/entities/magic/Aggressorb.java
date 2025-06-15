@@ -43,7 +43,7 @@ public class Aggressorb extends ThrowableProjectile implements Targetable {
 	private UUID targetId = Util.NIL_UUID;
 	private ItemStack stack = ItemStack.EMPTY;
 	private int groupIndex = 0;
-	private double potency = 1F;
+	private double potency = 1f;
 	private boolean boundToTarget = true;
 
 	public Aggressorb(EntityType<? extends ThrowableProjectile> variant, Level world) {
@@ -145,7 +145,7 @@ public class Aggressorb extends ThrowableProjectile implements Targetable {
 		float yaw = (float) Math.toDegrees(-Math.atan2(dir.x(), dir.z()));
 
 		setBoundToTarget(false);
-		shootFromRotation(getTarget(), pitch, yaw, 0F, 3f, 1F);
+		shootFromRotation(getTarget(), pitch, yaw, 0f, 3f, 1f);
 		ArcanusComponents.removeAggressorbFromEntity(getTarget(), getUUID());
 
 		return true;

@@ -35,12 +35,12 @@ public class BeamRenderer extends EntityRenderer<Beam> {
 		Vec3 cam = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
 
 		if(caster != null) {
-			Vec3 startPos = caster.getPosition(tickDelta).add(0, caster.getEyeHeight(caster.getPose()) * 0.9F, 0);
+			Vec3 startPos = caster.getPosition(tickDelta).add(0, caster.getEyeHeight(caster.getPose()) * 0.9f, 0);
 			Vec3 endPos = entity.getBeamPos(tickDelta);
 			Vector3d axis = new Vector3d(endPos.x() - startPos.x(), endPos.y() - startPos.y(), endPos.z() - startPos.z()).normalize();
 			VertexConsumer vertex = vertices.getBuffer(LAYER);
 			Color color = ArcanusHelper.getMagicColor(entity);
-			float distance = entity.distanceTo(caster) / 2F;
+			float distance = entity.distanceTo(caster) / 2f;
 
 			matrices.pushPose();
 			matrices.translate(-entity.getX(), -entity.getY(), -entity.getZ());
@@ -52,10 +52,10 @@ public class BeamRenderer extends EntityRenderer<Beam> {
 				Vec3 vert2 = startPos.subtract(vec.x, vec.y, vec.z);
 				Vec3 vert3 = endPos.add(vec.x, vec.y, vec.z);
 				Vec3 vert4 = endPos.subtract(vec.x, vec.y, vec.z);
-				float beamProgress = entity.getBeamProgress(tickDelta) * 2F;
+				float beamProgress = entity.getBeamProgress(tickDelta) * 2f;
 
 				if(i > 0)
-					beamProgress *= -1F;
+					beamProgress *= -1f;
 
 				float minU = 0;
 				float minV = -beamProgress;

@@ -17,6 +17,6 @@ public class FoodDataMixin {
 		ordinal = 0
 	))
 	public boolean hasBurnout(GameRules instance, GameRules.Key<GameRules.BooleanValue> gameRuleKey, Operation<Boolean> original, Player player) {
-		return original.call(instance, gameRuleKey) && ArcanusComponents.getBurnout(player) <= 0.0D;
+		return original.call(instance, gameRuleKey) && ArcanusComponents.getBurnout(player) <= 0d;
 	}
 }

@@ -33,7 +33,7 @@ public class CounterFeatureRenderer<T extends LivingEntity, M extends EntityMode
 			float b = color.blueF() * alpha;
 
 			matrices.pushPose();
-			matrices.scale(1.1F, 1.1F, 1.1F);
+			matrices.scale(1.1f, 1.1f, 1.1f);
 			model.renderToBuffer(matrices, verticies.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), light, OverlayTexture.NO_OVERLAY, Color.fromFloatsRGBA(r, g, b, 1f).asIntARGB());
 			matrices.popPose();
 		}

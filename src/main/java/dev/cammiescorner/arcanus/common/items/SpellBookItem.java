@@ -1,6 +1,5 @@
 package dev.cammiescorner.arcanus.common.items;
 
-import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.screens.providers.SpellBookMenuProvider;
@@ -16,7 +15,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
-import java.util.Locale;
+
+import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 public class SpellBookItem extends Item {
 	public SpellBookItem() {
@@ -34,17 +34,19 @@ public class SpellBookItem extends Item {
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
 		Spell spell = getSpell(stack);
 
-		String manaCost = Arcanus.format(spell.getManaCost());
-		String coolDown = Arcanus.format(spell.getCoolDown() / 20d);
-
-		// TODO make ALL of it translatable
 		tooltipComponents.add(Component.literal(spell.getName()).withStyle(ChatFormatting.GOLD));
-		tooltipComponents.add(Component.translatable("spell_book.arcanus.weight").append(": ").withStyle(ChatFormatting.GREEN)
-			.append(Component.translatable("spell_book.arcanus.weight." + spell.getWeight().toString().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.GRAY)));
-		tooltipComponents.add(Component.translatable("spell_book.arcanus.mana_cost").append(": ").withStyle(ChatFormatting.BLUE)
-			.append(Component.literal(manaCost).withStyle(ChatFormatting.GRAY)));
-		tooltipComponents.add(Component.translatable("spell_book.arcanus.cool_down").append(": ").withStyle(ChatFormatting.RED)
-			.append(Component.literal(coolDown).append(Component.translatable("spell_book.arcanus.seconds")).withStyle(ChatFormatting.GRAY)));
+		tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
+			Component.translatable(SPELL_BOOK_WEIGHT),
+			Component.translatable(spell.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
+		).withStyle(ChatFormatting.GREEN));
+		tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
+			Component.translatable(SPELL_BOOK_MANA_COST),
+			Component.literal(spell.getManaCostAsString()).withStyle(ChatFormatting.GRAY)
+		).withStyle(ChatFormatting.BLUE));
+		tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
+			Component.translatable(SPELL_BOOK_COOL_DOWN),
+			Component.literal(spell.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)
+		).withStyle(ChatFormatting.RED));
 
 		super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
 	}

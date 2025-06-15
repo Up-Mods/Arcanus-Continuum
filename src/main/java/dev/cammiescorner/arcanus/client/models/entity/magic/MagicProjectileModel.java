@@ -28,10 +28,10 @@ public class MagicProjectileModel extends EntityModel<Missile> {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition root = modelData.getRoot();
 
-		PartDefinition base = root.addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, -16).addBox(0.0F, -2.5F, -8.0F, 0.0F, 5.0F, 16.0F, new CubeDeformation(0.0F)).texOffs(-16, 5).addBox(-2.5F, 0.0F, -8.0F, 5.0F, 0.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 21.5F, 0.0F));
-		PartDefinition ring1 = base.addOrReplaceChild("ring1", CubeListBuilder.create().texOffs(10, 5).addBox(-3.5F, -3.5F, 0.0F, 7.0F, 7.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -4.0F));
-		PartDefinition ring2 = base.addOrReplaceChild("ring2", CubeListBuilder.create().texOffs(10, 12).addBox(-3.5F, -3.5F, 0.0F, 7.0F, 7.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition ring3 = base.addOrReplaceChild("ring3", CubeListBuilder.create().texOffs(10, 19).addBox(-3.5F, -3.5F, 0.0F, 7.0F, 7.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 4.0F));
+		PartDefinition base = root.addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, -16).addBox(0f, -2.5f, -8f, 0f, 5f, 16f, new CubeDeformation(0f)).texOffs(-16, 5).addBox(-2.5f, 0f, -8f, 5f, 0f, 16f, new CubeDeformation(0f)), PartPose.offset(0f, 21.5f, 0f));
+		PartDefinition ring1 = base.addOrReplaceChild("ring1", CubeListBuilder.create().texOffs(10, 5).addBox(-3.5f, -3.5f, 0f, 7f, 7f, 0f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, -4f));
+		PartDefinition ring2 = base.addOrReplaceChild("ring2", CubeListBuilder.create().texOffs(10, 12).addBox(-3.5f, -3.5f, 0f, 7f, 7f, 0f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition ring3 = base.addOrReplaceChild("ring3", CubeListBuilder.create().texOffs(10, 19).addBox(-3.5f, -3.5f, 0f, 7f, 7f, 0f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 4f));
 
 		return LayerDefinition.create(modelData, 32, 32);
 	}

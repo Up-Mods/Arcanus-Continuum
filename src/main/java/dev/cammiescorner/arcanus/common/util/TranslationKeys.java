@@ -30,7 +30,7 @@ public class TranslationKeys {
 	public static final String COMMAND_EXPORT_POCKET_POCKET_NOT_FOUND = "command.arcanus.pocket_dimension.export.error.pocket_not_found";
 	public static final String COMMAND_WIZARD_LEVEL_GET_SUCCESS = "command.arcanus.wizard_level.get.success";
 	public static final String COMMAND_WIZARD_LEVEL_SET_SUCCESS = "command.arcanus.wizard_level.set.success";
-	public static final String SCREEN_SPELL_COMPONENT = "screen.arcanus.tooltip.component_count";
+	public static final String SCREEN_SPELL_COMPONENT_COUNT = "screen.arcanus.tooltip.component_count";
 	public static final String SCREEN_CHANGE_MODE = "screen.arcanus.tooltip.change_screens";
 	public static final String SCREEN_CYCLE_UP = "screen.arcanus.tooltip.cycle_up";
 	public static final String SCREEN_CYCLE_DOWN = "screen.arcanus.tooltip.cycle_down";
@@ -44,6 +44,7 @@ public class TranslationKeys {
 	public static final String SCREEN_SUPPORT_US_PERKS = "screen.arcanus.support_us.perks_message";
 	public static final String SCREEN_SUPPORT_US_CAMMIE = "screen.arcanus.support_us.button_support_cammie";
 	public static final String SCREEN_SUPPORT_US_UP = "screen.arcanus.support_us.button_support_up";
+	public static final String TWO_ARGUMENT_KEY = "text.arcanus.two_argument_key";
 	public static final String SPELL_BOOK_WEIGHT = "spell_book.arcanus.weight";
 	public static final String SPELL_BOOK_WEIGHT_NONE = "spell_book.arcanus.weight.none";
 	public static final String SPELL_BOOK_WEIGHT_VERY_LIGHT = "spell_book.arcanus.weight.very_light";
@@ -55,7 +56,6 @@ public class TranslationKeys {
 	public static final String SPELL_BOOK_MANA_MULTIPLIER = "spell_book.arcanus.mana_multiplier";
 	public static final String SPELL_BOOK_POTENCY_MODIFIER = "spell_book.arcanus.potency_modifier";
 	public static final String SPELL_BOOK_COOL_DOWN = "spell_book.arcanus.cool_down";
-	public static final String SPELL_BOOK_SECONDS = "spell_book.arcanus.seconds";
 	public static final String SPELL_TOO_MANY_COMPONENTS = "spell.arcanus.too_many_components";
 	public static final String SPELL_TOO_LOW_LEVEL = "spell.arcanus.too_low_level";
 	public static final String SPELL_NOT_ENOUGH_MANA = "spell.arcanus.not_enough_mana";

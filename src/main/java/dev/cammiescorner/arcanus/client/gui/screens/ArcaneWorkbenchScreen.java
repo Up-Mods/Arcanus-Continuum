@@ -51,7 +51,7 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
 	@Override
 	protected void renderBg(GuiGraphics gui, float delta, int mouseX, int mouseY) {
 		this.renderBackground(gui, mouseX, mouseY, delta);
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 		gui.blit(getTexture(), leftPos, topPos, 0, 0, 176, 166, 256, 256);
 
 		if(getMenu().getMode() == WorkbenchMode.CUSTOMIZE) {
@@ -67,9 +67,9 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
 		PoseStack matrices = gui.pose();
 
 		if(getMenu().getMode() == WorkbenchMode.SPELLBINDING && getMenu().getSlot(5).getItem().getItem() instanceof StaffItem) {
-			float scale = 0.4F;
+			float scale = 0.4f;
 			matrices.pushPose();
-			matrices.scale(scale, scale, 1F);
+			matrices.scale(scale, scale, 1f);
 
 			if(getMenu().getSlot(2).getItem().isEmpty())
 				gui.drawCenteredString(font, Arcanus.getSpellPatternAsText(0), (int) (52 / scale), (int) (17 / scale), 0xffffff);

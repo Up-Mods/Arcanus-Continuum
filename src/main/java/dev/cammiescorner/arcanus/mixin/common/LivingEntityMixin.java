@@ -138,11 +138,11 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 		AttributeInstance attributeInstance = getAttribute(ArcanusEntityAttributes.MAGIC_RESISTANCE.holder());
 
 		if(attributeInstance != null && source.is(DamageTypeTags.WITCH_RESISTANT_TO))
-			amount /= Math.max((float) attributeInstance.getValue(), 0.000001F);
+			amount /= Math.max((float) attributeInstance.getValue(), 0.000001f);
 		if(hasEffect(ArcanusMobEffects.FORTIFY.holder()))
-			amount /= 1 + (getEffect(ArcanusMobEffects.FORTIFY.holder()).getAmplifier() + 1) * 0.25F;
+			amount /= 1 + (getEffect(ArcanusMobEffects.FORTIFY.holder()).getAmplifier() + 1) * 0.25f;
 		if(hasEffect(ArcanusMobEffects.VULNERABILITY.holder()))
-			amount *= 1 + 0.8F * ((getEffect(ArcanusMobEffects.VULNERABILITY.holder()).getAmplifier() + 1) / 10F);
+			amount *= 1 + 0.8f * ((getEffect(ArcanusMobEffects.VULNERABILITY.holder()).getAmplifier() + 1) / 10f);
 		if(source.getEntity() instanceof LivingEntity attacker && attacker.hasEffect(ArcanusMobEffects.STOCKPILE.holder())) {
 			amount *= attacker.getEffect(ArcanusMobEffects.STOCKPILE.holder()).getAmplifier() + 1;
 			attacker.removeEffect(ArcanusMobEffects.STOCKPILE.holder());

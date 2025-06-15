@@ -33,13 +33,13 @@ public class SmiteRenderer extends EntityRenderer<Smite> {
 
 	public void renderBeam(Smite entity, PoseStack matrices, MultiBufferSource provider, float x, float y, float z, float tickDelta, int overlay, int light) {
 		int maxQuads = 16;
-		float radius = 2.25F;
+		float radius = 2.25f;
 		Color color = ArcanusHelper.getMagicColor(entity);
 		float squaredLength = x * x + y * y + z * z;
 		float length = Mth.sqrt(squaredLength);
 		float ageDelta = (entity.tickCount - 1) + tickDelta;
-		float scale = Mth.clamp(ageDelta < 3 ? (ageDelta) / 3F : ageDelta > 9 ? 1 - ((ageDelta - 9F) / 15F) : 1F, 0F, 1F);
-		float alpha = ageDelta < 3 ? 1 : Mth.clamp(1 - ((ageDelta - 3) / 23F), 0, 1);
+		float scale = Mth.clamp(ageDelta < 3 ? (ageDelta) / 3f : ageDelta > 9 ? 1 - ((ageDelta - 9f) / 15f) : 1f, 0f, 1f);
+		float alpha = ageDelta < 3 ? 1 : Mth.clamp(1 - ((ageDelta - 3) / 23f), 0, 1);
 		float r = color.redF() * alpha;
 		float g = color.greenF() * alpha;
 		float b = color.blueF() * alpha;
@@ -51,20 +51,20 @@ public class SmiteRenderer extends EntityRenderer<Smite> {
 		VertexConsumer vertexConsumer = provider.getBuffer(ArcanusClient.getMagicCircles(TEXTURE));
 		PoseStack.Pose entry = matrices.last();
 		Matrix4f matrix4f = entry.pose();
-		float vertX1 = 0F;
+		float vertX1 = 0f;
 		float vertY1 = radius;
 
 		for(int i = 1; i <= maxQuads; i++) {
-			float vertX2 = Mth.sin(i * 6.2831855F / maxQuads) * radius;
-			float vertY2 = Mth.cos(i * 6.2831855F / maxQuads) * radius;
+			float vertX2 = Mth.sin(i * 6.2831855f / maxQuads) * radius;
+			float vertY2 = Mth.cos(i * 6.2831855f / maxQuads) * radius;
 			Vector3f u = new Vector3f(vertX2 - vertX1, vertY2 - vertY1, length);
 			Vector3f v = new Vector3f(vertX1 - vertX2, vertY1 - vertY2, -length);
 			Vector3f normal = u.cross(v);
 
-			vertexConsumer.addVertex(matrix4f, vertX1, vertY1, 0F).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(entry, normal.x, normal.y, normal.z);
+			vertexConsumer.addVertex(matrix4f, vertX1, vertY1, 0f).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(entry, normal.x, normal.y, normal.z);
 			vertexConsumer.addVertex(matrix4f, vertX1, vertY1, length).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(entry, normal.x, normal.y, normal.z);
 			vertexConsumer.addVertex(matrix4f, vertX2, vertY2, length).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(entry, normal.x, normal.y, normal.z);
-			vertexConsumer.addVertex(matrix4f, vertX2, vertY2, 0F).setColor(r, g, g, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(entry, normal.x, normal.y, normal.z);
+			vertexConsumer.addVertex(matrix4f, vertX2, vertY2, 0f).setColor(r, g, g, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(entry, normal.x, normal.y, normal.z);
 
 			vertX1 = vertX2;
 			vertY1 = vertY2;

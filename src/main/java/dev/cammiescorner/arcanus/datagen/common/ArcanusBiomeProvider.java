@@ -19,9 +19,9 @@ public class ArcanusBiomeProvider extends SparkweaveDynamicRegistryEntryProvider
 
 			context.register(ArcanusBiomes.POCKET_DIMENSION, new Biome.BiomeBuilder()
 				.hasPrecipitation(false)
-				.temperature(0.5F)
-				.downfall(0.5F)
-				.specialEffects(new BiomeSpecialEffects.Builder().waterColor(0x3F76E4).waterFogColor(0x050533).fogColor(0xC0D8FF).skyColor(0x000000).build())
+				.temperature(0.5f)
+				.downfall(0.5f)
+				.specialEffects(new BiomeSpecialEffects.Builder().waterColor(0x3f76E4).waterFogColor(0x050533).fogColor(0xC0D8fF).skyColor(0x000000).build())
 				.mobSpawnSettings(new MobSpawnSettings.Builder().build())
 				.generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers).build()).build());
 		});

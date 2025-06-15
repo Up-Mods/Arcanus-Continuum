@@ -13,8 +13,9 @@ import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.function.Consumer;
+
+import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 public class SpellComponentWidget extends AbstractButton {
 	private final TooltipSupplier tooltipSupplier;
@@ -27,20 +28,25 @@ public class SpellComponentWidget extends AbstractButton {
 		this.component = component;
 		this.onPress = onPress;
 
-		// TODO make ALL of it translatable
 		List<Component> textList = new ArrayList<>();
 		textList.add(component.getName());
-		textList.add(Component.translatable("spell_book.arcanus.weight").append(": ").withStyle(ChatFormatting.GREEN).append(Component.translatable("spell_book.arcanus.weight." + component.getWeight().toString().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.GRAY)));
-		textList.add(Component.translatable("spell_book.arcanus.mana_cost").append(": ").withStyle(ChatFormatting.BLUE).append(Component.literal(component.getManaCostAsString()).withStyle(ChatFormatting.GRAY)));
+		textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+			Component.translatable(SPELL_BOOK_WEIGHT),
+			Component.translatable(component.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
+		).withStyle(ChatFormatting.GREEN));
+		textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+			Component.translatable(SPELL_BOOK_MANA_COST),
+			Component.literal(component.getManaCostAsString()).withStyle(ChatFormatting.GRAY)
+		).withStyle(ChatFormatting.BLUE));
 
 		if(component instanceof SpellShape shape) {
 			if(shape.getManaMultiplier() != 0)
-				textList.add(Component.translatable("spell_book.arcanus.mana_multiplier").append(": ").withStyle(ChatFormatting.LIGHT_PURPLE).append(Component.literal(shape.getManaMultiplierAsString()).withStyle(ChatFormatting.GRAY)));
+				textList.add(Component.translatable(TWO_ARGUMENT_KEY, Component.translatable(SPELL_BOOK_MANA_MULTIPLIER), Component.literal(shape.getManaMultiplierAsString()).withStyle(ChatFormatting.GRAY)).withStyle(ChatFormatting.LIGHT_PURPLE));
 			if(shape.getPotencyModifier() != 0)
-				textList.add(Component.translatable("spell_book.arcanus.potency_modifier").append(": ").withStyle(ChatFormatting.YELLOW).append(Component.literal(shape.getPotencyModifierAsString()).withStyle(ChatFormatting.GRAY)));
+				textList.add(Component.translatable(TWO_ARGUMENT_KEY, Component.translatable(SPELL_BOOK_POTENCY_MODIFIER), Component.literal(shape.getPotencyModifierAsString()).withStyle(ChatFormatting.GRAY)).withStyle(ChatFormatting.YELLOW));
 		}
 
-		textList.add(Component.translatable("spell_book.arcanus.cool_down").append(": ").withStyle(ChatFormatting.RED).append(Component.literal(component.getCoolDownAsString()).append(Component.translatable("spell_book.arcanus.seconds")).withStyle(ChatFormatting.GRAY)));
+		textList.add(Component.translatable(TWO_ARGUMENT_KEY, Component.translatable(SPELL_BOOK_COOL_DOWN), Component.literal(component.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)).withStyle(ChatFormatting.RED));
 
 
 		this.tooltipSupplier = new TooltipSupplier() {
@@ -64,7 +70,7 @@ public class SpellComponentWidget extends AbstractButton {
 
 	@Override
 	public void renderWidget(GuiGraphics gui, int mouseX, int mouseY, float delta) {
-		RenderSystem.setShaderColor(0.25F, 0.25F, 0.3F, 1F);
+		RenderSystem.setShaderColor(0.25f, 0.25f, 0.3f, 1f);
 		gui.blit(component.getTexture(), getX(), getY(), 0, 0, 24, 24, 24, 24);
 	}
 

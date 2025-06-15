@@ -82,7 +82,7 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 			}
 		}
 
-		return Weight.values()[Math.round(cumulativeWeightIndex / ((float) effectCount + 1F))];
+		return Weight.values()[Math.round(cumulativeWeightIndex / ((float) effectCount + 1f))];
 	}
 
 	public double getManaCost() {

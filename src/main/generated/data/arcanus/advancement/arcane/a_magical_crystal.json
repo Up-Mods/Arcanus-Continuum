@@ -22,7 +22,7 @@
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "minecraft:amethyst_shard"
+      "id": "minecraft:amethyst_shard"
     },
     "show_toast": true,
     "title": {

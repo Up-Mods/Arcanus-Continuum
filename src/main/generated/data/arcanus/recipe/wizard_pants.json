@@ -6,7 +6,7 @@
       "item": "minecraft:leather"
     },
     "G": {
-      "tag": "c:gold_ingots"
+      "tag": "c:ingots/gold"
     }
   },
   "pattern": [
@@ -15,7 +15,7 @@
     "# #"
   ],
   "result": {
-    "item": "arcanus:wizard_pants"
+    "id": "arcanus:wizard_pants"
   },
   "show_notification": true
 }

@@ -57,7 +57,7 @@ public class SpellComponent {
 	}
 
 	public String getCoolDownAsString() {
-		return Arcanus.format(getCoolDown() / 20D);
+		return Arcanus.format(getCoolDown() / 20d) + "s";
 	}
 
 	public ResourceLocation getTexture() {

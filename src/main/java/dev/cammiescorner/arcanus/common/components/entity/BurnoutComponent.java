@@ -34,7 +34,7 @@ public class BurnoutComponent implements AutoSyncedComponent, ServerTickingCompo
 			drainBurnout(burnoutRegenAttr.getValue() / (entity instanceof Player player && player.isCreative() ? 1 : 30), false);
 
 			if(entity instanceof Player player)
-				player.causeFoodExhaustion(0.01F);
+				player.causeFoodExhaustion(0.01f);
 		}
 
 		if(attackSpeedAttr != null) {

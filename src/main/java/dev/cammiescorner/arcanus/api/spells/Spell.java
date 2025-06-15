@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanus.api.spells;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -124,6 +125,14 @@ public class Spell {
 				coolDown += group.getCoolDown();
 
 		return coolDown;
+	}
+
+	public String getManaCostAsString() {
+		return Arcanus.format(getManaCost());
+	}
+
+	public String getCoolDownAsString() {
+		return Arcanus.format(getCoolDown() / 20d) + "s";
 	}
 
 	public Stream<SpellComponent> components() {

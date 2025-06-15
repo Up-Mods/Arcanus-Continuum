@@ -38,9 +38,9 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
 			ItemStack leftStack = client.options.mainHand().get() == HumanoidArm.RIGHT ? livingEntity.getOffhandItem() : livingEntity.getMainHandItem();
 
 			if(rightStack.getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF)
-				rightArm.xRot *= 0.5F;
+				rightArm.xRot *= 0.5f;
 			if(leftStack.getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF)
-				leftArm.xRot *= 0.5F;
+				leftArm.xRot *= 0.5f;
 		}
 	}
 
@@ -52,19 +52,19 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
 			ItemStack leftStack = client.options.mainHand().get() == HumanoidArm.RIGHT ? entity.getOffhandItem() : entity.getMainHandItem();
 
 			if(rightStack.getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF) {
-				rightArm.zRot = rightArm.zRot * 0.5F - 1.0472F;
-				rightArm.xRot = rightArm.xRot * 0.25F - 0.698132F;
+				rightArm.zRot = rightArm.zRot * 0.5f - 1.0472f;
+				rightArm.xRot = rightArm.xRot * 0.25f - 0.698132f;
 
-				leftArm.zRot = -leftArm.zRot * 0.5F - 0.261799F;
-				leftArm.xRot = -leftArm.xRot * 0.25F - 0.436332F;
+				leftArm.zRot = -leftArm.zRot * 0.5f - 0.261799f;
+				leftArm.xRot = -leftArm.xRot * 0.25f - 0.436332f;
 			}
 
 			if(leftStack.getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF) {
-				leftArm.zRot = leftArm.zRot * 0.5F + 1.0472F;
-				leftArm.xRot = leftArm.xRot * 0.25F - 0.698132F;
+				leftArm.zRot = leftArm.zRot * 0.5f + 1.0472f;
+				leftArm.xRot = leftArm.xRot * 0.25f - 0.698132f;
 
-				rightArm.zRot = -rightArm.zRot * 0.5F + 0.261799F;
-				rightArm.xRot = -rightArm.xRot * 0.25F - 0.436332F;
+				rightArm.zRot = -rightArm.zRot * 0.5f + 0.261799f;
+				rightArm.xRot = -rightArm.xRot * 0.25f - 0.436332f;
 			}
 		}
 	}
@@ -82,35 +82,35 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
 			if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && ArcanusComponents.isCasting(entity)) {
 				switch(item.staffType) {
 					case STAFF -> {
-						head.yRot = head.yRot + 1.13446F;
-						rightArm.xRot = -1.13446F;
-						rightArm.zRot = -1.13446F;
-						rightArm.yRot = 0.610865F;
-						leftArm.xRot = -0.349066F;
-						leftArm.yRot = -0.610865F;
+						head.yRot = head.yRot + 1.13446f;
+						rightArm.xRot = -1.13446f;
+						rightArm.zRot = -1.13446f;
+						rightArm.yRot = 0.610865f;
+						leftArm.xRot = -0.349066f;
+						leftArm.yRot = -0.610865f;
 					}
 					case BOOK -> {
-						rightArm.xRot = rightArm.xRot * 0.5F - (float) (Math.PI / 10);
-						leftArm.xRot = -1.39626F;
+						rightArm.xRot = rightArm.xRot * 0.5f - (float) (Math.PI / 10);
+						leftArm.xRot = -1.39626f;
 					}
 					case GUN -> {
-						rightArm.xRot = -1.309F;
-						leftArm.xRot = -1.309F;
-						rightArm.yRot = -0.785398F;
-						leftArm.yRot = 0.785398F;
+						rightArm.xRot = -1.309f;
+						leftArm.xRot = -1.309f;
+						rightArm.yRot = -0.785398f;
+						leftArm.yRot = 0.785398f;
 					}
 					case WAND, GAUNTLET -> {
-						rightArm.xRot = -1.309F;
+						rightArm.xRot = -1.309f;
 					}
 				}
 			}
 			else {
 				if(item.staffType == StaffType.STAFF)
-					rightArm.xRot = rightArm.xRot * 0.5F - 1.22173F;
+					rightArm.xRot = rightArm.xRot * 0.5f - 1.22173f;
 				else
-					rightArm.xRot = rightArm.xRot * 0.5F - (float) (Math.PI / 10);
+					rightArm.xRot = rightArm.xRot * 0.5f - (float) (Math.PI / 10);
 
-				rightArm.yRot = 0F;
+				rightArm.yRot = 0f;
 			}
 
 			info.cancel();
@@ -130,35 +130,35 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
 			if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && ArcanusComponents.isCasting(entity)) {
 				switch(item.staffType) {
 					case STAFF -> {
-						head.yRot = head.yRot * 0.5F - 1.13446F;
-						leftArm.xRot = -1.13446F;
-						leftArm.zRot = 1.13446F;
-						leftArm.yRot = -0.610865F;
-						rightArm.xRot = -0.349066F;
-						rightArm.yRot = 0.610865F;
+						head.yRot = head.yRot * 0.5f - 1.13446f;
+						leftArm.xRot = -1.13446f;
+						leftArm.zRot = 1.13446f;
+						leftArm.yRot = -0.610865f;
+						rightArm.xRot = -0.349066f;
+						rightArm.yRot = 0.610865f;
 					}
 					case BOOK -> {
-						leftArm.xRot = leftArm.xRot * 0.5F - (float) (Math.PI / 10);
-						rightArm.xRot = -1.39626F;
+						leftArm.xRot = leftArm.xRot * 0.5f - (float) (Math.PI / 10);
+						rightArm.xRot = -1.39626f;
 					}
 					case GUN -> {
-						leftArm.xRot = -1.309F;
-						rightArm.xRot = -1.309F;
-						leftArm.yRot = 0.785398F;
-						rightArm.yRot = -0.785398F;
+						leftArm.xRot = -1.309f;
+						rightArm.xRot = -1.309f;
+						leftArm.yRot = 0.785398f;
+						rightArm.yRot = -0.785398f;
 					}
 					case WAND, GAUNTLET -> {
-						leftArm.xRot = -1.309F;
+						leftArm.xRot = -1.309f;
 					}
 				}
 			}
 			else {
 				if(item.staffType == StaffType.STAFF)
-					leftArm.xRot = leftArm.xRot * 0.5F - 1.22173F;
+					leftArm.xRot = leftArm.xRot * 0.5f - 1.22173f;
 				else
-					leftArm.xRot = leftArm.xRot * 0.5F - (float) (Math.PI / 10);
+					leftArm.xRot = leftArm.xRot * 0.5f - (float) (Math.PI / 10);
 
-				leftArm.yRot = 0.0F;
+				leftArm.yRot = 0f;
 			}
 
 			info.cancel();

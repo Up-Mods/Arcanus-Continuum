@@ -26,9 +26,9 @@ public class MagicLobModel extends EntityModel<Missile> {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition root = modelData.getRoot();
 
-		PartDefinition cube1 = root.addOrReplaceChild("cube1", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -2.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition cube2 = root.addOrReplaceChild("cube2", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -2.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition cube3 = root.addOrReplaceChild("cube3", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -2.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition cube1 = root.addOrReplaceChild("cube1", CubeListBuilder.create().texOffs(0, 0).addBox(-2f, -2f, -2f, 4f, 4f, 4f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition cube2 = root.addOrReplaceChild("cube2", CubeListBuilder.create().texOffs(0, 0).addBox(-2f, -2f, -2f, 4f, 4f, 4f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition cube3 = root.addOrReplaceChild("cube3", CubeListBuilder.create().texOffs(0, 0).addBox(-2f, -2f, -2f, 4f, 4f, 4f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
 
 		return LayerDefinition.create(modelData, 16, 16);
 	}

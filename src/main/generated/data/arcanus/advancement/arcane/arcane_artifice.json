@@ -22,7 +22,7 @@
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "arcanus:arcane_workbench"
+      "id": "arcanus:arcane_workbench"
     },
     "show_toast": true,
     "title": {

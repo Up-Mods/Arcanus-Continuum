@@ -49,17 +49,17 @@ public class MagicBlockEntityRenderer<T extends AbstractMagicBlockEntity> implem
 
 				switch(direction) {
 					case SOUTH ->
-						renderSide(matrix4f, consumer, 0F, 1F, 0F, 1F, 1F, 1F, 1F, 1F, color, light, overlay, matrices.last(), Direction.SOUTH); // south
+						renderSide(matrix4f, consumer, 0f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, color, light, overlay, matrices.last(), Direction.SOUTH); // south
 					case NORTH ->
-						renderSide(matrix4f, consumer, 0F, 1F, 1F, 0F, 0F, 0F, 0F, 0F, color, light, overlay, matrices.last(), Direction.NORTH); // north
+						renderSide(matrix4f, consumer, 0f, 1f, 1f, 0f, 0f, 0f, 0f, 0f, color, light, overlay, matrices.last(), Direction.NORTH); // north
 					case EAST ->
-						renderSide(matrix4f, consumer, 1F, 1F, 1F, 0F, 0F, 1F, 1F, 0F, color, light, overlay, matrices.last(), Direction.EAST); // east
+						renderSide(matrix4f, consumer, 1f, 1f, 1f, 0f, 0f, 1f, 1f, 0f, color, light, overlay, matrices.last(), Direction.EAST); // east
 					case WEST ->
-						renderSide(matrix4f, consumer, 0F, 0F, 0F, 1F, 0F, 1F, 1F, 0F, color, light, overlay, matrices.last(), Direction.WEST); // west
+						renderSide(matrix4f, consumer, 0f, 0f, 0f, 1f, 0f, 1f, 1f, 0f, color, light, overlay, matrices.last(), Direction.WEST); // west
 					case DOWN ->
-						renderSide(matrix4f, consumer, 0F, 1F, 0F, 0F, 0F, 0F, 1F, 1F, color, light, overlay, matrices.last(), Direction.DOWN); // down
+						renderSide(matrix4f, consumer, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 1f, color, light, overlay, matrices.last(), Direction.DOWN); // down
 					case UP ->
-						renderSide(matrix4f, consumer, 0F, 1F, 1F, 1F, 1F, 1F, 0F, 0F, color, light, overlay, matrices.last(), Direction.UP); // up
+						renderSide(matrix4f, consumer, 0f, 1f, 1f, 1f, 1f, 1f, 0f, 0f, color, light, overlay, matrices.last(), Direction.UP); // up
 				}
 			}
 		}

@@ -18,7 +18,7 @@
     "AAA"
   ],
   "result": {
-    "item": "arcanus:arcane_workbench"
+    "id": "arcanus:arcane_workbench"
   },
   "show_notification": true
 }

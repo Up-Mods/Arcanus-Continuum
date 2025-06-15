@@ -74,7 +74,7 @@ public class Missile extends AbstractArrow implements Targetable {
 				SpellShape.castNext(caster, target.getLocation(), target.getEntity(), server, stack, spellGroups, groupIndex, potency);
 		}
 
-		playSound(getHitGroundSoundEvent(), 1F, 1.2F / (random.nextFloat() * 0.2F + 0.9F));
+		playSound(getHitGroundSoundEvent(), 1f, 1.2f / (random.nextFloat() * 0.2f + 0.9f));
 		kill();
 	}
 
@@ -136,7 +136,7 @@ public class Missile extends AbstractArrow implements Targetable {
 
 	@Override
 	protected float getWaterInertia() {
-		return 1F;
+		return 1f;
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class ManaSplitSpellEffect extends SpellEffect {
 
 			if(entity instanceof LivingEntity livingEntity && caster != null) {
 				double splitMana = ArcanusComponents.getMana(caster) + ArcanusComponents.getMana(livingEntity);
-				double percent = 0.5 + (effects.stream().filter(ArcanusSpellComponents.MANA_SPLIT::is).count() / 11F) * 0.3 * potency;
+				double percent = 0.5 + (effects.stream().filter(ArcanusSpellComponents.MANA_SPLIT::is).count() / 11f) * 0.3 * potency;
 				double casterMana = splitMana * percent;
 
 				ArcanusComponents.setMana(caster, casterMana);

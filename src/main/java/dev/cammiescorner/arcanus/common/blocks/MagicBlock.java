@@ -44,7 +44,7 @@ public class MagicBlock extends Block implements EntityBlock {
 
 	@Override
 	public float getShadeBrightness(BlockState state, BlockGetter world, BlockPos pos) {
-		return 1F;
+		return 1f;
 	}
 
 	@Override

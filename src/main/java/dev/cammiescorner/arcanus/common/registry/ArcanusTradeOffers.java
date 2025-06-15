@@ -72,7 +72,7 @@ public class ArcanusTradeOffers {
 
 		@Override
 		public MerchantOffer getOffer(Entity entity, RandomSource random) {
-			return new MerchantOffer(new ItemCost(Items.AMETHYST_SHARD, price), sell, maxUses, experience, 0.05F);
+			return new MerchantOffer(new ItemCost(Items.AMETHYST_SHARD, price), sell, maxUses, experience, 0.05f);
 		}
 	}
 }

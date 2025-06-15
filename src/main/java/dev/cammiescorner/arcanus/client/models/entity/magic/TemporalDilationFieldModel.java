@@ -34,16 +34,16 @@ public class TemporalDilationFieldModel extends EntityModel<TemporalDilationFiel
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
+		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0f, 24f, 0f));
 
-		PartDefinition xPlaneRing = root.addOrReplaceChild("xPlaneRing", CubeListBuilder.create().texOffs(0, -55).addBox(0.0F, -27.5F, -27.5F, 0.0F, 55.0F, 55.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition xClockHand = xPlaneRing.addOrReplaceChild("xClockHand", CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, -27.5F, -27.5F, 0.0F, 55.0F, 55.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition xPlaneRing = root.addOrReplaceChild("xPlaneRing", CubeListBuilder.create().texOffs(0, -55).addBox(0f, -27.5f, -27.5f, 0f, 55f, 55f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition xClockHand = xPlaneRing.addOrReplaceChild("xClockHand", CubeListBuilder.create().texOffs(0, 0).addBox(0f, -27.5f, -27.5f, 0f, 55f, 55f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
 
-		PartDefinition yPlaneRing = root.addOrReplaceChild("yPlaneRing", CubeListBuilder.create().texOffs(-55, 0).addBox(-27.5F, 0.0F, -27.5F, 55.0F, 0.0F, 55.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition yClockHand = yPlaneRing.addOrReplaceChild("yClockHand", CubeListBuilder.create().texOffs(-55, 55).addBox(-27.5F, 0.0F, -27.5F, 55.0F, 0.0F, 55.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition yPlaneRing = root.addOrReplaceChild("yPlaneRing", CubeListBuilder.create().texOffs(-55, 0).addBox(-27.5f, 0f, -27.5f, 55f, 0f, 55f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition yClockHand = yPlaneRing.addOrReplaceChild("yClockHand", CubeListBuilder.create().texOffs(-55, 55).addBox(-27.5f, 0f, -27.5f, 55f, 0f, 55f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
 
-//		PartDefinition zPlaneRing = root.addOrReplaceChild("zPlaneRing", CubeListBuilder.create().texOffs(0, 0).addBox(-27.5F, -27.5F, 0.0F, 55.0F, 55.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-//		PartDefinition zClockHand = zPlaneRing.addOrReplaceChild("zClockHand", CubeListBuilder.create().texOffs(0, 55).addBox(-27.5F, -27.5F, 0.0F, 55.0F, 55.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+//		PartDefinition zPlaneRing = root.addOrReplaceChild("zPlaneRing", CubeListBuilder.create().texOffs(0, 0).addBox(-27.5f, -27.5f, 0f, 55f, 55f, 0f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
+//		PartDefinition zClockHand = zPlaneRing.addOrReplaceChild("zClockHand", CubeListBuilder.create().texOffs(0, 55).addBox(-27.5f, -27.5f, 0f, 55f, 55f, 0f, new CubeDeformation(0f)), PartPose.offset(0f, 0f, 0f));
 
 		return LayerDefinition.create(meshdefinition, 110, 110);
 	}

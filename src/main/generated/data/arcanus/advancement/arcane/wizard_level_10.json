@@ -16,7 +16,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "arcanus:scroll_of_knowledge"
+      "id": "arcanus:scroll_of_knowledge"
     },
     "show_toast": true,
     "title": {

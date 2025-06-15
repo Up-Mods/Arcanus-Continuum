@@ -25,7 +25,7 @@ public class OpossumRenderer extends MobRenderer<Opossum, OpossumModel> {
 	public static final ResourceLocation HAT_TEXTURE = Arcanus.id("textures/entity/living/opossum_hat.png");
 
 	public OpossumRenderer(EntityRendererProvider.Context context) {
-		super(context, new OpossumModel(Minecraft.getInstance().getEntityModels().bakeLayer(OpossumModel.MODEL_LAYER)), 0.3F);
+		super(context, new OpossumModel(Minecraft.getInstance().getEntityModels().bakeLayer(OpossumModel.MODEL_LAYER)), 0.3f);
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class OpossumRenderer extends MobRenderer<Opossum, OpossumModel> {
 
 			matrices.pushPose();
 			setupRotations(opossum, matrices, 0, Mth.rotLerp(tickDelta, opossum.yBodyRotO, opossum.yBodyRot), tickDelta, 1f);
-			matrices.scale(-1.0F, -1.0F, 1.0F);
+			matrices.scale(-1f, -1f, 1f);
 			scale(opossum, matrices, tickDelta);
 			matrices.translate(0.0, -1.5, 0.0);
 			model.renderToBuffer(matrices, verteces.getBuffer(RenderType.entityCutout(HAT_TEXTURE)), i, OverlayTexture.NO_OVERLAY, hexColor);

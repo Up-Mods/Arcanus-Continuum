@@ -93,7 +93,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 				if(amount > getMana()) {
 					ArcanusComponents.addBurnout(entity, amount - getMana(), false);
 
-					if(ArcanusComponents.getBurnout(entity) >= ArcanusComponents.getMaxMana(entity) * 0.5F)
+					if(ArcanusComponents.getBurnout(entity) >= ArcanusComponents.getMaxMana(entity) * 0.5f)
 						entity.hurt(entity.damageSources().fellOutOfWorld(), (float) Math.min(entity.getHealth() - 1, amount - getMana()));
 				}
 

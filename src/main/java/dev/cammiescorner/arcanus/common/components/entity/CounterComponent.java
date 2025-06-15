@@ -40,7 +40,7 @@ public class CounterComponent implements AutoSyncedComponent, ServerTickingCompo
 	private ItemStack stack = ItemStack.EMPTY;
 	private Color color = Arcanus.DEFAULT_MAGIC_COLOUR;
 	private int groupIndex = 0;
-	private double potency = 1F;
+	private double potency = 1f;
 	private long endTime = 0;
 
 	public CounterComponent(LivingEntity entity) {

@@ -88,8 +88,8 @@ public class ArcanusHelper {
 	}
 
 	public static HitResult raycast(Entity origin, double maxDistance, boolean includeEntities, boolean includeFluids) {
-		Vec3 startPos = origin.getEyePosition(1F);
-		Vec3 rotation = origin.getViewVector(1F);
+		Vec3 startPos = origin.getEyePosition(1f);
+		Vec3 rotation = origin.getViewVector(1f);
 		Vec3 endPos = startPos.add(rotation.scale(maxDistance));
 		HitResult hitResult = origin.level().clip(new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER, includeFluids ? ClipContext.Fluid.ANY : ClipContext.Fluid.NONE, origin));
 
@@ -97,7 +97,7 @@ public class ArcanusHelper {
 		maxDistance *= maxDistance;
 
 		if(includeEntities) {
-			EntityHitResult entityHitResult = ProjectileUtil.getEntityHitResult(origin, startPos, endPos, origin.getBoundingBox().expandTowards(rotation.scale(maxDistance)).inflate(1.0D, 1D, 1D), entity -> !entity.isSpectator() && entity instanceof Targetable targetable && targetable.arcanus$canBeTargeted(), maxDistance);
+			EntityHitResult entityHitResult = ProjectileUtil.getEntityHitResult(origin, startPos, endPos, origin.getBoundingBox().expandTowards(rotation.scale(maxDistance)).inflate(1d, 1d, 1d), entity -> !entity.isSpectator() && entity instanceof Targetable targetable && targetable.arcanus$canBeTargeted(), maxDistance);
 
 			if(entityHitResult != null)
 				return entityHitResult;

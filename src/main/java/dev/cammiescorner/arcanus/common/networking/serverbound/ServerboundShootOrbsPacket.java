@@ -45,7 +45,7 @@ public record ServerboundShootOrbsPacket(UUID ownerId, List<UUID> orbIds) implem
 			if(world.getEntity(orbId) instanceof Aggressorb orb && owner != null && orb.isBoundToTarget()) {
 				orb.setBoundToTarget(false);
 				orb.setPos(orb.getTarget().getEyePosition());
-				orb.shootFromRotation(orb.getTarget(), orb.getTarget().getXRot(), orb.getTarget().getYRot(), 0F, ArcanusConfig.SpellShapes.AggressorbShapeProperties.projectileSpeed, 1F);
+				orb.shootFromRotation(orb.getTarget(), orb.getTarget().getXRot(), orb.getTarget().getYRot(), 0f, ArcanusConfig.SpellShapes.AggressorbShapeProperties.projectileSpeed, 1f);
 				world.playSeededSound(null, orb.getX(), orb.getY(), orb.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.NEUTRAL, 1f, 1f, 1L);
 				ArcanusComponents.removeAggressorbFromEntity(orb.getTarget(), orbId);
 

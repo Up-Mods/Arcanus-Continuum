@@ -27,9 +27,9 @@ public abstract class CraftingScreenMixin extends AbstractContainerScreen<Crafti
 	private void renderSpellPatterns(GuiGraphics gui, int mouseX, int mouseY, float delta, CallbackInfo info) {
 		PoseStack matrices = gui.pose();
 		if(getMenu().getSlot(5).getItem().getItem() instanceof StaffItem) {
-			float scale = 0.4F;
+			float scale = 0.4f;
 			matrices.pushPose();
-			matrices.scale(scale, scale, 1F);
+			matrices.scale(scale, scale, 1f);
 
 			if(getMenu().getSlot(2).getItem().isEmpty())
 				gui.drawCenteredString(font, Arcanus.getSpellPatternAsText(0), (int) ((leftPos + 56) / scale), (int) ((topPos + 23) / scale), 0xffffff);

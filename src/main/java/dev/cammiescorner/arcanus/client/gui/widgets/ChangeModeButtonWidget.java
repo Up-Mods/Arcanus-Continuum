@@ -27,7 +27,7 @@ public class ChangeModeButtonWidget extends AbstractButton {
 
 	@Override
 	public void renderWidget(GuiGraphics gui, int mouseX, int mouseY, float delta) {
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
 		if(!isHoveredOrFocused()) {
 			gui.blit(texture, getX(), getY(), 24, 168, width, height, 256, 256);

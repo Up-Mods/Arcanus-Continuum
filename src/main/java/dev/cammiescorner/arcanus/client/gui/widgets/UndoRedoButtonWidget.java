@@ -29,7 +29,7 @@ public class UndoRedoButtonWidget extends AbstractButton {
 
 	@Override
 	public void renderWidget(GuiGraphics gui, int mouseX, int mouseY, float delta) {
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
 		int v = isUndo ? 192 : 208;
 		active = isUndo ? undoRedoStack.canUndo() : undoRedoStack.canRedo();

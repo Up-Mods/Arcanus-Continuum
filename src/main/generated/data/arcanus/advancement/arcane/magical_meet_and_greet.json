@@ -26,7 +26,7 @@
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "arcanus:wizard_hat",
+      "id": "arcanus:wizard_hat",
       "nbt": "{Damage:0}"
     },
     "show_toast": true,

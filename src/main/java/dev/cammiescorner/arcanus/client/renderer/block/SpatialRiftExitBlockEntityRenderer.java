@@ -31,9 +31,9 @@ public class SpatialRiftExitBlockEntityRenderer implements BlockEntityRenderer<S
 			float ageDelta = world.getGameTime() + tickDelta;
 
 			matrices.pushPose();
-			matrices.translate(1.0F, 0.0F, 1.0F);
-			matrices.scale(0.75F, 0.75F, 0.75F);
-			sigilModel.sigil.yRot = ageDelta * 0.015F;
+			matrices.translate(1f, 0f, 1f);
+			matrices.scale(0.75f, 0.75f, 0.75f);
+			sigilModel.sigil.yRot = ageDelta * 0.015f;
 			sigilModel.renderToBuffer(matrices, vertices.getBuffer(LAYER), light, OverlayTexture.NO_OVERLAY, color.asIntARGB());
 			matrices.popPose();
 		}

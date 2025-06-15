@@ -22,7 +22,7 @@ public class MagicRuneModel extends EntityModel<MagicRune> {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();
 
-		modelPartData.addOrReplaceChild("rune", CubeListBuilder.create().texOffs(-15, 0).addBox(-7.5F, 0F, -7.5F, 15F, 0F, 15F, new CubeDeformation(0F)), PartPose.offset(0F, 1F, 0F));
+		modelPartData.addOrReplaceChild("rune", CubeListBuilder.create().texOffs(-15, 0).addBox(-7.5f, 0f, -7.5f, 15f, 0f, 15f, new CubeDeformation(0f)), PartPose.offset(0f, 1f, 0f));
 
 		return LayerDefinition.create(modelData, 32, 16);
 	}

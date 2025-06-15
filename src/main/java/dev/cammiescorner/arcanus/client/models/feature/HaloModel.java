@@ -26,8 +26,8 @@ public class HaloModel<T extends Player> extends HumanoidModel<T> {
 		MeshDefinition modelData = PlayerModel.createMesh(CubeDeformation.NONE, 0);
 		PartDefinition root = modelData.getRoot().getChild("head");
 
-		PartDefinition halo = root.addOrReplaceChild("halo", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition spinny = halo.addOrReplaceChild("spinny", CubeListBuilder.create().texOffs(-12, 0).addBox(-6.0F, 0.0F, -6.0F, 12.0F, 0.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -11.0F, 0.0F));
+		PartDefinition halo = root.addOrReplaceChild("halo", CubeListBuilder.create(), PartPose.offset(0f, 0f, 0f));
+		PartDefinition spinny = halo.addOrReplaceChild("spinny", CubeListBuilder.create().texOffs(-12, 0).addBox(-6f, 0f, -6f, 12f, 0f, 12f, new CubeDeformation(0f)), PartPose.offset(0f, -11f, 0f));
 
 		return LayerDefinition.create(modelData, 32, 16);
 	}
@@ -39,7 +39,7 @@ public class HaloModel<T extends Player> extends HumanoidModel<T> {
 		halo.xRot = (float) (head.xRot - Math.toRadians(30));
 
 		if(player.isCrouching())
-			halo.y += 4.2F;
+			halo.y += 4.2f;
 	}
 
 	@Override

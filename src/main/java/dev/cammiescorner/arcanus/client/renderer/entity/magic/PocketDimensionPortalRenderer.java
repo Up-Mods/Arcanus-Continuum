@@ -115,10 +115,10 @@ public class PocketDimensionPortalRenderer extends EntityRenderer<PocketDimensio
 		matrices.popPose();
 
 		matrices.pushPose();
-		matrices.translate(0.0D, 1.51D, 0.0D);
-		matrices.mulPose(Axis.XP.rotationDegrees(180.0F));
-		matrices.scale(scale / maxScale, 1.0F, scale / maxScale);
-		sigilModel.sigil.yRot = (entity.tickCount + tickDelta) * 0.015F;
+		matrices.translate(0d, 1.51d, 0d);
+		matrices.mulPose(Axis.XP.rotationDegrees(180f));
+		matrices.scale(scale / maxScale, 1f, scale / maxScale);
+		sigilModel.sigil.yRot = (entity.tickCount + tickDelta) * 0.015f;
 		sigilModel.renderToBuffer(matrices, vertices.getBuffer(sigilLayer), light, OverlayTexture.NO_OVERLAY, magicColor.asIntARGB());
 		matrices.popPose();
 	}
