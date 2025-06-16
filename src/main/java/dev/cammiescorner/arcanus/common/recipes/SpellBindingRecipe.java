@@ -97,6 +97,7 @@ public class SpellBindingRecipe extends CustomRecipe {
 				continue;
 
 			ItemStack stack = input.getItem(i);
+
 			if(stack.is(ArcanusItemTags.CRAFTING_SPELLBINDING_SPELLBOOKS)) {
 				spells[INDICES[i]] = SpellBookItem.getSpell(stack);
 				count++;
