@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import java.util.Arrays;
 import java.util.List;
 
+// TODO isnt even running yay
 public class SpellBindingRecipe extends CustomRecipe {
 	private static final int[] INDICES = new int[]{7, 0, 1, 6, 0, 2, 5, 4, 3};
 
@@ -40,7 +41,6 @@ public class SpellBindingRecipe extends CustomRecipe {
 		return list;
 	}
 
-	// TODO isnt even running yay
 	@Override
 	public boolean matches(CraftingInput input, Level level) {
 		List<ItemStack> spellBooks = Lists.newArrayList();
@@ -67,7 +67,6 @@ public class SpellBindingRecipe extends CustomRecipe {
 
 		return !result.isEmpty() && !spellBooks.isEmpty();
 	}
-
 
 	@Override
 	public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
