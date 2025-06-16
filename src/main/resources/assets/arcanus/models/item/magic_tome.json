@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:builtin/entity",
   "base": {
-    "parent": "arcanus:item/magic_tome_handheld"
+    "parent": "arcanus:item/magic_tome_in_hand"
   },
   "perspectives": {
     "gui": {

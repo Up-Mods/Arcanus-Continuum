@@ -4,11 +4,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.resource.ResourceReloadListenerKeys;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.fabricmc.fabric.impl.client.model.loading.ModelLoadingConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -43,8 +43,8 @@ public class StaffItemRenderer implements BuiltinItemRendererRegistry.DynamicIte
 	public void onResourceManagerReload(ResourceManager resourceManager) {
 		final Minecraft client = Minecraft.getInstance();
 		itemRenderer = client.getItemRenderer();
-		inventoryItemModel = client.getModelManager().getModel(new ModelResourceLocation(itemId.withSuffix("_gui"), "inventory"));
-		worldItemModel = client.getModelManager().getModel(new ModelResourceLocation(itemId.withSuffix("_handheld"), "inventory"));
+		inventoryItemModel = client.getModelManager().getModel(ModelLoadingConstants.toResourceModelId(itemId.withSuffix("_gui")));
+		worldItemModel = client.getModelManager().getModel(ModelLoadingConstants.toResourceModelId(itemId.withSuffix("_in_hand")));
 	}
 
 	@Override

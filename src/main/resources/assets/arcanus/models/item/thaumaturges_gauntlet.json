@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:builtin/entity",
   "base": {
-    "parent": "arcanus:item/thaumaturges_gauntlet_handheld"
+    "parent": "arcanus:item/thaumaturges_gauntlet_in_hand"
   },
   "perspectives": {
     "gui": {

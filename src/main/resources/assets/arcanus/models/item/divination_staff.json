@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:builtin/entity",
   "base": {
-    "parent": "arcanus:item/divination_staff_handheld"
+    "parent": "arcanus:item/divination_staff_in_hand"
   },
   "perspectives": {
     "gui": {

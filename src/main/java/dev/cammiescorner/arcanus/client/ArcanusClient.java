@@ -167,14 +167,14 @@ public class ArcanusClient implements ClientModInitializer {
 		ItemProperties.register(ArcanusItems.BATTLE_MAGE_LEGGINGS.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
 		ItemProperties.register(ArcanusItems.BATTLE_MAGE_BOOTS.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
 
-		// TODO not loading the extra models for some reason
+		// TODO loading the models now, but still displaying missing model/texture in game
 		ArcanusItems.ITEMS.stream().forEach(holder -> {
 			if(holder.get() instanceof StaffItem item) {
-				ResourceLocation id = holder.getId();
+				ResourceLocation id = holder.getId().withPrefix("item/");
 				StaffItemRenderer staffItemRenderer = new StaffItemRenderer(id);
 				ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(staffItemRenderer);
 				BuiltinItemRendererRegistry.INSTANCE.register(item, staffItemRenderer);
-				ModelLoadingPlugin.register(ctx -> ctx.addModels(id.withSuffix("_gui"), id.withSuffix("_handheld")));
+				ModelLoadingPlugin.register(ctx -> ctx.addModels(id.withSuffix("_gui"), id.withSuffix("_in_hand")));
 			}
 		});
 

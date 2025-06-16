@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:builtin/entity",
   "base": {
-    "parent": "arcanus:item/crescent_staff_handheld"
+    "parent": "arcanus:item/crescent_staff_in_hand"
   },
   "perspectives": {
     "gui": {
