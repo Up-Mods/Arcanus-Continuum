@@ -116,11 +116,13 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.entity(ArcanusEntities.ENTANGLED_ORB, "Entangled Orb");
 		builder.entity(ArcanusEntities.MISSILE, "Missile");
 		builder.entity(ArcanusEntities.LOB, "Lob");
+		builder.entity(ArcanusEntities.GUIDED_SHOT, "Guided Shot");
 		builder.entity(ArcanusEntities.MAGIC_RUNE, "Magic Rune");
 		builder.entity(ArcanusEntities.MANA_SHIELD, "Mana Shield");
 		builder.entity(ArcanusEntities.NECRO_SKELETON, "Necro Skeleton");
 		builder.entity(ArcanusEntities.OPOSSUM, "Opossum");
 		builder.entity(ArcanusEntities.PORTAL, "Pocket Dimension Portal");
+		builder.entity(ArcanusEntities.TEMPORAL_DILATION_FIELD, "Temporal Dilation Field");
 		builder.entity(ArcanusEntities.SMITE, "Smite");
 		builder.entity(ArcanusEntities.WIZARD, "Wizard");
 

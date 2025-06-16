@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanus.client.models.armour;
+package dev.cammiescorner.arcanus.client.models.armor;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

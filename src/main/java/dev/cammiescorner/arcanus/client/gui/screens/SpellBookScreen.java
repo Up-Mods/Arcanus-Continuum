@@ -24,7 +24,8 @@ import org.joml.Vector2i;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
+
+import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 	public static final ResourceLocation BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
@@ -57,7 +58,7 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 
 	@Override
 	protected void renderLabels(GuiGraphics gui, int mouseX, int mouseY) {
-		PoseStack matrices = gui.pose();
+		PoseStack poseStack = gui.pose();
 		MutableComponent title = Component.literal(getSpell().getName()).withStyle(ChatFormatting.BOLD, ChatFormatting.UNDERLINE);
 		gui.drawString(font, title, 128 - font.width(title) / 2, 11, 0x50505D, false);
 
@@ -66,11 +67,10 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 			List<Vector2i> positions = group.positions();
 			RenderSystem.setShader(GameRenderer::getPositionShader);
 			RenderSystem.setShaderColor(0.25f, 0.25f, 0.3f, 1f);
-			BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-			matrices.pushPose();
-			matrices.translate(12, 12, 0);
-			Matrix4f matrix = matrices.last().pose();
-			boolean hasData = false;
+			BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
+			poseStack.pushPose();
+			poseStack.translate(12, 12, 0);
+			Matrix4f matrix = poseStack.last().pose();
 
 			for(int j = 0; j < positions.size(); j++) {
 				Vector2i pos = positions.get(j);
@@ -78,8 +78,9 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 
 				if(j == 0 && i > 0 && !SPELL_GROUPS.get(i - 1).isEmpty()) {
 					List<Vector2i> prevPositions = SPELL_GROUPS.get(i - 1).positions();
-					prevPos = prevPositions.get(prevPositions.size() - 1);
+					prevPos = prevPositions.getLast();
 				}
+
 				if(pos.equals(prevPos))
 					continue;
 
@@ -91,18 +92,16 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 				float dx = Mth.cos(angle);
 				float dy = Mth.sin(angle);
 
-				bufferBuilder.addVertex(matrix, x2 - dx, y2 - dy, 0).setColor(0);
-				bufferBuilder.addVertex(matrix, x2 + dx, y2 + dy, 0).setColor(0);
-				bufferBuilder.addVertex(matrix, x1 + dx, y1 + dy, 0).setColor(0);
-				bufferBuilder.addVertex(matrix, x1 - dx, y1 - dy, 0).setColor(0);
-
-				hasData = true;
+				bufferBuilder.addVertex(matrix, x2 - dx, y2 - dy, 0);
+				bufferBuilder.addVertex(matrix, x2 + dx, y2 + dy, 0);
+				bufferBuilder.addVertex(matrix, x1 + dx, y1 + dy, 0);
+				bufferBuilder.addVertex(matrix, x1 - dx, y1 - dy, 0);
 			}
 
-			if(hasData)
-				BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
+			if(bufferBuilder.build() instanceof MeshData data)
+				BufferUploader.drawWithShader(data);
 
-			matrices.popPose();
+			poseStack.popPose();
 		}
 
 		for(SpellGroup group : SPELL_GROUPS) {
@@ -135,19 +134,33 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 					List<Component> textList = new ArrayList<>();
 					SpellComponent component = group.getAllComponents().toList().get(i);
 
-					// TODO do all the translation stuff
 					textList.add(component.getName());
-					textList.add(Component.translatable("spell_book.arcanus.weight").append(": ").withStyle(ChatFormatting.GREEN).append(Component.translatable("spell_book.arcanus.weight", component.getWeight().toString().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.GRAY)));
-					textList.add(Component.translatable("spell_book.arcanus.mana_cost").append(": ").withStyle(ChatFormatting.BLUE).append(Component.literal(component.getManaCostAsString()).withStyle(ChatFormatting.GRAY)));
+					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+						Component.translatable(SPELL_BOOK_WEIGHT),
+						Component.translatable(component.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
+					).withStyle(ChatFormatting.GREEN));
+					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+						Component.translatable(SPELL_BOOK_MANA_COST),
+						Component.literal(component.getManaCostAsString()).withStyle(ChatFormatting.GRAY)
+					).withStyle(ChatFormatting.BLUE));
 
 					if(component instanceof SpellShape shape) {
 						if(shape.getManaMultiplier() != 0)
-							textList.add(Component.translatable("spell_book.arcanus.mana_multiplier").append(": ").withStyle(ChatFormatting.LIGHT_PURPLE).append(Component.literal(shape.getManaMultiplierAsString()).withStyle(ChatFormatting.GRAY)));
+							textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+								Component.translatable(SPELL_BOOK_MANA_MULTIPLIER),
+								Component.literal(shape.getManaMultiplierAsString()).withStyle(ChatFormatting.GRAY)
+							).withStyle(ChatFormatting.LIGHT_PURPLE));
 						if(shape.getPotencyModifier() != 0)
-							textList.add(Component.translatable("spell_book.arcanus.potency_modifier").append(": ").withStyle(ChatFormatting.YELLOW).append(Component.literal(shape.getPotencyModifierAsString()).withStyle(ChatFormatting.GRAY)));
+							textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+								Component.translatable(SPELL_BOOK_POTENCY_MODIFIER),
+								Component.literal(shape.getManaMultiplierAsString()).withStyle(ChatFormatting.GRAY)
+							).withStyle(ChatFormatting.YELLOW));
 					}
 
-					textList.add(Component.translatable("spell_book.arcanus.cool_down").append(": ").withStyle(ChatFormatting.RED).append(Component.literal(component.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)));
+					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+						Component.translatable(SPELL_BOOK_COOL_DOWN),
+						Component.literal(component.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)
+					).withStyle(ChatFormatting.RED));
 
 					gui.renderComponentTooltip(font, textList, mouseX - leftPos, mouseY - topPos);
 				}
@@ -182,7 +195,7 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 	}
 
 	public Spell getSpell() {
-		return new Spell(SPELL_GROUPS, title.getString());
+		return spell;
 	}
 
 	public Weight getWeight() {

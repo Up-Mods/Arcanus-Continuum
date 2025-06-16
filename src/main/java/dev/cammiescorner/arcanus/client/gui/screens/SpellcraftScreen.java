@@ -39,15 +39,16 @@ import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
+
+import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 	public static final ResourceLocation BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
 	public static final ResourceLocation PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
 	private static final Vector4i VALID_BOUNDS = new Vector4i(30, 40, 197, 114);
+	private static final LinkedList<SpellGroup> SPELL_GROUPS = new LinkedList<>();
 	private static List<SpellComponent> spellShapes;
 	private static List<SpellComponent> spellEffects;
-	private final LinkedList<SpellGroup> spellGroups = new LinkedList<>();
 	private final List<SpellComponentWidget> spellShapeWidgets = Lists.newArrayList();
 	private final List<SpellComponentWidget> spellEffectWidgets = Lists.newArrayList();
 	private final UndoRedoStack undoRedoStack = new UndoRedoStack();
@@ -92,7 +93,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 		for(SpellGroup group : SpellBookItem.getSpell(stack).getComponentGroups()) {
 			if(!group.isEmpty()) {
-				undoRedoStack.addAction(new Action(group.shape(), group.positions().get(0), () -> spellGroups.add(group), () -> spellGroups.remove(group))).Do().run();
+				undoRedoStack.addAction(new Action(group.shape(), group.positions().getFirst(), () -> SPELL_GROUPS.add(group), () -> SPELL_GROUPS.remove(group))).Do().run();
 
 				for(int i = 0; i < group.effects().size(); i++) {
 					SpellEffect effect = group.effects().get(i);
@@ -109,8 +110,14 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 			}
 		}
 
-		addRenderableWidget(new UndoRedoButtonWidget((width - 48) / 2, topPos - 8, true, undoRedoStack, button -> undoRedoStack.undo()));
-		addRenderableWidget(new UndoRedoButtonWidget(width / 2, topPos - 8, false, undoRedoStack, button -> undoRedoStack.redo()));
+		addRenderableWidget(new UndoRedoButtonWidget((width - 48) / 2, topPos - 8, true, undoRedoStack, button -> {
+			undoRedoStack.undo();
+			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
+		}));
+		addRenderableWidget(new UndoRedoButtonWidget(width / 2, topPos - 8, false, undoRedoStack, button -> {
+			undoRedoStack.redo(); // TODO only lets you redo the first spell component for some reason
+			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
+		}));
 	}
 
 	@Override
@@ -134,9 +141,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		gui.blit(PANEL_TEXTURE, leftKnob.x(), leftKnob.y(), draggingLeft ? 12 : 0, 184, leftKnob.width(), leftKnob.height(), 384, 256);
 		gui.blit(PANEL_TEXTURE, rightKnob.x(), rightKnob.y(), draggingRight ? 12 : 0, 184, rightKnob.width(), rightKnob.height(), 384, 256);
 
-		drawWidgets(gui, mouseX, mouseY, Minecraft.getInstance().getFrameTimeNs());
-
-		super.renderLabels(gui, mouseX, mouseY);
+		drawWidgets(gui, mouseX, mouseY, minecraft.getTimer().getGameTimeDeltaTicks());
 	}
 
 	@Override
@@ -211,18 +216,18 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 					List<Vector2i> positions = new ArrayList<>();
 					positions.add(pos);
 					SpellGroup group = new SpellGroup(shape, new ArrayList<>(), positions);
-					Action action = undoRedoStack.addAction(new Action(draggedComponent, pos, () -> spellGroups.add(group), () -> spellGroups.remove(group)));
+					Action action = undoRedoStack.addAction(new Action(draggedComponent, pos, () -> SPELL_GROUPS.add(group), () -> SPELL_GROUPS.remove(group)));
 
 					action.Do().run();
 				}
 
-				if(draggedComponent instanceof SpellEffect effect && !spellGroups.isEmpty() && !ArcanusSpellComponents.EMPTY.is(spellGroups.getLast().shape())) {
+				if(draggedComponent instanceof SpellEffect effect && !SPELL_GROUPS.isEmpty() && !ArcanusSpellComponents.EMPTY.is(SPELL_GROUPS.getLast().shape())) {
 					Action action = undoRedoStack.addAction(new Action(draggedComponent, pos, () -> {
-						spellGroups.getLast().effects().add(effect);
-						spellGroups.getLast().positions().add(pos);
+						SPELL_GROUPS.getLast().effects().add(effect);
+						SPELL_GROUPS.getLast().positions().add(pos);
 					}, () -> {
-						spellGroups.getLast().effects().remove(effect);
-						spellGroups.getLast().positions().remove(pos);
+						SPELL_GROUPS.getLast().effects().remove(effect);
+						SPELL_GROUPS.getLast().positions().remove(pos);
 					}));
 
 					action.Do().run();
@@ -260,14 +265,13 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 	@Override
 	protected void clearWidgets() {
 		super.clearWidgets();
-		spellGroups.clear();
+		SPELL_GROUPS.clear();
 		spellShapeWidgets.clear();
 		spellEffectWidgets.clear();
 	}
 
 	@Override
 	public void onClose() {
-		// TODO only syncs correctly 50% of the time for some reason
 		Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
 		super.onClose();
 	}
@@ -275,11 +279,11 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 	public void setBook(ItemStack stack) {
 		this.stack = stack;
 		textBox.setValue(SpellBookItem.getSpell(stack).getName());
-		spellGroups.clear();
+		SPELL_GROUPS.clear();
 
 		for(SpellGroup group : SpellBookItem.getSpell(stack).getComponentGroups()) {
 			if(!group.isEmpty()) {
-				undoRedoStack.addAction(new Action(group.shape(), group.positions().get(0), () -> spellGroups.add(group), () -> spellGroups.remove(group))).Do().run();
+				undoRedoStack.addAction(new Action(group.shape(), group.positions().getFirst(), () -> SPELL_GROUPS.add(group), () -> SPELL_GROUPS.remove(group))).Do().run();
 
 				for(int i = 0; i < group.effects().size(); i++) {
 					SpellEffect effect = group.effects().get(i);
@@ -297,8 +301,8 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		}
 	}
 
-	private void drawWidgets(GuiGraphics gui, int mouseX, int mouseY, float delta) {
-		PoseStack matrices = gui.pose();
+	private void drawWidgets(GuiGraphics gui, int mouseX, int mouseY, float partialTick) {
+		PoseStack poseStack = gui.pose();
 		int scale = (int) minecraft.getWindow().getGuiScale();
 
 		// Render Spell Shapes
@@ -307,7 +311,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		for(int i = 0; i < spellShapeWidgets.size(); i++) {
 			SpellComponentWidget widget = spellShapeWidgets.get(i);
 			widget.setY(8 + (i * 28) - leftScroll * 14);
-			widget.render(gui, mouseX - leftPos, mouseY - topPos, delta);
+			widget.render(gui, mouseX - leftPos, mouseY - topPos, partialTick);
 
 			RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
@@ -323,7 +327,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		for(int i = 0; i < spellEffectWidgets.size(); i++) {
 			SpellComponentWidget widget = spellEffectWidgets.get(i);
 			widget.setY(8 + (i * 28) - rightScroll * 14);
-			widget.render(gui, mouseX - leftPos, mouseY - topPos, delta);
+			widget.render(gui, mouseX - leftPos, mouseY - topPos, partialTick);
 
 			RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
@@ -333,25 +337,23 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 		RenderSystem.disableScissor();
 
-		// TODO doesn't draw the lines between components for some reason
-		for(int i = 0; i < spellGroups.size(); i++) {
-			SpellGroup group = spellGroups.get(i);
+		for(int i = 0; i < SPELL_GROUPS.size(); i++) {
+			SpellGroup group = SPELL_GROUPS.get(i);
 			List<Vector2i> positions = group.positions();
-			RenderSystem.setShader(GameRenderer::getPositionColorShader);
+			RenderSystem.setShader(GameRenderer::getPositionShader);
 			RenderSystem.setShaderColor(0.25f, 0.25f, 0.3f, 1f);
-			BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-			matrices.pushPose();
-			matrices.translate(12, 12, 0);
-			Matrix4f matrix = matrices.last().pose();
-			boolean hasData = false;
+			BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
+			poseStack.pushPose();
+			poseStack.translate(12, 12, 0);
+			Matrix4f matrix = poseStack.last().pose();
 
 			for(int j = 0; j < positions.size(); j++) {
 				Vector2i pos = positions.get(j);
 				Vector2i prevPos = positions.get(Math.max(0, j - 1));
 
-				if(j == 0 && i > 0 && !spellGroups.get(i - 1).isEmpty()) {
-					List<Vector2i> prevPositions = spellGroups.get(i - 1).positions();
-					prevPos = prevPositions.get(prevPositions.size() - 1);
+				if(j == 0 && i > 0 && !SPELL_GROUPS.get(i - 1).isEmpty()) {
+					List<Vector2i> prevPositions = SPELL_GROUPS.get(i - 1).positions();
+					prevPos = prevPositions.getLast();
 				}
 
 				if(pos.equals(prevPos))
@@ -365,21 +367,19 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 				float dx = Mth.cos(angle);
 				float dy = Mth.sin(angle);
 
-				bufferBuilder.addVertex(matrix, x2 - dx, y2 - dy, 0).setColor(0);
-				bufferBuilder.addVertex(matrix, x2 + dx, y2 + dy, 0).setColor(0);
-				bufferBuilder.addVertex(matrix, x1 + dx, y1 + dy, 0).setColor(0);
-				bufferBuilder.addVertex(matrix, x1 - dx, y1 - dy, 0).setColor(0);
-
-				hasData = true;
+				bufferBuilder.addVertex(matrix, x2 - dx, y2 - dy, 0);
+				bufferBuilder.addVertex(matrix, x2 + dx, y2 + dy, 0);
+				bufferBuilder.addVertex(matrix, x1 + dx, y1 + dy, 0);
+				bufferBuilder.addVertex(matrix, x1 - dx, y1 - dy, 0);
 			}
 
-			if(hasData)
-				BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
+			if(bufferBuilder.build() instanceof MeshData data)
+				BufferUploader.drawWithShader(data);
 
-			matrices.popPose();
+			poseStack.popPose();
 		}
 
-		for(SpellGroup group : spellGroups) {
+		for(SpellGroup group : SPELL_GROUPS) {
 			List<Vector2i> positions = group.positions();
 
 			for(int j = 0; j < positions.size(); j++) {
@@ -395,14 +395,14 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		}
 
 		if(!ArcanusSpellComponents.EMPTY.is(draggedComponent)) {
-			int colour = 0xff0000;
+			int color = 0xff0000;
 
-			if((isHovering(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) && (!(draggedComponent instanceof SpellEffect) || (!spellGroups.isEmpty() && !spellGroups.getLast().isEmpty())))
-				colour = 0x00ff00;
+			if((isHovering(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) && (!(draggedComponent instanceof SpellEffect) || (!SPELL_GROUPS.isEmpty() && !SPELL_GROUPS.getLast().isEmpty())))
+				color = 0x00ff00;
 
-			float r = (colour >> 16 & 255) / 255f;
-			float g = (colour >> 8 & 255) / 255f;
-			float b = (colour & 255) / 255f;
+			float r = (color >> 16 & 255) / 255f;
+			float g = (color >> 8 & 255) / 255f;
+			float b = (color & 255) / 255f;
 
 			RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 			gui.blit(PANEL_TEXTURE, mouseX - leftPos - 15, mouseY - topPos - 15, 60, 208, 30, 30, 384, 256);
@@ -449,7 +449,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 			if(widget.isHoveredOrFocused())
 				widget.renderTooltip(gui, mouseX - leftPos, mouseY - topPos);
 
-		for(SpellGroup group : spellGroups) {
+		for(SpellGroup group : SPELL_GROUPS) {
 			for(int i = 0; i < group.positions().size(); i++) {
 				Vector2i position = group.positions().get(i);
 
@@ -457,19 +457,32 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 					List<Component> textList = new ArrayList<>();
 					SpellComponent component = group.getAllComponents().toList().get(i);
 
-					// TODO do all the translation stuff
-					textList.add(component.getName());
-					textList.add(Component.translatable("spell_book.arcanus.weight").append(": ").withStyle(ChatFormatting.GREEN).append(Component.translatable("spell_book.arcanus.weight", component.getWeight().toString().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.GRAY)));
-					textList.add(Component.translatable("spell_book.arcanus.mana_cost").append(": ").withStyle(ChatFormatting.BLUE).append(Component.literal(component.getManaCostAsString()).withStyle(ChatFormatting.GRAY)));
+					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+						Component.translatable(SPELL_BOOK_WEIGHT),
+						Component.translatable(component.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
+					).withStyle(ChatFormatting.GREEN));
+					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+						Component.translatable(SPELL_BOOK_MANA_COST),
+						Component.literal(component.getManaCostAsString()).withStyle(ChatFormatting.GRAY)
+					).withStyle(ChatFormatting.BLUE));
 
 					if(component instanceof SpellShape shape) {
 						if(shape.getManaMultiplier() != 0)
-							textList.add(Component.translatable("spell_book.arcanus.mana_multiplier").append(": ").withStyle(ChatFormatting.LIGHT_PURPLE).append(Component.literal(shape.getManaMultiplierAsString()).withStyle(ChatFormatting.GRAY)));
+							textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+								Component.translatable(SPELL_BOOK_MANA_MULTIPLIER),
+								Component.literal(shape.getManaMultiplierAsString()).withStyle(ChatFormatting.GRAY)
+							).withStyle(ChatFormatting.LIGHT_PURPLE));
 						if(shape.getPotencyModifier() != 0)
-							textList.add(Component.translatable("spell_book.arcanus.potency_modifier").append(": ").withStyle(ChatFormatting.YELLOW).append(Component.literal(shape.getPotencyModifierAsString()).withStyle(ChatFormatting.GRAY)));
+							textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+								Component.translatable(SPELL_BOOK_POTENCY_MODIFIER),
+								Component.literal(shape.getManaMultiplierAsString()).withStyle(ChatFormatting.GRAY)
+							).withStyle(ChatFormatting.YELLOW));
 					}
 
-					textList.add(Component.translatable("spell_book.arcanus.cool_down").append(": ").withStyle(ChatFormatting.RED).append(Component.literal(component.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)));
+					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+						Component.translatable(SPELL_BOOK_COOL_DOWN),
+						Component.literal(component.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)
+					).withStyle(ChatFormatting.RED));
 
 					gui.renderComponentTooltip(font, textList, mouseX - leftPos, mouseY - topPos);
 				}
@@ -511,13 +524,13 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 	}
 
 	public double distanceToNearestComponent(double mouseX, double mouseY) {
-		return spellGroups.stream().mapToDouble(spellGroup -> spellGroup.positions().stream().mapToDouble(position -> position.distance((int) (mouseX - leftPos - 12), (int) (mouseY - topPos - 12))).min().orElse(Double.MAX_VALUE)).min().orElse(Double.MAX_VALUE);
+		return SPELL_GROUPS.stream().mapToDouble(spellGroup -> spellGroup.positions().stream().mapToDouble(position -> position.distance((int) (mouseX - leftPos - 12), (int) (mouseY - topPos - 12))).min().orElse(Double.MAX_VALUE)).min().orElse(Double.MAX_VALUE);
 	}
 
 	public int spellComponentCount() {
 		int count = 0;
 
-		for(SpellGroup group : spellGroups)
+		for(SpellGroup group : SPELL_GROUPS)
 			if(!group.isEmpty())
 				count += group.getAllComponents().toList().size();
 
@@ -525,13 +538,13 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 	}
 
 	public Spell getSpell() {
-		if(spellGroups.isEmpty())
+		if(SPELL_GROUPS.isEmpty())
 			return new Spell();
 
-		if(spellGroups.get(0).isEmpty() && spellGroups.size() > 1 && !spellGroups.get(1).isEmpty())
-			spellGroups.remove(0);
+		if(SPELL_GROUPS.get(0).isEmpty() && SPELL_GROUPS.size() > 1 && !SPELL_GROUPS.get(1).isEmpty())
+			SPELL_GROUPS.removeFirst();
 
-		return new Spell(spellGroups, textBox.getValue().isBlank() ? "Empty" : textBox.getValue());
+		return new Spell(SPELL_GROUPS, textBox.getValue().isBlank() ? "Empty" : textBox.getValue());
 	}
 
 	public Weight getWeight() {

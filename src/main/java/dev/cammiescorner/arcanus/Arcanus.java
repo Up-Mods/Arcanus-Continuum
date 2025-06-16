@@ -6,6 +6,9 @@ import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.common.blocks.MagicDoorBlock;
 import dev.cammiescorner.arcanus.common.blocks.entities.MagicDoorBlockEntity;
+import dev.cammiescorner.arcanus.common.entities.living.NecroSkeleton;
+import dev.cammiescorner.arcanus.common.entities.living.Opossum;
+import dev.cammiescorner.arcanus.common.entities.living.Wizard;
 import dev.cammiescorner.arcanus.common.networking.clientbound.*;
 import dev.cammiescorner.arcanus.common.networking.serverbound.*;
 import dev.cammiescorner.arcanus.common.registry.*;
@@ -24,6 +27,7 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -76,8 +80,11 @@ public class Arcanus implements ModInitializer {
 		ArcanusSpellComponents.SPELL_COMPONENTS.accept(registryService);
 		ArcanusMobEffects.MOB_EFFECTS.accept(registryService);
 		ArcanusStructureProcessorTypes.STRUCTURE_PROCESSORS.accept(registryService);
+		ArcanusCriteriaTriggers.CRITERIA_TRIGGERS.accept(registryService);
 
-		ArcanusCriteriaTriggers.register();
+		FabricDefaultAttributeRegistry.register(ArcanusEntities.WIZARD.get(), Wizard.createMobAttributes());
+		FabricDefaultAttributeRegistry.register(ArcanusEntities.OPOSSUM.get(), Opossum.createMobAttributes());
+		FabricDefaultAttributeRegistry.register(ArcanusEntities.NECRO_SKELETON.get(), NecroSkeleton.createAttributes());
 
 		Network.registerPacket(ServerboundCastSpellPacket.TYPE, ServerboundCastSpellPacket.class, ServerboundCastSpellPacket.CODEC, ServerboundCastSpellPacket::handle);
 		Network.registerPacket(ServerboundIsCastingPacket.TYPE, ServerboundIsCastingPacket.class, ServerboundIsCastingPacket.CODEC, ServerboundIsCastingPacket::handle);
@@ -95,6 +102,7 @@ public class Arcanus implements ModInitializer {
 
 		CommandRegistrationCallback.EVENT.register(ArcanusCommands::init);
 
+		// TODO for some reason isn't always syncing the book in the lectern when it should be...
 		RegisterCustomLecternMenuEvent.EVENT.register(event -> {
 			event.register((level, pos, player, blockEntity, stack) -> new SpellcraftMenuProvider(level, stack, pos, blockEntity.bookAccess), ArcanusItems.SPELL_BOOK);
 		});

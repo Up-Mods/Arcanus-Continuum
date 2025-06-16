@@ -39,7 +39,7 @@ public class ArcanusSpellComponents {
 	public static final RegistrySupplier<SpellShape> SELF = SPELL_COMPONENTS.register("self_shape", SelfSpellShape::new);
 	public static final RegistrySupplier<SpellShape> TOUCH = SPELL_COMPONENTS.register("touch_shape", TouchSpellShape::new);
 	public static final RegistrySupplier<SpellShape> MISSILE = SPELL_COMPONENTS.register("missile_shape", MissileSpellShape::new);
-	public static final RegistrySupplier<SpellShape> LOB = SPELL_COMPONENTS.register("lob_shape", LobSpellShape::new); // TODO replace name with something better. also change the texture file
+	public static final RegistrySupplier<SpellShape> LOB = SPELL_COMPONENTS.register("lob_shape", LobSpellShape::new);
 	public static final RegistrySupplier<SpellShape> BOLT = SPELL_COMPONENTS.register("bolt_shape", BoltSpellShape::new);
 	public static final RegistrySupplier<SpellShape> BEAM = SPELL_COMPONENTS.register("beam_shape", BeamSpellShape::new);
 	public static final RegistrySupplier<SpellShape> RUNE = SPELL_COMPONENTS.register("rune_shape", RuneSpellShape::new);

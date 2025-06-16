@@ -37,7 +37,7 @@ public class WizardLevelComponent implements AutoSyncedComponent {
 		}
 
 		if(entity instanceof ServerPlayer serverPlayer) {
-			ArcanusCriteriaTriggers.WIZARD_LEVEL_CRITERION.trigger(serverPlayer);
+			ArcanusCriteriaTriggers.WIZARD_LEVEL_CRITERION.get().trigger(serverPlayer);
 		}
 	}
 
@@ -67,7 +67,7 @@ public class WizardLevelComponent implements AutoSyncedComponent {
 
 		ArcanusComponents.WIZARD_LEVEL_COMPONENT.sync(entity);
 		if(entity instanceof ServerPlayer serverPlayer) {
-			ArcanusCriteriaTriggers.WIZARD_LEVEL_CRITERION.trigger(serverPlayer);
+			ArcanusCriteriaTriggers.WIZARD_LEVEL_CRITERION.get().trigger(serverPlayer);
 		}
 	}
 }

@@ -1,12 +1,14 @@
 package dev.cammiescorner.arcanus.common.registry;
 
+import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.criterion.WizardLevelCriterion;
+import dev.upcraft.sparkweave.api.registry.RegistryHandler;
+import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
+import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.core.registries.Registries;
 
 public class ArcanusCriteriaTriggers {
-	public static final WizardLevelCriterion WIZARD_LEVEL_CRITERION = new WizardLevelCriterion();
+	public static final RegistryHandler<CriterionTrigger<?>> CRITERIA_TRIGGERS = RegistryHandler.create(Registries.TRIGGER_TYPE, Arcanus.MOD_ID);
 
-	public static void register() {
-		// TODO figure out how to register criterion now
-//		CriteriaTriggers.register(WIZARD_LEVEL_CRITERION);
-	}
+	public static final RegistrySupplier<WizardLevelCriterion> WIZARD_LEVEL_CRITERION = CRITERIA_TRIGGERS.register("wizard_level", WizardLevelCriterion::new);
 }
