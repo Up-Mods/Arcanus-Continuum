@@ -12,6 +12,7 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -38,7 +39,7 @@ public record ServerboundCastSpellPacket(int spellIndex) implements CustomPacket
 		int index = context.message().spellIndex();
 
 		if(stack.getItem() instanceof StaffItem staff) {
-			List<Spell> list = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), new ArrayList<>());
+			List<Spell> list = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
 
 			if(list.size() > index && player.getCooldowns().getCooldownPercent(staff, 1f) == 0) {
 				Spell spell = list.get(index);

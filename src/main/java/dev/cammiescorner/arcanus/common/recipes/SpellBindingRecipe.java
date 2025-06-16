@@ -16,7 +16,6 @@ import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -77,7 +76,7 @@ public class SpellBindingRecipe extends CustomRecipe {
 		if(!result.is(ArcanusItemTags.STAVES))
 			return ItemStack.EMPTY;
 
-		List<Spell> list = result.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), new ArrayList<>());
+		List<Spell> list = result.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
 		Spell[] spells = new Spell[8];
 		Arrays.fill(spells, new Spell());
 

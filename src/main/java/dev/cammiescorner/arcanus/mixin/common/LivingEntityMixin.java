@@ -17,6 +17,7 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
 import net.minecraft.core.Holder;
+import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -188,7 +189,7 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 
 			if(speedAttr != null) {
 				if(stack.getItem() instanceof StaffItem && ArcanusComponents.isCasting((LivingEntity) (Object) this) && pattern.size() == 3) {
-					List<Spell> list = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), new ArrayList<>());
+					List<Spell> list = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
 					int index = Arcanus.getSpellIndex(pattern);
 
 					if(!list.isEmpty() && index < list.size()) {

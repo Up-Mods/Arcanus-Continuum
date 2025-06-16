@@ -13,6 +13,7 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -45,7 +46,7 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements Cu
 			ItemStack stack = player.getMainHandItem();
 
 			if(stack.getItem() instanceof StaffItem staff) {
-				List<Spell> spells = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), new ArrayList<>());
+				List<Spell> spells = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
 				int index = Arcanus.getSpellIndex(pattern);
 
 				if(!spells.isEmpty() && spells.size() > index && player.getCooldowns().getCooldownPercent(staff, 1f) == 0) {
