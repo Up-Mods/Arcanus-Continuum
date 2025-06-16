@@ -1,12 +1,15 @@
 package dev.cammiescorner.arcanus.common.items;
 
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.util.StaffType;
 import dev.upcraft.sparkweave.api.color.Color;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -18,9 +21,11 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
+
+import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 public class StaffItem extends Item {
 	public final StaffType staffType;
@@ -33,7 +38,7 @@ public class StaffItem extends Item {
 	}
 
 	public StaffItem(StaffType staffType, Color defaultPrimaryColor, Color defaultSecondaryColor, boolean isDonorOnly) {
-		super(new Item.Properties().stacksTo(1).component(ArcanusDataComponents.SPELL_LIST.get(), new ArrayList<>(8)).component(ArcanusDataComponents.PRIMARY_COLOR.get(), defaultPrimaryColor).component(ArcanusDataComponents.SECONDARY_COLOR.get(), defaultSecondaryColor).attributes(createAttributes()));
+		super(new Item.Properties().stacksTo(1).component(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell())).component(ArcanusDataComponents.PRIMARY_COLOR.get(), defaultPrimaryColor).component(ArcanusDataComponents.SECONDARY_COLOR.get(), defaultSecondaryColor));
 		this.staffType = staffType;
 		this.defaultPrimaryColor = defaultPrimaryColor;
 		this.defaultSecondaryColor = defaultSecondaryColor;
@@ -46,64 +51,28 @@ public class StaffItem extends Item {
 	}
 
 	@Override
-	public void onCraftedBy(ItemStack stack, Level world, Player player) {
-		if(!world.isClientSide()) {
-//			CompoundTag tag = stack.getOrCreateTagElement(Arcanus.MOD_ID);
-//
-//			if(tag.isEmpty()) {
-//				ListTag list = new ListTag();
-//
-//				for(int i = 0; i < 8; i++)
-//					list.add(i, new Spell().toNbt());
-//
-//				tag.put("Spells", list);
-//			}
-		}
-
-		super.onCraftedBy(stack, world, player);
-	}
-
-	@Override
-	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-		if(!world.isClientSide()) {
-//			CompoundTag tag = stack.getOrCreateTagElement(Arcanus.MOD_ID);
-//
-//			if(tag.isEmpty()) {
-//				ListTag list = new ListTag();
-//
-//				for(int i = 0; i < 8; i++)
-//					list.add(i, new Spell().toNbt());
-//
-//				tag.put("Spells", list);
-//			}
-		}
-	}
-
-	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
-//		CompoundTag tag = stack.getTagElement(Arcanus.MOD_ID);
-//		int primaryColour = getPrimaryColorRGB(stack);
-//		int secondaryColour = getSecondaryColorRGB(stack);
-//
-//		tooltip.add(Component.translatable("staff.arcanus.primary_color").withStyle(style -> style.withColor(primaryColour)).append(Component.literal(": " + String.format(Locale.ROOT, "#%06X", primaryColour)).withStyle(ChatFormatting.GRAY)));
-//		tooltip.add(Component.translatable("staff.arcanus.secondary_color").withStyle(style -> style.withColor(secondaryColour)).append(Component.literal(": " + String.format(Locale.ROOT, "#%06X", secondaryColour)).withStyle(ChatFormatting.GRAY)));
-//		tooltip.add(Component.empty());
-//
-//		if(tag != null && !tag.isEmpty()) {
-//			ListTag list = tag.getList("Spells", Tag.TAG_COMPOUND);
-//
-//			for(int i = 0; i < list.size(); i++) {
-//				Spell spell = Spell.fromNbt(list.getCompound(i));
-//
-//				if(spell.getComponentGroups().isEmpty()) {
-//					tooltip.add(Component.translatable("staff.arcanus.invalid_data").withStyle(ChatFormatting.DARK_RED));
-//					return;
-//				}
-//
-//				MutableComponent text = Component.literal(spell.getName()).withStyle(spell.isEmpty() ? ChatFormatting.GRAY : ChatFormatting.GREEN);
-//				tooltip.add(text.append(Component.literal(" (").withStyle(ChatFormatting.DARK_GRAY)).append(Arcanus.getSpellPatternAsText(i).withStyle(ChatFormatting.GRAY)).append(Component.literal(")").withStyle(ChatFormatting.DARK_GRAY)));
-//			}
-//		}
+		List<Spell> spells = stack.get(ArcanusDataComponents.SPELL_LIST.get());
+		int primaryColour = getPrimaryColorRGB(stack);
+		int secondaryColour = getSecondaryColorRGB(stack);
+
+		tooltip.add(Component.translatable(STAFF_PRIMARY_COLOR).withStyle(style -> style.withColor(primaryColour)).append(Component.literal(": " + String.format(Locale.ROOT, "#%06x", primaryColour & 0xffffff)).withStyle(ChatFormatting.GRAY)));
+		tooltip.add(Component.translatable(STAFF_SECONDARY_COLOR).withStyle(style -> style.withColor(secondaryColour)).append(Component.literal(": " + String.format(Locale.ROOT, "#%06x", secondaryColour & 0xffffff)).withStyle(ChatFormatting.GRAY)));
+		tooltip.add(Component.empty());
+
+		if(spells != null && !spells.isEmpty()) {
+			for(Spell spell : spells) {
+				if(spell.getComponentGroups().isEmpty()) {
+					tooltip.add(Component.translatable(STAFF_INVALID_DATA).withStyle(ChatFormatting.DARK_RED));
+					return;
+				}
+
+				MutableComponent text = Component.literal(spell.getName()).withStyle(spell.isEmpty() ? ChatFormatting.GRAY : ChatFormatting.GREEN);
+				tooltip.add(text.append(Component.literal(" (").withStyle(ChatFormatting.DARK_GRAY))
+					.append(Arcanus.getSpellPatternAsText(spells.indexOf(spell)).withStyle(ChatFormatting.GRAY))
+					.append(Component.literal(")").withStyle(ChatFormatting.DARK_GRAY)));
+			}
+		}
 	}
 
 	@Override

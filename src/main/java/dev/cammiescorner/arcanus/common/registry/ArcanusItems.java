@@ -55,7 +55,8 @@ public class ArcanusItems {
 		entries.accept(SCROLL_OF_KNOWLEDGE.get());
 
 		if(SparkweaveApi.CLIENTSIDE_ENVIRONMENT) {
-			var currentPlayerId = GameProfileHelper.getClientProfile().getId();
+			UUID currentPlayerId = GameProfileHelper.getClientProfile().getId();
+
 			entries.accept(StaffItem.setCraftedBy(new ItemStack(WOODEN_STAFF.get()), currentPlayerId));
 			entries.accept(StaffItem.setCraftedBy(new ItemStack(CRYSTAL_STAFF.get()), currentPlayerId));
 			entries.accept(StaffItem.setCraftedBy(new ItemStack(DIVINATION_STAFF.get()), currentPlayerId));
@@ -71,7 +72,8 @@ public class ArcanusItems {
 			}
 		}
 		else {
-			var dummyId = UUID.fromString("6147825f-5493-4154-87c5-5c03c6b0a7c2");
+			UUID dummyId = UUID.fromString("6147825f-5493-4154-87c5-5c03c6b0a7c2");
+
 			entries.accept(StaffItem.setCraftedBy(new ItemStack(WOODEN_STAFF.get()), dummyId));
 			entries.accept(StaffItem.setCraftedBy(new ItemStack(CRYSTAL_STAFF.get()), dummyId));
 			entries.accept(StaffItem.setCraftedBy(new ItemStack(DIVINATION_STAFF.get()), dummyId));
