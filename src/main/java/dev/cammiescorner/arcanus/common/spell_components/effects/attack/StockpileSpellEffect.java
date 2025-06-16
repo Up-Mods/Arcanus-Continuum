@@ -20,13 +20,13 @@ import java.util.List;
 public class StockpileSpellEffect extends SpellEffect {
 	public StockpileSpellEffect() {
 		super(
-			ArcanusConfig.AttackEffects.StockpileEffectProperties.enabled,
-			SpellType.ATTACK,
-			ArcanusConfig.AttackEffects.StockpileEffectProperties.weight,
-			ArcanusConfig.AttackEffects.StockpileEffectProperties.manaCost,
-			ArcanusConfig.AttackEffects.StockpileEffectProperties.coolDown,
-			ArcanusConfig.AttackEffects.StockpileEffectProperties.minimumLevel,
-			ArcanusConfig.AttackEffects.StockpileEffectProperties.procsOnce
+			() -> ArcanusConfig.AttackEffects.StockpileEffectProperties.enabled,
+			() -> SpellType.ATTACK,
+			() -> ArcanusConfig.AttackEffects.StockpileEffectProperties.weight,
+			() -> ArcanusConfig.AttackEffects.StockpileEffectProperties.manaCost,
+			() -> ArcanusConfig.AttackEffects.StockpileEffectProperties.coolDown,
+			() -> ArcanusConfig.AttackEffects.StockpileEffectProperties.minimumLevel,
+			() -> ArcanusConfig.AttackEffects.StockpileEffectProperties.procsOnce
 		);
 	}
 

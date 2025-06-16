@@ -18,14 +18,14 @@ import java.util.List;
 public class CounterSpellShape extends SpellShape {
 	public CounterSpellShape() {
 		super(
-			ArcanusConfig.SpellShapes.CounterShapeProperties.enabled,
-			ArcanusConfig.SpellShapes.CounterShapeProperties.weight,
-			ArcanusConfig.SpellShapes.CounterShapeProperties.manaCost,
-			ArcanusConfig.SpellShapes.CounterShapeProperties.manaMultiplier,
-			ArcanusConfig.SpellShapes.CounterShapeProperties.coolDown,
-			ArcanusConfig.SpellShapes.CounterShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.CounterShapeProperties.potencyModifier,
-			ArcanusConfig.SpellShapes.CounterShapeProperties.procsOnce
+			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.enabled,
+			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.weight,
+			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.manaCost,
+			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.coolDown,
+			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.minimumLevel,
+			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.potencyModifier,
+			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.procsOnce
 		);
 	}
 

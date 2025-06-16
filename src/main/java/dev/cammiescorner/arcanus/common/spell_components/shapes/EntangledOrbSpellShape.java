@@ -18,14 +18,14 @@ import java.util.List;
 public class EntangledOrbSpellShape extends SpellShape {
 	public EntangledOrbSpellShape() {
 		super(
-			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.enabled,
-			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.weight,
-			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.manaCost,
-			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.manaMultiplier,
-			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.coolDown,
-			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.potencyModifier,
-			ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.procsOnce
+			() -> ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.enabled,
+			() -> ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.weight,
+			() -> ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.manaCost,
+			() -> ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.coolDown,
+			() -> ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.minimumLevel,
+			() -> ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.potencyModifier,
+			() -> ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.procsOnce
 		);
 	}
 

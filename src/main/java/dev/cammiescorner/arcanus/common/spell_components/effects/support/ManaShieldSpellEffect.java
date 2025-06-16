@@ -21,13 +21,13 @@ import java.util.List;
 public class ManaShieldSpellEffect extends SpellEffect {
 	public ManaShieldSpellEffect() {
 		super(
-			ArcanusConfig.SupportEffects.ManaShieldEffectProperties.enabled,
-			SpellType.SUPPORT,
-			ArcanusConfig.SupportEffects.ManaShieldEffectProperties.weight,
-			ArcanusConfig.SupportEffects.ManaShieldEffectProperties.manaCost,
-			ArcanusConfig.SupportEffects.ManaShieldEffectProperties.coolDown,
-			ArcanusConfig.SupportEffects.ManaShieldEffectProperties.minimumLevel,
-			ArcanusConfig.SupportEffects.ManaShieldEffectProperties.procsOnce
+			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.enabled,
+			() -> SpellType.SUPPORT,
+			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.weight,
+			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.manaCost,
+			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.coolDown,
+			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.minimumLevel,
+			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.procsOnce
 		);
 	}
 

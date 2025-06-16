@@ -18,14 +18,14 @@ import java.util.List;
 public class GuidedShotSpellShape extends SpellShape {
 	public GuidedShotSpellShape() {
 		super(
-			ArcanusConfig.SpellShapes.GuidedShotShapeProperties.enabled,
-			ArcanusConfig.SpellShapes.GuidedShotShapeProperties.weight,
-			ArcanusConfig.SpellShapes.GuidedShotShapeProperties.manaCost,
-			ArcanusConfig.SpellShapes.GuidedShotShapeProperties.manaMultiplier,
-			ArcanusConfig.SpellShapes.GuidedShotShapeProperties.coolDown,
-			ArcanusConfig.SpellShapes.GuidedShotShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.GuidedShotShapeProperties.potencyModifier,
-			ArcanusConfig.SpellShapes.GuidedShotShapeProperties.procsOnce
+			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.enabled,
+			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.weight,
+			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.manaCost,
+			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.coolDown,
+			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.minimumLevel,
+			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.potencyModifier,
+			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.procsOnce
 		);
 	}
 

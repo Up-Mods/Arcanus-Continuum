@@ -12,29 +12,29 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public abstract class SpellShape extends SpellComponent {
 	public static final Codec<SpellShape> CODEC = ArcanusSpellComponents.REGISTRY.byNameCodec().flatXmap(spellComponent -> spellComponent instanceof SpellShape shape ? DataResult.success(shape) : DataResult.error(() -> "Not instance of SpellShape"), DataResult::success);
+	private final Supplier<Double> manaMultiplier;
+	private final Supplier<Double> potencyModifier;
 
 	public static SpellShape empty() {
 		return (SpellShape) ArcanusSpellComponents.EMPTY.get();
 	}
 
-	private final double manaMultiplier;
-	private final double potencyModifier;
-
-	public SpellShape(boolean isEnabled, Weight weight, double manaCost, double manaMultiplier, int coolDown, int minLevel, double potencyModifier, boolean procsOnce) {
+	public SpellShape(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Double> manaCost, Supplier<Double> manaMultiplier, Supplier<Integer> coolDown, Supplier<Integer> minLevel, Supplier<Double> potencyModifier, Supplier<Boolean> procsOnce) {
 		super(isEnabled, weight, manaCost, coolDown, minLevel, procsOnce);
 		this.manaMultiplier = manaMultiplier;
 		this.potencyModifier = potencyModifier;
 	}
 
 	public double getPotencyModifier() {
-		return potencyModifier;
+		return potencyModifier.get();
 	}
 
 	public double getManaMultiplier() {
-		return manaMultiplier - 1;
+		return manaMultiplier.get() - 1;
 	}
 
 	public String getPotencyModifierAsString() {

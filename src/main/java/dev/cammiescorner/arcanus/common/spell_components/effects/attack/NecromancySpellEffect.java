@@ -25,13 +25,13 @@ import java.util.List;
 public class NecromancySpellEffect extends SpellEffect {
 	public NecromancySpellEffect() {
 		super(
-			ArcanusConfig.AttackEffects.NecromancyEffectProperties.enabled,
-			SpellType.ATTACK,
-			ArcanusConfig.AttackEffects.NecromancyEffectProperties.weight,
-			ArcanusConfig.AttackEffects.NecromancyEffectProperties.manaCost,
-			ArcanusConfig.AttackEffects.NecromancyEffectProperties.coolDown,
-			ArcanusConfig.AttackEffects.NecromancyEffectProperties.minimumLevel,
-			ArcanusConfig.AttackEffects.NecromancyEffectProperties.procsOnce
+			() -> ArcanusConfig.AttackEffects.NecromancyEffectProperties.enabled,
+			() -> SpellType.ATTACK,
+			() -> ArcanusConfig.AttackEffects.NecromancyEffectProperties.weight,
+			() -> ArcanusConfig.AttackEffects.NecromancyEffectProperties.manaCost,
+			() -> ArcanusConfig.AttackEffects.NecromancyEffectProperties.coolDown,
+			() -> ArcanusConfig.AttackEffects.NecromancyEffectProperties.minimumLevel,
+			() -> ArcanusConfig.AttackEffects.NecromancyEffectProperties.procsOnce
 		);
 	}
 

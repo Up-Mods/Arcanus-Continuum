@@ -19,13 +19,13 @@ import java.util.List;
 public class HasteSpellEffect extends SpellEffect {
 	public HasteSpellEffect() {
 		super(
-			ArcanusConfig.SupportEffects.HasteEffectProperties.enabled,
-			SpellType.SUPPORT,
-			ArcanusConfig.SupportEffects.HasteEffectProperties.weight,
-			ArcanusConfig.SupportEffects.HasteEffectProperties.manaCost,
-			ArcanusConfig.SupportEffects.HasteEffectProperties.coolDown,
-			ArcanusConfig.SupportEffects.HasteEffectProperties.minimumLevel,
-			ArcanusConfig.SupportEffects.HasteEffectProperties.procsOnce
+			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.enabled,
+			() -> SpellType.SUPPORT,
+			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.weight,
+			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.manaCost,
+			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.coolDown,
+			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.minimumLevel,
+			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.procsOnce
 		);
 	}
 

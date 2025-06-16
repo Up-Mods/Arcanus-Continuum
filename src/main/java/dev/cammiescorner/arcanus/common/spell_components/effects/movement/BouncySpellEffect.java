@@ -19,13 +19,13 @@ import java.util.List;
 public class BouncySpellEffect extends SpellEffect {
 	public BouncySpellEffect() {
 		super(
-			ArcanusConfig.MovementEffects.BouncyEffectProperties.enabled,
-			SpellType.MOVEMENT,
-			ArcanusConfig.MovementEffects.BouncyEffectProperties.weight,
-			ArcanusConfig.MovementEffects.BouncyEffectProperties.manaCost,
-			ArcanusConfig.MovementEffects.BouncyEffectProperties.coolDown,
-			ArcanusConfig.MovementEffects.BouncyEffectProperties.minimumLevel,
-			ArcanusConfig.MovementEffects.BouncyEffectProperties.procsOnce
+			() -> ArcanusConfig.MovementEffects.BouncyEffectProperties.enabled,
+			() -> SpellType.MOVEMENT,
+			() -> ArcanusConfig.MovementEffects.BouncyEffectProperties.weight,
+			() -> ArcanusConfig.MovementEffects.BouncyEffectProperties.manaCost,
+			() -> ArcanusConfig.MovementEffects.BouncyEffectProperties.coolDown,
+			() -> ArcanusConfig.MovementEffects.BouncyEffectProperties.minimumLevel,
+			() -> ArcanusConfig.MovementEffects.BouncyEffectProperties.procsOnce
 		);
 	}
 

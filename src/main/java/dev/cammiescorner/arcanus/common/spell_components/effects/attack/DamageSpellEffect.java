@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.spell_components.effects.attack;
 
-import dev.cammiescorner.arcanus.ArcanusConfig.AttackEffects;
+import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entities.Targetable;
 import dev.cammiescorner.arcanus.api.spells.SpellEffect;
 import dev.cammiescorner.arcanus.api.spells.SpellType;
@@ -21,13 +21,13 @@ import java.util.List;
 public class DamageSpellEffect extends SpellEffect {
 	public DamageSpellEffect() {
 		super(
-			AttackEffects.DamageEffectProperties.enabled,
-			SpellType.ATTACK,
-			AttackEffects.DamageEffectProperties.weight,
-			AttackEffects.DamageEffectProperties.manaCost,
-			AttackEffects.DamageEffectProperties.coolDown,
-			AttackEffects.DamageEffectProperties.minimumLevel,
-			AttackEffects.DamageEffectProperties.procsOnce
+			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.enabled,
+			() -> SpellType.ATTACK,
+			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.weight,
+			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.manaCost,
+			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.coolDown,
+			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.minimumLevel,
+			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.procsOnce
 		);
 	}
 
@@ -36,14 +36,14 @@ public class DamageSpellEffect extends SpellEffect {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 			Entity entity = entityHit.getEntity();
-			float damage = AttackEffects.DamageEffectProperties.baseDamage;
+			float damage = ArcanusConfig.AttackEffects.DamageEffectProperties.baseDamage;
 
 			if(entity instanceof Player playerTarget && caster instanceof Player playerCaster && !playerCaster.canHarmPlayer(playerTarget))
 				return;
 
 			if(caster != null && entity instanceof Targetable targetable && targetable.arcanus$canBeTargeted()) {
 				if(entity.isInWaterRainOrBubble() && effects.contains(ArcanusSpellComponents.ELECTRIC.get()))
-					damage *= AttackEffects.ElectricEffectProperties.wetEntityDamageMultiplier;
+					damage *= ArcanusConfig.AttackEffects.ElectricEffectProperties.wetEntityDamageMultiplier;
 
 				entity.invulnerableTime = 0;
 				entity.hurt(sourceEntity instanceof Projectile projectile ? ArcanusDamageTypes.getMagicProjectileDamage(projectile, caster) : ArcanusDamageTypes.getMagicDamage(caster), (float) (damage * effects.stream().filter(ArcanusSpellComponents.DAMAGE::is).count() * potency));

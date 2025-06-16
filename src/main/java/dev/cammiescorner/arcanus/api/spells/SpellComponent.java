@@ -7,19 +7,21 @@ import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.function.Supplier;
+
 public class SpellComponent {
 	public static final String DISABLED_TRANSLATION_KEY = Util.makeDescriptionId("arcanus.spell_component", Arcanus.id("disabled"));
 	private static final Component DISABLED_TRANSLATED_NAME = Component.translatable(DISABLED_TRANSLATION_KEY).withStyle(ChatFormatting.OBFUSCATED);
-	private final boolean isEnabled;
-	private final Weight weight;
-	private final double manaCost;
-	private final int coolDown;
-	private final int minLevel;
-	private final boolean procsOnce;
+	private final Supplier<Boolean> isEnabled;
+	private final Supplier<Weight> weight;
+	private final Supplier<Double> manaCost;
+	private final Supplier<Integer> coolDown;
+	private final Supplier<Integer> minLevel;
+	private final Supplier<Boolean> procsOnce;
 	private String translationKey;
 	private ResourceLocation texture;
 
-	public SpellComponent(boolean isEnabled, Weight weight, double manaCost, int coolDown, int minLevel, boolean procsOnce) {
+	public SpellComponent(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Double> manaCost, Supplier<Integer> coolDown, Supplier<Integer> minLevel, Supplier<Boolean> procsOnce) {
 		this.isEnabled = isEnabled;
 		this.weight = weight;
 		this.manaCost = manaCost;
@@ -29,27 +31,27 @@ public class SpellComponent {
 	}
 
 	public boolean isEnabled() {
-		return isEnabled;
+		return isEnabled.get();
 	}
 
 	public Weight getWeight() {
-		return weight;
+		return weight.get();
 	}
 
 	public double getManaCost() {
-		return manaCost;
+		return manaCost.get();
 	}
 
 	public int getCoolDown() {
-		return coolDown;
+		return coolDown.get();
 	}
 
 	public int getMinLevel() {
-		return minLevel;
+		return minLevel.get();
 	}
 
 	public boolean singleCastOnly() {
-		return procsOnce;
+		return procsOnce.get();
 	}
 
 	public String getManaCostAsString() {

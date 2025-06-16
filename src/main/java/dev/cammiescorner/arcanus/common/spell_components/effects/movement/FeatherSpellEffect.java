@@ -19,13 +19,13 @@ import java.util.List;
 public class FeatherSpellEffect extends SpellEffect {
 	public FeatherSpellEffect() {
 		super(
-			ArcanusConfig.MovementEffects.FeatherEffectProperties.enabled,
-			SpellType.MOVEMENT,
-			ArcanusConfig.MovementEffects.FeatherEffectProperties.weight,
-			ArcanusConfig.MovementEffects.FeatherEffectProperties.manaCost,
-			ArcanusConfig.MovementEffects.FeatherEffectProperties.coolDown,
-			ArcanusConfig.MovementEffects.FeatherEffectProperties.minimumLevel,
-			ArcanusConfig.MovementEffects.FeatherEffectProperties.procsOnce
+			() -> ArcanusConfig.MovementEffects.FeatherEffectProperties.enabled,
+			() -> SpellType.MOVEMENT,
+			() -> ArcanusConfig.MovementEffects.FeatherEffectProperties.weight,
+			() -> ArcanusConfig.MovementEffects.FeatherEffectProperties.manaCost,
+			() -> ArcanusConfig.MovementEffects.FeatherEffectProperties.coolDown,
+			() -> ArcanusConfig.MovementEffects.FeatherEffectProperties.minimumLevel,
+			() -> ArcanusConfig.MovementEffects.FeatherEffectProperties.procsOnce
 		);
 	}
 

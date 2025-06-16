@@ -19,13 +19,13 @@ import java.util.List;
 public class EnlargeSpellEffect extends SpellEffect {
 	public EnlargeSpellEffect() {
 		super(
-			ArcanusConfig.UtilityEffects.EnlargeEffectProperties.enabled,
-			SpellType.UTILITY,
-			ArcanusConfig.UtilityEffects.EnlargeEffectProperties.weight,
-			ArcanusConfig.UtilityEffects.EnlargeEffectProperties.manaCost,
-			ArcanusConfig.UtilityEffects.EnlargeEffectProperties.coolDown,
-			ArcanusConfig.UtilityEffects.EnlargeEffectProperties.minimumLevel,
-			ArcanusConfig.UtilityEffects.EnlargeEffectProperties.procsOnce
+			() -> ArcanusConfig.UtilityEffects.EnlargeEffectProperties.enabled,
+			() -> SpellType.UTILITY,
+			() -> ArcanusConfig.UtilityEffects.EnlargeEffectProperties.weight,
+			() -> ArcanusConfig.UtilityEffects.EnlargeEffectProperties.manaCost,
+			() -> ArcanusConfig.UtilityEffects.EnlargeEffectProperties.coolDown,
+			() -> ArcanusConfig.UtilityEffects.EnlargeEffectProperties.minimumLevel,
+			() -> ArcanusConfig.UtilityEffects.EnlargeEffectProperties.procsOnce
 		);
 	}
 

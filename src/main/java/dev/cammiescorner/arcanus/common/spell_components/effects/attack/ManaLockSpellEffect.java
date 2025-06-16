@@ -20,13 +20,13 @@ import java.util.List;
 public class ManaLockSpellEffect extends SpellEffect {
 	public ManaLockSpellEffect() {
 		super(
-			ArcanusConfig.AttackEffects.ManaLockEffectProperties.enabled,
-			SpellType.ATTACK,
-			ArcanusConfig.AttackEffects.ManaLockEffectProperties.weight,
-			ArcanusConfig.AttackEffects.ManaLockEffectProperties.manaCost,
-			ArcanusConfig.AttackEffects.ManaLockEffectProperties.coolDown,
-			ArcanusConfig.AttackEffects.ManaLockEffectProperties.minimumLevel,
-			ArcanusConfig.AttackEffects.ManaLockEffectProperties.procsOnce
+			() -> ArcanusConfig.AttackEffects.ManaLockEffectProperties.enabled,
+			() -> SpellType.ATTACK,
+			() -> ArcanusConfig.AttackEffects.ManaLockEffectProperties.weight,
+			() -> ArcanusConfig.AttackEffects.ManaLockEffectProperties.manaCost,
+			() -> ArcanusConfig.AttackEffects.ManaLockEffectProperties.coolDown,
+			() -> ArcanusConfig.AttackEffects.ManaLockEffectProperties.minimumLevel,
+			() -> ArcanusConfig.AttackEffects.ManaLockEffectProperties.procsOnce
 		);
 	}
 

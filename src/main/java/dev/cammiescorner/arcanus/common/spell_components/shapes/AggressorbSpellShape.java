@@ -22,14 +22,14 @@ import java.util.List;
 public class AggressorbSpellShape extends SpellShape {
 	public AggressorbSpellShape() {
 		super(
-			ArcanusConfig.SpellShapes.AggressorbShapeProperties.enabled,
-			ArcanusConfig.SpellShapes.AggressorbShapeProperties.weight,
-			ArcanusConfig.SpellShapes.AggressorbShapeProperties.manaCost,
-			ArcanusConfig.SpellShapes.AggressorbShapeProperties.manaMultiplier,
-			ArcanusConfig.SpellShapes.AggressorbShapeProperties.coolDown,
-			ArcanusConfig.SpellShapes.AggressorbShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.AggressorbShapeProperties.potencyModifier,
-			ArcanusConfig.SpellShapes.AggressorbShapeProperties.procsOnce
+			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.enabled,
+			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.weight,
+			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.manaCost,
+			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.coolDown,
+			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.minimumLevel,
+			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.potencyModifier,
+			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.procsOnce
 		);
 	}
 

@@ -20,14 +20,14 @@ import java.util.List;
 public class SmiteSpellShape extends SpellShape {
 	public SmiteSpellShape() {
 		super(
-			ArcanusConfig.SpellShapes.SmiteShapeProperties.enabled,
-			ArcanusConfig.SpellShapes.SmiteShapeProperties.weight,
-			ArcanusConfig.SpellShapes.SmiteShapeProperties.manaCost,
-			ArcanusConfig.SpellShapes.SmiteShapeProperties.manaMultiplier,
-			ArcanusConfig.SpellShapes.SmiteShapeProperties.coolDown,
-			ArcanusConfig.SpellShapes.SmiteShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.SmiteShapeProperties.potencyModifier,
-			ArcanusConfig.SpellShapes.SmiteShapeProperties.procsOnce
+			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.enabled,
+			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.weight,
+			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.manaCost,
+			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.coolDown,
+			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.minimumLevel,
+			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.potencyModifier,
+			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.procsOnce
 		);
 	}
 

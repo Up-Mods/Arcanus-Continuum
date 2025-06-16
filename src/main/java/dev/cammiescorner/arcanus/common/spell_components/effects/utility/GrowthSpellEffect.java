@@ -22,13 +22,13 @@ import java.util.List;
 public class GrowthSpellEffect extends SpellEffect {
 	public GrowthSpellEffect() {
 		super(
-			ArcanusConfig.UtilityEffects.GrowthEffectProperties.enabled,
-			SpellType.UTILITY,
-			ArcanusConfig.UtilityEffects.GrowthEffectProperties.weight,
-			ArcanusConfig.UtilityEffects.GrowthEffectProperties.manaCost,
-			ArcanusConfig.UtilityEffects.GrowthEffectProperties.coolDown,
-			ArcanusConfig.UtilityEffects.GrowthEffectProperties.minimumLevel,
-			ArcanusConfig.UtilityEffects.GrowthEffectProperties.procsOnce
+			() -> ArcanusConfig.UtilityEffects.GrowthEffectProperties.enabled,
+			() -> SpellType.UTILITY,
+			() -> ArcanusConfig.UtilityEffects.GrowthEffectProperties.weight,
+			() -> ArcanusConfig.UtilityEffects.GrowthEffectProperties.manaCost,
+			() -> ArcanusConfig.UtilityEffects.GrowthEffectProperties.coolDown,
+			() -> ArcanusConfig.UtilityEffects.GrowthEffectProperties.minimumLevel,
+			() -> ArcanusConfig.UtilityEffects.GrowthEffectProperties.procsOnce
 		);
 	}
 

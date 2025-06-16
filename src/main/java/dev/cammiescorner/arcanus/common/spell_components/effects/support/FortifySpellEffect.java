@@ -19,13 +19,13 @@ import java.util.List;
 public class FortifySpellEffect extends SpellEffect {
 	public FortifySpellEffect() {
 		super(
-			ArcanusConfig.SupportEffects.FortifyEffectProperties.enabled,
-			SpellType.SUPPORT,
-			ArcanusConfig.SupportEffects.FortifyEffectProperties.weight,
-			ArcanusConfig.SupportEffects.FortifyEffectProperties.manaCost,
-			ArcanusConfig.SupportEffects.FortifyEffectProperties.coolDown,
-			ArcanusConfig.SupportEffects.FortifyEffectProperties.minimumLevel,
-			ArcanusConfig.SupportEffects.FortifyEffectProperties.procsOnce
+			() -> ArcanusConfig.SupportEffects.FortifyEffectProperties.enabled,
+			() -> SpellType.SUPPORT,
+			() -> ArcanusConfig.SupportEffects.FortifyEffectProperties.weight,
+			() -> ArcanusConfig.SupportEffects.FortifyEffectProperties.manaCost,
+			() -> ArcanusConfig.SupportEffects.FortifyEffectProperties.coolDown,
+			() -> ArcanusConfig.SupportEffects.FortifyEffectProperties.minimumLevel,
+			() -> ArcanusConfig.SupportEffects.FortifyEffectProperties.procsOnce
 		);
 	}
 

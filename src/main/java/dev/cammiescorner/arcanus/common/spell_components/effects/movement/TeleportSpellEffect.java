@@ -20,13 +20,13 @@ import java.util.List;
 public class TeleportSpellEffect extends SpellEffect {
 	public TeleportSpellEffect() {
 		super(
-			ArcanusConfig.MovementEffects.TeleportEffectProperties.enabled,
-			SpellType.MOVEMENT,
-			ArcanusConfig.MovementEffects.TeleportEffectProperties.weight,
-			ArcanusConfig.MovementEffects.TeleportEffectProperties.manaCost,
-			ArcanusConfig.MovementEffects.TeleportEffectProperties.coolDown,
-			ArcanusConfig.MovementEffects.TeleportEffectProperties.minimumLevel,
-			ArcanusConfig.MovementEffects.TeleportEffectProperties.procsOnce
+			() -> ArcanusConfig.MovementEffects.TeleportEffectProperties.enabled,
+			() -> SpellType.MOVEMENT,
+			() -> ArcanusConfig.MovementEffects.TeleportEffectProperties.weight,
+			() -> ArcanusConfig.MovementEffects.TeleportEffectProperties.manaCost,
+			() -> ArcanusConfig.MovementEffects.TeleportEffectProperties.coolDown,
+			() -> ArcanusConfig.MovementEffects.TeleportEffectProperties.minimumLevel,
+			() -> ArcanusConfig.MovementEffects.TeleportEffectProperties.procsOnce
 		);
 	}
 

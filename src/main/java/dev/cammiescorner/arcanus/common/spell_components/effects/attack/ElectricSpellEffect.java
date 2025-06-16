@@ -20,13 +20,13 @@ import java.util.List;
 public class ElectricSpellEffect extends SpellEffect {
 	public ElectricSpellEffect() {
 		super(
-			ArcanusConfig.AttackEffects.ElectricEffectProperties.enabled,
-			SpellType.ATTACK,
-			ArcanusConfig.AttackEffects.ElectricEffectProperties.weight,
-			ArcanusConfig.AttackEffects.ElectricEffectProperties.manaCost,
-			ArcanusConfig.AttackEffects.ElectricEffectProperties.coolDown,
-			ArcanusConfig.AttackEffects.ElectricEffectProperties.minimumLevel,
-			ArcanusConfig.AttackEffects.ElectricEffectProperties.procsOnce
+			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.enabled,
+			() -> SpellType.ATTACK,
+			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.weight,
+			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.manaCost,
+			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.coolDown,
+			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.minimumLevel,
+			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.procsOnce
 		);
 	}
 

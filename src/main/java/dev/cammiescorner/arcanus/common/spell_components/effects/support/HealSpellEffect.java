@@ -17,13 +17,13 @@ import java.util.List;
 public class HealSpellEffect extends SpellEffect {
 	public HealSpellEffect() {
 		super(
-			ArcanusConfig.SupportEffects.HealEffectProperties.enabled,
-			SpellType.SUPPORT,
-			ArcanusConfig.SupportEffects.HealEffectProperties.weight,
-			ArcanusConfig.SupportEffects.HealEffectProperties.manaCost,
-			ArcanusConfig.SupportEffects.HealEffectProperties.coolDown,
-			ArcanusConfig.SupportEffects.HealEffectProperties.minimumLevel,
-			ArcanusConfig.SupportEffects.HealEffectProperties.procsOnce
+			() -> ArcanusConfig.SupportEffects.HealEffectProperties.enabled,
+			() -> SpellType.SUPPORT,
+			() -> ArcanusConfig.SupportEffects.HealEffectProperties.weight,
+			() -> ArcanusConfig.SupportEffects.HealEffectProperties.manaCost,
+			() -> ArcanusConfig.SupportEffects.HealEffectProperties.coolDown,
+			() -> ArcanusConfig.SupportEffects.HealEffectProperties.minimumLevel,
+			() -> ArcanusConfig.SupportEffects.HealEffectProperties.procsOnce
 		);
 	}
 

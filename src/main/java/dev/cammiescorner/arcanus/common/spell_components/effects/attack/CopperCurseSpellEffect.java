@@ -20,13 +20,13 @@ import java.util.List;
 public class CopperCurseSpellEffect extends SpellEffect {
 	public CopperCurseSpellEffect() {
 		super(
-			ArcanusConfig.AttackEffects.CopperCurseEffectProperties.enabled,
-			SpellType.ATTACK,
-			ArcanusConfig.AttackEffects.CopperCurseEffectProperties.weight,
-			ArcanusConfig.AttackEffects.CopperCurseEffectProperties.manaCost,
-			ArcanusConfig.AttackEffects.CopperCurseEffectProperties.coolDown,
-			ArcanusConfig.AttackEffects.CopperCurseEffectProperties.minimumLevel,
-			ArcanusConfig.AttackEffects.CopperCurseEffectProperties.procsOnce
+			() -> ArcanusConfig.AttackEffects.CopperCurseEffectProperties.enabled,
+			() -> SpellType.ATTACK,
+			() -> ArcanusConfig.AttackEffects.CopperCurseEffectProperties.weight,
+			() -> ArcanusConfig.AttackEffects.CopperCurseEffectProperties.manaCost,
+			() -> ArcanusConfig.AttackEffects.CopperCurseEffectProperties.coolDown,
+			() -> ArcanusConfig.AttackEffects.CopperCurseEffectProperties.minimumLevel,
+			() -> ArcanusConfig.AttackEffects.CopperCurseEffectProperties.procsOnce
 		);
 	}
 

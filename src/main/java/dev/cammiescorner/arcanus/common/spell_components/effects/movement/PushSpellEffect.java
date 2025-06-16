@@ -17,13 +17,13 @@ import java.util.List;
 public class PushSpellEffect extends SpellEffect {
 	public PushSpellEffect() {
 		super(
-			ArcanusConfig.MovementEffects.PushEffectProperties.enabled,
-			SpellType.MOVEMENT,
-			ArcanusConfig.MovementEffects.PushEffectProperties.weight,
-			ArcanusConfig.MovementEffects.PushEffectProperties.manaCost,
-			ArcanusConfig.MovementEffects.PushEffectProperties.coolDown,
-			ArcanusConfig.MovementEffects.PushEffectProperties.minimumLevel,
-			ArcanusConfig.MovementEffects.PushEffectProperties.procsOnce
+			() -> ArcanusConfig.MovementEffects.PushEffectProperties.enabled,
+			() -> SpellType.MOVEMENT,
+			() -> ArcanusConfig.MovementEffects.PushEffectProperties.weight,
+			() -> ArcanusConfig.MovementEffects.PushEffectProperties.manaCost,
+			() -> ArcanusConfig.MovementEffects.PushEffectProperties.coolDown,
+			() -> ArcanusConfig.MovementEffects.PushEffectProperties.minimumLevel,
+			() -> ArcanusConfig.MovementEffects.PushEffectProperties.procsOnce
 		);
 	}
 

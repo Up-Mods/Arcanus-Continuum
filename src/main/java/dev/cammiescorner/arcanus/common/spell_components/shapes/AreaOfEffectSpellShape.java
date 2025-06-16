@@ -20,14 +20,14 @@ import java.util.List;
 public class AreaOfEffectSpellShape extends SpellShape {
 	public AreaOfEffectSpellShape() {
 		super(
-			ArcanusConfig.SpellShapes.AOEShapeProperties.enabled,
-			ArcanusConfig.SpellShapes.AOEShapeProperties.weight,
-			ArcanusConfig.SpellShapes.AOEShapeProperties.manaCost,
-			ArcanusConfig.SpellShapes.AOEShapeProperties.manaMultiplier,
-			ArcanusConfig.SpellShapes.AOEShapeProperties.coolDown,
-			ArcanusConfig.SpellShapes.AOEShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.AOEShapeProperties.potencyModifier,
-			ArcanusConfig.SpellShapes.AOEShapeProperties.procsOnce
+			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.enabled,
+			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.weight,
+			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.manaCost,
+			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.coolDown,
+			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.minimumLevel,
+			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.potencyModifier,
+			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.procsOnce
 		);
 	}
 

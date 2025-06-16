@@ -19,13 +19,13 @@ import java.util.List;
 public class ManaSplitSpellEffect extends SpellEffect {
 	public ManaSplitSpellEffect() {
 		super(
-			ArcanusConfig.AttackEffects.ManaSplitEffectProperties.enabled,
-			SpellType.ATTACK,
-			ArcanusConfig.AttackEffects.ManaSplitEffectProperties.weight,
-			ArcanusConfig.AttackEffects.ManaSplitEffectProperties.manaCost,
-			ArcanusConfig.AttackEffects.ManaSplitEffectProperties.coolDown,
-			ArcanusConfig.AttackEffects.ManaSplitEffectProperties.minimumLevel,
-			ArcanusConfig.AttackEffects.ManaSplitEffectProperties.procsOnce
+			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.enabled,
+			() -> SpellType.ATTACK,
+			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.weight,
+			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.manaCost,
+			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.coolDown,
+			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.minimumLevel,
+			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.procsOnce
 		);
 	}
 

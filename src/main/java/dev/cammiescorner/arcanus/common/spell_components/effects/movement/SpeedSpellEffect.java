@@ -19,13 +19,13 @@ import java.util.List;
 public class SpeedSpellEffect extends SpellEffect {
 	public SpeedSpellEffect() {
 		super(
-			ArcanusConfig.MovementEffects.SpeedEffectProperties.enabled,
-			SpellType.MOVEMENT,
-			ArcanusConfig.MovementEffects.SpeedEffectProperties.weight,
-			ArcanusConfig.MovementEffects.SpeedEffectProperties.manaCost,
-			ArcanusConfig.MovementEffects.SpeedEffectProperties.coolDown,
-			ArcanusConfig.MovementEffects.SpeedEffectProperties.minimumLevel,
-			ArcanusConfig.MovementEffects.SpeedEffectProperties.procsOnce
+			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.enabled,
+			() -> SpellType.MOVEMENT,
+			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.weight,
+			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.manaCost,
+			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.coolDown,
+			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.minimumLevel,
+			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.procsOnce
 		);
 	}
 

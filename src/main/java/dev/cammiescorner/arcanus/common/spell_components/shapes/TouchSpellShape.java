@@ -21,14 +21,14 @@ import java.util.List;
 public class TouchSpellShape extends SpellShape {
 	public TouchSpellShape() {
 		super(
-			ArcanusConfig.SpellShapes.TouchShapeProperties.enabled,
-			ArcanusConfig.SpellShapes.TouchShapeProperties.weight,
-			ArcanusConfig.SpellShapes.TouchShapeProperties.manaCost,
-			ArcanusConfig.SpellShapes.TouchShapeProperties.manaMultiplier,
-			ArcanusConfig.SpellShapes.TouchShapeProperties.coolDown,
-			ArcanusConfig.SpellShapes.TouchShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.TouchShapeProperties.potencyModifier,
-			ArcanusConfig.SpellShapes.TouchShapeProperties.procsOnce
+			() -> ArcanusConfig.SpellShapes.TouchShapeProperties.enabled,
+			() -> ArcanusConfig.SpellShapes.TouchShapeProperties.weight,
+			() -> ArcanusConfig.SpellShapes.TouchShapeProperties.manaCost,
+			() -> ArcanusConfig.SpellShapes.TouchShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.TouchShapeProperties.coolDown,
+			() -> ArcanusConfig.SpellShapes.TouchShapeProperties.minimumLevel,
+			() -> ArcanusConfig.SpellShapes.TouchShapeProperties.potencyModifier,
+			() -> ArcanusConfig.SpellShapes.TouchShapeProperties.procsOnce
 		);
 	}
 

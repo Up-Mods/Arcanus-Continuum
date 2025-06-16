@@ -19,13 +19,13 @@ import java.util.List;
 public class DangerSenseSpellEffect extends SpellEffect {
 	public DangerSenseSpellEffect() {
 		super(
-			ArcanusConfig.SupportEffects.DangerSenseEffectProperties.enabled,
-			SpellType.SUPPORT,
-			ArcanusConfig.SupportEffects.DangerSenseEffectProperties.weight,
-			ArcanusConfig.SupportEffects.DangerSenseEffectProperties.manaCost,
-			ArcanusConfig.SupportEffects.DangerSenseEffectProperties.coolDown,
-			ArcanusConfig.SupportEffects.DangerSenseEffectProperties.minimumLevel,
-			ArcanusConfig.SupportEffects.DangerSenseEffectProperties.procsOnce
+			() -> ArcanusConfig.SupportEffects.DangerSenseEffectProperties.enabled,
+			() -> SpellType.SUPPORT,
+			() -> ArcanusConfig.SupportEffects.DangerSenseEffectProperties.weight,
+			() -> ArcanusConfig.SupportEffects.DangerSenseEffectProperties.manaCost,
+			() -> ArcanusConfig.SupportEffects.DangerSenseEffectProperties.coolDown,
+			() -> ArcanusConfig.SupportEffects.DangerSenseEffectProperties.minimumLevel,
+			() -> ArcanusConfig.SupportEffects.DangerSenseEffectProperties.procsOnce
 		);
 	}
 

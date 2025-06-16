@@ -25,13 +25,13 @@ import java.util.List;
 public class FireSpellEffect extends SpellEffect {
 	public FireSpellEffect() {
 		super(
-			ArcanusConfig.AttackEffects.FireEffectProperties.enabled,
-			SpellType.ATTACK,
-			ArcanusConfig.AttackEffects.FireEffectProperties.weight,
-			ArcanusConfig.AttackEffects.FireEffectProperties.manaCost,
-			ArcanusConfig.AttackEffects.FireEffectProperties.coolDown,
-			ArcanusConfig.AttackEffects.FireEffectProperties.minimumLevel,
-			ArcanusConfig.AttackEffects.FireEffectProperties.procsOnce
+			() -> ArcanusConfig.AttackEffects.FireEffectProperties.enabled,
+			() -> SpellType.ATTACK,
+			() -> ArcanusConfig.AttackEffects.FireEffectProperties.weight,
+			() -> ArcanusConfig.AttackEffects.FireEffectProperties.manaCost,
+			() -> ArcanusConfig.AttackEffects.FireEffectProperties.coolDown,
+			() -> ArcanusConfig.AttackEffects.FireEffectProperties.minimumLevel,
+			() -> ArcanusConfig.AttackEffects.FireEffectProperties.procsOnce
 		);
 	}
 

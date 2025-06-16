@@ -23,13 +23,13 @@ import java.util.List;
 public class WardingSpellEffect extends SpellEffect {
 	public WardingSpellEffect() {
 		super(
-			ArcanusConfig.UtilityEffects.WardingEffectProperties.enabled,
-			SpellType.UTILITY,
-			ArcanusConfig.UtilityEffects.WardingEffectProperties.weight,
-			ArcanusConfig.UtilityEffects.WardingEffectProperties.manaCost,
-			ArcanusConfig.UtilityEffects.WardingEffectProperties.coolDown,
-			ArcanusConfig.UtilityEffects.WardingEffectProperties.minimumLevel,
-			ArcanusConfig.UtilityEffects.WardingEffectProperties.procsOnce
+			() -> ArcanusConfig.UtilityEffects.WardingEffectProperties.enabled,
+			() -> SpellType.UTILITY,
+			() -> ArcanusConfig.UtilityEffects.WardingEffectProperties.weight,
+			() -> ArcanusConfig.UtilityEffects.WardingEffectProperties.manaCost,
+			() -> ArcanusConfig.UtilityEffects.WardingEffectProperties.coolDown,
+			() -> ArcanusConfig.UtilityEffects.WardingEffectProperties.minimumLevel,
+			() -> ArcanusConfig.UtilityEffects.WardingEffectProperties.procsOnce
 		);
 	}
 

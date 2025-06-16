@@ -19,13 +19,13 @@ import java.util.List;
 public class SpatialRiftSpellEffect extends SpellEffect {
 	public SpatialRiftSpellEffect() {
 		super(
-			ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.enabled,
-			SpellType.UTILITY,
-			ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.weight,
-			ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.manaCost,
-			ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.coolDown,
-			ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.minimumLevel,
-			ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.procsOnce
+			() -> ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.enabled,
+			() -> SpellType.UTILITY,
+			() -> ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.weight,
+			() -> ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.manaCost,
+			() -> ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.coolDown,
+			() -> ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.minimumLevel,
+			() -> ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.procsOnce
 		);
 	}
 

@@ -24,14 +24,14 @@ import java.util.function.Predicate;
 public class BoltSpellShape extends SpellShape {
 	public BoltSpellShape() {
 		super(
-			ArcanusConfig.SpellShapes.BoltShapeProperties.enabled,
-			ArcanusConfig.SpellShapes.BoltShapeProperties.weight,
-			ArcanusConfig.SpellShapes.BoltShapeProperties.manaCost,
-			ArcanusConfig.SpellShapes.BoltShapeProperties.manaMultiplier,
-			ArcanusConfig.SpellShapes.BoltShapeProperties.coolDown,
-			ArcanusConfig.SpellShapes.BoltShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.BoltShapeProperties.potencyModifier,
-			ArcanusConfig.SpellShapes.BoltShapeProperties.procsOnce
+			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.enabled,
+			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.weight,
+			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.manaCost,
+			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.coolDown,
+			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.minimumLevel,
+			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.potencyModifier,
+			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.procsOnce
 		);
 	}
 

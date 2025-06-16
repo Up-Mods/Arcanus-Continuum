@@ -19,13 +19,13 @@ import java.util.List;
 public class TemporalDilationSpellEffect extends SpellEffect {
 	public TemporalDilationSpellEffect() {
 		super(
-			ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.enabled,
-			SpellType.SUPPORT,
-			ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.weight,
-			ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.manaCost,
-			ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.coolDown,
-			ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.minimumLevel,
-			ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.procsOnce
+			() -> ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.enabled,
+			() -> SpellType.SUPPORT,
+			() -> ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.weight,
+			() -> ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.manaCost,
+			() -> ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.coolDown,
+			() -> ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.minimumLevel,
+			() -> ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.procsOnce
 		);
 	}
 

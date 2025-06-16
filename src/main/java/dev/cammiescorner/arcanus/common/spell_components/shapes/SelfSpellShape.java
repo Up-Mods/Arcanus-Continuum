@@ -19,14 +19,14 @@ import java.util.List;
 public class SelfSpellShape extends SpellShape {
 	public SelfSpellShape() {
 		super(
-			ArcanusConfig.SpellShapes.SelfShapeProperties.enabled,
-			ArcanusConfig.SpellShapes.SelfShapeProperties.weight,
-			ArcanusConfig.SpellShapes.SelfShapeProperties.manaCost,
-			ArcanusConfig.SpellShapes.SelfShapeProperties.manaMultiplier,
-			ArcanusConfig.SpellShapes.SelfShapeProperties.coolDown,
-			ArcanusConfig.SpellShapes.SelfShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.SelfShapeProperties.potencyModifier,
-			ArcanusConfig.SpellShapes.SelfShapeProperties.procsOnce
+			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.enabled,
+			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.weight,
+			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.manaCost,
+			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.coolDown,
+			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.minimumLevel,
+			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.potencyModifier,
+			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.procsOnce
 		);
 	}
 

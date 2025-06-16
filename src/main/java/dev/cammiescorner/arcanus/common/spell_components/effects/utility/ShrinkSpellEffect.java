@@ -19,13 +19,13 @@ import java.util.List;
 public class ShrinkSpellEffect extends SpellEffect {
 	public ShrinkSpellEffect() {
 		super(
-			ArcanusConfig.UtilityEffects.ShrinkEffectProperties.enabled,
-			SpellType.UTILITY,
-			ArcanusConfig.UtilityEffects.ShrinkEffectProperties.weight,
-			ArcanusConfig.UtilityEffects.ShrinkEffectProperties.manaCost,
-			ArcanusConfig.UtilityEffects.ShrinkEffectProperties.coolDown,
-			ArcanusConfig.UtilityEffects.ShrinkEffectProperties.minimumLevel,
-			ArcanusConfig.UtilityEffects.ShrinkEffectProperties.procsOnce
+			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.enabled,
+			() -> SpellType.UTILITY,
+			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.weight,
+			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.manaCost,
+			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.coolDown,
+			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.minimumLevel,
+			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.procsOnce
 		);
 	}
 

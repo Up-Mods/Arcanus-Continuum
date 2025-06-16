@@ -17,13 +17,13 @@ import java.util.List;
 public class PullSpellEffect extends SpellEffect {
 	public PullSpellEffect() {
 		super(
-			ArcanusConfig.MovementEffects.PullEffectProperties.enabled,
-			SpellType.MOVEMENT,
-			ArcanusConfig.MovementEffects.PullEffectProperties.weight,
-			ArcanusConfig.MovementEffects.PullEffectProperties.manaCost,
-			ArcanusConfig.MovementEffects.PullEffectProperties.coolDown,
-			ArcanusConfig.MovementEffects.PullEffectProperties.minimumLevel,
-			ArcanusConfig.MovementEffects.PullEffectProperties.procsOnce
+			() -> ArcanusConfig.MovementEffects.PullEffectProperties.enabled,
+			() -> SpellType.MOVEMENT,
+			() -> ArcanusConfig.MovementEffects.PullEffectProperties.weight,
+			() -> ArcanusConfig.MovementEffects.PullEffectProperties.manaCost,
+			() -> ArcanusConfig.MovementEffects.PullEffectProperties.coolDown,
+			() -> ArcanusConfig.MovementEffects.PullEffectProperties.minimumLevel,
+			() -> ArcanusConfig.MovementEffects.PullEffectProperties.procsOnce
 		);
 	}
 

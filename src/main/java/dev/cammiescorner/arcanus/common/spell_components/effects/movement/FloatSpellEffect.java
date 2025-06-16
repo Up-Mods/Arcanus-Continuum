@@ -19,13 +19,13 @@ import java.util.List;
 public class FloatSpellEffect extends SpellEffect {
 	public FloatSpellEffect() {
 		super(
-			ArcanusConfig.MovementEffects.FloatEffectProperties.enabled,
-			SpellType.MOVEMENT,
-			ArcanusConfig.MovementEffects.FloatEffectProperties.weight,
-			ArcanusConfig.MovementEffects.FloatEffectProperties.manaCost,
-			ArcanusConfig.MovementEffects.FloatEffectProperties.coolDown,
-			ArcanusConfig.MovementEffects.FloatEffectProperties.minimumLevel,
-			ArcanusConfig.MovementEffects.FloatEffectProperties.procsOnce
+			() -> ArcanusConfig.MovementEffects.FloatEffectProperties.enabled,
+			() -> SpellType.MOVEMENT,
+			() -> ArcanusConfig.MovementEffects.FloatEffectProperties.weight,
+			() -> ArcanusConfig.MovementEffects.FloatEffectProperties.manaCost,
+			() -> ArcanusConfig.MovementEffects.FloatEffectProperties.coolDown,
+			() -> ArcanusConfig.MovementEffects.FloatEffectProperties.minimumLevel,
+			() -> ArcanusConfig.MovementEffects.FloatEffectProperties.procsOnce
 		);
 	}
 

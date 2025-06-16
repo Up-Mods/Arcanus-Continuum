@@ -25,14 +25,14 @@ import java.util.List;
 public class LobSpellShape extends SpellShape {
 	public LobSpellShape() {
 		super(
-			ArcanusConfig.SpellShapes.LobShapeProperties.enabled,
-			ArcanusConfig.SpellShapes.LobShapeProperties.weight,
-			ArcanusConfig.SpellShapes.LobShapeProperties.manaCost,
-			ArcanusConfig.SpellShapes.LobShapeProperties.manaMultiplier,
-			ArcanusConfig.SpellShapes.LobShapeProperties.coolDown,
-			ArcanusConfig.SpellShapes.LobShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.LobShapeProperties.potencyModifier,
-			ArcanusConfig.SpellShapes.LobShapeProperties.procsOnce
+			() -> ArcanusConfig.SpellShapes.LobShapeProperties.enabled,
+			() -> ArcanusConfig.SpellShapes.LobShapeProperties.weight,
+			() -> ArcanusConfig.SpellShapes.LobShapeProperties.manaCost,
+			() -> ArcanusConfig.SpellShapes.LobShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.LobShapeProperties.coolDown,
+			() -> ArcanusConfig.SpellShapes.LobShapeProperties.minimumLevel,
+			() -> ArcanusConfig.SpellShapes.LobShapeProperties.potencyModifier,
+			() -> ArcanusConfig.SpellShapes.LobShapeProperties.procsOnce
 		);
 	}
 

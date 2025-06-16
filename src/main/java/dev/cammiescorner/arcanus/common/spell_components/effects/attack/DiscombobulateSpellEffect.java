@@ -20,13 +20,13 @@ import java.util.List;
 public class DiscombobulateSpellEffect extends SpellEffect {
 	public DiscombobulateSpellEffect() {
 		super(
-			ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.enabled,
-			SpellType.ATTACK,
-			ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.weight,
-			ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.manaCost,
-			ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.coolDown,
-			ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.minimumLevel,
-			ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.procsOnce
+			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.enabled,
+			() -> SpellType.ATTACK,
+			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.weight,
+			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.manaCost,
+			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.coolDown,
+			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.minimumLevel,
+			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.procsOnce
 		);
 	}
 

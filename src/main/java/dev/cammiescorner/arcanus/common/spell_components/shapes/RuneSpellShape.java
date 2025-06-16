@@ -20,14 +20,14 @@ import java.util.List;
 public class RuneSpellShape extends SpellShape {
 	public RuneSpellShape() {
 		super(
-			ArcanusConfig.SpellShapes.RuneShapeProperties.enabled,
-			ArcanusConfig.SpellShapes.RuneShapeProperties.weight,
-			ArcanusConfig.SpellShapes.RuneShapeProperties.manaCost,
-			ArcanusConfig.SpellShapes.RuneShapeProperties.manaMultiplier,
-			ArcanusConfig.SpellShapes.RuneShapeProperties.coolDown,
-			ArcanusConfig.SpellShapes.RuneShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.RuneShapeProperties.potencyModifier,
-			ArcanusConfig.SpellShapes.RuneShapeProperties.procsOnce
+			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.enabled,
+			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.weight,
+			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.manaCost,
+			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.coolDown,
+			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.minimumLevel,
+			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.potencyModifier,
+			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.procsOnce
 		);
 	}
 

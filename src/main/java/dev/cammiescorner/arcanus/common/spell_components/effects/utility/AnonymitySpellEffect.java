@@ -19,13 +19,13 @@ import java.util.List;
 public class AnonymitySpellEffect extends SpellEffect {
 	public AnonymitySpellEffect() {
 		super(
-			ArcanusConfig.UtilityEffects.AnonymityEffectProperties.enabled,
-			SpellType.UTILITY,
-			ArcanusConfig.UtilityEffects.AnonymityEffectProperties.weight,
-			ArcanusConfig.UtilityEffects.AnonymityEffectProperties.manaCost,
-			ArcanusConfig.UtilityEffects.AnonymityEffectProperties.coolDown,
-			ArcanusConfig.UtilityEffects.AnonymityEffectProperties.minimumLevel,
-			ArcanusConfig.UtilityEffects.AnonymityEffectProperties.procsOnce
+			() -> ArcanusConfig.UtilityEffects.AnonymityEffectProperties.enabled,
+			() -> SpellType.UTILITY,
+			() -> ArcanusConfig.UtilityEffects.AnonymityEffectProperties.weight,
+			() -> ArcanusConfig.UtilityEffects.AnonymityEffectProperties.manaCost,
+			() -> ArcanusConfig.UtilityEffects.AnonymityEffectProperties.coolDown,
+			() -> ArcanusConfig.UtilityEffects.AnonymityEffectProperties.minimumLevel,
+			() -> ArcanusConfig.UtilityEffects.AnonymityEffectProperties.procsOnce
 		);
 	}
 

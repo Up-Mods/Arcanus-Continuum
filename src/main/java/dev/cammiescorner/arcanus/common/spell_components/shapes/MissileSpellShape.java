@@ -25,14 +25,14 @@ import java.util.List;
 public class MissileSpellShape extends SpellShape {
 	public MissileSpellShape() {
 		super(
-			ArcanusConfig.SpellShapes.MissileShapeProperties.enabled,
-			ArcanusConfig.SpellShapes.MissileShapeProperties.weight,
-			ArcanusConfig.SpellShapes.MissileShapeProperties.manaCost,
-			ArcanusConfig.SpellShapes.MissileShapeProperties.manaMultiplier,
-			ArcanusConfig.SpellShapes.MissileShapeProperties.coolDown,
-			ArcanusConfig.SpellShapes.MissileShapeProperties.minimumLevel,
-			ArcanusConfig.SpellShapes.MissileShapeProperties.potencyModifier,
-			ArcanusConfig.SpellShapes.MissileShapeProperties.procsOnce
+			() -> ArcanusConfig.SpellShapes.MissileShapeProperties.enabled,
+			() -> ArcanusConfig.SpellShapes.MissileShapeProperties.weight,
+			() -> ArcanusConfig.SpellShapes.MissileShapeProperties.manaCost,
+			() -> ArcanusConfig.SpellShapes.MissileShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.MissileShapeProperties.coolDown,
+			() -> ArcanusConfig.SpellShapes.MissileShapeProperties.minimumLevel,
+			() -> ArcanusConfig.SpellShapes.MissileShapeProperties.potencyModifier,
+			() -> ArcanusConfig.SpellShapes.MissileShapeProperties.procsOnce
 		);
 	}
 

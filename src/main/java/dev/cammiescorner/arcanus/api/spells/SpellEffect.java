@@ -11,18 +11,19 @@ import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public abstract class SpellEffect extends SpellComponent {
 	public static final Codec<SpellEffect> CODEC = ArcanusSpellComponents.REGISTRY.byNameCodec().flatXmap(spellComponent -> spellComponent instanceof SpellEffect effect ? DataResult.success(effect) : DataResult.error(() -> "Not an instance of SpellEffect"), DataResult::success);
-	private final SpellType type;
+	private final Supplier<SpellType> type;
 
-	public SpellEffect(boolean isEnabled, SpellType type, Weight weight, double manaCost, int coolDown, int minLevel, boolean procsOnce) {
+	public SpellEffect(Supplier<Boolean> isEnabled, Supplier<SpellType> type, Supplier<Weight> weight, Supplier<Double> manaCost, Supplier<Integer> coolDown, Supplier<Integer> minLevel, Supplier<Boolean> procsOnce) {
 		super(isEnabled, weight, manaCost, coolDown, minLevel, procsOnce);
 		this.type = type;
 	}
 
 	public SpellType getType() {
-		return type;
+		return type.get();
 	}
 
 	public abstract void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, Level level, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency);

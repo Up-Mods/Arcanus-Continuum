@@ -22,13 +22,13 @@ import java.util.List;
 public class DispelSpellEffect extends SpellEffect {
 	public DispelSpellEffect() {
 		super(
-			ArcanusConfig.SupportEffects.DispelEffectProperties.enabled,
-			SpellType.SUPPORT,
-			ArcanusConfig.SupportEffects.DispelEffectProperties.weight,
-			ArcanusConfig.SupportEffects.DispelEffectProperties.manaCost,
-			ArcanusConfig.SupportEffects.DispelEffectProperties.coolDown,
-			ArcanusConfig.SupportEffects.DispelEffectProperties.minimumLevel,
-			ArcanusConfig.SupportEffects.DispelEffectProperties.procsOnce
+			() -> ArcanusConfig.SupportEffects.DispelEffectProperties.enabled,
+			() -> SpellType.SUPPORT,
+			() -> ArcanusConfig.SupportEffects.DispelEffectProperties.weight,
+			() -> ArcanusConfig.SupportEffects.DispelEffectProperties.manaCost,
+			() -> ArcanusConfig.SupportEffects.DispelEffectProperties.coolDown,
+			() -> ArcanusConfig.SupportEffects.DispelEffectProperties.minimumLevel,
+			() -> ArcanusConfig.SupportEffects.DispelEffectProperties.procsOnce
 		);
 	}
 
