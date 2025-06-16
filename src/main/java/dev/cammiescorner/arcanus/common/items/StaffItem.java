@@ -127,7 +127,7 @@ public class StaffItem extends Item {
 	}
 
 	public static int getPrimaryColorRGB(ItemStack stack) {
-		return getPrimaryColor(stack).asInt(Color.Ordering.RGB);
+		return getPrimaryColor(stack).asInt(Color.Ordering.ARGB);
 	}
 
 	public static void setSecondaryColor(ItemStack stack, Color color) {
@@ -139,7 +139,7 @@ public class StaffItem extends Item {
 	}
 
 	public static int getSecondaryColorRGB(ItemStack stack) {
-		return getSecondaryColor(stack).asInt(Color.Ordering.RGB);
+		return getSecondaryColor(stack).asInt(Color.Ordering.ARGB);
 	}
 
 	public static ItemStack setCraftedBy(ItemStack stack, UUID uuid) {

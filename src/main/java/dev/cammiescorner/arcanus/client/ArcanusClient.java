@@ -142,7 +142,7 @@ public class ArcanusClient implements ClientModInitializer {
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> switch(tintIndex) {
 				case 0 -> StaffItem.getPrimaryColorRGB(stack);
 				case 1 -> StaffItem.getSecondaryColorRGB(stack);
-				default -> -1;
+				default -> 0xffffffff;
 			},
 			ArcanusItems.WOODEN_STAFF.get(),
 			ArcanusItems.CRYSTAL_STAFF.get(),
