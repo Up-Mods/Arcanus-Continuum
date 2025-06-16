@@ -21,11 +21,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SpellBindingRecipe extends CustomRecipe {
+	private static final int[] INDICES = new int[]{7, 0, 1, 6, 0, 2, 5, 4, 3};
+	
 	public SpellBindingRecipe(CraftingBookCategory category) {
 		super(category);
 	}
-
-	private static final int[] INDICES = new int[]{7, 0, 1, 6, 0, 2, 5, 4, 3};
 
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(CraftingInput input) {
