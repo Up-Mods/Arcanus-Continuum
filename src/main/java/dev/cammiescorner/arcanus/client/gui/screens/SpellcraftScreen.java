@@ -24,6 +24,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -54,6 +55,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 	private final UndoRedoStack undoRedoStack = new UndoRedoStack();
 	private SpellComponent draggedComponent = ArcanusSpellComponents.EMPTY.get();
 	private ItemStack stack = ItemStack.EMPTY;
+	private BlockPos blockPos = BlockPos.ZERO;
 	private EditBox textBox;
 	private int leftScroll, rightScroll;
 	private double leftKnobPos, rightKnobPos;
@@ -110,14 +112,8 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 			}
 		}
 
-		addRenderableWidget(new UndoRedoButtonWidget((width - 48) / 2, topPos - 8, true, undoRedoStack, button -> {
-			undoRedoStack.undo();
-			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
-		}));
-		addRenderableWidget(new UndoRedoButtonWidget(width / 2, topPos - 8, false, undoRedoStack, button -> {
-			undoRedoStack.redo(); // TODO only lets you redo the first spell component for some reason
-			Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
-		}));
+		addRenderableWidget(new UndoRedoButtonWidget((width - 48) / 2, topPos - 8, true, undoRedoStack, button -> undoRedoStack.undo()));
+		addRenderableWidget(new UndoRedoButtonWidget(width / 2, topPos - 8, false, undoRedoStack, button -> undoRedoStack.redo()));
 	}
 
 	@Override
@@ -232,8 +228,6 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 					action.Do().run();
 				}
-
-				Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
 			}
 
 			draggedComponent = ArcanusSpellComponents.EMPTY.get();
@@ -272,7 +266,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 	@Override
 	public void onClose() {
-		Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(getMenu().containerId, getSpell()));
+		Network.getNetworkHandler().sendToServer(new ServerboundSaveBookDataPacket(blockPos, getSpell()));
 		super.onClose();
 	}
 
@@ -299,6 +293,10 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 				}
 			}
 		}
+	}
+
+	public void setBlockPos(BlockPos blockPos) {
+		this.blockPos = blockPos;
 	}
 
 	private void drawWidgets(GuiGraphics gui, int mouseX, int mouseY, float partialTick) {

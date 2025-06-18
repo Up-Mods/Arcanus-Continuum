@@ -37,7 +37,7 @@ public class SpellcraftMenuProvider implements MenuProvider {
 	@Override
 	public @Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
 		if(player instanceof ServerPlayer serverPlayer)
-			Network.getNetworkHandler().sendToClient(new ClientboundUpdateSpellcraftScreenPacket(stack), serverPlayer);
+			Network.getNetworkHandler().sendToClient(new ClientboundUpdateSpellcraftScreenPacket(stack, pos), serverPlayer);
 
 		return new SpellcraftMenu(i, container, ContainerLevelAccess.create(level, pos));
 	}

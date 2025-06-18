@@ -97,6 +97,7 @@ public class SpellBindingRecipe extends CustomRecipe {
 	@Override
 	public boolean canCraftInDimensions(int width, int height) {
 		// need the exact size because of the shape
+		System.out.printf("Crafting Grid Dimensions: [%s, %s]\n", width, height);
 		return width == 3 && height == 3;
 	}
 
