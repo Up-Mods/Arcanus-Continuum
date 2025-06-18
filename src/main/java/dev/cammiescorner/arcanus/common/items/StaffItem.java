@@ -52,7 +52,7 @@ public class StaffItem extends Item {
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
-		List<Spell> spells = stack.get(ArcanusDataComponents.SPELL_LIST.get());
+		List<Spell> spells = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
 		int primaryColour = getPrimaryColorRGB(stack);
 		int secondaryColour = getSecondaryColorRGB(stack);
 
@@ -60,18 +60,18 @@ public class StaffItem extends Item {
 		tooltip.add(Component.translatable(STAFF_SECONDARY_COLOR).withStyle(style -> style.withColor(secondaryColour)).append(Component.literal(": " + String.format(Locale.ROOT, "#%06x", secondaryColour & 0xffffff)).withStyle(ChatFormatting.GRAY)));
 		tooltip.add(Component.empty());
 
-		if(spells != null && !spells.isEmpty()) {
-			for(Spell spell : spells) {
-				if(spell.getComponentGroups().isEmpty()) {
-					tooltip.add(Component.translatable(STAFF_INVALID_DATA).withStyle(ChatFormatting.DARK_RED));
-					return;
-				}
+		for(int i = 0; i < spells.size(); i++) {
+			Spell spell = spells.get(i);
 
-				MutableComponent text = Component.literal(spell.getName()).withStyle(spell.isEmpty() ? ChatFormatting.GRAY : ChatFormatting.GREEN);
-				tooltip.add(text.append(Component.literal(" (").withStyle(ChatFormatting.DARK_GRAY))
-					.append(Arcanus.getSpellPatternAsText(spells.indexOf(spell)).withStyle(ChatFormatting.GRAY))
-					.append(Component.literal(")").withStyle(ChatFormatting.DARK_GRAY)));
+			if(spell.getComponentGroups().isEmpty()) {
+				tooltip.add(Component.translatable(STAFF_INVALID_DATA).withStyle(ChatFormatting.DARK_RED));
+				return;
 			}
+
+			MutableComponent text = Component.literal(spell.getName()).withStyle(spell.isEmpty() ? ChatFormatting.GRAY : ChatFormatting.GREEN);
+			tooltip.add(text.append(Component.literal(" (").withStyle(ChatFormatting.DARK_GRAY))
+				.append(Arcanus.getSpellPatternAsText(i).withStyle(ChatFormatting.GRAY))
+				.append(Component.literal(")").withStyle(ChatFormatting.DARK_GRAY)));
 		}
 	}
 

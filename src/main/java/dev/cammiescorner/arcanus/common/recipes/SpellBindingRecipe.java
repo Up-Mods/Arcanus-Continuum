@@ -17,7 +17,8 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-// TODO isnt even running yay
+// TODO the entire recipe has to be redone. CraftingInput no longer operates like a NonNullList
+//  so now it won't iterate over empty slots
 public class SpellBindingRecipe extends CustomRecipe {
 	private static final int[] INDICES = new int[]{7, 0, 1, 6, 0, 2, 5, 4, 3};
 
@@ -83,7 +84,7 @@ public class SpellBindingRecipe extends CustomRecipe {
 			ItemStack stack = input.getItem(i);
 
 			if(stack.is(ArcanusItemTags.CRAFTING_SPELLBINDING_SPELLBOOKS)) {
-				list.add(INDICES[i], SpellBookItem.getSpell(stack));
+				list.set(INDICES[i], SpellBookItem.getSpell(stack));
 				count++;
 			}
 		}
