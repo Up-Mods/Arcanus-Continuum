@@ -18,6 +18,7 @@ public class PedestalBlockEntity extends BlockEntity {
 	@Override
 	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.saveAdditional(tag, registries);
+		tag.put("ItemStack", stack.save(registries));
 	}
 
 	@Override
