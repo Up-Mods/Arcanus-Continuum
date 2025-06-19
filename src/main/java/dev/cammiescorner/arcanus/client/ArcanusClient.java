@@ -133,7 +133,7 @@ public class ArcanusClient implements ClientModInitializer {
 
 		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE.get(), CollapseParticle.Factory::new);
 
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(), ArcanusBlocks.MAGIC_DOOR.get(), ArcanusBlocks.ARCANE_WORKBENCH.get());
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(), ArcanusBlocks.MAGIC_DOOR.get(), ArcanusBlocks.ARCANE_WORKBENCH.get(), ArcanusBlocks.ARCANE_WORKBENCH.get());
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(), ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get());
 		BlockEntityRenderers.register(ArcanusBlockEntities.MAGIC_BLOCK.get(), MagicBlockEntityRenderer.factory(ArcanusHelper::getMagicColor));
 		BlockEntityRenderers.register(ArcanusBlockEntities.SPATIAL_RIFT_EXIT.get(), SpatialRiftExitBlockEntityRenderer::new);
@@ -192,9 +192,8 @@ public class ArcanusClient implements ClientModInitializer {
 
 			if(player != null && vertices != null && interactionManager != null) {
 				if(client.hitResult instanceof BlockHitResult hitResult && ArcanusComponents.isBlockWarded(world, hitResult.getBlockPos()) && player.swinging) {
-					if(client.options.keyAttack.isDown() && player.attackAnim == 0) {
+					if(client.options.keyAttack.isDown() && player.attackAnim == 0)
 						hitTimer = 20;
-					}
 
 					if(!ArcanusComponents.isOwnerOfBlock(player, hitResult.getBlockPos()) || hitTimer > 0) {
 						BlockPos blockPos = hitResult.getBlockPos();
@@ -204,9 +203,8 @@ public class ArcanusClient implements ClientModInitializer {
 						player.displayClientMessage(Component.translatable("text.arcanus.block_is_warded").withStyle(ChatFormatting.RED), true);
 					}
 
-					if(hitTimer > 0) {
+					if(hitTimer > 0)
 						hitTimer -= 1;
-					}
 				}
 
 				if(player.getMainHandItem().is(ArcanusItemTags.STAVES) || player.getOffhandItem().is(ArcanusItemTags.STAVES)) {
@@ -387,20 +385,20 @@ public class ArcanusClient implements ClientModInitializer {
 		}
 	}
 
-	private static void renderWardedBlock(PoseStack matrices, MultiBufferSource vertices, Level world, Vec3 cameraPos, BlockPos blockPos, float alpha) {
-		VertexConsumer consumer = vertices.getBuffer(LAYER);
+	private static void renderWardedBlock(PoseStack poseStack, MultiBufferSource buffer, Level level, Vec3 cameraPos, BlockPos blockPos, float alpha) {
+		VertexConsumer consumer = buffer.getBuffer(LAYER);
 		Vec3 pos = Vec3.atCenterOf(blockPos);
 
-		matrices.pushPose();
-		matrices.translate(pos.x() - cameraPos.x(), pos.y() - cameraPos.y(), pos.z() - cameraPos.z());
-		matrices.scale(1.001f, 1.001f, 1.001f);
-		matrices.translate(-0.5, -0.5, -0.5);
+		poseStack.pushPose();
+		poseStack.translate(pos.x() - cameraPos.x(), pos.y() - cameraPos.y(), pos.z() - cameraPos.z());
+		poseStack.scale(1.001f, 1.001f, 1.001f);
+		poseStack.translate(-0.5, -0.5, -0.5);
 
-		Matrix4f matrix4f = matrices.last().pose();
-		PoseStack.Pose matrix3f = matrices.last();
-		int light = world.getMaxLocalRawBrightness(blockPos);
+		PoseStack.Pose pose = poseStack.last();
+		Matrix4f matrix4f = pose.pose();
+		Color color = ArcanusHelper.getMagicColor(ArcanusComponents.getWardedBlocks(level.getChunk(blockPos)).get(blockPos));
+		int light = level.getMaxLocalRawBrightness(blockPos);
 		int overlay = OverlayTexture.NO_OVERLAY;
-		Color color = ArcanusHelper.getMagicColor(ArcanusComponents.getWardedBlocks(world.getChunk(blockPos)).get(blockPos));
 		float r = Mth.clamp(color.redF() * alpha, 0f, 1f);
 		float g = Mth.clamp(color.greenF() * alpha, 0f, 1f);
 		float b = Mth.clamp(color.blueF() * alpha, 0f, 1f);
@@ -409,28 +407,28 @@ public class ArcanusClient implements ClientModInitializer {
 
 		for(Direction direction : Direction.values()) {
 			BlockPos posToSide = blockPos.relative(direction);
-			BlockState stateToSide = world.getBlockState(posToSide);
+			BlockState stateToSide = level.getBlockState(posToSide);
 
-			if(stateToSide.isFaceSturdy(world, posToSide, direction.getOpposite(), SupportType.FULL) || ArcanusComponents.isBlockWarded(world, posToSide))
+			if(stateToSide.isFaceSturdy(level, posToSide, direction.getOpposite(), SupportType.FULL) || ArcanusComponents.isBlockWarded(level, posToSide))
 				continue;
 
 			switch(direction) {
 				case SOUTH ->
-					renderSide(matrix4f, consumer, 0f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, color, light, overlay, matrix3f, Direction.SOUTH);
+					renderSide(matrix4f, consumer, 0f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, color, light, overlay, pose, Direction.SOUTH);
 				case NORTH ->
-					renderSide(matrix4f, consumer, 0f, 1f, 1f, 0f, 0f, 0f, 0f, 0f, color, light, overlay, matrix3f, Direction.NORTH);
+					renderSide(matrix4f, consumer, 0f, 1f, 1f, 0f, 0f, 0f, 0f, 0f, color, light, overlay, pose, Direction.NORTH);
 				case EAST ->
-					renderSide(matrix4f, consumer, 1f, 1f, 1f, 0f, 0f, 1f, 1f, 0f, color, light, overlay, matrix3f, Direction.EAST);
+					renderSide(matrix4f, consumer, 1f, 1f, 1f, 0f, 0f, 1f, 1f, 0f, color, light, overlay, pose, Direction.EAST);
 				case WEST ->
-					renderSide(matrix4f, consumer, 0f, 0f, 0f, 1f, 0f, 1f, 1f, 0f, color, light, overlay, matrix3f, Direction.WEST);
+					renderSide(matrix4f, consumer, 0f, 0f, 0f, 1f, 0f, 1f, 1f, 0f, color, light, overlay, pose, Direction.WEST);
 				case DOWN ->
-					renderSide(matrix4f, consumer, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 1f, color, light, overlay, matrix3f, Direction.DOWN);
+					renderSide(matrix4f, consumer, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 1f, color, light, overlay, pose, Direction.DOWN);
 				case UP ->
-					renderSide(matrix4f, consumer, 0f, 1f, 1f, 1f, 1f, 1f, 0f, 0f, color, light, overlay, matrix3f, Direction.UP);
+					renderSide(matrix4f, consumer, 0f, 1f, 1f, 1f, 1f, 1f, 0f, 0f, color, light, overlay, pose, Direction.UP);
 			}
 		}
 
-		matrices.popPose();
+		poseStack.popPose();
 	}
 
 	private static void renderFirstPersonBolt(WorldRenderContext context) {

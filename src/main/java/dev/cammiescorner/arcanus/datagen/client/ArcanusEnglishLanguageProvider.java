@@ -107,6 +107,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		biome(builder, ArcanusBiomes.POCKET_DIMENSION, "Pocket Dimension");
 
 		builder.block(ArcanusBlocks.ARCANE_WORKBENCH, "Arcane Workbench");
+		builder.block(ArcanusBlocks.PEDESTAL, "Pedestal");
 		builder.block(ArcanusBlocks.DUMMY_BOOKSHELF, "[DEVELOPER ONLY] Dummy Chiseled Bookshelf");
 		builder.block(ArcanusBlocks.MAGIC_BLOCK, "Magic Block");
 		builder.block(ArcanusBlocks.MAGIC_DOOR, "Magic Door");

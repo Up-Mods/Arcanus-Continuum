@@ -39,9 +39,8 @@ public class WardedBlocksComponent implements AutoSyncedComponent {
 			UUID ownerUuid = compound.getUUID("OwnerUuid");
 
 			// make sure we have the data cached when we need it
-			if(SparkweaveApi.CLIENTSIDE_ENVIRONMENT) {
+			if(SparkweaveApi.CLIENTSIDE_ENVIRONMENT)
 				Arcanus.WIZARD_DATA.get(ownerUuid);
-			}
 
 			for(int j = 0; j < blockPosList.size(); j++)
 				wardedBlocks.put(NbtUtils.readBlockPos(blockPosList.getCompound(j), "Pos" + j).get(), ownerUuid);

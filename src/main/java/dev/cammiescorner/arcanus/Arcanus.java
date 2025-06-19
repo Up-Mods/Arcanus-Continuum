@@ -69,10 +69,10 @@ public class Arcanus implements ModInitializer {
 		ArcanusEntities.ENTITY_TYPES.accept(registryService);
 		ArcanusArmourMaterials.MATERIALS.accept(registryService);
 		ArcanusDataComponents.DATA_COMPONENTS.accept(registryService);
-		ArcanusBlocks.BLOCKS.accept(registryService);
-		ArcanusItems.ITEM_GROUPS.accept(registryService);
 		ArcanusItems.ITEMS.accept(registryService);
-		ArcanusBlockEntities.BLOCK_ENTITY_TYPES.accept(registryService);
+		ArcanusItems.ITEM_GROUPS.accept(registryService);
+		ArcanusBlocks.BLOCKS.accept(registryService);
+		ArcanusBlockEntities.BLOCK_ENTITIES.accept(registryService);
 		ArcanusParticles.PARTICLE_TYPES.accept(registryService);
 		ArcanusPointsOfInterest.register();
 		ArcanusRecipes.RECIPE_SERIALIZERS.accept(registryService);

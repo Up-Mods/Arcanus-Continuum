@@ -17,21 +17,19 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DoorBlock;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class MagicDoorBlock extends DoorBlock implements EntityBlock, BlockItemProvider {
 	public MagicDoorBlock() {
-		super(BlockSetType.OAK, BlockBehaviour.Properties.of().strength(2f, 3f).sound(SoundType.WOOD).noOcclusion());
+		super(BlockSetType.OAK, BlockBehaviour.Properties.of().strength(2f, 3f).sound(SoundType.WOOD).pushReaction(PushReaction.IGNORE).noOcclusion());
 	}
 
 	@Override

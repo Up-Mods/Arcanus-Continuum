@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:tools",
     "minecraft:fishing_rod",
     "#c:tools",
     "#minecraft:trimmable_armor",
