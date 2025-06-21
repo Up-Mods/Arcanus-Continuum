@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanus.common.blocks;
 
 import dev.cammiescorner.arcanus.common.blocks.entities.PedestalBlockEntity;
+import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -34,6 +35,19 @@ public class PedestalBlock extends Block implements EntityBlock, BlockItemProvid
 
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if(level.getBlockEntity(pos) instanceof PedestalBlockEntity pedestal) {
+			if(pedestal.isEmpty() && stack.is(ArcanusItemTags.CRAFTING_SPELLBINDING_SPELLBOOKS)) {
+				pedestal.setItem(stack.split(1));
+
+				return ItemInteractionResult.sidedSuccess(level.isClientSide());
+			}
+
+			if(!pedestal.isEmpty()) {
+				player.getInventory().add(pedestal.getItem());
+				pedestal.setItem(stack);
+			}
+		}
+
 		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
