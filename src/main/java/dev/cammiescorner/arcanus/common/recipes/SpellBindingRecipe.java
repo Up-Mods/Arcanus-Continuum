@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.common.recipes;
 import com.google.common.collect.Lists;
 import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
-import dev.cammiescorner.arcanus.common.items.SpellBookItem;
+import dev.cammiescorner.arcanus.common.items.SpellScrollItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusRecipes;
 import net.minecraft.core.HolderLookup;
@@ -84,7 +84,7 @@ public class SpellBindingRecipe extends CustomRecipe {
 			ItemStack stack = input.getItem(i);
 
 			if(stack.is(ArcanusItemTags.CRAFTING_SPELLBINDING_SPELLBOOKS)) {
-				list.set(INDICES[i], SpellBookItem.getSpell(stack));
+				list.set(INDICES[i], SpellScrollItem.getSpell(stack));
 				count++;
 			}
 		}

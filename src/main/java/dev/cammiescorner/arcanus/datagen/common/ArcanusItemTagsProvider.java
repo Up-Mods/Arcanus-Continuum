@@ -23,10 +23,10 @@ public class ArcanusItemTagsProvider extends FabricTagProvider.ItemTagProvider {
 			.add(Items.FEATHER);
 
 		getOrCreateTagBuilder(ItemTags.BOOKSHELF_BOOKS)
-			.add(ArcanusItems.SPELL_BOOK.get());
+			.add(ArcanusItems.SPELL_SCROLL.get());
 
 		getOrCreateTagBuilder(ItemTags.LECTERN_BOOKS)
-			.add(ArcanusItems.SPELL_BOOK.get());
+			.add(ArcanusItems.SPELL_SCROLL.get());
 
 		getOrCreateTagBuilder(ConventionalItemTags.TOOLS)
 			.addTag(ArcanusItemTags.STAVES);
@@ -47,7 +47,7 @@ public class ArcanusItemTagsProvider extends FabricTagProvider.ItemTagProvider {
 			.addTag(ArcanusItemTags.WIZARD_ARMOR);
 
 		getOrCreateTagBuilder(ArcanusItemTags.CRAFTING_SPELLBINDING_SPELLBOOKS)
-			.add(ArcanusItems.SPELL_BOOK.get());
+			.add(ArcanusItems.SPELL_SCROLL.get());
 
 		getOrCreateTagBuilder(ArcanusItemTags.STAVES)
 			.add(ArcanusItems.WOODEN_STAFF.get())

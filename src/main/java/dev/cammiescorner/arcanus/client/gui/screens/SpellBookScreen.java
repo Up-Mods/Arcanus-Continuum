@@ -4,7 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.*;
-import dev.cammiescorner.arcanus.common.items.SpellBookItem;
+import dev.cammiescorner.arcanus.common.items.SpellScrollItem;
 import dev.cammiescorner.arcanus.common.screens.SpellBookMenu;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -46,7 +46,7 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 		inventoryLabelY = -10000;
 
 		addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> onClose()).pos(width / 2 - 49, topPos + 170).size(98, 20).build());
-		setSpell(SpellBookItem.getSpell(stack));
+		setSpell(SpellScrollItem.getSpell(stack));
 		SPELL_GROUPS.addAll(getSpell().getComponentGroups());
 	}
 
@@ -176,9 +176,9 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 
 	public void setBook(ItemStack stack) {
 		this.stack = stack;
-		setSpell(SpellBookItem.getSpell(stack));
+		setSpell(SpellScrollItem.getSpell(stack));
 		SPELL_GROUPS.clear();
-		SPELL_GROUPS.addAll(SpellBookItem.getSpell(stack).getComponentGroups());
+		SPELL_GROUPS.addAll(SpellScrollItem.getSpell(stack).getComponentGroups());
 	}
 
 	public void setSpell(Spell spell) {

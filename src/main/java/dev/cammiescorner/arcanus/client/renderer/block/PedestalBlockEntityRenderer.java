@@ -17,10 +17,11 @@ public class PedestalBlockEntityRenderer implements BlockEntityRenderer<Pedestal
 
 	@Override
 	public void render(PedestalBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+		float spinTick = blockEntity.getLevel().getGameTime() + partialTick;
+
 		poseStack.pushPose();
-		poseStack.translate(0.5, 1.15, 0.5);
-		poseStack.mulPose(Axis.YP.rotationDegrees((blockEntity.getLevel().getGameTime() + partialTick) * 2.5f));
-		poseStack.translate(0, Math.sin((blockEntity.getLevel().getGameTime() + partialTick) * 0.1) * 0.05, 0);
+		poseStack.translate(0.5, 1.175 + Math.sin(spinTick * 0.1) * 0.05, 0.5);
+		poseStack.mulPose(Axis.YN.rotationDegrees(spinTick * 2.5f));
 
 		context.getItemRenderer().renderStatic(blockEntity.getItem(), ItemDisplayContext.GROUND, packedLight, packedOverlay, poseStack, bufferSource, blockEntity.getLevel(), 0);
 

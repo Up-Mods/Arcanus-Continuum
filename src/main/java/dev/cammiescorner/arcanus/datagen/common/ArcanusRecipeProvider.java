@@ -107,7 +107,7 @@ public class ArcanusRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy("has_gold_ingot", has(ConventionalItemTags.GOLD_INGOTS))
 			.save(exporter);
 
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ArcanusItems.SPELL_BOOK.get())
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ArcanusItems.SPELL_SCROLL.get())
 			.requires(Items.BOOK)
 			.requires(ArcanusItemTags.C_FEATHERS)
 			.requires(Items.GLOW_INK_SAC)
@@ -115,7 +115,7 @@ public class ArcanusRecipeProvider extends FabricRecipeProvider {
 			.group(Arcanus.id("spell_book").toString())
 			.save(exporter);
 
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ArcanusItems.SPELL_BOOK.get())
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ArcanusItems.SPELL_SCROLL.get())
 			.requires(Items.WRITABLE_BOOK)
 			.requires(Items.GLOW_INK_SAC)
 			.unlockedBy("has_glow_ink", has(Items.GLOW_INK_SAC))

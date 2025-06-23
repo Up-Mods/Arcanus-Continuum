@@ -11,7 +11,7 @@ import dev.cammiescorner.arcanus.client.gui.util.Action;
 import dev.cammiescorner.arcanus.client.gui.util.UndoRedoStack;
 import dev.cammiescorner.arcanus.client.gui.widgets.SpellComponentWidget;
 import dev.cammiescorner.arcanus.client.gui.widgets.UndoRedoButtonWidget;
-import dev.cammiescorner.arcanus.common.items.SpellBookItem;
+import dev.cammiescorner.arcanus.common.items.SpellScrollItem;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundSaveBookDataPacket;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
@@ -91,9 +91,9 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 		addCloseButtons();
 		textBox = addRenderableWidget(new EditBox(minecraft.font, leftPos + 15, topPos + 8, 88, 14, Component.empty()));
-		textBox.setValue(SpellBookItem.getSpell(stack).getName());
+		textBox.setValue(SpellScrollItem.getSpell(stack).getName());
 
-		for(SpellGroup group : SpellBookItem.getSpell(stack).getComponentGroups()) {
+		for(SpellGroup group : SpellScrollItem.getSpell(stack).getComponentGroups()) {
 			if(!group.isEmpty()) {
 				undoRedoStack.addAction(new Action(group.shape(), group.positions().getFirst(), () -> SPELL_GROUPS.add(group), () -> SPELL_GROUPS.remove(group))).Do().run();
 
@@ -272,10 +272,10 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 	public void setBook(ItemStack stack) {
 		this.stack = stack;
-		textBox.setValue(SpellBookItem.getSpell(stack).getName());
+		textBox.setValue(SpellScrollItem.getSpell(stack).getName());
 		SPELL_GROUPS.clear();
 
-		for(SpellGroup group : SpellBookItem.getSpell(stack).getComponentGroups()) {
+		for(SpellGroup group : SpellScrollItem.getSpell(stack).getComponentGroups()) {
 			if(!group.isEmpty()) {
 				undoRedoStack.addAction(new Action(group.shape(), group.positions().getFirst(), () -> SPELL_GROUPS.add(group), () -> SPELL_GROUPS.remove(group))).Do().run();
 

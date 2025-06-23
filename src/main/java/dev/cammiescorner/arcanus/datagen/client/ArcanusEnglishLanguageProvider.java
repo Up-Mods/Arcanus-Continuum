@@ -57,6 +57,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.BATTLE_MAGE_LEGGINGS, "Battle Mage Leggings");
 		builder.item(ArcanusItems.BATTLE_MAGE_BOOTS, "Battle Mage Boots");
 		builder.item(ArcanusItems.SPELL_BOOK, "Spell Book");
+		builder.item(ArcanusItems.SPELL_SCROLL, "Spell Scroll");
 		builder.item(ArcanusItems.SCROLL_OF_KNOWLEDGE, "Scroll of Knowledge");
 		builder.item(ArcanusItems.WIZARD_SPAWN_EGG, "Wizard Spawn Egg");
 		builder.item(ArcanusItems.OPOSSUM_SPAWN_EGG, "Opossum Spawn Egg");

@@ -26,9 +26,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class PedestalBlock extends Block implements EntityBlock, BlockItemProvider {
 	private static final VoxelShape SHAPE = Shapes.or(
-		Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.25, 0.9375),
-		Shapes.box(0.25, 0.25, 0.25, 0.75, 0.75, 0.75),
-		Shapes.box(0.125, 0.75, 0.125, 0.875, 1, 0.875)
+		Shapes.box(0.0625, 0,    0.0625, 0.9375, 0.25, 0.9375),
+		Shapes.box(0.25,   0.25, 0.25,   0.75,   0.75, 0.75),
+		Shapes.box(0.125,  0.75, 0.125,  0.875,  1,    0.875)
 	);
 
 	public PedestalBlock() {
@@ -38,7 +38,7 @@ public class PedestalBlock extends Block implements EntityBlock, BlockItemProvid
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if(level.getBlockEntity(pos) instanceof PedestalBlockEntity pedestal && pedestal.stillValid(player)) {
-			ItemStack itemStack = player.isCreative() ? stack : stack.split(1);
+			ItemStack itemStack = player.isCreative() ? stack.copyWithCount(1) : stack.split(1);
 
 			if(pedestal.isEmpty() && !itemStack.isEmpty()) {
 				pedestal.setItem(itemStack);

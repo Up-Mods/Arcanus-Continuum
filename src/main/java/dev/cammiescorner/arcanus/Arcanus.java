@@ -104,7 +104,7 @@ public class Arcanus implements ModInitializer {
 
 		// TODO for some reason isn't always syncing the book in the lectern when it should be...
 		RegisterCustomLecternMenuEvent.EVENT.register(event -> {
-			event.register((level, pos, player, blockEntity, stack) -> new SpellcraftMenuProvider(level, stack, pos, blockEntity.bookAccess), ArcanusItems.SPELL_BOOK);
+			event.register((level, pos, player, blockEntity, stack) -> new SpellcraftMenuProvider(level, stack, pos, blockEntity.bookAccess), ArcanusItems.SPELL_SCROLL);
 		});
 
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {

@@ -41,6 +41,14 @@ public class PedestalBlockEntity extends BlockEntity implements Container {
 	}
 
 	@Override
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		CompoundTag tag = super.getUpdateTag(registries);
+		saveAdditional(tag, registries);
+
+		return tag;
+	}
+
+	@Override
 	public int getContainerSize() {
 		return 1;
 	}

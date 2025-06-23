@@ -4,7 +4,7 @@ import commonnetwork.api.Network;
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.Spell;
-import dev.cammiescorner.arcanus.common.items.SpellBookItem;
+import dev.cammiescorner.arcanus.common.items.SpellScrollItem;
 import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundUpdateSpellcraftScreenPacket;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import net.minecraft.core.BlockPos;
@@ -35,7 +35,7 @@ public record ServerboundSaveBookDataPacket(BlockPos pos, Spell spell) implement
 		ServerPlayer player = context.sender();
 		ServerLevel level = player.serverLevel();
 
-		if(level.getBlockEntity(pos) instanceof LecternBlockEntity lectern && lectern.getBook().getItem() instanceof SpellBookItem) {
+		if(level.getBlockEntity(pos) instanceof LecternBlockEntity lectern && lectern.getBook().getItem() instanceof SpellScrollItem) {
 			ItemStack stack = lectern.getBook();
 
 			stack.set(ArcanusDataComponents.SPELL.get(), spell);
