@@ -19,6 +19,7 @@ import dev.cammiescorner.arcanus.client.particles.CollapseParticle;
 import dev.cammiescorner.arcanus.client.renderer.armor.BattleMageArmourRenderer;
 import dev.cammiescorner.arcanus.client.renderer.armor.WizardArmourRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.MagicBlockEntityRenderer;
+import dev.cammiescorner.arcanus.client.renderer.block.PedestalBlockEntityRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.SpatialRiftExitBlockEntityRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.living.OpossumRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.living.WizardRenderer;
@@ -138,6 +139,7 @@ public class ArcanusClient implements ClientModInitializer {
 		BlockEntityRenderers.register(ArcanusBlockEntities.MAGIC_BLOCK.get(), MagicBlockEntityRenderer.factory(ArcanusHelper::getMagicColor));
 		BlockEntityRenderers.register(ArcanusBlockEntities.SPATIAL_RIFT_EXIT.get(), SpatialRiftExitBlockEntityRenderer::new);
 		BlockEntityRenderers.register(ArcanusBlockEntities.SPATIAL_RIFT_WALL.get(), MagicBlockEntityRenderer.factory(ArcanusHelper::getPocketDimensionColor));
+		BlockEntityRenderers.register(ArcanusBlockEntities.PEDESTAL.get(), PedestalBlockEntityRenderer::new);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> switch(tintIndex) {
 				case 0 -> StaffItem.getPrimaryColorRGB(stack);

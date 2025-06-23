@@ -1,12 +1,14 @@
 package dev.cammiescorner.arcanus.common.blocks;
 
 import dev.cammiescorner.arcanus.common.blocks.entities.PedestalBlockEntity;
-import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -35,16 +37,35 @@ public class PedestalBlock extends Block implements EntityBlock, BlockItemProvid
 
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		if(level.getBlockEntity(pos) instanceof PedestalBlockEntity pedestal) {
-			if(pedestal.isEmpty() && stack.is(ArcanusItemTags.CRAFTING_SPELLBINDING_SPELLBOOKS)) {
-				pedestal.setItem(stack.split(1));
+		if(level.getBlockEntity(pos) instanceof PedestalBlockEntity pedestal && pedestal.stillValid(player)) {
+			ItemStack itemStack = player.isCreative() ? stack : stack.split(1);
+
+			if(pedestal.isEmpty() && !itemStack.isEmpty()) {
+				pedestal.setItem(itemStack);
 
 				return ItemInteractionResult.sidedSuccess(level.isClientSide());
 			}
 
 			if(!pedestal.isEmpty()) {
-				player.getInventory().add(pedestal.getItem());
-				pedestal.setItem(stack);
+				ItemStack pedestalStack = pedestal.getItem().copy();
+				ItemEntity itemEntity;
+
+				level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2f, ((player.getRandom().nextFloat() - player.getRandom().nextFloat()) * 0.7F + 1f) * 2f);
+				pedestal.removeItem();
+
+				if(!itemStack.isEmpty())
+					pedestal.setItem(itemStack);
+
+				if(!player.getInventory().add(pedestalStack)) {
+					itemEntity = player.drop(pedestalStack, false);
+
+					if(itemEntity != null) {
+						itemEntity.setNoPickUpDelay();
+						itemEntity.setTarget(player.getUUID());
+					}
+				}
+
+				return ItemInteractionResult.sidedSuccess(level.isClientSide());
 			}
 		}
 
@@ -52,13 +73,14 @@ public class PedestalBlock extends Block implements EntityBlock, BlockItemProvid
 	}
 
 	@Override
-	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-		return super.useWithoutItem(state, level, pos, player, hitResult);
+	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		return SHAPE;
 	}
 
 	@Override
-	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return SHAPE;
+	protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+		Containers.dropContentsOnDestroy(state, newState, level, pos);
+		super.onRemove(state, level, pos, newState, movedByPiston);
 	}
 
 	@Override
