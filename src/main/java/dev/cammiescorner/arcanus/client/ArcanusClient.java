@@ -316,14 +316,14 @@ public class ArcanusClient implements ClientModInitializer {
 						poseStack.pushPose();
 						poseStack.translate(60, 20, 0);
 						poseStack.mulPose(Axis.ZP.rotationDegrees(-105f + 30f * i));
-						poseStack.translate(-4, -4, 0);
+						poseStack.translate(-8, -8, 0);
 
-						gui.blit(HUD_ELEMENTS2, 80, 0, 0, 216, Math.round(88 * 1f), 8);
+						gui.blit(HUD_ELEMENTS2, 85, 0, 0, 168, Math.round(86 * 1f), 16);
 
-						poseStack.translate(-20, -20, 0);
+						poseStack.translate(-8, -8, 0);
 						RenderSystem.setShaderColor(1f, 1f, 1f, alpha);
 
-						gui.blit(HUD_ELEMENTS2, 88, 0, 0, 168, 112, 48);
+						gui.blit(HUD_ELEMENTS2, 80, 0, 0, 128, 112, 32);
 
 						poseStack.popPose();
 					}
