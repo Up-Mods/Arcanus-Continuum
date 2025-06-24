@@ -297,8 +297,8 @@ public class ArcanusClient implements ClientModInitializer {
 					RenderSystem.enableBlend();
 
 					poseStack.pushPose();
-					poseStack.scale(0.8f, 0.8f, 1f);
-					poseStack.translate(0, 62.5, 0);
+					poseStack.scale(0.85f, 0.85f, 1f);
+					poseStack.translate(0, 44, 0);
 
 					// render mana bars
 					for(int i = 0; i < 5; i++) {
