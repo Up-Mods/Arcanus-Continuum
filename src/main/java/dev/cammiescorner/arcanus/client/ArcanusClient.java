@@ -297,9 +297,8 @@ public class ArcanusClient implements ClientModInitializer {
 					RenderSystem.enableBlend();
 
 					poseStack.pushPose();
-					// TODO I wanna scale it down, but doing so just results in the itemstack being rendered darker
-//					poseStack.scale(0.8f, 0.8f, 0f);
-//					poseStack.translate(0, 62.5, 0);
+					poseStack.scale(0.8f, 0.8f, 1f);
+					poseStack.translate(0, 62.5, 0);
 
 					// render mana bars
 					for(int i = 0; i < 5; i++) {
