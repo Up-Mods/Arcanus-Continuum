@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanus.client.renderer.feature;
+package dev.cammiescorner.arcanus.client.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
@@ -12,11 +12,11 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 
-public class CounterFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
+public class CounterLayerRenderer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
 	private static final ResourceLocation TEXTURE = ResourceLocation.withDefaultNamespace("textures/misc/white.png");
 	private final EntityModel<T> model;
 
-	public CounterFeatureRenderer(RenderLayerParent<T, M> context) {
+	public CounterLayerRenderer(RenderLayerParent<T, M> context) {
 		super(context);
 		model = context.getModel();
 	}

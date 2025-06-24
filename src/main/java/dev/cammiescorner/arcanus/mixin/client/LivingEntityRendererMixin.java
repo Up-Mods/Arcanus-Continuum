@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.mixin.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
-import dev.cammiescorner.arcanus.client.renderer.feature.CounterFeatureRenderer;
+import dev.cammiescorner.arcanus.client.renderer.layer.CounterLayerRenderer;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.util.StaffType;
@@ -35,7 +35,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void init(EntityRendererProvider.Context ctx, EntityModel model, float shadowRadius, CallbackInfo ci) {
-		addLayer(new CounterFeatureRenderer<>(this));
+		addLayer(new CounterLayerRenderer<>(this));
 	}
 
 	@Inject(method = "render(Lnet/minecraft/world/entity/LivingEntity;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V", at = @At(

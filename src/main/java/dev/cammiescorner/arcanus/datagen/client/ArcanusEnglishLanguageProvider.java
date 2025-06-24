@@ -162,11 +162,16 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		tag(builder, ArcanusEnchantmentTags.MANA_POOL_COMPATIBLE_WITH, "Compatible enchantments for Mana Pool");
 
 		tag(builder, ArcanusItemTags.C_FEATHERS, "Feathers");
-		tag(builder, ArcanusItemTags.CRAFTING_SPELLBINDING_SPELLBOOKS, "Spellbooks");
+		tag(builder, ArcanusItemTags.BRACELET_HAND, "Bracelets");
+		tag(builder, ArcanusItemTags.BRACELET_OFFHAND, "Bracelets");
+		tag(builder, ArcanusItemTags.SPELL_BOOK, "Spell Books");
 		tag(builder, ArcanusItemTags.COPPER_CURSE_IMMUNE, "Ignored by Copper Curse");
 		tag(builder, ArcanusItemTags.STAVES, "Staves");
 		tag(builder, ArcanusItemTags.STAVES_FOR_WIZARDS, "Staves for Wizards");
 		tag(builder, ArcanusItemTags.WIZARD_ARMOR, "Wizard Armor");
+
+		builder.add(SPELL_BOOK_SLOT, "Spell Book");
+		builder.add(BRACELET_HAND_SLOT, "Bracelet");
 
 		builder.add(BLOCK_IS_WARDED, "This block is warded.");
 		builder.add(CANT_WARD_IN_DIM, "Cannot ward blocks in this dimension!");

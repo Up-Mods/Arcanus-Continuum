@@ -1,6 +1,9 @@
 package dev.cammiescorner.arcanus.common.util;
 
 public class TranslationKeys {
+	public static final String SPELL_BOOK_SLOT = "trinkets.slot.legs.spell_book";
+	public static final String BRACELET_HAND_SLOT = "trinkets.slot.hand.bracelet";
+	public static final String BRACELET_OFFHAND_SLOT = "trinkets.slot.offhand.bracelet";
 	public static final String BATTLE_MAGE_UPGRADE = "upgrade.arcanus.battle_mage_upgrade";
 	public static final String BATTLE_MAGE_UPGRADE_APPLIES_TO = "stack.arcanus.smithing_template.battle_mage_upgrade.applies_to";
 	public static final String BATTLE_MAGE_UPGRADE_INGREDIENTS = "stack.arcanus.smithing_template.battle_mage_upgrade.ingredients";

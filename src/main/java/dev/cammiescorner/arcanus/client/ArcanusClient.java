@@ -234,7 +234,7 @@ public class ArcanusClient implements ClientModInitializer {
 			PoseStack matrices = gui.pose();
 			Player player = client.player;
 
-			if(player != null && !player.isSpectator()) {
+			if(player != null && !player.isSpectator() && !client.options.hideGui) {
 				int stunTimer = ArcanusComponents.getStunTimer(player);
 
 				if(stunTimer > 0) {
@@ -291,41 +291,52 @@ public class ArcanusClient implements ClientModInitializer {
 
 				if(hudTimer > 0) {
 					PoseStack poseStack = gui.pose();
-					int y = client.getWindow().getGuiScaledHeight() - 40;
+					int scaledHeight = client.getWindow().getGuiScaledHeight();
 					float alpha = hudTimer > 20 ? 1f : hudTimer / 20f;
 
 					RenderSystem.enableBlend();
 
 					poseStack.pushPose();
-					poseStack.scale(0.85f, 0.85f, 1f);
-					poseStack.translate(0, 44, 0);
+					poseStack.scale(0.2f, 0.2f, 1f);
+					poseStack.translate(0, scaledHeight * 4.67, 0);
 
 					// render mana bars
 					for(int i = 0; i < 5; i++) {
-						if(i != 3)
-							RenderSystem.setShaderColor(i == 0 ? 1f : 0f, i == 1 ? 1f : 0f, i == 2 ? 1f : 0f, alpha);
-						else
-							RenderSystem.setShaderColor(1f, 1f, 1f, alpha);
+						Color color = switch(i) {
+							case 0 -> Color.fromRGB(184, 28, 14);
+							case 1 -> Color.fromRGB(54, 124, 38);
+							case 2 -> Color.fromRGB(6, 51, 141);
+							case 3 -> Color.fromRGB(255, 251, 213);
+							case 4 -> Color.fromRGB(41, 29, 42);
+							default -> Color.fromRGB(255, 255, 255);
+						};
+
+						RenderSystem.setShaderColor(color.redF(), color.greenF(), color.blueF(), alpha);
 
 						poseStack.pushPose();
-						poseStack.translate(0, client.getWindow().getGuiScaledHeight(), 0);
-						poseStack.translate(10, -10, 0);
-						poseStack.mulPose(Axis.ZP.rotationDegrees(-90f + 22.5f * i));
-						poseStack.translate(-2, -2, 0);
+						poseStack.translate(40, 40, 0);
+						poseStack.mulPose(Axis.ZP.rotationDegrees(-93f + 24f * i));
+						poseStack.translate(-8, -8, 0);
 
-						gui.blit(HUD_ELEMENTS2, 37, 0, 0, 56, Math.round(26 * 1f), 4);
+						gui.blit(HUD_ELEMENTS2, 148, 0, 0, 216, Math.round(106 * 1f), 16);
 
-						poseStack.translate(-6, -6, 0);
+						poseStack.translate(-16, -16, 0);
 						RenderSystem.setShaderColor(1f, 1f, 1f, alpha);
 
-						gui.blit(HUD_ELEMENTS2, 39, 0, 0, 40, 33, 16);
+						gui.blit(HUD_ELEMENTS2, 150, 0, 0, 168, 136, 48);
 
 						poseStack.popPose();
 					}
 
 					// render frame
-					gui.blit(HUD_ELEMENTS2, 0, y, 0, 0, 40, 40);
-					gui.renderItem(ArcanusItems.SPELL_BOOK.get().getDefaultInstance(), 8, client.getWindow().getGuiScaledHeight() - 24);
+					gui.blit(HUD_ELEMENTS2, 0, -80, 0, 0, 160, 160);
+
+					poseStack.popPose();
+					poseStack.pushPose();
+					poseStack.scale(0.8f, 0.8f, 1f);
+					poseStack.translate(0, 44, 0);
+
+					gui.renderItem(ArcanusItems.SPELL_BOOK.get().getDefaultInstance(), 8, client.getWindow().getGuiScaledHeight() - 6);
 
 					poseStack.popPose();
 

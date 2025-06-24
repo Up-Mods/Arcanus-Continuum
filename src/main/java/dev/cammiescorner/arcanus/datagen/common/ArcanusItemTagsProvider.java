@@ -46,9 +46,6 @@ public class ArcanusItemTagsProvider extends FabricTagProvider.ItemTagProvider {
 			.forceAddTag(ItemTags.DECORATED_POT_SHERDS)
 			.addTag(ArcanusItemTags.WIZARD_ARMOR);
 
-		getOrCreateTagBuilder(ArcanusItemTags.CRAFTING_SPELLBINDING_SPELLBOOKS)
-			.add(ArcanusItems.SPELL_SCROLL.get());
-
 		getOrCreateTagBuilder(ArcanusItemTags.STAVES)
 			.add(ArcanusItems.WOODEN_STAFF.get())
 			.add(ArcanusItems.CRYSTAL_STAFF.get())

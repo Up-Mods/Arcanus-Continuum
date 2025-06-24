@@ -356,11 +356,13 @@
   "tag.entity_type.arcanus.temporal_dilation_immune": "Immune to Temporal Dilation Fields",
   "tag.entity_type.c.immovable": "Immovable",
   "tag.item.arcanus.copper_curse_immune": "Ignored by Copper Curse",
-  "tag.item.arcanus.crafting.spellbinding_acceptable_spellbooks": "Spellbooks",
   "tag.item.arcanus.staves": "Staves",
   "tag.item.arcanus.staves_for_wizards": "Staves for Wizards",
   "tag.item.arcanus.wizard_armor": "Wizard Armor",
   "tag.item.c.feathers": "Feathers",
+  "tag.item.trinkets.hand.bracelet": "Bracelets",
+  "tag.item.trinkets.legs.spell_book": "Spell Books",
+  "tag.item.trinkets.offhand.bracelet": "Bracelets",
   "tag.worldgen.biome.arcanus.has_structure.wizard_tower": "Has Wizard Tower",
   "tag.worldgen.biome.arcanus.is_pocket_dimension": "Is Pocket Dimension",
   "tag.worldgen.biome.c.has_structure.village": "Has Village",
@@ -374,5 +376,7 @@
   "text.arcanus.use_item.scroll_of_knowledge.max_level": "You have learned everything you can.",
   "text.arcanus.wizard_dialogue.no_wizard_armor": "Come back to me when you look like a wizard.",
   "tooltip.arcanus.wizard_dialogue.no_wizard_armor": "Maybe wearing Wizard Robes will help...",
+  "trinkets.slot.hand.bracelet": "Bracelet",
+  "trinkets.slot.legs.spell_book": "Spell Book",
   "upgrade.arcanus.battle_mage_upgrade": "Battle Mage Upgrade"
 }

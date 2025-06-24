@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanus.client.renderer.feature;
+package dev.cammiescorner.arcanus.client.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -22,12 +22,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 
-public class HaloFeatureRenderer<T extends Player, M extends EntityModel<T>> extends RenderLayer<T, M> {
+public class HaloLayerRenderer<T extends Player, M extends EntityModel<T>> extends RenderLayer<T, M> {
 
 	private static final ResourceLocation TEXTURE = Arcanus.id("textures/entity/feature/halo.png");
 	private final HaloModel<T> model;
 
-	public HaloFeatureRenderer(RenderLayerParent<T, M> context) {
+	public HaloLayerRenderer(RenderLayerParent<T, M> context) {
 		super(context);
 		model = new HaloModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(HaloModel.MODEL_LAYER));
 	}

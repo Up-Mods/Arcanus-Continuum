@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.client.renderer.entity.living;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.models.entity.living.WizardModel;
-import dev.cammiescorner.arcanus.client.renderer.feature.WizardHeldItemFeatureRenderer;
+import dev.cammiescorner.arcanus.client.renderer.layer.WizardHeldItemLayerRenderer;
 import dev.cammiescorner.arcanus.common.entities.living.Wizard;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -23,7 +23,7 @@ public class WizardRenderer extends MobRenderer<Wizard, WizardModel> {
 
 	public WizardRenderer(EntityRendererProvider.Context context) {
 		super(context, new WizardModel(Minecraft.getInstance().getEntityModels().bakeLayer(WizardModel.MODEL_LAYER)), 0.6f);
-		addLayer(new WizardHeldItemFeatureRenderer<>(this, context.getItemInHandRenderer()));
+		addLayer(new WizardHeldItemLayerRenderer<>(this, context.getItemInHandRenderer()));
 	}
 
 	@Override

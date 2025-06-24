@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanus.client.renderer.feature;
+package dev.cammiescorner.arcanus.client.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -23,12 +23,12 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public class SpellPatternFeatureRenderer<T extends Player, M extends EntityModel<T>> extends RenderLayer<T, M> {
+public class SpellPatternLayerRenderer<T extends Player, M extends EntityModel<T>> extends RenderLayer<T, M> {
 	private static final ResourceLocation TEXTURE = Arcanus.id("textures/entity/feature/magic_circles.png");
 	private final Minecraft client = Minecraft.getInstance();
 	private final SpellPatternModel<Player> model;
 
-	public SpellPatternFeatureRenderer(RenderLayerParent<T, M> context) {
+	public SpellPatternLayerRenderer(RenderLayerParent<T, M> context) {
 		super(context);
 		model = new SpellPatternModel<>(client.getEntityModels().bakeLayer(SpellPatternModel.MODEL_LAYER));
 	}

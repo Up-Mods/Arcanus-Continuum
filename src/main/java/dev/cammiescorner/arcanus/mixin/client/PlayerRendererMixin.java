@@ -1,8 +1,9 @@
 package dev.cammiescorner.arcanus.mixin.client;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.client.renderer.feature.HaloFeatureRenderer;
-import dev.cammiescorner.arcanus.client.renderer.feature.SpellPatternFeatureRenderer;
+import dev.cammiescorner.arcanus.client.renderer.layer.HaloLayerRenderer;
+import dev.cammiescorner.arcanus.client.renderer.layer.SpellBookLayerRenderer;
+import dev.cammiescorner.arcanus.client.renderer.layer.SpellPatternLayerRenderer;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -24,8 +25,9 @@ public abstract class PlayerRendererMixin extends LivingEntityRenderer<AbstractC
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void init(EntityRendererProvider.Context context, boolean bl, CallbackInfo info) {
-		addLayer(new SpellPatternFeatureRenderer<>(this));
-		addLayer(new HaloFeatureRenderer<>(this));
+		addLayer(new SpellPatternLayerRenderer<>(this));
+		addLayer(new HaloLayerRenderer<>(this));
+		addLayer(new SpellBookLayerRenderer<>(this));
 	}
 
 	@Inject(method = "getTextureLocation(Lnet/minecraft/client/player/AbstractClientPlayer;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)
