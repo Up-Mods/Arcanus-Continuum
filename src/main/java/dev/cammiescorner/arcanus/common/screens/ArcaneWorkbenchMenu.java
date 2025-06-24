@@ -4,28 +4,28 @@ import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundStaffTemplatePacket;
 import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundWorkbenchModePacket;
-import dev.cammiescorner.arcanus.common.recipes.SpellBindingRecipe;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMenus;
-import dev.upcraft.sparkweave.api.color.Color;
 import dev.cammiescorner.arcanus.common.util.WorkbenchMode;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
 import java.util.Optional;
 
-public class ArcaneWorkbenchMenu extends RecipeBookMenu<CraftingInput, SpellBindingRecipe> {
+public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
 	private final ResultContainer result = new ResultContainer();
 	private final Inventory playerInventory;
 	private final ContainerLevelAccess context;
@@ -292,55 +292,6 @@ public class ArcaneWorkbenchMenu extends RecipeBookMenu<CraftingInput, SpellBind
 	@Override
 	public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
 		return slot.container != result && super.canTakeItemForPickAll(stack, slot);
-	}
-
-	@Override
-	public void fillCraftSlotsStackedContents(StackedContents finder) {
-		input.fillStackedContents(finder);
-	}
-
-	@Override
-	public void clearCraftingContent() {
-		input.clearContent();
-		result.clearContent();
-	}
-
-	@Override
-	public boolean recipeMatches(RecipeHolder recipe) {
-		if(mode == WorkbenchMode.SPELLBINDING)
-			return recipe.value().matches(input.asCraftInput(), player.level());
-		else
-			return true;
-	}
-
-	@Override
-	public int getResultSlotIndex() {
-		return 0;
-	}
-
-	@Override
-	public int getGridWidth() {
-		return input.getWidth();
-	}
-
-	@Override
-	public int getGridHeight() {
-		return input.getHeight();
-	}
-
-	@Override
-	public int getSize() {
-		return input.getContainerSize() + 1;
-	}
-
-	@Override
-	public RecipeBookType getRecipeBookType() {
-		return RecipeBookType.CRAFTING;
-	}
-
-	@Override
-	public boolean shouldMoveToInventory(int index) {
-		return index != this.getResultSlotIndex();
 	}
 
 	public Item getTemplate() {

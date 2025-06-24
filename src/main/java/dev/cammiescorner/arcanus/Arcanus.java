@@ -53,9 +53,7 @@ public class Arcanus implements ModInitializer {
 	public static final Configurator configurator = new Configurator(MOD_ID);
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("##,####.##");
-
 	public static final Color DEFAULT_MAGIC_COLOUR = Color.fromInt(0x68e1ff, Color.Ordering.RGB);
-
 	public static final SyncToken<WizardData> WIZARD_DATA = DataSyncAPI.register(WizardData.class, WizardData.ID, WizardData.CODEC);
 	public static final SyncToken<HaloData> HALO_DATA = DataSyncAPI.register(HaloData.class, HaloData.ID, HaloData.CODEC);
 	public static final ResourceLocation SPELL_SPEED_MODIFIER_ID = Arcanus.id("speed_effect_modifier");

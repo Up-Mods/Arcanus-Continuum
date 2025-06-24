@@ -2,7 +2,6 @@ package dev.cammiescorner.arcanus.datagen.common;
 
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
-import dev.cammiescorner.arcanus.common.recipes.SpellBindingRecipe;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -126,8 +125,6 @@ public class ArcanusRecipeProvider extends FabricRecipeProvider {
 		battleMageSmithing(exporter, Items.DIAMOND_CHESTPLATE, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_CHESTPLATE.get());
 		battleMageSmithing(exporter, Items.DIAMOND_LEGGINGS, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_LEGGINGS.get());
 		battleMageSmithing(exporter, Items.DIAMOND_BOOTS, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_BOOTS.get());
-
-		SpecialRecipeBuilder.special(SpellBindingRecipe::new).save(exporter, Arcanus.id("spell_binding").toString());
 	}
 
 	public static void battleMageSmithing(RecipeOutput finishedRecipeConsumer, Item ingredientItem, RecipeCategory category, Item resultItem) {

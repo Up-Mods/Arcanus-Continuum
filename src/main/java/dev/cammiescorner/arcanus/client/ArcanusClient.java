@@ -78,6 +78,7 @@ import java.util.function.BooleanSupplier;
 @Environment(EnvType.CLIENT)
 public class ArcanusClient implements ClientModInitializer {
 	private static final ResourceLocation HUD_ELEMENTS = Arcanus.id("textures/gui/hud/mana_bar.png");
+	private static final ResourceLocation HUD_ELEMENTS2 = Arcanus.id("textures/gui/hud/mana_bars.png");
 	private static final ResourceLocation STUN_OVERLAY = Arcanus.id("textures/gui/hud/stunned_vignette.png");
 	private static final ResourceLocation MAGIC_CIRCLES = Arcanus.id("textures/entity/feature/magic_circles.png");
 	public static final ResourceLocation WHITE = ResourceLocation.withDefaultNamespace("textures/misc/white.png");
@@ -289,27 +290,45 @@ public class ArcanusClient implements ClientModInitializer {
 					hudTimer = Math.max(hudTimer - 1, 0);
 
 				if(hudTimer > 0) {
-					int x = 0;
-					int y = client.getWindow().getGuiScaledHeight() - 28;
-					int width = 96;
+					PoseStack poseStack = gui.pose();
+					int y = client.getWindow().getGuiScaledHeight() - 40;
 					float alpha = hudTimer > 20 ? 1f : hudTimer / 20f;
 
 					RenderSystem.enableBlend();
-					RenderSystem.setShaderColor(1f, 1f, 1f, alpha);
+
+					poseStack.pushPose();
+					// TODO I wanna scale it down, but doing so just results in the itemstack being rendered darker
+//					poseStack.scale(0.8f, 0.8f, 0f);
+//					poseStack.translate(0, 62.5, 0);
+
+					// render mana bars
+					for(int i = 0; i < 5; i++) {
+						if(i != 3)
+							RenderSystem.setShaderColor(i == 0 ? 1f : 0f, i == 1 ? 1f : 0f, i == 2 ? 1f : 0f, alpha);
+						else
+							RenderSystem.setShaderColor(1f, 1f, 1f, alpha);
+
+						poseStack.pushPose();
+						poseStack.translate(0, client.getWindow().getGuiScaledHeight(), 0);
+						poseStack.translate(10, -10, 0);
+						poseStack.mulPose(Axis.ZP.rotationDegrees(-90f + 22.5f * i));
+						poseStack.translate(-2, -2, 0);
+
+						gui.blit(HUD_ELEMENTS2, 37, 0, 0, 56, Math.round(26 * 1f), 4);
+
+						poseStack.translate(-6, -6, 0);
+						RenderSystem.setShaderColor(1f, 1f, 1f, alpha);
+
+						gui.blit(HUD_ELEMENTS2, 39, 0, 0, 40, 33, 16);
+
+						poseStack.popPose();
+					}
 
 					// render frame
-					gui.blit(HUD_ELEMENTS, x, y, 0, 0, 101, 28, 256, 256);
+					gui.blit(HUD_ELEMENTS2, 0, y, 0, 0, 40, 40);
+					gui.renderItem(ArcanusItems.SPELL_BOOK.get().getDefaultInstance(), 8, client.getWindow().getGuiScaledHeight() - 24);
 
-					// render mana
-					gui.blit(HUD_ELEMENTS, x, y + 5, 0, 32, (int) (width * (mana / maxMana)), 23, 256, 256);
-
-					// render burnout
-					int i = (int) Math.ceil(width * ((burnout + manaLock) / maxMana));
-					gui.blit(HUD_ELEMENTS, x + (width - i), y + 5, width - i, 56, i, 23, 256, 256);
-
-					// render mana lock
-					i = (int) Math.ceil(width * (manaLock / maxMana));
-					gui.blit(HUD_ELEMENTS, x + (width - i), y + 5, width - i, 80, i, 23, 256, 256);
+					poseStack.popPose();
 
 					RenderSystem.disableBlend();
 					RenderSystem.setShaderColor(1f, 1f, 1f, 1f);

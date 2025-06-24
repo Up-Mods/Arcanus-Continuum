@@ -2,7 +2,6 @@ package dev.cammiescorner.arcanus.common.networking.serverbound;
 
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.api.spells.SpellComponent;
 import dev.cammiescorner.arcanus.api.spells.SpellGroup;
@@ -10,6 +9,11 @@ import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
+import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
+import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
+import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.TrinketComponent;
+import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
@@ -19,11 +23,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Tuple;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public record ServerboundCastSpellPacket(int spellIndex) implements CustomPacketPayload {
 	public static final Type<ServerboundCastSpellPacket> TYPE = new Type<>(Arcanus.id("cast_spell"));
@@ -39,35 +44,42 @@ public record ServerboundCastSpellPacket(int spellIndex) implements CustomPacket
 		int index = context.message().spellIndex();
 
 		if(stack.getItem() instanceof StaffItem staff) {
-			List<Spell> list = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
+			Optional<TrinketComponent> optional = TrinketsApi.getTrinketComponent(player);
 
-			if(list.size() > index && player.getCooldowns().getCooldownPercent(staff, 1f) == 0) {
-				Spell spell = list.get(index);
+			if(optional.isPresent()) {
+				TrinketComponent component = optional.get();
+				List<Tuple<SlotReference, ItemStack>> equipped = component.getEquipped(ArcanusItems.SPELL_BOOK.get());
+				ItemStack spellBook = equipped.isEmpty() ? ItemStack.EMPTY : equipped.getFirst().getB();
+				List<Spell> list = spellBook.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
 
-				if(!player.isCreative()) {
-					if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).mapToInt(SpellComponent::getMinLevel).max().orElse(1) > ArcanusComponents.WIZARD_LEVEL_COMPONENT.get(player).getLevel()) {
-						player.displayClientMessage(Component.translatable("spell.arcanus.too_low_level").withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
-						return;
+				if(list.size() > index && player.getCooldowns().getCooldownPercent(staff, 1f) == 0) {
+					Spell spell = list.get(index);
+
+					if(!player.isCreative()) {
+						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).mapToInt(SpellComponent::getMinLevel).max().orElse(1) > ArcanusComponents.WIZARD_LEVEL_COMPONENT.get(player).getLevel()) {
+							player.displayClientMessage(Component.translatable("spell.arcanus.too_low_level").withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
+							return;
+						}
+
+						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).count() > ArcanusComponents.maxSpellSize(player)) {
+							player.displayClientMessage(Component.translatable("spell.arcanus.too_many_components").withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
+							return;
+						}
+
+						if(!ArcanusComponents.drainMana(player, spell.getManaCost(), false)) {
+							player.displayClientMessage(Component.translatable("spell.arcanus.not_enough_mana").withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
+							return;
+						}
 					}
 
-					if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).count() > ArcanusComponents.maxSpellSize(player)) {
-						player.displayClientMessage(Component.translatable("spell.arcanus.too_many_components").withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
-						return;
-					}
+					ArcanusComponents.setPattern(player, Arcanus.getSpellPattern(index));
+					ArcanusComponents.setLastCastTime(player, player.serverLevel().getGameTime());
+					spell.cast(player, player.serverLevel(), stack);
+					player.displayClientMessage(Component.translatable(spell.getName()).withStyle(ChatFormatting.GREEN), true);
 
-					if(!ArcanusComponents.drainMana(player, spell.getManaCost(), false)) {
-						player.displayClientMessage(Component.translatable("spell.arcanus.not_enough_mana").withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
-						return;
-					}
+					for(Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(ArcanusItemTags.STAVES))
+						player.getCooldowns().addCooldown(holder.value(), (int) (spell.getCoolDown() * player.getAttributeValue(ArcanusEntityAttributes.SPELL_COOL_DOWN.holder())));
 				}
-
-				ArcanusComponents.setPattern(player, Arcanus.getSpellPattern(index));
-				ArcanusComponents.setLastCastTime(player, player.level().getGameTime());
-				spell.cast(player, player.serverLevel(), stack);
-				player.displayClientMessage(Component.translatable(spell.getName()).withStyle(ChatFormatting.GREEN), true);
-
-				for(Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(ArcanusItemTags.STAVES))
-					player.getCooldowns().addCooldown(holder.value(), (int) (spell.getCoolDown() * player.getAttributeValue(ArcanusEntityAttributes.SPELL_COOL_DOWN.holder())));
 			}
 		}
 	}

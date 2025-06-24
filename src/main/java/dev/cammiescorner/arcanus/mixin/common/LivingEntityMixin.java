@@ -6,16 +6,16 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.api.entities.Targetable;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.common.effects.ArcanusStatusEffect;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundStatusEffectPacket;
-import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
-import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
+import dev.cammiescorner.arcanus.common.registry.*;
+import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.TrinketComponent;
+import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
@@ -24,6 +24,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Tuple;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
@@ -51,8 +52,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements Targetable {
@@ -184,24 +185,32 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 			prevVelocity = getDeltaMovement();
 
 			AttributeInstance speedAttr = getAttribute(Attributes.MOVEMENT_SPEED);
-			List<Pattern> pattern = ArcanusComponents.getPattern((LivingEntity) (Object) this);
+			List<Pattern> pattern = ArcanusComponents.getPattern(self);
 			ItemStack stack = getMainHandItem();
 
 			if(speedAttr != null) {
-				if(stack.getItem() instanceof StaffItem && ArcanusComponents.isCasting((LivingEntity) (Object) this) && pattern.size() == 3) {
-					List<Spell> list = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
-					int index = Arcanus.getSpellIndex(pattern);
+				if(stack.getItem() instanceof StaffItem && ArcanusComponents.isCasting(self) && pattern.size() == 3) {
+					Optional<TrinketComponent> optional = TrinketsApi.getTrinketComponent(self);
 
-					if(!list.isEmpty() && index < list.size()) {
-						Spell spell = list.get(index);
-						AttributeModifier speedMod = new AttributeModifier(Arcanus.SPELL_SPEED_MODIFIER_ID, spell.getWeight().getSlowdown(), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+					if(optional.isPresent()) {
+						TrinketComponent component = optional.get();
+						List<Tuple<SlotReference, ItemStack>> equipped = component.getEquipped(ArcanusItems.SPELL_BOOK.get());
+						ItemStack spellBook = equipped.isEmpty() ? ItemStack.EMPTY : equipped.getFirst().getB();
+						List<Spell> list = spellBook.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
+						int index = Arcanus.getSpellIndex(pattern);
 
-						if(!speedAttr.hasModifier(Arcanus.SPELL_SPEED_MODIFIER_ID))
-							speedAttr.addTransientModifier(speedMod);
+						if(index < list.size()) {
+							Spell spell = list.get(index);
+							AttributeModifier speedMod = new AttributeModifier(Arcanus.SPELL_SPEED_MODIFIER_ID, spell.getWeight().getSlowdown(), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+
+							if(!speedAttr.hasModifier(Arcanus.SPELL_SPEED_MODIFIER_ID))
+								speedAttr.addTransientModifier(speedMod);
+						}
 					}
 				}
-				else if(speedAttr.getModifier(Arcanus.SPELL_SPEED_MODIFIER_ID) != null)
+				else if(speedAttr.getModifier(Arcanus.SPELL_SPEED_MODIFIER_ID) != null) {
 					speedAttr.removeModifier(Arcanus.SPELL_SPEED_MODIFIER_ID);
+				}
 			}
 		}
 	}

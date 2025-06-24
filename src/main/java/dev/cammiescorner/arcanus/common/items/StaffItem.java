@@ -1,31 +1,25 @@
 package dev.cammiescorner.arcanus.common.items;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.util.StaffType;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
+import static dev.cammiescorner.arcanus.common.util.TranslationKeys.STAFF_PRIMARY_COLOR;
+import static dev.cammiescorner.arcanus.common.util.TranslationKeys.STAFF_SECONDARY_COLOR;
 
 public class StaffItem extends Item {
 	public final StaffType staffType;
@@ -38,7 +32,7 @@ public class StaffItem extends Item {
 	}
 
 	public StaffItem(StaffType staffType, Color defaultPrimaryColor, Color defaultSecondaryColor, boolean isDonorOnly) {
-		super(new Item.Properties().stacksTo(1).component(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell())).component(ArcanusDataComponents.PRIMARY_COLOR.get(), defaultPrimaryColor).component(ArcanusDataComponents.SECONDARY_COLOR.get(), defaultSecondaryColor));
+		super(new Item.Properties().stacksTo(1).attributes(createAttributes()).component(ArcanusDataComponents.PRIMARY_COLOR.get(), defaultPrimaryColor).component(ArcanusDataComponents.SECONDARY_COLOR.get(), defaultSecondaryColor));
 		this.staffType = staffType;
 		this.defaultPrimaryColor = defaultPrimaryColor;
 		this.defaultSecondaryColor = defaultSecondaryColor;
@@ -52,38 +46,18 @@ public class StaffItem extends Item {
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
-		List<Spell> spells = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
 		int primaryColour = getPrimaryColorRGB(stack);
 		int secondaryColour = getSecondaryColorRGB(stack);
 
 		tooltip.add(Component.translatable(STAFF_PRIMARY_COLOR).withStyle(style -> style.withColor(primaryColour)).append(Component.literal(": " + String.format(Locale.ROOT, "#%06x", primaryColour & 0xffffff)).withStyle(ChatFormatting.GRAY)));
 		tooltip.add(Component.translatable(STAFF_SECONDARY_COLOR).withStyle(style -> style.withColor(secondaryColour)).append(Component.literal(": " + String.format(Locale.ROOT, "#%06x", secondaryColour & 0xffffff)).withStyle(ChatFormatting.GRAY)));
-		tooltip.add(Component.empty());
-
-		for(int i = 0; i < spells.size(); i++) {
-			Spell spell = spells.get(i);
-
-			if(spell.getComponentGroups().isEmpty()) {
-				tooltip.add(Component.translatable(STAFF_INVALID_DATA).withStyle(ChatFormatting.DARK_RED));
-				return;
-			}
-
-			MutableComponent text = Component.literal(spell.getName()).withStyle(spell.isEmpty() ? ChatFormatting.GRAY : ChatFormatting.GREEN);
-			tooltip.add(text.append(Component.literal(" (").withStyle(ChatFormatting.DARK_GRAY))
-				.append(Arcanus.getSpellPatternAsText(i).withStyle(ChatFormatting.GRAY))
-				.append(Component.literal(")").withStyle(ChatFormatting.DARK_GRAY)));
-		}
-	}
-
-	@Override
-	public boolean canAttackBlock(BlockState state, Level world, BlockPos pos, Player miner) {
-		return false;
 	}
 
 	public static ItemAttributeModifiers createAttributes() {
 		return ItemAttributeModifiers.builder()
-			.add(Attributes.ATTACK_SPEED, new AttributeModifier(Arcanus.id("attack_speed_modifier"), -1, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-			.add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(Arcanus.id("entity_interact_range_modifier"), 0.5, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+			.add(Attributes.ATTACK_DAMAGE, new AttributeModifier(Arcanus.id("staff_attack_damage"), 3, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+			.add(Attributes.ATTACK_SPEED, new AttributeModifier(Arcanus.id("staff_attack_speed"), -1, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+			.add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(Arcanus.id("staff_reach"), 0.5, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
 			.build();
 	}
 
