@@ -53,7 +53,7 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 	@Override
 	protected void renderBg(GuiGraphics gui, float delta, int mouseX, int mouseY) {
 		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-		gui.blit(BOOK_TEXTURE, leftPos, topPos, 0, 0, 256, 180, 256, 256);
+		gui.blit(BOOK_TEXTURE, leftPos - 32, topPos, 0, 0, 320, 180, 320, 256);
 	}
 
 	@Override

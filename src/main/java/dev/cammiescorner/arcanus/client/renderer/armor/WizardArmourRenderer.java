@@ -4,12 +4,15 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.models.armor.WizardArmourModel;
 import dev.cammiescorner.arcanus.common.items.WizardRobesArmorItem;
-import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import dev.upcraft.sparkweave.api.client.render.CustomHumanoidModelArmorRenderer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
@@ -20,19 +23,38 @@ import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
-public class WizardArmourRenderer implements ArmorRenderer {
+public class WizardArmourRenderer extends CustomHumanoidModelArmorRenderer<LivingEntity, HumanoidModel<LivingEntity>, WizardArmourModel<LivingEntity>> {
 	private final Minecraft client = Minecraft.getInstance();
 	private final ResourceLocation mainTexture = Arcanus.id("textures/entity/armor/wizard_robes.png");
 	private final ResourceLocation overlayTexture = Arcanus.id("textures/entity/armor/wizard_robes_overlay.png");
-	private WizardArmourModel<LivingEntity> model;
+	private final WizardArmourModel<LivingEntity> model;
+
+	public WizardArmourRenderer(LivingEntity entity, EntityRendererProvider.Context context, RenderLayerParent<LivingEntity, ? extends EntityModel<?>> layerParent) {
+		this.model = new WizardArmourModel<>(context.bakeLayer(WizardArmourModel.MODEL_LAYER));
+	}
 
 	@Override
-	public void render(PoseStack matrices, MultiBufferSource vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, HumanoidModel<LivingEntity> contextModel) {
-		if(model == null)
-			model = new WizardArmourModel<>(client.getEntityModels().bakeLayer(WizardArmourModel.MODEL_LAYER));
+	protected void setPartVisibility(WizardArmourModel<LivingEntity> model, LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
+		model.setAllVisible(true);
+		model.wizardHat.visible = slot == EquipmentSlot.HEAD;
+		model.robes.visible = slot == EquipmentSlot.CHEST;
+		model.rightSleeve.visible = slot == EquipmentSlot.CHEST;
+		model.leftSleeve.visible = slot == EquipmentSlot.CHEST;
+		model.rightPants.visible = slot == EquipmentSlot.LEGS;
+		model.leftPants.visible = slot == EquipmentSlot.LEGS;
+		model.rightBoot.visible = slot == EquipmentSlot.FEET;
+		model.leftBoot.visible = slot == EquipmentSlot.FEET;
+	}
 
-		if(stack.getItem() instanceof WizardRobesArmorItem wizardArmour) {
-			int hexColor = wizardArmour.getColor(stack);
+	@Override
+	protected WizardArmourModel<LivingEntity> getArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
+		return model;
+	}
+
+	@Override
+	protected void renderModelPart(PoseStack matrices, MultiBufferSource bufferSource, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, int dyeColor, HumanoidModel<LivingEntity> contextModel, WizardArmourModel<LivingEntity> armorModel) {
+		if(stack.getItem() instanceof WizardRobesArmorItem wizardArmor) {
+			int hexColor = wizardArmor.getColor(stack);
 
 			if(stack.has(DataComponents.CUSTOM_NAME) && stack.getHoverName().getString().equals("jeb_")) {
 				int interval = 15;
@@ -44,19 +66,13 @@ public class WizardArmourRenderer implements ArmorRenderer {
 				hexColor = FastColor.ARGB32.lerp(f, color1, color2);
 			}
 
-			contextModel.copyPropertiesTo(model);
-			model.setAllVisible(true);
-			model.wizardHat.visible = slot == EquipmentSlot.HEAD;
-			model.robes.visible = slot == EquipmentSlot.CHEST;
-			model.rightSleeve.visible = slot == EquipmentSlot.CHEST;
-			model.leftSleeve.visible = slot == EquipmentSlot.CHEST;
-			model.rightPants.visible = slot == EquipmentSlot.LEGS;
-			model.leftPants.visible = slot == EquipmentSlot.LEGS;
-			model.rightBoot.visible = slot == EquipmentSlot.FEET;
-			model.leftBoot.visible = slot == EquipmentSlot.FEET;
-
-			model.renderToBuffer(matrices, ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(mainTexture), false), light, OverlayTexture.NO_OVERLAY, hexColor);
-			model.renderToBuffer(matrices, ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(overlayTexture), false), light, OverlayTexture.NO_OVERLAY, 0xffffffff);
+			model.renderToBuffer(matrices, ItemRenderer.getArmorFoilBuffer(bufferSource, RenderType.armorCutoutNoCull(mainTexture), false), light, OverlayTexture.NO_OVERLAY, hexColor);
+			model.renderToBuffer(matrices, ItemRenderer.getArmorFoilBuffer(bufferSource, RenderType.armorCutoutNoCull(overlayTexture), false), light, OverlayTexture.NO_OVERLAY, 0xffffffff);
 		}
+	}
+
+	@Override
+	protected ResourceLocation getTexture(LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
+		return mainTexture;
 	}
 }

@@ -22,7 +22,6 @@ import static dev.cammiescorner.arcanus.client.ArcanusClient.renderSide;
 
 public class MagicBlockEntityRenderer<T extends AbstractMagicBlockEntity> implements BlockEntityRenderer<T> {
 	private static final RenderType LAYER = ArcanusClient.getMagicCircles(Arcanus.id("textures/block/magic_block.png"));
-
 	private final Function<T, Color> colorGetter;
 
 	public static <T extends AbstractMagicBlockEntity> BlockEntityRendererProvider<T> factory(Function<T, Color> colorGetter) {

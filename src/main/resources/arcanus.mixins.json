@@ -29,7 +29,6 @@
 	],
 	"client": [
 		"client.ClientLevelMixin",
-		"client.CraftingScreenMixin",
 		"client.GuiMixin",
 		"client.HumanoidModelMixin",
 		"client.ItemInHandLayerMixin",

@@ -35,11 +35,11 @@ public class UndoRedoButtonWidget extends AbstractButton {
 		active = isUndo ? undoRedoStack.canUndo() : undoRedoStack.canRedo();
 
 		if(!active)
-			gui.blit(SpellcraftScreen.BOOK_TEXTURE, getX(), getY(), 48, v, width, height, 256, 256);
+			gui.blit(SpellcraftScreen.BOOK_TEXTURE, getX(), getY(), 48, v, width, height, 320, 256);
 		else if(!isHoveredOrFocused())
-			gui.blit(SpellcraftScreen.BOOK_TEXTURE, getX(), getY(), 0, v, width, height, 256, 256);
+			gui.blit(SpellcraftScreen.BOOK_TEXTURE, getX(), getY(), 0, v, width, height, 320, 256);
 		else
-			gui.blit(SpellcraftScreen.BOOK_TEXTURE, getX(), getY(), 24, v, width, height, 256, 256);
+			gui.blit(SpellcraftScreen.BOOK_TEXTURE, getX(), getY(), 24, v, width, height, 320, 256);
 	}
 
 	@Override

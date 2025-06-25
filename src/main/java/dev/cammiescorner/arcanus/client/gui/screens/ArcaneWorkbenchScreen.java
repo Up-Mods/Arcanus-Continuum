@@ -1,11 +1,8 @@
 package dev.cammiescorner.arcanus.client.gui.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.gui.widgets.ChangeModeButtonWidget;
 import dev.cammiescorner.arcanus.client.gui.widgets.CycleTemplatesButtonWidget;
-import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.menus.ArcaneWorkbenchMenu;
 import dev.cammiescorner.arcanus.common.util.WorkbenchMode;
 import net.minecraft.client.gui.GuiGraphics;
@@ -25,12 +22,8 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
 		leftPos = (width - 176) / 2;
 		topPos = (height - 166) / 2;
 
-		if(menu.getMode() == WorkbenchMode.CUSTOMIZE) {
-			addRenderableWidget(new CycleTemplatesButtonWidget(leftPos + 10, topPos + 13, true, this::cycleTemplate));
-			addRenderableWidget(new CycleTemplatesButtonWidget(leftPos + 10, topPos + 57, false, this::cycleTemplate));
-		}
-
-		addRenderableWidget(new ChangeModeButtonWidget(leftPos + 148, topPos + 60, menu.getMode(), this::changeMode));
+		addRenderableWidget(new CycleTemplatesButtonWidget(leftPos + 10, topPos + 13, true, this::cycleTemplate));
+		addRenderableWidget(new CycleTemplatesButtonWidget(leftPos + 10, topPos + 57, false, this::cycleTemplate));
 	}
 
 	@Override
@@ -64,35 +57,7 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
 
 	@Override
 	protected void renderLabels(GuiGraphics gui, int mouseX, int mouseY) {
-		PoseStack matrices = gui.pose();
-
-		if(getMenu().getMode() == WorkbenchMode.SPELLBINDING && getMenu().getSlot(5).getItem().getItem() instanceof StaffItem) {
-			float scale = 0.4f;
-			matrices.pushPose();
-			matrices.scale(scale, scale, 1f);
-
-			if(getMenu().getSlot(2).getItem().isEmpty())
-				gui.drawCenteredString(font, Arcanus.getSpellPatternAsText(0), (int) (52 / scale), (int) (17 / scale), 0xffffff);
-			if(getMenu().getSlot(3).getItem().isEmpty())
-				gui.drawCenteredString(font, Arcanus.getSpellPatternAsText(1), (int) (72 / scale), (int) (17 / scale), 0xffffff);
-			if(getMenu().getSlot(6).getItem().isEmpty())
-				gui.drawCenteredString(font, Arcanus.getSpellPatternAsText(2), (int) (72 / scale), (int) (37 / scale), 0xffffff);
-			if(getMenu().getSlot(9).getItem().isEmpty())
-				gui.drawCenteredString(font, Arcanus.getSpellPatternAsText(3), (int) (72 / scale), (int) (57 / scale), 0xffffff);
-			if(getMenu().getSlot(8).getItem().isEmpty())
-				gui.drawCenteredString(font, Arcanus.getSpellPatternAsText(4), (int) (52 / scale), (int) (57 / scale), 0xffffff);
-			if(getMenu().getSlot(7).getItem().isEmpty())
-				gui.drawCenteredString(font, Arcanus.getSpellPatternAsText(5), (int) (32 / scale), (int) (57 / scale), 0xffffff);
-			if(getMenu().getSlot(4).getItem().isEmpty())
-				gui.drawCenteredString(font, Arcanus.getSpellPatternAsText(6), (int) (32 / scale), (int) (37 / scale), 0xffffff);
-			if(getMenu().getSlot(1).getItem().isEmpty())
-				gui.drawCenteredString(font, Arcanus.getSpellPatternAsText(7), (int) (32 / scale), (int) (17 / scale), 0xffffff);
-
-			matrices.popPose();
-		}
-		else if(getMenu().getMode() == WorkbenchMode.CUSTOMIZE) {
-			gui.renderItem(getMenu().getTemplate().getDefaultInstance(), 10, 35);
-		}
+		gui.renderItem(getMenu().getTemplate().getDefaultInstance(), 10, 35);
 
 		renderTooltip(gui, mouseX - leftPos, mouseY - topPos);
 	}

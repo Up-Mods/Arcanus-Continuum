@@ -11,6 +11,7 @@ import dev.cammiescorner.arcanus.client.gui.screens.SpellScrollScreen;
 import dev.cammiescorner.arcanus.client.gui.screens.SpellcraftScreen;
 import dev.cammiescorner.arcanus.client.models.armor.BattleMageArmourModel;
 import dev.cammiescorner.arcanus.client.models.armor.WizardArmourModel;
+import dev.cammiescorner.arcanus.client.models.block.SpellScrollModel;
 import dev.cammiescorner.arcanus.client.models.entity.living.OpossumModel;
 import dev.cammiescorner.arcanus.client.models.entity.living.WizardModel;
 import dev.cammiescorner.arcanus.client.models.entity.magic.*;
@@ -19,6 +20,7 @@ import dev.cammiescorner.arcanus.client.models.feature.SpellPatternModel;
 import dev.cammiescorner.arcanus.client.particles.CollapseParticle;
 import dev.cammiescorner.arcanus.client.renderer.armor.BattleMageArmourRenderer;
 import dev.cammiescorner.arcanus.client.renderer.armor.WizardArmourRenderer;
+import dev.cammiescorner.arcanus.client.renderer.block.LecternSpellScrollRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.MagicBlockEntityRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.PedestalBlockEntityRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.SpatialRiftExitBlockEntityRenderer;
@@ -33,6 +35,9 @@ import dev.cammiescorner.arcanus.common.items.BattleMageArmorItem;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
+import dev.upcraft.sparkweave.api.client.event.RegisterCustomArmorRenderersEvent;
+import dev.upcraft.sparkweave.api.client.event.RegisterEntityRenderersEvent;
+import dev.upcraft.sparkweave.api.client.event.RegisterLecternItemRendererEvent;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -115,24 +120,30 @@ public class ArcanusClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(SpatialRiftSigilModel.MODEL_LAYER, SpatialRiftSigilModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(AggressorbModel.MODEL_LAYER, AggressorbModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(TemporalDilationFieldModel.MODEL_LAYER, TemporalDilationFieldModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(SpellScrollModel.MODEL_LAYER, SpellScrollModel::getTexturedModelData);
 
-		EntityRendererRegistry.register(ArcanusEntities.WIZARD.get(), WizardRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.OPOSSUM.get(), OpossumRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.NECRO_SKELETON.get(), SkeletonRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.MANA_SHIELD.get(), ManaShieldRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.MISSILE.get(), MissileRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.LOB.get(), LobRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.AOE.get(), AreaOfEffectRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.SMITE.get(), SmiteRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.MAGIC_RUNE.get(), MagicRuneRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.GUIDED_SHOT.get(), GuidedShotRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.BEAM.get(), BeamRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.ENTANGLED_ORB.get(), EntangledOrbRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.PORTAL.get(), PocketDimensionPortalRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.AGGRESSORB.get(), AggressorbRenderer::new);
-		EntityRendererRegistry.register(ArcanusEntities.TEMPORAL_DILATION_FIELD.get(), TemporalDilationFieldRenderer::new);
+		RegisterEntityRenderersEvent.EVENT.register(event -> {
+			event.registerRenderer(ArcanusEntities.WIZARD, WizardRenderer::new);
+			event.registerRenderer(ArcanusEntities.OPOSSUM, OpossumRenderer::new);
+			event.registerRenderer(ArcanusEntities.NECRO_SKELETON, SkeletonRenderer::new);
+			event.registerRenderer(ArcanusEntities.MANA_SHIELD, ManaShieldRenderer::new);
+			event.registerRenderer(ArcanusEntities.MISSILE, MissileRenderer::new);
+			event.registerRenderer(ArcanusEntities.LOB, LobRenderer::new);
+			event.registerRenderer(ArcanusEntities.AOE, AreaOfEffectRenderer::new);
+			event.registerRenderer(ArcanusEntities.SMITE, SmiteRenderer::new);
+			event.registerRenderer(ArcanusEntities.MAGIC_RUNE, MagicRuneRenderer::new);
+			event.registerRenderer(ArcanusEntities.GUIDED_SHOT, GuidedShotRenderer::new);
+			event.registerRenderer(ArcanusEntities.BEAM, BeamRenderer::new);
+			event.registerRenderer(ArcanusEntities.ENTANGLED_ORB, EntangledOrbRenderer::new);
+			event.registerRenderer(ArcanusEntities.PORTAL, PocketDimensionPortalRenderer::new);
+			event.registerRenderer(ArcanusEntities.AGGRESSORB, AggressorbRenderer::new);
+			event.registerRenderer(ArcanusEntities.TEMPORAL_DILATION_FIELD, TemporalDilationFieldRenderer::new);
+		});
 
-		ArmorRenderer.register(new WizardArmourRenderer(), ArcanusItems.WIZARD_HAT.get(), ArcanusItems.WIZARD_ROBES.get(), ArcanusItems.WIZARD_PANTS.get(), ArcanusItems.WIZARD_BOOTS.get());
+		RegisterCustomArmorRenderersEvent.EVENT.register(event -> {
+			event.register(WizardArmourRenderer::new, ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS);
+		});
+
 		ArmorRenderer.register(new BattleMageArmourRenderer(), ArcanusItems.BATTLE_MAGE_HELMET.get(), ArcanusItems.BATTLE_MAGE_CHESTPLATE.get(), ArcanusItems.BATTLE_MAGE_LEGGINGS.get(), ArcanusItems.BATTLE_MAGE_BOOTS.get());
 
 		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE.get(), CollapseParticle.Factory::new);
@@ -143,6 +154,10 @@ public class ArcanusClient implements ClientModInitializer {
 		BlockEntityRenderers.register(ArcanusBlockEntities.SPATIAL_RIFT_EXIT.get(), SpatialRiftExitBlockEntityRenderer::new);
 		BlockEntityRenderers.register(ArcanusBlockEntities.SPATIAL_RIFT_WALL.get(), MagicBlockEntityRenderer.factory(ArcanusHelper::getPocketDimensionColor));
 		BlockEntityRenderers.register(ArcanusBlockEntities.PEDESTAL.get(), PedestalBlockEntityRenderer::new);
+
+		RegisterLecternItemRendererEvent.EVENT.register(event -> {
+			event.registerRenderer(LecternSpellScrollRenderer::new, ArcanusItems.SPELL_SCROLL);
+		});
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> switch(tintIndex) {
 				case 0 -> StaffItem.getPrimaryColorRGB(stack);

@@ -119,7 +119,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 	@Override
 	protected void renderBg(GuiGraphics gui, float delta, int mouseX, int mouseY) {
 		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-		gui.blit(BOOK_TEXTURE, leftPos, topPos, 0, 0, 256, 180, 256, 256);
+		gui.blit(BOOK_TEXTURE, leftPos - 32, topPos, 0, 0, 320, 180, 320, 256);
 
 		RenderSystem.setShaderTexture(0, PANEL_TEXTURE);
 		gui.blit(PANEL_TEXTURE, leftPos - 62, topPos + 1, 0, 0, 380, 178, 384, 256);
@@ -455,6 +455,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 					List<Component> textList = new ArrayList<>();
 					SpellComponent component = group.getAllComponents().toList().get(i);
 
+					textList.add(component.getName());
 					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
 						Component.translatable(SPELL_BOOK_WEIGHT),
 						Component.translatable(component.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
@@ -493,7 +494,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 			onClose();
 		}).pos(width / 2 - 100, topPos + 170).size(98, 20).build());
 
-		addRenderableWidget(Button.builder(Component.translatable("lectern.take_book"), (button) -> {
+		addRenderableWidget(Button.builder(Component.translatable(BUTTON_TAKE_SCROLL), (button) -> {
 			minecraft.gameMode.handleInventoryButtonClick(menu.containerId, 0);
 			onClose();
 		}).pos(width / 2 + 2, topPos + 170).size(98, 20).build());

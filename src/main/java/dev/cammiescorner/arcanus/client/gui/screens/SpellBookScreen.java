@@ -26,10 +26,7 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 		leftPos = (width - 241) / 2;
 		topPos = (height - 216) / 2;
 
-		addRenderableWidget(new TexturedButtonWidget(leftPos + 112, topPos + 56, 16, 16, 0, 224, BOOK_TEXTURE, buttonWidget -> {
-			minecraft.gameMode.handleInventoryButtonClick(menu.containerId, 0);
-			onClose();
-		}));
+		addRenderableWidget(new TexturedButtonWidget(leftPos + 112, topPos + 56, 16, 16, 0, 224, BOOK_TEXTURE, buttonWidget -> onClose()));
 	}
 
 	@Override
@@ -41,6 +38,20 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 		poseStack.translate(leftPos, topPos, 0f);
 		guiGraphics.blit(BOOK_TEXTURE, 0, 0, 0, 0, 241, 216);
 		poseStack.popPose();
+
+		for(int i = 0; i < 8; i++) {
+			if(menu.spellBookInventory().getItem(i).isEmpty()) {
+				int radius = i % 2 == 0 ? 33 : 42;
+				int x = (int) (Math.cos(Math.toRadians(45 * i - 90)) * radius) + leftPos + 120;
+				int y = (int) (Math.sin(Math.toRadians(45 * i - 90)) * radius) + topPos + 62;
+
+				poseStack.pushPose();
+				poseStack.translate(x, y, 0);
+				poseStack.scale(0.4f, 0.4f, 1f);
+				guiGraphics.drawCenteredString(font, Arcanus.getSpellPatternAsText(i), 0, 0, 0xaaaaaa);
+				poseStack.popPose();
+			}
+		}
 	}
 
 	@Override
@@ -52,6 +63,6 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 	@Override
 	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
 		FormattedCharSequence sequence = title.getVisualOrderText();
-		guiGraphics.drawString(font, sequence, 120 - font.width(sequence) / 2, 8, 4210752, false);
+		guiGraphics.drawString(font, sequence, 120 - font.width(sequence) / 2, 8, 0x404040, false);
 	}
 }

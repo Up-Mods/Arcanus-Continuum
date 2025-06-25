@@ -303,6 +303,8 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(SCREEN_SUPPORT_US_CAMMIE, "Support Cammie!");
 		builder.add(SCREEN_SUPPORT_US_UP, "Support Up!");
 
+		builder.add(BUTTON_TAKE_SCROLL, "Take Scroll");
+
 		builder.add(TWO_ARGUMENT_KEY, "%1$s: %2$s");
 
 		builder.add(SPELL_BOOK_WEIGHT, "Weight");
