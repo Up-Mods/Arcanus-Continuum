@@ -12,7 +12,7 @@ import dev.cammiescorner.arcanus.common.entities.living.Wizard;
 import dev.cammiescorner.arcanus.common.networking.clientbound.*;
 import dev.cammiescorner.arcanus.common.networking.serverbound.*;
 import dev.cammiescorner.arcanus.common.registry.*;
-import dev.cammiescorner.arcanus.common.screens.providers.SpellcraftMenuProvider;
+import dev.cammiescorner.arcanus.common.menus.providers.SpellcraftMenuProvider;
 import dev.cammiescorner.arcanus.common.util.supporters.HaloData;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
 import dev.upcraft.datasync.api.DataSyncAPI;
@@ -91,7 +91,7 @@ public class Arcanus implements ModInitializer {
 		Network.registerPacket(ServerboundSyncPatternPacket.TYPE, ServerboundSyncPatternPacket.class, ServerboundSyncPatternPacket.CODEC, ServerboundSyncPatternPacket::handle);
 
 		Network.registerPacket(ClientboundUpdateSpellcraftScreenPacket.TYPE, ClientboundUpdateSpellcraftScreenPacket.class, ClientboundUpdateSpellcraftScreenPacket.CODEC, ClientboundUpdateSpellcraftScreenPacket::handle);
-		Network.registerPacket(ClientboundUpdateSpellBookScreenPacket.TYPE, ClientboundUpdateSpellBookScreenPacket.class, ClientboundUpdateSpellBookScreenPacket.CODEC, ClientboundUpdateSpellBookScreenPacket::handle);
+		Network.registerPacket(ClientboundUpdateSpellScrollScreenPacket.TYPE, ClientboundUpdateSpellScrollScreenPacket.class, ClientboundUpdateSpellScrollScreenPacket.CODEC, ClientboundUpdateSpellScrollScreenPacket::handle);
 		Network.registerPacket(ClientboundEnforceConfigPacket.TYPE, ClientboundEnforceConfigPacket.class, ClientboundEnforceConfigPacket.CODEC, ClientboundEnforceConfigPacket::handle);
 		Network.registerPacket(ClientboundBurstVfxPacket.TYPE, ClientboundBurstVfxPacket.class, ClientboundBurstVfxPacket.CODEC, ClientboundBurstVfxPacket::handle);
 		Network.registerPacket(ClientboundStaffTemplatePacket.TYPE, ClientboundStaffTemplatePacket.class, ClientboundStaffTemplatePacket.CODEC, ClientboundStaffTemplatePacket::handle);

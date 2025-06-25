@@ -1,15 +1,15 @@
-package dev.cammiescorner.arcanus.common.screens;
+package dev.cammiescorner.arcanus.common.menus;
 
 import dev.cammiescorner.arcanus.common.registry.ArcanusMenus;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
-public class SpellBookMenu extends AbstractContainerMenu {
+public class SpellScrollMenu extends AbstractContainerMenu {
 	private final ItemStack stack;
 
-	public SpellBookMenu(int syncId, ItemStack stack) {
-		super(ArcanusMenus.SPELL_BOOK_MENU.get(), syncId);
+	public SpellScrollMenu(int syncId, ItemStack stack) {
+		super(ArcanusMenus.SPELL_SCROLL_MENU.get(), syncId);
 		this.stack = stack;
 	}
 

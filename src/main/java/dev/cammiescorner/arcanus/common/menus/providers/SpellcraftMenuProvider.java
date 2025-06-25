@@ -1,8 +1,8 @@
-package dev.cammiescorner.arcanus.common.screens.providers;
+package dev.cammiescorner.arcanus.common.menus.providers;
 
 import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundUpdateSpellcraftScreenPacket;
-import dev.cammiescorner.arcanus.common.screens.SpellcraftMenu;
+import dev.cammiescorner.arcanus.common.menus.SpellcraftMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;

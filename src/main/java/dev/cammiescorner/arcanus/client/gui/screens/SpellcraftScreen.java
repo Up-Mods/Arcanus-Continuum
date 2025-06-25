@@ -15,7 +15,7 @@ import dev.cammiescorner.arcanus.common.items.SpellScrollItem;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundSaveBookDataPacket;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
-import dev.cammiescorner.arcanus.common.screens.SpellcraftMenu;
+import dev.cammiescorner.arcanus.common.menus.SpellcraftMenu;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

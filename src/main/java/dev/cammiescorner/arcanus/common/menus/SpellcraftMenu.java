@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanus.common.screens;
+package dev.cammiescorner.arcanus.common.menus;
 
 import dev.cammiescorner.arcanus.common.registry.ArcanusMenus;
 import net.minecraft.world.Container;

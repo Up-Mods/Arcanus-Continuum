@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.common.items;
 
 import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
-import dev.cammiescorner.arcanus.common.screens.providers.SpellBookMenuProvider;
+import dev.cammiescorner.arcanus.common.menus.providers.SpellScrollMenuProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -59,7 +59,7 @@ public class SpellScrollItem extends Item {
 		if(spell.isEmpty())
 			return InteractionResultHolder.pass(stack);
 
-		player.openMenu(new SpellBookMenuProvider(stack));
+		player.openMenu(new SpellScrollMenuProvider(stack));
 
 		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 	}

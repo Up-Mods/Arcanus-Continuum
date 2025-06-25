@@ -2,14 +2,19 @@ package dev.cammiescorner.arcanus.common.items;
 
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.Spell;
+import dev.cammiescorner.arcanus.common.menus.providers.SpellBookMenuProvider;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.emi.trinkets.api.TrinketItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
 
@@ -18,6 +23,15 @@ import static dev.cammiescorner.arcanus.common.util.TranslationKeys.STAFF_INVALI
 public class SpellBookItem extends TrinketItem {
 	public SpellBookItem() {
 		super(new Properties().stacksTo(1).component(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell())));
+	}
+
+	@Override
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
+
+		player.openMenu(new SpellBookMenuProvider(stack));
+
+		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 	}
 
 	@Override

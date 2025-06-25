@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.blocks.entities;
 
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
-import dev.cammiescorner.arcanus.common.screens.ArcaneWorkbenchMenu;
+import dev.cammiescorner.arcanus.common.menus.ArcaneWorkbenchMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;

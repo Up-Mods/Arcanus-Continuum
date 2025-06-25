@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanus.common.screens;
+package dev.cammiescorner.arcanus.common.menus;
 
 import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
