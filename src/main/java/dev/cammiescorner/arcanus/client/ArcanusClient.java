@@ -6,6 +6,7 @@ import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.client.gui.screens.ArcaneWorkbenchScreen;
+import dev.cammiescorner.arcanus.client.gui.screens.SpellBookScreen;
 import dev.cammiescorner.arcanus.client.gui.screens.SpellScrollScreen;
 import dev.cammiescorner.arcanus.client.gui.screens.SpellcraftScreen;
 import dev.cammiescorner.arcanus.client.models.armor.BattleMageArmourModel;
@@ -96,6 +97,7 @@ public class ArcanusClient implements ClientModInitializer {
 
 		MenuScreens.register(ArcanusMenus.SPELLCRAFT_MENU.get(), SpellcraftScreen::new);
 		MenuScreens.register(ArcanusMenus.SPELL_SCROLL_MENU.get(), SpellScrollScreen::new);
+		MenuScreens.register(ArcanusMenus.SPELL_BOOK_MENU.get(), SpellBookScreen::new);
 		MenuScreens.register(ArcanusMenus.ARCANE_WORKBENCH_MENU.get(), ArcaneWorkbenchScreen::new);
 
 		EntityModelLayerRegistry.registerModelLayer(WizardArmourModel.MODEL_LAYER, WizardArmourModel::getTexturedModelData);

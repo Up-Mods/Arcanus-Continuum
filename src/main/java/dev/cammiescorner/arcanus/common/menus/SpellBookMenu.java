@@ -16,15 +16,22 @@ import java.util.List;
 
 public class SpellBookMenu extends AbstractContainerMenu {
 	private final TransientContainer spellBookSlots = new TransientContainer(this, 8);
+	private final ItemStack stack;
 
 	public SpellBookMenu(int containerId, Inventory playerInventory, ItemStack stack) {
 		super(ArcanusMenus.SPELL_BOOK_MENU.get(), containerId);
+		this.stack = stack;
 		List<Spell> spells = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
 
 		for(int i = 0; i < spells.size(); i++) {
 			Spell spell = spells.get(i);
+			int radius = i % 2 == 0 ? 33 : 42;
+			int x = (int) (Math.cos(Math.toRadians(45 * i)) * radius) + 112;
+			int y = (int) (Math.sin(Math.toRadians(45 * i)) * radius) + 56;
 
-			if(!spell.isEmpty()) {
+			addSlot(new Slot(spellBookSlots, i, x, y));
+
+			if(spell.isEmpty()) {
 				ItemStack itemStack = new ItemStack(ArcanusItems.SPELL_SCROLL.get());
 
 				itemStack.set(ArcanusDataComponents.SPELL.get(), spell);
@@ -32,22 +39,33 @@ public class SpellBookMenu extends AbstractContainerMenu {
 			}
 		}
 
-		// TODO place all 8 slots please
-		addSlot(new Slot(spellBookSlots, 0, 0, 0));
-		addSlot(new Slot(spellBookSlots, 1, 0, 0));
-		addSlot(new Slot(spellBookSlots, 2, 0, 0));
-		addSlot(new Slot(spellBookSlots, 3, 0, 0));
-		addSlot(new Slot(spellBookSlots, 4, 0, 0));
-		addSlot(new Slot(spellBookSlots, 5, 0, 0));
-		addSlot(new Slot(spellBookSlots, 6, 0, 0));
-		addSlot(new Slot(spellBookSlots, 7, 0, 0));
+		checkContainerSize(spellBookSlots, 8);
+		spellBookSlots.startOpen(playerInventory.player);
 
 		for(int i = 0; i < 3; i++)
 			for(int j = 0; j < 9; j++)
-				addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				addSlot(new Slot(playerInventory, j + i * 9 + 9, 42 + j * 18, 134 + i * 18));
 
 		for(int i = 0; i < 9; i++)
-			addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+			addSlot(new Slot(playerInventory, i, 42 + i * 18, 192));
+	}
+
+	@Override
+	public boolean clickMenuButton(Player player, int id) {
+		if(id == 0) {
+			List<Spell> spells = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
+
+			for(int i = 0; i < spellBookSlots.getContainerSize(); i++) {
+				ItemStack itemStack = spellBookSlots.getItem(i);
+
+				if(!itemStack.isEmpty() && itemStack.is(ArcanusItems.SPELL_SCROLL.get()))
+					spells.set(i, itemStack.get(ArcanusDataComponents.SPELL.get()));
+			}
+
+			stack.set(ArcanusDataComponents.SPELL_LIST.get(), spells);
+		}
+
+		return true;
 	}
 
 	@Override

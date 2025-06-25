@@ -32,12 +32,10 @@ public class CycleTemplatesButtonWidget extends AbstractButton {
 
 		int v = isUp ? 184 : 200;
 
-		if(!isHoveredOrFocused()) {
+		if(!isHoveredOrFocused())
 			gui.blit(TEXTURE, getX(), getY(), 24, v, width, height, 256, 256);
-		}
-		else {
+		else
 			gui.blit(TEXTURE, getX(), getY(), 40, v, width, height, 256, 256);
-		}
 	}
 
 	@Override

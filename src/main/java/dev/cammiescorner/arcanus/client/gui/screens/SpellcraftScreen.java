@@ -44,7 +44,7 @@ import java.util.List;
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
-	public static final ResourceLocation BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
+	public static final ResourceLocation BOOK_TEXTURE = Arcanus.id("textures/gui/spell_scroll.png");
 	public static final ResourceLocation PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
 	private static final Vector4i VALID_BOUNDS = new Vector4i(30, 40, 197, 114);
 	private static final LinkedList<SpellGroup> SPELL_GROUPS = new LinkedList<>();

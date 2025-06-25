@@ -28,7 +28,7 @@ import java.util.List;
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> {
-	public static final ResourceLocation BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
+	public static final ResourceLocation BOOK_TEXTURE = Arcanus.id("textures/gui/spell_scroll.png");
 	public static final ResourceLocation PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
 	public final LinkedList<SpellGroup> SPELL_GROUPS = new LinkedList<>();
 	private ItemStack stack = ItemStack.EMPTY;
