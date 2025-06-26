@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "arcanus:item/spell_book"
+    "layer0": "arcanus:item/spell_book",
+    "layer1": "arcanus:item/spell_book_pages"
   }
 }

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.client.gui.screens.ArcaneWorkbenchScreen;
 import dev.cammiescorner.arcanus.client.gui.screens.SpellBookScreen;
@@ -19,7 +20,7 @@ import dev.cammiescorner.arcanus.client.models.feature.HaloModel;
 import dev.cammiescorner.arcanus.client.models.feature.SpellPatternModel;
 import dev.cammiescorner.arcanus.client.particles.CollapseParticle;
 import dev.cammiescorner.arcanus.client.renderer.armor.BattleMageArmourRenderer;
-import dev.cammiescorner.arcanus.client.renderer.armor.WizardArmourRenderer;
+import dev.cammiescorner.arcanus.client.renderer.armor.WizardRobesRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.LecternSpellScrollRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.MagicBlockEntityRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.PedestalBlockEntityRenderer;
@@ -141,7 +142,7 @@ public class ArcanusClient implements ClientModInitializer {
 		});
 
 		RegisterCustomArmorRenderersEvent.EVENT.register(event -> {
-			event.register(WizardArmourRenderer::new, ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS);
+			event.register(WizardRobesRenderer::new, ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS);
 		});
 
 		ArmorRenderer.register(new BattleMageArmourRenderer(), ArcanusItems.BATTLE_MAGE_HELMET.get(), ArcanusItems.BATTLE_MAGE_CHESTPLATE.get(), ArcanusItems.BATTLE_MAGE_LEGGINGS.get(), ArcanusItems.BATTLE_MAGE_BOOTS.get());
@@ -179,7 +180,8 @@ public class ArcanusClient implements ClientModInitializer {
 			ArcanusItems.WIZARD_HAT.get(),
 			ArcanusItems.WIZARD_ROBES.get(),
 			ArcanusItems.WIZARD_PANTS.get(),
-			ArcanusItems.WIZARD_BOOTS.get()
+			ArcanusItems.WIZARD_BOOTS.get(),
+			ArcanusItems.SPELL_BOOK.get()
 		);
 
 		ItemProperties.register(ArcanusItems.BATTLE_MAGE_HELMET.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
@@ -296,11 +298,6 @@ public class ArcanusClient implements ClientModInitializer {
 					}
 				}
 
-				double maxMana = ArcanusComponents.getMaxMana(player);
-				double mana = ArcanusComponents.getMana(player);
-				double burnout = ArcanusComponents.getBurnout(player);
-				double manaLock = ArcanusComponents.getManaLock(player);
-
 				if(player.getMainHandItem().getItem() instanceof StaffItem)
 					hudTimer = Math.min(hudTimer + 1, 40);
 				else
@@ -314,8 +311,9 @@ public class ArcanusClient implements ClientModInitializer {
 					RenderSystem.enableBlend();
 
 					poseStack.pushPose();
-					poseStack.scale(0.2f, 0.2f, 1f);
-					poseStack.translate(0, scaledHeight * 4.67, 0);
+					poseStack.scale(0.225f, 0.225f, 1f);
+					poseStack.translate(0, scaledHeight * 4.12f, 0);
+//					poseStack.translate(0, scaledHeight * 0.5f, 0);
 
 					// render mana bars
 					for(int i = 0; i < 5; i++) {
@@ -332,15 +330,28 @@ public class ArcanusClient implements ClientModInitializer {
 
 						poseStack.pushPose();
 						poseStack.translate(60, 20, 0);
-						poseStack.mulPose(Axis.ZP.rotationDegrees(-105f + 30f * i));
+						poseStack.mulPose(Axis.ZP.rotationDegrees(-99f + 27f * i));
 						poseStack.translate(-8, -8, 0);
 
-						gui.blit(HUD_ELEMENTS2, 85, 0, 0, 168, Math.round(86 * 1f), 16);
+						int maxMana = 200;
+						int mana = 100;
+						float ratio = Math.min(1f, (float) mana / maxMana);
+						int halfNHalf = ArcanusConfig.scaleManaBarsWithMaxMana ? (maxMana - 12) / 2 : (50 - 6);
+						int bottomMana = (int) (halfNHalf * Math.clamp(ratio / 0.44f, 0f, 1f));
+						int middleMana = (int) (12 * (ratio <= 0.56f ? Math.clamp((ratio - 0.44f) / 0.12f, 0f, 1f) : 1f));
+						int topMana = (int) (halfNHalf * Math.clamp((ratio - 0.56f) / 0.44f, 0f, 1f));
+
+						gui.blit(HUD_ELEMENTS2, 85, 0, 0, 200, bottomMana, 16);
+						gui.blit(HUD_ELEMENTS2, 85 + halfNHalf, 0, 128, 32, middleMana, 16);
+						gui.blit(HUD_ELEMENTS2, 85 + halfNHalf + 12, 0, 256 - halfNHalf, 216, topMana, 16);
 
 						poseStack.translate(-8, -8, 0);
 						RenderSystem.setShaderColor(1f, 1f, 1f, alpha);
 
-						gui.blit(HUD_ELEMENTS2, 80, 0, 0, 128, 112, 32);
+						halfNHalf = 14 + halfNHalf;
+						gui.blit(HUD_ELEMENTS2, 80, 0, 0, 128, halfNHalf, 32);
+						gui.blit(HUD_ELEMENTS2, 80 + halfNHalf, 0, 128, 0, 10, 32);
+						gui.blit(HUD_ELEMENTS2, 80 + halfNHalf + 10, 0, 256 - halfNHalf, 160, halfNHalf, 32);
 
 						poseStack.popPose();
 					}
@@ -351,9 +362,8 @@ public class ArcanusClient implements ClientModInitializer {
 					poseStack.popPose();
 					poseStack.pushPose();
 					poseStack.scale(0.8f, 0.8f, 1f);
-					poseStack.translate(0, 44, 0);
 
-					gui.renderItem(ArcanusItems.SPELL_BOOK.get().getDefaultInstance(), 8, client.getWindow().getGuiScaledHeight() - 6);
+					gui.renderItem(ArcanusItems.SPELL_BOOK.get().getDefaultInstance(), 10, (int) (client.getWindow().getGuiScaledHeight() * 1.147f));
 
 					poseStack.popPose();
 

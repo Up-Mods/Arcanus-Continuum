@@ -4,13 +4,19 @@
   "group": "arcanus:spell_book",
   "ingredients": [
     {
-      "item": "minecraft:book"
+      "item": "minecraft:paper"
     },
     {
-      "tag": "c:feathers"
+      "item": "minecraft:paper"
     },
     {
-      "item": "minecraft:glow_ink_sac"
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
     }
   ],
   "result": {

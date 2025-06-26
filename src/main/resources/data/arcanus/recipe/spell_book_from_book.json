@@ -4,10 +4,10 @@
   "group": "arcanus:spell_book",
   "ingredients": [
     {
-      "item": "minecraft:writable_book"
+      "item": "minecraft:book"
     },
     {
-      "item": "minecraft:glow_ink_sac"
+      "item": "minecraft:amethyst_shard"
     }
   ],
   "result": {

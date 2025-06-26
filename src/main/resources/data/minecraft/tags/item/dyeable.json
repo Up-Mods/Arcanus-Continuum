@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "arcanus:wizard_hat",
+    "arcanus:wizard_robes",
+    "arcanus:wizard_pants",
+    "arcanus:wizard_boots",
+    "arcanus:spell_book"
+  ]
+}

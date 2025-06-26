@@ -2,9 +2,7 @@ package dev.cammiescorner.arcanus.client.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
-import dev.emi.trinkets.api.TrinketComponent;
-import dev.emi.trinkets.api.TrinketsApi;
+import dev.cammiescorner.arcanus.Arcanus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -25,15 +23,16 @@ public class SpellBookLayerRenderer<T extends LivingEntity, M extends EntityMode
 
 	@Override
 	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, T livingEntity, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
+		ItemStack stack = Arcanus.getActiveSpellBook(livingEntity);
 		poseStack.pushPose();
 
-		if(TrinketsApi.getTrinketComponent(livingEntity).get() instanceof TrinketComponent component && component.isEquipped(ArcanusItems.SPELL_BOOK.get())) {
+		if(!stack.isEmpty()) {
 			poseStack.translate(client.options.mainHand().get() == HumanoidArm.RIGHT ? 0.275 : -0.275, 1, 0.05);
 			poseStack.mulPose(Axis.YP.rotationDegrees(-90));
 			poseStack.mulPose(Axis.ZP.rotationDegrees(150));
 
 			client.getItemRenderer().renderStatic(
-				new ItemStack(ArcanusItems.SPELL_BOOK.get()),
+				stack,
 				ItemDisplayContext.GROUND,
 				packedLight,
 				OverlayTexture.NO_OVERLAY,

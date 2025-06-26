@@ -188,6 +188,7 @@
   "config.arcanus.regenerate_effect_properties": "Regenerate Effect",
   "config.arcanus.removed_upon_taking_damage": "Removed Upon Taking Damage",
   "config.arcanus.rune_shape_properties": "Rune Shape",
+  "config.arcanus.scale_mana_bars": "Scale Mana Bar Textures Based on Maximum Mana",
   "config.arcanus.self_shape_properties": "Self Shape",
   "config.arcanus.shrink_effect_properties": "Shrink Effect",
   "config.arcanus.size_changing_is_permanent": "Size Changing Effects are Permanent for Players and Tamed Animals (Requires Pehkui)",

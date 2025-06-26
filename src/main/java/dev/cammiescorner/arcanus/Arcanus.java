@@ -9,12 +9,14 @@ import dev.cammiescorner.arcanus.common.blocks.entities.MagicDoorBlockEntity;
 import dev.cammiescorner.arcanus.common.entities.living.NecroSkeleton;
 import dev.cammiescorner.arcanus.common.entities.living.Opossum;
 import dev.cammiescorner.arcanus.common.entities.living.Wizard;
+import dev.cammiescorner.arcanus.common.menus.providers.SpellcraftMenuProvider;
 import dev.cammiescorner.arcanus.common.networking.clientbound.*;
 import dev.cammiescorner.arcanus.common.networking.serverbound.*;
 import dev.cammiescorner.arcanus.common.registry.*;
-import dev.cammiescorner.arcanus.common.menus.providers.SpellcraftMenuProvider;
 import dev.cammiescorner.arcanus.common.util.supporters.HaloData;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
+import dev.emi.trinkets.api.TrinketComponent;
+import dev.emi.trinkets.api.TrinketsApi;
 import dev.upcraft.datasync.api.DataSyncAPI;
 import dev.upcraft.datasync.api.SyncToken;
 import dev.upcraft.sparkweave.api.color.Color;
@@ -37,6 +39,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -219,5 +222,12 @@ public class Arcanus implements ModInitializer {
 		};
 
 		return Component.literal(string).withStyle(style -> style.withFont(Arcanus.id("magic_symbols")));
+	}
+
+	public static ItemStack getActiveSpellBook(LivingEntity entity) {
+		if(TrinketsApi.getTrinketComponent(entity).get() instanceof TrinketComponent component && component.isEquipped(ArcanusItems.SPELL_BOOK.get()))
+			return component.getEquipped(ArcanusItems.SPELL_BOOK.get()).getFirst().getB();
+
+		return ItemStack.EMPTY;
 	}
 }

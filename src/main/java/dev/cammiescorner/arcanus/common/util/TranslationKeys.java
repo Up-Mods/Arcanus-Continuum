@@ -81,6 +81,7 @@ public class TranslationKeys {
 	public static final String CONFIG_MOVEMENT_EFFECTS_CATEGORY = "config.arcanus.movement_effects_category";
 	public static final String CONFIG_CASTING_HAS_SPEED_LIMIT = "config.arcanus.casting_has_speed_limit";
 	public static final String CONFIG_SIZE_CHANGE_IS_PERMA = "config.arcanus.size_changing_is_permanent";
+	public static final String CONFIG_SCALE_MANA_BARS = "config.arcanus.scale_mana_bars";
 	public static final String CONFIG_MAX_ENCHANT_LEVEL = "config.arcanus.max_enchantment_level";
 	public static final String CONFIG_EXTRA_MANA_PER_LEVEL = "config.arcanus.mana_per_level";
 	public static final String CONFIG_MANA_MODIFIER_OP = "config.arcanus.mana_modifier_operation";

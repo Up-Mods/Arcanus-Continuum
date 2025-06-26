@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.client.renderer.armor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.models.armor.WizardArmourModel;
-import dev.cammiescorner.arcanus.common.items.WizardRobesArmorItem;
+import dev.cammiescorner.arcanus.common.items.WizardRobesItem;
 import dev.upcraft.sparkweave.api.client.render.CustomHumanoidModelArmorRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
@@ -23,13 +23,13 @@ import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
-public class WizardArmourRenderer extends CustomHumanoidModelArmorRenderer<LivingEntity, HumanoidModel<LivingEntity>, WizardArmourModel<LivingEntity>> {
+public class WizardRobesRenderer extends CustomHumanoidModelArmorRenderer<LivingEntity, HumanoidModel<LivingEntity>, WizardArmourModel<LivingEntity>> {
 	private final Minecraft client = Minecraft.getInstance();
 	private final ResourceLocation mainTexture = Arcanus.id("textures/entity/armor/wizard_robes.png");
 	private final ResourceLocation overlayTexture = Arcanus.id("textures/entity/armor/wizard_robes_overlay.png");
 	private final WizardArmourModel<LivingEntity> model;
 
-	public WizardArmourRenderer(LivingEntity entity, EntityRendererProvider.Context context, RenderLayerParent<LivingEntity, ? extends EntityModel<?>> layerParent) {
+	public WizardRobesRenderer(LivingEntity entity, EntityRendererProvider.Context context, RenderLayerParent<LivingEntity, ? extends EntityModel<?>> layerParent) {
 		this.model = new WizardArmourModel<>(context.bakeLayer(WizardArmourModel.MODEL_LAYER));
 	}
 
@@ -53,7 +53,7 @@ public class WizardArmourRenderer extends CustomHumanoidModelArmorRenderer<Livin
 
 	@Override
 	protected void renderModelPart(PoseStack matrices, MultiBufferSource bufferSource, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, int dyeColor, HumanoidModel<LivingEntity> contextModel, WizardArmourModel<LivingEntity> armorModel) {
-		if(stack.getItem() instanceof WizardRobesArmorItem wizardArmor) {
+		if(stack.getItem() instanceof WizardRobesItem wizardArmor) {
 			int hexColor = wizardArmor.getColor(stack);
 
 			if(stack.has(DataComponents.CUSTOM_NAME) && stack.getHoverName().getString().equals("jeb_")) {

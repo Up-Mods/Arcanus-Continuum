@@ -22,6 +22,9 @@ public final class ArcanusConfig {
 	@ConfigEntry(id = "sizeChangingIsPermanent", translation = CONFIG_SIZE_CHANGE_IS_PERMA)
 	public static boolean sizeChangingIsPermanent = false;
 
+	@ConfigEntry(id = "scaleManaBarsWithMaxMana", translation = CONFIG_SCALE_MANA_BARS)
+	public static boolean scaleManaBarsWithMaxMana = true;
+
 	@Category(value = "Enchantments", categories = {
 		Enchantments.ManaPool.class
 	})
