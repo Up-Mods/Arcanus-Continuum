@@ -311,9 +311,8 @@ public class ArcanusClient implements ClientModInitializer {
 					RenderSystem.enableBlend();
 
 					poseStack.pushPose();
+					poseStack.translate(0, scaledHeight - 18, 0);
 					poseStack.scale(0.225f, 0.225f, 1f);
-					poseStack.translate(0, scaledHeight * 4.12f, 0);
-//					poseStack.translate(0, scaledHeight * 0.5f, 0);
 
 					// render mana bars
 					for(int i = 0; i < 5; i++) {
@@ -333,25 +332,25 @@ public class ArcanusClient implements ClientModInitializer {
 						poseStack.mulPose(Axis.ZP.rotationDegrees(-99f + 27f * i));
 						poseStack.translate(-8, -8, 0);
 
-						int maxMana = 200;
-						int mana = 100;
-						float ratio = Math.min(1f, (float) mana / maxMana);
-						int halfNHalf = ArcanusConfig.scaleManaBarsWithMaxMana ? (maxMana - 12) / 2 : (50 - 6);
+						float maxMana = 100f;
+						float mana = 50f;
+						float ratio = Math.min(1f, mana / maxMana);
+						float halfNHalf = ArcanusConfig.scaleManaBarsWithMaxMana ? (maxMana - 12) / 2f : (50 - 6);
 						int bottomMana = (int) (halfNHalf * Math.clamp(ratio / 0.44f, 0f, 1f));
 						int middleMana = (int) (12 * (ratio <= 0.56f ? Math.clamp((ratio - 0.44f) / 0.12f, 0f, 1f) : 1f));
 						int topMana = (int) (halfNHalf * Math.clamp((ratio - 0.56f) / 0.44f, 0f, 1f));
 
 						gui.blit(HUD_ELEMENTS2, 85, 0, 0, 200, bottomMana, 16);
-						gui.blit(HUD_ELEMENTS2, 85 + halfNHalf, 0, 128, 32, middleMana, 16);
-						gui.blit(HUD_ELEMENTS2, 85 + halfNHalf + 12, 0, 256 - halfNHalf, 216, topMana, 16);
+						gui.blit(HUD_ELEMENTS2, (int) (85 + halfNHalf), 0, 128, 32, middleMana, 16);
+						gui.blit(HUD_ELEMENTS2, (int) (85 + halfNHalf + 12), 0, (int) (256 - halfNHalf), 216, topMana, 16);
 
 						poseStack.translate(-8, -8, 0);
 						RenderSystem.setShaderColor(1f, 1f, 1f, alpha);
 
 						halfNHalf = 14 + halfNHalf;
-						gui.blit(HUD_ELEMENTS2, 80, 0, 0, 128, halfNHalf, 32);
-						gui.blit(HUD_ELEMENTS2, 80 + halfNHalf, 0, 128, 0, 10, 32);
-						gui.blit(HUD_ELEMENTS2, 80 + halfNHalf + 10, 0, 256 - halfNHalf, 160, halfNHalf, 32);
+						gui.blit(HUD_ELEMENTS2, 80, 0, 0, 128, (int) halfNHalf, 32);
+						gui.blit(HUD_ELEMENTS2, (int) (80 + halfNHalf), 0, 128, 0, 10, 32);
+						gui.blit(HUD_ELEMENTS2, (int) (80 + halfNHalf + 10), 0, (int) (256 - halfNHalf), 160, (int) halfNHalf, 32);
 
 						poseStack.popPose();
 					}
@@ -361,9 +360,10 @@ public class ArcanusClient implements ClientModInitializer {
 
 					poseStack.popPose();
 					poseStack.pushPose();
+					poseStack.translate(8, scaledHeight - 21, 0);
 					poseStack.scale(0.8f, 0.8f, 1f);
 
-					gui.renderItem(ArcanusItems.SPELL_BOOK.get().getDefaultInstance(), 10, (int) (client.getWindow().getGuiScaledHeight() * 1.147f));
+					gui.renderItem(ArcanusItems.SPELL_BOOK.get().getDefaultInstance(), 0, 0);
 
 					poseStack.popPose();
 
