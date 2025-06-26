@@ -337,11 +337,11 @@ public class ArcanusClient implements ClientModInitializer {
 						float ratio = Math.min(1f, mana / maxMana);
 						float halfNHalf = ArcanusConfig.scaleManaBarsWithMaxMana ? (maxMana - 12) / 2f : (50 - 6);
 						int bottomMana = (int) (halfNHalf * Math.clamp(ratio / 0.44f, 0f, 1f));
-						int middleMana = (int) (12 * (ratio <= 0.56f ? Math.clamp((ratio - 0.44f) / 0.12f, 0f, 1f) : 1f));
+						int switchMana = (int) (12 * (ratio <= 0.56f ? Math.clamp((ratio - 0.44f) / 0.12f, 0f, 1f) : 1f));
 						int topMana = (int) (halfNHalf * Math.clamp((ratio - 0.56f) / 0.44f, 0f, 1f));
 
 						gui.blit(HUD_ELEMENTS2, 85, 0, 0, 200, bottomMana, 16);
-						gui.blit(HUD_ELEMENTS2, (int) (85 + halfNHalf), 0, 128, 32, middleMana, 16);
+						gui.blit(HUD_ELEMENTS2, (int) (85 + halfNHalf), 0, 128, 32, switchMana, 16);
 						gui.blit(HUD_ELEMENTS2, (int) (85 + halfNHalf + 12), 0, (int) (256 - halfNHalf), 216, topMana, 16);
 
 						poseStack.translate(-8, -8, 0);
