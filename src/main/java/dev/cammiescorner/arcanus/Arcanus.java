@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus;
 
+import com.google.auto.service.AutoService;
 import com.mojang.authlib.GameProfile;
 import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
 import commonnetwork.api.Network;
@@ -20,9 +21,10 @@ import dev.emi.trinkets.api.TrinketsApi;
 import dev.upcraft.datasync.api.DataSyncAPI;
 import dev.upcraft.datasync.api.SyncToken;
 import dev.upcraft.sparkweave.api.color.Color;
+import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
 import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
+import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
-import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -51,7 +53,8 @@ import org.slf4j.LoggerFactory;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class Arcanus implements ModInitializer {
+@AutoService(MainEntryPoint.class)
+public class Arcanus implements MainEntryPoint {
 	public static final String MOD_ID = "arcanus";
 	public static final Configurator configurator = new Configurator(MOD_ID);
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -62,7 +65,7 @@ public class Arcanus implements ModInitializer {
 	public static final ResourceLocation SPELL_SPEED_MODIFIER_ID = Arcanus.id("speed_effect_modifier");
 
 	@Override
-	public void onInitialize() {
+	public void onInitialize(ModContainer mod) {
 		configurator.register(ArcanusConfig.class);
 
 		RegistryService registryService = RegistryService.get();

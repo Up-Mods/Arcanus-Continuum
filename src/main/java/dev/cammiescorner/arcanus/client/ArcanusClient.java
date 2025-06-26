@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.client;
 
+import com.google.auto.service.AutoService;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
@@ -40,7 +41,8 @@ import dev.upcraft.sparkweave.api.client.event.RegisterCustomArmorRenderersEvent
 import dev.upcraft.sparkweave.api.client.event.RegisterEntityRenderersEvent;
 import dev.upcraft.sparkweave.api.client.event.RegisterLecternItemRendererEvent;
 import dev.upcraft.sparkweave.api.color.Color;
-import net.fabricmc.api.ClientModInitializer;
+import dev.upcraft.sparkweave.api.entrypoint.ClientEntryPoint;
+import dev.upcraft.sparkweave.api.platform.ModContainer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -83,7 +85,8 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
 import java.util.function.BooleanSupplier;
 
 @Environment(EnvType.CLIENT)
-public class ArcanusClient implements ClientModInitializer {
+@AutoService(ClientEntryPoint.class)
+public class ArcanusClient implements ClientEntryPoint {
 	private static final ResourceLocation HUD_ELEMENTS = Arcanus.id("textures/gui/hud/mana_bar.png");
 	private static final ResourceLocation HUD_ELEMENTS2 = Arcanus.id("textures/gui/hud/mana_bars.png");
 	private static final ResourceLocation STUN_OVERLAY = Arcanus.id("textures/gui/hud/stunned_vignette.png");
@@ -98,7 +101,7 @@ public class ArcanusClient implements ClientModInitializer {
 	private static int hitTimer;
 
 	@Override
-	public void onInitializeClient() {
+	public void onInitializeClient(ModContainer mod) {
 		ArcanusCompat.FIRST_PERSON.ifEnabled(() -> FirstPersonCompat::init);
 
 		MenuScreens.register(ArcanusMenus.SPELLCRAFT_MENU.get(), SpellcraftScreen::new);
