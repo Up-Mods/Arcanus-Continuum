@@ -188,7 +188,7 @@ tasks.runDatagen.dependsOn(tasks.generateDatagenDir)
 sourceSets.main.resources { srcDir "src/main/generated" }
 
 processResources {
-	filteringCharset "UTF-8"
+	filteringCharset = "UTF-8"
 
 	def expandProps = [
 		"version"              : version,
