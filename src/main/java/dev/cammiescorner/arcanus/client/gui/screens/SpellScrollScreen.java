@@ -17,7 +17,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix4f;
 import org.joml.Vector2i;
 
@@ -31,7 +30,6 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 	public static final ResourceLocation BOOK_TEXTURE = Arcanus.id("textures/gui/spell_scroll.png");
 	public static final ResourceLocation PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
 	public final LinkedList<SpellGroup> SPELL_GROUPS = new LinkedList<>();
-	private ItemStack stack = ItemStack.EMPTY;
 	private Spell spell = new Spell();
 
 	public SpellScrollScreen(SpellScrollMenu screenHandler, Inventory playerInventory, Component text) {
@@ -48,7 +46,7 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 		inventoryLabelY = -10000;
 
 		addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> onClose()).pos(width / 2 - 49, topPos + 170).size(98, 20).build());
-		setSpell(SpellScrollItem.getSpell(stack));
+		spell = SpellScrollItem.getSpell(getMenu().getSpellBook());
 		SPELL_GROUPS.addAll(getSpell().getComponentGroups());
 	}
 
@@ -174,17 +172,6 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 	protected void clearWidgets() {
 		super.clearWidgets();
 		SPELL_GROUPS.clear();
-	}
-
-	public void setScroll(ItemStack stack) {
-		this.stack = stack;
-		setSpell(SpellScrollItem.getSpell(stack));
-		SPELL_GROUPS.clear();
-		SPELL_GROUPS.addAll(SpellScrollItem.getSpell(stack).getComponentGroups());
-	}
-
-	public void setSpell(Spell spell) {
-		this.spell = spell;
 	}
 
 	protected boolean isHovering(int x, int y, int width, int height, double pointX, double pointY) {

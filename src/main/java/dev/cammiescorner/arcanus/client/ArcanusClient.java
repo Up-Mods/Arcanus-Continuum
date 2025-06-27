@@ -315,24 +315,24 @@ public class ArcanusClient implements ClientEntryPoint {
 					RenderSystem.enableBlend();
 
 					poseStack.pushPose();
-					int x = ArcanusConfig.leftHandedManaBars.mirror() ? scaledWidth - 29 : 0;
+					int x = ArcanusConfig.rightSideManaBars.mirror() ? scaledWidth - 29 : 0;
 					int y = ArcanusConfig.manaBarsOnTop ? 11 : scaledHeight - 18;
 					float startingAngle;
 
 					if(ArcanusConfig.manaBarsOnTop) {
-						if(ArcanusConfig.leftHandedManaBars.mirror())
+						if(ArcanusConfig.rightSideManaBars.mirror())
 							startingAngle = 189;
 						else
 							startingAngle = -9f;
 					}
 					else {
-						if(ArcanusConfig.leftHandedManaBars.mirror())
+						if(ArcanusConfig.rightSideManaBars.mirror())
 							startingAngle = -81f;
 						else
 							startingAngle = -99f;
 					}
 
-					float angleOffset = ArcanusConfig.leftHandedManaBars.mirror() ? -27f : 27f;
+					float angleOffset = ArcanusConfig.rightSideManaBars.mirror() ? -27f : 27f;
 					poseStack.translate(x, y, 0);
 					poseStack.scale(0.225f, 0.225f, 1f);
 
@@ -350,7 +350,7 @@ public class ArcanusClient implements ClientEntryPoint {
 						RenderSystem.setShaderColor(color.redF(), color.greenF(), color.blueF(), alpha);
 
 						poseStack.pushPose();
-						x = ArcanusConfig.leftHandedManaBars.mirror() ? 68 : 60;
+						x = ArcanusConfig.rightSideManaBars.mirror() ? 68 : 60;
 						y = ArcanusConfig.manaBarsOnTop ? 12 : 20;
 						poseStack.translate(x, y, 0);
 						poseStack.mulPose(Axis.ZP.rotationDegrees(startingAngle + angleOffset * i));
@@ -384,7 +384,7 @@ public class ArcanusClient implements ClientEntryPoint {
 
 					poseStack.popPose();
 
-					x = ArcanusConfig.leftHandedManaBars.mirror() ? scaledWidth - 21 : 8;
+					x = ArcanusConfig.rightSideManaBars.mirror() ? scaledWidth - 21 : 8;
 					y = ArcanusConfig.manaBarsOnTop ? 8 : scaledHeight - 21;
 
 					poseStack.pushPose();

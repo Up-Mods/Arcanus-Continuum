@@ -29,8 +29,8 @@ public final class ArcanusConfig {
 	@ConfigEntry(id = "manaBarsOnBottom", translation = CONFIG_MANA_BARS_ON_TOP)
 	public static boolean manaBarsOnTop = true;
 
-	@ConfigEntry(id = "leftHandedManaBars", translation = CONFIG_LEFT_HANDED_MANA_BARS)
-	public static MirrorHudElement leftHandedManaBars = MirrorHudElement.IF_LEFT_HANDED;
+	@ConfigEntry(id = "rightSideManaBars", translation = CONFIG_RIGHT_SIDE_MANA_BARS)
+	public static MirrorHudElement rightSideManaBars = MirrorHudElement.IF_LEFT_HANDED;
 
 	@Category(value = "Enchantments", categories = {
 		Enchantments.ManaPool.class

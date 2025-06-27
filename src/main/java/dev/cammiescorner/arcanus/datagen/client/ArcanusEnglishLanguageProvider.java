@@ -346,7 +346,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_SIZE_CHANGE_IS_PERMA, "Size Changing Effects are Permanent for Players and Tamed Animals (Requires Pehkui)");
 		builder.add(CONFIG_SCALE_MANA_BARS, "Scale Mana Bars Based on Maximum Mana");
 		builder.add(CONFIG_MANA_BARS_ON_TOP, "Move Mana Bars to the Top");
-		builder.add(CONFIG_LEFT_HANDED_MANA_BARS, "Move Mana Bars to the Left");
+		builder.add(CONFIG_RIGHT_SIDE_MANA_BARS, "Move Mana Bars to the Right");
 		builder.add(CONFIG_MAX_ENCHANT_LEVEL, "Max Enchantment Level");
 		builder.add(CONFIG_EXTRA_MANA_PER_LEVEL, "Extra Mana Per Level");
 		builder.add(CONFIG_MANA_MODIFIER_OP, "Mana Modifier Operation");
