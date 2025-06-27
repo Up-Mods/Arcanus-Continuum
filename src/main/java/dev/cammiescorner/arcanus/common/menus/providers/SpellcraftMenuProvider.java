@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+//FIXME convert to ExtendedScreenHandlerFactory
 public class SpellcraftMenuProvider implements MenuProvider {
 	private final Level level;
 	private final ItemStack stack;

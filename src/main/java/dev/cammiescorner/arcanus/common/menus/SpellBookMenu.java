@@ -39,16 +39,8 @@ public class SpellBookMenu extends AbstractContainerMenu {
 
 			addSlot(new SpellScrollSlot(spellBookSlots, i, x, y));
 		}
-		spellBookSlots.startOpen(playerInventory.player);
 
-		// main inventory
-		for(int row = 0; row < 3; row++)
-			for(int col = 0; col < 9; col++)
-				addSlot(new Slot(playerInventory, col + row * 9 + 9, 42 + col * 18, 134 + row * 18));
-
-		// hotbar
-		for(int col = 0; col < 9; col++)
-			addSlot(new Slot(playerInventory, col, 42 + col * 18, 192));
+		this.createInventorySlots(playerInventory);
 	}
 
 	@Override
@@ -61,9 +53,10 @@ public class SpellBookMenu extends AbstractContainerMenu {
 	public boolean clickMenuButton(Player player, int id) {
 		if(id == 0) {
 			saveSpellsToStack();
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 	@Override
@@ -111,6 +104,17 @@ public class SpellBookMenu extends AbstractContainerMenu {
 			items.set(i, itemStack.isEmpty() ? ItemStack.EMPTY : itemStack);
 		}
 		book.set(ArcanusDataComponents.SPELL_BOOK.get(), spells.withSpells(items));
+	}
+
+	private void createInventorySlots(Inventory playerInventory) {
+		// main inventory
+		for(int row = 0; row < 3; row++)
+			for(int col = 0; col < 9; col++)
+				addSlot(new Slot(playerInventory, col + row * 9 + 9, 42 + col * 18, 134 + row * 18));
+
+		// hotbar
+		for(int col = 0; col < 9; col++)
+			addSlot(new Slot(playerInventory, col, 42 + col * 18, 192));
 	}
 
 	public static class SpellScrollSlot extends Slot {
