@@ -16,7 +16,6 @@ import org.jetbrains.annotations.Range;
 import java.util.List;
 
 public record SpellBookComponent(List<ItemStack> spellScrolls) {
-
 	private static final int MAX_SLOT_INDEX = SpellBookItem.SLOT_COUNT - 1;
 	private static final SpellBookComponent EMPTY = new SpellBookComponent(NonNullList.withSize(SpellBookItem.SLOT_COUNT, ItemStack.EMPTY));
 
@@ -43,10 +42,10 @@ public record SpellBookComponent(List<ItemStack> spellScrolls) {
 	public SpellBookComponent withSpellScroll(@Range(from = 0, to = MAX_SLOT_INDEX) int slot, ItemStack spellScroll) {
 		Preconditions.checkArgument(spellScroll.isEmpty() || SpellBookMenu.isValidSpellScroll(spellScroll), "Spell stack must be a spell scroll or empty!");
 
-		var newSpells = NonNullList.withSize(SpellBookItem.SLOT_COUNT, ItemStack.EMPTY);
-		for (int i = 0; i < newSpells.size(); i++) {
+		NonNullList<ItemStack> newSpells = NonNullList.withSize(SpellBookItem.SLOT_COUNT, ItemStack.EMPTY);
+
+		for(int i = 0; i < newSpells.size(); i++)
 			newSpells.set(i, i == slot ? spellScroll : this.spellScrolls.get(i));
-		}
 
 		return new SpellBookComponent(newSpells);
 	}

@@ -36,6 +36,8 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 
 	public SpellScrollScreen(SpellScrollMenu screenHandler, Inventory playerInventory, Component text) {
 		super(screenHandler, playerInventory, text);
+		this.imageWidth = 320;
+		this.imageHeight = 180;
 	}
 
 	@Override

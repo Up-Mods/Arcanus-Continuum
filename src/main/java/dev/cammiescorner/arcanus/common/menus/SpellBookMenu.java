@@ -15,11 +15,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-// TODO there's a desync *somewhere* supposedly. items in the player's inventory get dropped when clicked, instead of picked up
 public class SpellBookMenu extends AbstractContainerMenu {
-
 	private static final int SLOT_COUNT = SpellBookItem.SLOT_COUNT;
-
 	private final TransientContainer spellBookSlots = new TransientContainer(this, SLOT_COUNT);
 	private final ItemStack book;
 
@@ -97,11 +94,12 @@ public class SpellBookMenu extends AbstractContainerMenu {
 	}
 
 	private void saveSpellsToStack() {
-		var spells = book.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
-		var items = NonNullList.withSize(SpellBookItem.SLOT_COUNT, ItemStack.EMPTY);
-		for(int i = 0; i < Math.min(spellBookSlots.getContainerSize(), SpellBookItem.SLOT_COUNT); i++) {
+		SpellBookComponent spells = book.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
+		NonNullList<ItemStack> items = NonNullList.withSize(SpellBookItem.SLOT_COUNT, ItemStack.EMPTY);
+
+		for(int i = 0; i < Math.min(spellBookSlots.getContainerSize(), SpellBookItem.SLOT_COUNT); i++)
 			items.set(i, spellBookSlots.getItem(i));
-		}
+
 		book.set(ArcanusDataComponents.SPELL_BOOK.get(), spells.withSpells(items));
 	}
 

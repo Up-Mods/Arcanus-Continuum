@@ -63,6 +63,8 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 	public SpellcraftScreen(SpellcraftMenu screenHandler, Inventory playerInventory, Component text) {
 		super(screenHandler, playerInventory, Component.empty());
+		this.imageWidth = 380;
+		this.imageHeight = 178;
 	}
 
 	@Override
