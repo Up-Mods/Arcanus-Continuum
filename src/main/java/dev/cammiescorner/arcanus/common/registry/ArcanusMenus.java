@@ -20,6 +20,6 @@ public class ArcanusMenus {
 
 	public static final RegistrySupplier<MenuType<SpellcraftMenu>> SPELLCRAFT_MENU = MENUS.register("spellcraft_menu", () -> new MenuType<>(SpellcraftMenu::new, FeatureFlags.VANILLA_SET));
 	public static final RegistrySupplier<MenuType<SpellScrollMenu>> SPELL_SCROLL_MENU = MENUS.register("spell_scroll_menu", () -> new ExtendedScreenHandlerType<>((syncId, inventory, menuData) -> new SpellScrollMenu(syncId, menuData.stack()), SpellScrollMenuProvider.MenuData.STREAM_CODEC));
-	public static final RegistrySupplier<MenuType<SpellBookMenu>> SPELL_BOOK_MENU = MENUS.register("spell_book_menu", () -> new ExtendedScreenHandlerType<>((syncId, inventory, menuData) -> new SpellBookMenu(syncId, inventory, menuData.stack()), SpellBookMenuProvider.MenuData.STREAM_CODEC));
+	public static final RegistrySupplier<MenuType<SpellBookMenu>> SPELL_BOOK_MENU = MENUS.register("spell_book_menu", () -> new ExtendedScreenHandlerType<>((syncId, inventory, menuData) -> new SpellBookMenu(syncId, inventory, menuData.book()), SpellBookMenuProvider.MenuData.STREAM_CODEC));
 	public static final RegistrySupplier<MenuType<ArcaneWorkbenchMenu>> ARCANE_WORKBENCH_MENU = MENUS.register("arcane_workbench_menu", () -> new MenuType<>(ArcaneWorkbenchMenu::new, FeatureFlags.VANILLA_SET));
 }

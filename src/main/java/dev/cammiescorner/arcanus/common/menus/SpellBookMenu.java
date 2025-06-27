@@ -1,7 +1,6 @@
 package dev.cammiescorner.arcanus.common.menus;
 
 import com.google.common.base.Preconditions;
-import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.common.datacomponents.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.items.SpellBookItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
@@ -10,14 +9,11 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusMenus;
 import dev.cammiescorner.arcanus.common.util.TransientContainer;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.List;
 
 // TODO there's a desync *somewhere* supposedly. items in the player's inventory get dropped when clicked, instead of picked up
 public class SpellBookMenu extends AbstractContainerMenu {
@@ -25,12 +21,12 @@ public class SpellBookMenu extends AbstractContainerMenu {
 	private static final int SLOT_COUNT = SpellBookItem.SLOT_COUNT;
 
 	private final TransientContainer spellBookSlots = new TransientContainer(this, SLOT_COUNT);
-	private final ItemStack stack;
+	private final ItemStack book;
 
-	public SpellBookMenu(int containerId, Inventory playerInventory, ItemStack stack) {
+	public SpellBookMenu(int containerId, Inventory playerInventory, ItemStack book) {
 		super(ArcanusMenus.SPELL_BOOK_MENU.get(), containerId);
-		this.stack = stack;
-		var spells = stack.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
+		this.book = book;
+		var spells = book.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
 		Preconditions.checkArgument(spells.spellScrolls().size() >= SLOT_COUNT, "Spell book had invalid data!");
 
 		// spell slots
@@ -108,13 +104,13 @@ public class SpellBookMenu extends AbstractContainerMenu {
 	}
 
 	private void saveSpellsToStack() {
-		var spells = stack.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
+		var spells = book.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
 		var items = NonNullList.withSize(SpellBookItem.SLOT_COUNT, ItemStack.EMPTY);
 		for(int i = 0; i < Math.min(spellBookSlots.getContainerSize(), SpellBookItem.SLOT_COUNT); i++) {
 			ItemStack itemStack = spellBookSlots.getItem(i);
 			items.set(i, itemStack.isEmpty() ? ItemStack.EMPTY : itemStack);
 		}
-		stack.set(ArcanusDataComponents.SPELL_BOOK.get(), spells.withSpells(items));
+		book.set(ArcanusDataComponents.SPELL_BOOK.get(), spells.withSpells(items));
 	}
 
 	public static class SpellScrollSlot extends Slot {

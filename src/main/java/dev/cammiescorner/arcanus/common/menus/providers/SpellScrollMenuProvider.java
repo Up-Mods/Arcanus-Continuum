@@ -38,6 +38,6 @@ public class SpellScrollMenuProvider implements ExtendedScreenHandlerFactory<Spe
 	}
 
 	public record MenuData(ItemStack stack) {
-		public static final StreamCodec<RegistryFriendlyByteBuf, SpellBookMenuProvider.MenuData> STREAM_CODEC = ItemStack.STREAM_CODEC.map(SpellBookMenuProvider.MenuData::new, SpellBookMenuProvider.MenuData::stack);
+		public static final StreamCodec<RegistryFriendlyByteBuf, SpellScrollMenuProvider.MenuData> STREAM_CODEC = ItemStack.STREAM_CODEC.map(SpellScrollMenuProvider.MenuData::new, SpellScrollMenuProvider.MenuData::stack);
 	}
 }
