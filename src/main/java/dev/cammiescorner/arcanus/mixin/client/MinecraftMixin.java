@@ -5,7 +5,7 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
-import dev.cammiescorner.arcanus.client.utils.ClientUtils;
+import dev.cammiescorner.arcanus.client.util.ClientUtils;
 import dev.cammiescorner.arcanus.common.entities.magic.Aggressorb;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundCastSpellPacket;

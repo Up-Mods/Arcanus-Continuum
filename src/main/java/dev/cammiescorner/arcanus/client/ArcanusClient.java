@@ -309,12 +309,31 @@ public class ArcanusClient implements ClientEntryPoint {
 				if(hudTimer > 0) {
 					PoseStack poseStack = gui.pose();
 					int scaledHeight = client.getWindow().getGuiScaledHeight();
+					int scaledWidth = client.getWindow().getGuiScaledWidth();
 					float alpha = hudTimer > 20 ? 1f : hudTimer / 20f;
 
 					RenderSystem.enableBlend();
 
 					poseStack.pushPose();
-					poseStack.translate(0, scaledHeight - 18, 0);
+					int x = ArcanusConfig.leftHandedManaBars.mirror() ? scaledWidth - 29 : 0;
+					int y = ArcanusConfig.manaBarsOnTop ? 11 : scaledHeight - 18;
+					float startingAngle;
+
+					if(ArcanusConfig.manaBarsOnTop) {
+						if(ArcanusConfig.leftHandedManaBars.mirror())
+							startingAngle = 189;
+						else
+							startingAngle = -9f;
+					}
+					else {
+						if(ArcanusConfig.leftHandedManaBars.mirror())
+							startingAngle = -81f;
+						else
+							startingAngle = -99f;
+					}
+
+					float angleOffset = ArcanusConfig.leftHandedManaBars.mirror() ? -27f : 27f;
+					poseStack.translate(x, y, 0);
 					poseStack.scale(0.225f, 0.225f, 1f);
 
 					// render mana bars
@@ -331,8 +350,10 @@ public class ArcanusClient implements ClientEntryPoint {
 						RenderSystem.setShaderColor(color.redF(), color.greenF(), color.blueF(), alpha);
 
 						poseStack.pushPose();
-						poseStack.translate(60, 20, 0);
-						poseStack.mulPose(Axis.ZP.rotationDegrees(-99f + 27f * i));
+						x = ArcanusConfig.leftHandedManaBars.mirror() ? 68 : 60;
+						y = ArcanusConfig.manaBarsOnTop ? 12 : 20;
+						poseStack.translate(x, y, 0);
+						poseStack.mulPose(Axis.ZP.rotationDegrees(startingAngle + angleOffset * i));
 						poseStack.translate(-8, -8, 0);
 
 						float maxMana = 100f;
@@ -362,8 +383,12 @@ public class ArcanusClient implements ClientEntryPoint {
 					gui.blit(HUD_ELEMENTS2, 0, -48, 0, 0, 128, 128);
 
 					poseStack.popPose();
+
+					x = ArcanusConfig.leftHandedManaBars.mirror() ? scaledWidth - 21 : 8;
+					y = ArcanusConfig.manaBarsOnTop ? 8 : scaledHeight - 21;
+
 					poseStack.pushPose();
-					poseStack.translate(8, scaledHeight - 21, 0);
+					poseStack.translate(x, y, 0);
 					poseStack.scale(0.8f, 0.8f, 1f);
 
 					gui.renderItem(ArcanusItems.SPELL_BOOK.get().getDefaultInstance(), 0, 0);

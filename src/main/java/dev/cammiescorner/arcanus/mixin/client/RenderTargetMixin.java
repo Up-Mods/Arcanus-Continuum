@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.mixin.client;
 
 import com.mojang.blaze3d.pipeline.RenderTarget;
-import dev.cammiescorner.arcanus.client.utils.StencilBuffer;
+import dev.cammiescorner.arcanus.client.util.StencilBuffer;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.ARBFramebufferObject;
 import org.lwjgl.opengl.GL11;

@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanus.client.utils;
+package dev.cammiescorner.arcanus.client.util;
 
 public interface StencilBuffer {
 	boolean arcanus$isStencilBufferEnabled();

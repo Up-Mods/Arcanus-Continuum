@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanus;
 
 import com.teamresourceful.resourcefulconfig.api.annotations.*;
 import dev.cammiescorner.arcanus.api.spells.Weight;
+import dev.cammiescorner.arcanus.client.util.MirrorHudElement;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
@@ -24,6 +25,12 @@ public final class ArcanusConfig {
 
 	@ConfigEntry(id = "scaleManaBarsWithMaxMana", translation = CONFIG_SCALE_MANA_BARS)
 	public static boolean scaleManaBarsWithMaxMana = true;
+
+	@ConfigEntry(id = "manaBarsOnBottom", translation = CONFIG_MANA_BARS_ON_TOP)
+	public static boolean manaBarsOnTop = true;
+
+	@ConfigEntry(id = "leftHandedManaBars", translation = CONFIG_LEFT_HANDED_MANA_BARS)
+	public static MirrorHudElement leftHandedManaBars = MirrorHudElement.IF_LEFT_HANDED;
 
 	@Category(value = "Enchantments", categories = {
 		Enchantments.ManaPool.class

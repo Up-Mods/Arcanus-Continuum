@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanus.client.utils;
+package dev.cammiescorner.arcanus.client.util;
 
 import com.google.common.collect.Ordering;
 import dev.cammiescorner.arcanus.common.entities.magic.AreaOfEffect;
