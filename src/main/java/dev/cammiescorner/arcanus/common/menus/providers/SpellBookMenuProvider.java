@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanus.common.menus.providers;
 
 import dev.cammiescorner.arcanus.common.menus.SpellBookMenu;
+import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -21,7 +22,7 @@ public class SpellBookMenuProvider implements ExtendedScreenHandlerFactory<Spell
 
 	@Override
 	public Component getDisplayName() {
-		return Component.empty();
+		return Component.translatable(ArcanusItems.SPELL_BOOK.get().getDescriptionId());
 	}
 
 	@Override

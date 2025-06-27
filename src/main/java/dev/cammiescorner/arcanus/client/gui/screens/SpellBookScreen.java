@@ -17,7 +17,7 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 	public static final ResourceLocation BOOK_TEXTURE = Arcanus.id("textures/gui/spell_book.png");
 
 	public SpellBookScreen(SpellBookMenu menu, Inventory playerInventory, Component title) {
-		super(menu, playerInventory, Component.translatable(ArcanusItems.SPELL_BOOK.get().getDescriptionId()));
+		super(menu, playerInventory, title);
 		this.imageWidth = 241;
 		this.imageHeight = 216;
 	}
