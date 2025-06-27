@@ -18,6 +18,8 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 
 	public SpellBookScreen(SpellBookMenu menu, Inventory playerInventory, Component title) {
 		super(menu, playerInventory, Component.translatable(ArcanusItems.SPELL_BOOK.get().getDescriptionId()));
+		this.imageWidth = 241;
+		this.imageHeight = 216;
 	}
 
 	@Override

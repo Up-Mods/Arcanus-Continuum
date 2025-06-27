@@ -100,8 +100,7 @@ public class SpellBookMenu extends AbstractContainerMenu {
 		var spells = book.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
 		var items = NonNullList.withSize(SpellBookItem.SLOT_COUNT, ItemStack.EMPTY);
 		for(int i = 0; i < Math.min(spellBookSlots.getContainerSize(), SpellBookItem.SLOT_COUNT); i++) {
-			ItemStack itemStack = spellBookSlots.getItem(i);
-			items.set(i, itemStack.isEmpty() ? ItemStack.EMPTY : itemStack);
+			items.set(i, spellBookSlots.getItem(i));
 		}
 		book.set(ArcanusDataComponents.SPELL_BOOK.get(), spells.withSpells(items));
 	}
