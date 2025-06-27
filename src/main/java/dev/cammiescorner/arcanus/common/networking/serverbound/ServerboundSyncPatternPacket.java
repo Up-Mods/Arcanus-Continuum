@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanus.common.networking.serverbound;
 
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.common.datacomponents.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.api.spells.Spell;
@@ -58,11 +59,11 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements Cu
 					TrinketComponent component = optional.get();
 					List<Tuple<SlotReference, ItemStack>> equipped = component.getEquipped(ArcanusItems.SPELL_BOOK.get());
 					ItemStack spellBook = equipped.isEmpty() ? ItemStack.EMPTY : equipped.getFirst().getB();
-					List<Spell> spells = spellBook.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
+					var spells = spellBook.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
 					int index = Arcanus.getSpellIndex(pattern);
 
-					if(!spells.isEmpty() && spells.size() > index && player.getCooldowns().getCooldownPercent(staff, 1f) == 0) {
-						Spell spell = spells.get(index);
+					if(player.getCooldowns().getCooldownPercent(staff, 1f) == 0) {
+						Spell spell = spells.getSpell(index);
 
 						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).mapToInt(SpellComponent::getMinLevel).max().orElse(1) > ArcanusComponents.WIZARD_LEVEL_COMPONENT.get(player).getLevel()) {
 							player.displayClientMessage(Component.translatable("spell.arcanus.too_low_level"), true);

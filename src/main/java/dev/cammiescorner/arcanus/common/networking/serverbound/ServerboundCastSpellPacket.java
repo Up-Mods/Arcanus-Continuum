@@ -1,11 +1,14 @@
 package dev.cammiescorner.arcanus.common.networking.serverbound;
 
+import com.google.common.base.Preconditions;
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.api.spells.SpellComponent;
 import dev.cammiescorner.arcanus.api.spells.SpellGroup;
 import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
+import dev.cammiescorner.arcanus.common.datacomponents.SpellBookComponent;
+import dev.cammiescorner.arcanus.common.items.SpellBookItem;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
@@ -14,28 +17,34 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
+import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.apache.commons.lang3.Validate;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
 
 public record ServerboundCastSpellPacket(int spellIndex) implements CustomPacketPayload {
+
 	public static final Type<ServerboundCastSpellPacket> TYPE = new Type<>(Arcanus.id("cast_spell"));
-	public static final StreamCodec<? extends FriendlyByteBuf, ServerboundCastSpellPacket> CODEC = StreamCodec.of((buffer, packet) -> {
-		buffer.writeVarInt(packet.spellIndex);
-	}, buffer -> {
-		return new ServerboundCastSpellPacket(buffer.readVarInt());
+	public static final StreamCodec<? extends FriendlyByteBuf, ServerboundCastSpellPacket> CODEC = StreamCodec.ofMember((packet, buf) -> buf.writeVarInt(packet.spellIndex()), buf -> {
+		var index = buf.readVarInt();
+		// throwing here is safe because vanilla does it, too :p
+		Validate.exclusiveBetween(0, SpellBookItem.SLOT_COUNT, index, "Invalid spell index: " + index);
+		return new ServerboundCastSpellPacket(index);
 	});
 
 	public static void handle(PacketContext<ServerboundCastSpellPacket> context) {
@@ -50,10 +59,12 @@ public record ServerboundCastSpellPacket(int spellIndex) implements CustomPacket
 				TrinketComponent component = optional.get();
 				List<Tuple<SlotReference, ItemStack>> equipped = component.getEquipped(ArcanusItems.SPELL_BOOK.get());
 				ItemStack spellBook = equipped.isEmpty() ? ItemStack.EMPTY : equipped.getFirst().getB();
-				List<Spell> list = spellBook.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
 
-				if(list.size() > index && player.getCooldowns().getCooldownPercent(staff, 1f) == 0) {
-					Spell spell = list.get(index);
+				var spells = spellBook.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
+
+
+				if(player.getCooldowns().getCooldownPercent(staff, 1f) == 0 && spells.hasSpell(index)) {
+					Spell spell = spells.getSpell(index);
 
 					if(!player.isCreative()) {
 						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).mapToInt(SpellComponent::getMinLevel).max().orElse(1) > ArcanusComponents.WIZARD_LEVEL_COMPONENT.get(player).getLevel()) {

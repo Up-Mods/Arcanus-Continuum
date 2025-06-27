@@ -40,7 +40,7 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 		poseStack.popPose();
 
 		for(int i = 0; i < 8; i++) {
-			if(menu.spellBookInventory().getItem(i).isEmpty()) {
+			if(menu.getSlot(i).getItem().isEmpty()) {
 				int radius = i % 2 == 0 ? 33 : 42;
 				int x = (int) (Math.cos(Math.toRadians(45 * i - 90)) * radius) + leftPos + 120;
 				int y = (int) (Math.sin(Math.toRadians(45 * i - 90)) * radius) + topPos + 62;

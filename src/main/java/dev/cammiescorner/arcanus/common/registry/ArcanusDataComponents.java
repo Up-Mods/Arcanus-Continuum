@@ -4,16 +4,15 @@ import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.api.util.XtraCodecs;
+import dev.cammiescorner.arcanus.common.datacomponents.SpellBookComponent;
 import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.level.block.WeatheringCopper;
 
-import java.util.List;
 import java.util.UUID;
 
 public class ArcanusDataComponents {
@@ -26,16 +25,15 @@ public class ArcanusDataComponents {
 		.build()
 	);
 
-	public static final RegistrySupplier<DataComponentType<List<Spell>>> SPELL_LIST = DATA_COMPONENTS.register("spell_list", () -> DataComponentType.<List<Spell>>builder()
-		.persistent(Codec.list(Spell.CODEC))
-		.networkSynchronized(Spell.STREAM_CODEC.apply(ByteBufCodecs.list()))
+	public static final RegistrySupplier<DataComponentType<SpellBookComponent>> SPELL_BOOK = DATA_COMPONENTS.register("spell_list", () -> DataComponentType.<SpellBookComponent>builder()
+		.persistent(SpellBookComponent.CODEC)
+		.networkSynchronized(SpellBookComponent.STREAM_CODEC)
 		.cacheEncoding()
 		.build()
 	);
 
 	public static final RegistrySupplier<DataComponentType<UUID>> OWNER_ID = DATA_COMPONENTS.register("owner_id", () -> DataComponentType.<UUID>builder()
 		.persistent(UUIDUtil.CODEC)
-		.cacheEncoding()
 		.build()
 	);
 

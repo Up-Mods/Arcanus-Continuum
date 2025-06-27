@@ -32,6 +32,7 @@ public class DynamicLightsCompat implements DynamicLightsInitializer {
 		});
 	}
 
+	@SuppressWarnings({"UnstableApiUsage", "removal"})
 	@Override
 	public void onInitializeDynamicLights(ItemLightSourceManager itemLightSourceManager) { }
 }

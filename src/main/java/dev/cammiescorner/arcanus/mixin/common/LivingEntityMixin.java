@@ -9,7 +9,9 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entities.Targetable;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.api.spells.Spell;
+import dev.cammiescorner.arcanus.common.datacomponents.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.effects.ArcanusStatusEffect;
+import dev.cammiescorner.arcanus.common.items.SpellBookItem;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundStatusEffectPacket;
 import dev.cammiescorner.arcanus.common.registry.*;
@@ -196,11 +198,12 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 						TrinketComponent component = optional.get();
 						List<Tuple<SlotReference, ItemStack>> equipped = component.getEquipped(ArcanusItems.SPELL_BOOK.get());
 						ItemStack spellBook = equipped.isEmpty() ? ItemStack.EMPTY : equipped.getFirst().getB();
-						List<Spell> list = spellBook.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
-						int index = Arcanus.getSpellIndex(pattern);
 
-						if(index < list.size()) {
-							Spell spell = list.get(index);
+						var spellBookComponent = spellBook.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
+
+						int index = Arcanus.getSpellIndex(pattern);
+						if(spellBookComponent.hasSpell(index)) {
+							Spell spell = spellBookComponent.getSpell(index);
 							AttributeModifier speedMod = new AttributeModifier(Arcanus.SPELL_SPEED_MODIFIER_ID, spell.getWeight().getSlowdown(), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
 							if(!speedAttr.hasModifier(Arcanus.SPELL_SPEED_MODIFIER_ID))

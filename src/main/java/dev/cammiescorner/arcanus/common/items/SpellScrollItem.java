@@ -65,6 +65,7 @@ public class SpellScrollItem extends Item {
 	}
 
 	public static Spell getSpell(ItemStack stack) {
-		return stack.getOrDefault(ArcanusDataComponents.SPELL.get(), new Spell());
+		var spell = stack.get(ArcanusDataComponents.SPELL.get());
+		return spell != null ? spell : new Spell();
 	}
 }

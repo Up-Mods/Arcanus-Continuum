@@ -1,12 +1,16 @@
 package dev.cammiescorner.arcanus.common.menus;
 
+import com.google.common.base.Preconditions;
 import dev.cammiescorner.arcanus.api.spells.Spell;
+import dev.cammiescorner.arcanus.common.datacomponents.SpellBookComponent;
+import dev.cammiescorner.arcanus.common.items.SpellBookItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMenus;
 import dev.cammiescorner.arcanus.common.util.TransientContainer;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -17,65 +21,50 @@ import java.util.List;
 
 // TODO there's a desync *somewhere* supposedly. items in the player's inventory get dropped when clicked, instead of picked up
 public class SpellBookMenu extends AbstractContainerMenu {
-	private final TransientContainer spellBookSlots = new TransientContainer(this, 8);
-	private ItemStack stack;
+
+	private static final int SLOT_COUNT = SpellBookItem.SLOT_COUNT;
+
+	private final TransientContainer spellBookSlots = new TransientContainer(this, SLOT_COUNT);
+	private final ItemStack stack;
 
 	public SpellBookMenu(int containerId, Inventory playerInventory, ItemStack stack) {
 		super(ArcanusMenus.SPELL_BOOK_MENU.get(), containerId);
 		this.stack = stack;
-		List<Spell> spells = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
+		var spells = stack.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
+		Preconditions.checkArgument(spells.spellScrolls().size() >= SLOT_COUNT, "Spell book had invalid data!");
 
-		for(int i = 0; i < spells.size(); i++) {
-			Spell spell = spells.get(i);
+		// spell slots
+		for(int i = 0; i < SLOT_COUNT; i++) {
 			int radius = i % 2 == 0 ? 33 : 42;
 			int x = (int) (Math.cos(Math.toRadians(45 * i - 90)) * radius) + 112;
 			int y = (int) (Math.sin(Math.toRadians(45 * i - 90)) * radius) + 56;
 
+			spellBookSlots.setItem(i, spells.spellScrolls().get(i));
+
 			addSlot(new SpellScrollSlot(spellBookSlots, i, x, y));
-
-			if(!spell.isEmpty()) {
-				ItemStack itemStack = new ItemStack(ArcanusItems.SPELL_SCROLL.get());
-
-				itemStack.set(ArcanusDataComponents.SPELL.get(), spell);
-				spellBookSlots.setItem(i, itemStack);
-			}
 		}
-
-		checkContainerSize(spellBookSlots, 8);
 		spellBookSlots.startOpen(playerInventory.player);
 
-		for(int i = 0; i < 3; i++)
-			for(int j = 0; j < 9; j++)
-				addSlot(new Slot(playerInventory, j + i * 9 + 9, 42 + j * 18, 134 + i * 18));
+		// main inventory
+		for(int row = 0; row < 3; row++)
+			for(int col = 0; col < 9; col++)
+				addSlot(new Slot(playerInventory, col + row * 9 + 9, 42 + col * 18, 134 + row * 18));
 
-		for(int i = 0; i < 9; i++)
-			addSlot(new Slot(playerInventory, i, 42 + i * 18, 192));
+		// hotbar
+		for(int col = 0; col < 9; col++)
+			addSlot(new Slot(playerInventory, col, 42 + col * 18, 192));
 	}
 
 	@Override
 	public void removed(Player player) {
-		List<Spell> spells = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
-
-		for(int i = 0; i < spellBookSlots.getContainerSize(); i++) {
-			ItemStack itemStack = spellBookSlots.getItem(i);
-			spells.set(i, itemStack.getOrDefault(ArcanusDataComponents.SPELL.get(), new Spell()));
-		}
-
-		stack.set(ArcanusDataComponents.SPELL_LIST.get(), spells);
+		saveSpellsToStack();
 		super.removed(player);
 	}
 
 	@Override
 	public boolean clickMenuButton(Player player, int id) {
 		if(id == 0) {
-			List<Spell> spells = stack.getOrDefault(ArcanusDataComponents.SPELL_LIST.get(), NonNullList.withSize(8, new Spell()));
-
-			for(int i = 0; i < spellBookSlots.getContainerSize(); i++) {
-				ItemStack itemStack = spellBookSlots.getItem(i);
-				spells.set(i, itemStack.getOrDefault(ArcanusDataComponents.SPELL.get(), new Spell()));
-			}
-
-			stack.set(ArcanusDataComponents.SPELL_LIST.get(), spells);
+			saveSpellsToStack();
 		}
 
 		return true;
@@ -83,33 +72,34 @@ public class SpellBookMenu extends AbstractContainerMenu {
 
 	@Override
 	public ItemStack quickMoveStack(Player player, int index) {
-		ItemStack itemStack = ItemStack.EMPTY;
 		Slot slot = slots.get(index);
 
 		if(slot.hasItem()) {
-			ItemStack itemStack2 = slot.getItem();
-			itemStack = itemStack2.copy();
+			ItemStack toMove = slot.getItem();
+			ItemStack remainder = toMove.copy();
 
-			if(index < 8) {
-				if(!moveItemStackTo(itemStack2, 8, 44, true))
+			// spellbook -> player inv
+			if(index < SLOT_COUNT) {
+				if(!moveItemStackTo(toMove, 8, 44, true))
 					return ItemStack.EMPTY;
 			}
-			else if(!moveItemStackTo(itemStack2, 0, 8, false)) {
+			// player inv -> spellbook
+			else if(!moveItemStackTo(toMove, 0, 8, false)) {
 				return ItemStack.EMPTY;
 			}
 
-			if(itemStack2.isEmpty())
+			if(toMove.isEmpty())
 				slot.setByPlayer(ItemStack.EMPTY);
 			else
 				slot.setChanged();
 
-			if(itemStack2.getCount() == itemStack.getCount())
+			if(toMove.getCount() == remainder.getCount())
 				return ItemStack.EMPTY;
 
-			slot.onTake(player, itemStack2);
+			slot.onTake(player, toMove);
 		}
 
-		return itemStack;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
@@ -117,18 +107,28 @@ public class SpellBookMenu extends AbstractContainerMenu {
 		return true;
 	}
 
-	public TransientContainer spellBookInventory() {
-		return spellBookSlots;
+	private void saveSpellsToStack() {
+		var spells = stack.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
+		var items = NonNullList.withSize(SpellBookItem.SLOT_COUNT, ItemStack.EMPTY);
+		for(int i = 0; i < Math.min(spellBookSlots.getContainerSize(), SpellBookItem.SLOT_COUNT); i++) {
+			ItemStack itemStack = spellBookSlots.getItem(i);
+			items.set(i, itemStack.isEmpty() ? ItemStack.EMPTY : itemStack);
+		}
+		stack.set(ArcanusDataComponents.SPELL_BOOK.get(), spells.withSpells(items));
 	}
 
-	public class SpellScrollSlot extends Slot {
+	public static class SpellScrollSlot extends Slot {
 		public SpellScrollSlot(Container container, int slot, int x, int y) {
 			super(container, slot, x, y);
 		}
 
 		@Override
 		public boolean mayPlace(ItemStack stack) {
-			return stack.is(ArcanusItems.SPELL_SCROLL.get());
+			return SpellBookMenu.isValidSpellScroll(stack);
 		}
+	}
+
+	public static boolean isValidSpellScroll(ItemStack stack) {
+		return stack.is(ArcanusItems.SPELL_SCROLL.get());
 	}
 }
