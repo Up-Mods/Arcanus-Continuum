@@ -1,6 +1,5 @@
 package dev.cammiescorner.arcanus.common.networking.serverbound;
 
-import com.google.common.base.Preconditions;
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.Spell;
@@ -17,14 +16,11 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
-import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,7 +28,6 @@ import net.minecraft.util.Tuple;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang3.Validate;
-import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +38,7 @@ public record ServerboundCastSpellPacket(int spellIndex) implements CustomPacket
 	public static final StreamCodec<? extends FriendlyByteBuf, ServerboundCastSpellPacket> CODEC = StreamCodec.ofMember((packet, buf) -> buf.writeVarInt(packet.spellIndex()), buf -> {
 		var index = buf.readVarInt();
 		// throwing here is safe because vanilla does it, too :p
-		Validate.exclusiveBetween(0, SpellBookItem.SLOT_COUNT, index, "Invalid spell index: " + index);
+		Validate.exclusiveBetween(-1, SpellBookItem.SLOT_COUNT, index, "Invalid spell index: " + index);
 		return new ServerboundCastSpellPacket(index);
 	});
 

@@ -356,9 +356,9 @@ public class ArcanusClient implements ClientEntryPoint {
 						poseStack.mulPose(Axis.ZP.rotationDegrees(startingAngle + angleOffset * i));
 						poseStack.translate(-8, -8, 0);
 
-						float maxMana = 100f;
-						float mana = 50f;
-						float ratio = Math.min(1f, mana / maxMana);
+						float maxMana = 25f;
+						float mana = 25f;
+						float ratio = Math.min(1f, maxMana <= 0f ? 0f : (mana / maxMana));
 						float halfNHalf = ArcanusConfig.scaleManaBarsWithMaxMana ? (maxMana - 12) / 2f : (50 - 6);
 						int bottomMana = (int) (halfNHalf * Math.clamp(ratio / 0.44f, 0f, 1f));
 						int switchMana = (int) (12 * (ratio <= 0.56f ? Math.clamp((ratio - 0.44f) / 0.12f, 0f, 1f) : 1f));
