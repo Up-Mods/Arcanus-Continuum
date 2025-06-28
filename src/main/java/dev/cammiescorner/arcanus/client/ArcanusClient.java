@@ -391,7 +391,7 @@ public class ArcanusClient implements ClientEntryPoint {
 					poseStack.translate(x, y, 0);
 					poseStack.scale(0.8f, 0.8f, 1f);
 
-					gui.renderItem(ArcanusItems.SPELL_BOOK.get().getDefaultInstance(), 0, 0);
+					gui.renderItem(Arcanus.getActiveSpellBook(player), 0, 0);
 
 					poseStack.popPose();
 
