@@ -19,7 +19,6 @@ import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 
@@ -33,7 +32,7 @@ public class ArcanusAdvancementProvider extends FabricAdvancementProvider {
 
 	@Override
 	public void generateAdvancement(HolderLookup.Provider registryLookup, Consumer<AdvancementHolder> writer) {
-		Advancement.Builder.recipeAdvancement().addCriterion("tick", PlayerTrigger.TriggerInstance.tick()).rewards(AdvancementRewards.Builder.loot(ResourceKey.create(Registries.LOOT_TABLE, ArcanusLootTables.COMPENDIUM_ARCANUS))).save(writer, ArcanusAdvancements.GRANT_COMPENDIUM_ARCANUS.toString());
+		Advancement.Builder.recipeAdvancement().addCriterion("tick", PlayerTrigger.TriggerInstance.tick()).rewards(AdvancementRewards.Builder.loot(ArcanusLootTables.COMPENDIUM_ARCANUS)).save(writer, ArcanusAdvancements.GRANT_COMPENDIUM_ARCANUS.toString());
 
 		var arcaneRoot = Advancement.Builder.advancement().display(ArcanusItems.CRYSTAL_STAFF.get(), Component.translatable("advancements.arcanus.arcane.root.title"), Component.translatable("advancements.arcanus.arcane.root.description"), ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/stone.png"), AdvancementType.TASK, false, false, false).addCriterion("tick", PlayerTrigger.TriggerInstance.tick()).save(writer, ArcanusAdvancements.ARCANE_ROOT.toString());
 		var aMagicalCrystal = Advancement.Builder.advancement().parent(arcaneRoot).display(Items.AMETHYST_SHARD, Component.translatable("advancements.arcanus.arcane.a_magical_crystal.title"), Component.translatable("advancements.arcanus.arcane.a_magical_crystal.description"), null, AdvancementType.GOAL, true, true, false).addCriterion("has_amethyst", InventoryChangeTrigger.TriggerInstance.hasItems(Items.AMETHYST_SHARD)).save(writer, ArcanusAdvancements.A_MAGICAL_CRYSTAL.toString());
