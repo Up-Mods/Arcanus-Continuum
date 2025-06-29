@@ -4,7 +4,7 @@ import com.google.auto.service.AutoService;
 import com.mojang.authlib.GameProfile;
 import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
 import commonnetwork.api.Network;
-import dev.cammiescorner.arcanus.api.spells.ManaColor;
+import dev.cammiescorner.arcanus.api.spells.ManaType;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.common.blocks.MagicDoorBlock;
 import dev.cammiescorner.arcanus.common.blocks.entities.MagicDoorBlockEntity;
@@ -236,14 +236,14 @@ public class Arcanus implements MainEntryPoint {
 		return ItemStack.EMPTY;
 	}
 
-	public static Map<ManaColor, Double> constructManaMap(double redMana, double greenMana, double blueMana, double whiteMana, double blackMana) {
-		Map<ManaColor, Double> map = new HashMap<>();
+	public static Map<ManaType, Double> constructManaMap(double redMana, double greenMana, double blueMana, double whiteMana, double blackMana) {
+		Map<ManaType, Double> map = new HashMap<>();
 
-		map.putIfAbsent(ManaColor.RED, redMana);
-		map.putIfAbsent(ManaColor.GREEN, greenMana);
-		map.putIfAbsent(ManaColor.BLUE, blueMana);
-		map.putIfAbsent(ManaColor.WHITE, whiteMana);
-		map.putIfAbsent(ManaColor.BLACK, blackMana);
+		map.putIfAbsent(ManaType.RED, redMana);
+		map.putIfAbsent(ManaType.GREEN, greenMana);
+		map.putIfAbsent(ManaType.BLUE, blueMana);
+		map.putIfAbsent(ManaType.WHITE, whiteMana);
+		map.putIfAbsent(ManaType.BLACK, blackMana);
 
 		return map;
 	}

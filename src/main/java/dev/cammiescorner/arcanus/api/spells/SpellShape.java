@@ -24,7 +24,7 @@ public abstract class SpellShape extends SpellComponent {
 		return (SpellShape) ArcanusSpellComponents.EMPTY.get();
 	}
 
-	public SpellShape(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Map<ManaColor, Double>> manaCost, Supplier<Double> manaMultiplier, Supplier<Integer> coolDown, Supplier<Double> potencyModifier, Supplier<Boolean> procsOnce) {
+	public SpellShape(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Map<ManaType, Double>> manaCost, Supplier<Double> manaMultiplier, Supplier<Integer> coolDown, Supplier<Double> potencyModifier, Supplier<Boolean> procsOnce) {
 		super(isEnabled, weight, manaCost, coolDown, procsOnce);
 		this.manaMultiplier = manaMultiplier;
 		this.potencyModifier = potencyModifier;

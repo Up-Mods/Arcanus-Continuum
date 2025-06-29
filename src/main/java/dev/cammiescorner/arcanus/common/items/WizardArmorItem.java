@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.common.items;
 
 import com.google.common.base.Suppliers;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.spells.ManaColor;
+import dev.cammiescorner.arcanus.api.spells.ManaType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.core.Holder;
@@ -65,7 +65,7 @@ public class WizardArmorItem extends ArmorItem {
 		super.inventoryTick(stack, world, entity, slot, selected);
 		double manaDrain = 1;
 
-		if(!world.isClientSide() && stack.isDamaged() && entity instanceof LivingEntity livingEntity && livingEntity.getItemBySlot(getEquipmentSlot()) == stack && ArcanusComponents.drainMana(livingEntity, ManaColor.WHITE, manaDrain, false))
+		if(!world.isClientSide() && stack.isDamaged() && entity instanceof LivingEntity livingEntity && livingEntity.getItemBySlot(getEquipmentSlot()) == stack && ArcanusComponents.drainMana(livingEntity, ManaType.WHITE, manaDrain, false))
 			stack.setDamageValue(stack.getDamageValue() - 1);
 	}
 

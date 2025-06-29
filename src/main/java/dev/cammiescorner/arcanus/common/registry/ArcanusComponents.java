@@ -152,33 +152,33 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		return chunk.getComponent(WARDED_BLOCKS_COMPONENT).getWardedBlocks();
 	}
 
-	public static double getMaxMana(LivingEntity entity, ManaColor manaColor) {
-		return manaColor.getMaxMana(entity);
+	public static double getMaxMana(LivingEntity entity, ManaType manaType) {
+		return manaType.getMaxMana(entity);
 	}
 
 	public static double getManaLock(LivingEntity entity) {
 		return entity.getComponent(MANA_COMPONENT).getManaLock();
 	}
 
-	public static double getTrueMaxMana(LivingEntity entity, ManaColor manaColor) {
-		return entity.getComponent(MANA_COMPONENT).getTrueMaxMana(manaColor);
+	public static double getTrueMaxMana(LivingEntity entity, ManaType manaType) {
+		return entity.getComponent(MANA_COMPONENT).getTrueMaxMana(manaType);
 	}
 
-	public static double getMana(LivingEntity entity, ManaColor manaColor) {
-		return entity.getComponent(MANA_COMPONENT).getMana(manaColor);
+	public static double getMana(LivingEntity entity, ManaType manaType) {
+		return entity.getComponent(MANA_COMPONENT).getMana(manaType);
 	}
 
-	public static void setMana(LivingEntity entity, ManaColor manaColor, double amount) {
-		entity.getComponent(MANA_COMPONENT).setMana(manaColor, amount);
+	public static void setMana(LivingEntity entity, ManaType manaType, double amount) {
+		entity.getComponent(MANA_COMPONENT).setMana(manaType, amount);
 	}
 
-	public static boolean addMana(LivingEntity entity, ManaColor manaColor, double amount, boolean simulate) {
-		return entity.getComponent(MANA_COMPONENT).addMana(manaColor, amount, simulate);
+	public static boolean addMana(LivingEntity entity, ManaType manaType, double amount, boolean simulate) {
+		return entity.getComponent(MANA_COMPONENT).addMana(manaType, amount, simulate);
 	}
 
 	// TODO make spells have multiple mana type costs
-	public static boolean drainMana(LivingEntity entity, ManaColor manaColor, double amount, boolean simulate) {
-		return entity.getComponent(MANA_COMPONENT).drainMana(manaColor, amount, simulate);
+	public static boolean drainMana(LivingEntity entity, ManaType manaType, double amount, boolean simulate) {
+		return entity.getComponent(MANA_COMPONENT).drainMana(manaType, amount, simulate);
 	}
 
 	public static int getWizardLevel(LivingEntity entity) {

@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.client.gui.widgets;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.cammiescorner.arcanus.api.spells.ManaColor;
+import dev.cammiescorner.arcanus.api.spells.ManaType;
 import dev.cammiescorner.arcanus.api.spells.SpellComponent;
 import dev.cammiescorner.arcanus.api.spells.SpellShape;
 import net.minecraft.ChatFormatting;
@@ -37,14 +37,14 @@ public class SpellComponentWidget extends AbstractButton {
 		).withStyle(ChatFormatting.GREEN));
 
 
-		for(ManaColor manaColor : ManaColor.values()) {
-			if(component.getManaCost().get(manaColor) <= 0)
+		for(ManaType manaType : ManaType.values()) {
+			if(component.getManaCost().get(manaType) <= 0)
 				continue;
 
 			textList.add(Component.translatable(TWO_ARGUMENT_KEY,
 				Component.translatable(SPELL_BOOK_MANA_COST),
-				Component.literal(component.getManaCostAsString(manaColor)).withStyle(ChatFormatting.GRAY)
-			).withStyle(manaColor.getChatFormatting()));
+				Component.literal(component.getManaCostAsString(manaType)).withStyle(ChatFormatting.GRAY)
+			).withStyle(manaType.getChatFormatting()));
 		}
 
 		if(component instanceof SpellShape shape) {

@@ -87,12 +87,12 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 		return Weight.values()[Math.round(cumulativeWeightIndex / ((float) effectCount + 1f))];
 	}
 
-	public Map<ManaColor, Double> getManaCost() {
-		Map<ManaColor, Double> cumulativeManaCost = new HashMap<>(shape().getManaCost());
+	public Map<ManaType, Double> getManaCost() {
+		Map<ManaType, Double> cumulativeManaCost = new HashMap<>(shape().getManaCost());
 
 		for(SpellEffect effect : effects)
-			for(ManaColor manaColor : effect.getManaCost().keySet())
-				cumulativeManaCost.put(manaColor, effect.getManaCost().get(manaColor) + cumulativeManaCost.get(manaColor));
+			for(ManaType manaType : effect.getManaCost().keySet())
+				cumulativeManaCost.put(manaType, effect.getManaCost().get(manaType) + cumulativeManaCost.get(manaType));
 
 		return cumulativeManaCost;
 	}

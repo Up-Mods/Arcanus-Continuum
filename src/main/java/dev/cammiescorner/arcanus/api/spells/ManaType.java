@@ -10,24 +10,24 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 
-public enum ManaColor implements StringRepresentable {
+public enum ManaType implements StringRepresentable {
 	RED(ArcanusAttributes.RED_MANA, ChatFormatting.RED, Color.fromRGB(184, 28, 14), "RedMana"),
 	GREEN(ArcanusAttributes.GREEN_MANA, ChatFormatting.GREEN, Color.fromRGB(54, 124, 38), "GreenMana"),
 	BLUE(ArcanusAttributes.BLUE_MANA, ChatFormatting.BLUE, Color.fromRGB(6, 51, 141), "BlueMana"),
 	WHITE(ArcanusAttributes.WHITE_MANA, ChatFormatting.WHITE, Color.fromRGB(255, 251, 213), "WhiteMana"),
 	BLACK(ArcanusAttributes.BLACK_MANA, ChatFormatting.BLACK, Color.fromRGB(41, 29, 42), "BlackMana");
 
-	public static final Codec<ManaColor> CODEC = StringRepresentable.fromValues(ManaColor::values);
+	public static final Codec<ManaType> CODEC = StringRepresentable.fromValues(ManaType::values);
 	final Holder<Attribute> attribute;
 	final ChatFormatting formatting;
 	final Color color;
 	final String serializedName;
 
-	ManaColor(RegistrySupplier<Attribute> attributeSupplier, ChatFormatting formatting, Color color, String name) {
+	ManaType(RegistrySupplier<Attribute> attributeSupplier, ChatFormatting formatting, Color color, String name) {
 		this(attributeSupplier.holder(), formatting, color, name);
 	}
 
-	ManaColor(Holder<Attribute> attribute, ChatFormatting formatting, Color color, String name) {
+	ManaType(Holder<Attribute> attribute, ChatFormatting formatting, Color color, String name) {
 		this.attribute = attribute;
 		this.formatting = formatting;
 		this.color = color;

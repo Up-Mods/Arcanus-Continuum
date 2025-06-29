@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.common.networking.serverbound;
 
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.spells.ManaColor;
+import dev.cammiescorner.arcanus.api.spells.ManaType;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.api.spells.SpellGroup;
@@ -69,8 +69,8 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements Cu
 							return;
 						}
 
-						for(ManaColor manaColor : spell.getManaCost().keySet()) {
-							if(!ArcanusComponents.drainMana(player, manaColor, spell.getManaCost().get(manaColor), false)) {
+						for(ManaType manaType : spell.getManaCost().keySet()) {
+							if(!ArcanusComponents.drainMana(player, manaType, spell.getManaCost().get(manaType), false)) {
 								player.displayClientMessage(Component.translatable("spell.arcanus.not_enough_mana").withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
 								return;
 							}

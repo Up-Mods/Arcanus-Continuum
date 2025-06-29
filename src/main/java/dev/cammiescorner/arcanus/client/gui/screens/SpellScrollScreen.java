@@ -122,11 +122,11 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 		MutableComponent mana = Component.empty();
 		MutableComponent coolDown = Component.literal(Arcanus.format(getCoolDown() / 20d) + "s").withStyle(ChatFormatting.RED);
 
-		for(ManaColor manaColor : ManaColor.values()) {
-			if(getSpell().getManaCost().get(manaColor) <= 0)
+		for(ManaType manaType : ManaType.values()) {
+			if(getSpell().getManaCost().get(manaType) <= 0)
 				continue;
 
-			mana.append(Component.literal(Arcanus.format(getManaCost(manaColor))).withStyle(manaColor.getChatFormatting()));
+			mana.append(Component.literal(Arcanus.format(getManaCost(manaType))).withStyle(manaType.getChatFormatting()));
 		}
 
 		gui.drawString(font, weight, 240 - font.width(weight), 7, 0xffffff, false);
@@ -147,14 +147,14 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 						Component.translatable(component.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
 					).withStyle(ChatFormatting.GREEN));
 
-					for(ManaColor manaColor : ManaColor.values()) {
-						if(component.getManaCost().get(manaColor) <= 0)
+					for(ManaType manaType : ManaType.values()) {
+						if(component.getManaCost().get(manaType) <= 0)
 							continue;
 
 						textList.add(Component.translatable(TWO_ARGUMENT_KEY,
 							Component.translatable(SPELL_BOOK_MANA_COST),
-							Component.literal(component.getManaCostAsString(manaColor)).withStyle(ChatFormatting.GRAY)
-						).withStyle(manaColor.getChatFormatting()));
+							Component.literal(component.getManaCostAsString(manaType)).withStyle(ChatFormatting.GRAY)
+						).withStyle(manaType.getChatFormatting()));
 					}
 
 					if(component instanceof SpellShape shape) {
@@ -204,8 +204,8 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 		return getSpell().getWeight();
 	}
 
-	public double getManaCost(ManaColor manaColor) {
-		return getSpell().getManaCost().get(manaColor);
+	public double getManaCost(ManaType manaType) {
+		return getSpell().getManaCost().get(manaType);
 	}
 
 	public int getCoolDown() {

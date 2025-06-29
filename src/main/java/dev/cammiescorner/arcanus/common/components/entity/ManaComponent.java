@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
-import dev.cammiescorner.arcanus.api.spells.ManaColor;
+import dev.cammiescorner.arcanus.api.spells.ManaType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import net.minecraft.core.HolderLookup;
@@ -17,29 +17,29 @@ import java.util.Map;
 
 public class ManaComponent implements AutoSyncedComponent, ServerTickingComponent {
 	private final LivingEntity entity;
-	private final Map<ManaColor, Double> manaMap = new HashMap<>();
+	private final Map<ManaType, Double> manaMap = new HashMap<>();
 	private double mana;
 
 	public ManaComponent(LivingEntity entity) {
 		this.entity = entity;
 
-		manaMap.putIfAbsent(ManaColor.RED, 25d);
-		manaMap.putIfAbsent(ManaColor.GREEN, 25d);
-		manaMap.putIfAbsent(ManaColor.BLUE, 25d);
-		manaMap.putIfAbsent(ManaColor.WHITE, 25d);
-		manaMap.putIfAbsent(ManaColor.BLACK, 25d);
+		manaMap.putIfAbsent(ManaType.RED, 25d);
+		manaMap.putIfAbsent(ManaType.GREEN, 25d);
+		manaMap.putIfAbsent(ManaType.BLUE, 25d);
+		manaMap.putIfAbsent(ManaType.WHITE, 25d);
+		manaMap.putIfAbsent(ManaType.BLACK, 25d);
 	}
 
 	@Override
 	public void serverTick() {
 		AttributeInstance manaRegenAttr = entity.getAttribute(ArcanusAttributes.MANA_REGEN.holder());
 
-		for(ManaColor manaColor : manaMap.keySet()) {
+		for(ManaType manaType : manaMap.keySet()) {
 			if(manaRegenAttr != null)
-				addMana(manaColor, manaRegenAttr.getValue() / (entity instanceof Player player && player.isCreative() ? 1 : 20), false);
+				addMana(manaType, manaRegenAttr.getValue() / (entity instanceof Player player && player.isCreative() ? 1 : 20), false);
 
-			if(getMana(manaColor) > manaColor.getMaxMana(entity))
-				setMana(manaColor, manaColor.getMaxMana(entity));
+			if(getMana(manaType) > manaType.getMaxMana(entity))
+				setMana(manaType, manaType.getMaxMana(entity));
 		}
 	}
 
@@ -50,21 +50,21 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 
 	@Override
 	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		for(Map.Entry<ManaColor, Double> entry : manaMap.entrySet())
+		for(Map.Entry<ManaType, Double> entry : manaMap.entrySet())
 			tag.putDouble(entry.getKey().getSerializedName(), entry.getValue());
 	}
 
-	public double getMana(ManaColor manaColor) {
-		return manaMap.get(manaColor);
+	public double getMana(ManaType manaType) {
+		return manaMap.get(manaType);
 	}
 
-	public void setMana(ManaColor manaColor, double mana) {
-		manaMap.put(manaColor, Mth.clamp(mana, 0, manaColor.getMaxMana(entity)));
+	public void setMana(ManaType manaType, double mana) {
+		manaMap.put(manaType, Mth.clamp(mana, 0, manaType.getMaxMana(entity)));
 		ArcanusComponents.MANA_COMPONENT.sync(entity);
 	}
 
-	public double getTrueMaxMana(ManaColor manaColor) {
-		return manaColor.getMaxMana(entity) - getManaLock();
+	public double getTrueMaxMana(ManaType manaType) {
+		return manaType.getMaxMana(entity) - getManaLock();
 	}
 
 	public double getManaLock() {
@@ -76,10 +76,10 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 		return 0;
 	}
 
-	public boolean addMana(ManaColor manaColor, double amount, boolean simulate) {
-		if(getMana(manaColor) < getTrueMaxMana(manaColor)) {
+	public boolean addMana(ManaType manaType, double amount, boolean simulate) {
+		if(getMana(manaType) < getTrueMaxMana(manaType)) {
 			if(!simulate)
-				setMana(manaColor, getMana(manaColor) + amount);
+				setMana(manaType, getMana(manaType) + amount);
 
 			return true;
 		}
@@ -87,15 +87,15 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 		return false;
 	}
 
-	public boolean drainMana(ManaColor manaColor, double amount, boolean simulate) {
+	public boolean drainMana(ManaType manaType, double amount, boolean simulate) {
 		AttributeInstance instance = entity.getAttribute(ArcanusAttributes.MANA_COST.holder());
 
 		if(instance != null)
 			amount *= instance.getValue();
 
-		if(getMana(manaColor) >= 0 && getMana(manaColor) >= amount) {
+		if(getMana(manaType) >= 0 && getMana(manaType) >= amount) {
 			if(!simulate)
-				setMana(manaColor, Math.max(0, getMana(manaColor) - amount));
+				setMana(manaType, Math.max(0, getMana(manaType) - amount));
 
 			return true;
 		}

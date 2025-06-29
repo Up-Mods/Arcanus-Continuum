@@ -6,7 +6,7 @@ import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spells.ManaColor;
+import dev.cammiescorner.arcanus.api.spells.ManaType;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.client.gui.screens.ArcaneWorkbenchScreen;
 import dev.cammiescorner.arcanus.client.gui.screens.SpellBookScreen;
@@ -337,9 +337,9 @@ public class ArcanusClient implements ClientEntryPoint {
 					poseStack.scale(0.225f, 0.225f, 1f);
 
 					// render mana bars
-					for(int i = 0; i < ManaColor.values().length; i++) {
-						ManaColor manaColor = ManaColor.values()[i];
-						Color color = manaColor.getColor();
+					for(int i = 0; i < ManaType.values().length; i++) {
+						ManaType manaType = ManaType.values()[i];
+						Color color = manaType.getColor();
 
 						RenderSystem.setShaderColor(color.redF(), color.greenF(), color.blueF(), alpha);
 
@@ -350,8 +350,8 @@ public class ArcanusClient implements ClientEntryPoint {
 						poseStack.mulPose(Axis.ZP.rotationDegrees(startingAngle + angleOffset * i));
 						poseStack.translate(-8, -8, 0);
 
-						double maxMana = ArcanusComponents.getMaxMana(player, manaColor);
-						double mana = ArcanusComponents.getMana(player, manaColor);
+						double maxMana = ArcanusComponents.getMaxMana(player, manaType);
+						double mana = ArcanusComponents.getMana(player, manaType);
 						double ratio = Math.min(1f, maxMana <= 0f ? 0f : (mana / maxMana));
 						double halfNHalf = ArcanusConfig.scaleManaBarsWithMaxMana ? (Math.min(maxMana, ArcanusConfig.manaBarsMaxLength) - 12) / 2f : (35 - 6);
 						int bottomMana = (int) (halfNHalf * Math.clamp(ratio / 0.44f, 0f, 1f));

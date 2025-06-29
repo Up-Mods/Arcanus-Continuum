@@ -100,14 +100,14 @@ public class Spell {
 		return Weight.values()[averageWeightIndex];
 	}
 
-	public Map<ManaColor, Double> getManaCost() {
-		Map<ManaColor, Double> cumulativeManaCost = Arcanus.constructManaMap(0, 0, 0, 0, 0);
+	public Map<ManaType, Double> getManaCost() {
+		Map<ManaType, Double> cumulativeManaCost = Arcanus.constructManaMap(0, 0, 0, 0, 0);
 
-		for(ManaColor manaColor : cumulativeManaCost.keySet()) {
+		for(ManaType manaType : cumulativeManaCost.keySet()) {
 			for(SpellGroup group : groups)
-				cumulativeManaCost.put(manaColor, cumulativeManaCost.get(manaColor) + group.getManaCost().get(manaColor));
+				cumulativeManaCost.put(manaType, cumulativeManaCost.get(manaType) + group.getManaCost().get(manaType));
 
-			cumulativeManaCost.put(manaColor, cumulativeManaCost.get(manaColor) * getManaMultiplier());
+			cumulativeManaCost.put(manaType, cumulativeManaCost.get(manaType) * getManaMultiplier());
 		}
 
 		return cumulativeManaCost;
@@ -132,8 +132,8 @@ public class Spell {
 		return coolDown;
 	}
 
-	public String getManaCostAsString(ManaColor manaColor) {
-		return Arcanus.format(getManaCost().get(manaColor));
+	public String getManaCostAsString(ManaType manaType) {
+		return Arcanus.format(getManaCost().get(manaType));
 	}
 
 	public String getCoolDownAsString() {

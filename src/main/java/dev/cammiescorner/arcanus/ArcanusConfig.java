@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus;
 
 import com.teamresourceful.resourcefulconfig.api.annotations.*;
-import dev.cammiescorner.arcanus.api.spells.ManaColor;
+import dev.cammiescorner.arcanus.api.spells.ManaType;
 import dev.cammiescorner.arcanus.api.spells.Weight;
 import dev.cammiescorner.arcanus.client.util.MirrorHudElement;
 
@@ -75,7 +75,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -116,7 +116,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -164,7 +164,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -208,7 +208,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -253,7 +253,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -302,7 +302,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -347,7 +347,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -391,7 +391,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -432,7 +432,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -477,7 +477,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -528,7 +528,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -569,7 +569,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -617,7 +617,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -685,7 +685,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -724,7 +724,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -763,7 +763,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -806,7 +806,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -845,7 +845,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -884,7 +884,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -923,7 +923,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -962,7 +962,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1001,7 +1001,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1036,7 +1036,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1083,7 +1083,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1126,7 +1126,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1185,7 +1185,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1224,7 +1224,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1259,7 +1259,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1298,7 +1298,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1337,7 +1337,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1376,7 +1376,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1419,7 +1419,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1462,7 +1462,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1509,7 +1509,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1548,7 +1548,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1587,7 +1587,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1622,7 +1622,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1657,7 +1657,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1700,7 +1700,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1743,7 +1743,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1799,7 +1799,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1849,7 +1849,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1888,7 +1888,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1927,7 +1927,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -1966,7 +1966,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -2005,7 +2005,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -2044,7 +2044,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -2083,7 +2083,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
@@ -2122,7 +2122,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
 
-			public static Map<ManaColor, Double> manaCosts() {
+			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 

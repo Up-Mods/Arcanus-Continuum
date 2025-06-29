@@ -15,13 +15,13 @@ public class SpellComponent {
 	private static final Component DISABLED_TRANSLATED_NAME = Component.translatable(DISABLED_TRANSLATION_KEY).withStyle(ChatFormatting.OBFUSCATED);
 	private final Supplier<Boolean> isEnabled;
 	private final Supplier<Weight> weight;
-	private final Supplier<Map<ManaColor, Double>> manaCost;
+	private final Supplier<Map<ManaType, Double>> manaCost;
 	private final Supplier<Integer> coolDown;
 	private final Supplier<Boolean> procsOnce;
 	private String translationKey;
 	private ResourceLocation texture;
 
-	public SpellComponent(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Map<ManaColor, Double>> manaCost, Supplier<Integer> coolDown, Supplier<Boolean> procsOnce) {
+	public SpellComponent(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Map<ManaType, Double>> manaCost, Supplier<Integer> coolDown, Supplier<Boolean> procsOnce) {
 		this.isEnabled = isEnabled;
 		this.weight = weight;
 		this.manaCost = manaCost;
@@ -37,7 +37,7 @@ public class SpellComponent {
 		return weight.get();
 	}
 
-	public Map<ManaColor, Double> getManaCost() {
+	public Map<ManaType, Double> getManaCost() {
 		return Map.copyOf(manaCost.get());
 	}
 
@@ -49,8 +49,8 @@ public class SpellComponent {
 		return procsOnce.get();
 	}
 
-	public String getManaCostAsString(ManaColor manaColor) {
-		return Arcanus.format(getManaCost().get(manaColor));
+	public String getManaCostAsString(ManaType manaType) {
+		return Arcanus.format(getManaCost().get(manaType));
 	}
 
 	public String getCoolDownAsString() {

@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.items;
 
-import dev.cammiescorner.arcanus.api.spells.ManaColor;
+import dev.cammiescorner.arcanus.api.spells.ManaType;
 import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.menus.providers.SpellScrollMenuProvider;
@@ -41,14 +41,14 @@ public class SpellScrollItem extends Item {
 			Component.translatable(spell.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
 		).withStyle(ChatFormatting.GREEN));
 
-		for(ManaColor manaColor : ManaColor.values()) {
-			if(spell.getManaCost().get(manaColor) <= 0)
+		for(ManaType manaType : ManaType.values()) {
+			if(spell.getManaCost().get(manaType) <= 0)
 				continue;
 
 			tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
 				Component.translatable(SPELL_BOOK_MANA_COST),
-				Component.literal(spell.getManaCostAsString(manaColor)).withStyle(ChatFormatting.GRAY)
-			).withStyle(manaColor.getChatFormatting()));
+				Component.literal(spell.getManaCostAsString(manaType)).withStyle(ChatFormatting.GRAY)
+			).withStyle(manaType.getChatFormatting()));
 		}
 		tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
 			Component.translatable(SPELL_BOOK_COOL_DOWN),
