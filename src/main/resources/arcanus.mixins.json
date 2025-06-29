@@ -13,7 +13,6 @@
 		"common.EntityMixin",
 		"common.ExplosionMixin",
 		"common.FallingBlockMixin",
-		"common.FoodDataMixin",
 		"common.ItemEntityMixin",
 		"common.LevelMixin",
 		"common.LivingEntityMixin",

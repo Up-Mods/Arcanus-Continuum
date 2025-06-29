@@ -69,7 +69,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 				player.resetAttackStrengthTicker();
 		}
 
-		if(stack.getItem() instanceof StaffItem staff && (ArcanusComponents.getMana(player) > 0 || player.isCreative())) {
+		if(stack.getItem() instanceof StaffItem staff) {
 			if(timer > 0 && patterns.size() >= 3) {
 				isCasting = lastMouseDown != null && lastMouseDown.isDown();
 
@@ -94,7 +94,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 
 		if(isCasting() && !ArcanusComponents.isCasting(player) && mouseDownTimer > 5)
 			Network.getNetworkHandler().sendToServer(new ServerboundIsCastingPacket(true));
-		if((!isCasting() || ArcanusComponents.getMana(player) <= 0) && ArcanusComponents.isCasting(player))
+		if(!isCasting() && ArcanusComponents.isCasting(player))
 			Network.getNetworkHandler().sendToServer(new ServerboundIsCastingPacket(false));
 
 		if(timer > 0 && player.getAttackStrengthScale(getFrameTimeNs()) == 1f && player.getCooldowns().getCooldownPercent(stack.getItem(), getFrameTimeNs()) == 0)
@@ -127,7 +127,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 
 		if(player != null && !player.isSpectator() && level != null) {
 			if(player.getMainHandItem().getItem() instanceof StaffItem staff) {
-				if(player.getAttackStrengthScale(getFrameTimeNs()) >= (((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15f) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
+				if(player.getAttackStrengthScale(getFrameTimeNs()) >= ((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) ? 1f : 0.15f) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && !isCasting) {
 					timer = 20;
 					patterns.add(Pattern.LEFT);
 					Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns));
@@ -162,7 +162,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 			info.cancel();
 
 		if(player != null && !player.isSpectator() && level != null && player.getMainHandItem().getItem() instanceof StaffItem staff) {
-			if(player.getAttackStrengthScale(getFrameTimeNs()) >= (((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) || ArcanusComponents.getBurnout(player) > 0) ? 1 : 0.15f) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && ArcanusComponents.getMana(player) > 0 && !isCasting) {
+			if(player.getAttackStrengthScale(getFrameTimeNs()) >= ((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) ? 1 : 0.15f) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && !isCasting) {
 				timer = 20;
 				patterns.add(Pattern.RIGHT);
 				Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns));

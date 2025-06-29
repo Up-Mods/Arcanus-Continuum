@@ -55,7 +55,6 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 	// ----- Entity Components ----- \\
 	public static final ComponentKey<WizardLevelComponent> WIZARD_LEVEL_COMPONENT = createComponent("wizard_level", WizardLevelComponent.class);
 	public static final ComponentKey<ManaComponent> MANA_COMPONENT = createComponent("mana", ManaComponent.class);
-	public static final ComponentKey<BurnoutComponent> BURNOUT_COMPONENT = createComponent("burnout", BurnoutComponent.class);
 	public static final ComponentKey<CastingComponent> CASTING_COMPONENT = createComponent("casting", CastingComponent.class);
 	public static final ComponentKey<PatternComponent> PATTERN_COMPONENT = createComponent("casting_pattern", PatternComponent.class);
 	public static final ComponentKey<LastCastTimeComponent> LAST_CAST_TIME_COMPONENT = createComponent("last_cast_time", LastCastTimeComponent.class);
@@ -85,7 +84,6 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
 		registry.beginRegistration(Player.class, WIZARD_LEVEL_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(WizardLevelComponent::new);
 		registry.beginRegistration(LivingEntity.class, MANA_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(ManaComponent::new);
-		registry.beginRegistration(LivingEntity.class, BURNOUT_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(BurnoutComponent::new);
 		registry.beginRegistration(Player.class, CASTING_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(CastingComponent::new);
 		registry.beginRegistration(Player.class, PATTERN_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(PatternComponent::new);
 		registry.beginRegistration(Player.class, POCKET_DIMENSION_PORTAL_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PocketDimensionPortalComponent::new);
@@ -157,48 +155,33 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		return chunk.getComponent(WARDED_BLOCKS_COMPONENT).getWardedBlocks();
 	}
 
-	public static double getMaxMana(LivingEntity entity) {
-		return entity.getComponent(MANA_COMPONENT).getMaxMana();
+	public static double getMaxMana(LivingEntity entity, ManaComponent.Color color) {
+		return color.getMaxMana(entity);
 	}
 
 	public static double getManaLock(LivingEntity entity) {
 		return entity.getComponent(MANA_COMPONENT).getManaLock();
 	}
 
-	public static double getTrueMaxMana(LivingEntity entity) {
-		return entity.getComponent(MANA_COMPONENT).getTrueMaxMana();
+	public static double getTrueMaxMana(LivingEntity entity, ManaComponent.Color color) {
+		return entity.getComponent(MANA_COMPONENT).getTrueMaxMana(color);
 	}
 
-	public static double getMana(LivingEntity entity) {
-		return entity.getComponent(MANA_COMPONENT).getMana();
+	public static double getMana(LivingEntity entity, ManaComponent.Color color) {
+		return entity.getComponent(MANA_COMPONENT).getMana(color);
 	}
 
-	public static void setMana(LivingEntity entity, double amount) {
-		entity.getComponent(MANA_COMPONENT).setMana(amount);
+	public static void setMana(LivingEntity entity, ManaComponent.Color color, double amount) {
+		entity.getComponent(MANA_COMPONENT).setMana(color, amount);
 	}
 
-	public static boolean addMana(LivingEntity entity, double amount, boolean simulate) {
-		return entity.getComponent(MANA_COMPONENT).addMana(amount, simulate);
+	public static boolean addMana(LivingEntity entity, ManaComponent.Color color, double amount, boolean simulate) {
+		return entity.getComponent(MANA_COMPONENT).addMana(color, amount, simulate);
 	}
 
-	public static boolean drainMana(LivingEntity entity, double amount, boolean simulate) {
-		return entity.getComponent(MANA_COMPONENT).drainMana(amount, simulate);
-	}
-
-	public static double getBurnout(LivingEntity entity) {
-		return BURNOUT_COMPONENT.get(entity).getBurnout();
-	}
-
-	public static void setBurnout(LivingEntity entity, double amount) {
-		BURNOUT_COMPONENT.get(entity).setBurnout(amount);
-	}
-
-	public static boolean addBurnout(LivingEntity entity, double amount, boolean simulate) {
-		return BURNOUT_COMPONENT.get(entity).addBurnout(amount, simulate);
-	}
-
-	public static boolean drainBurnout(LivingEntity entity, double amount, boolean simulate) {
-		return BURNOUT_COMPONENT.get(entity).drainBurnout(amount, simulate);
+	// TODO make spells have multiple mana type costs
+	public static boolean drainMana(LivingEntity entity, ManaComponent.Color color, double amount, boolean simulate) {
+		return entity.getComponent(MANA_COMPONENT).drainMana(color, amount, simulate);
 	}
 
 	public static int getWizardLevel(LivingEntity entity) {

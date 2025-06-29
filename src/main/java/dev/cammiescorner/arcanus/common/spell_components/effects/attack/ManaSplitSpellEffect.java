@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanus.common.spell_components.effects.attack;
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spells.SpellEffect;
 import dev.cammiescorner.arcanus.api.spells.SpellType;
+import dev.cammiescorner.arcanus.common.components.entity.ManaComponent;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.world.entity.Entity;
@@ -39,12 +40,14 @@ public class ManaSplitSpellEffect extends SpellEffect {
 				return;
 
 			if(entity instanceof LivingEntity livingEntity && caster != null) {
-				double splitMana = ArcanusComponents.getMana(caster) + ArcanusComponents.getMana(livingEntity);
-				double percent = 0.5 + (effects.stream().filter(ArcanusSpellComponents.MANA_SPLIT::is).count() / 11f) * 0.3 * potency;
-				double casterMana = splitMana * percent;
+				for(ManaComponent.Color color : ManaComponent.Color.values()) {
+					double splitMana = ArcanusComponents.getMana(caster, color) + ArcanusComponents.getMana(livingEntity, color);
+					double percent = 0.5 + (effects.stream().filter(ArcanusSpellComponents.MANA_SPLIT::is).count() / 11f) * 0.3 * potency;
+					double casterMana = splitMana * percent;
 
-				ArcanusComponents.setMana(caster, casterMana);
-				ArcanusComponents.setMana(livingEntity, splitMana - casterMana);
+					ArcanusComponents.setMana(caster, color, casterMana);
+					ArcanusComponents.setMana(livingEntity, color, splitMana - casterMana);
+				}
 			}
 		}
 	}
