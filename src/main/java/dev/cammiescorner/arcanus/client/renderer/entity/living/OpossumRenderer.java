@@ -35,8 +35,8 @@ public class OpossumRenderer extends MobRenderer<Opossum, OpossumModel> {
 
 		super.render(opossum, yaw, tickDelta, matrices, verteces, i);
 
-		if(hatStack.getItem() instanceof WizardRobesItem wizardArmour) {
-			int hexColor = wizardArmour.getColor(hatStack);
+		if(hatStack.getItem() instanceof WizardRobesItem wizardArmor) {
+			int hexColor = wizardArmor.getColor(hatStack);
 
 			if(hatStack.has(DataComponents.CUSTOM_NAME) && hatStack.getHoverName().getString().equals("jeb_")) {
 				int interval = 15;

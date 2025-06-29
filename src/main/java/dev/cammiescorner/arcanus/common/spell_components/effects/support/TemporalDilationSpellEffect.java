@@ -22,9 +22,8 @@ public class TemporalDilationSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.enabled,
 			() -> SpellType.SUPPORT,
 			() -> ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.weight,
-			() -> ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.manaCost,
+			() -> ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.manaCosts(),
 			() -> ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.coolDown,
-			() -> ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.minimumLevel,
 			() -> ArcanusConfig.SupportEffects.TemporalDilationEffectProperties.procsOnce
 		);
 	}

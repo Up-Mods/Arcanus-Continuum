@@ -12,6 +12,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public abstract class SpellShape extends SpellComponent {
@@ -23,8 +24,8 @@ public abstract class SpellShape extends SpellComponent {
 		return (SpellShape) ArcanusSpellComponents.EMPTY.get();
 	}
 
-	public SpellShape(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Double> manaCost, Supplier<Double> manaMultiplier, Supplier<Integer> coolDown, Supplier<Integer> minLevel, Supplier<Double> potencyModifier, Supplier<Boolean> procsOnce) {
-		super(isEnabled, weight, manaCost, coolDown, minLevel, procsOnce);
+	public SpellShape(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Map<ManaColor, Double>> manaCost, Supplier<Double> manaMultiplier, Supplier<Integer> coolDown, Supplier<Double> potencyModifier, Supplier<Boolean> procsOnce) {
+		super(isEnabled, weight, manaCost, coolDown, procsOnce);
 		this.manaMultiplier = manaMultiplier;
 		this.potencyModifier = potencyModifier;
 	}

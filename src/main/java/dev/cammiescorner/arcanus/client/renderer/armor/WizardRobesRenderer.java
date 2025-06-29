@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.client.renderer.armor;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.client.models.armor.WizardArmourModel;
+import dev.cammiescorner.arcanus.client.models.armor.WizardArmorModel;
 import dev.cammiescorner.arcanus.common.items.WizardRobesItem;
 import dev.upcraft.sparkweave.api.client.render.CustomHumanoidModelArmorRenderer;
 import net.minecraft.client.Minecraft;
@@ -23,18 +23,18 @@ import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
-public class WizardRobesRenderer extends CustomHumanoidModelArmorRenderer<LivingEntity, HumanoidModel<LivingEntity>, WizardArmourModel<LivingEntity>> {
+public class WizardRobesRenderer extends CustomHumanoidModelArmorRenderer<LivingEntity, HumanoidModel<LivingEntity>, WizardArmorModel<LivingEntity>> {
 	private final Minecraft client = Minecraft.getInstance();
 	private final ResourceLocation mainTexture = Arcanus.id("textures/entity/armor/wizard_robes.png");
 	private final ResourceLocation overlayTexture = Arcanus.id("textures/entity/armor/wizard_robes_overlay.png");
-	private final WizardArmourModel<LivingEntity> model;
+	private final WizardArmorModel<LivingEntity> model;
 
 	public WizardRobesRenderer(LivingEntity entity, EntityRendererProvider.Context context, RenderLayerParent<LivingEntity, ? extends EntityModel<?>> layerParent) {
-		this.model = new WizardArmourModel<>(context.bakeLayer(WizardArmourModel.MODEL_LAYER));
+		this.model = new WizardArmorModel<>(context.bakeLayer(WizardArmorModel.MODEL_LAYER));
 	}
 
 	@Override
-	protected void setPartVisibility(WizardArmourModel<LivingEntity> model, LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
+	protected void setPartVisibility(WizardArmorModel<LivingEntity> model, LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
 		model.setAllVisible(true);
 		model.wizardHat.visible = slot == EquipmentSlot.HEAD;
 		model.robes.visible = slot == EquipmentSlot.CHEST;
@@ -47,12 +47,12 @@ public class WizardRobesRenderer extends CustomHumanoidModelArmorRenderer<Living
 	}
 
 	@Override
-	protected WizardArmourModel<LivingEntity> getArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
+	protected WizardArmorModel<LivingEntity> getArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
 		return model;
 	}
 
 	@Override
-	protected void renderModelPart(PoseStack matrices, MultiBufferSource bufferSource, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, int dyeColor, HumanoidModel<LivingEntity> contextModel, WizardArmourModel<LivingEntity> armorModel) {
+	protected void renderModelPart(PoseStack matrices, MultiBufferSource bufferSource, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, int dyeColor, HumanoidModel<LivingEntity> contextModel, WizardArmorModel<LivingEntity> armorModel) {
 		if(stack.getItem() instanceof WizardRobesItem wizardArmor) {
 			int hexColor = wizardArmor.getColor(stack);
 

@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.client.renderer.armor;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.client.models.armor.BattleMageArmourModel;
+import dev.cammiescorner.arcanus.client.models.armor.BattleMageArmorModel;
 import dev.cammiescorner.arcanus.common.items.BattleMageArmorItem;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.Minecraft;
@@ -16,7 +16,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
-public class BattleMageArmourRenderer implements ArmorRenderer {
+public class BattleMageArmorRenderer implements ArmorRenderer {
 	private final Minecraft client = Minecraft.getInstance();
 	private final ResourceLocation[] mainTextures = {
 		Arcanus.id("textures/entity/armor/battle_mage_armor_stage_0.png"),
@@ -25,12 +25,12 @@ public class BattleMageArmourRenderer implements ArmorRenderer {
 		Arcanus.id("textures/entity/armor/battle_mage_armor_stage_3.png")
 	};
 	private final ResourceLocation overlayTexture = Arcanus.id("textures/entity/armor/battle_mage_armor_overlay.png");
-	private BattleMageArmourModel<LivingEntity> model;
+	private BattleMageArmorModel<LivingEntity> model;
 
 	@Override
 	public void render(PoseStack matrices, MultiBufferSource vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, HumanoidModel<LivingEntity> contextModel) {
 		if(model == null)
-			model = new BattleMageArmourModel<>(client.getEntityModels().bakeLayer(BattleMageArmourModel.MODEL_LAYER));
+			model = new BattleMageArmorModel<>(client.getEntityModels().bakeLayer(BattleMageArmorModel.MODEL_LAYER));
 
 		if(stack.getItem() instanceof BattleMageArmorItem battleMageArmorItem) {
 			ResourceLocation mainTexture = mainTextures[battleMageArmorItem.getOxidation(stack).ordinal()];

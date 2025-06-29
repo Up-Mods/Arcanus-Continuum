@@ -28,9 +28,8 @@ public class FireSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.AttackEffects.FireEffectProperties.enabled,
 			() -> SpellType.ATTACK,
 			() -> ArcanusConfig.AttackEffects.FireEffectProperties.weight,
-			() -> ArcanusConfig.AttackEffects.FireEffectProperties.manaCost,
+			() -> ArcanusConfig.AttackEffects.FireEffectProperties.manaCosts(),
 			() -> ArcanusConfig.AttackEffects.FireEffectProperties.coolDown,
-			() -> ArcanusConfig.AttackEffects.FireEffectProperties.minimumLevel,
 			() -> ArcanusConfig.AttackEffects.FireEffectProperties.procsOnce
 		);
 	}

@@ -22,9 +22,8 @@ public class HasteSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.enabled,
 			() -> SpellType.SUPPORT,
 			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.weight,
-			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.manaCost,
+			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.manaCosts(),
 			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.coolDown,
-			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.minimumLevel,
 			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.procsOnce
 		);
 	}

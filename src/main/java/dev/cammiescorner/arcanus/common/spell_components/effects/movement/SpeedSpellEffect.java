@@ -22,9 +22,8 @@ public class SpeedSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.enabled,
 			() -> SpellType.MOVEMENT,
 			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.weight,
-			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.manaCost,
+			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.manaCosts(),
 			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.coolDown,
-			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.minimumLevel,
 			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.procsOnce
 		);
 	}

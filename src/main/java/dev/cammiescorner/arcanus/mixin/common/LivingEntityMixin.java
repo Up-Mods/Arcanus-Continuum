@@ -9,9 +9,8 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entities.Targetable;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.api.spells.Spell;
-import dev.cammiescorner.arcanus.common.datacomponents.SpellBookComponent;
+import dev.cammiescorner.arcanus.common.data_components.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.effects.ArcanusStatusEffect;
-import dev.cammiescorner.arcanus.common.items.SpellBookItem;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundStatusEffectPacket;
 import dev.cammiescorner.arcanus.common.registry.*;
@@ -19,7 +18,6 @@ import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.core.Holder;
-import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -139,7 +137,7 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 
 	@ModifyVariable(method = "hurt", at = @At("HEAD"), argsOnly = true)
 	private float modifyDamage(float amount, DamageSource source) {
-		AttributeInstance attributeInstance = getAttribute(ArcanusEntityAttributes.MAGIC_RESISTANCE.holder());
+		AttributeInstance attributeInstance = getAttribute(ArcanusAttributes.MAGIC_RESISTANCE.holder());
 
 		if(attributeInstance != null && source.is(DamageTypeTags.WITCH_RESISTANT_TO))
 			amount /= Math.max((float) attributeInstance.getValue(), 0.000001f);
@@ -220,17 +218,20 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 
 	@ModifyReturnValue(method = "createLivingAttributes", at = @At("RETURN"))
 	private static AttributeSupplier.Builder createPlayerAttributes(AttributeSupplier.Builder builder) {
-		ArcanusEntityAttributes.registerAll();
+		ArcanusAttributes.registerAll();
 
 		return builder
-			.add(ArcanusEntityAttributes.MAX_MANA.holder())
-			.add(ArcanusEntityAttributes.MANA_REGEN.holder())
-			.add(ArcanusEntityAttributes.BURNOUT_REGEN.holder())
-			.add(ArcanusEntityAttributes.MANA_LOCK.holder())
-			.add(ArcanusEntityAttributes.SPELL_POTENCY.holder())
-			.add(ArcanusEntityAttributes.MAGIC_RESISTANCE.holder())
-			.add(ArcanusEntityAttributes.MANA_COST.holder())
-			.add(ArcanusEntityAttributes.SPELL_COOL_DOWN.holder());
+			.add(ArcanusAttributes.RED_MANA.holder())
+			.add(ArcanusAttributes.GREEN_MANA.holder())
+			.add(ArcanusAttributes.BLUE_MANA.holder())
+			.add(ArcanusAttributes.WHITE_MANA.holder())
+			.add(ArcanusAttributes.BLACK_MANA.holder())
+			.add(ArcanusAttributes.MANA_REGEN.holder())
+			.add(ArcanusAttributes.MANA_LOCK.holder())
+			.add(ArcanusAttributes.SPELL_POTENCY.holder())
+			.add(ArcanusAttributes.MAGIC_RESISTANCE.holder())
+			.add(ArcanusAttributes.MANA_COST.holder())
+			.add(ArcanusAttributes.SPELL_COOL_DOWN.holder());
 	}
 
 	@WrapOperation(method = "handleRelativeFrictionAndCalculateMovement", at = @At(

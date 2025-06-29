@@ -24,9 +24,8 @@ public class DamageSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.enabled,
 			() -> SpellType.ATTACK,
 			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.weight,
-			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.manaCost,
+			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.manaCosts(),
 			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.coolDown,
-			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.minimumLevel,
 			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.procsOnce
 		);
 	}

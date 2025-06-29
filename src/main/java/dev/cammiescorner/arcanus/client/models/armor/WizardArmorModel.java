@@ -11,7 +11,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.LivingEntity;
 
-public class WizardArmourModel<T extends LivingEntity> extends HumanoidModel<T> {
+public class WizardArmorModel<T extends LivingEntity> extends HumanoidModel<T> {
 	public static final ModelLayerLocation MODEL_LAYER = new ModelLayerLocation(Arcanus.id("wizard_robes"), "main");
 	public final ModelPart wizardHat;
 	public final ModelPart robes;
@@ -22,7 +22,7 @@ public class WizardArmourModel<T extends LivingEntity> extends HumanoidModel<T> 
 	public final ModelPart rightBoot;
 	public final ModelPart leftBoot;
 
-	public WizardArmourModel(ModelPart root) {
+	public WizardArmorModel(ModelPart root) {
 		super(root);
 		wizardHat = head.getChild("wizardHat");
 		robes = body.getChild("robes");

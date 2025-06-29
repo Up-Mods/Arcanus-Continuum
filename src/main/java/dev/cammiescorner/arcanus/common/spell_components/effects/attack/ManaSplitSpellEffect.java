@@ -1,9 +1,9 @@
 package dev.cammiescorner.arcanus.common.spell_components.effects.attack;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
+import dev.cammiescorner.arcanus.api.spells.ManaColor;
 import dev.cammiescorner.arcanus.api.spells.SpellEffect;
 import dev.cammiescorner.arcanus.api.spells.SpellType;
-import dev.cammiescorner.arcanus.common.components.entity.ManaComponent;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.world.entity.Entity;
@@ -23,9 +23,8 @@ public class ManaSplitSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.enabled,
 			() -> SpellType.ATTACK,
 			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.weight,
-			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.manaCost,
+			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.manaCosts(),
 			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.coolDown,
-			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.minimumLevel,
 			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.procsOnce
 		);
 	}
@@ -40,13 +39,13 @@ public class ManaSplitSpellEffect extends SpellEffect {
 				return;
 
 			if(entity instanceof LivingEntity livingEntity && caster != null) {
-				for(ManaComponent.Color color : ManaComponent.Color.values()) {
-					double splitMana = ArcanusComponents.getMana(caster, color) + ArcanusComponents.getMana(livingEntity, color);
+				for(ManaColor manaColor : ManaColor.values()) {
+					double splitMana = ArcanusComponents.getMana(caster, manaColor) + ArcanusComponents.getMana(livingEntity, manaColor);
 					double percent = 0.5 + (effects.stream().filter(ArcanusSpellComponents.MANA_SPLIT::is).count() / 11f) * 0.3 * potency;
 					double casterMana = splitMana * percent;
 
-					ArcanusComponents.setMana(caster, color, casterMana);
-					ArcanusComponents.setMana(livingEntity, color, splitMana - casterMana);
+					ArcanusComponents.setMana(caster, manaColor, casterMana);
+					ArcanusComponents.setMana(livingEntity, manaColor, splitMana - casterMana);
 				}
 			}
 		}

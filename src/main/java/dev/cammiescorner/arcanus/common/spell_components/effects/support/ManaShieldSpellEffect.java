@@ -24,9 +24,8 @@ public class ManaShieldSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.enabled,
 			() -> SpellType.SUPPORT,
 			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.weight,
-			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.manaCost,
+			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.manaCosts(),
 			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.coolDown,
-			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.minimumLevel,
 			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.procsOnce
 		);
 	}

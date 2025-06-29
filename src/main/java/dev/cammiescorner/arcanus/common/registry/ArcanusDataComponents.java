@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.api.util.XtraCodecs;
-import dev.cammiescorner.arcanus.common.datacomponents.SpellBookComponent;
+import dev.cammiescorner.arcanus.common.data_components.SpellBookComponent;
 import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;

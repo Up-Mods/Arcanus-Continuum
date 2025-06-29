@@ -119,8 +119,15 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
 		MutableComponent weight = Component.translatable(getWeight().translationKey()).withStyle(ChatFormatting.DARK_GREEN);
-		MutableComponent mana = Component.literal(Arcanus.format(getManaCost())).withStyle(ChatFormatting.BLUE);
+		MutableComponent mana = Component.empty();
 		MutableComponent coolDown = Component.literal(Arcanus.format(getCoolDown() / 20d) + "s").withStyle(ChatFormatting.RED);
+
+		for(ManaColor manaColor : ManaColor.values()) {
+			if(getSpell().getManaCost().get(manaColor) <= 0)
+				continue;
+
+			mana.append(Component.literal(Arcanus.format(getManaCost(manaColor))).withStyle(manaColor.getChatFormatting()));
+		}
 
 		gui.drawString(font, weight, 240 - font.width(weight), 7, 0xffffff, false);
 		gui.drawString(font, mana, 240 - font.width(mana), 17, 0xffffff, false);
@@ -139,10 +146,16 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 						Component.translatable(SPELL_BOOK_WEIGHT),
 						Component.translatable(component.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
 					).withStyle(ChatFormatting.GREEN));
-					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
-						Component.translatable(SPELL_BOOK_MANA_COST),
-						Component.literal(component.getManaCostAsString()).withStyle(ChatFormatting.GRAY)
-					).withStyle(ChatFormatting.BLUE));
+
+					for(ManaColor manaColor : ManaColor.values()) {
+						if(component.getManaCost().get(manaColor) <= 0)
+							continue;
+
+						textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+							Component.translatable(SPELL_BOOK_MANA_COST),
+							Component.literal(component.getManaCostAsString(manaColor)).withStyle(ChatFormatting.GRAY)
+						).withStyle(manaColor.getChatFormatting()));
+					}
 
 					if(component instanceof SpellShape shape) {
 						if(shape.getManaMultiplier() != 0)
@@ -191,8 +204,8 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 		return getSpell().getWeight();
 	}
 
-	public double getManaCost() {
-		return getSpell().getManaCost();
+	public double getManaCost(ManaColor manaColor) {
+		return getSpell().getManaCost().get(manaColor);
 	}
 
 	public int getCoolDown() {

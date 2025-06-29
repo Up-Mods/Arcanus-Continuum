@@ -31,7 +31,7 @@ public class ArcanusHelper {
 
 	public static Color getMagicColor(@Nullable Object provider) {
 		if(provider == null) {
-			return Arcanus.DEFAULT_MAGIC_COLOUR;
+			return Arcanus.DEFAULT_MAGIC_COLOR;
 		}
 
 		var component = ArcanusComponents.MAGIC_COLOR.getNullable(provider);
@@ -47,12 +47,12 @@ public class ArcanusHelper {
 			}
 		}
 
-		return Arcanus.DEFAULT_MAGIC_COLOUR;
+		return Arcanus.DEFAULT_MAGIC_COLOR;
 	}
 
 	public static Color getPocketDimensionColor(@Nullable Object provider) {
 		if(provider == null) {
-			return Arcanus.DEFAULT_MAGIC_COLOUR;
+			return Arcanus.DEFAULT_MAGIC_COLOR;
 		}
 
 		var component = ArcanusComponents.MAGIC_COLOR.getNullable(provider);
@@ -68,12 +68,12 @@ public class ArcanusHelper {
 			}
 		}
 
-		return Arcanus.DEFAULT_MAGIC_COLOUR;
+		return Arcanus.DEFAULT_MAGIC_COLOR;
 	}
 
 	public static Color getMagicColor(@Nullable UUID playerId) {
 		if(playerId == null || Util.NIL_UUID.equals(playerId)) {
-			return Arcanus.DEFAULT_MAGIC_COLOUR;
+			return Arcanus.DEFAULT_MAGIC_COLOR;
 		}
 
 		return WizardData.getOrEmpty(playerId).magicColor();
@@ -81,7 +81,7 @@ public class ArcanusHelper {
 
 	public static Color getPocketDimensionColor(@Nullable UUID playerId) {
 		if(playerId == null || Util.NIL_UUID.equals(playerId)) {
-			return Arcanus.DEFAULT_MAGIC_COLOUR;
+			return Arcanus.DEFAULT_MAGIC_COLOR;
 		}
 
 		return WizardData.getOrEmpty(playerId).pocketDimensionColor();
@@ -125,7 +125,7 @@ public class ArcanusHelper {
 	 *
 	 * @param from the entity to take the color from.
 	 *             If this entity does not have an attached {@link MagicColorComponent},
-	 *             will default to {@link Arcanus#DEFAULT_MAGIC_COLOUR}
+	 *             will default to {@link Arcanus#DEFAULT_MAGIC_COLOR}
 	 */
 	public static void copyMagicColor(Object to, Entity from) {
 		ArcanusComponents.MAGIC_COLOR.maybeGet(from).ifPresent(sourceComponent -> setMagicColorSource(to, sourceComponent.getSourceId()));

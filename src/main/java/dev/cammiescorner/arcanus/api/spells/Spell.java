@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.api.spells;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
+import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -17,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -99,13 +100,17 @@ public class Spell {
 		return Weight.values()[averageWeightIndex];
 	}
 
-	public double getManaCost() {
-		double manaCost = 0;
+	public Map<ManaColor, Double> getManaCost() {
+		Map<ManaColor, Double> cumulativeManaCost = Arcanus.constructManaMap(0, 0, 0, 0, 0);
 
-		for(SpellGroup group : groups)
-			manaCost += group.getManaCost();
+		for(ManaColor manaColor : cumulativeManaCost.keySet()) {
+			for(SpellGroup group : groups)
+				cumulativeManaCost.put(manaColor, cumulativeManaCost.get(manaColor) + group.getManaCost().get(manaColor));
 
-		return manaCost * getManaMultiplier();
+			cumulativeManaCost.put(manaColor, cumulativeManaCost.get(manaColor) * getManaMultiplier());
+		}
+
+		return cumulativeManaCost;
 	}
 
 	public double getManaMultiplier() {
@@ -127,8 +132,8 @@ public class Spell {
 		return coolDown;
 	}
 
-	public String getManaCostAsString() {
-		return Arcanus.format(getManaCost());
+	public String getManaCostAsString(ManaColor manaColor) {
+		return Arcanus.format(getManaCost().get(manaColor));
 	}
 
 	public String getCoolDownAsString() {
@@ -151,7 +156,7 @@ public class Spell {
 		}
 
 		// start casting the spell
-		SpellGroup firstGroup = groups.get(0);
-		firstGroup.shape().cast(caster, caster.position(), null, world, stack, firstGroup.effects(), groups, 0, caster.getAttributeValue(ArcanusEntityAttributes.SPELL_POTENCY.holder()));
+		SpellGroup firstGroup = groups.getFirst();
+		firstGroup.shape().cast(caster, caster.position(), null, world, stack, firstGroup.effects(), groups, 0, caster.getAttributeValue(ArcanusAttributes.SPELL_POTENCY.holder()));
 	}
 }

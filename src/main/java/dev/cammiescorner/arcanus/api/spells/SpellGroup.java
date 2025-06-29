@@ -12,7 +12,9 @@ import net.minecraft.resources.ResourceLocation;
 import org.joml.Vector2i;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vector2i> positions) {
@@ -85,11 +87,12 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 		return Weight.values()[Math.round(cumulativeWeightIndex / ((float) effectCount + 1f))];
 	}
 
-	public double getManaCost() {
-		double cumulativeManaCost = shape().getManaCost();
+	public Map<ManaColor, Double> getManaCost() {
+		Map<ManaColor, Double> cumulativeManaCost = new HashMap<>(shape().getManaCost());
 
 		for(SpellEffect effect : effects)
-			cumulativeManaCost += effect.getManaCost();
+			for(ManaColor manaColor : effect.getManaCost().keySet())
+				cumulativeManaCost.put(manaColor, effect.getManaCost().get(manaColor) + cumulativeManaCost.get(manaColor));
 
 		return cumulativeManaCost;
 	}

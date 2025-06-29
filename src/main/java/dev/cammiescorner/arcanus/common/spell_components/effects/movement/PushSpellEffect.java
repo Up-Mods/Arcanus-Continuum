@@ -20,9 +20,8 @@ public class PushSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.MovementEffects.PushEffectProperties.enabled,
 			() -> SpellType.MOVEMENT,
 			() -> ArcanusConfig.MovementEffects.PushEffectProperties.weight,
-			() -> ArcanusConfig.MovementEffects.PushEffectProperties.manaCost,
+			() -> ArcanusConfig.MovementEffects.PushEffectProperties.manaCosts(),
 			() -> ArcanusConfig.MovementEffects.PushEffectProperties.coolDown,
-			() -> ArcanusConfig.MovementEffects.PushEffectProperties.minimumLevel,
 			() -> ArcanusConfig.MovementEffects.PushEffectProperties.procsOnce
 		);
 	}

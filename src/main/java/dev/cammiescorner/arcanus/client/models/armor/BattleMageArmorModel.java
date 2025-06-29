@@ -11,7 +11,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.LivingEntity;
 
-public class BattleMageArmourModel<T extends LivingEntity> extends HumanoidModel<T> {
+public class BattleMageArmorModel<T extends LivingEntity> extends HumanoidModel<T> {
 	public static final ModelLayerLocation MODEL_LAYER = new ModelLayerLocation(Arcanus.id("battle_mage_armor"), "main");
 	public final ModelPart helmet;
 	public final ModelPart chestplate;
@@ -24,7 +24,7 @@ public class BattleMageArmourModel<T extends LivingEntity> extends HumanoidModel
 	public final ModelPart leftGreaves;
 	public final ModelPart leftBoot;
 
-	public BattleMageArmourModel(ModelPart root) {
+	public BattleMageArmorModel(ModelPart root) {
 		super(root);
 		helmet = head.getChild("armorHead");
 		chestplate = body.getChild("armorBody");

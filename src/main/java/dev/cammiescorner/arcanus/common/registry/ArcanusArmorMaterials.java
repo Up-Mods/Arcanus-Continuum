@@ -14,7 +14,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.EnumMap;
 import java.util.List;
 
-public class ArcanusArmourMaterials {
+public class ArcanusArmorMaterials {
 	public static final RegistryHandler<ArmorMaterial> MATERIALS = RegistryHandler.create(Registries.ARMOR_MATERIAL, Arcanus.MOD_ID);
 
 	public static final RegistrySupplier<ArmorMaterial> WIZARD = MATERIALS.register("wizard", () -> new ArmorMaterial(

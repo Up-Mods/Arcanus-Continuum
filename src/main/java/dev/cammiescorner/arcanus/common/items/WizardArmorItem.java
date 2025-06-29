@@ -2,8 +2,8 @@ package dev.cammiescorner.arcanus.common.items;
 
 import com.google.common.base.Suppliers;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.components.entity.ManaComponent;
-import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
+import dev.cammiescorner.arcanus.api.spells.ManaColor;
+import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.cauldron.CauldronInteraction;
@@ -48,11 +48,11 @@ public class WizardArmorItem extends ArmorItem {
 			if(knockbackResist > 0f)
 				builder.add(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(resourceLocation, knockbackResist, AttributeModifier.Operation.ADD_VALUE), equipmentSlotGroup);
 
-			builder.add(ArcanusEntityAttributes.MANA_REGEN.holder(), new AttributeModifier(resourceLocation, manaRegen, AttributeModifier.Operation.ADD_VALUE), equipmentSlotGroup);
-			builder.add(ArcanusEntityAttributes.MAGIC_RESISTANCE.holder(), new AttributeModifier(resourceLocation, magicResist, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), equipmentSlotGroup);
-			builder.add(ArcanusEntityAttributes.SPELL_POTENCY.holder(), new AttributeModifier(resourceLocation, spellPotency, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), equipmentSlotGroup);
-			builder.add(ArcanusEntityAttributes.MANA_COST.holder(), new AttributeModifier(resourceLocation, manaCostMultiplier, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), equipmentSlotGroup);
-			builder.add(ArcanusEntityAttributes.SPELL_COOL_DOWN.holder(), new AttributeModifier(resourceLocation, spellCoolDown, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), equipmentSlotGroup);
+			builder.add(ArcanusAttributes.MANA_REGEN.holder(), new AttributeModifier(resourceLocation, manaRegen, AttributeModifier.Operation.ADD_VALUE), equipmentSlotGroup);
+			builder.add(ArcanusAttributes.MAGIC_RESISTANCE.holder(), new AttributeModifier(resourceLocation, magicResist, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), equipmentSlotGroup);
+			builder.add(ArcanusAttributes.SPELL_POTENCY.holder(), new AttributeModifier(resourceLocation, spellPotency, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), equipmentSlotGroup);
+			builder.add(ArcanusAttributes.MANA_COST.holder(), new AttributeModifier(resourceLocation, manaCostMultiplier, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), equipmentSlotGroup);
+			builder.add(ArcanusAttributes.SPELL_COOL_DOWN.holder(), new AttributeModifier(resourceLocation, spellCoolDown, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), equipmentSlotGroup);
 
 			return builder.build();
 		});
@@ -65,7 +65,7 @@ public class WizardArmorItem extends ArmorItem {
 		super.inventoryTick(stack, world, entity, slot, selected);
 		double manaDrain = 1;
 
-		if(!world.isClientSide() && stack.isDamaged() && entity instanceof LivingEntity livingEntity && livingEntity.getItemBySlot(getEquipmentSlot()) == stack && ArcanusComponents.drainMana(livingEntity, ManaComponent.Color.WHITE, manaDrain, false))
+		if(!world.isClientSide() && stack.isDamaged() && entity instanceof LivingEntity livingEntity && livingEntity.getItemBySlot(getEquipmentSlot()) == stack && ArcanusComponents.drainMana(livingEntity, ManaColor.WHITE, manaDrain, false))
 			stack.setDamageValue(stack.getDamageValue() - 1);
 	}
 

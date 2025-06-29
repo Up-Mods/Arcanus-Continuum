@@ -22,9 +22,8 @@ public class ShrinkSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.enabled,
 			() -> SpellType.UTILITY,
 			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.weight,
-			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.manaCost,
+			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.manaCosts(),
 			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.coolDown,
-			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.minimumLevel,
 			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.procsOnce
 		);
 	}
@@ -50,8 +49,9 @@ public class ShrinkSpellEffect extends SpellEffect {
 				else {
 					MobEffectInstance shrinkEffect = livingEntity.getEffect(ArcanusMobEffects.SHRINK.holder());
 					int amplifier = shrinkEffect != null ? Math.max(shrinkEffect.getAmplifier() + 1, 4) : 0;
+					int duration = ArcanusConfig.sizeChangingIsPermanent ? -1 : (int) (ArcanusConfig.UtilityEffects.ShrinkEffectProperties.baseEffectDuration * effects.stream().filter(ArcanusSpellComponents.SHRINK::is).count() * potency);
 
-					livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.SHRINK.holder(), (int) (ArcanusConfig.UtilityEffects.ShrinkEffectProperties.baseEffectDuration * effects.stream().filter(ArcanusSpellComponents.SHRINK::is).count() * potency), amplifier, false, true, true));
+					livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.SHRINK.holder(), duration, amplifier, false, true, true));
 				}
 			}
 		}

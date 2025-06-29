@@ -1,7 +1,6 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusCriteriaTriggers;
 import net.minecraft.core.HolderLookup;
@@ -10,8 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 
 public class WizardLevelComponent implements AutoSyncedComponent {
@@ -27,14 +24,6 @@ public class WizardLevelComponent implements AutoSyncedComponent {
 	@Override
 	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		level = Mth.clamp(tag.getInt("WizardLevel"), 0, getMaxLevel());
-		AttributeInstance manaAttr = entity.getAttribute(ArcanusEntityAttributes.MAX_MANA.holder());
-
-		if(manaAttr != null) {
-			if(manaAttr.getModifier(MANA_MODIFIER) != null)
-				manaAttr.removeModifier(MANA_MODIFIER);
-
-			manaAttr.addPermanentModifier(new AttributeModifier(MANA_MODIFIER, Math.max(level - 1, 0) * 10, AttributeModifier.Operation.ADD_VALUE));
-		}
 
 		if(entity instanceof ServerPlayer serverPlayer) {
 			ArcanusCriteriaTriggers.WIZARD_LEVEL_CRITERION.get().trigger(serverPlayer);
@@ -56,14 +45,6 @@ public class WizardLevelComponent implements AutoSyncedComponent {
 
 	public void setLevel(int level) {
 		this.level = Mth.clamp(level, 0, getMaxLevel());
-		AttributeInstance manaAttr = entity.getAttribute(ArcanusEntityAttributes.MAX_MANA.holder());
-
-		if(manaAttr != null) {
-			if(manaAttr.getModifier(MANA_MODIFIER) != null)
-				manaAttr.removeModifier(MANA_MODIFIER);
-
-			manaAttr.addPermanentModifier(new AttributeModifier(MANA_MODIFIER, Math.max(level - 1, 0) * 10, AttributeModifier.Operation.ADD_VALUE));
-		}
 
 		ArcanusComponents.WIZARD_LEVEL_COMPONENT.sync(entity);
 		if(entity instanceof ServerPlayer serverPlayer) {

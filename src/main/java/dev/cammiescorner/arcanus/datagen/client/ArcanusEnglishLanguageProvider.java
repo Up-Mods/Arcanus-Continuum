@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.datagen.client;
 
-import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
+import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.api.spells.SpellComponent;
 import dev.cammiescorner.arcanus.common.data.*;
 import dev.cammiescorner.arcanus.common.items.BattleMageArmorItem;
@@ -223,19 +223,21 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		damageType(builder, ArcanusDamageTypes.MAGIC, "%s was killed by %s using magic", null, "%s was killed by %s using magic with %s");
 		damageType(builder, ArcanusDamageTypes.MAGIC_PROJECTILE, "%s was shot by %s using magic", null, "%s was shot by %s using magic with %s");
 
-		builder.add(ArcanusEntityAttributes.MAX_MANA.get().getDescriptionId(), "Max Mana");
-		builder.add(ArcanusEntityAttributes.MANA_REGEN.get().getDescriptionId(), "Mana Regeneration");
-		builder.add(ArcanusEntityAttributes.BURNOUT_REGEN.get().getDescriptionId(), "Burnout Regeneration");
-		builder.add(ArcanusEntityAttributes.MANA_LOCK.get().getDescriptionId(), "Mana Lock");
-		builder.add(ArcanusEntityAttributes.SPELL_POTENCY.get().getDescriptionId(), "Spell Potency");
-		builder.add(ArcanusEntityAttributes.MANA_COST.get().getDescriptionId(), "Mana Cost");
-		builder.add(ArcanusEntityAttributes.MAGIC_RESISTANCE.get().getDescriptionId(), "Magic Resistance");
-		builder.add(ArcanusEntityAttributes.SPELL_COOL_DOWN.get().getDescriptionId(), "Spell Cooldown");
+		builder.add(ArcanusAttributes.RED_MANA.get().getDescriptionId(), "Red Mana");
+		builder.add(ArcanusAttributes.GREEN_MANA.get().getDescriptionId(), "Green Mana");
+		builder.add(ArcanusAttributes.BLUE_MANA.get().getDescriptionId(), "Blue Mana");
+		builder.add(ArcanusAttributes.WHITE_MANA.get().getDescriptionId(), "White Mana");
+		builder.add(ArcanusAttributes.BLACK_MANA.get().getDescriptionId(), "Black Mana");
+		builder.add(ArcanusAttributes.MANA_REGEN.get().getDescriptionId(), "Mana Regeneration");
+		builder.add(ArcanusAttributes.MANA_LOCK.get().getDescriptionId(), "Mana Lock");
+		builder.add(ArcanusAttributes.SPELL_POTENCY.get().getDescriptionId(), "Spell Potency");
+		builder.add(ArcanusAttributes.MANA_COST.get().getDescriptionId(), "Mana Cost");
+		builder.add(ArcanusAttributes.MAGIC_RESISTANCE.get().getDescriptionId(), "Magic Resistance");
+		builder.add(ArcanusAttributes.SPELL_COOL_DOWN.get().getDescriptionId(), "Spell Cooldown");
 
 		builder.add(SpellComponent.DISABLED_TRANSLATION_KEY, "Unreadable Text");
 		spell(builder, ArcanusSpellComponents.EMPTY, "EMPTY");
 		spell(builder, ArcanusSpellComponents.SELF, "Self Shape");
-		spell(builder, ArcanusSpellComponents.TOUCH, "Touch Shape");
 		spell(builder, ArcanusSpellComponents.MISSILE, "Missile Shape");
 		spell(builder, ArcanusSpellComponents.LOB, "Lob Shape");
 		spell(builder, ArcanusSpellComponents.BOLT, "Bolt Shape");
@@ -352,10 +354,13 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_MANA_MODIFIER_OP, "Mana Modifier Operation");
 		builder.add(CONFIG_ENABLED, "Enabled");
 		builder.add(CONFIG_WEIGHT, "Weight");
-		builder.add(CONFIG_MANA_COST, "Mana Cost");
+		builder.add(CONFIG_RED_MANA_COST, "Red Mana Cost");
+		builder.add(CONFIG_GREEN_MANA_COST, "Green Mana Cost");
+		builder.add(CONFIG_BLUE_MANA_COST, "Blue Mana Cost");
+		builder.add(CONFIG_WHITE_MANA_COST, "White Mana Cost");
+		builder.add(CONFIG_BLACK_MANA_COST, "Black Mana Cost");
 		builder.add(CONFIG_MANA_MULTIPLIER, "Mana Multiplier");
 		builder.add(CONFIG_COOL_DOWN, "Cool Down");
-		builder.add(CONFIG_MIN_LEVEL, "Minimum Level");
 		builder.add(CONFIG_PROCS_ONCE, "Only Procs Once When Chained");
 		builder.add(CONFIG_POTENCY_MODIFIER, "Potency Modifier");
 		builder.add(CONFIG_PROJECTILE_SPEED, "Projectile Speed");

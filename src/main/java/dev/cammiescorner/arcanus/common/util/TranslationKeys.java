@@ -89,10 +89,13 @@ public class TranslationKeys {
 	public static final String CONFIG_MANA_MODIFIER_OP = "config.arcanus.mana_modifier_operation";
 	public static final String CONFIG_ENABLED = "config.arcanus.enabled";
 	public static final String CONFIG_WEIGHT = "config.arcanus.weight";
-	public static final String CONFIG_MANA_COST = "config.arcanus.mana_cost";
+	public static final String CONFIG_RED_MANA_COST = "config.arcanus.red_mana_cost";
+	public static final String CONFIG_GREEN_MANA_COST = "config.arcanus.green_mana_cost";
+	public static final String CONFIG_BLUE_MANA_COST = "config.arcanus.blue_mana_cost";
+	public static final String CONFIG_WHITE_MANA_COST = "config.arcanus.white_mana_cost";
+	public static final String CONFIG_BLACK_MANA_COST = "config.arcanus.black_mana_cost";
 	public static final String CONFIG_MANA_MULTIPLIER = "config.arcanus.mana_multiplier";
 	public static final String CONFIG_COOL_DOWN = "config.arcanus.cool_down";
-	public static final String CONFIG_MIN_LEVEL = "config.arcanus.minimum_level";
 	public static final String CONFIG_PROCS_ONCE = "config.arcanus.procs_once";
 	public static final String CONFIG_POTENCY_MODIFIER = "config.arcanus.potency_modifier";
 	public static final String CONFIG_PROJECTILE_SPEED = "config.arcanus.projectile_speed";

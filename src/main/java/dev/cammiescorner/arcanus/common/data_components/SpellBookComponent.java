@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanus.common.datacomponents;
+package dev.cammiescorner.arcanus.common.data_components;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;

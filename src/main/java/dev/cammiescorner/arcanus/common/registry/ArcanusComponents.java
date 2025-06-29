@@ -1,10 +1,7 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.spells.Pattern;
-import dev.cammiescorner.arcanus.api.spells.SpellEffect;
-import dev.cammiescorner.arcanus.api.spells.SpellGroup;
-import dev.cammiescorner.arcanus.api.spells.SpellShape;
+import dev.cammiescorner.arcanus.api.spells.*;
 import dev.cammiescorner.arcanus.common.blocks.entities.AbstractMagicBlockEntity;
 import dev.cammiescorner.arcanus.common.components.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.components.chunk.WardedBlocksComponent;
@@ -155,33 +152,33 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		return chunk.getComponent(WARDED_BLOCKS_COMPONENT).getWardedBlocks();
 	}
 
-	public static double getMaxMana(LivingEntity entity, ManaComponent.Color color) {
-		return color.getMaxMana(entity);
+	public static double getMaxMana(LivingEntity entity, ManaColor manaColor) {
+		return manaColor.getMaxMana(entity);
 	}
 
 	public static double getManaLock(LivingEntity entity) {
 		return entity.getComponent(MANA_COMPONENT).getManaLock();
 	}
 
-	public static double getTrueMaxMana(LivingEntity entity, ManaComponent.Color color) {
-		return entity.getComponent(MANA_COMPONENT).getTrueMaxMana(color);
+	public static double getTrueMaxMana(LivingEntity entity, ManaColor manaColor) {
+		return entity.getComponent(MANA_COMPONENT).getTrueMaxMana(manaColor);
 	}
 
-	public static double getMana(LivingEntity entity, ManaComponent.Color color) {
-		return entity.getComponent(MANA_COMPONENT).getMana(color);
+	public static double getMana(LivingEntity entity, ManaColor manaColor) {
+		return entity.getComponent(MANA_COMPONENT).getMana(manaColor);
 	}
 
-	public static void setMana(LivingEntity entity, ManaComponent.Color color, double amount) {
-		entity.getComponent(MANA_COMPONENT).setMana(color, amount);
+	public static void setMana(LivingEntity entity, ManaColor manaColor, double amount) {
+		entity.getComponent(MANA_COMPONENT).setMana(manaColor, amount);
 	}
 
-	public static boolean addMana(LivingEntity entity, ManaComponent.Color color, double amount, boolean simulate) {
-		return entity.getComponent(MANA_COMPONENT).addMana(color, amount, simulate);
+	public static boolean addMana(LivingEntity entity, ManaColor manaColor, double amount, boolean simulate) {
+		return entity.getComponent(MANA_COMPONENT).addMana(manaColor, amount, simulate);
 	}
 
 	// TODO make spells have multiple mana type costs
-	public static boolean drainMana(LivingEntity entity, ManaComponent.Color color, double amount, boolean simulate) {
-		return entity.getComponent(MANA_COMPONENT).drainMana(color, amount, simulate);
+	public static boolean drainMana(LivingEntity entity, ManaColor manaColor, double amount, boolean simulate) {
+		return entity.getComponent(MANA_COMPONENT).drainMana(manaColor, amount, simulate);
 	}
 
 	public static int getWizardLevel(LivingEntity entity) {

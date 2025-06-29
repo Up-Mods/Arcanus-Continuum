@@ -12,13 +12,12 @@ import dev.cammiescorner.arcanus.client.gui.util.UndoRedoStack;
 import dev.cammiescorner.arcanus.client.gui.widgets.SpellComponentWidget;
 import dev.cammiescorner.arcanus.client.gui.widgets.UndoRedoButtonWidget;
 import dev.cammiescorner.arcanus.common.items.SpellScrollItem;
+import dev.cammiescorner.arcanus.common.menus.SpellcraftMenu;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundSaveBookDataPacket;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
-import dev.cammiescorner.arcanus.common.menus.SpellcraftMenu;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -73,22 +72,24 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		leftPos = (width - 256) / 2;
 		topPos = (height - 180) / 2;
 		inventoryLabelY = -10000;
-		spellShapes = ArcanusSpellComponents.REGISTRY.stream().filter(component -> !ArcanusSpellComponents.EMPTY.is(component) && component.isEnabled() && ArcanusComponents.getWizardLevel(Minecraft.getInstance().player) >= component.getMinLevel() && component instanceof SpellShape).toList();
-		spellEffects = ArcanusSpellComponents.REGISTRY.stream().filter(component -> !ArcanusSpellComponents.EMPTY.is(component) && component.isEnabled() && ArcanusComponents.getWizardLevel(Minecraft.getInstance().player) >= component.getMinLevel() && component instanceof SpellEffect).toList();
+		spellShapes = ArcanusSpellComponents.REGISTRY.stream().filter(component -> !ArcanusSpellComponents.EMPTY.is(component) && component.isEnabled() && component instanceof SpellShape).toList();
+		spellEffects = ArcanusSpellComponents.REGISTRY.stream().filter(component -> !ArcanusSpellComponents.EMPTY.is(component) && component.isEnabled() && component instanceof SpellEffect).toList();
 
 		if(minecraft != null) {
-			for(SpellComponent component : spellShapes)
-				if(ArcanusComponents.getWizardLevel(minecraft.player) >= component.getMinLevel())
-					addSpellShapeChild(new SpellComponentWidget(-35, component, widget -> {
-						if(spellComponentCount() < ArcanusComponents.maxSpellSize(minecraft.player))
-							draggedComponent = widget.getSpellComponent();
-					}));
-			for(SpellComponent component : spellEffects)
-				if(ArcanusComponents.getWizardLevel(minecraft.player) >= component.getMinLevel())
-					addSpellEffectChild(new SpellComponentWidget(267, component, widget -> {
-						if(spellComponentCount() < ArcanusComponents.maxSpellSize(minecraft.player))
-							draggedComponent = widget.getSpellComponent();
-					}));
+			// TODO check if player knows the component
+			for(SpellComponent component : spellShapes) {
+				addSpellShapeChild(new SpellComponentWidget(-35, component, widget -> {
+					if(spellComponentCount() < ArcanusComponents.maxSpellSize(minecraft.player))
+						draggedComponent = widget.getSpellComponent();
+				}));
+			}
+
+			for(SpellComponent component : spellEffects) {
+				addSpellEffectChild(new SpellComponentWidget(267, component, widget -> {
+					if(spellComponentCount() < ArcanusComponents.maxSpellSize(minecraft.player))
+						draggedComponent = widget.getSpellComponent();
+				}));
+			}
 		}
 
 		addCloseButtons();
@@ -418,21 +419,28 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 		int componentCount = spellComponentCount();
 		int maxComponents = ArcanusComponents.maxSpellSize(minecraft.player);
-		int componentCounterColour = 0x5555ff;
+		int componentCounterColor = 0x5555ff;
 
 		if(componentCount >= maxComponents)
-			componentCounterColour = 0xcc2222;
+			componentCounterColor = 0xcc2222;
 
 		String spellComponentCount = String.valueOf(componentCount);
 		String maxSpellComponentCount = String.valueOf(maxComponents);
 
-		gui.drawString(font, spellComponentCount, 118 - font.width(spellComponentCount) / 2, 11, componentCounterColour, false);
+		gui.drawString(font, spellComponentCount, 118 - font.width(spellComponentCount) / 2, 11, componentCounterColor, false);
 		gui.drawString(font, " / ", 128 - font.width(" / ") / 2, 11, 0x555555, false);
-		gui.drawString(font, maxSpellComponentCount, 138 - font.width(maxSpellComponentCount) / 2, 11, componentCounterColour, false);
+		gui.drawString(font, maxSpellComponentCount, 138 - font.width(maxSpellComponentCount) / 2, 11, componentCounterColor, false);
 
 		MutableComponent weight = Component.translatable(getWeight().translationKey()).withStyle(ChatFormatting.DARK_GREEN);
-		MutableComponent mana = Component.literal(Arcanus.format(getManaCost())).withStyle(ChatFormatting.BLUE);
+		MutableComponent mana = Component.empty();
 		MutableComponent coolDown = Component.literal(Arcanus.format(getCoolDown() / 20d) + "s").withStyle(ChatFormatting.RED);
+
+		for(ManaColor manaColor : ManaColor.values()) {
+			if(getSpell().getManaCost().get(manaColor) <= 0)
+				continue;
+
+			mana.append(Component.literal(Arcanus.format(getManaCost(manaColor))).withStyle(manaColor.getChatFormatting()));
+		}
 
 		gui.drawString(font, weight, 240 - font.width(weight), 7, 0xffffff, false);
 		gui.drawString(font, mana, 240 - font.width(mana), 17, 0xffffff, false);
@@ -462,10 +470,16 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 						Component.translatable(SPELL_BOOK_WEIGHT),
 						Component.translatable(component.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
 					).withStyle(ChatFormatting.GREEN));
-					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
-						Component.translatable(SPELL_BOOK_MANA_COST),
-						Component.literal(component.getManaCostAsString()).withStyle(ChatFormatting.GRAY)
-					).withStyle(ChatFormatting.BLUE));
+
+					for(ManaColor manaColor : ManaColor.values()) {
+						if(component.getManaCost().get(manaColor) <= 0)
+							continue;
+
+						textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+							Component.translatable(SPELL_BOOK_MANA_COST),
+							Component.literal(component.getManaCostAsString(manaColor)).withStyle(ChatFormatting.GRAY)
+						).withStyle(manaColor.getChatFormatting()));
+					}
 
 					if(component instanceof SpellShape shape) {
 						if(shape.getManaMultiplier() != 0)
@@ -552,8 +566,8 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		return getSpell().getWeight();
 	}
 
-	public double getManaCost() {
-		return getSpell().getManaCost();
+	public double getManaCost(ManaColor manaColor) {
+		return getSpell().getManaCost().get(manaColor);
 	}
 
 	public int getCoolDown() {

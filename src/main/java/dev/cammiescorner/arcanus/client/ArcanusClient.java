@@ -6,13 +6,14 @@ import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
+import dev.cammiescorner.arcanus.api.spells.ManaColor;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.client.gui.screens.ArcaneWorkbenchScreen;
 import dev.cammiescorner.arcanus.client.gui.screens.SpellBookScreen;
 import dev.cammiescorner.arcanus.client.gui.screens.SpellScrollScreen;
 import dev.cammiescorner.arcanus.client.gui.screens.SpellcraftScreen;
-import dev.cammiescorner.arcanus.client.models.armor.BattleMageArmourModel;
-import dev.cammiescorner.arcanus.client.models.armor.WizardArmourModel;
+import dev.cammiescorner.arcanus.client.models.armor.BattleMageArmorModel;
+import dev.cammiescorner.arcanus.client.models.armor.WizardArmorModel;
 import dev.cammiescorner.arcanus.client.models.block.SpellScrollModel;
 import dev.cammiescorner.arcanus.client.models.entity.living.OpossumModel;
 import dev.cammiescorner.arcanus.client.models.entity.living.WizardModel;
@@ -20,7 +21,7 @@ import dev.cammiescorner.arcanus.client.models.entity.magic.*;
 import dev.cammiescorner.arcanus.client.models.feature.HaloModel;
 import dev.cammiescorner.arcanus.client.models.feature.SpellPatternModel;
 import dev.cammiescorner.arcanus.client.particles.CollapseParticle;
-import dev.cammiescorner.arcanus.client.renderer.armor.BattleMageArmourRenderer;
+import dev.cammiescorner.arcanus.client.renderer.armor.BattleMageArmorRenderer;
 import dev.cammiescorner.arcanus.client.renderer.armor.WizardRobesRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.LecternSpellScrollRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.MagicBlockEntityRenderer;
@@ -87,7 +88,6 @@ import java.util.function.BooleanSupplier;
 @Environment(EnvType.CLIENT)
 @AutoService(ClientEntryPoint.class)
 public class ArcanusClient implements ClientEntryPoint {
-	private static final ResourceLocation HUD_ELEMENTS = Arcanus.id("textures/gui/hud/mana_bar.png");
 	private static final ResourceLocation HUD_ELEMENTS2 = Arcanus.id("textures/gui/hud/mana_bars.png");
 	private static final ResourceLocation STUN_OVERLAY = Arcanus.id("textures/gui/hud/stunned_vignette.png");
 	private static final ResourceLocation MAGIC_CIRCLES = Arcanus.id("textures/entity/feature/magic_circles.png");
@@ -109,8 +109,8 @@ public class ArcanusClient implements ClientEntryPoint {
 		MenuScreens.register(ArcanusMenus.SPELL_BOOK_MENU.get(), SpellBookScreen::new);
 		MenuScreens.register(ArcanusMenus.ARCANE_WORKBENCH_MENU.get(), ArcaneWorkbenchScreen::new);
 
-		EntityModelLayerRegistry.registerModelLayer(WizardArmourModel.MODEL_LAYER, WizardArmourModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(BattleMageArmourModel.MODEL_LAYER, BattleMageArmourModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(WizardArmorModel.MODEL_LAYER, WizardArmorModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(BattleMageArmorModel.MODEL_LAYER, BattleMageArmorModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(WizardModel.MODEL_LAYER, WizardModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(OpossumModel.MODEL_LAYER, OpossumModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(MagicLobModel.MODEL_LAYER, MagicLobModel::getTexturedModelData);
@@ -148,7 +148,7 @@ public class ArcanusClient implements ClientEntryPoint {
 			event.register(WizardRobesRenderer::new, ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS);
 		});
 
-		ArmorRenderer.register(new BattleMageArmourRenderer(), ArcanusItems.BATTLE_MAGE_HELMET.get(), ArcanusItems.BATTLE_MAGE_CHESTPLATE.get(), ArcanusItems.BATTLE_MAGE_LEGGINGS.get(), ArcanusItems.BATTLE_MAGE_BOOTS.get());
+		ArmorRenderer.register(new BattleMageArmorRenderer(), ArcanusItems.BATTLE_MAGE_HELMET.get(), ArcanusItems.BATTLE_MAGE_CHESTPLATE.get(), ArcanusItems.BATTLE_MAGE_LEGGINGS.get(), ArcanusItems.BATTLE_MAGE_BOOTS.get());
 
 		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE.get(), CollapseParticle.Factory::new);
 
@@ -337,15 +337,9 @@ public class ArcanusClient implements ClientEntryPoint {
 					poseStack.scale(0.225f, 0.225f, 1f);
 
 					// render mana bars
-					for(int i = 0; i < 5; i++) {
-						Color color = switch(i) {
-							case 0 -> Color.fromRGB(184, 28, 14);
-							case 1 -> Color.fromRGB(54, 124, 38);
-							case 2 -> Color.fromRGB(6, 51, 141);
-							case 3 -> Color.fromRGB(255, 251, 213);
-							case 4 -> Color.fromRGB(41, 29, 42);
-							default -> Color.fromRGB(255, 255, 255);
-						};
+					for(int i = 0; i < ManaColor.values().length; i++) {
+						ManaColor manaColor = ManaColor.values()[i];
+						Color color = manaColor.getColor();
 
 						RenderSystem.setShaderColor(color.redF(), color.greenF(), color.blueF(), alpha);
 
@@ -356,10 +350,10 @@ public class ArcanusClient implements ClientEntryPoint {
 						poseStack.mulPose(Axis.ZP.rotationDegrees(startingAngle + angleOffset * i));
 						poseStack.translate(-8, -8, 0);
 
-						float maxMana = 25f;
-						float mana = 25f;
-						float ratio = Math.min(1f, maxMana <= 0f ? 0f : (mana / maxMana));
-						float halfNHalf = ArcanusConfig.scaleManaBarsWithMaxMana ? (maxMana - 12) / 2f : (50 - 6);
+						double maxMana = ArcanusComponents.getMaxMana(player, manaColor);
+						double mana = ArcanusComponents.getMana(player, manaColor);
+						double ratio = Math.min(1f, maxMana <= 0f ? 0f : (mana / maxMana));
+						double halfNHalf = ArcanusConfig.scaleManaBarsWithMaxMana ? (maxMana - 12) / 2f : (35 - 6);
 						int bottomMana = (int) (halfNHalf * Math.clamp(ratio / 0.44f, 0f, 1f));
 						int switchMana = (int) (12 * (ratio <= 0.56f ? Math.clamp((ratio - 0.44f) / 0.12f, 0f, 1f) : 1f));
 						int topMana = (int) (halfNHalf * Math.clamp((ratio - 0.56f) / 0.44f, 0f, 1f));

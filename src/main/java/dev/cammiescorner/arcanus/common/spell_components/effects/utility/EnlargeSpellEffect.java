@@ -22,9 +22,8 @@ public class EnlargeSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.UtilityEffects.EnlargeEffectProperties.enabled,
 			() -> SpellType.UTILITY,
 			() -> ArcanusConfig.UtilityEffects.EnlargeEffectProperties.weight,
-			() -> ArcanusConfig.UtilityEffects.EnlargeEffectProperties.manaCost,
+			() -> ArcanusConfig.UtilityEffects.EnlargeEffectProperties.manaCosts(),
 			() -> ArcanusConfig.UtilityEffects.EnlargeEffectProperties.coolDown,
-			() -> ArcanusConfig.UtilityEffects.EnlargeEffectProperties.minimumLevel,
 			() -> ArcanusConfig.UtilityEffects.EnlargeEffectProperties.procsOnce
 		);
 	}
@@ -50,8 +49,9 @@ public class EnlargeSpellEffect extends SpellEffect {
 				else {
 					MobEffectInstance enlargeEffect = livingEntity.getEffect(ArcanusMobEffects.ENLARGE.holder());
 					int amplifier = enlargeEffect != null ? Math.max(enlargeEffect.getAmplifier() + 1, 4) : 0;
+					int duration = ArcanusConfig.sizeChangingIsPermanent ? -1 : (int) (ArcanusConfig.UtilityEffects.EnlargeEffectProperties.baseEffectDuration * effects.stream().filter(ArcanusSpellComponents.ENLARGE::is).count() * potency);
 
-					livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.ENLARGE.holder(), (int) (ArcanusConfig.UtilityEffects.EnlargeEffectProperties.baseEffectDuration * effects.stream().filter(ArcanusSpellComponents.ENLARGE::is).count() * potency), amplifier, false, true, true));
+					livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.ENLARGE.holder(), duration, amplifier, false, true, true));
 				}
 			}
 		}

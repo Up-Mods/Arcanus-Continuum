@@ -1,18 +1,16 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
 import dev.cammiescorner.arcanus.common.entities.magic.EntangledOrb;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
-import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
+import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import net.minecraft.Util;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
 import java.util.UUID;
 
@@ -58,13 +56,13 @@ public class GuardianOrbComponent implements ServerTickingComponent {
 	}
 
 	public void setManaLock(UUID orbId, int strength) {
-		AttributeInstance maxMana = entity.getAttribute(ArcanusEntityAttributes.MAX_MANA.holder());
-		AttributeInstance manaLock = entity.getAttribute(ArcanusEntityAttributes.MANA_LOCK.holder());
+		AttributeInstance manaLock = entity.getAttribute(ArcanusAttributes.MANA_LOCK.holder());
 
-		if(manaLock != null)
-			manaLock.removeModifier(uUID);
-		if(maxMana != null && manaLock != null && !orbId.equals(Util.NIL_UUID))
-			manaLock.addPermanentModifier(new AttributeModifier(uUID, maxMana.getValue() * (strength * (ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.maximumManaLock / 11)), AttributeModifier.Operation.ADD_VALUE));
+		// TODO redo all this mess
+//		if(manaLock != null)
+//			manaLock.removeModifier(uUID);
+//		if(maxMana != null && manaLock != null && !orbId.equals(Util.NIL_UUID))
+//			manaLock.addPermanentModifier(new AttributeModifier(uUID, maxMana.getValue() * (strength * (ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.maximumManaLock / 11)), AttributeModifier.Operation.ADD_VALUE));
 
 		this.orbId = orbId;
 		this.strength = strength;

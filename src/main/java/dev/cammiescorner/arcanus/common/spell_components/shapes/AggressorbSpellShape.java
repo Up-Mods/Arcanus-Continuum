@@ -24,10 +24,9 @@ public class AggressorbSpellShape extends SpellShape {
 		super(
 			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.enabled,
 			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.weight,
-			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.manaCost,
+			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.manaCosts(),
 			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.manaMultiplier,
 			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.coolDown,
-			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.minimumLevel,
 			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.potencyModifier,
 			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.procsOnce
 		);

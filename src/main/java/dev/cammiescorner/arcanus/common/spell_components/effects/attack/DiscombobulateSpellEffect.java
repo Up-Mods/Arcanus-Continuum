@@ -23,9 +23,8 @@ public class DiscombobulateSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.enabled,
 			() -> SpellType.ATTACK,
 			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.weight,
-			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.manaCost,
+			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.manaCosts(),
 			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.coolDown,
-			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.minimumLevel,
 			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.procsOnce
 		);
 	}

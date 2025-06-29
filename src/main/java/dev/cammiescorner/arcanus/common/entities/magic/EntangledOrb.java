@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanus.common.entities.magic;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entities.Targetable;
+import dev.cammiescorner.arcanus.api.spells.ManaColor;
 import dev.cammiescorner.arcanus.api.spells.SpellEffect;
 import dev.cammiescorner.arcanus.api.spells.SpellGroup;
 import dev.cammiescorner.arcanus.api.spells.SpellShape;
@@ -87,11 +88,16 @@ public class EntangledOrb extends Entity implements Targetable {
 			level().addParticle(ParticleTypes.END_ROD, getX(), getY() + getBbHeight() / 2, getZ(), vel.x(), vel.y(), vel.z());
 		}
 
-		if(tickCount % 100 == 0 && ArcanusComponents.drainMana(caster, ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.baseManaDrain * effects.size(), false)) {
-			EntityHitResult hitResult = new EntityHitResult(target);
+		for(ManaColor manaColor : ArcanusSpellComponents.ENTANGLED_ORB.get().getManaCost().keySet()) {
+			if(ArcanusSpellComponents.ENTANGLED_ORB.get().getManaCost().get(manaColor) <= 0)
+				continue;
 
-			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, this, level(), hitResult, effects, stack, potency);
+			if(tickCount % 100 == 0 && ArcanusComponents.drainMana(caster, manaColor, ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.baseManaDrain * effects.size(), false)) {
+				EntityHitResult hitResult = new EntityHitResult(target);
+
+				for(SpellEffect effect : new HashSet<>(effects))
+					effect.effect(caster, this, level(), hitResult, effects, stack, potency);
+			}
 		}
 
 		super.tick();

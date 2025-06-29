@@ -4,6 +4,7 @@ import com.google.auto.service.AutoService;
 import com.mojang.authlib.GameProfile;
 import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
 import commonnetwork.api.Network;
+import dev.cammiescorner.arcanus.api.spells.ManaColor;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.common.blocks.MagicDoorBlock;
 import dev.cammiescorner.arcanus.common.blocks.entities.MagicDoorBlockEntity;
@@ -51,7 +52,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @AutoService(MainEntryPoint.class)
 public class Arcanus implements MainEntryPoint {
@@ -59,7 +62,7 @@ public class Arcanus implements MainEntryPoint {
 	public static final Configurator configurator = new Configurator(MOD_ID);
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("##,####.##");
-	public static final Color DEFAULT_MAGIC_COLOUR = Color.fromInt(0x68e1ff, Color.Ordering.RGB);
+	public static final Color DEFAULT_MAGIC_COLOR = Color.fromInt(0x68e1ff, Color.Ordering.RGB);
 	public static final SyncToken<WizardData> WIZARD_DATA = DataSyncAPI.register(WizardData.class, WizardData.ID, WizardData.CODEC);
 	public static final SyncToken<HaloData> HALO_DATA = DataSyncAPI.register(HaloData.class, HaloData.ID, HaloData.CODEC);
 	public static final ResourceLocation SPELL_SPEED_MODIFIER_ID = Arcanus.id("speed_effect_modifier");
@@ -69,9 +72,9 @@ public class Arcanus implements MainEntryPoint {
 		configurator.register(ArcanusConfig.class);
 
 		RegistryService registryService = RegistryService.get();
-		ArcanusEntityAttributes.registerAll();
+		ArcanusAttributes.registerAll();
 		ArcanusEntities.ENTITY_TYPES.accept(registryService);
-		ArcanusArmourMaterials.MATERIALS.accept(registryService);
+		ArcanusArmorMaterials.MATERIALS.accept(registryService);
 		ArcanusDataComponents.DATA_COMPONENTS.accept(registryService);
 		ArcanusItems.ITEMS.accept(registryService);
 		ArcanusItems.ITEM_GROUPS.accept(registryService);
@@ -231,5 +234,17 @@ public class Arcanus implements MainEntryPoint {
 			return component.getEquipped(ArcanusItems.SPELL_BOOK.get()).getFirst().getB();
 
 		return ItemStack.EMPTY;
+	}
+
+	public static Map<ManaColor, Double> constructManaMap(double redMana, double greenMana, double blueMana, double whiteMana, double blackMana) {
+		Map<ManaColor, Double> map = new HashMap<>();
+
+		map.putIfAbsent(ManaColor.RED, redMana);
+		map.putIfAbsent(ManaColor.GREEN, greenMana);
+		map.putIfAbsent(ManaColor.BLUE, blueMana);
+		map.putIfAbsent(ManaColor.WHITE, whiteMana);
+		map.putIfAbsent(ManaColor.BLACK, blackMana);
+
+		return map;
 	}
 }

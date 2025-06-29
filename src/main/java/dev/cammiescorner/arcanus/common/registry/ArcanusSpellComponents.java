@@ -28,7 +28,7 @@ public class ArcanusSpellComponents {
 	/**
 	 * DO NOT DELETE OR DISABLE. WILL BREAK THE ENTIRE MOD.
 	 **/
-	public static final RegistrySupplier<SpellComponent> EMPTY = SPELL_COMPONENTS.register("empty", () -> new SpellShape(() -> true, () -> Weight.NONE, () -> 0d, () -> 1d, () -> 0, () -> 0, () -> 0d, () -> true) {
+	public static final RegistrySupplier<SpellComponent> EMPTY = SPELL_COMPONENTS.register("empty", () -> new SpellShape(() -> true, () -> Weight.NONE, () -> Arcanus.constructManaMap(0, 0, 0, 0, 0), () -> 1d, () -> 0, () -> 0d, () -> true) {
 		@Override
 		public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 			castNext(caster, castFrom, castSource, level, stack, spellGroups, groupIndex, potency);
@@ -37,7 +37,6 @@ public class ArcanusSpellComponents {
 
 	//-----Spell Shapes-----//
 	public static final RegistrySupplier<SpellShape> SELF = SPELL_COMPONENTS.register("self_shape", SelfSpellShape::new);
-	public static final RegistrySupplier<SpellShape> TOUCH = SPELL_COMPONENTS.register("touch_shape", TouchSpellShape::new);
 	public static final RegistrySupplier<SpellShape> MISSILE = SPELL_COMPONENTS.register("missile_shape", MissileSpellShape::new);
 	public static final RegistrySupplier<SpellShape> LOB = SPELL_COMPONENTS.register("lob_shape", LobSpellShape::new);
 	public static final RegistrySupplier<SpellShape> BOLT = SPELL_COMPONENTS.register("bolt_shape", BoltSpellShape::new);

@@ -23,9 +23,8 @@ public class WitheringSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.AttackEffects.WitheringEffectProperties.enabled,
 			() -> SpellType.ATTACK,
 			() -> ArcanusConfig.AttackEffects.WitheringEffectProperties.weight,
-			() -> ArcanusConfig.AttackEffects.WitheringEffectProperties.manaCost,
+			() -> ArcanusConfig.AttackEffects.WitheringEffectProperties.manaCosts(),
 			() -> ArcanusConfig.AttackEffects.WitheringEffectProperties.coolDown,
-			() -> ArcanusConfig.AttackEffects.WitheringEffectProperties.minimumLevel,
 			() -> ArcanusConfig.AttackEffects.WitheringEffectProperties.procsOnce
 		);
 	}

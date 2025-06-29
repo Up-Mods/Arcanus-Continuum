@@ -2,23 +2,22 @@ package dev.cammiescorner.arcanus.common.networking.serverbound;
 
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.datacomponents.SpellBookComponent;
-import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
+import dev.cammiescorner.arcanus.api.spells.ManaColor;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.api.spells.Spell;
-import dev.cammiescorner.arcanus.api.spells.SpellComponent;
 import dev.cammiescorner.arcanus.api.spells.SpellGroup;
 import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
+import dev.cammiescorner.arcanus.common.data_components.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
+import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -65,19 +64,16 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements Cu
 					if(player.getCooldowns().getCooldownPercent(staff, 1f) == 0) {
 						Spell spell = spells.getSpell(index);
 
-						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).mapToInt(SpellComponent::getMinLevel).max().orElse(1) > ArcanusComponents.WIZARD_LEVEL_COMPONENT.get(player).getLevel()) {
-							player.displayClientMessage(Component.translatable("spell.arcanus.too_low_level"), true);
-							return;
-						}
-
 						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).count() > ArcanusComponents.maxSpellSize(player)) {
 							player.displayClientMessage(Component.translatable("spell.arcanus.too_many_components"), true);
 							return;
 						}
 
-						if(!ArcanusComponents.drainMana(player, spell.getManaCost(), player.isCreative())) {
-							player.displayClientMessage(Component.translatable("spell.arcanus.not_enough_mana"), true);
-							return;
+						for(ManaColor manaColor : spell.getManaCost().keySet()) {
+							if(!ArcanusComponents.drainMana(player, manaColor, spell.getManaCost().get(manaColor), false)) {
+								player.displayClientMessage(Component.translatable("spell.arcanus.not_enough_mana").withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
+								return;
+							}
 						}
 
 						ArcanusComponents.setPattern(player, Arcanus.getSpellPattern(index));
@@ -86,7 +82,7 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements Cu
 						player.displayClientMessage(Component.translatable(spell.getName()).withStyle(ChatFormatting.GREEN), true);
 
 						for(Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(ArcanusItemTags.STAVES))
-							player.getCooldowns().addCooldown(holder.value(), (int) (spell.getCoolDown() * player.getAttributeValue(ArcanusEntityAttributes.SPELL_COOL_DOWN.holder())));
+							player.getCooldowns().addCooldown(holder.value(), (int) (spell.getCoolDown() * player.getAttributeValue(ArcanusAttributes.SPELL_COOL_DOWN.holder())));
 					}
 				}
 			}

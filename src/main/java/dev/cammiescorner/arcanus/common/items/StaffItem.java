@@ -46,11 +46,11 @@ public class StaffItem extends Item {
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
-		int primaryColour = getPrimaryColorRGB(stack);
-		int secondaryColour = getSecondaryColorRGB(stack);
+		int primaryColor = getPrimaryColorRGB(stack);
+		int secondaryColor = getSecondaryColorRGB(stack);
 
-		tooltip.add(Component.translatable(STAFF_PRIMARY_COLOR).withStyle(style -> style.withColor(primaryColour)).append(Component.literal(": " + String.format(Locale.ROOT, "#%06x", primaryColour & 0xffffff)).withStyle(ChatFormatting.GRAY)));
-		tooltip.add(Component.translatable(STAFF_SECONDARY_COLOR).withStyle(style -> style.withColor(secondaryColour)).append(Component.literal(": " + String.format(Locale.ROOT, "#%06x", secondaryColour & 0xffffff)).withStyle(ChatFormatting.GRAY)));
+		tooltip.add(Component.translatable(STAFF_PRIMARY_COLOR).withStyle(style -> style.withColor(primaryColor)).append(Component.literal(": " + String.format(Locale.ROOT, "#%06x", primaryColor & 0xffffff)).withStyle(ChatFormatting.GRAY)));
+		tooltip.add(Component.translatable(STAFF_SECONDARY_COLOR).withStyle(style -> style.withColor(secondaryColor)).append(Component.literal(": " + String.format(Locale.ROOT, "#%06x", secondaryColor & 0xffffff)).withStyle(ChatFormatting.GRAY)));
 	}
 
 	public static ItemAttributeModifiers createAttributes() {

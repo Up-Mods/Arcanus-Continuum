@@ -22,9 +22,8 @@ public class RegenerateSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.SupportEffects.RegenerateEffectProperties.enabled,
 			() -> SpellType.SUPPORT,
 			() -> ArcanusConfig.SupportEffects.RegenerateEffectProperties.weight,
-			() -> ArcanusConfig.SupportEffects.RegenerateEffectProperties.manaCost,
+			() -> ArcanusConfig.SupportEffects.RegenerateEffectProperties.manaCosts(),
 			() -> ArcanusConfig.SupportEffects.RegenerateEffectProperties.coolDown,
-			() -> ArcanusConfig.SupportEffects.RegenerateEffectProperties.minimumLevel,
 			() -> ArcanusConfig.SupportEffects.RegenerateEffectProperties.procsOnce
 		);
 	}

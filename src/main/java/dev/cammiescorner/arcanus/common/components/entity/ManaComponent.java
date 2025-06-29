@@ -1,16 +1,12 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
-import com.mojang.serialization.Codec;
+import dev.cammiescorner.arcanus.api.spells.ManaColor;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import dev.cammiescorner.arcanus.common.registry.ArcanusEntityAttributes;
-import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
-import net.minecraft.core.Holder;
+import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
@@ -21,26 +17,30 @@ import java.util.Map;
 
 public class ManaComponent implements AutoSyncedComponent, ServerTickingComponent {
 	private final LivingEntity entity;
-	private final Map<Color, Double> manaMap = new HashMap<>();
+	private final Map<ManaColor, Double> manaMap = new HashMap<>();
 	private double mana;
 
 	public ManaComponent(LivingEntity entity) {
 		this.entity = entity;
 
-		manaMap.putIfAbsent(Color.RED, 25d);
-		manaMap.putIfAbsent(Color.GREEN, 25d);
-		manaMap.putIfAbsent(Color.BLUE, 25d);
-		manaMap.putIfAbsent(Color.WHITE, 25d);
-		manaMap.putIfAbsent(Color.BLACK, 25d);
+		manaMap.putIfAbsent(ManaColor.RED, 25d);
+		manaMap.putIfAbsent(ManaColor.GREEN, 25d);
+		manaMap.putIfAbsent(ManaColor.BLUE, 25d);
+		manaMap.putIfAbsent(ManaColor.WHITE, 25d);
+		manaMap.putIfAbsent(ManaColor.BLACK, 25d);
 	}
 
 	@Override
 	public void serverTick() {
-		AttributeInstance manaRegenAttr = entity.getAttribute(ArcanusEntityAttributes.MANA_REGEN.holder());
+		AttributeInstance manaRegenAttr = entity.getAttribute(ArcanusAttributes.MANA_REGEN.holder());
 
-		if(manaRegenAttr != null)
-			for(Color color : manaMap.keySet())
-				addMana(color, manaRegenAttr.getValue() / (entity instanceof Player player && player.isCreative() ? 1 : 20), false);
+		for(ManaColor manaColor : manaMap.keySet()) {
+			if(manaRegenAttr != null)
+				addMana(manaColor, manaRegenAttr.getValue() / (entity instanceof Player player && player.isCreative() ? 1 : 20), false);
+
+			if(getMana(manaColor) > manaColor.getMaxMana(entity))
+				setMana(manaColor, manaColor.getMaxMana(entity));
+		}
 	}
 
 	@Override
@@ -50,25 +50,25 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 
 	@Override
 	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		for(Map.Entry<Color, Double> entry : manaMap.entrySet())
+		for(Map.Entry<ManaColor, Double> entry : manaMap.entrySet())
 			tag.putDouble(entry.getKey().getSerializedName(), entry.getValue());
 	}
 
-	public double getMana(Color color) {
-		return manaMap.get(color);
+	public double getMana(ManaColor manaColor) {
+		return manaMap.get(manaColor);
 	}
 
-	public void setMana(Color color, double mana) {
-		manaMap.put(color, Mth.clamp(mana, 0, color.getMaxMana(entity)));
+	public void setMana(ManaColor manaColor, double mana) {
+		manaMap.put(manaColor, Mth.clamp(mana, 0, manaColor.getMaxMana(entity)));
 		ArcanusComponents.MANA_COMPONENT.sync(entity);
 	}
 
-	public double getTrueMaxMana(Color color) {
-		return color.getMaxMana(entity) - getManaLock();
+	public double getTrueMaxMana(ManaColor manaColor) {
+		return manaColor.getMaxMana(entity) - getManaLock();
 	}
 
 	public double getManaLock() {
-		AttributeInstance manaLockAttr = entity.getAttribute(ArcanusEntityAttributes.MANA_LOCK.holder());
+		AttributeInstance manaLockAttr = entity.getAttribute(ArcanusAttributes.MANA_LOCK.holder());
 
 		if(manaLockAttr != null)
 			return manaLockAttr.getValue();
@@ -76,10 +76,10 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 		return 0;
 	}
 
-	public boolean addMana(Color color, double amount, boolean simulate) {
-		if(getMana(color) < getTrueMaxMana(color)) {
+	public boolean addMana(ManaColor manaColor, double amount, boolean simulate) {
+		if(getMana(manaColor) < getTrueMaxMana(manaColor)) {
 			if(!simulate)
-				setMana(color, getMana(color) + amount);
+				setMana(manaColor, getMana(manaColor) + amount);
 
 			return true;
 		}
@@ -87,53 +87,19 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 		return false;
 	}
 
-	public boolean drainMana(Color color, double amount, boolean simulate) {
-		AttributeInstance instance = entity.getAttribute(ArcanusEntityAttributes.MANA_COST.holder());
+	public boolean drainMana(ManaColor manaColor, double amount, boolean simulate) {
+		AttributeInstance instance = entity.getAttribute(ArcanusAttributes.MANA_COST.holder());
 
 		if(instance != null)
 			amount *= instance.getValue();
 
-		if(getMana(color) >= 0 && getMana(color) >= amount) {
+		if(getMana(manaColor) >= 0 && getMana(manaColor) >= amount) {
 			if(!simulate)
-				setMana(color, Math.max(0, getMana(color) - amount));
+				setMana(manaColor, Math.max(0, getMana(manaColor) - amount));
 
 			return true;
 		}
 
 		return false;
-	}
-
-	public enum Color implements StringRepresentable {
-		RED(ArcanusEntityAttributes.RED_MANA, "RedMana"),
-		GREEN(ArcanusEntityAttributes.GREEN_MANA, "GreenMana"),
-		BLUE(ArcanusEntityAttributes.BLUE_MANA, "BlueMana"),
-		WHITE(ArcanusEntityAttributes.WHITE_MANA, "WhiteMana"),
-		BLACK(ArcanusEntityAttributes.BLACK_MANA, "BlackMana");
-
-		public static final Codec<Color> CODEC = StringRepresentable.fromValues(Color::values);
-		final Holder<Attribute> attribute;
-		final String serializedName;
-
-		Color(RegistrySupplier<Attribute> attributeSupplier, String name) {
-			this(attributeSupplier.holder(), name);
-		}
-
-		Color(Holder<Attribute> attribute, String name) {
-			this.attribute = attribute;
-			this.serializedName = name;
-		}
-
-		public Holder<Attribute> getAttribute() {
-			return attribute;
-		}
-
-		public double getMaxMana(LivingEntity entity) {
-			return entity.getAttributeValue(attribute);
-		}
-
-		@Override
-		public String getSerializedName() {
-			return serializedName;
-		}
 	}
 }

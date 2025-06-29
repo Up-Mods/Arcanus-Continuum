@@ -38,7 +38,7 @@ public class CounterComponent implements AutoSyncedComponent, ServerTickingCompo
 	private final List<SpellGroup> groups = new ArrayList<>();
 	private UUID casterId = Util.NIL_UUID;
 	private ItemStack stack = ItemStack.EMPTY;
-	private Color color = Arcanus.DEFAULT_MAGIC_COLOUR;
+	private Color color = Arcanus.DEFAULT_MAGIC_COLOR;
 	private int groupIndex = 0;
 	private double potency = 1f;
 	private long endTime = 0;
@@ -115,7 +115,7 @@ public class CounterComponent implements AutoSyncedComponent, ServerTickingCompo
 		groups.clear();
 		casterId = Util.NIL_UUID;
 		stack = ItemStack.EMPTY;
-		color = Arcanus.DEFAULT_MAGIC_COLOUR;
+		color = Arcanus.DEFAULT_MAGIC_COLOR;
 		groupIndex = 0;
 		potency = 1;
 		endTime = 0;
