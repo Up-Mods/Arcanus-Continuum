@@ -27,6 +27,9 @@ public final class ArcanusConfig {
 	@ConfigEntry(id = "scaleManaBarsWithMaxMana", translation = CONFIG_SCALE_MANA_BARS)
 	public static boolean scaleManaBarsWithMaxMana = true;
 
+	@ConfigEntry(id = "manaBarsMaxLength", translation = CONFIG_MANA_BARS_MAX_LENGTH)
+	public static int manaBarsMaxLength = 200;
+
 	@ConfigEntry(id = "manaBarsOnBottom", translation = CONFIG_MANA_BARS_ON_TOP)
 	public static boolean manaBarsOnTop = true;
 

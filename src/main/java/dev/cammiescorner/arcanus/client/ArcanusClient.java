@@ -353,7 +353,7 @@ public class ArcanusClient implements ClientEntryPoint {
 						double maxMana = ArcanusComponents.getMaxMana(player, manaColor);
 						double mana = ArcanusComponents.getMana(player, manaColor);
 						double ratio = Math.min(1f, maxMana <= 0f ? 0f : (mana / maxMana));
-						double halfNHalf = ArcanusConfig.scaleManaBarsWithMaxMana ? (maxMana - 12) / 2f : (35 - 6);
+						double halfNHalf = ArcanusConfig.scaleManaBarsWithMaxMana ? (Math.min(maxMana, ArcanusConfig.manaBarsMaxLength) - 12) / 2f : (35 - 6);
 						int bottomMana = (int) (halfNHalf * Math.clamp(ratio / 0.44f, 0f, 1f));
 						int switchMana = (int) (12 * (ratio <= 0.56f ? Math.clamp((ratio - 0.44f) / 0.12f, 0f, 1f) : 1f));
 						int topMana = (int) (halfNHalf * Math.clamp((ratio - 0.56f) / 0.44f, 0f, 1f));
