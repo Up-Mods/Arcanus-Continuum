@@ -4,7 +4,7 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spells.SpellEffect;
 import dev.cammiescorner.arcanus.api.spells.SpellGroup;
 import dev.cammiescorner.arcanus.api.spells.SpellShape;
-import dev.cammiescorner.arcanus.common.entities.magic.EntangledOrb;
+import dev.cammiescorner.arcanus.common.entities.magic.FollowingOrb;
 import dev.cammiescorner.arcanus.common.registry.ArcanusEntities;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -15,16 +15,16 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class EntangledOrbSpellShape extends SpellShape {
-	public EntangledOrbSpellShape() {
+public class FollowingOrbShape extends SpellShape {
+	public FollowingOrbShape() {
 		super(
-			() -> ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.enabled,
-			() -> ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.weight,
-			() -> ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.manaCosts(),
-			() -> ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.manaMultiplier,
-			() -> ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.coolDown,
-			() -> ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.potencyModifier,
-			() -> ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.procsOnce
+			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.enabled,
+			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.weight,
+			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.manaCosts(),
+			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.coolDown,
+			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.potencyModifier,
+			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.procsOnce
 		);
 	}
 
@@ -33,13 +33,13 @@ public class EntangledOrbSpellShape extends SpellShape {
 		LivingEntity targetEntity = castSource instanceof LivingEntity livingEntity ? livingEntity : caster;
 
 		if(targetEntity != null) {
-			EntangledOrb orb = ArcanusEntities.ENTANGLED_ORB.get().create(level);
+			FollowingOrb orb = ArcanusEntities.FOLLOWING_ORB.get().create(level);
 			orb.setProperties(caster, targetEntity, stack, effects, spellGroups, groupIndex, potency + getPotencyModifier());
 			orb.setPos(castFrom);
 			level.addFreshEntity(orb);
 
 			if(caster != null) {
-				List<? extends EntangledOrb> oldOrbs = level.getEntities(ArcanusEntities.ENTANGLED_ORB.get(), existingOrb -> existingOrb != orb && existingOrb.getCaster().getUUID().equals(caster.getUUID()));
+				List<? extends FollowingOrb> oldOrbs = level.getEntities(ArcanusEntities.FOLLOWING_ORB.get(), existingOrb -> existingOrb != orb && existingOrb.getCaster().getUUID().equals(caster.getUUID()));
 				oldOrbs.forEach(Entity::discard);
 			}
 		}

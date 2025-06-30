@@ -97,7 +97,7 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 			Aggressorb.class,
 			AreaOfEffect.class,
 			Beam.class,
-			EntangledOrb.class,
+			FollowingOrb.class,
 			Missile.class,
 			MagicRune.class,
 			ManaShield.class,

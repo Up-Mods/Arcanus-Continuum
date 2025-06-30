@@ -3,14 +3,14 @@ package dev.cammiescorner.arcanus.client.models.entity.magic;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.entities.magic.EntangledOrb;
+import dev.cammiescorner.arcanus.common.entities.magic.FollowingOrb;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class EntangledOrbModel extends EntityModel<EntangledOrb> {
+public class EntangledOrbModel extends EntityModel<FollowingOrb> {
 	public static final ModelLayerLocation MODEL_LAYER = new ModelLayerLocation(Arcanus.id("guardian_orb"), "main");
 	public final ModelPart cube1;
 	public final ModelPart cube2;
@@ -34,7 +34,7 @@ public class EntangledOrbModel extends EntityModel<EntangledOrb> {
 	}
 
 	@Override
-	public void setupAnim(EntangledOrb entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+	public void setupAnim(FollowingOrb entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 
 	}
 

@@ -119,7 +119,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.entity(ArcanusEntities.AGGRESSORB, "Aggressorb");
 		builder.entity(ArcanusEntities.AOE, "Area Of Effect");
 		builder.entity(ArcanusEntities.BEAM, "Beam");
-		builder.entity(ArcanusEntities.ENTANGLED_ORB, "Entangled Orb");
+		builder.entity(ArcanusEntities.FOLLOWING_ORB, "Following Orb");
 		builder.entity(ArcanusEntities.MISSILE, "Missile");
 		builder.entity(ArcanusEntities.LOB, "Lob");
 		builder.entity(ArcanusEntities.GUIDED_SHOT, "Guided Shot");
@@ -248,7 +248,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		spell(builder, ArcanusSpellComponents.BURST, "Burst Shape");
 		spell(builder, ArcanusSpellComponents.GUIDED_SHOT, "Guided Shot Shape");
 		spell(builder, ArcanusSpellComponents.COUNTER, "Counter Shape");
-		spell(builder, ArcanusSpellComponents.ENTANGLED_ORB, "Entangled Orb Shape");
+		spell(builder, ArcanusSpellComponents.FOLLOWING_ORB, "Following Orb Shape");
 		spell(builder, ArcanusSpellComponents.AGGRESSORB, "Aggressorb Shape");
 
 		spell(builder, ArcanusSpellComponents.DAMAGE, "Damage Effect");
@@ -416,7 +416,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_COUNTER_SHAPE_PROPERTIES, "Counter Shape");
 		builder.add(CONFIG_AOE_SHAPE_PROPERTIES, "Area Of Effect Shape");
 		builder.add(CONFIG_SMITE_SHAPE_PROPERTIES, "Smite Shape");
-		builder.add(CONFIG_ENTANGLED_ORB_SHAPE_PROPERTIES, "Entangled Orb Shape");
+		builder.add(CONFIG_FOLLOWING_ORB_SHAPE_PROPERTIES, "Following Orb Shape");
 		builder.add(CONFIG_AGGRESSORB_SHAPE_PROPERTIES, "Aggressorb Shape");
 		builder.add(CONFIG_DAMAGE_EFFECT_PROPERTIES, "Damage Effect");
 		builder.add(CONFIG_FIRE_EFFECT_PROPERTIES, "Fire Effect");

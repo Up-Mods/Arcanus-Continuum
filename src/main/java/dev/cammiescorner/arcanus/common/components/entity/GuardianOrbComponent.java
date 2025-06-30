@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.entities.magic.EntangledOrb;
+import dev.cammiescorner.arcanus.common.entities.magic.FollowingOrb;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import net.minecraft.Util;
 import net.minecraft.core.HolderLookup;
@@ -31,7 +31,7 @@ public class GuardianOrbComponent implements ServerTickingComponent {
 			setManaLock(orbId, strength);
 
 		if(!orbId.equals(Util.NIL_UUID) && entity.level() instanceof ServerLevel world) {
-			if(world.getEntity(orbId) instanceof EntangledOrb orb && entity == orb.getCaster())
+			if(world.getEntity(orbId) instanceof FollowingOrb orb && entity == orb.getCaster())
 				return;
 
 			setManaLock(Util.NIL_UUID, 0);

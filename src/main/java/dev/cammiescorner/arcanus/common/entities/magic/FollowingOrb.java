@@ -36,9 +36,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
-public class EntangledOrb extends Entity implements Targetable {
-	private static final EntityDataAccessor<Integer> OWNER_ID = SynchedEntityData.defineId(EntangledOrb.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Integer> TARGET_ID = SynchedEntityData.defineId(EntangledOrb.class, EntityDataSerializers.INT);
+public class FollowingOrb extends Entity implements Targetable {
+	private static final EntityDataAccessor<Integer> OWNER_ID = SynchedEntityData.defineId(FollowingOrb.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> TARGET_ID = SynchedEntityData.defineId(FollowingOrb.class, EntityDataSerializers.INT);
 	private final List<SpellEffect> effects = new ArrayList<>();
 	private final List<SpellGroup> groups = new ArrayList<>();
 	private UUID casterId = Util.NIL_UUID;
@@ -47,7 +47,7 @@ public class EntangledOrb extends Entity implements Targetable {
 	private int groupIndex = 0;
 	private double potency = 1f;
 
-	public EntangledOrb(EntityType<?> variant, Level world) {
+	public FollowingOrb(EntityType<?> variant, Level world) {
 		super(variant, world);
 		this.noPhysics = true;
 	}
@@ -88,11 +88,11 @@ public class EntangledOrb extends Entity implements Targetable {
 			level().addParticle(ParticleTypes.END_ROD, getX(), getY() + getBbHeight() / 2, getZ(), vel.x(), vel.y(), vel.z());
 		}
 
-		for(ManaType manaType : ArcanusSpellComponents.ENTANGLED_ORB.get().getManaCost().keySet()) {
-			if(ArcanusSpellComponents.ENTANGLED_ORB.get().getManaCost().get(manaType) <= 0)
+		for(ManaType manaType : ArcanusSpellComponents.FOLLOWING_ORB.get().getManaCost().keySet()) {
+			if(ArcanusSpellComponents.FOLLOWING_ORB.get().getManaCost().get(manaType) <= 0)
 				continue;
 
-			if(tickCount % 100 == 0 && ArcanusComponents.drainMana(caster, manaType, ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.baseManaDrain * effects.size(), false)) {
+			if(tickCount % 100 == 0 && ArcanusComponents.drainMana(caster, manaType, ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.baseManaDrain * effects.size(), false)) {
 				EntityHitResult hitResult = new EntityHitResult(target);
 
 				for(SpellEffect effect : new HashSet<>(effects))

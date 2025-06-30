@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.models.entity.magic.EntangledOrbModel;
-import dev.cammiescorner.arcanus.common.entities.magic.EntangledOrb;
+import dev.cammiescorner.arcanus.common.entities.magic.FollowingOrb;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
-public class EntangledOrbRenderer extends EntityRenderer<EntangledOrb> {
+public class EntangledOrbRenderer extends EntityRenderer<FollowingOrb> {
 	private static final ResourceLocation TEXTURE = Arcanus.id("textures/entity/magic/lob.png");
 	private final EntangledOrbModel model;
 
@@ -24,7 +24,7 @@ public class EntangledOrbRenderer extends EntityRenderer<EntangledOrb> {
 	}
 
 	@Override
-	public void render(EntangledOrb entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
+	public void render(FollowingOrb entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
 		VertexConsumer consumer = vertices.getBuffer(ArcanusClient.getMagicCircles(getTextureLocation(entity)));
 		Color color = ArcanusHelper.getMagicColor(entity);
 
@@ -41,7 +41,7 @@ public class EntangledOrbRenderer extends EntityRenderer<EntangledOrb> {
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(EntangledOrb entity) {
+	public ResourceLocation getTextureLocation(FollowingOrb entity) {
 		return TEXTURE;
 	}
 }
