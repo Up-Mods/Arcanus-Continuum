@@ -350,6 +350,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_MANA_BARS_MAX_LENGTH, "Max Length of Scaled Mana Bars");
 		builder.add(CONFIG_MANA_BARS_ON_TOP, "Move Mana Bars to the Top");
 		builder.add(CONFIG_RIGHT_SIDE_MANA_BARS, "Move Mana Bars to the Right");
+		builder.add(CONFIG_NUMERICAL_MANA_DISPLAY, "Display Exact Mana Amounts by Mana Bars");
 		builder.add(CONFIG_MAX_ENCHANT_LEVEL, "Max Enchantment Level");
 		builder.add(CONFIG_EXTRA_MANA_PER_LEVEL, "Extra Mana Per Level");
 		builder.add(CONFIG_MANA_MODIFIER_OP, "Mana Modifier Operation");

@@ -181,6 +181,7 @@
   "config.arcanus.missile_shape_properties": "Missile Shape",
   "config.arcanus.movement_effects_category": "Movement Effects",
   "config.arcanus.necromancy_effect_properties": "Necromancy Effect",
+  "config.arcanus.numerical_mana_display": "Display Exact Mana Amounts by Mana Bars",
   "config.arcanus.pocket_height": "Pocket Dimension Height",
   "config.arcanus.pocket_width": "Pocket Dimension Width",
   "config.arcanus.portal_grow_time": "Spatial Rift Grow Time",

@@ -36,8 +36,7 @@ public final class ArcanusConfig {
 	@ConfigEntry(id = "rightSideManaBars", translation = CONFIG_RIGHT_SIDE_MANA_BARS)
 	public static MirrorHudElement rightSideManaBars = MirrorHudElement.IF_LEFT_HANDED;
 
-	// TODO translation
-	@ConfigEntry(id = "numericalManaDisplay")
+	@ConfigEntry(id = "numericalManaDisplay", translation = CONFIG_NUMERICAL_MANA_DISPLAY)
 	public static boolean numericalManaDisplay = false;
 
 	@Category(value = "Spell Shapes", categories = {
@@ -517,7 +516,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_HEAVY;
 
-//			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
+			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
 			public static double redManaCost = 0;
 
 			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
@@ -558,7 +557,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_HEAVY;
 
-//			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
+			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
 			public static double redManaCost = 0;
 
 			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
@@ -606,7 +605,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_HEAVY;
 
-//			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
+			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
 			public static double redManaCost = 0;
 
 			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
@@ -674,7 +673,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-//			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
+			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
 			public static double redManaCost = 0;
 
 			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
@@ -713,7 +712,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-//			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
+			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
 			public static double redManaCost = 0;
 
 			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
@@ -752,7 +751,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-//			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
+			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
 			public static double redManaCost = 0;
 
 			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
@@ -795,7 +794,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-//			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
+			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
 			public static double redManaCost = 0;
 
 			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
@@ -834,7 +833,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-//			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
+			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
 			public static double redManaCost = 0;
 
 			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
@@ -873,7 +872,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-//			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
+			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
 			public static double redManaCost = 0;
 
 			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)

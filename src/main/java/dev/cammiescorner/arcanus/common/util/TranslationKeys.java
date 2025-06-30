@@ -85,6 +85,7 @@ public class TranslationKeys {
 	public static final String CONFIG_MANA_BARS_MAX_LENGTH = "config.arcanus.mana_bars_max_length";
 	public static final String CONFIG_MANA_BARS_ON_TOP = "config.arcanus.mana_bars_on_top";
 	public static final String CONFIG_RIGHT_SIDE_MANA_BARS = "config.arcanus.right_side_mana_bars";
+	public static final String CONFIG_NUMERICAL_MANA_DISPLAY = "config.arcanus.numerical_mana_display";
 	public static final String CONFIG_MAX_ENCHANT_LEVEL = "config.arcanus.max_enchantment_level";
 	public static final String CONFIG_EXTRA_MANA_PER_LEVEL = "config.arcanus.mana_per_level";
 	public static final String CONFIG_MANA_MODIFIER_OP = "config.arcanus.mana_modifier_operation";
