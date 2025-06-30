@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class StunOverlay {
-
 	private static final ResourceLocation OVERLAY_TEXTURE = Arcanus.id("textures/gui/hud/stunned_vignette.png");
 
 	public static void render(GuiGraphics guiGraphics, DeltaTracker tickDelta, LocalPlayer player) {

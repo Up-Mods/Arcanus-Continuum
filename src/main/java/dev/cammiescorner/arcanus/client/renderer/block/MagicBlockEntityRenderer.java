@@ -18,7 +18,7 @@ import org.joml.Matrix4f;
 
 import java.util.function.Function;
 
-import static dev.cammiescorner.arcanus.client.ArcanusClient.renderSide;
+import static dev.cammiescorner.arcanus.client.ArcanusClient.renderQuad;
 
 public class MagicBlockEntityRenderer<T extends AbstractMagicBlockEntity> implements BlockEntityRenderer<T> {
 	private static final RenderType LAYER = ArcanusClient.getMagicCircles(Arcanus.id("textures/block/magic_block.png"));
@@ -48,17 +48,17 @@ public class MagicBlockEntityRenderer<T extends AbstractMagicBlockEntity> implem
 
 				switch(direction) {
 					case SOUTH ->
-						renderSide(matrix4f, consumer, 0f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, color, light, overlay, matrices.last(), Direction.SOUTH); // south
+						renderQuad(matrix4f, consumer, 0f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, color, light, overlay, matrices.last(), Direction.SOUTH); // south
 					case NORTH ->
-						renderSide(matrix4f, consumer, 0f, 1f, 1f, 0f, 0f, 0f, 0f, 0f, color, light, overlay, matrices.last(), Direction.NORTH); // north
+						renderQuad(matrix4f, consumer, 0f, 1f, 1f, 0f, 0f, 0f, 0f, 0f, color, light, overlay, matrices.last(), Direction.NORTH); // north
 					case EAST ->
-						renderSide(matrix4f, consumer, 1f, 1f, 1f, 0f, 0f, 1f, 1f, 0f, color, light, overlay, matrices.last(), Direction.EAST); // east
+						renderQuad(matrix4f, consumer, 1f, 1f, 1f, 0f, 0f, 1f, 1f, 0f, color, light, overlay, matrices.last(), Direction.EAST); // east
 					case WEST ->
-						renderSide(matrix4f, consumer, 0f, 0f, 0f, 1f, 0f, 1f, 1f, 0f, color, light, overlay, matrices.last(), Direction.WEST); // west
+						renderQuad(matrix4f, consumer, 0f, 0f, 0f, 1f, 0f, 1f, 1f, 0f, color, light, overlay, matrices.last(), Direction.WEST); // west
 					case DOWN ->
-						renderSide(matrix4f, consumer, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 1f, color, light, overlay, matrices.last(), Direction.DOWN); // down
+						renderQuad(matrix4f, consumer, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 1f, color, light, overlay, matrices.last(), Direction.DOWN); // down
 					case UP ->
-						renderSide(matrix4f, consumer, 0f, 1f, 1f, 1f, 1f, 1f, 0f, 0f, color, light, overlay, matrices.last(), Direction.UP); // up
+						renderQuad(matrix4f, consumer, 0f, 1f, 1f, 1f, 1f, 1f, 0f, 0f, color, light, overlay, matrices.last(), Direction.UP); // up
 				}
 			}
 		}

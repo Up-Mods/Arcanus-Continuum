@@ -32,9 +32,9 @@ import dev.cammiescorner.arcanus.client.renderer.entity.living.OpossumRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.living.WizardRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.magic.*;
 import dev.cammiescorner.arcanus.client.renderer.item.StaffItemRenderer;
+import dev.cammiescorner.arcanus.client.renderer.world.WardedBlockRenderer;
 import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.common.compat.FirstPersonCompat;
-import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
 import dev.cammiescorner.arcanus.common.items.BattleMageArmorItem;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.*;
@@ -52,10 +52,8 @@ import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.LightTexture;
@@ -66,39 +64,25 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.component.DyedItemColor;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.SupportType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.ChunkAccess;
-import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
-import java.util.concurrent.atomic.AtomicReferenceArray;
 import java.util.function.BooleanSupplier;
 
 @Environment(EnvType.CLIENT)
 @AutoService(ClientEntryPoint.class)
 public class ArcanusClient implements ClientEntryPoint {
-
 	public static final ResourceLocation WHITE = ResourceLocation.withDefaultNamespace("textures/misc/white.png");
-	public static final RenderType LAYER = ArcanusClient.getMagicCircles(Arcanus.id("textures/block/warded_block.png"));
 	public static BooleanSupplier FIRST_PERSON_MODEL_ENABLED = () -> false;
 	public static BooleanSupplier FIRST_PERSON_SHOW_HANDS = () -> true;
 	public static boolean castingSpeedHasCoolDown;
 	private final Minecraft client = Minecraft.getInstance();
-
-	private static int hitTimer;
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
@@ -210,54 +194,21 @@ public class ArcanusClient implements ClientEntryPoint {
 		WorldRenderEvents.BEFORE_BLOCK_OUTLINE.register((context, outlineContext) -> {
 			MultiPlayerGameMode interactionManager = client.gameMode;
 			LocalPlayer player = client.player;
-			ClientLevel world = context.world();
-			PoseStack matrices = context.matrixStack();
-			MultiBufferSource vertices = context.consumers();
+			PoseStack poseStack = context.matrixStack();
+			MultiBufferSource bufferSource = context.consumers();
 			Vec3 cameraPos = context.camera().getPosition();
 
-			if(player != null && vertices != null && interactionManager != null) {
-				if(client.hitResult instanceof BlockHitResult hitResult && ArcanusComponents.isBlockWarded(world, hitResult.getBlockPos()) && player.swinging) {
-					if(client.options.keyAttack.isDown() && player.attackAnim == 0)
-						hitTimer = 20;
-
-					if(!ArcanusComponents.isOwnerOfBlock(player, hitResult.getBlockPos()) || hitTimer > 0) {
-						BlockPos blockPos = hitResult.getBlockPos();
-						float alpha = Mth.clamp(hitTimer / 20f, 0f, 1f);
-
-						renderWardedBlock(matrices, vertices, world, cameraPos, blockPos, alpha);
-						player.displayClientMessage(Component.translatable("text.arcanus.block_is_warded").withStyle(ChatFormatting.RED), true);
-					}
-
-					if(hitTimer > 0)
-						hitTimer -= 1;
-				}
-
-				if(player.getMainHandItem().is(ArcanusItemTags.STAVES) || player.getOffhandItem().is(ArcanusItemTags.STAVES)) {
-					AtomicReferenceArray<LevelChunk> chunks = context.world().getChunkSource().storage.chunks;
-					float alpha = Mth.sin(world.getGameTime() * 0.06f) * 0.4f + 0.6f;
-
-					for(int i = 0; i < chunks.length(); i++) {
-						ChunkAccess chunk = chunks.get(i);
-
-						if(chunk != null) {
-							ArcanusComponents.getWardedBlocks(chunk).forEach((blockPos, uuid) -> {
-								if(blockPos.distSqr(context.camera().getBlockPosition()) < 256)
-									renderWardedBlock(matrices, vertices, world, cameraPos, blockPos, alpha);
-							});
-						}
-					}
-				}
-			}
+			if(player != null && bufferSource != null && interactionManager != null)
+				WardedBlockRenderer.render(poseStack, bufferSource, player, cameraPos);
 
 			return true;
 		});
 
 		HudRenderCallback.EVENT.register((gui, tickDelta) -> {
-			Minecraft client = Minecraft.getInstance();
 			if(client.player != null && !client.player.isSpectator() && !client.options.hideGui) {
-				ManaBarOverlay.render(gui, tickDelta, client.player);
 				FirstPersonCastingOverlay.render(gui, tickDelta, client.player);
 				StunOverlay.render(gui, tickDelta, client.player);
+				ManaBarOverlay.render(gui, tickDelta, client.player);
 			}
 		});
 	}
@@ -268,8 +219,7 @@ public class ArcanusClient implements ClientEntryPoint {
 			RandomSource random = RandomSource.create((entity.tickCount + entity.getId()) / 2);
 			Vec3 endPos = ArcanusComponents.getBoltPos(entity);
 
-			var color = ArcanusHelper.getMagicColor(entity);
-
+			Color color = ArcanusHelper.getMagicColor(entity);
 			int steps = (int) (startPos.distanceTo(endPos) * 5);
 
 			renderBolt(matrices, vertex, random, startPos, endPos, steps, 0, true, color.redF(), color.greenF(), color.blueF(), OverlayTexture.NO_OVERLAY, LightTexture.FULL_BRIGHT);
@@ -331,54 +281,9 @@ public class ArcanusClient implements ClientEntryPoint {
 		}
 	}
 
-	private static void renderWardedBlock(PoseStack poseStack, MultiBufferSource buffer, Level level, Vec3 cameraPos, BlockPos blockPos, float alpha) {
-		VertexConsumer consumer = buffer.getBuffer(LAYER);
-		Vec3 pos = Vec3.atCenterOf(blockPos);
-
-		poseStack.pushPose();
-		poseStack.translate(pos.x() - cameraPos.x(), pos.y() - cameraPos.y(), pos.z() - cameraPos.z());
-		poseStack.scale(1.001f, 1.001f, 1.001f);
-		poseStack.translate(-0.5, -0.5, -0.5);
-
-		PoseStack.Pose pose = poseStack.last();
-		Matrix4f matrix4f = pose.pose();
-		Color color = ArcanusHelper.getMagicColor(ArcanusComponents.getWardedBlocks(level.getChunk(blockPos)).get(blockPos));
-		int light = level.getMaxLocalRawBrightness(blockPos);
-		int overlay = OverlayTexture.NO_OVERLAY;
-		float r = Mth.clamp(color.redF() * alpha, 0f, 1f);
-		float g = Mth.clamp(color.greenF() * alpha, 0f, 1f);
-		float b = Mth.clamp(color.blueF() * alpha, 0f, 1f);
-
-		color = Color.fromFloatsRGB(r, g, b);
-
-		for(Direction direction : Direction.values()) {
-			BlockPos posToSide = blockPos.relative(direction);
-			BlockState stateToSide = level.getBlockState(posToSide);
-
-			if(stateToSide.isFaceSturdy(level, posToSide, direction.getOpposite(), SupportType.FULL) || ArcanusComponents.isBlockWarded(level, posToSide))
-				continue;
-
-			switch(direction) {
-				case SOUTH ->
-					renderSide(matrix4f, consumer, 0f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, color, light, overlay, pose, Direction.SOUTH);
-				case NORTH ->
-					renderSide(matrix4f, consumer, 0f, 1f, 1f, 0f, 0f, 0f, 0f, 0f, color, light, overlay, pose, Direction.NORTH);
-				case EAST ->
-					renderSide(matrix4f, consumer, 1f, 1f, 1f, 0f, 0f, 1f, 1f, 0f, color, light, overlay, pose, Direction.EAST);
-				case WEST ->
-					renderSide(matrix4f, consumer, 0f, 0f, 0f, 1f, 0f, 1f, 1f, 0f, color, light, overlay, pose, Direction.WEST);
-				case DOWN ->
-					renderSide(matrix4f, consumer, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 1f, color, light, overlay, pose, Direction.DOWN);
-				case UP ->
-					renderSide(matrix4f, consumer, 0f, 1f, 1f, 1f, 1f, 1f, 0f, 0f, color, light, overlay, pose, Direction.UP);
-			}
-		}
-
-		poseStack.popPose();
-	}
-
 	private static void renderFirstPersonBolt(WorldRenderContext context) {
 		LocalPlayer player = context.gameRenderer().getMinecraft().player;
+
 		if(player != null) {
 			PoseStack matrices = context.matrixStack();
 			Vec3 camPos = context.camera().getPosition();
@@ -404,9 +309,7 @@ public class ArcanusClient implements ClientEntryPoint {
 		return RenderType.create(Arcanus.id("magic_circle_tri").toString(), DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.TRIANGLES, 256, false, true, RenderType.CompositeState.builder().setShaderState(RenderType.RENDERTYPE_ENTITY_TRANSLUCENT_EMISSIVE_SHADER).setTextureState(new RenderStateShard.TextureStateShard(texture, false, false)).setOverlayState(RenderStateShard.OVERLAY).setTransparencyState(RenderType.ADDITIVE_TRANSPARENCY).setWriteMaskState(RenderType.COLOR_DEPTH_WRITE).setCullState(RenderStateShard.NO_CULL).createCompositeState(false));
 	}
 
-
-
-	public static void renderSide(Matrix4f matrix4f, VertexConsumer vertices, float x1, float x2, float y1, float y2, float z1, float z2, float z3, float z4, Color color, int light, int overlay, PoseStack.Pose normal, Direction direction) {
+	public static void renderQuad(Matrix4f matrix4f, VertexConsumer vertices, float x1, float x2, float y1, float y2, float z1, float z2, float z3, float z4, Color color, int light, int overlay, PoseStack.Pose normal, Direction direction) {
 		vertices.addVertex(matrix4f, x1, y1, z1).setColor(color.red(), color.green(), color.blue(), color.alpha()).setUv(0, 1).setOverlay(overlay).setLight(light).setNormal(normal, direction.getNormal().getX(), direction.getNormal().getY(), direction.getNormal().getZ());
 		vertices.addVertex(matrix4f, x2, y1, z2).setColor(color.red(), color.green(), color.blue(), color.alpha()).setUv(1, 1).setOverlay(overlay).setLight(light).setNormal(normal, direction.getNormal().getX(), direction.getNormal().getY(), direction.getNormal().getZ());
 		vertices.addVertex(matrix4f, x2, y2, z3).setColor(color.red(), color.green(), color.blue(), color.alpha()).setUv(1, 0).setOverlay(overlay).setLight(light).setNormal(normal, direction.getNormal().getX(), direction.getNormal().getY(), direction.getNormal().getZ());

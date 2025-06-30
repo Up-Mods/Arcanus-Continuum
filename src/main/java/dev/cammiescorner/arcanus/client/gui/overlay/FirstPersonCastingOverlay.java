@@ -23,7 +23,6 @@ import org.joml.Matrix4f;
 import java.util.List;
 
 public class FirstPersonCastingOverlay {
-
 	private static final ResourceLocation MAGIC_CIRCLES = Arcanus.id("textures/entity/feature/magic_circles.png");
 
 	public static void render(GuiGraphics guiGraphics, DeltaTracker tickDelta, LocalPlayer player) {

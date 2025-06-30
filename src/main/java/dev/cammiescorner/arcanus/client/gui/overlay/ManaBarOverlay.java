@@ -18,7 +18,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class ManaBarOverlay {
-
 	private static final ResourceLocation OVERLAY_TEXTURE = Arcanus.id("textures/gui/hud/mana_bars.png");
 	private static int hudTimer;
 
