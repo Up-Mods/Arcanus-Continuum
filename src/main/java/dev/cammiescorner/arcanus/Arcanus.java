@@ -52,7 +52,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.DecimalFormat;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -237,13 +237,13 @@ public class Arcanus implements MainEntryPoint {
 	}
 
 	public static Map<ManaType, Double> constructManaMap(double redMana, double greenMana, double blueMana, double whiteMana, double blackMana) {
-		Map<ManaType, Double> map = new HashMap<>();
+		Map<ManaType, Double> map = new EnumMap<>(ManaType.class);
 
-		map.putIfAbsent(ManaType.RED, redMana);
-		map.putIfAbsent(ManaType.GREEN, greenMana);
-		map.putIfAbsent(ManaType.BLUE, blueMana);
-		map.putIfAbsent(ManaType.WHITE, whiteMana);
-		map.putIfAbsent(ManaType.BLACK, blackMana);
+		map.put(ManaType.RED, redMana);
+		map.put(ManaType.GREEN, greenMana);
+		map.put(ManaType.BLUE, blueMana);
+		map.put(ManaType.WHITE, whiteMana);
+		map.put(ManaType.BLACK, blackMana);
 
 		return map;
 	}
