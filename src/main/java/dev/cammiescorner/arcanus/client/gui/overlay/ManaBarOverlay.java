@@ -126,7 +126,7 @@ public class ManaBarOverlay {
 					poseStack.pushPose();
 
 					double offset = 24 + Math.min(ArcanusConfig.manaBarsMaxLength, maxMana) * scale;
-					poseStack.translate(0.5f, -2f, 0f);
+					poseStack.translate(2f, -2f, 0f);
 					poseStack.translate(x * scale + Mth.cos(angle) * offset, y * scale + Mth.sin(angle) * offset, 0);
 					poseStack.scale(0.5f, 0.5f, 1f);
 
