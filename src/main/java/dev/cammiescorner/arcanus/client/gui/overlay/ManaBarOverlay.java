@@ -16,6 +16,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
 
 public class ManaBarOverlay {
 	private static final ResourceLocation OVERLAY_TEXTURE = Arcanus.id("textures/gui/hud/mana_bars.png");
@@ -38,14 +39,15 @@ public class ManaBarOverlay {
 
 			poseStack.pushPose();
 			poseStack.translate(0, 11, 0);
-			if(ArcanusConfig.rightSideManaBars.mirror()) {
-				poseStack.translate(scaledWidth - 29, 0, 0);
-			}
-			if(!ArcanusConfig.manaBarsOnTop) {
-				poseStack.translate(0, scaledHeight - 29, 0);
-			}
 
+			if(ArcanusConfig.rightSideManaBars.mirror())
+				poseStack.translate(scaledWidth - 29, 0, 0);
+			if(!ArcanusConfig.manaBarsOnTop)
+				poseStack.translate(0, scaledHeight - 29, 0);
+
+			float angleOffsetDegrees = ArcanusConfig.rightSideManaBars.mirror() ? -27f : 27f;
 			float startingAngleDegrees;
+
 			if(ArcanusConfig.manaBarsOnTop) {
 				if(ArcanusConfig.rightSideManaBars.mirror())
 					startingAngleDegrees = 189;
@@ -58,18 +60,19 @@ public class ManaBarOverlay {
 				else
 					startingAngleDegrees = -99f;
 			}
-			float angleOffsetDegrees = ArcanusConfig.rightSideManaBars.mirror() ? -27f : 27f;
 
 			// render frame
 			poseStack.pushPose();
-			var scale = 0.225F;
-			poseStack.scale(scale, scale, 1.0F);
+
+			var scale = 0.225f;
+			poseStack.scale(scale, scale, 1f);
 			RenderSystem.setShaderColor(1f, 1f, 1f, alpha);
 			guiGraphics.blit(OVERLAY_TEXTURE, 0, -48, 0, 0, 128, 128);
 			poseStack.popPose();
 
 			// render book
-			var spellBook = Arcanus.getActiveSpellBook(player);
+			ItemStack spellBook = Arcanus.getActiveSpellBook(player);
+
 			if(!spellBook.isEmpty()) {
 				poseStack.pushPose();
 				poseStack.translate(8, -2, 0);
@@ -92,7 +95,7 @@ public class ManaBarOverlay {
 				var angle = (float) Math.toRadians(startingAngleDegrees + angleOffsetDegrees * manaType.ordinal());
 
 				poseStack.pushPose();
-				poseStack.scale(scale, scale, 1.0F);
+				poseStack.scale(scale, scale, 1f);
 				poseStack.translate(x, y, 0);
 
 				poseStack.mulPose(Axis.ZP.rotation(angle));
@@ -101,7 +104,7 @@ public class ManaBarOverlay {
 				double ratio = Math.min(1f, maxMana <= 0f ? 0f : (mana / maxMana));
 				double halfNHalf = ArcanusConfig.scaleManaBarsWithMaxMana ? (Math.min(maxMana, ArcanusConfig.manaBarsMaxLength) - 12) / 2f : (35 - 6);
 				int bottomMana = (int) (halfNHalf * Math.clamp(ratio / 0.44f, 0f, 1f));
-				int switchMana = (int) (12 * (ratio <= 0.56f ? Math.clamp((ratio - 0.44f) / 0.12f, 0f, 1f) : 1f));
+				int switchMana = (int) (12 * (ratio <= 0.56f ? Math.clamp((ratio - 0.44f) / 0.12f, 0f, 1f) : 1f)); // FIXME fills at a different speed than the rest of the bar
 				int topMana = (int) (halfNHalf * Math.clamp((ratio - 0.56f) / 0.44f, 0f, 1f));
 
 				RenderSystem.setShaderColor(color.redF(), color.greenF(), color.blueF(), alpha);
@@ -121,14 +124,16 @@ public class ManaBarOverlay {
 
 				if(ArcanusConfig.numericalManaDisplay) {
 					poseStack.pushPose();
-					var offset = 30.0F;
-					poseStack.translate(x * scale + Mth.cos(angle) * offset, y * scale + Mth.sin(angle) * offset, 0);
-					poseStack.scale(0.5F, 0.5F, 1.0F);
 
-					guiGraphics.drawCenteredString(client.font, Component.literal(String.valueOf(Mth.floor(mana))).withColor(color.asIntARGB()), 0, 0, 0xFFFFFFFF);
+					float offset = 30f;
+					poseStack.translate(x * scale + Mth.cos(angle) * offset, y * scale + Mth.sin(angle) * offset, 0);
+					poseStack.scale(0.5f, 0.5f, 1f);
+
+					guiGraphics.drawCenteredString(client.font, Component.literal(String.valueOf(Mth.floor(mana))).withColor(color.asIntARGB()), 0, 0, 0xffffffff);
 					poseStack.popPose();
 				}
 			}
+
 			poseStack.popPose();
 
 			RenderSystem.disableBlend();

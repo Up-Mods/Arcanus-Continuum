@@ -15,7 +15,7 @@ public enum ManaType implements StringRepresentable {
 	GREEN(ArcanusAttributes.GREEN_MANA, ChatFormatting.GREEN, Color.fromRGB(54, 124, 38), "GreenMana"),
 	BLUE(ArcanusAttributes.BLUE_MANA, ChatFormatting.BLUE, Color.fromRGB(6, 51, 141), "BlueMana"),
 	WHITE(ArcanusAttributes.WHITE_MANA, ChatFormatting.WHITE, Color.fromRGB(255, 251, 213), "WhiteMana"),
-	BLACK(ArcanusAttributes.BLACK_MANA, ChatFormatting.BLACK, Color.fromRGB(41, 29, 42), "BlackMana");
+	BLACK(ArcanusAttributes.BLACK_MANA, ChatFormatting.DARK_GRAY, Color.fromRGB(41, 29, 42), "BlackMana");
 
 	public static final Codec<ManaType> CODEC = StringRepresentable.fromValues(ManaType::values);
 	final Holder<Attribute> attribute;
