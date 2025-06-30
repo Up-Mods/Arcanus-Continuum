@@ -54,7 +54,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -192,14 +191,11 @@ public class ArcanusClient implements ClientEntryPoint {
 		});
 
 		WorldRenderEvents.BEFORE_BLOCK_OUTLINE.register((context, outlineContext) -> {
-			MultiPlayerGameMode interactionManager = client.gameMode;
 			LocalPlayer player = client.player;
-			PoseStack poseStack = context.matrixStack();
 			MultiBufferSource bufferSource = context.consumers();
-			Vec3 cameraPos = context.camera().getPosition();
 
-			if(player != null && bufferSource != null && interactionManager != null)
-				WardedBlockRenderer.render(poseStack, bufferSource, player, cameraPos);
+			if(player != null && bufferSource != null)
+				WardedBlockRenderer.render(context.matrixStack(), bufferSource, player, context.camera().getPosition());
 
 			return true;
 		});
