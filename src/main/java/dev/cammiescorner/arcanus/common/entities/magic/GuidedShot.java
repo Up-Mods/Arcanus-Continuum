@@ -34,6 +34,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
+// TODO give hit sound
 public class GuidedShot extends ThrowableItemProjectile implements Targetable {
 	private static final EntityDataAccessor<Integer> OWNER_ID = SynchedEntityData.defineId(GuidedShot.class, EntityDataSerializers.INT);
 	private List<SpellEffect> effects = new ArrayList<>();

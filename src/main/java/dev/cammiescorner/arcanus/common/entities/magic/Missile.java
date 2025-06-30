@@ -14,6 +14,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -131,7 +132,7 @@ public class Missile extends AbstractArrow implements Targetable {
 
 	@Override
 	protected SoundEvent getDefaultHitGroundSoundEvent() {
-		return super.getDefaultHitGroundSoundEvent();
+		return SoundEvents.AMETHYST_CLUSTER_BREAK; // TODO make its own hit sound
 	}
 
 	@Override

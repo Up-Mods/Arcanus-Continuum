@@ -34,6 +34,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
+// TODO give hit sound
 public class Aggressorb extends ThrowableProjectile implements Targetable {
 	private static final EntityDataAccessor<Integer> OWNER_ID = SynchedEntityData.defineId(Aggressorb.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Integer> TARGET_ID = SynchedEntityData.defineId(Aggressorb.class, EntityDataSerializers.INT);
