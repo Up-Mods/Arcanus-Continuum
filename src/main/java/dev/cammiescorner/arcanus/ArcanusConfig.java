@@ -79,7 +79,7 @@ public final class ArcanusConfig {
 			public static double whiteManaCost = 0;
 
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			public static double blackManaCost = 5;
 
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
@@ -108,7 +108,7 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.LIGHT;
 
 			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			public static double redManaCost = 5;
 
 			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
 			public static double greenManaCost = 0;
@@ -200,7 +200,7 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.MEDIUM;
 
 			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			public static double redManaCost = 7;
 
 			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
 			public static double greenManaCost = 0;
@@ -245,13 +245,13 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.MEDIUM;
 
 			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			public static double redManaCost = 1;
 
 			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
 			public static double greenManaCost = 0;
 
 			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			public static double blueManaCost = 0.5;
 
 			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
 			public static double whiteManaCost = 0;
@@ -264,14 +264,14 @@ public final class ArcanusConfig {
 			}
 
 			@ConfigEntry(id = "manaMultiplier", translation = CONFIG_MANA_MULTIPLIER)
-			public static double manaMultiplier = 1.25;
+			public static double manaMultiplier = 0.1;
 
 			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 30;
+			public static int coolDown = 0;
 
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
-			public static double potencyModifier = 0.25;
+			public static double potencyModifier = 0.1;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
@@ -300,10 +300,10 @@ public final class ArcanusConfig {
 			public static double greenManaCost = 0;
 
 			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			public static double blueManaCost = 10;
 
 			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			public static double whiteManaCost = 5;
 
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
@@ -339,13 +339,13 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.VERY_HEAVY;
 
 			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			public static double redManaCost = 10;
 
 			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
 			public static double greenManaCost = 0;
 
 			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			public static double blueManaCost = 7;
 
 			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
 			public static double whiteManaCost = 0;
@@ -389,7 +389,7 @@ public final class ArcanusConfig {
 			public static double greenManaCost = 0;
 
 			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			public static double blueManaCost = 8;
 
 			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
 			public static double whiteManaCost = 0;
@@ -430,13 +430,13 @@ public final class ArcanusConfig {
 			public static double greenManaCost = 0;
 
 			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			public static double blueManaCost = 7;
 
 			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
 			public static double whiteManaCost = 0;
 
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			public static double blackManaCost = 7;
 
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
@@ -529,7 +529,7 @@ public final class ArcanusConfig {
 			public static double blueManaCost = 0;
 
 			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			public static double whiteManaCost = 20;
 
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double blackManaCost = 0;
@@ -567,13 +567,13 @@ public final class ArcanusConfig {
 			public static double greenManaCost = 0;
 
 			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			public static double blueManaCost = 15;
 
 			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
 			public static double whiteManaCost = 0;
 
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			public static double blackManaCost = 5;
 
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
@@ -609,7 +609,7 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.VERY_HEAVY;
 
 			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			public static double redManaCost = 10;
 
 			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
 			public static double greenManaCost = 0;
@@ -618,10 +618,10 @@ public final class ArcanusConfig {
 			public static double blueManaCost = 0;
 
 			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			public static double whiteManaCost = 5;
 
 			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			public static double blackManaCost = 5;
 
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
