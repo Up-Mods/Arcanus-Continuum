@@ -1,13 +1,14 @@
 package dev.cammiescorner.arcanus.client;
 
 import com.google.auto.service.AutoService;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Axis;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spells.ManaType;
-import dev.cammiescorner.arcanus.api.spells.Pattern;
+import dev.cammiescorner.arcanus.client.gui.overlay.FirstPersonCastingOverlay;
+import dev.cammiescorner.arcanus.client.gui.overlay.ManaBarOverlay;
+import dev.cammiescorner.arcanus.client.gui.overlay.StunOverlay;
 import dev.cammiescorner.arcanus.client.gui.screens.ArcaneWorkbenchScreen;
 import dev.cammiescorner.arcanus.client.gui.screens.SpellBookScreen;
 import dev.cammiescorner.arcanus.client.gui.screens.SpellScrollScreen;
@@ -57,7 +58,10 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -70,7 +74,6 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SupportType;
@@ -81,23 +84,20 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 import java.util.function.BooleanSupplier;
 
 @Environment(EnvType.CLIENT)
 @AutoService(ClientEntryPoint.class)
 public class ArcanusClient implements ClientEntryPoint {
-	private static final ResourceLocation HUD_ELEMENTS2 = Arcanus.id("textures/gui/hud/mana_bars.png");
-	private static final ResourceLocation STUN_OVERLAY = Arcanus.id("textures/gui/hud/stunned_vignette.png");
-	private static final ResourceLocation MAGIC_CIRCLES = Arcanus.id("textures/entity/feature/magic_circles.png");
+
 	public static final ResourceLocation WHITE = ResourceLocation.withDefaultNamespace("textures/misc/white.png");
 	public static final RenderType LAYER = ArcanusClient.getMagicCircles(Arcanus.id("textures/block/warded_block.png"));
 	public static BooleanSupplier FIRST_PERSON_MODEL_ENABLED = () -> false;
 	public static BooleanSupplier FIRST_PERSON_SHOW_HANDS = () -> true;
 	public static boolean castingSpeedHasCoolDown;
 	private final Minecraft client = Minecraft.getInstance();
-	private static int hudTimer;
+
 	private static int hitTimer;
 
 	@Override
@@ -253,145 +253,11 @@ public class ArcanusClient implements ClientEntryPoint {
 		});
 
 		HudRenderCallback.EVENT.register((gui, tickDelta) -> {
-			PoseStack matrices = gui.pose();
-			Player player = client.player;
-
-			if(player != null && !player.isSpectator() && !client.options.hideGui) {
-				int stunTimer = ArcanusComponents.getStunTimer(player);
-
-				if(stunTimer > 0) {
-					if(stunTimer > 5)
-						renderOverlay(STUN_OVERLAY, Math.min(1f, 0.5f + (stunTimer % 5f) / 10f));
-					else
-						renderOverlay(STUN_OVERLAY, Math.min(1f, stunTimer / 5f));
-				}
-
-				if(!client.gameRenderer.getMainCamera().isDetached() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean()) {
-					List<Pattern> list = ArcanusComponents.getPattern(player);
-
-					if(!list.isEmpty()) {
-						MultiBufferSource.BufferSource vertices = client.renderBuffers().bufferSource();
-						RenderType renderLayer = getMagicCircles(MAGIC_CIRCLES);
-						VertexConsumer vertex = vertices.getBuffer(renderLayer);
-						Color color = ArcanusHelper.getMagicColor(player);
-						float x = client.getWindow().getGuiScaledWidth() / 2f;
-						float y = client.getWindow().getGuiScaledHeight() / 2f;
-						float scale = 3f;
-
-						matrices.pushPose();
-						matrices.translate(x, y, 0);
-
-						for(int i = 0; i < list.size(); i++) {
-							Pattern pattern = list.get(i);
-							matrices.pushPose();
-
-							if(i == 1)
-								matrices.mulPose(Axis.ZP.rotationDegrees((player.tickCount + player.getId() + tickDelta.getGameTimeDeltaTicks()) * (5 + (2.5f * i))));
-							else
-								matrices.mulPose(Axis.ZN.rotationDegrees((player.tickCount + player.getId() + tickDelta.getGameTimeDeltaTicks()) * (5 + (2.5f * i))));
-
-							matrices.scale(scale, scale, 0);
-							matrices.translate(-8.5, -8.5, 0);
-							drawTexture(vertex, matrices, color, 0, 0, i * 34, pattern == Pattern.LEFT ? 0 : 24, 17, 17, 128, 48);
-							matrices.popPose();
-						}
-
-						matrices.popPose();
-						vertices.endLastBatch();
-					}
-				}
-
-				if(player.getMainHandItem().getItem() instanceof StaffItem)
-					hudTimer = Math.min(hudTimer + 1, 40);
-				else
-					hudTimer = Math.max(hudTimer - 1, 0);
-
-				if(hudTimer > 0) {
-					PoseStack poseStack = gui.pose();
-					int scaledHeight = client.getWindow().getGuiScaledHeight();
-					int scaledWidth = client.getWindow().getGuiScaledWidth();
-					float alpha = hudTimer > 20 ? 1f : hudTimer / 20f;
-
-					RenderSystem.enableBlend();
-
-					poseStack.pushPose();
-					int x = ArcanusConfig.rightSideManaBars.mirror() ? scaledWidth - 29 : 0;
-					int y = ArcanusConfig.manaBarsOnTop ? 11 : scaledHeight - 18;
-					float startingAngle;
-
-					if(ArcanusConfig.manaBarsOnTop) {
-						if(ArcanusConfig.rightSideManaBars.mirror())
-							startingAngle = 189;
-						else
-							startingAngle = -9f;
-					}
-					else {
-						if(ArcanusConfig.rightSideManaBars.mirror())
-							startingAngle = -81f;
-						else
-							startingAngle = -99f;
-					}
-
-					float angleOffset = ArcanusConfig.rightSideManaBars.mirror() ? -27f : 27f;
-					poseStack.translate(x, y, 0);
-					poseStack.scale(0.225f, 0.225f, 1f);
-
-					// render mana bars
-					for(int i = 0; i < ManaType.values().length; i++) {
-						ManaType manaType = ManaType.values()[i];
-						Color color = manaType.getColor();
-
-						RenderSystem.setShaderColor(color.redF(), color.greenF(), color.blueF(), alpha);
-
-						poseStack.pushPose();
-						x = ArcanusConfig.rightSideManaBars.mirror() ? 68 : 60;
-						y = ArcanusConfig.manaBarsOnTop ? 12 : 20;
-						poseStack.translate(x, y, 0);
-						poseStack.mulPose(Axis.ZP.rotationDegrees(startingAngle + angleOffset * i));
-						poseStack.translate(-8, -8, 0);
-
-						double maxMana = ArcanusComponents.getMaxMana(player, manaType);
-						double mana = ArcanusComponents.getMana(player, manaType);
-						double ratio = Math.min(1f, maxMana <= 0f ? 0f : (mana / maxMana));
-						double halfNHalf = ArcanusConfig.scaleManaBarsWithMaxMana ? (Math.min(maxMana, ArcanusConfig.manaBarsMaxLength) - 12) / 2f : (35 - 6);
-						int bottomMana = (int) (halfNHalf * Math.clamp(ratio / 0.44f, 0f, 1f));
-						int switchMana = (int) (12 * (ratio <= 0.56f ? Math.clamp((ratio - 0.44f) / 0.12f, 0f, 1f) : 1f));
-						int topMana = (int) (halfNHalf * Math.clamp((ratio - 0.56f) / 0.44f, 0f, 1f));
-
-						gui.blit(HUD_ELEMENTS2, 85, 0, 0, 200, bottomMana, 16);
-						gui.blit(HUD_ELEMENTS2, (int) (85 + halfNHalf), 0, 128, 32, switchMana, 16);
-						gui.blit(HUD_ELEMENTS2, (int) (85 + halfNHalf + 12), 0, (int) (256 - halfNHalf), 216, topMana, 16);
-
-						poseStack.translate(-8, -8, 0);
-						RenderSystem.setShaderColor(1f, 1f, 1f, alpha);
-
-						halfNHalf = 14 + halfNHalf;
-						gui.blit(HUD_ELEMENTS2, 80, 0, 0, 128, (int) halfNHalf, 32);
-						gui.blit(HUD_ELEMENTS2, (int) (80 + halfNHalf), 0, 128, 0, 10, 32);
-						gui.blit(HUD_ELEMENTS2, (int) (80 + halfNHalf + 10), 0, (int) (256 - halfNHalf), 160, (int) halfNHalf, 32);
-
-						poseStack.popPose();
-					}
-
-					// render frame
-					gui.blit(HUD_ELEMENTS2, 0, -48, 0, 0, 128, 128);
-
-					poseStack.popPose();
-
-					x = ArcanusConfig.rightSideManaBars.mirror() ? scaledWidth - 21 : 8;
-					y = ArcanusConfig.manaBarsOnTop ? 8 : scaledHeight - 21;
-
-					poseStack.pushPose();
-					poseStack.translate(x, y, 0);
-					poseStack.scale(0.8f, 0.8f, 1f);
-
-					gui.renderItem(Arcanus.getActiveSpellBook(player), 0, 0);
-
-					poseStack.popPose();
-
-					RenderSystem.disableBlend();
-					RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-				}
+			Minecraft client = Minecraft.getInstance();
+			if(client.player != null && !client.player.isSpectator() && !client.options.hideGui) {
+				ManaBarOverlay.render(gui, tickDelta, client.player);
+				FirstPersonCastingOverlay.render(gui, tickDelta, client.player);
+				StunOverlay.render(gui, tickDelta, client.player);
 			}
 		});
 	}
@@ -538,47 +404,12 @@ public class ArcanusClient implements ClientEntryPoint {
 		return RenderType.create(Arcanus.id("magic_circle_tri").toString(), DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.TRIANGLES, 256, false, true, RenderType.CompositeState.builder().setShaderState(RenderType.RENDERTYPE_ENTITY_TRANSLUCENT_EMISSIVE_SHADER).setTextureState(new RenderStateShard.TextureStateShard(texture, false, false)).setOverlayState(RenderStateShard.OVERLAY).setTransparencyState(RenderType.ADDITIVE_TRANSPARENCY).setWriteMaskState(RenderType.COLOR_DEPTH_WRITE).setCullState(RenderStateShard.NO_CULL).createCompositeState(false));
 	}
 
-	public static void drawTexture(VertexConsumer vertex, PoseStack matrices, Color color, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
-		drawTexturedQuad(vertex, matrices.last().pose(), color, x, x + width, y, y + height, u / (float) textureWidth, (u + width) / (float) textureWidth, v / (float) textureHeight, (v + height) / (float) textureHeight);
-	}
 
-	private static void drawTexturedQuad(VertexConsumer vertex, Matrix4f matrix, Color color, int x0, int x1, int y0, int y1, float u0, float u1, float v0, float v1) {
-		vertex.addVertex(matrix, x0, y1, 0).setColor(color.red(), color.green(), color.blue(), color.alpha()).setUv(u0, v1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 0, 1);
-		vertex.addVertex(matrix, x1, y1, 0).setColor(color.red(), color.green(), color.blue(), color.alpha()).setUv(u1, v1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 0, 1);
-		vertex.addVertex(matrix, x1, y0, 0).setColor(color.red(), color.green(), color.blue(), color.alpha()).setUv(u1, v0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 0, 1);
-		vertex.addVertex(matrix, x0, y0, 0).setColor(color.red(), color.green(), color.blue(), color.alpha()).setUv(u0, v0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(0, 0, 1);
-	}
 
 	public static void renderSide(Matrix4f matrix4f, VertexConsumer vertices, float x1, float x2, float y1, float y2, float z1, float z2, float z3, float z4, Color color, int light, int overlay, PoseStack.Pose normal, Direction direction) {
 		vertices.addVertex(matrix4f, x1, y1, z1).setColor(color.red(), color.green(), color.blue(), color.alpha()).setUv(0, 1).setOverlay(overlay).setLight(light).setNormal(normal, direction.getNormal().getX(), direction.getNormal().getY(), direction.getNormal().getZ());
 		vertices.addVertex(matrix4f, x2, y1, z2).setColor(color.red(), color.green(), color.blue(), color.alpha()).setUv(1, 1).setOverlay(overlay).setLight(light).setNormal(normal, direction.getNormal().getX(), direction.getNormal().getY(), direction.getNormal().getZ());
 		vertices.addVertex(matrix4f, x2, y2, z3).setColor(color.red(), color.green(), color.blue(), color.alpha()).setUv(1, 0).setOverlay(overlay).setLight(light).setNormal(normal, direction.getNormal().getX(), direction.getNormal().getY(), direction.getNormal().getZ());
 		vertices.addVertex(matrix4f, x1, y2, z4).setColor(color.red(), color.green(), color.blue(), color.alpha()).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(normal, direction.getNormal().getX(), direction.getNormal().getY(), direction.getNormal().getZ());
-	}
-
-	private void renderOverlay(ResourceLocation texture, float opacity) {
-		Minecraft client = Minecraft.getInstance();
-		float scaledHeight = client.getWindow().getGuiScaledHeight();
-		float scaledWidth = client.getWindow().getGuiScaledWidth();
-
-		RenderSystem.disableDepthTest();
-		RenderSystem.depthMask(false);
-		RenderSystem.defaultBlendFunc();
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderColor(1f, 1f, 1f, opacity);
-		RenderSystem.setShaderTexture(0, texture);
-
-		Tesselator tessellator = Tesselator.getInstance();
-		BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-
-		bufferBuilder.addVertex(0f, scaledHeight, -90f).setUv(0f, 1f);
-		bufferBuilder.addVertex(scaledWidth, scaledHeight, -90f).setUv(1f, 1f);
-		bufferBuilder.addVertex(scaledWidth, 0f, -90f).setUv(1f, 0f);
-		bufferBuilder.addVertex(0f, 0f, -90f).setUv(0f, 0f);
-
-		BufferUploader.drawWithShader(bufferBuilder.build());
-		RenderSystem.depthMask(true);
-		RenderSystem.enableDepthTest();
-		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 	}
 }
