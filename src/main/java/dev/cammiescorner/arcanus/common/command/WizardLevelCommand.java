@@ -6,6 +6,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
@@ -37,7 +38,7 @@ public class WizardLevelCommand {
 
 	public static int getLevel(CommandContext<CommandSourceStack> context, ServerPlayer player) throws CommandSyntaxException {
 		int level = ArcanusComponents.getWizardLevel(player);
-		context.getSource().sendSuccess(() -> Component.translatable("command.arcanus.wizard_level.get.success", player.getScoreboardName(), level), false);
+		context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_WIZARD_LEVEL_GET_SUCCESS, player.getScoreboardName(), level), false);
 
 		return level;
 	}
@@ -46,7 +47,7 @@ public class WizardLevelCommand {
 		int level = IntegerArgumentType.getInteger(context, "level");
 		ArcanusComponents.setWizardLevel(player, level);
 
-		context.getSource().sendSuccess(() -> Component.translatable("command.arcanus.wizard_level.set.success", player.getScoreboardName(), level), true);
+		context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_WIZARD_LEVEL_SET_SUCCESS, player.getScoreboardName(), level), true);
 
 		return Command.SINGLE_SUCCESS;
 	}

@@ -15,6 +15,7 @@ import dev.cammiescorner.arcanus.common.menus.providers.SpellcraftMenuProvider;
 import dev.cammiescorner.arcanus.common.networking.clientbound.*;
 import dev.cammiescorner.arcanus.common.networking.serverbound.*;
 import dev.cammiescorner.arcanus.common.registry.*;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import dev.cammiescorner.arcanus.common.util.supporters.HaloData;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
 import dev.emi.trinkets.api.TrinketComponent;
@@ -163,7 +164,7 @@ public class Arcanus implements MainEntryPoint {
 				InteractionResult result = stack.useOn(ctx);
 
 				if(!result.consumesAction()) {
-					player.displayClientMessage(Component.translatable("text.arcanus.block_is_warded").withStyle(ChatFormatting.RED), true);
+					player.displayClientMessage(Component.translatable(TranslationKeys.BLOCK_IS_WARDED).withStyle(ChatFormatting.RED), true);
 					player.swing(hand);
 
 					return InteractionResult.FAIL;

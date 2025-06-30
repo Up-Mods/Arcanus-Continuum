@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -151,7 +152,7 @@ public class Spell {
 			return;
 
 		if(groups.stream().flatMap(SpellGroup::getAllComponents).anyMatch(Predicate.not(SpellComponent::isEnabled))) {
-			caster.sendSystemMessage(Component.translatable("text.arcanus.disabled_component").withStyle(ChatFormatting.RED));
+			caster.sendSystemMessage(Component.translatable(TranslationKeys.DISABLED_COMPONENT).withStyle(ChatFormatting.RED));
 			return;
 		}
 

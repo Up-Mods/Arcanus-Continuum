@@ -9,9 +9,9 @@ import dev.cammiescorner.arcanus.api.spells.SpellGroup;
 import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
 import dev.cammiescorner.arcanus.common.data_components.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
+import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
-import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
@@ -31,6 +31,9 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static dev.cammiescorner.arcanus.common.util.TranslationKeys.SPELL_NOT_ENOUGH_MANA;
+import static dev.cammiescorner.arcanus.common.util.TranslationKeys.SPELL_TOO_MANY_COMPONENTS;
 
 public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements CustomPacketPayload {
 	public static final CustomPacketPayload.Type<ServerboundSyncPatternPacket> TYPE = new CustomPacketPayload.Type<>(Arcanus.id("sync_pattern"));
@@ -65,13 +68,13 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements Cu
 						Spell spell = spells.getSpell(index);
 
 						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).count() > ArcanusComponents.maxSpellSize(player)) {
-							player.displayClientMessage(Component.translatable("spell.arcanus.too_many_components"), true);
+							player.displayClientMessage(Component.translatable(SPELL_TOO_MANY_COMPONENTS), true);
 							return;
 						}
 
 						for(ManaType manaType : spell.getManaCost().keySet()) {
 							if(!ArcanusComponents.drainMana(player, manaType, spell.getManaCost().get(manaType), false)) {
-								player.displayClientMessage(Component.translatable("spell.arcanus.not_enough_mana").withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
+								player.displayClientMessage(Component.translatable(SPELL_NOT_ENOUGH_MANA).withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
 								return;
 							}
 						}

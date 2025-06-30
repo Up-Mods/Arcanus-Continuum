@@ -5,6 +5,7 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import dev.cammiescorner.arcanus.common.registry.ArcanusTradeOffers;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -142,7 +143,7 @@ public class Wizard extends AbstractVillager implements NeutralMob {
 				}
 			}
 			else {
-				player.displayClientMessage(Component.translatable("text.arcanus.wizard_dialogue.no_wizard_armor").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC).withStyle(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("tooltip.arcanus.wizard_dialogue.no_wizard_armor").withStyle(ChatFormatting.AQUA, ChatFormatting.ITALIC)))), false);
+				player.displayClientMessage(Component.translatable(TranslationKeys.WIZARD_NO_WIZARD_ARMOR).withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC).withStyle(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable(TranslationKeys.WIZARD_NO_WIZARD_ARMOR).withStyle(ChatFormatting.AQUA, ChatFormatting.ITALIC)))), false);
 			}
 		}
 

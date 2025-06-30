@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyReceiver;
 import dev.cammiescorner.arcanus.common.blocks.MagicDoorBlock;
 import dev.cammiescorner.arcanus.common.blocks.entities.MagicDoorBlockEntity;
 import dev.cammiescorner.arcanus.common.registry.ArcanusPointsOfInterest;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.LayeredRegistryAccess;
 import net.minecraft.core.registries.Registries;
@@ -46,7 +47,7 @@ public class PlayerListMixin {
 				if(state.getBlock() instanceof MagicDoorBlock doorBlock && world.getBlockEntity(pos) instanceof MagicDoorBlockEntity door) {
 					if(chatMessage.signedContent().equalsIgnoreCase(door.getPassword())) {
 						doorBlock.setOpen(null, world, state, pos, true);
-						player.displayClientMessage(Component.translatable("door.arcanus.access_granted").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
+						player.displayClientMessage(Component.translatable(TranslationKeys.MAGIC_DOOR_ACCESS_GRANTED).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
 						beep[0] = true;
 					}
 				}

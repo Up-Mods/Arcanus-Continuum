@@ -7,6 +7,7 @@ import dev.cammiescorner.arcanus.api.spells.SpellShape;
 import dev.cammiescorner.arcanus.common.entities.magic.Aggressorb;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusEntities;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -41,7 +42,7 @@ public class AggressorbSpellShape extends SpellShape {
 			for(int i = 0; i < ArcanusConfig.SpellShapes.AggressorbShapeProperties.aggressorbsPerCast; i++) {
 				if(ArcanusComponents.aggressorbCount(target) >= ArcanusConfig.SpellShapes.AggressorbShapeProperties.maximumAggressorbs) {
 					if(caster instanceof Player player)
-						player.sendSystemMessage(Component.translatable("text.arcanus.too_many_orbs").withStyle(ChatFormatting.RED));
+						player.sendSystemMessage(Component.translatable(TranslationKeys.TOO_MANY_ORBS).withStyle(ChatFormatting.RED));
 
 					break;
 				}

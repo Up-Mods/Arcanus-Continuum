@@ -51,7 +51,7 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> WIZARD_SPAWN_EGG = ITEMS.register("wizard_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.WIZARD.get(), 0x52392a, 0xffd87c, new Item.Properties()));
 	public static final RegistrySupplier<Item> OPOSSUM_SPAWN_EGG = ITEMS.register("opossum_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.OPOSSUM.get(), 0x131317, 0xbdbdbd, new Item.Properties()));
 
-	public static final RegistrySupplier<CreativeModeTab> ITEM_GROUP = ITEM_GROUPS.register("general", () -> FabricItemGroup.builder().title(Component.translatable("itemGroup.arcanus.general")).icon(() -> new ItemStack(ArcanusItems.CRYSTAL_STAFF.get())).displayItems((params, entries) -> {
+	public static final RegistrySupplier<CreativeModeTab> ITEM_GROUP = ITEM_GROUPS.register("general", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB)).icon(() -> new ItemStack(ArcanusItems.CRYSTAL_STAFF.get())).displayItems((params, entries) -> {
 		entries.accept(SPELL_BOOK.get());
 		entries.accept(SPELL_SCROLL.get());
 		entries.accept(SCROLL_OF_KNOWLEDGE.get());

@@ -14,6 +14,7 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
@@ -61,13 +62,13 @@ public record ServerboundCastSpellPacket(int spellIndex) implements CustomPacket
 
 					if(!player.isCreative()) {
 						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).count() > ArcanusComponents.maxSpellSize(player)) {
-							player.displayClientMessage(Component.translatable("spell.arcanus.too_many_components").withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
+							player.displayClientMessage(Component.translatable(TranslationKeys.SPELL_TOO_MANY_COMPONENTS).withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
 							return;
 						}
 
 						for(ManaType manaType : spell.getManaCost().keySet()) {
 							if(!ArcanusComponents.drainMana(player, manaType, spell.getManaCost().get(manaType), false)) {
-								player.displayClientMessage(Component.translatable("spell.arcanus.not_enough_mana").withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
+								player.displayClientMessage(Component.translatable(TranslationKeys.SPELL_NOT_ENOUGH_MANA).withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
 								return;
 							}
 						}

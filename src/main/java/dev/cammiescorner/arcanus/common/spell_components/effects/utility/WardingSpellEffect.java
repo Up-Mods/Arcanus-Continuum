@@ -6,6 +6,7 @@ import dev.cammiescorner.arcanus.api.spells.SpellType;
 import dev.cammiescorner.arcanus.common.data.ArcanusBlockTags;
 import dev.cammiescorner.arcanus.common.data.ArcanusDimensionTags;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
@@ -50,9 +51,9 @@ public class WardingSpellEffect extends SpellEffect {
 						Holder<DimensionType> dimensionHolder = level.dimensionTypeRegistration();
 
 						if(dimensionHolder.is(ArcanusDimensionTags.WARDING_NOT_ALLOWED))
-							player.sendSystemMessage(Component.translatable("text.arcanus.cannot_ward_in_dimension"));
+							player.sendSystemMessage(Component.translatable(TranslationKeys.CANT_WARD_IN_DIM));
 						else if(state.is(ArcanusBlockTags.WARDING_NOT_ALLOWED))
-							player.sendSystemMessage(Component.translatable("text.arcanus.cannot_ward_block"));
+							player.sendSystemMessage(Component.translatable(TranslationKeys.CANT_WARD_BLOCK));
 						else
 							ArcanusComponents.addWardedBlock(player, pos);
 					}

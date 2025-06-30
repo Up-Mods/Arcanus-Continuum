@@ -36,24 +36,23 @@ public class SpellScrollItem extends Item {
 		Spell spell = getSpell(stack);
 
 		tooltipComponents.add(Component.literal(spell.getName()).withStyle(ChatFormatting.GOLD));
-		tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
-			Component.translatable(SPELL_BOOK_WEIGHT),
-			Component.translatable(spell.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
-		).withStyle(ChatFormatting.GREEN));
+		tooltipComponents.add(Component.empty());
 
 		for(ManaType manaType : ManaType.values()) {
-			if(spell.getManaCost().get(manaType) <= 0)
-				continue;
-
 			tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
-				Component.translatable(SPELL_BOOK_MANA_COST),
+				Component.translatable(manaType.getTranslationKey()),
 				Component.literal(spell.getManaCostAsString(manaType)).withStyle(ChatFormatting.GRAY)
 			).withStyle(manaType.getChatFormatting()));
 		}
+
+		tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
+			Component.translatable(SPELL_BOOK_WEIGHT),
+			Component.translatable(spell.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
+		).withStyle(ChatFormatting.DARK_GREEN));
 		tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
 			Component.translatable(SPELL_BOOK_COOL_DOWN),
 			Component.literal(spell.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)
-		).withStyle(ChatFormatting.RED));
+		).withStyle(ChatFormatting.DARK_RED));
 
 		super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
 	}

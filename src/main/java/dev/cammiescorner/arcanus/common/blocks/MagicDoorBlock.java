@@ -17,7 +17,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,6 +29,8 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
+
+import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 public class MagicDoorBlock extends DoorBlock implements EntityBlock, BlockItemProvider {
 	public MagicDoorBlock() {
@@ -59,13 +64,13 @@ public class MagicDoorBlock extends DoorBlock implements EntityBlock, BlockItemP
 				String password = stack.getHoverName().getString();
 
 				door.setPassword(password);
-				player.displayClientMessage(Component.translatable("door.arcanus.password_set", password)
+				player.displayClientMessage(Component.translatable(MAGIC_DOOR_SET_PASSWORD, password)
 					.withStyle(ChatFormatting.GOLD, ChatFormatting.ITALIC), true);
 			}
 			else
-				player.displayClientMessage(Component.translatable("door.arcanus.not_owner").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
+				player.displayClientMessage(Component.translatable(MAGIC_DOOR_NOT_OWNER).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
 		else
-			player.displayClientMessage(Component.translatable("door.arcanus.say_magic_word").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
+			player.displayClientMessage(Component.translatable(MAGIC_DOOR_SAY_MAGIC_WORD).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
 		return ItemInteractionResult.SUCCESS;
 	}
 

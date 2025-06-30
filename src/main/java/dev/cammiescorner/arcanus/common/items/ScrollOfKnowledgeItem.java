@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanus.common.items;
 
 import dev.cammiescorner.arcanus.common.components.entity.WizardLevelComponent;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -28,12 +29,12 @@ public class ScrollOfKnowledgeItem extends Item {
 				if(!user.isCreative())
 					stack.shrink(1);
 
-				user.displayClientMessage(Component.translatable("text.arcanus.use_item.scroll_of_knowledge").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC), true);
+				user.displayClientMessage(Component.translatable(TranslationKeys.USE_SCROLL_SUCCESS).withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC), true);
 			}
 		}
 
 		if(component.getLevel() >= component.getMaxLevel()) {
-			user.displayClientMessage(Component.translatable("text.arcanus.use_item.scroll_of_knowledge.max_level").withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
+			user.displayClientMessage(Component.translatable(TranslationKeys.USE_SCROLL_MAX_LEVEL).withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
 			return InteractionResultHolder.fail(stack);
 		}
 

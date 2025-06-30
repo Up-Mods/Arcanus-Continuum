@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanus.common.util;
 
 public class TranslationKeys {
+	public static final String CREATIVE_TAB = "itemGroup.arcanus.general";
 	public static final String SPELL_BOOK_SLOT = "trinkets.slot.legs.spell_book";
 	public static final String BRACELET_HAND_SLOT = "trinkets.slot.hand.bracelet";
 	public static final String BRACELET_OFFHAND_SLOT = "trinkets.slot.offhand.bracelet";
@@ -56,7 +57,11 @@ public class TranslationKeys {
 	public static final String SPELL_BOOK_WEIGHT_MEDIUM = "spell_book.arcanus.weight.medium";
 	public static final String SPELL_BOOK_WEIGHT_HEAVY = "spell_book.arcanus.weight.heavy";
 	public static final String SPELL_BOOK_WEIGHT_VERY_HEAVY = "spell_book.arcanus.weight.very_heavy";
-	public static final String SPELL_BOOK_MANA_COST = "spell_book.arcanus.mana_cost";
+	public static final String SPELL_BOOK_RED_MANA = "spell_book.arcanus.red_mana";
+	public static final String SPELL_BOOK_GREEN_MANA = "spell_book.arcanus.green_mana";
+	public static final String SPELL_BOOK_BLUE_MANA = "spell_book.arcanus.blue_mana";
+	public static final String SPELL_BOOK_WHITE_MANA = "spell_book.arcanus.white_mana";
+	public static final String SPELL_BOOK_BLACK_MANA = "spell_book.arcanus.black_mana";
 	public static final String SPELL_BOOK_MANA_MULTIPLIER = "spell_book.arcanus.mana_multiplier";
 	public static final String SPELL_BOOK_POTENCY_MODIFIER = "spell_book.arcanus.potency_modifier";
 	public static final String SPELL_BOOK_COOL_DOWN = "spell_book.arcanus.cool_down";

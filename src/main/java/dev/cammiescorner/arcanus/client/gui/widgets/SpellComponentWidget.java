@@ -31,18 +31,10 @@ public class SpellComponentWidget extends AbstractButton {
 
 		List<Component> textList = new ArrayList<>();
 		textList.add(component.getName());
-		textList.add(Component.translatable(TWO_ARGUMENT_KEY,
-			Component.translatable(SPELL_BOOK_WEIGHT),
-			Component.translatable(component.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
-		).withStyle(ChatFormatting.GREEN));
-
 
 		for(ManaType manaType : ManaType.values()) {
-			if(component.getManaCost().get(manaType) <= 0)
-				continue;
-
 			textList.add(Component.translatable(TWO_ARGUMENT_KEY,
-				Component.translatable(SPELL_BOOK_MANA_COST),
+				Component.translatable(manaType.getTranslationKey()),
 				Component.literal(component.getManaCostAsString(manaType)).withStyle(ChatFormatting.GRAY)
 			).withStyle(manaType.getChatFormatting()));
 		}
@@ -54,8 +46,14 @@ public class SpellComponentWidget extends AbstractButton {
 				textList.add(Component.translatable(TWO_ARGUMENT_KEY, Component.translatable(SPELL_BOOK_POTENCY_MODIFIER), Component.literal(shape.getPotencyModifierAsString()).withStyle(ChatFormatting.GRAY)).withStyle(ChatFormatting.YELLOW));
 		}
 
-		textList.add(Component.translatable(TWO_ARGUMENT_KEY, Component.translatable(SPELL_BOOK_COOL_DOWN), Component.literal(component.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)).withStyle(ChatFormatting.RED));
-
+		textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+			Component.translatable(SPELL_BOOK_WEIGHT),
+			Component.translatable(component.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
+		).withStyle(ChatFormatting.DARK_GREEN));
+		textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+			Component.translatable(SPELL_BOOK_COOL_DOWN),
+			Component.literal(component.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)
+		).withStyle(ChatFormatting.DARK_RED));
 
 		this.tooltipSupplier = new TooltipSupplier() {
 			@Override

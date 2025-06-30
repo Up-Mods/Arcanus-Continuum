@@ -9,6 +9,7 @@ import dev.cammiescorner.arcanus.common.blocks.SpatialRiftExitEdgeBlock;
 import dev.cammiescorner.arcanus.common.data.ArcanusDimensions;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -282,7 +283,7 @@ public class PocketDimensionComponent implements org.ladysnake.cca.api.v3.compon
 				Vec3 targetPos = Vec3.atBottomCenterOf(overworld.getSharedSpawnPos());
 
 				entity.teleportTo(overworld, targetPos.x(), targetPos.y(), targetPos.z(), Set.of(), overworld.getSharedSpawnAngle(), 0f);
-				player.sendSystemMessage(Component.translatable("command.arcanus.pocket_dimension.regenerate.warn.teleport"));
+				player.sendSystemMessage(Component.translatable(TranslationKeys.COMMAND_REGEN_POCKET_TELEPORT));
 			});
 		}
 

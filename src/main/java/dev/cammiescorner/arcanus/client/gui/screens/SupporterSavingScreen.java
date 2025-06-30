@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanus.client.gui.screens;
 
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -8,7 +9,6 @@ import net.minecraft.network.chat.Component;
 import java.util.concurrent.CompletableFuture;
 
 public class SupporterSavingScreen extends Screen {
-
 	private final CompletableFuture<Void> saveFuture;
 	private final Runnable onComplete;
 
@@ -40,7 +40,7 @@ public class SupporterSavingScreen extends Screen {
 		int centerX = width / 2;
 		int centerY = height / 2;
 
-		graphics.drawCenteredString(font, Component.translatable("screen.arcanus.supporter_settings.saving"), centerX, centerY, 0xFFFFFFFF);
+		graphics.drawCenteredString(font, Component.translatable(TranslationKeys.CONFIG_SUPPORTER_SETTINGS_SAVING), centerX, centerY, 0xffffffff);
 
 		super.render(graphics, mouseX, mouseY, delta);
 	}

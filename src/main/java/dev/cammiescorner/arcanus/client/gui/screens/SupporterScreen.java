@@ -2,12 +2,12 @@ package dev.cammiescorner.arcanus.client.gui.screens;
 
 import com.mojang.authlib.GameProfile;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.upcraft.sparkweave.api.color.Color;
 import dev.cammiescorner.arcanus.common.util.StandardColors;
 import dev.cammiescorner.arcanus.common.util.supporters.HaloData;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
 import dev.upcraft.datasync.api.util.Entitlements;
 import dev.upcraft.datasync.api.util.GameProfileHelper;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+
+import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 public class SupporterScreen extends Screen {
 	private final Screen parent;
@@ -73,8 +75,8 @@ public class SupporterScreen extends Screen {
 	}
 
 	private Component getHaloEnabledText() {
-		var text = haloEnabled ? Component.translatable("config.arcanus.supporter_settings.halo_enabled") : Component.translatable("config.arcanus.supporter_settings.halo_disabled");
-		var checkMark = haloEnabled ? Component.translatable("screen.arcanus.check.enabled").withStyle(ChatFormatting.GREEN) : Component.translatable("screen.arcanus.check.disabled").withStyle(ChatFormatting.RED);
+		var text = haloEnabled ? Component.translatable(CONFIG_SUPPORTER_SETTINGS_HALO_ENABLED) : Component.translatable(CONFIG_SUPPORTER_SETTINGS_HALO_DISABLED);
+		var checkMark = haloEnabled ? Component.translatable(SCREEN_CHECK_ENABLED).withStyle(ChatFormatting.GREEN) : Component.translatable(SCREEN_CHECK_DISABLED).withStyle(ChatFormatting.RED);
 		return Component.empty().append(checkMark).append(" ").append(text);
 	}
 
@@ -94,7 +96,7 @@ public class SupporterScreen extends Screen {
 				haloEnabled = !haloEnabled;
 				buttonWidget.setMessage(getHaloEnabledText());
 			}).bounds(centerX - 11, centerY + yOffset + 30 - 10, 88, 20).build());
-			haloColorField.setHint(Component.translatable("config.arcanus.supporter_settings.halo_color"));
+			haloColorField.setHint(Component.translatable(CONFIG_SUPPORTER_SETTINGS_HALO_COLOR));
 			haloColorField.setValue(String.format("#%06X", haloData.color().asInt(Color.Ordering.RGB)));
 			haloColorField.setMaxLength(7);
 
@@ -103,17 +105,17 @@ public class SupporterScreen extends Screen {
 
 		if(hasWizardData()) {
 			magicColorField = addRenderableWidget(new EditBox(font, centerX + 11, centerY + yOffset - 10, 64, 20, Component.empty()));
-			magicColorField.setHint(Component.translatable("config.arcanus.supporter_settings.magic_color"));
+			magicColorField.setHint(Component.translatable(CONFIG_SUPPORTER_SETTINGS_MAGIC_COLOR));
 			magicColorField.setValue(String.format("#%06X", wizardData.magicColor().asInt(Color.Ordering.RGB)));
 			magicColorField.setMaxLength(7);
 
 			pocketDimensionColorField = addRenderableWidget(new EditBox(font, centerX + 11, centerY + yOffset - 10 + 30, 64, 20, Component.empty()));
-			pocketDimensionColorField.setHint(Component.translatable("config.arcanus.supporter_settings.pocket_dimension_color"));
+			pocketDimensionColorField.setHint(Component.translatable(CONFIG_SUPPORTER_SETTINGS_POCKET_COLOR));
 			pocketDimensionColorField.setValue(String.format("#%06X", wizardData.pocketDimensionColor().asInt(Color.Ordering.RGB)));
 			pocketDimensionColorField.setMaxLength(7);
 		}
 
-		addRenderableWidget(Button.builder(Component.translatable("config.arcanus.supporter_settings.save_and_exit"), buttonWidget -> {
+		addRenderableWidget(Button.builder(Component.translatable(CONFIG_SUPPORTER_SETTINGS_SAVE_AND_EXIT), buttonWidget -> {
 			List<CompletableFuture<Void>> saveFutures = new ArrayList<>();
 			if(hasHaloData()) {
 				var newHaloData = getColorFromField(haloColorField).map(haloData::withColor).orElse(haloData).withEnabled(haloEnabled);
@@ -184,17 +186,17 @@ public class SupporterScreen extends Screen {
 			}
 			renderColorDisplay(graphics, centerX - 2, centerY + yOffset, getColorFromField(haloColorField));
 
-			graphics.drawString(font, Component.translatable("config.arcanus.supporter_settings.halo_color"), centerX + xOffset, centerY + yOffset - font.lineHeight / 2, 0xffffff, false);
+			graphics.drawString(font, Component.translatable(CONFIG_SUPPORTER_SETTINGS_HALO_COLOR), centerX + xOffset, centerY + yOffset - font.lineHeight / 2, 0xffffff, false);
 
 			yOffset = 35;
 		}
 
 		if(hasWizardData()) {
 			renderColorDisplay(graphics, centerX - 2, centerY + yOffset, getColorFromField(magicColorField));
-			graphics.drawString(font, Component.translatable("config.arcanus.supporter_settings.magic_color"), centerX + xOffset, centerY + yOffset - font.lineHeight / 2, 0xffffff, false);
+			graphics.drawString(font, Component.translatable(CONFIG_SUPPORTER_SETTINGS_MAGIC_COLOR), centerX + xOffset, centerY + yOffset - font.lineHeight / 2, 0xffffff, false);
 
 			renderColorDisplay(graphics, centerX - 2, centerY + yOffset + 30, getColorFromField(pocketDimensionColorField));
-			graphics.drawString(font, Component.translatable("config.arcanus.supporter_settings.pocket_dimension_color"), centerX + xOffset, centerY + yOffset + 30 - font.lineHeight / 2, 0xffffff, false);
+			graphics.drawString(font, Component.translatable(CONFIG_SUPPORTER_SETTINGS_POCKET_COLOR), centerX + xOffset, centerY + yOffset + 30 - font.lineHeight / 2, 0xffffff, false);
 		}
 
 

@@ -8,6 +8,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.cammiescorner.arcanus.common.command.PocketDimensionCommand;
 import dev.cammiescorner.arcanus.common.components.level.PocketDimensionComponent;
 import dev.cammiescorner.arcanus.common.data.ArcanusDimensions;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.selector.EntitySelector;
@@ -38,9 +39,9 @@ public class RegeneratePocketDimensionCommand {
 
 		context.getSource().sendSuccess(() -> switch(regenerateType) {
 			case WALLS_ONLY ->
-				Component.translatable("command.arcanus.pocket_dimension.regenerate.success.walls_only", target.getName());
+				Component.translatable(TranslationKeys.COMMAND_REGEN_POCKET_WALLS_ONLY, target.getName());
 			case FULL ->
-				Component.translatable("command.arcanus.pocket_dimension.regenerate.success.full", target.getName());
+				Component.translatable(TranslationKeys.COMMAND_REGEN_POCKET_SUCCESS, target.getName());
 			default -> throw new UnsupportedOperationException();
 		}, true);
 		return Command.SINGLE_SUCCESS;

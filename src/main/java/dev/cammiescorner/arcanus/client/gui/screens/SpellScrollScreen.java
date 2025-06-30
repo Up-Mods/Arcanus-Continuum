@@ -118,19 +118,19 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 
 		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
-		MutableComponent weight = Component.translatable(getWeight().translationKey()).withStyle(ChatFormatting.DARK_GREEN);
 		MutableComponent mana = Component.empty();
-		MutableComponent coolDown = Component.literal(Arcanus.format(getCoolDown() / 20d) + "s").withStyle(ChatFormatting.RED);
+		MutableComponent weight = Component.translatable(getWeight().translationKey()).withStyle(ChatFormatting.DARK_GREEN);
+		MutableComponent coolDown = Component.literal(Arcanus.format(getCoolDown() / 20d) + "s").withStyle(ChatFormatting.DARK_RED);
 
 		for(ManaType manaType : ManaType.values()) {
-			if(getSpell().getManaCost().get(manaType) <= 0)
-				continue;
+			if(!mana.equals(Component.empty()))
+				mana.append(Component.literal(", ").withStyle(ChatFormatting.GRAY));
 
 			mana.append(Component.literal(Arcanus.format(getManaCost(manaType))).withStyle(manaType.getChatFormatting()));
 		}
 
-		gui.drawString(font, weight, 240 - font.width(weight), 7, 0xffffff, false);
-		gui.drawString(font, mana, 240 - font.width(mana), 17, 0xffffff, false);
+		gui.drawString(font, mana, 240 - font.width(mana), 7, 0xffffff, false);
+		gui.drawString(font, weight, 240 - font.width(weight), 17, 0xffffff, false);
 		gui.drawString(font, coolDown, 240 - font.width(coolDown), 27, 0xffffff, false);
 
 		for(SpellGroup group : SPELL_GROUPS) {
@@ -142,17 +142,10 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 					SpellComponent component = group.getAllComponents().toList().get(i);
 
 					textList.add(component.getName());
-					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
-						Component.translatable(SPELL_BOOK_WEIGHT),
-						Component.translatable(component.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
-					).withStyle(ChatFormatting.GREEN));
 
 					for(ManaType manaType : ManaType.values()) {
-						if(component.getManaCost().get(manaType) <= 0)
-							continue;
-
 						textList.add(Component.translatable(TWO_ARGUMENT_KEY,
-							Component.translatable(SPELL_BOOK_MANA_COST),
+							Component.translatable(manaType.getTranslationKey()),
 							Component.literal(component.getManaCostAsString(manaType)).withStyle(ChatFormatting.GRAY)
 						).withStyle(manaType.getChatFormatting()));
 					}
@@ -171,9 +164,13 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 					}
 
 					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+						Component.translatable(SPELL_BOOK_WEIGHT),
+						Component.translatable(component.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
+					).withStyle(ChatFormatting.DARK_GREEN));
+					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
 						Component.translatable(SPELL_BOOK_COOL_DOWN),
 						Component.literal(component.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)
-					).withStyle(ChatFormatting.RED));
+					).withStyle(ChatFormatting.DARK_RED));
 
 					gui.renderComponentTooltip(font, textList, mouseX - leftPos, mouseY - topPos);
 				}

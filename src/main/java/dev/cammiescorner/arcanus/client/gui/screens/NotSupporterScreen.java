@@ -17,6 +17,8 @@ import org.apache.http.client.utils.URIBuilder;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
+import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
+
 // TODO whole screen is borked rn apparently
 public class NotSupporterScreen extends Screen {
 	private static final ResourceLocation DEMO_BACKGROUND_LOCATION = ResourceLocation.withDefaultNamespace("textures/gui/demo_background.png");
@@ -29,7 +31,7 @@ public class NotSupporterScreen extends Screen {
 	private MultiLineLabel perksMessage = MultiLineLabel.EMPTY;
 
 	public NotSupporterScreen(Screen parent, GameProfile currentPlayerProfile) {
-		super(Component.translatable("screen.arcanus.support_us.title", Component.translatable("screen.arcanus.support_us.title2").withStyle(ChatFormatting.UNDERLINE)));
+		super(Component.translatable(SCREEN_SUPPORT_US_TITLE, Component.translatable(SCREEN_SUPPORT_US_SUBTITLE).withStyle(ChatFormatting.UNDERLINE)));
 		this.parent = parent;
 		this.currentPlayerProfile = currentPlayerProfile;
 	}
@@ -41,14 +43,14 @@ public class NotSupporterScreen extends Screen {
 		var centerY = this.height / 2;
 
 		// TODO maybe link to mod list page once it exists?
-		welcomeMessage = MultiLineLabel.create(this.font, Component.translatable("screen.arcanus.support_us.welcome_message", currentPlayerProfile.getName()), 218);
-		perksMessage = MultiLineLabel.create(this.font, Component.translatable("screen.arcanus.support_us.perks_message"), 218);
+		welcomeMessage = MultiLineLabel.create(this.font, Component.translatable(SCREEN_SUPPORT_US_WELCOME, currentPlayerProfile.getName()), 218);
+		perksMessage = MultiLineLabel.create(this.font, Component.translatable(SCREEN_SUPPORT_US_PERKS), 218);
 
-		this.addRenderableWidget(Button.builder(Component.translatable("screen.arcanus.support_us.button_support_cammie"), (button) -> {
+		this.addRenderableWidget(Button.builder(Component.translatable(SCREEN_SUPPORT_US_CAMMIE), (button) -> {
 			button.active = false;
 			openLink(CAMMIE_KOFI_URL);
 		}).bounds(centerX - 118, centerY + 56, 114, 20).build());
-		this.addRenderableWidget(Button.builder(Component.translatable("screen.arcanus.support_us.button_support_up"), (button) -> {
+		this.addRenderableWidget(Button.builder(Component.translatable(SCREEN_SUPPORT_US_UP), (button) -> {
 			button.active = false;
 			openLink(UP_KOFI_URL);
 		}).bounds(centerX + 2, centerY + 56, 114, 20).build());
