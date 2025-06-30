@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
+import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.api.spells.SpellComponent;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.core.HolderLookup;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KnownSpellComponentsComponent implements AutoSyncedComponent {
+	private static final Codec<List<SpellComponent>> CODEC = SpellComponent.CODEC.listOf();
 	private final LivingEntity entity;
 	private final List<SpellComponent> knownComponents = new ArrayList<>();
 
@@ -22,12 +24,12 @@ public class KnownSpellComponentsComponent implements AutoSyncedComponent {
 	@Override
 	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		knownComponents.clear();
-		knownComponents.addAll(SpellComponent.CODEC.listOf().decode(NbtOps.INSTANCE, tag.get("KnownSpellComponents")).getOrThrow().getFirst());
+		knownComponents.addAll(CODEC.parse(NbtOps.INSTANCE, tag.get("KnownSpellComponents")).getOrThrow());
 	}
 
 	@Override
 	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		tag.put("KnownSpellComponents", SpellComponent.CODEC.listOf().encode(knownComponents, NbtOps.INSTANCE, tag).getOrThrow());
+		tag.put("KnownSpellComponents", CODEC.encode(knownComponents, NbtOps.INSTANCE, tag).getOrThrow());
 	}
 
 	public List<SpellComponent> getKnownComponents() {
