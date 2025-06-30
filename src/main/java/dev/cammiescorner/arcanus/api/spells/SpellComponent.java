@@ -1,7 +1,10 @@
 package dev.cammiescorner.arcanus.api.spells;
 
+import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.api.ArcanusRegistries;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
+import dev.upcraft.sparkweave.api.registry.RegistryHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
@@ -11,6 +14,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class SpellComponent {
+	public static final Codec<SpellComponent> CODEC = RegistryHelper.getBuiltinRegistry(ArcanusRegistries.SPELL_COMPONENTS_KEY).byNameCodec();
 	public static final String DISABLED_TRANSLATION_KEY = Util.makeDescriptionId("arcanus.spell_component", Arcanus.id("disabled"));
 	private static final Component DISABLED_TRANSLATED_NAME = Component.translatable(DISABLED_TRANSLATION_KEY).withStyle(ChatFormatting.OBFUSCATED);
 	private final Supplier<Boolean> isEnabled;

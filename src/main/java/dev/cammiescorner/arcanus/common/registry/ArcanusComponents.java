@@ -50,6 +50,7 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 	public static final ComponentKey<WardedBlocksComponent> WARDED_BLOCKS_COMPONENT = createComponent("warded_blocks", WardedBlocksComponent.class);
 
 	// ----- Entity Components ----- \\
+	public static final ComponentKey<KnownSpellComponentsComponent> KNOWN_SPELL_COMPONENTS_COMPONENT = createComponent("known_spell_components", KnownSpellComponentsComponent.class);
 	public static final ComponentKey<WizardLevelComponent> WIZARD_LEVEL_COMPONENT = createComponent("wizard_level", WizardLevelComponent.class);
 	public static final ComponentKey<ManaComponent> MANA_COMPONENT = createComponent("mana", ManaComponent.class);
 	public static final ComponentKey<CastingComponent> CASTING_COMPONENT = createComponent("casting", CastingComponent.class);
@@ -79,6 +80,7 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
+		registry.beginRegistration(Player.class, KNOWN_SPELL_COMPONENTS_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(KnownSpellComponentsComponent::new);
 		registry.beginRegistration(Player.class, WIZARD_LEVEL_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(WizardLevelComponent::new);
 		registry.beginRegistration(LivingEntity.class, MANA_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(ManaComponent::new);
 		registry.beginRegistration(Player.class, CASTING_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(CastingComponent::new);
