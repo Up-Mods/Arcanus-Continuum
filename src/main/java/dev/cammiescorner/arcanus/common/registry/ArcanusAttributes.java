@@ -13,11 +13,11 @@ public class ArcanusAttributes {
 	private static volatile boolean isInitialized = false;
 	private static final RegistryHandler<Attribute> ENTITY_ATTRIBUTES = RegistryHandler.create(Registries.ATTRIBUTE, Arcanus.MOD_ID);
 
-	public static final RegistrySupplier<Attribute> RED_MANA = ENTITY_ATTRIBUTES.register("red_mana", () -> new ArcanusRangedAttribute("attribute.name.generic.arcanus.red_mana", 25d, 25d, 10000d).setSyncable(true));
-	public static final RegistrySupplier<Attribute> GREEN_MANA = ENTITY_ATTRIBUTES.register("green_mana", () -> new ArcanusRangedAttribute("attribute.name.generic.arcanus.green_mana", 25d, 25d, 10000d).setSyncable(true));
-	public static final RegistrySupplier<Attribute> BLUE_MANA = ENTITY_ATTRIBUTES.register("blue_mana", () -> new ArcanusRangedAttribute("attribute.name.generic.arcanus.blue_mana", 25d, 25d, 10000d).setSyncable(true));
-	public static final RegistrySupplier<Attribute> WHITE_MANA = ENTITY_ATTRIBUTES.register("white_mana", () -> new ArcanusRangedAttribute("attribute.name.generic.arcanus.white_mana", 25d, 25d, 10000d).setSyncable(true));
-	public static final RegistrySupplier<Attribute> BLACK_MANA = ENTITY_ATTRIBUTES.register("black_mana", () -> new ArcanusRangedAttribute("attribute.name.generic.arcanus.black_mana", 25d, 25d, 10000d).setSyncable(true));
+	public static final RegistrySupplier<Attribute> RED_MANA = ENTITY_ATTRIBUTES.register("red_mana", () -> new ArcanusRangedAttribute("attribute.name.generic.arcanus.red_mana", 25d, 0d, 10000d).setSyncable(true));
+	public static final RegistrySupplier<Attribute> GREEN_MANA = ENTITY_ATTRIBUTES.register("green_mana", () -> new ArcanusRangedAttribute("attribute.name.generic.arcanus.green_mana", 25d, 0d, 10000d).setSyncable(true));
+	public static final RegistrySupplier<Attribute> BLUE_MANA = ENTITY_ATTRIBUTES.register("blue_mana", () -> new ArcanusRangedAttribute("attribute.name.generic.arcanus.blue_mana", 25d, 0d, 10000d).setSyncable(true));
+	public static final RegistrySupplier<Attribute> WHITE_MANA = ENTITY_ATTRIBUTES.register("white_mana", () -> new ArcanusRangedAttribute("attribute.name.generic.arcanus.white_mana", 25d, 0d, 10000d).setSyncable(true));
+	public static final RegistrySupplier<Attribute> BLACK_MANA = ENTITY_ATTRIBUTES.register("black_mana", () -> new ArcanusRangedAttribute("attribute.name.generic.arcanus.black_mana", 25d, 0d, 10000d).setSyncable(true));
 	public static final RegistrySupplier<Attribute> MANA_LOCK = ENTITY_ATTRIBUTES.register("mana_lock", () -> new ArcanusRangedAttribute("attribute.name.generic.arcanus.mana_lock", 0d, 0d, 10000d).setSyncable(true));
 	public static final RegistrySupplier<Attribute> MANA_REGEN = ENTITY_ATTRIBUTES.register("mana_regen", () -> new ArcanusRangedAttribute("attribute.name.generic.arcanus.mana_regen", 0.5d, 0d, 1024d).setSyncable(true));
 	public static final RegistrySupplier<Attribute> SPELL_POTENCY = ENTITY_ATTRIBUTES.register("spell_potency", () -> new ArcanusRangedAttribute("attribute.name.generic.arcanus.spell_potency", 1d, 0d, 5d).setSyncable(true));

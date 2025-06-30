@@ -166,6 +166,7 @@
   "config.arcanus.life_span_modifier": "Life Span Modifier",
   "config.arcanus.lob_shape_properties": "Lob Shape",
   "config.arcanus.mana_bars_max_length": "Max Length of Scaled Mana Bars",
+  "config.arcanus.mana_bars_min_length": "Min Length of Scaled Mana Bars",
   "config.arcanus.mana_bars_on_top": "Move Mana Bars to the Top",
   "config.arcanus.mana_lock_effect_properties": "Mana Lock Effect",
   "config.arcanus.mana_modifier_operation": "Mana Modifier Operation",
