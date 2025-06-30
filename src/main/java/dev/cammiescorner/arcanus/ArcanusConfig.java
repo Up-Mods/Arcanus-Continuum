@@ -36,6 +36,10 @@ public final class ArcanusConfig {
 	@ConfigEntry(id = "rightSideManaBars", translation = CONFIG_RIGHT_SIDE_MANA_BARS)
 	public static MirrorHudElement rightSideManaBars = MirrorHudElement.IF_LEFT_HANDED;
 
+	// TODO translation
+	@ConfigEntry(id = "numericalManaDisplay")
+	public static boolean numericalManaDisplay = false;
+
 	@Category(value = "Spell Shapes", categories = {
 		SpellShapes.SelfShapeProperties.class,
 		SpellShapes.MissileShapeProperties.class,

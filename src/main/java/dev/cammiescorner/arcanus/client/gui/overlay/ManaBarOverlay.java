@@ -13,7 +13,9 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 
 public class ManaBarOverlay {
 
@@ -118,14 +120,15 @@ public class ManaBarOverlay {
 
 				poseStack.popPose();
 
-//				// TODO draw numbers
-//				// TODO make translatable
-//				poseStack.pushPose();
-//				poseStack.translate(x, y, 0);
-//				poseStack.scale(0.5F, 0.5F, 1.0F);
-//
-//				guiGraphics.drawString(client.font, Component.literal(String.format("%s / %s", mana, maxMana)).withColor(color.asIntARGB()), 0, 0, 0xFFFFFFFF, true);
-//				poseStack.popPose();
+				if(ArcanusConfig.numericalManaDisplay) {
+					poseStack.pushPose();
+					var offset = 30.0F;
+					poseStack.translate(x * scale + Mth.cos(angle) * offset, y * scale + Mth.sin(angle) * offset, 0);
+					poseStack.scale(0.5F, 0.5F, 1.0F);
+
+					guiGraphics.drawCenteredString(client.font, Component.literal(String.valueOf(Mth.floor(mana))).withColor(color.asIntARGB()), 0, 0, 0xFFFFFFFF);
+					poseStack.popPose();
+				}
 			}
 			poseStack.popPose();
 
