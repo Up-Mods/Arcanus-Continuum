@@ -26,10 +26,10 @@ public class FirstPersonCastingOverlay {
 
 	private static final ResourceLocation MAGIC_CIRCLES = Arcanus.id("textures/entity/feature/magic_circles.png");
 
-	public static void render(GuiGraphics gui, DeltaTracker tickDelta, LocalPlayer player) {
+	public static void render(GuiGraphics guiGraphics, DeltaTracker tickDelta, LocalPlayer player) {
 		Minecraft client = Minecraft.getInstance();
 		if(!client.gameRenderer.getMainCamera().isDetached() && !ArcanusClient.FIRST_PERSON_MODEL_ENABLED.getAsBoolean()) {
-			PoseStack matrices = gui.pose();
+			PoseStack matrices = guiGraphics.pose();
 			List<Pattern> list = ArcanusComponents.getPattern(player);
 
 			if(!list.isEmpty()) {

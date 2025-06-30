@@ -36,40 +36,67 @@ public class ManaBarOverlay {
 			RenderSystem.enableBlend();
 
 			poseStack.pushPose();
-			int x = ArcanusConfig.rightSideManaBars.mirror() ? scaledWidth - 29 : 0;
-			int y = ArcanusConfig.manaBarsOnTop ? 11 : scaledHeight - 18;
-			float startingAngle;
+			poseStack.translate(0, 11, 0);
+			if(ArcanusConfig.rightSideManaBars.mirror()) {
+				poseStack.translate(scaledWidth - 29, 0, 0);
+			}
+			if(!ArcanusConfig.manaBarsOnTop) {
+				poseStack.translate(0, scaledHeight - 29, 0);
+			}
 
+			float startingAngleDegrees;
 			if(ArcanusConfig.manaBarsOnTop) {
 				if(ArcanusConfig.rightSideManaBars.mirror())
-					startingAngle = 189;
+					startingAngleDegrees = 189;
 				else
-					startingAngle = -9f;
+					startingAngleDegrees = -9f;
 			}
 			else {
 				if(ArcanusConfig.rightSideManaBars.mirror())
-					startingAngle = -81f;
+					startingAngleDegrees = -81f;
 				else
-					startingAngle = -99f;
+					startingAngleDegrees = -99f;
 			}
+			float angleOffsetDegrees = ArcanusConfig.rightSideManaBars.mirror() ? -27f : 27f;
 
-			float angleOffset = ArcanusConfig.rightSideManaBars.mirror() ? -27f : 27f;
-			poseStack.translate(x, y, 0);
-			poseStack.scale(0.225f, 0.225f, 1f);
+			// render frame
+			poseStack.pushPose();
+			var scale = 0.225F;
+			poseStack.scale(scale, scale, 1.0F);
+			RenderSystem.setShaderColor(1f, 1f, 1f, alpha);
+			guiGraphics.blit(OVERLAY_TEXTURE, 0, -48, 0, 0, 128, 128);
+			poseStack.popPose();
+
+			// render book
+			var spellBook = Arcanus.getActiveSpellBook(player);
+			if(!spellBook.isEmpty()) {
+				poseStack.pushPose();
+				poseStack.translate(8, -2, 0);
+				poseStack.scale(0.8f, 0.8f, 1f);
+
+				RenderSystem.setShaderColor(1f, 1f, 1f, alpha);
+				guiGraphics.renderItem(spellBook, 0, 0);
+
+				poseStack.popPose();
+			}
 
 			// render mana bars
 			for(var manaType : ManaType.values()) {
 				Color color = manaType.getColor();
-
-				poseStack.pushPose();
-				x = ArcanusConfig.rightSideManaBars.mirror() ? 68 : 60;
-				y = ArcanusConfig.manaBarsOnTop ? 12 : 20;
-				poseStack.translate(x, y, 0);
-				poseStack.mulPose(Axis.ZP.rotationDegrees(startingAngle + angleOffset * manaType.ordinal()));
-				poseStack.translate(-8, -8, 0);
-
 				double maxMana = ArcanusComponents.getMaxMana(player, manaType);
 				double mana = ArcanusComponents.getMana(player, manaType);
+
+				int x = ArcanusConfig.rightSideManaBars.mirror() ? 68 : 60;
+				int y = ArcanusConfig.manaBarsOnTop ? 12 : 20;
+				var angle = (float) Math.toRadians(startingAngleDegrees + angleOffsetDegrees * manaType.ordinal());
+
+				poseStack.pushPose();
+				poseStack.scale(scale, scale, 1.0F);
+				poseStack.translate(x, y, 0);
+
+				poseStack.mulPose(Axis.ZP.rotation(angle));
+				poseStack.translate(-8, -8, 0);
+
 				double ratio = Math.min(1f, maxMana <= 0f ? 0f : (mana / maxMana));
 				double halfNHalf = ArcanusConfig.scaleManaBarsWithMaxMana ? (Math.min(maxMana, ArcanusConfig.manaBarsMaxLength) - 12) / 2f : (35 - 6);
 				int bottomMana = (int) (halfNHalf * Math.clamp(ratio / 0.44f, 0f, 1f));
@@ -90,22 +117,16 @@ public class ManaBarOverlay {
 				guiGraphics.blit(OVERLAY_TEXTURE, (int) (80 + halfNHalf + 10), 0, (int) (256 - halfNHalf), 160, (int) halfNHalf, 32);
 
 				poseStack.popPose();
+
+//				// TODO draw numbers
+//				// TODO make translatable
+//				poseStack.pushPose();
+//				poseStack.translate(x, y, 0);
+//				poseStack.scale(0.5F, 0.5F, 1.0F);
+//
+//				guiGraphics.drawString(client.font, Component.literal(String.format("%s / %s", mana, maxMana)).withColor(color.asIntARGB()), 0, 0, 0xFFFFFFFF, true);
+//				poseStack.popPose();
 			}
-
-			// render frame
-			guiGraphics.blit(OVERLAY_TEXTURE, 0, -48, 0, 0, 128, 128);
-
-			poseStack.popPose();
-
-			x = ArcanusConfig.rightSideManaBars.mirror() ? scaledWidth - 21 : 8;
-			y = ArcanusConfig.manaBarsOnTop ? 8 : scaledHeight - 21;
-
-			poseStack.pushPose();
-			poseStack.translate(x, y, 0);
-			poseStack.scale(0.8f, 0.8f, 1f);
-
-			guiGraphics.renderItem(Arcanus.getActiveSpellBook(player), 0, 0);
-
 			poseStack.popPose();
 
 			RenderSystem.disableBlend();
