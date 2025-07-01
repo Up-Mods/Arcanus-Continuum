@@ -1,14 +1,12 @@
 package dev.cammiescorner.arcanus.mixin.client;
 
 import commonnetwork.api.Network;
-import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.util.ClientUtils;
 import dev.cammiescorner.arcanus.common.entities.magic.Aggressorb;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
-import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundCastSpellPacket;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundIsCastingPacket;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundShootOrbsPacket;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundSyncPatternPacket;
@@ -76,11 +74,8 @@ public abstract class MinecraftMixin implements ClientUtils {
 				if(isCasting) {
 					mouseDownTimer++;
 
-					if(player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0) {
-						int index = Arcanus.getSpellIndex(patterns);
-						Network.getNetworkHandler().sendToServer(new ServerboundCastSpellPacket(index));
+					if(player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0)
 						timer = 20;
-					}
 				}
 				else {
 					timer = 0;
