@@ -205,7 +205,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(COMMAND_WIZARD_LEVEL_GET_SUCCESS, "%s's wizard level is %s");
 		builder.add(COMMAND_WIZARD_LEVEL_SET_SUCCESS, "Set %s's wizard level to %s");
 
-		builder.add(COMMAND_SPELL_COMPONENT_LIST_SUCCESS, "%'s known Spell Components:");
+		builder.add(COMMAND_SPELL_COMPONENT_LIST_SUCCESS, "%s's known Spell Components:");
 		builder.add(COMMAND_SPELL_COMPONENT_LIST_FAIL, "%s doesn't know any Spell Components");
 		builder.add(COMMAND_SPELL_COMPONENT_LEARN_SUCCESS, "%s has learned %s");
 		builder.add(COMMAND_SPELL_COMPONENT_LEARN_FAIL, "%s already knows %s");

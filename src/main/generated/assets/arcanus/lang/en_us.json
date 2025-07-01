@@ -107,7 +107,7 @@
   "command.arcanus.spell_component.learn.fail": "%s already knows %s",
   "command.arcanus.spell_component.learn.success": "%s has learned %s",
   "command.arcanus.spell_component.list.fail": "%s doesn't know any Spell Components",
-  "command.arcanus.spell_component.list.success": "%'s known Spell Components:",
+  "command.arcanus.spell_component.list.success": "%s's known Spell Components:",
   "command.arcanus.spell_component.revoke.fail": "%s doesn't know %s",
   "command.arcanus.spell_component.revoke.success": "%s has forgotten %s",
   "command.arcanus.wizard_level.get.success": "%s's wizard level is %s",

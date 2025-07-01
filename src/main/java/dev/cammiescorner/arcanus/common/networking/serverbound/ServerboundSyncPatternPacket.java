@@ -2,10 +2,7 @@ package dev.cammiescorner.arcanus.common.networking.serverbound;
 
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.spells.ManaType;
-import dev.cammiescorner.arcanus.api.spells.Pattern;
-import dev.cammiescorner.arcanus.api.spells.Spell;
-import dev.cammiescorner.arcanus.api.spells.SpellGroup;
+import dev.cammiescorner.arcanus.api.spells.*;
 import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
 import dev.cammiescorner.arcanus.common.data_components.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.items.StaffItem;
@@ -13,7 +10,6 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
-import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
@@ -33,8 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static dev.cammiescorner.arcanus.common.util.TranslationKeys.SPELL_NOT_ENOUGH_MANA;
-import static dev.cammiescorner.arcanus.common.util.TranslationKeys.SPELL_TOO_MANY_COMPONENTS;
+import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements CustomPacketPayload {
 	public static final CustomPacketPayload.Type<ServerboundSyncPatternPacket> TYPE = new CustomPacketPayload.Type<>(Arcanus.id("sync_pattern"));
@@ -62,17 +57,16 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements Cu
 					TrinketComponent component = optional.get();
 					List<Tuple<SlotReference, ItemStack>> equipped = component.getEquipped(ArcanusItems.SPELL_BOOK.get());
 					ItemStack spellBook = equipped.isEmpty() ? ItemStack.EMPTY : equipped.getFirst().getB();
-					var spells = spellBook.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
+					SpellBookComponent spells = spellBook.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
 					int index = Arcanus.getSpellIndex(pattern);
 
 					if(player.getCooldowns().getCooldownPercent(staff, 1f) == 0) {
 						Spell spell = spells.getSpell(index);
 
-						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).allMatch(spellComponent -> ArcanusComponents.knowsSpellComponents(player, spellComponent))) {
-							player.displayClientMessage(Component.translatable(TranslationKeys.SPELL_UNKNOWN_SPELL_COMPONENTS).withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
+						if(!spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).allMatch(spellComponent -> ArcanusComponents.knowsSpellComponents(player, spellComponent))) {
+							player.displayClientMessage(Component.translatable(SPELL_UNKNOWN_SPELL_COMPONENTS).withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
 							return;
 						}
-
 
 						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).count() > ArcanusComponents.maxSpellSize()) {
 							player.displayClientMessage(Component.translatable(SPELL_TOO_MANY_COMPONENTS), true);
