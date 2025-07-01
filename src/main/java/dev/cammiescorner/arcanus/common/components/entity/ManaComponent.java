@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
-import dev.cammiescorner.arcanus.api.spells.ManaType;
+import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import net.minecraft.core.HolderLookup;

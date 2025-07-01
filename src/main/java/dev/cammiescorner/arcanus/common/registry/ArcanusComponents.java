@@ -2,6 +2,11 @@ package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.*;
+import dev.cammiescorner.arcanus.api.spells.components.SpellComponent;
+import dev.cammiescorner.arcanus.api.spells.components.SpellEffect;
+import dev.cammiescorner.arcanus.api.spells.components.SpellGroup;
+import dev.cammiescorner.arcanus.api.spells.components.SpellShape;
+import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
 import dev.cammiescorner.arcanus.common.blocks.entities.AbstractMagicBlockEntity;
 import dev.cammiescorner.arcanus.common.components.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.components.chunk.WardedBlocksComponent;

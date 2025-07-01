@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.entities.magic;
 
 import dev.cammiescorner.arcanus.api.entities.Targetable;
-import dev.cammiescorner.arcanus.api.spells.SpellEffect;
+import dev.cammiescorner.arcanus.api.spells.components.SpellEffect;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSoundEvents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.fabricmc.api.EnvType;

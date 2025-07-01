@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.items;
 
-import dev.cammiescorner.arcanus.api.spells.ManaType;
+import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
 import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.menus.providers.SpellScrollMenuProvider;

@@ -5,8 +5,9 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.cammiescorner.arcanus.api.ArcanusRegistries;
-import dev.cammiescorner.arcanus.api.spells.SpellComponent;
+import dev.cammiescorner.arcanus.api.spells.components.SpellComponent;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
@@ -55,18 +56,22 @@ public class LearnSpellComponentsCommand {
 		List<SpellComponent> knownComponents = ArcanusComponents.getKnownSpellComponents(player);
 
 		if(!ArcanusComponents.knowsAnySpellComponents(player)) {
-			context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_LIST_FAIL, player.getScoreboardName()), true);
+			context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_LIST_FAIL, player.getScoreboardName()), false);
 			return 0;
 		}
 
 		context.getSource().sendSuccess(() -> {
 			MutableComponent text = Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_LIST_SUCCESS, player.getScoreboardName());
 
-			for(SpellComponent spellComponent : knownComponents)
-				text.append(Component.literal("\n  - ").append(Component.translatable(spellComponent.getTranslationKey())));
+			for(SpellComponent spellComponent : knownComponents) {
+				if(spellComponent == ArcanusSpellComponents.EMPTY.get())
+					continue;
+
+				text.append(Component.literal("\n - ").append(Component.translatable(spellComponent.getTranslationKey())));
+			}
 
 			return text;
-		}, true);
+		}, false);
 
 		return Command.SINGLE_SUCCESS;
 	}
@@ -75,7 +80,7 @@ public class LearnSpellComponentsCommand {
 		Holder.Reference<SpellComponent> spellComponent = getSpellComponent(context, "spell_component");
 
 		if(ArcanusComponents.knowsSpellComponents(player, spellComponent.value())) {
-			context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_LEARN_FAIL, player.getScoreboardName(), Component.translatable(spellComponent.value().getTranslationKey())), true);
+			context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_LEARN_FAIL, player.getScoreboardName(), Component.translatable(spellComponent.value().getTranslationKey())), false);
 			return 0;
 		}
 
@@ -89,7 +94,7 @@ public class LearnSpellComponentsCommand {
 		Holder.Reference<SpellComponent> spellComponent = getSpellComponent(context, "spell_component");
 
 		if(!ArcanusComponents.knowsSpellComponents(player, spellComponent.value())) {
-			context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_REVOKE_FAIL, player.getScoreboardName(), Component.translatable(spellComponent.value().getTranslationKey())), true);
+			context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_REVOKE_FAIL, player.getScoreboardName(), Component.translatable(spellComponent.value().getTranslationKey())), false);
 			return 0;
 		}
 

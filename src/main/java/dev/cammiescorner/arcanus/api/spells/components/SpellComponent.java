@@ -1,8 +1,10 @@
-package dev.cammiescorner.arcanus.api.spells;
+package dev.cammiescorner.arcanus.api.spells.components;
 
 import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.ArcanusRegistries;
+import dev.cammiescorner.arcanus.api.spells.Weight;
+import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.upcraft.sparkweave.api.registry.RegistryHelper;
 import net.minecraft.ChatFormatting;

@@ -1,9 +1,9 @@
 package dev.cammiescorner.arcanus.client.gui.widgets;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.cammiescorner.arcanus.api.spells.ManaType;
-import dev.cammiescorner.arcanus.api.spells.SpellComponent;
-import dev.cammiescorner.arcanus.api.spells.SpellShape;
+import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
+import dev.cammiescorner.arcanus.api.spells.components.SpellComponent;
+import dev.cammiescorner.arcanus.api.spells.components.SpellShape;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.common.spell_components.effects.attack;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entities.Targetable;
-import dev.cammiescorner.arcanus.api.spells.SpellEffect;
+import dev.cammiescorner.arcanus.api.spells.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spells.SpellType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDamageTypes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;

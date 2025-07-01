@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
 import com.mojang.serialization.Codec;
-import dev.cammiescorner.arcanus.api.spells.SpellComponent;
+import dev.cammiescorner.arcanus.api.spells.components.SpellComponent;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.core.HolderLookup;

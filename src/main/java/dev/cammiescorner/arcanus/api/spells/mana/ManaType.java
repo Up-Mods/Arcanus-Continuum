@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanus.api.spells;
+package dev.cammiescorner.arcanus.api.spells.mana;
 
 import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;

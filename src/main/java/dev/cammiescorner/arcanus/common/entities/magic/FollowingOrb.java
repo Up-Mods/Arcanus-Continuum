@@ -2,10 +2,10 @@ package dev.cammiescorner.arcanus.common.entities.magic;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entities.Targetable;
-import dev.cammiescorner.arcanus.api.spells.ManaType;
-import dev.cammiescorner.arcanus.api.spells.SpellEffect;
-import dev.cammiescorner.arcanus.api.spells.SpellGroup;
-import dev.cammiescorner.arcanus.api.spells.SpellShape;
+import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
+import dev.cammiescorner.arcanus.api.spells.components.SpellEffect;
+import dev.cammiescorner.arcanus.api.spells.components.SpellGroup;
+import dev.cammiescorner.arcanus.api.spells.components.SpellShape;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;

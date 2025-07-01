@@ -3,6 +3,8 @@ package dev.cammiescorner.arcanus.common.networking.serverbound;
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spells.*;
+import dev.cammiescorner.arcanus.api.spells.components.SpellGroup;
+import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
 import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
 import dev.cammiescorner.arcanus.common.data_components.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.items.StaffItem;

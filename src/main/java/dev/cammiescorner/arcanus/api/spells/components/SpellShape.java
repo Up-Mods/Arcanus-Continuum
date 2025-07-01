@@ -1,8 +1,10 @@
-package dev.cammiescorner.arcanus.api.spells;
+package dev.cammiescorner.arcanus.api.spells.components;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.api.spells.Weight;
+import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;

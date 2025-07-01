@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus;
 
 import com.teamresourceful.resourcefulconfig.api.annotations.*;
-import dev.cammiescorner.arcanus.api.spells.ManaType;
+import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
 import dev.cammiescorner.arcanus.api.spells.Weight;
 import dev.cammiescorner.arcanus.client.util.MirrorHudElement;
 

@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.spell_components.effects.support;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spells.SpellEffect;
+import dev.cammiescorner.arcanus.api.spells.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spells.SpellType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;

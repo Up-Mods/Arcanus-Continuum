@@ -52,7 +52,7 @@ public class SpellBookItem extends TrinketItem {
 				}
 
 				MutableComponent text = Component.literal(spell.getName()).withStyle(spell.isEmpty() ? ChatFormatting.GRAY : ChatFormatting.GREEN);
-				// TODO turn the () into a translatable component
+				// TODO turn the () into a translatable spellComponent
 				tooltip.add(text.append(Component.literal(" (").withStyle(ChatFormatting.DARK_GRAY))
 					.append(Arcanus.getSpellPatternAsText(i).withStyle(ChatFormatting.GRAY))
 					.append(Component.literal(")").withStyle(ChatFormatting.DARK_GRAY)));

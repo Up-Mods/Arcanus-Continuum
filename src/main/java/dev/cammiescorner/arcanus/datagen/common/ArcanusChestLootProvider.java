@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.datagen.common;
 
 import dev.cammiescorner.arcanus.api.spells.Spell;
-import dev.cammiescorner.arcanus.api.spells.SpellGroup;
+import dev.cammiescorner.arcanus.api.spells.components.SpellGroup;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;

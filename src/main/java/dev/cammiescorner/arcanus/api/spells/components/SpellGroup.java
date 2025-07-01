@@ -1,7 +1,9 @@
-package dev.cammiescorner.arcanus.api.spells;
+package dev.cammiescorner.arcanus.api.spells.components;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.cammiescorner.arcanus.api.spells.Weight;
+import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
 import dev.cammiescorner.arcanus.api.util.XtraCodecs;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.nbt.CompoundTag;

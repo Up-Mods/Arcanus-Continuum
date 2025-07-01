@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.datagen.client;
 
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
-import dev.cammiescorner.arcanus.api.spells.SpellComponent;
+import dev.cammiescorner.arcanus.api.spells.components.SpellComponent;
 import dev.cammiescorner.arcanus.common.data.*;
 import dev.cammiescorner.arcanus.common.items.BattleMageArmorItem;
 import dev.cammiescorner.arcanus.common.registry.*;
