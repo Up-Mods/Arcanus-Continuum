@@ -5,12 +5,14 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.ArcanusRegistries;
 import dev.cammiescorner.arcanus.api.spells.Weight;
 import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
+import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.upcraft.sparkweave.api.registry.RegistryHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.Map;
 import java.util.function.Supplier;
@@ -63,7 +65,10 @@ public class SpellComponent {
 		return Arcanus.format(getCoolDown() / 20d) + "s";
 	}
 
-	public ResourceLocation getTexture() {
+	public ResourceLocation getTexture(Player player) {
+		if(!ArcanusComponents.knowsSpellComponents(player, this))
+			return Arcanus.id("unknown_component.png").withPrefix("textures/spell_components/");
+
 		if(texture == null) {
 			ResourceLocation id = ArcanusSpellComponents.REGISTRY.getKey(this);
 			String extra = "";
@@ -73,7 +78,7 @@ public class SpellComponent {
 			if(this instanceof SpellEffect)
 				extra = "effects/";
 
-			texture = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "textures/spell_components/" + extra + id.getPath() + ".png");
+			texture = id.withPrefix("textures/spell_components/" + extra).withSuffix(".png");//ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "" + extra + id.getPath() + ".png");
 		}
 
 		return texture;

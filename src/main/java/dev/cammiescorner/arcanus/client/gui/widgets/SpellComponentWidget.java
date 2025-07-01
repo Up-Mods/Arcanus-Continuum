@@ -1,9 +1,9 @@
 package dev.cammiescorner.arcanus.client.gui.widgets;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
 import dev.cammiescorner.arcanus.api.spells.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spells.components.SpellShape;
+import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -32,12 +32,11 @@ public class SpellComponentWidget extends AbstractButton {
 		List<Component> textList = new ArrayList<>();
 		textList.add(component.getName());
 
-		for(ManaType manaType : ManaType.values()) {
+		for(ManaType manaType : ManaType.values())
 			textList.add(Component.translatable(TWO_ARGUMENT_KEY,
 				Component.translatable(manaType.getTranslationKey()),
 				Component.literal(component.getManaCostAsString(manaType)).withStyle(ChatFormatting.GRAY)
 			).withStyle(manaType.getChatFormatting()));
-		}
 
 		if(component instanceof SpellShape shape) {
 			if(shape.getManaMultiplier() != 0)
@@ -77,7 +76,7 @@ public class SpellComponentWidget extends AbstractButton {
 	@Override
 	public void renderWidget(GuiGraphics gui, int mouseX, int mouseY, float delta) {
 		RenderSystem.setShaderColor(0.25f, 0.25f, 0.3f, 1f);
-		gui.blit(component.getTexture(), getX(), getY(), 0, 0, 24, 24, 24, 24);
+		gui.blit(component.getTexture(client.player), getX(), getY(), 0, 0, 24, 24, 24, 24);
 	}
 
 	public void renderTooltip(GuiGraphics gui, int mouseX, int mouseY) {

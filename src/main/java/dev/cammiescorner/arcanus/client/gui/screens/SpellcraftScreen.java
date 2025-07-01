@@ -399,7 +399,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 				RenderSystem.setShaderColor(0.25f, 0.25f, 0.3f, 1f);
 				gui.blit(PANEL_TEXTURE, pos.x - 3, pos.y - 3, 30, 208, 30, 30, 384, 256);
 
-				gui.blit(group.getAllComponents().toList().get(j).getTexture(), pos.x, pos.y, 0, 0, 24, 24, 24, 24);
+				gui.blit(group.getAllComponents().toList().get(j).getTexture(minecraft.player), pos.x, pos.y, 0, 0, 24, 24, 24, 24);
 			}
 		}
 
@@ -420,7 +420,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 			gui.blit(PANEL_TEXTURE, mouseX - leftPos - 15, mouseY - topPos - 15, 30, 208, 30, 30, 384, 256);
 
 			RenderSystem.setShaderColor(r, g, b, 1f);
-			gui.blit(draggedComponent.getTexture(), mouseX - leftPos - 12, mouseY - topPos - 12, 0, 0, 24, 24, 24, 24);
+			gui.blit(draggedComponent.getTexture(minecraft.player), mouseX - leftPos - 12, mouseY - topPos - 12, 0, 0, 24, 24, 24, 24);
 		}
 
 		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
@@ -472,13 +472,14 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 				if(isHovering(position.x() - 2, position.y() - 2, 28, 28, mouseX, mouseY)) {
 					List<Component> textList = new ArrayList<>();
 					SpellComponent component = group.getAllComponents().toList().get(i);
+					boolean knowsComponent = ArcanusComponents.knowsSpellComponents(minecraft.player, component);
 
-					textList.add(component.getName());
+					textList.add(knowsComponent ? component.getName() : Component.literal("???"));
 
 					for(ManaType manaType : ManaType.values()) {
 						textList.add(Component.translatable(TWO_ARGUMENT_KEY,
 							Component.translatable(manaType.getTranslationKey()),
-							Component.literal(component.getManaCostAsString(manaType)).withStyle(ChatFormatting.GRAY)
+							Component.literal(knowsComponent ? component.getManaCostAsString(manaType) : "???").withStyle(ChatFormatting.GRAY)
 						).withStyle(manaType.getChatFormatting()));
 					}
 
@@ -486,22 +487,22 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 						if(shape.getManaMultiplier() != 0)
 							textList.add(Component.translatable(TWO_ARGUMENT_KEY,
 								Component.translatable(SPELL_BOOK_MANA_MULTIPLIER),
-								Component.literal(shape.getManaMultiplierAsString()).withStyle(ChatFormatting.GRAY)
+								Component.literal(knowsComponent ? shape.getManaMultiplierAsString() : "???").withStyle(ChatFormatting.GRAY)
 							).withStyle(ChatFormatting.LIGHT_PURPLE));
 						if(shape.getPotencyModifier() != 0)
 							textList.add(Component.translatable(TWO_ARGUMENT_KEY,
 								Component.translatable(SPELL_BOOK_POTENCY_MODIFIER),
-								Component.literal(shape.getManaMultiplierAsString()).withStyle(ChatFormatting.GRAY)
+								Component.literal(knowsComponent ? shape.getManaMultiplierAsString() : "???").withStyle(ChatFormatting.GRAY)
 							).withStyle(ChatFormatting.YELLOW));
 					}
 
 					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
 						Component.translatable(SPELL_BOOK_WEIGHT),
-						Component.translatable(component.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
+						Component.translatable(knowsComponent ? component.getWeight().translationKey() : "???").withStyle(ChatFormatting.GRAY)
 					).withStyle(ChatFormatting.DARK_GREEN));
 					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
 						Component.translatable(SPELL_BOOK_COOL_DOWN),
-						Component.literal(component.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)
+						Component.literal(knowsComponent ? component.getCoolDownAsString() : "???").withStyle(ChatFormatting.GRAY)
 					).withStyle(ChatFormatting.DARK_RED));
 
 					gui.renderComponentTooltip(font, textList, mouseX - leftPos, mouseY - topPos);
