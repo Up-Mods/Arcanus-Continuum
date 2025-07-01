@@ -49,7 +49,6 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 
 	// ----- Entity Components ----- \\
 	public static final ComponentKey<KnownSpellComponentsComponent> KNOWN_SPELL_COMPONENTS_COMPONENT = createComponent("known_spell_components", KnownSpellComponentsComponent.class);
-	public static final ComponentKey<WizardLevelComponent> WIZARD_LEVEL_COMPONENT = createComponent("wizard_level", WizardLevelComponent.class);
 	public static final ComponentKey<ManaComponent> MANA_COMPONENT = createComponent("mana", ManaComponent.class);
 	public static final ComponentKey<CastingComponent> CASTING_COMPONENT = createComponent("casting", CastingComponent.class);
 	public static final ComponentKey<PatternComponent> PATTERN_COMPONENT = createComponent("casting_pattern", PatternComponent.class);
@@ -79,7 +78,6 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
 		registry.beginRegistration(Player.class, KNOWN_SPELL_COMPONENTS_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(KnownSpellComponentsComponent::new);
-		registry.beginRegistration(Player.class, WIZARD_LEVEL_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(WizardLevelComponent::new);
 		registry.beginRegistration(LivingEntity.class, MANA_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(ManaComponent::new);
 		registry.beginRegistration(Player.class, CASTING_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(CastingComponent::new);
 		registry.beginRegistration(Player.class, PATTERN_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(PatternComponent::new);
@@ -180,12 +178,12 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		return entity.getComponent(MANA_COMPONENT).drainMana(manaType, amount, simulate);
 	}
 
-	public static Set<SpellComponent> getKnownSpellComponents(Player player) {
+	public static List<SpellComponent> getKnownSpellComponents(Player player) {
 		return player.getComponent(KNOWN_SPELL_COMPONENTS_COMPONENT).getKnownComponents();
 	}
 
 	public static boolean knowsAnySpellComponents(Player player) {
-		Set<SpellComponent> knownSpellComponents = getKnownSpellComponents(player);
+		List<SpellComponent> knownSpellComponents = getKnownSpellComponents(player);
 
 		return knownSpellComponents.contains(ArcanusSpellComponents.EMPTY.get()) && knownSpellComponents.size() > 1;
 	}

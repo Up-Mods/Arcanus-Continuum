@@ -18,7 +18,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 
-import java.util.Set;
+import java.util.List;
 
 public class LearnSpellComponentsCommand {
 	public static void register(LiteralArgumentBuilder<CommandSourceStack> builder, CommandBuildContext context) {
@@ -52,7 +52,7 @@ public class LearnSpellComponentsCommand {
 	}
 
 	public static int getSpellComponents(CommandContext<CommandSourceStack> context, ServerPlayer player) throws CommandSyntaxException {
-		Set<SpellComponent> knownComponents = ArcanusComponents.getKnownSpellComponents(player);
+		List<SpellComponent> knownComponents = ArcanusComponents.getKnownSpellComponents(player);
 
 		if(!ArcanusComponents.knowsAnySpellComponents(player)) {
 			context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_LIST_FAIL, player.getScoreboardName()), true);

@@ -10,14 +10,13 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.entity.LivingEntity;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class KnownSpellComponentsComponent implements AutoSyncedComponent {
 	private static final Codec<List<SpellComponent>> CODEC = SpellComponent.CODEC.listOf();
+	private final List<SpellComponent> knownComponents = new ArrayList<>();
 	private final LivingEntity entity;
-	private final HashSet<SpellComponent> knownComponents = new HashSet<>();
 
 	public KnownSpellComponentsComponent(LivingEntity entity) {
 		this.entity = entity;
@@ -32,11 +31,11 @@ public class KnownSpellComponentsComponent implements AutoSyncedComponent {
 
 	@Override
 	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		tag.put("KnownSpellComponents", CODEC.encodeStart(registryLookup.createSerializationContext(NbtOps.INSTANCE), List.copyOf(knownComponents)).getOrThrow());
+		tag.put("KnownSpellComponents", CODEC.encodeStart(registryLookup.createSerializationContext(NbtOps.INSTANCE), knownComponents).getOrThrow());
 	}
 
-	public Set<SpellComponent> getKnownComponents() {
-		return Set.copyOf(knownComponents);
+	public List<SpellComponent> getKnownComponents() {
+		return List.copyOf(knownComponents);
 	}
 
 	public void learnSpellComponent(SpellComponent component) {

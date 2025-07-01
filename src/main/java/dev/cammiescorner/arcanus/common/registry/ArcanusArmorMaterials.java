@@ -32,7 +32,7 @@ public class ArcanusArmorMaterials {
 		0f,
 		0f
 	));
-	public static final RegistrySupplier<ArmorMaterial> BATTLE_MAGE = MATERIALS.register("wizard", () -> new ArmorMaterial(
+	public static final RegistrySupplier<ArmorMaterial> BATTLE_MAGE = MATERIALS.register("battle_mage", () -> new ArmorMaterial(
 		Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
 			map.put(ArmorItem.Type.BOOTS, 2);
 			map.put(ArmorItem.Type.LEGGINGS, 7);

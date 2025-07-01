@@ -76,19 +76,22 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		spellEffects = ArcanusSpellComponents.REGISTRY.stream().filter(component -> !ArcanusSpellComponents.EMPTY.is(component) && component.isEnabled() && component instanceof SpellEffect).toList();
 
 		if(minecraft != null) {
-			// TODO check if player knows the component
 			for(SpellComponent component : spellShapes) {
-				addSpellShapeChild(new SpellComponentWidget(-35, component, widget -> {
-					if(spellComponentCount() < ArcanusComponents.maxSpellSize())
-						draggedComponent = widget.getSpellComponent();
-				}));
+				if(ArcanusComponents.knowsSpellComponents(minecraft.player, component)) {
+					addSpellShapeChild(new SpellComponentWidget(-35, component, widget -> {
+						if(spellComponentCount() < ArcanusComponents.maxSpellSize())
+							draggedComponent = widget.getSpellComponent();
+					}));
+				}
 			}
 
 			for(SpellComponent component : spellEffects) {
-				addSpellEffectChild(new SpellComponentWidget(267, component, widget -> {
-					if(spellComponentCount() < ArcanusComponents.maxSpellSize())
-						draggedComponent = widget.getSpellComponent();
-				}));
+				if(ArcanusComponents.knowsSpellComponents(minecraft.player, component)) {
+					addSpellEffectChild(new SpellComponentWidget(267, component, widget -> {
+						if(spellComponentCount() < ArcanusComponents.maxSpellSize())
+							draggedComponent = widget.getSpellComponent();
+					}));
+				}
 			}
 		}
 

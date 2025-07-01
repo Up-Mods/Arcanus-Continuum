@@ -333,7 +333,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(SPELL_BOOK_COOL_DOWN, "Cool Down");
 
 		builder.add(SPELL_TOO_MANY_COMPONENTS, "Too many components!");
-		builder.add(SPELL_TOO_LOW_LEVEL, "Wizard level too low!");
+		builder.add(SPELL_UNKNOWN_SPELL_COMPONENTS, "You don't know some of these spell components!");
 		builder.add(SPELL_NOT_ENOUGH_MANA, "Not enough mana!");
 
 		builder.add(COMPENDIUM_ARCANUS, "Compendium Arcanus");

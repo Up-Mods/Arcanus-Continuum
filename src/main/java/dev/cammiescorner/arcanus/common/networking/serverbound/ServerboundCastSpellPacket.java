@@ -61,6 +61,11 @@ public record ServerboundCastSpellPacket(int spellIndex) implements CustomPacket
 					Spell spell = spells.getSpell(index);
 
 					if(!player.isCreative()) {
+						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).allMatch(spellComponent -> ArcanusComponents.knowsSpellComponents(player, spellComponent))) {
+							player.displayClientMessage(Component.translatable(TranslationKeys.SPELL_UNKNOWN_SPELL_COMPONENTS).withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
+							return;
+						}
+
 						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).count() > ArcanusComponents.maxSpellSize()) {
 							player.displayClientMessage(Component.translatable(TranslationKeys.SPELL_TOO_MANY_COMPONENTS).withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
 							return;

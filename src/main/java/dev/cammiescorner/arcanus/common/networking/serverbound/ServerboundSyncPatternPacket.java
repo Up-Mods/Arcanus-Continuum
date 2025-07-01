@@ -13,6 +13,7 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
@@ -66,6 +67,12 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements Cu
 
 					if(player.getCooldowns().getCooldownPercent(staff, 1f) == 0) {
 						Spell spell = spells.getSpell(index);
+
+						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).allMatch(spellComponent -> ArcanusComponents.knowsSpellComponents(player, spellComponent))) {
+							player.displayClientMessage(Component.translatable(TranslationKeys.SPELL_UNKNOWN_SPELL_COMPONENTS).withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
+							return;
+						}
+
 
 						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).count() > ArcanusComponents.maxSpellSize()) {
 							player.displayClientMessage(Component.translatable(SPELL_TOO_MANY_COMPONENTS), true);

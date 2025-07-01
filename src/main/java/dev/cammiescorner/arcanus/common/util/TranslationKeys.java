@@ -72,7 +72,7 @@ public class TranslationKeys {
 	public static final String SPELL_BOOK_POTENCY_MODIFIER = "spell_book.arcanus.potency_modifier";
 	public static final String SPELL_BOOK_COOL_DOWN = "spell_book.arcanus.cool_down";
 	public static final String SPELL_TOO_MANY_COMPONENTS = "spell.arcanus.too_many_components";
-	public static final String SPELL_TOO_LOW_LEVEL = "spell.arcanus.too_low_level";
+	public static final String SPELL_UNKNOWN_SPELL_COMPONENTS = "spell.arcanus.unknown_spell_components";
 	public static final String SPELL_NOT_ENOUGH_MANA = "spell.arcanus.not_enough_mana";
 	public static final String COMPENDIUM_ARCANUS = "stack.arcanus.compendium_arcanus";
 	public static final String COMPENDIUM_ARCANUS_LANDING = "stack.arcanus.compendium_arcanus.landing_text";
