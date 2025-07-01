@@ -205,6 +205,13 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(COMMAND_WIZARD_LEVEL_GET_SUCCESS, "%s's wizard level is %s");
 		builder.add(COMMAND_WIZARD_LEVEL_SET_SUCCESS, "Set %s's wizard level to %s");
 
+		builder.add(COMMAND_SPELL_COMPONENT_LIST_SUCCESS, "%'s known Spell Components:");
+		builder.add(COMMAND_SPELL_COMPONENT_LIST_FAIL, "%s doesn't know any Spell Components");
+		builder.add(COMMAND_SPELL_COMPONENT_LEARN_SUCCESS, "%s has learned %s");
+		builder.add(COMMAND_SPELL_COMPONENT_LEARN_FAIL, "%s already knows %s");
+		builder.add(COMMAND_SPELL_COMPONENT_REVOKE_SUCCESS, "%s has forgotten %s");
+		builder.add(COMMAND_SPELL_COMPONENT_REVOKE_FAIL, "%s doesn't know %s");
+
 		advancement(builder, ArcanusAdvancements.ARCANE_ROOT, "Arcanus", "[insert witty sales pitch for something you're already playing]");
 		advancement(builder, ArcanusAdvancements.A_MAGICAL_CRYSTAL, "A Magical Crystal", "Find an Amethyst Shard");
 		advancement(builder, ArcanusAdvancements.ARCANE_ARTIFICE, "Arcane Artifice", "Craft an Arcane Workbench");

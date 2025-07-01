@@ -79,14 +79,14 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 			// TODO check if player knows the component
 			for(SpellComponent component : spellShapes) {
 				addSpellShapeChild(new SpellComponentWidget(-35, component, widget -> {
-					if(spellComponentCount() < ArcanusComponents.maxSpellSize(minecraft.player))
+					if(spellComponentCount() < ArcanusComponents.maxSpellSize())
 						draggedComponent = widget.getSpellComponent();
 				}));
 			}
 
 			for(SpellComponent component : spellEffects) {
 				addSpellEffectChild(new SpellComponentWidget(267, component, widget -> {
-					if(spellComponentCount() < ArcanusComponents.maxSpellSize(minecraft.player))
+					if(spellComponentCount() < ArcanusComponents.maxSpellSize())
 						draggedComponent = widget.getSpellComponent();
 				}));
 			}
@@ -418,7 +418,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
 		int componentCount = spellComponentCount();
-		int maxComponents = ArcanusComponents.maxSpellSize(minecraft.player);
+		int maxComponents = ArcanusComponents.maxSpellSize();
 		int componentCounterColor = 0x5555ff;
 
 		if(componentCount >= maxComponents)

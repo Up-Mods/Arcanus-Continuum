@@ -36,9 +36,7 @@ import org.ladysnake.cca.api.v3.entity.RespawnCopyStrategy;
 import org.ladysnake.cca.api.v3.scoreboard.ScoreboardComponentFactoryRegistry;
 import org.ladysnake.cca.api.v3.scoreboard.ScoreboardComponentInitializer;
 
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class ArcanusComponents implements BlockComponentInitializer, ChunkComponentInitializer, EntityComponentInitializer, ScoreboardComponentInitializer {
 	public static final ComponentKey<MagicColorComponent> MAGIC_COLOR = createComponent("magic_color", MagicColorComponent.class);
@@ -178,26 +176,36 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		return entity.getComponent(MANA_COMPONENT).addMana(manaType, amount, simulate);
 	}
 
-	// TODO make spells have multiple mana type costs
 	public static boolean drainMana(LivingEntity entity, ManaType manaType, double amount, boolean simulate) {
 		return entity.getComponent(MANA_COMPONENT).drainMana(manaType, amount, simulate);
 	}
 
-	public static int getWizardLevel(LivingEntity entity) {
-		return WIZARD_LEVEL_COMPONENT.get(entity).getLevel();
+	public static Set<SpellComponent> getKnownSpellComponents(Player player) {
+		return player.getComponent(KNOWN_SPELL_COMPONENTS_COMPONENT).getKnownComponents();
 	}
 
-	public static void setWizardLevel(LivingEntity entity, int level) {
-		WIZARD_LEVEL_COMPONENT.get(entity).setLevel(level);
+	public static boolean knowsAnySpellComponents(Player player) {
+		Set<SpellComponent> knownSpellComponents = getKnownSpellComponents(player);
+
+		return knownSpellComponents.contains(ArcanusSpellComponents.EMPTY.get()) && knownSpellComponents.size() > 1;
 	}
 
-	public static int maxSpellSize(LivingEntity entity) {
-		int level = getWizardLevel(entity);
-		return level > 0 ? level == 1 ? 2 : 2 + level : 0;
+	public static boolean knowsSpellComponents(Player player, SpellComponent... components) {
+		return getKnownSpellComponents(player).containsAll(Arrays.asList(components));
 	}
 
-	public static void increaseWizardLevel(LivingEntity entity, int amount) {
-		setWizardLevel(entity, getWizardLevel(entity) + amount);
+	public static void learnSpellComponents(Player player, SpellComponent... components) {
+		for(SpellComponent spellComponent : components)
+			player.getComponent(KNOWN_SPELL_COMPONENTS_COMPONENT).learnSpellComponent(spellComponent);
+	}
+
+	public static void forgetSpellComponents(Player player, SpellComponent... components) {
+		for(SpellComponent spellComponent : components)
+			player.getComponent(KNOWN_SPELL_COMPONENTS_COMPONENT).forgetSpellComponent(spellComponent);
+	}
+
+	public static int maxSpellSize() {
+		return 8;
 	}
 
 	public static boolean isCasting(LivingEntity entity) {

@@ -1,19 +1,20 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.common.command.LearnSpellComponentsCommand;
 import dev.cammiescorner.arcanus.common.command.PocketDimensionCommand;
-import dev.cammiescorner.arcanus.common.command.WizardLevelCommand;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 
 public class ArcanusCommands {
 	public static void init(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandBuildContext, Commands.CommandSelection environment) {
-		var root = Commands.literal(Arcanus.MOD_ID);
-		WizardLevelCommand.register(root);
+		LiteralArgumentBuilder<CommandSourceStack> root = Commands.literal(Arcanus.MOD_ID);
+
+		LearnSpellComponentsCommand.register(root, commandBuildContext);
 		PocketDimensionCommand.register(root);
 		dispatcher.register(root);
 	}
-
 }

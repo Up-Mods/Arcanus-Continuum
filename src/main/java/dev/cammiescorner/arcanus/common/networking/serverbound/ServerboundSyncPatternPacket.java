@@ -67,7 +67,7 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements Cu
 					if(player.getCooldowns().getCooldownPercent(staff, 1f) == 0) {
 						Spell spell = spells.getSpell(index);
 
-						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).count() > ArcanusComponents.maxSpellSize(player)) {
+						if(spell.getComponentGroups().stream().flatMap(SpellGroup::getAllComponents).count() > ArcanusComponents.maxSpellSize()) {
 							player.displayClientMessage(Component.translatable(SPELL_TOO_MANY_COMPONENTS), true);
 							return;
 						}

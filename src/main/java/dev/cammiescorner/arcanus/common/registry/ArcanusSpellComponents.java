@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ArcanusSpellComponents {
-	public static final RegistryHandler<SpellComponent> SPELL_COMPONENTS = RegistryHandler.create(ArcanusRegistries.SPELL_COMPONENTS_KEY, Arcanus.MOD_ID);
+	public static final RegistryHandler<SpellComponent> SPELL_COMPONENTS = RegistryHandler.create(ArcanusRegistries.SPELL_COMPONENTS, Arcanus.MOD_ID);
 	public static final Registry<SpellComponent> REGISTRY = SPELL_COMPONENTS.createNewRegistry(true, Arcanus.id("empty"));
 
 	//-----Empty Spell-----//

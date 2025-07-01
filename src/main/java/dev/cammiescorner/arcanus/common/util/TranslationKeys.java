@@ -34,6 +34,12 @@ public class TranslationKeys {
 	public static final String COMMAND_EXPORT_POCKET_POCKET_NOT_FOUND = "command.arcanus.pocket_dimension.export.error.pocket_not_found";
 	public static final String COMMAND_WIZARD_LEVEL_GET_SUCCESS = "command.arcanus.wizard_level.get.success";
 	public static final String COMMAND_WIZARD_LEVEL_SET_SUCCESS = "command.arcanus.wizard_level.set.success";
+	public static final String COMMAND_SPELL_COMPONENT_LIST_SUCCESS = "command.arcanus.spell_component.list.success";
+	public static final String COMMAND_SPELL_COMPONENT_LIST_FAIL = "command.arcanus.spell_component.list.fail";
+	public static final String COMMAND_SPELL_COMPONENT_LEARN_SUCCESS = "command.arcanus.spell_component.learn.success";
+	public static final String COMMAND_SPELL_COMPONENT_LEARN_FAIL = "command.arcanus.spell_component.learn.fail";
+	public static final String COMMAND_SPELL_COMPONENT_REVOKE_SUCCESS = "command.arcanus.spell_component.revoke.success";
+	public static final String COMMAND_SPELL_COMPONENT_REVOKE_FAIL = "command.arcanus.spell_component.revoke.fail";
 	public static final String SCREEN_SPELL_COMPONENT_COUNT = "screen.arcanus.tooltip.component_count";
 	public static final String SCREEN_CHANGE_MODE = "screen.arcanus.tooltip.change_screens";
 	public static final String SCREEN_CYCLE_UP = "screen.arcanus.tooltip.cycle_up";

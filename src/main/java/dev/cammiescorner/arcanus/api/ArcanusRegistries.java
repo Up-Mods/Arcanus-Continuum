@@ -6,5 +6,5 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 
 public class ArcanusRegistries {
-	public static final ResourceKey<Registry<SpellComponent>> SPELL_COMPONENTS_KEY = ResourceKey.createRegistryKey(Arcanus.id("spell_components"));
+	public static final ResourceKey<Registry<SpellComponent>> SPELL_COMPONENTS = ResourceKey.createRegistryKey(Arcanus.id("spell_components"));
 }

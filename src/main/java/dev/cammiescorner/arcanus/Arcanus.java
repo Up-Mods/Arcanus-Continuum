@@ -35,6 +35,7 @@ import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.ChatFormatting;
+import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -70,6 +71,7 @@ public class Arcanus implements MainEntryPoint {
 
 	@Override
 	public void onInitialize(ModContainer mod) {
+		SharedConstants.IS_RUNNING_IN_IDE = true;
 		configurator.register(ArcanusConfig.class);
 
 		RegistryService registryService = RegistryService.get();
@@ -109,7 +111,6 @@ public class Arcanus implements MainEntryPoint {
 
 		CommandRegistrationCallback.EVENT.register(ArcanusCommands::init);
 
-		// TODO for some reason isn't always syncing the book in the lectern when it should be...
 		RegisterCustomLecternMenuEvent.EVENT.register(event -> {
 			event.register((level, pos, player, blockEntity, stack) -> new SpellcraftMenuProvider(level, stack, pos, blockEntity.bookAccess), ArcanusItems.SPELL_SCROLL);
 		});

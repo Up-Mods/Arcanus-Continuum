@@ -8,7 +8,6 @@ import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerPlayer;
 
 public class CreateSpellbookCommand {
-
 	public static void register(LiteralArgumentBuilder<CommandSourceStack> builder) {
 		builder.then(Commands.literal("create_random_spellbook")
 			.requires(serverCommandSource -> serverCommandSource.hasPermission(Commands.LEVEL_MODERATORS))

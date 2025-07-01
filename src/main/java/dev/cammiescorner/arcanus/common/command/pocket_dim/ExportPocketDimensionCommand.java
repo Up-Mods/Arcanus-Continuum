@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanus.common.command.pocketdimension;
+package dev.cammiescorner.arcanus.common.command.pocket_dim;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.Command;

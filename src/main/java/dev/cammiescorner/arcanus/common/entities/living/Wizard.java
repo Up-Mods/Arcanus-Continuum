@@ -136,7 +136,7 @@ public class Wizard extends AbstractVillager implements NeutralMob {
 	@Override
 	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 		if(!level().isClientSide()) {
-			if(ArcanusComponents.getWizardLevel(player) > 0 || player.getItemBySlot(EquipmentSlot.HEAD).is(ArcanusItemTags.WIZARD_ARMOR) || player.getItemBySlot(EquipmentSlot.CHEST).is(ArcanusItemTags.WIZARD_ARMOR) || player.getItemBySlot(EquipmentSlot.LEGS).is(ArcanusItemTags.WIZARD_ARMOR) || player.getItemBySlot(EquipmentSlot.FEET).is(ArcanusItemTags.WIZARD_ARMOR)) {
+			if(ArcanusComponents.knowsAnySpellComponents(player) || player.getItemBySlot(EquipmentSlot.HEAD).is(ArcanusItemTags.WIZARD_ARMOR) || player.getItemBySlot(EquipmentSlot.CHEST).is(ArcanusItemTags.WIZARD_ARMOR) || player.getItemBySlot(EquipmentSlot.LEGS).is(ArcanusItemTags.WIZARD_ARMOR) || player.getItemBySlot(EquipmentSlot.FEET).is(ArcanusItemTags.WIZARD_ARMOR)) {
 				if(!getOffers().isEmpty()) {
 					setTradingPlayer(player);
 					openTradingScreen(player, getDisplayName(), 1);
