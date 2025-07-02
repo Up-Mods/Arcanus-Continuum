@@ -4,16 +4,20 @@ import com.google.auto.service.AutoService;
 import com.mojang.authlib.GameProfile;
 import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
 import commonnetwork.api.Network;
-import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
 import dev.cammiescorner.arcanus.api.spells.Pattern;
-import dev.cammiescorner.arcanus.common.blocks.MagicDoorBlock;
-import dev.cammiescorner.arcanus.common.blocks.entities.MagicDoorBlockEntity;
-import dev.cammiescorner.arcanus.common.entities.living.NecroSkeleton;
-import dev.cammiescorner.arcanus.common.entities.living.Opossum;
-import dev.cammiescorner.arcanus.common.entities.living.Wizard;
-import dev.cammiescorner.arcanus.common.menus.providers.SpellcraftMenuProvider;
+import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
+import dev.cammiescorner.arcanus.common.block.MagicDoorBlock;
+import dev.cammiescorner.arcanus.common.block.entities.MagicDoorBlockEntity;
+import dev.cammiescorner.arcanus.common.entity.living.NecroSkeleton;
+import dev.cammiescorner.arcanus.common.entity.living.Opossum;
+import dev.cammiescorner.arcanus.common.entity.living.Wizard;
+import dev.cammiescorner.arcanus.common.item.BookPouchItem;
+import dev.cammiescorner.arcanus.common.menu.providers.SpellcraftMenuProvider;
 import dev.cammiescorner.arcanus.common.networking.clientbound.*;
-import dev.cammiescorner.arcanus.common.networking.serverbound.*;
+import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundIsCastingPacket;
+import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundSaveBookDataPacket;
+import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundShootOrbsPacket;
+import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundSyncPatternPacket;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import dev.cammiescorner.arcanus.common.util.supporters.HaloData;
@@ -231,8 +235,13 @@ public class Arcanus implements MainEntryPoint {
 	}
 
 	public static ItemStack getActiveSpellBook(LivingEntity entity) {
-		if(TrinketsApi.getTrinketComponent(entity).get() instanceof TrinketComponent component && component.isEquipped(ArcanusItems.SPELL_BOOK.get()))
-			return component.getEquipped(ArcanusItems.SPELL_BOOK.get()).getFirst().getB();
+		if(TrinketsApi.getTrinketComponent(entity).get() instanceof TrinketComponent component) {
+			if(component.isEquipped(ArcanusItems.SPELL_BOOK.get()))
+				return component.getEquipped(ArcanusItems.SPELL_BOOK.get()).getFirst().getB();
+
+			if(component.isEquipped(ArcanusItems.BOOK_POUCH.get()))
+				return BookPouchItem.getActiveSpellBook(component.getEquipped(ArcanusItems.BOOK_POUCH.get()).getFirst().getB());
+		}
 
 		return ItemStack.EMPTY;
 	}

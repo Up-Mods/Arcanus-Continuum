@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.structures.WizardTowerProcessor;
+import dev.cammiescorner.arcanus.common.structure.WizardTowerProcessor;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.core.registries.Registries;

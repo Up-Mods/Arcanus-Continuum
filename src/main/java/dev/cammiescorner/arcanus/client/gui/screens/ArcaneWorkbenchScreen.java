@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.client.gui.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.cammiescorner.arcanus.client.gui.widgets.ChangeModeButtonWidget;
 import dev.cammiescorner.arcanus.client.gui.widgets.CycleTemplatesButtonWidget;
-import dev.cammiescorner.arcanus.common.menus.ArcaneWorkbenchMenu;
+import dev.cammiescorner.arcanus.common.menu.ArcaneWorkbenchMenu;
 import dev.cammiescorner.arcanus.common.util.WorkbenchMode;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

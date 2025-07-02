@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.entities.magic.FollowingOrb;
+import dev.cammiescorner.arcanus.common.entity.magic.FollowingOrb;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import net.minecraft.Util;
 import net.minecraft.core.HolderLookup;

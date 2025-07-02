@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.mixin.common;
 
-import dev.cammiescorner.arcanus.common.items.BattleMageArmorItem;
+import dev.cammiescorner.arcanus.common.item.BattleMageArmorItem;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;

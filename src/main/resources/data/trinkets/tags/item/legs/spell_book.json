@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "arcanus:spell_book"
+    "arcanus:spell_book",
+    "arcanus:book_pouch"
   ]
 }

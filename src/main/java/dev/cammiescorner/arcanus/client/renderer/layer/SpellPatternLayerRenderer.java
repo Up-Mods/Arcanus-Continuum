@@ -5,7 +5,7 @@ import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.models.feature.SpellPatternModel;
-import dev.cammiescorner.arcanus.common.items.StaffItem;
+import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.color.Color;

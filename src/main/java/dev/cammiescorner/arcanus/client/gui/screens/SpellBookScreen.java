@@ -4,7 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.gui.widgets.TexturedButtonWidget;
-import dev.cammiescorner.arcanus.common.menus.SpellBookMenu;
+import dev.cammiescorner.arcanus.common.menu.SpellBookMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;

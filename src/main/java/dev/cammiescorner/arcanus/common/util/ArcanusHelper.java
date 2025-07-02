@@ -4,7 +4,7 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.entities.Targetable;
 import dev.cammiescorner.arcanus.common.components.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.data.ArcanusEntityTags;
-import dev.cammiescorner.arcanus.common.entities.magic.TemporalDilationField;
+import dev.cammiescorner.arcanus.common.entity.magic.TemporalDilationField;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
 import dev.upcraft.sparkweave.api.color.Color;

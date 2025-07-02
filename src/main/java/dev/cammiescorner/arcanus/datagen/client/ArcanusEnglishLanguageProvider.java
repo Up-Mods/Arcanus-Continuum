@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.datagen.client;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.api.spells.components.SpellComponent;
 import dev.cammiescorner.arcanus.common.data.*;
-import dev.cammiescorner.arcanus.common.items.BattleMageArmorItem;
+import dev.cammiescorner.arcanus.common.item.BattleMageArmorItem;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.upcraft.sparkweave.api.datagen.ContextAwarePackOutput;
 import dev.upcraft.sparkweave.api.datagen.TranslationBuilder;
@@ -56,6 +56,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.BATTLE_MAGE_CHESTPLATE, "Battle Mage Chestplate");
 		builder.item(ArcanusItems.BATTLE_MAGE_LEGGINGS, "Battle Mage Leggings");
 		builder.item(ArcanusItems.BATTLE_MAGE_BOOTS, "Battle Mage Boots");
+		builder.item(ArcanusItems.BOOK_POUCH, "Book Pouch");
 		builder.item(ArcanusItems.SPELL_BOOK, "Spell Book");
 		builder.item(ArcanusItems.SPELL_SCROLL, "Spell Scroll");
 		builder.item(ArcanusItems.SCROLL_OF_KNOWLEDGE, "Scroll of Knowledge");

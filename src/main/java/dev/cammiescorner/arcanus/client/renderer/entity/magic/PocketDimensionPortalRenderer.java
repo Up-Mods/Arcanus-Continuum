@@ -7,7 +7,7 @@ import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.models.entity.magic.PocketDimensionPortalModel;
 import dev.cammiescorner.arcanus.client.models.entity.magic.SpatialRiftSigilModel;
 import dev.cammiescorner.arcanus.client.util.StencilBuffer;
-import dev.cammiescorner.arcanus.common.entities.magic.PocketDimensionPortal;
+import dev.cammiescorner.arcanus.common.entity.magic.PocketDimensionPortal;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.Minecraft;

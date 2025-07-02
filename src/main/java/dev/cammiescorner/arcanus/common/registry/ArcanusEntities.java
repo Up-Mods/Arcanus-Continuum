@@ -1,10 +1,10 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.entities.living.NecroSkeleton;
-import dev.cammiescorner.arcanus.common.entities.living.Opossum;
-import dev.cammiescorner.arcanus.common.entities.living.Wizard;
-import dev.cammiescorner.arcanus.common.entities.magic.*;
+import dev.cammiescorner.arcanus.common.entity.living.NecroSkeleton;
+import dev.cammiescorner.arcanus.common.entity.living.Opossum;
+import dev.cammiescorner.arcanus.common.entity.living.Wizard;
+import dev.cammiescorner.arcanus.common.entity.magic.*;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.core.registries.Registries;

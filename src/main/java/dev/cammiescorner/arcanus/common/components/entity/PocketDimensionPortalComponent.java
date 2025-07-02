@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.common.components.entity;
 import com.mojang.datafixers.util.Pair;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.components.level.PocketDimensionComponent;
-import dev.cammiescorner.arcanus.common.entities.magic.PocketDimensionPortal;
+import dev.cammiescorner.arcanus.common.entity.magic.PocketDimensionPortal;
 import dev.cammiescorner.arcanus.common.registry.ArcanusEntities;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import net.minecraft.core.HolderLookup;

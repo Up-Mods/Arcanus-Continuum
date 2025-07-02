@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
-import dev.cammiescorner.arcanus.common.entities.magic.ManaShield;
+import dev.cammiescorner.arcanus.common.entity.magic.ManaShield;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.renderer.MultiBufferSource;

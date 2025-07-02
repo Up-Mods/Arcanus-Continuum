@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.models.entity.living.WizardModel;
 import dev.cammiescorner.arcanus.client.renderer.layer.WizardHeldItemLayerRenderer;
-import dev.cammiescorner.arcanus.common.entities.living.Wizard;
+import dev.cammiescorner.arcanus.common.entity.living.Wizard;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;

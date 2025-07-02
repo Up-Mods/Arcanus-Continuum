@@ -5,7 +5,7 @@ import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.models.entity.magic.MagicRuneModel;
-import dev.cammiescorner.arcanus.common.entities.magic.MagicRune;
+import dev.cammiescorner.arcanus.common.entity.magic.MagicRune;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.Minecraft;

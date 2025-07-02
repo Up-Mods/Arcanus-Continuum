@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
-import dev.cammiescorner.arcanus.common.blocks.entities.AbstractMagicBlockEntity;
+import dev.cammiescorner.arcanus.common.block.entities.AbstractMagicBlockEntity;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.renderer.MultiBufferSource;

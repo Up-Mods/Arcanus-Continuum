@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.mixin.client;
 
-import dev.cammiescorner.arcanus.common.items.StaffItem;
+import dev.cammiescorner.arcanus.common.item.StaffItem;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraft.client.renderer.entity.ItemRenderer;

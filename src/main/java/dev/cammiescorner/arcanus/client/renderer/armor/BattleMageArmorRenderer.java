@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.client.renderer.armor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.models.armor.BattleMageArmorModel;
-import dev.cammiescorner.arcanus.common.items.BattleMageArmorItem;
+import dev.cammiescorner.arcanus.common.item.BattleMageArmorItem;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;

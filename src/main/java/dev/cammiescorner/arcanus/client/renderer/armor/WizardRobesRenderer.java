@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.client.renderer.armor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.models.armor.WizardArmorModel;
-import dev.cammiescorner.arcanus.common.items.WizardRobesItem;
+import dev.cammiescorner.arcanus.common.item.WizardRobesItem;
 import dev.upcraft.sparkweave.api.client.render.CustomHumanoidModelArmorRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;

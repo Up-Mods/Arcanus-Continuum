@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.renderer.layer.CounterLayerRenderer;
-import dev.cammiescorner.arcanus.common.items.StaffItem;
+import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.util.StaffType;
 import net.minecraft.client.model.EntityModel;

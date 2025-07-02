@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.blocks.entities.*;
+import dev.cammiescorner.arcanus.common.block.entities.*;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.core.registries.Registries;

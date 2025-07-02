@@ -1,79 +1,79 @@
 {
   "variants": {
     "rune=red_mana,facing=north": {
-      "model": "arcanus:block/chalk/rune_strength",
-      "y": 180
+      "model": "arcanus:block/chalk/rune_strength"
     },
     "rune=green_mana,facing=north": {
-      "model": "arcanus:block/chalk/rune_nature",
-      "y": 180
+      "model": "arcanus:block/chalk/rune_nature"
     },
     "rune=blue_mana,facing=north": {
-      "model": "arcanus:block/chalk/rune_restriction",
-      "y": 180
+      "model": "arcanus:block/chalk/rune_restriction"
     },
     "rune=white_mana,facing=north": {
-      "model": "arcanus:block/chalk/rune_balance",
-      "y": 180
+      "model": "arcanus:block/chalk/rune_balance"
     },
     "rune=black_mana,facing=north": {
-      "model": "arcanus:block/chalk/rune_individuality",
-      "y": 180
+      "model": "arcanus:block/chalk/rune_individuality"
     },
     "rune=red_mana,facing=east": {
       "model": "arcanus:block/chalk/rune_strength",
-      "y": 270
+      "y": 90
     },
     "rune=green_mana,facing=east": {
       "model": "arcanus:block/chalk/rune_nature",
-      "y": 270
+      "y": 90
     },
     "rune=blue_mana,facing=east": {
       "model": "arcanus:block/chalk/rune_restriction",
-      "y": 270
+      "y": 90
     },
     "rune=white_mana,facing=east": {
       "model": "arcanus:block/chalk/rune_balance",
-      "y": 270
+      "y": 90
     },
     "rune=black_mana,facing=east": {
       "model": "arcanus:block/chalk/rune_individuality",
-      "y": 270
+      "y": 90
     },
     "rune=red_mana,facing=south": {
-      "model": "arcanus:block/chalk/rune_strength"
+      "model": "arcanus:block/chalk/rune_strength",
+      "y": 180
     },
     "rune=green_mana,facing=south": {
-      "model": "arcanus:block/chalk/rune_nature"
+      "model": "arcanus:block/chalk/rune_nature",
+      "y": 180
     },
     "rune=blue_mana,facing=south": {
-      "model": "arcanus:block/chalk/rune_restriction"
+      "model": "arcanus:block/chalk/rune_restriction",
+      "y": 180
     },
     "rune=white_mana,facing=south": {
-      "model": "arcanus:block/chalk/rune_balance"
+      "model": "arcanus:block/chalk/rune_balance",
+      "y": 180
     },
     "rune=black_mana,facing=south": {
-      "model": "arcanus:block/chalk/rune_individuality"
+      "model": "arcanus:block/chalk/rune_individuality",
+      "y": 180
     },
     "rune=red_mana,facing=west": {
       "model": "arcanus:block/chalk/rune_strength",
-      "y": 90
+      "y": 270
     },
     "rune=green_mana,facing=west": {
       "model": "arcanus:block/chalk/rune_nature",
-      "y": 90
+      "y": 270
     },
     "rune=blue_mana,facing=west": {
       "model": "arcanus:block/chalk/rune_restriction",
-      "y": 90
+      "y": 270
     },
     "rune=white_mana,facing=west": {
       "model": "arcanus:block/chalk/rune_balance",
-      "y": 90
+      "y": 270
     },
     "rune=black_mana,facing=west": {
       "model": "arcanus:block/chalk/rune_individuality",
-      "y": 90
+      "y": 270
     }
   }
 }

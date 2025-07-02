@@ -2,17 +2,16 @@ package dev.cammiescorner.arcanus.common.networking.serverbound;
 
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.spells.*;
+import dev.cammiescorner.arcanus.api.spells.Pattern;
+import dev.cammiescorner.arcanus.api.spells.Spell;
 import dev.cammiescorner.arcanus.api.spells.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
 import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
-import dev.cammiescorner.arcanus.common.data_components.SpellBookComponent;
-import dev.cammiescorner.arcanus.common.items.StaffItem;
+import dev.cammiescorner.arcanus.common.data_component.SpellBookComponent;
+import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
-import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
-import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.ChatFormatting;
@@ -23,7 +22,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Tuple;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -56,9 +54,7 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements Cu
 				Optional<TrinketComponent> optional = TrinketsApi.getTrinketComponent(player);
 
 				if(optional.isPresent()) {
-					TrinketComponent component = optional.get();
-					List<Tuple<SlotReference, ItemStack>> equipped = component.getEquipped(ArcanusItems.SPELL_BOOK.get());
-					ItemStack spellBook = equipped.isEmpty() ? ItemStack.EMPTY : equipped.getFirst().getB();
+					ItemStack spellBook = Arcanus.getActiveSpellBook(player);
 					SpellBookComponent spells = spellBook.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
 					int index = Arcanus.getSpellIndex(pattern);
 

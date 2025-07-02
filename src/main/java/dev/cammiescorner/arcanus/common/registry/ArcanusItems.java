@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.items.*;
+import dev.cammiescorner.arcanus.common.item.*;
 import dev.cammiescorner.arcanus.common.util.StaffType;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
 import dev.upcraft.datasync.api.util.GameProfileHelper;
@@ -45,6 +45,7 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> BATTLE_MAGE_BOOTS = ITEMS.register("battle_mage_boots", () -> new BattleMageArmorItem(ArcanusArmorMaterials.BATTLE_MAGE.holder(), ArmorItem.Type.BOOTS, 0.25, 0, 0.2, 0.05, 0));
 
 	public static final RegistrySupplier<Item> BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE = ITEMS.register("battle_mage_upgrade_smithing_template", ArcanusItems::getBattleMageUpgrade);
+	public static final RegistrySupplier<Item> BOOK_POUCH = ITEMS.register("book_pouch", BookPouchItem::new);
 	public static final RegistrySupplier<Item> SPELL_BOOK = ITEMS.register("spell_book", SpellBookItem::new);
 	public static final RegistrySupplier<Item> SPELL_SCROLL = ITEMS.register("spell_scroll", SpellScrollItem::new);
 	public static final RegistrySupplier<Item> SCROLL_OF_KNOWLEDGE = ITEMS.register("scroll_of_knowledge", ScrollOfKnowledgeItem::new);
@@ -52,6 +53,7 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> OPOSSUM_SPAWN_EGG = ITEMS.register("opossum_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.OPOSSUM.get(), 0x131317, 0xbdbdbd, new Item.Properties()));
 
 	public static final RegistrySupplier<CreativeModeTab> ITEM_GROUP = ITEM_GROUPS.register("general", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB)).icon(() -> new ItemStack(ArcanusItems.CRYSTAL_STAFF.get())).displayItems((params, entries) -> {
+		entries.accept(BOOK_POUCH.get());
 		entries.accept(SPELL_BOOK.get());
 		entries.accept(SPELL_SCROLL.get());
 		entries.accept(SCROLL_OF_KNOWLEDGE.get());

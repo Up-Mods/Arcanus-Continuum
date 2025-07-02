@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.mixin.common;
 
-import dev.cammiescorner.arcanus.common.entities.magic.Aggressorb;
+import dev.cammiescorner.arcanus.common.entity.magic.Aggressorb;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;

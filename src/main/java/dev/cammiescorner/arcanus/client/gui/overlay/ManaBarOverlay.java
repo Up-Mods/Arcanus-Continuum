@@ -6,7 +6,7 @@ import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
-import dev.cammiescorner.arcanus.common.items.StaffItem;
+import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.DeltaTracker;
@@ -70,7 +70,7 @@ public class ManaBarOverlay {
 			guiGraphics.blit(OVERLAY_TEXTURE, 0, -48, 0, 0, 128, 128);
 			poseStack.popPose();
 
-			// render book
+			// render pouch
 			ItemStack spellBook = Arcanus.getActiveSpellBook(player);
 
 			if(!spellBook.isEmpty()) {

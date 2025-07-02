@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.common.networking.serverbound;
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.common.entities.magic.Aggressorb;
+import dev.cammiescorner.arcanus.common.entity.magic.Aggressorb;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;

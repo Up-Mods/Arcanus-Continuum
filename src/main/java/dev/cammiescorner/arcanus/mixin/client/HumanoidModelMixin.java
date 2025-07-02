@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.mixin.client;
 
-import dev.cammiescorner.arcanus.common.items.StaffItem;
+import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.util.StaffType;
 import net.minecraft.client.Minecraft;

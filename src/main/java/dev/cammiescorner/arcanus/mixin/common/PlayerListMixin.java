@@ -1,8 +1,8 @@
 package dev.cammiescorner.arcanus.mixin.common;
 
 import com.llamalad7.mixinextras.injector.ModifyReceiver;
-import dev.cammiescorner.arcanus.common.blocks.MagicDoorBlock;
-import dev.cammiescorner.arcanus.common.blocks.entities.MagicDoorBlockEntity;
+import dev.cammiescorner.arcanus.common.block.MagicDoorBlock;
+import dev.cammiescorner.arcanus.common.block.entities.MagicDoorBlockEntity;
 import dev.cammiescorner.arcanus.common.registry.ArcanusPointsOfInterest;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
