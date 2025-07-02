@@ -3,7 +3,6 @@ package dev.cammiescorner.arcanus.client.renderer.layer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -26,15 +25,10 @@ public class SpellBookLayerRenderer<T extends LivingEntity, M extends EntityMode
 	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, T livingEntity, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
 		ItemStack stack = Arcanus.getActiveSpellBook(livingEntity);
 
-		if(stack.is(ArcanusItems.BOOK_POUCH.get())) {
-			// TODO add render if stack is BookPouchItem
+		// TODO make proper model for the book render
+		if(!stack.isEmpty()) {
 			poseStack.pushPose();
-			poseStack.popPose();
-		}
-
-		if(stack.is(ArcanusItems.SPELL_BOOK.get())) {
-			poseStack.pushPose();
-			poseStack.translate(client.options.mainHand().get() == HumanoidArm.RIGHT ? 0.275 : -0.275, 1, 0.05);
+			poseStack.translate(client.options.mainHand().get() == HumanoidArm.RIGHT ? 0.275 : -0.275, 0.9, 0.05);
 			poseStack.mulPose(Axis.YP.rotationDegrees(-90));
 			poseStack.mulPose(Axis.ZP.rotationDegrees(150));
 

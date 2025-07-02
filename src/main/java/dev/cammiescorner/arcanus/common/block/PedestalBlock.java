@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -32,7 +33,7 @@ public class PedestalBlock extends Block implements EntityBlock, BlockItemProvid
 	);
 
 	public PedestalBlock() {
-		super(Properties.ofFullCopy(Blocks.DEEPSLATE_TILES).noOcclusion());
+		super(Properties.ofFullCopy(Blocks.DEEPSLATE_TILES).noOcclusion().pushReaction(PushReaction.BLOCK));
 	}
 
 	@Override
