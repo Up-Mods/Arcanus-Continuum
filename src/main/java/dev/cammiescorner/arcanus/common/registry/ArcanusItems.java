@@ -92,6 +92,7 @@ public class ArcanusItems {
 		entries.accept(BATTLE_MAGE_LEGGINGS.get());
 		entries.accept(BATTLE_MAGE_BOOTS.get());
 		entries.accept(BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get());
+		entries.accept(ArcanusBlocks.CHALK.get());
 		entries.accept(ArcanusBlocks.MAGIC_DOOR.get());
 		entries.accept(ArcanusBlocks.ARCANE_WORKBENCH.get());
 		entries.accept(ArcanusBlocks.PEDESTAL.get());

@@ -74,8 +74,10 @@ public abstract class MinecraftMixin implements ClientUtils {
 				if(isCasting) {
 					mouseDownTimer++;
 
-					if(player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0)
+					if(player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0) {
+						Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns));
 						timer = 20;
+					}
 				}
 				else {
 					timer = 0;

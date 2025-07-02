@@ -12,11 +12,11 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 
 public enum ManaType implements StringRepresentable {
-	RED(ArcanusAttributes.RED_MANA, ChatFormatting.RED, Color.fromRGB(184, 28, 14), "RedMana", TranslationKeys.SPELL_BOOK_RED_MANA),
-	GREEN(ArcanusAttributes.GREEN_MANA, ChatFormatting.GREEN, Color.fromRGB(54, 124, 38), "GreenMana", TranslationKeys.SPELL_BOOK_GREEN_MANA),
-	BLUE(ArcanusAttributes.BLUE_MANA, ChatFormatting.BLUE, Color.fromRGB(6, 51, 141), "BlueMana", TranslationKeys.SPELL_BOOK_BLUE_MANA),
-	WHITE(ArcanusAttributes.WHITE_MANA, ChatFormatting.WHITE, Color.fromRGB(255, 251, 213), "WhiteMana", TranslationKeys.SPELL_BOOK_WHITE_MANA),
-	BLACK(ArcanusAttributes.BLACK_MANA, ChatFormatting.DARK_GRAY, Color.fromRGB(41, 29, 42), "BlackMana", TranslationKeys.SPELL_BOOK_BLACK_MANA);
+	RED(ArcanusAttributes.RED_MANA, ChatFormatting.RED, Color.fromRGB(184, 28, 14), "red_mana", TranslationKeys.SPELL_BOOK_RED_MANA),
+	GREEN(ArcanusAttributes.GREEN_MANA, ChatFormatting.GREEN, Color.fromRGB(54, 124, 38), "green_mana", TranslationKeys.SPELL_BOOK_GREEN_MANA),
+	BLUE(ArcanusAttributes.BLUE_MANA, ChatFormatting.BLUE, Color.fromRGB(6, 51, 141), "blue_mana", TranslationKeys.SPELL_BOOK_BLUE_MANA),
+	WHITE(ArcanusAttributes.WHITE_MANA, ChatFormatting.WHITE, Color.fromRGB(255, 251, 213), "white_mana", TranslationKeys.SPELL_BOOK_WHITE_MANA),
+	BLACK(ArcanusAttributes.BLACK_MANA, ChatFormatting.DARK_GRAY, Color.fromRGB(41, 29, 42), "black_mana", TranslationKeys.SPELL_BOOK_BLACK_MANA);
 
 	public static final Codec<ManaType> CODEC = StringRepresentable.fromValues(ManaType::values);
 	final Holder<Attribute> attribute;
