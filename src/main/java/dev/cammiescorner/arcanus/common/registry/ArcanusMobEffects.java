@@ -24,17 +24,19 @@ public class ArcanusMobEffects {
 	public static final RegistrySupplier<MobEffect> STOCKPILE = MOB_EFFECTS.register("stockpile", () -> new ArcanusStatusEffect(MobEffectCategory.BENEFICIAL, 0x550000));
 	public static final RegistrySupplier<MobEffect> DANGER_SENSE = MOB_EFFECTS.register("danger_sense", () -> new ArcanusStatusEffect(MobEffectCategory.BENEFICIAL, 0xaeeff2));
 	public static final RegistrySupplier<MobEffect> SHRINK = MOB_EFFECTS.register("shrink", () -> new ArcanusStatusEffect(MobEffectCategory.NEUTRAL, 0x00ffc8, false, true)
-		.addAttributeModifier(Attributes.SCALE, Arcanus.id("shrink_effect"), -0.25, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
-		.addAttributeModifier(Attributes.BLOCK_INTERACTION_RANGE, Arcanus.id("shrink_effect"), -0.15, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
 		.addAttributeModifier(Attributes.ENTITY_INTERACTION_RANGE, Arcanus.id("shrink_effect"), -0.15, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
-		.addAttributeModifier(Attributes.MOVEMENT_SPEED, Arcanus.id("shrink_effect"), -0.1, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+		.addAttributeModifier(Attributes.BLOCK_INTERACTION_RANGE, Arcanus.id("shrink_effect"), -0.15, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+		.addAttributeModifier(Attributes.MOVEMENT_SPEED, Arcanus.id("shrink_effect"), -0.125, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
 		.addAttributeModifier(Attributes.JUMP_STRENGTH, Arcanus.id("shrink_effect"), -0.075, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+		.addAttributeModifier(Attributes.STEP_HEIGHT, Arcanus.id("shrink_effect"), -0.25, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+		.addAttributeModifier(Attributes.SCALE, Arcanus.id("shrink_effect"), -0.25, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
 	);
 	public static final RegistrySupplier<MobEffect> ENLARGE = MOB_EFFECTS.register("enlarge", () -> new ArcanusStatusEffect(MobEffectCategory.NEUTRAL, 0xff9600, false, true)
-		.addAttributeModifier(Attributes.SCALE, Arcanus.id("enlarge_effect"), 0.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
-		.addAttributeModifier(Attributes.BLOCK_INTERACTION_RANGE, Arcanus.id("enlarge_effect"), 0.3, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
 		.addAttributeModifier(Attributes.ENTITY_INTERACTION_RANGE, Arcanus.id("enlarge_effect"), 0.3, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+		.addAttributeModifier(Attributes.BLOCK_INTERACTION_RANGE, Arcanus.id("enlarge_effect"), 0.3, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
 		.addAttributeModifier(Attributes.MOVEMENT_SPEED, Arcanus.id("enlarge_effect"), 0.15, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
 		.addAttributeModifier(Attributes.JUMP_STRENGTH, Arcanus.id("enlarge_effect"), 0.15, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+		.addAttributeModifier(Attributes.STEP_HEIGHT, Arcanus.id("enlarge_effect"), 0.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+		.addAttributeModifier(Attributes.SCALE, Arcanus.id("enlarge_effect"), 0.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
 	);
 }

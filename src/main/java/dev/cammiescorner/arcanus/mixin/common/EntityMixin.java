@@ -1,7 +1,10 @@
 package dev.cammiescorner.arcanus.mixin.common;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,5 +25,13 @@ public abstract class EntityMixin {
 			return pitch * 0.5f;
 
 		return pitch;
+	}
+
+	@ModifyReturnValue(method = "canSpawnSprintParticle", at = @At("RETURN"))
+	private boolean smallBeansDontKickUpDirt(boolean original) {
+		if(self instanceof LivingEntity entity)
+			return entity.getAttributeValue(Attributes.SCALE) > 0.25 && original;
+
+		return original;
 	}
 }
