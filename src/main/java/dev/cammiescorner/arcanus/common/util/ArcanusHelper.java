@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.util;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.entities.Targetable;
+import dev.cammiescorner.arcanus.api.entity.Targetable;
 import dev.cammiescorner.arcanus.common.components.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.data.ArcanusEntityTags;
 import dev.cammiescorner.arcanus.common.entity.magic.TemporalDilationField;

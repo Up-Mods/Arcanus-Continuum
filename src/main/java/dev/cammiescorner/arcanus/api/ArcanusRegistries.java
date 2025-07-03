@@ -1,8 +1,8 @@
 package dev.cammiescorner.arcanus.api;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.spells.components.SpellComponent;
-import dev.cammiescorner.arcanus.api.spells.SpellComponentRite;
+import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
+import dev.cammiescorner.arcanus.api.rite.SpellComponentRite;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 

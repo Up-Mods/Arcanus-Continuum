@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
-import dev.cammiescorner.arcanus.api.spells.components.SpellShape;
+import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.core.HolderLookup;

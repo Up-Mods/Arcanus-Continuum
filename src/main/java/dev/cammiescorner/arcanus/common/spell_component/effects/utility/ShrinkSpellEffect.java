@@ -1,8 +1,8 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.utility;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spells.components.SpellEffect;
-import dev.cammiescorner.arcanus.api.spells.SpellType;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
+import dev.cammiescorner.arcanus.api.spell.SpellType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -44,14 +44,14 @@ public class ShrinkSpellEffect extends SpellEffect {
 					livingEntity.removeEffect(ArcanusMobEffects.ENLARGE.holder());
 
 					if(amplifier > 0)
-						livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.ENLARGE.holder(), duration, amplifier, false, true, true));
+						livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.ENLARGE.holder(), duration, amplifier, false, false, true));
 				}
 				else {
 					MobEffectInstance shrinkEffect = livingEntity.getEffect(ArcanusMobEffects.SHRINK.holder());
-					int amplifier = shrinkEffect != null ? Math.max(shrinkEffect.getAmplifier() + 1, 4) : 0;
+					int amplifier = shrinkEffect != null ? Math.min(shrinkEffect.getAmplifier() + 1, 3) : 0;
 					int duration = ArcanusConfig.sizeChangingIsPermanent ? -1 : (int) (ArcanusConfig.UtilityEffects.ShrinkEffectProperties.baseEffectDuration * effects.stream().filter(ArcanusSpellComponents.SHRINK::is).count() * potency);
 
-					livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.SHRINK.holder(), duration, amplifier, false, true, true));
+					livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.SHRINK.holder(), duration, amplifier, false, false, true));
 				}
 			}
 		}

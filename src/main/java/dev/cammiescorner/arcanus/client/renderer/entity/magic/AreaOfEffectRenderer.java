@@ -5,7 +5,7 @@ import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
-import dev.cammiescorner.arcanus.client.models.entity.magic.AreaOfEffectModel;
+import dev.cammiescorner.arcanus.client.model.entity.magic.AreaOfEffectModel;
 import dev.cammiescorner.arcanus.common.entity.magic.AreaOfEffect;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.color.Color;

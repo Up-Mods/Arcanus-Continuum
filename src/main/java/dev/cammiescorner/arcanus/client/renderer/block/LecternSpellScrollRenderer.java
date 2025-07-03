@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.client.models.block.SpellScrollModel;
+import dev.cammiescorner.arcanus.client.model.block.SpellScrollModel;
 import dev.upcraft.sparkweave.api.client.render.LecternItemRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;

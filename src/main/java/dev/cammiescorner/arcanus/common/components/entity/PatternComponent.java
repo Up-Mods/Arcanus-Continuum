@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
-import dev.cammiescorner.arcanus.api.spells.Pattern;
+import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.core.HolderLookup;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;

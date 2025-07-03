@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.item;
 
-import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
-import dev.cammiescorner.arcanus.api.spells.Spell;
+import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.api.spell.Spell;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.menu.providers.SpellScrollMenuProvider;
 import net.minecraft.ChatFormatting;

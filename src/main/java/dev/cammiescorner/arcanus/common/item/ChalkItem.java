@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.item;
 
-import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
+import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
 import dev.cammiescorner.arcanus.common.block.ChalkBlock;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;

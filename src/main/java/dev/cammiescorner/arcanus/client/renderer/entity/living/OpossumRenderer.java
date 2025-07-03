@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.client.renderer.entity.living;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.client.models.entity.living.OpossumModel;
+import dev.cammiescorner.arcanus.client.model.entity.living.OpossumModel;
 import dev.cammiescorner.arcanus.common.entity.living.Opossum;
 import dev.cammiescorner.arcanus.common.item.WizardRobesItem;
 import net.minecraft.client.Minecraft;

@@ -76,10 +76,10 @@
     ],
     "loom:injected_interfaces": {
       "net/minecraft/class_1508": [
-        "dev/cammiescorner/arcanus/api/entities/Targetable"
+        "dev/cammiescorner/arcanus/api/entity/Targetable"
       ],
       "net/minecraft/class_1309": [
-        "dev/cammiescorner/arcanus/api/entities/Targetable"
+        "dev/cammiescorner/arcanus/api/entity/Targetable"
       ]
     }
   },

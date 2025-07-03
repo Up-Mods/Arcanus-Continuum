@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.mixin.common;
 
-import dev.cammiescorner.arcanus.api.entities.Targetable;
+import dev.cammiescorner.arcanus.api.entity.Targetable;
 import net.minecraft.world.entity.boss.EnderDragonPart;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import org.spongepowered.asm.mixin.Final;

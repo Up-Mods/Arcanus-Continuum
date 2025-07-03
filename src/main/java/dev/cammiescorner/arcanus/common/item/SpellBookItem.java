@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.item;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.spells.Spell;
+import dev.cammiescorner.arcanus.api.spell.Spell;
 import dev.cammiescorner.arcanus.common.data_component.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.menu.providers.SpellBookMenuProvider;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;

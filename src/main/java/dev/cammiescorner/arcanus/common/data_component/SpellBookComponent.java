@@ -4,7 +4,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.cammiescorner.arcanus.api.spells.Spell;
+import dev.cammiescorner.arcanus.api.spell.Spell;
 import dev.cammiescorner.arcanus.common.item.SpellBookItem;
 import dev.cammiescorner.arcanus.common.item.SpellScrollItem;
 import dev.cammiescorner.arcanus.common.menu.SpellBookMenu;

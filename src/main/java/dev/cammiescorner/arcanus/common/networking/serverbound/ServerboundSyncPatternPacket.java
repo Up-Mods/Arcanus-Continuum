@@ -2,10 +2,10 @@ package dev.cammiescorner.arcanus.common.networking.serverbound;
 
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.spells.Pattern;
-import dev.cammiescorner.arcanus.api.spells.Spell;
-import dev.cammiescorner.arcanus.api.spells.components.SpellGroup;
-import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
+import dev.cammiescorner.arcanus.api.spell.Pattern;
+import dev.cammiescorner.arcanus.api.spell.Spell;
+import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
+import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
 import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
 import dev.cammiescorner.arcanus.common.data_component.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.item.StaffItem;

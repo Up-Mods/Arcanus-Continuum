@@ -1,9 +1,9 @@
 package dev.cammiescorner.arcanus.common.entity.magic;
 
-import dev.cammiescorner.arcanus.api.entities.Targetable;
-import dev.cammiescorner.arcanus.api.spells.components.SpellEffect;
-import dev.cammiescorner.arcanus.api.spells.components.SpellGroup;
-import dev.cammiescorner.arcanus.api.spells.components.SpellShape;
+import dev.cammiescorner.arcanus.api.entity.Targetable;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
+import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
+import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import net.minecraft.Util;

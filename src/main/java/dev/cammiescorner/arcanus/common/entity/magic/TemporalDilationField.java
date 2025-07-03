@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.entity.magic;
 
-import dev.cammiescorner.arcanus.api.entities.Targetable;
+import dev.cammiescorner.arcanus.api.entity.Targetable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;

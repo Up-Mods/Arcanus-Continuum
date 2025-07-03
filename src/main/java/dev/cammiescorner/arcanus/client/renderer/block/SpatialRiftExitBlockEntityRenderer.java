@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
-import dev.cammiescorner.arcanus.client.models.entity.magic.SpatialRiftSigilModel;
+import dev.cammiescorner.arcanus.client.model.entity.magic.SpatialRiftSigilModel;
 import dev.cammiescorner.arcanus.common.block.entities.SpatialRiftExitBlockEntity;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.color.Color;

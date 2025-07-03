@@ -1,9 +1,9 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.attack;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spells.mana.ManaType;
-import dev.cammiescorner.arcanus.api.spells.components.SpellEffect;
-import dev.cammiescorner.arcanus.api.spells.SpellType;
+import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
+import dev.cammiescorner.arcanus.api.spell.SpellType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.world.entity.Entity;

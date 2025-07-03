@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.mixin.client;
 
 import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spells.Pattern;
+import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.util.ClientUtils;
 import dev.cammiescorner.arcanus.common.entity.magic.Aggressorb;

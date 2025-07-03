@@ -1,8 +1,8 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.support;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spells.components.SpellEffect;
-import dev.cammiescorner.arcanus.api.spells.SpellType;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
+import dev.cammiescorner.arcanus.api.spell.SpellType;
 import dev.cammiescorner.arcanus.common.entity.magic.ManaShield;
 import dev.cammiescorner.arcanus.common.registry.ArcanusEntities;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;

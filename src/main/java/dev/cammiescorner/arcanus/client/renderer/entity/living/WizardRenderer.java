@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.client.renderer.entity.living;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.client.models.entity.living.WizardModel;
+import dev.cammiescorner.arcanus.client.model.entity.living.WizardModel;
 import dev.cammiescorner.arcanus.client.renderer.layer.WizardHeldItemLayerRenderer;
 import dev.cammiescorner.arcanus.common.entity.living.Wizard;
 import net.minecraft.client.Minecraft;

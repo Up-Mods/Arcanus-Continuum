@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.common.networking.serverbound;
 import commonnetwork.api.Network;
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.spells.Spell;
+import dev.cammiescorner.arcanus.api.spell.Spell;
 import dev.cammiescorner.arcanus.common.item.SpellScrollItem;
 import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundUpdateSpellcraftScreenPacket;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
