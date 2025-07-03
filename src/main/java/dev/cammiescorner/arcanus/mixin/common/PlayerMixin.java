@@ -9,12 +9,20 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(Player.class)
 public abstract class PlayerMixin extends LivingEntity {
+	@Shadow public abstract float getSpeed();
+
 	protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level world) {
 		super(entityType, world);
+	}
+
+	@ModifyReturnValue(method = "getFlyingSpeed", at = @At(value = "RETURN", ordinal = 1))
+	private float jumpingSpeed(float original) {
+		return getSpeed() * (isSprinting() ? 0.25f : 0.2f);
 	}
 
 	@ModifyReturnValue(method = "getName", at = @At("RETURN"))

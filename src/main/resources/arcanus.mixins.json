@@ -23,7 +23,6 @@
 		"common.PlayerMixin",
 		"common.ServerLevelMixin",
 		"common.ThrowableProjectileMixin",
-		"compat.pehkui.LivingEntityMixin",
 		"datagen.FabricDynamicRegistryProviderEntriesMixin"
 	],
 	"client": [
