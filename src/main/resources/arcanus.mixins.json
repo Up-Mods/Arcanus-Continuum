@@ -27,6 +27,7 @@
 		"datagen.FabricDynamicRegistryProviderEntriesMixin"
 	],
 	"client": [
+    "client.GameRendererMixin",
 		"client.ClientLevelMixin",
 		"client.GuiMixin",
 		"client.HumanoidModelMixin",

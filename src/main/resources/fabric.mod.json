@@ -109,6 +109,7 @@
     "cardinal-components-block": "*",
     "cardinal-components-chunk": "*",
     "cardinal-components-entity": "*",
-    "cardinal-components-scoreboard": "*"
+    "cardinal-components-scoreboard": "*",
+    "commonnetworking": "*"
   }
 }
