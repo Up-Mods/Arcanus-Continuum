@@ -32,13 +32,13 @@ import java.util.List;
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> {
-	public static final ResourceLocation BOOK_TEXTURE = Arcanus.id("textures/gui/spell_scroll.png");
+	public static final ResourceLocation SCROLL_TEXTURE = Arcanus.id("textures/gui/spell_scroll.png");
 	public static final ResourceLocation PANEL_TEXTURE = Arcanus.id("textures/gui/spell_crafting.png");
 	public final LinkedList<SpellGroup> SPELL_GROUPS = new LinkedList<>();
 	private Spell spell = new Spell();
 
-	public SpellScrollScreen(SpellScrollMenu screenHandler, Inventory playerInventory, Component text) {
-		super(screenHandler, playerInventory, text);
+	public SpellScrollScreen(SpellScrollMenu menu, Inventory playerInventory, Component title) {
+		super(menu, playerInventory, title);
 		this.imageWidth = 320;
 		this.imageHeight = 180;
 	}
@@ -58,7 +58,7 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 	@Override
 	protected void renderBg(GuiGraphics gui, float delta, int mouseX, int mouseY) {
 		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-		gui.blit(BOOK_TEXTURE, leftPos - 32, topPos, 0, 0, 320, 180, 320, 256);
+		gui.blit(SCROLL_TEXTURE, leftPos - 32, topPos, 0, 0, 320, 180, 320, 256);
 	}
 
 	@Override

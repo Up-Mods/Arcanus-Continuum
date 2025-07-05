@@ -85,6 +85,7 @@ public class ArcanusClient implements ClientEntryPoint {
 		ArcanusCompat.FIRST_PERSON.ifEnabled(() -> FirstPersonCompat::init);
 
 		MenuScreens.register(ArcanusMenus.SPELLCRAFT_MENU.get(), SpellcraftScreen::new);
+		MenuScreens.register(ArcanusMenus.SCROLL_OF_KNOWLEDGE_MENU.get(), ScrollOfKnowledgeScreen::new);
 		MenuScreens.register(ArcanusMenus.SPELL_SCROLL_MENU.get(), SpellScrollScreen::new);
 		MenuScreens.register(ArcanusMenus.SPELL_BOOK_MENU.get(), SpellBookScreen::new);
 		MenuScreens.register(ArcanusMenus.BOOK_POUCH_MENU.get(), BookPouchScreen::new);
