@@ -1,7 +1,9 @@
 package dev.cammiescorner.arcanus.common.util;
 
 public class TranslationKeys {
-	public static final String CREATIVE_TAB = "itemGroup.arcanus.general";
+	public static final String CREATIVE_TAB_ARCANUS = "itemGroup.arcanus.arcanus";
+	public static final String CREATIVE_TAB_GEAR = "itemGroup.arcanus.gear";
+	public static final String CREATIVE_TAB_SCROLLS = "itemGroup.arcanus.scrolls";
 	public static final String SPELL_BOOK_SLOT = "trinkets.slot.legs.spell_book";
 	public static final String BRACELET_HAND_SLOT = "trinkets.slot.hand.bracelet";
 	public static final String BRACELET_OFFHAND_SLOT = "trinkets.slot.offhand.bracelet";
@@ -14,9 +16,11 @@ public class TranslationKeys {
 	public static final String CANT_WARD_IN_DIM = "text.arcanus.cannot_ward_in_dimension";
 	public static final String CANT_WARD_BLOCK = "text.arcanus.cannot_ward_block";
 	public static final String DISABLED_COMPONENT = "text.arcanus.disabled_component";
+	public static final String SPELL_HAS_DISABLED_COMPONENT = "text.arcanus.spell_has_disabled_component";
 	public static final String TOO_MANY_ORBS = "text.arcanus.too_many_orbs";
 	public static final String USE_SCROLL_SUCCESS = "text.arcanus.use_item.scroll_of_knowledge";
-	public static final String USE_SCROLL_MAX_LEVEL = "text.arcanus.use_item.scroll_of_knowledge.max_level";
+	public static final String USE_SCROLL_ALREADY_KNOW = "text.arcanus.use_item.scroll_of_knowledge.already_knows_spell_component";
+	public static final String USE_SCROLL_DISABLED_COMPONENT = "text.arcanus.use_item.scroll_of_knowledge.disabled_spell_component";
 	public static final String WIZARD_NO_WIZARD_ARMOR = "text.arcanus.wizard_dialogue.no_wizard_armor";
 	public static final String WIZARD_ARMOR_HINT = "tooltip.arcanus.wizard_dialogue.no_wizard_armor";
 	public static final String MAGIC_DOOR_ACCESS_GRANTED = "door.arcanus.access_granted";

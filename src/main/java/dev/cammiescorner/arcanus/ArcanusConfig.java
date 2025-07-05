@@ -22,7 +22,7 @@ public final class ArcanusConfig {
 	public static boolean castingSpeedHasCoolDown = false;
 
 	@ConfigEntry(id = "sizeChangingIsPermanent", translation = CONFIG_SIZE_CHANGE_IS_PERMA)
-	public static boolean sizeChangingIsPermanent = false;
+	public static boolean sizeChangingIsPermanent = true;
 
 	@ConfigEntry(id = "scaleManaBarsWithMaxMana", translation = CONFIG_SCALE_MANA_BARS)
 	public static boolean scaleManaBarsWithMaxMana = true;

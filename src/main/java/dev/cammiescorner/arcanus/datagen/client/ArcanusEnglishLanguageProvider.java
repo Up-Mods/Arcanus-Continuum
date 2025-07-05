@@ -37,7 +37,10 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 
 	@Override
 	public void generateTranslations(HolderLookup.Provider registerLookup, TranslationBuilder builder) {
-		builder.creativeTab(ArcanusItems.ITEM_GROUP, "Arcanus");
+		builder.creativeTab(ArcanusCreativeTabs.ARCANUS, "Arcanus");
+		builder.creativeTab(ArcanusCreativeTabs.GEAR, "Arcanus - Gear");
+		builder.creativeTab(ArcanusCreativeTabs.SCROLLS, "Arcanus - Spell Components");
+
 		builder.item(ArcanusItems.WOODEN_STAFF, "Wooden Staff");
 		builder.item(ArcanusItems.CRYSTAL_STAFF, "Crystal Staff");
 		builder.item(ArcanusItems.DIVINATION_STAFF, "Divination Staff");
@@ -179,11 +182,13 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(BLOCK_IS_WARDED, "This block is warded.");
 		builder.add(CANT_WARD_IN_DIM, "Cannot ward blocks in this dimension!");
 		builder.add(CANT_WARD_BLOCK, "Cannot ward this block!");
-		builder.add(DISABLED_COMPONENT, "This spell contains one or more disabled spell components. Aborting spell.");
+		builder.add(DISABLED_COMPONENT, "Disabled Spell Component");
+		builder.add(SPELL_HAS_DISABLED_COMPONENT, "This spell contains one or more disabled spell components. Aborting spell.");
 		builder.add(TOO_MANY_ORBS, "That target already has the maximum amount of Aggressorbs!");
 
 		builder.add(USE_SCROLL_SUCCESS, "You feel a little smarter...");
-		builder.add(USE_SCROLL_MAX_LEVEL, "You have learned everything you can.");
+		builder.add(USE_SCROLL_ALREADY_KNOW, "You have learned everything you can.");
+		builder.add(USE_SCROLL_DISABLED_COMPONENT, "This spell component doesn't seem possible.");
 
 		builder.add(WIZARD_NO_WIZARD_ARMOR, "Come back to me when you look like a wizard.");
 		builder.add(WIZARD_ARMOR_HINT, "Maybe wearing Wizard Robes will help...");

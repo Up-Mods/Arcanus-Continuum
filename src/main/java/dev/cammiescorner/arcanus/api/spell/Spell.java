@@ -156,7 +156,7 @@ public class Spell {
 			return;
 
 		if(groups.stream().flatMap(SpellGroup::getAllComponents).anyMatch(Predicate.not(SpellComponent::isEnabled))) {
-			caster.sendSystemMessage(Component.translatable(TranslationKeys.DISABLED_COMPONENT).withStyle(ChatFormatting.RED));
+			caster.sendSystemMessage(Component.translatable(TranslationKeys.SPELL_HAS_DISABLED_COMPONENT).withStyle(ChatFormatting.RED));
 			return;
 		}
 

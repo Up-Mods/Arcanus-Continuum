@@ -3,25 +3,19 @@ package dev.cammiescorner.arcanus.common.registry;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.item.*;
 import dev.cammiescorner.arcanus.common.util.StaffType;
-import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
-import dev.upcraft.datasync.api.util.GameProfileHelper;
-import dev.upcraft.sparkweave.api.SparkweaveApi;
 import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
 
 import java.util.List;
-import java.util.UUID;
 
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 public class ArcanusItems {
-	public static final RegistryHandler<CreativeModeTab> ITEM_GROUPS = RegistryHandler.create(Registries.CREATIVE_MODE_TAB, Arcanus.MOD_ID);
 	public static final RegistryHandler<Item> ITEMS = RegistryHandler.create(Registries.ITEM, Arcanus.MOD_ID);
 
 	public static final RegistrySupplier<Item> WOODEN_STAFF = ITEMS.register("wooden_staff", () -> new StaffItem(StaffType.STAFF, Color.fromARGB(0xffffffff), Color.fromARGB(0xff51301a)));
@@ -51,58 +45,6 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> SCROLL_OF_KNOWLEDGE = ITEMS.register("scroll_of_knowledge", ScrollOfKnowledgeItem::new);
 	public static final RegistrySupplier<Item> WIZARD_SPAWN_EGG = ITEMS.register("wizard_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.WIZARD.get(), 0x52392a, 0xffd87c, new Item.Properties()));
 	public static final RegistrySupplier<Item> OPOSSUM_SPAWN_EGG = ITEMS.register("opossum_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.OPOSSUM.get(), 0x131317, 0xbdbdbd, new Item.Properties()));
-
-	public static final RegistrySupplier<CreativeModeTab> ITEM_GROUP = ITEM_GROUPS.register("general", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB)).icon(() -> new ItemStack(ArcanusItems.CRYSTAL_STAFF.get())).displayItems((params, entries) -> {
-		entries.accept(BOOK_POUCH.get());
-		entries.accept(SPELL_BOOK.get());
-		entries.accept(SPELL_SCROLL.get());
-		entries.accept(SCROLL_OF_KNOWLEDGE.get());
-
-		if(SparkweaveApi.CLIENTSIDE_ENVIRONMENT) {
-			UUID currentPlayerId = GameProfileHelper.getClientProfile().getId();
-
-			entries.accept(StaffItem.setCraftedBy(new ItemStack(WOODEN_STAFF.get()), currentPlayerId));
-			entries.accept(StaffItem.setCraftedBy(new ItemStack(CRYSTAL_STAFF.get()), currentPlayerId));
-			entries.accept(StaffItem.setCraftedBy(new ItemStack(DIVINATION_STAFF.get()), currentPlayerId));
-			entries.accept(StaffItem.setCraftedBy(new ItemStack(CRESCENT_STAFF.get()), currentPlayerId));
-			entries.accept(StaffItem.setCraftedBy(new ItemStack(ANCIENT_STAFF.get()), currentPlayerId));
-
-			if(WizardData.isSupporter(currentPlayerId)) {
-				entries.accept(StaffItem.setCraftedBy(new ItemStack(WAND.get()), currentPlayerId));
-				entries.accept(StaffItem.setCraftedBy(new ItemStack(THAUMATURGES_GAUNTLET.get()), currentPlayerId));
-				entries.accept(StaffItem.setCraftedBy(new ItemStack(MIND_STAFF.get()), currentPlayerId));
-				entries.accept(StaffItem.setCraftedBy(new ItemStack(MAGIC_TOME.get()), currentPlayerId));
-				entries.accept(StaffItem.setCraftedBy(new ItemStack(MAGE_PISTOL.get()), currentPlayerId));
-			}
-		}
-		else {
-			UUID dummyId = UUID.fromString("6147825f-5493-4154-87c5-5c03c6b0a7c2");
-
-			entries.accept(StaffItem.setCraftedBy(new ItemStack(WOODEN_STAFF.get()), dummyId));
-			entries.accept(StaffItem.setCraftedBy(new ItemStack(CRYSTAL_STAFF.get()), dummyId));
-			entries.accept(StaffItem.setCraftedBy(new ItemStack(DIVINATION_STAFF.get()), dummyId));
-			entries.accept(StaffItem.setCraftedBy(new ItemStack(CRESCENT_STAFF.get()), dummyId));
-			entries.accept(StaffItem.setCraftedBy(new ItemStack(ANCIENT_STAFF.get()), dummyId));
-		}
-
-		entries.accept(WIZARD_HAT.get());
-		entries.accept(WIZARD_ROBES.get());
-		entries.accept(WIZARD_PANTS.get());
-		entries.accept(WIZARD_BOOTS.get());
-		entries.accept(BATTLE_MAGE_HELMET.get());
-		entries.accept(BATTLE_MAGE_CHESTPLATE.get());
-		entries.accept(BATTLE_MAGE_LEGGINGS.get());
-		entries.accept(BATTLE_MAGE_BOOTS.get());
-		entries.accept(BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get());
-		entries.accept(ArcanusBlocks.CHALK.get());
-		entries.accept(ArcanusBlocks.MAGIC_DOOR.get());
-		entries.accept(ArcanusBlocks.ARCANE_WORKBENCH.get());
-		entries.accept(ArcanusBlocks.ARCANE_PLINTH.get());
-		entries.accept(ArcanusBlocks.PEDESTAL.get());
-
-		entries.accept(WIZARD_SPAWN_EGG.get());
-		entries.accept(OPOSSUM_SPAWN_EGG.get());
-	}).build());
 
 	private static SmithingTemplateItem getBattleMageUpgrade() {
 		var appliesToText = Component.translatable(BATTLE_MAGE_UPGRADE_APPLIES_TO).withStyle(ChatFormatting.BLUE);

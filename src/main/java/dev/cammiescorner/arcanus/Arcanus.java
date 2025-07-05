@@ -80,18 +80,18 @@ public class Arcanus implements MainEntryPoint {
 
 		RegistryService registryService = RegistryService.get();
 		ArcanusAttributes.registerAll();
+		ArcanusSpellComponents.SPELL_COMPONENTS.accept(registryService);
 		ArcanusEntities.ENTITY_TYPES.accept(registryService);
 		ArcanusArmorMaterials.MATERIALS.accept(registryService);
 		ArcanusDataComponents.DATA_COMPONENTS.accept(registryService);
 		ArcanusItems.ITEMS.accept(registryService);
-		ArcanusItems.ITEM_GROUPS.accept(registryService);
+		ArcanusCreativeTabs.CREATIVE_TABS.accept(registryService);
 		ArcanusBlocks.BLOCKS.accept(registryService);
 		ArcanusBlockEntities.BLOCK_ENTITIES.accept(registryService);
 		ArcanusParticles.PARTICLE_TYPES.accept(registryService);
 		ArcanusPointsOfInterest.register();
 		ArcanusRecipes.RECIPE_SERIALIZERS.accept(registryService);
 		ArcanusMenus.MENUS.accept(registryService);
-		ArcanusSpellComponents.SPELL_COMPONENTS.accept(registryService);
 		ArcanusMobEffects.MOB_EFFECTS.accept(registryService);
 		ArcanusStructureProcessorTypes.STRUCTURE_PROCESSORS.accept(registryService);
 		ArcanusCriteriaTriggers.CRITERIA_TRIGGERS.accept(registryService);
