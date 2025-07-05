@@ -1,6 +1,8 @@
 package dev.cammiescorner.arcanus.common.menu.providers;
 
 import dev.cammiescorner.arcanus.common.menu.ScrollOfKnowledgeMenu;
+import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
+import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -21,7 +23,7 @@ public class ScrollOfKnowledgeMenuProvider implements ExtendedScreenHandlerFacto
 
 	@Override
 	public Component getDisplayName() {
-		return Component.empty();
+		return stack.getOrDefault(ArcanusDataComponents.SPELL_COMPONENT.get(), ArcanusSpellComponents.EMPTY.get()).getName();
 	}
 
 	@Override
