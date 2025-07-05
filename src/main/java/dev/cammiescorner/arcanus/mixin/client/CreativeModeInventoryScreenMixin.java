@@ -12,10 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Mixin(CreativeModeInventoryScreen.class)
 public class CreativeModeInventoryScreenMixin {
@@ -26,14 +23,10 @@ public class CreativeModeInventoryScreenMixin {
 		if(selectedTab != ArcanusCreativeTabs.SCROLLS.get())
 			return original;
 
-		List<ItemStack> filteredItems = new ArrayList<>();
-
-		original.stream().filter(stack -> {
+		return original.stream().filter(stack -> {
 			SpellComponent component = stack.getOrDefault(ArcanusDataComponents.SPELL_COMPONENT.get(), ArcanusSpellComponents.EMPTY.get());
 
 			return component.isEnabled() && component != ArcanusSpellComponents.EMPTY.get();
-		}).collect(Collectors.toCollection(() -> filteredItems));
-
-		return filteredItems;
+		}).toList();
 	}
 }
