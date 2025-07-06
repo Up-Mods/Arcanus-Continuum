@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.rite.RiteRecipe;
+import dev.cammiescorner.arcanus.api.crafting.RiteRecipe;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.Util;
@@ -19,8 +19,9 @@ public class ArcanusRecipes {
 	public static final RegistrySupplier<RiteRecipe.Serializer> RITE_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("rite", RiteRecipe.Serializer::new);
 
 	private static <T extends Recipe<? extends RecipeInput>> RegistrySupplier<RecipeType<T>> recipeType(String name) {
-		return RECIPE_TYPES.register(name, () -> new  RecipeType<T>() {
+		return RECIPE_TYPES.register(name, () -> new RecipeType<>() {
 			private final String id = Util.makeDescriptionId(Registries.RECIPE_TYPE.location().toShortLanguageKey(), Arcanus.id(name));
+
 			@Override
 			public String toString() {
 				return id;

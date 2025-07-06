@@ -1,8 +1,9 @@
-package dev.cammiescorner.arcanus.api.rite;
+package dev.cammiescorner.arcanus.api.crafting;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.api.spell.mana.ManaCost;
+import dev.cammiescorner.arcanus.api.util.XtraCodecs;
 import dev.cammiescorner.arcanus.common.registry.ArcanusRecipes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -18,7 +19,7 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 
 // TODO add the blocks in a similar way to ShapedRecipePattern
-public record RiteRecipe(List<Ingredient> itemIngredients, ManaCost manaCost) implements Recipe<RiteRecipeInput> {
+public record RiteRecipe(List<Ingredient> itemIngredients, ManaCost manaCost, List<RiteResult> results) implements Recipe<RiteRecipeInput> {
 
 	@Override
 	public boolean matches(RiteRecipeInput input, Level level) {
@@ -27,6 +28,10 @@ public record RiteRecipe(List<Ingredient> itemIngredients, ManaCost manaCost) im
 
 	@Override
 	public ItemStack assemble(RiteRecipeInput input, HolderLookup.Provider registries) {
+		// TODO consume items and mana etc.
+
+		// TODO make an RiteResult#apply() method
+
 		return ItemStack.EMPTY;
 	}
 
@@ -60,7 +65,9 @@ public record RiteRecipe(List<Ingredient> itemIngredients, ManaCost manaCost) im
 
 		public static final MapCodec<RiteRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 			Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").forGetter(RiteRecipe::itemIngredients),
-			ManaCost.CODEC.fieldOf("manaCost").forGetter(RiteRecipe::manaCost)
+			ManaCost.CODEC.fieldOf("manaCost").forGetter(RiteRecipe::manaCost),
+
+			XtraCodecs.singleElementOrList(RiteResult.CODEC).fieldOf("result").forGetter(RiteRecipe::results)
 		).apply(instance, RiteRecipe::new));
 
 		public static final StreamCodec<RegistryFriendlyByteBuf, RiteRecipe> STREAM_CODEC = StreamCodec.composite(
@@ -69,6 +76,9 @@ public record RiteRecipe(List<Ingredient> itemIngredients, ManaCost manaCost) im
 
 			ManaCost.STREAM_CODEC,
 			RiteRecipe::manaCost,
+
+			RiteResult.STREAM_CODEC.apply(ByteBufCodecs.list()),
+			RiteRecipe::results,
 
 			RiteRecipe::new
 		);
