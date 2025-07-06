@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.Spell;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
-import dev.cammiescorner.arcanus.api.util.XtraCodecs;
+import dev.cammiescorner.arcanus.common.util.XtraCodecs;
 import dev.cammiescorner.arcanus.common.data_component.BookPouchComponent;
 import dev.cammiescorner.arcanus.common.data_component.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.item.BookPouchItem;
