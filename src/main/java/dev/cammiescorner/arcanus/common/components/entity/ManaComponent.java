@@ -1,8 +1,8 @@
 package dev.cammiescorner.arcanus.common.components.entity;
 
 import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
-import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
+import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
@@ -12,29 +12,23 @@ import net.minecraft.world.entity.player.Player;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 public class ManaComponent implements AutoSyncedComponent, ServerTickingComponent {
 	private final LivingEntity entity;
-	private final Map<ManaType, Double> manaMap = new HashMap<>();
-	private double mana;
+	private final double[] mana = new double[ManaType.values().length];
 
 	public ManaComponent(LivingEntity entity) {
 		this.entity = entity;
 
-		manaMap.putIfAbsent(ManaType.RED, 25d);
-		manaMap.putIfAbsent(ManaType.GREEN, 25d);
-		manaMap.putIfAbsent(ManaType.BLUE, 25d);
-		manaMap.putIfAbsent(ManaType.WHITE, 25d);
-		manaMap.putIfAbsent(ManaType.BLACK, 25d);
+		Arrays.fill(mana, 25.0D);
 	}
 
 	@Override
 	public void serverTick() {
 		AttributeInstance manaRegenAttr = entity.getAttribute(ArcanusAttributes.MANA_REGEN.holder());
 
-		for(ManaType manaType : manaMap.keySet()) {
+		for(ManaType manaType : ManaType.values()) {
 			if(manaRegenAttr != null)
 				addMana(manaType, manaRegenAttr.getValue() / (entity instanceof Player player && player.isCreative() ? 1 : 20), false);
 
@@ -45,21 +39,24 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 
 	@Override
 	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		manaMap.replaceAll((color, d) -> tag.getDouble(color.getSerializedName()));
+		for (ManaType value : ManaType.values()) {
+			mana[value.ordinal()] = tag.getDouble(value.getSerializedName());
+		}
 	}
 
 	@Override
 	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		for(Map.Entry<ManaType, Double> entry : manaMap.entrySet())
-			tag.putDouble(entry.getKey().getSerializedName(), entry.getValue());
+		for (ManaType value : ManaType.values()) {
+			tag.putDouble(value.getSerializedName(), mana[value.ordinal()]);
+		}
 	}
 
 	public double getMana(ManaType manaType) {
-		return manaMap.get(manaType);
+		return mana[manaType.ordinal()];
 	}
 
-	public void setMana(ManaType manaType, double mana) {
-		manaMap.put(manaType, Mth.clamp(mana, 0, manaType.getMaxMana(entity)));
+	public void setMana(ManaType manaType, double amount) {
+		mana[manaType.ordinal()] = Mth.clamp(amount, 0, manaType.getMaxMana(entity));
 		ArcanusComponents.MANA_COMPONENT.sync(entity);
 	}
 
