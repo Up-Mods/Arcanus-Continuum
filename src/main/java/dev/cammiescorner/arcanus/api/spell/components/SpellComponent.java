@@ -13,6 +13,7 @@ import net.minecraft.Util;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -21,8 +22,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class SpellComponent {
-	public static final Codec<SpellComponent> CODEC = Codec.lazyInitialized(() -> RegistryHelper.getBuiltinRegistry(ArcanusRegistries.SPELL_COMPONENTS).byNameCodec());
-	public static final StreamCodec<RegistryFriendlyByteBuf, SpellComponent> STREAM_CODEC = StreamCodec.of((buffer, spellComponent) -> buffer.writeResourceLocation(RegistryHelper.getBuiltinRegistry(ArcanusRegistries.SPELL_COMPONENTS).getKey(spellComponent)), buffer -> RegistryHelper.getBuiltinRegistry(ArcanusRegistries.SPELL_COMPONENTS).get(buffer.readResourceLocation()));
+	public static final Codec<SpellComponent> CODEC = Codec.lazyInitialized(() -> RegistryHelper.getBuiltinRegistry(ArcanusRegistries.SPELL_COMPONENT).byNameCodec());
+	public static final StreamCodec<RegistryFriendlyByteBuf, SpellComponent> STREAM_CODEC = ByteBufCodecs.registry(ArcanusRegistries.SPELL_COMPONENT);
 	public static final String DISABLED_TRANSLATION_KEY = Util.makeDescriptionId("arcanus.spell_component", Arcanus.id("disabled"));
 	private static final MutableComponent DISABLED_TRANSLATED_NAME = Component.translatable(DISABLED_TRANSLATION_KEY).withStyle(ChatFormatting.OBFUSCATED);
 	private final Supplier<Boolean> isEnabled;

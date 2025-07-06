@@ -33,7 +33,7 @@ public class LearnSpellComponentsCommand {
 			)
 			.then(Commands.literal("grant")
 				.requires(serverCommandSource -> serverCommandSource.hasPermission(Commands.LEVEL_GAMEMASTERS))
-				.then(Commands.argument("spell_component", ResourceArgument.resource(context, ArcanusRegistries.SPELL_COMPONENTS))
+				.then(Commands.argument("spell_component", ResourceArgument.resource(context, ArcanusRegistries.SPELL_COMPONENT))
 					.then(Commands.argument("player", EntityArgument.player())
 						.executes(ctx -> grantSpellComponent(ctx, EntityArgument.getPlayer(ctx, "player")))
 					)
@@ -42,7 +42,7 @@ public class LearnSpellComponentsCommand {
 			)
 			.then(Commands.literal("revoke")
 				.requires(serverCommandSource -> serverCommandSource.hasPermission(Commands.LEVEL_GAMEMASTERS))
-				.then(Commands.argument("spell_component", ResourceArgument.resource(context, ArcanusRegistries.SPELL_COMPONENTS))
+				.then(Commands.argument("spell_component", ResourceArgument.resource(context, ArcanusRegistries.SPELL_COMPONENT))
 					.then(Commands.argument("player", EntityArgument.player())
 						.executes(ctx -> revokeSpellComponent(ctx, EntityArgument.getPlayer(ctx, "player")))
 					)
@@ -105,6 +105,6 @@ public class LearnSpellComponentsCommand {
 	}
 
 	public static Holder.Reference<SpellComponent> getSpellComponent(CommandContext<CommandSourceStack> context, String name) throws CommandSyntaxException {
-		return ResourceArgument.getResource(context, name, ArcanusRegistries.SPELL_COMPONENTS);
+		return ResourceArgument.getResource(context, name, ArcanusRegistries.SPELL_COMPONENT);
 	}
 }
