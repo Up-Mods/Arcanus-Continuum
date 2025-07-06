@@ -90,6 +90,7 @@ public class Arcanus implements MainEntryPoint {
 		ArcanusBlockEntities.BLOCK_ENTITIES.accept(registryService);
 		ArcanusParticles.PARTICLE_TYPES.accept(registryService);
 		ArcanusPointsOfInterest.register();
+		ArcanusRecipes.RECIPE_TYPES.accept(registryService);
 		ArcanusRecipes.RECIPE_SERIALIZERS.accept(registryService);
 		ArcanusMenus.MENUS.accept(registryService);
 		ArcanusMobEffects.MOB_EFFECTS.accept(registryService);
