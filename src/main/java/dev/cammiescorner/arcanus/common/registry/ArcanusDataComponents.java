@@ -65,14 +65,14 @@ public class ArcanusDataComponents {
 
 	public static final RegistrySupplier<DataComponentType<Color>> PRIMARY_COLOR = DATA_COMPONENTS.register("primary_color", () -> DataComponentType.<Color>builder()
 		.persistent(Color.CODEC)
-		.networkSynchronized(XtraCodecs.COLOR_STREAM_CODEC)
+		.networkSynchronized(Color.STREAM_CODEC)
 		.cacheEncoding()
 		.build()
 	);
 
 	public static final RegistrySupplier<DataComponentType<Color>> SECONDARY_COLOR = DATA_COMPONENTS.register("secondary_color", () -> DataComponentType.<Color>builder()
 		.persistent(Color.CODEC)
-		.networkSynchronized(XtraCodecs.COLOR_STREAM_CODEC)
+		.networkSynchronized(Color.STREAM_CODEC)
 		.cacheEncoding()
 		.build()
 	);
