@@ -37,7 +37,7 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusItems.OPOSSUM_SPAWN_EGG.get());
 	}).build());
 
-	public static final RegistrySupplier<CreativeModeTab> GEAR = CREATIVE_TABS.register("gear", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_GEAR)).icon(() -> new ItemStack(ArcanusItems.CRYSTAL_STAFF.get())).displayItems((params, entries) -> {
+	public static final RegistrySupplier<CreativeModeTab> GEAR = CREATIVE_TABS.register("arcanus_gear", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_GEAR)).icon(() -> new ItemStack(ArcanusItems.CRYSTAL_STAFF.get())).displayItems((params, entries) -> {
 		UUID dummyId = UUID.fromString("6147825f-5493-4154-87c5-5c03c6b0a7c2");
 
 		// staves
@@ -67,7 +67,7 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get());
 	}).build());
 
-	public static final RegistrySupplier<CreativeModeTab> SCROLLS = CREATIVE_TABS.register("scrolls", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_SCROLLS)).icon(() -> new ItemStack(ArcanusItems.SCROLL_OF_KNOWLEDGE.get())).displayItems((params, entries) -> {
+	public static final RegistrySupplier<CreativeModeTab> SCROLLS = CREATIVE_TABS.register("arcanus_scrolls", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_SCROLLS)).icon(() -> new ItemStack(ArcanusItems.SCROLL_OF_KNOWLEDGE.get())).displayItems((params, entries) -> {
 		List<? extends SpellComponent> components = ArcanusSpellComponents.SPELL_COMPONENTS.getEntriesOrdered().stream()
 			.map(RegistrySupplier::get)
 			.sorted(ArcanusCreativeTabs::sortComponents)
