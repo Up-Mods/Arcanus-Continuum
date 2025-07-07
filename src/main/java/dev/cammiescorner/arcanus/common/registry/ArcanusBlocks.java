@@ -13,6 +13,7 @@ public class ArcanusBlocks {
 	public static final RegistrySupplier<Block> ARCANE_WORKBENCH = BLOCKS.register("arcane_workbench", ArcaneWorkbenchBlock::new);
 	public static final RegistrySupplier<Block> ARCANE_PLINTH = BLOCKS.register("arcane_plinth", ArcanePlinthBlock::new);
 	public static final RegistrySupplier<Block> PEDESTAL = BLOCKS.register("pedestal", PedestalBlock::new);
+	public static final RegistrySupplier<Block> JAR = BLOCKS.register("jar", JarBlock::new);
 	public static final RegistrySupplier<Block> CHALK = BLOCKS.register("chalk", ChalkBlock::new);
 	public static final RegistrySupplier<Block> DUMMY_BOOKSHELF = BLOCKS.register("dummy_bookshelf", DummyBookshelfBlock::new);
 	public static final RegistrySupplier<Block> MAGIC_BLOCK = BLOCKS.register("magic_block", MagicBlock::new);

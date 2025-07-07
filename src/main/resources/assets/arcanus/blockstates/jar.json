@@ -1,0 +1,81 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "arcanus:block/empty_jar"
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/jar/filled_jar_1"
+      },
+      "when": {
+        "level": 1
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/jar/filled_jar_2"
+      },
+      "when": {
+        "level": 2
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/jar/filled_jar_3"
+      },
+      "when": {
+        "level": 3
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/jar/filled_jar_4"
+      },
+      "when": {
+        "level": 4
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/jar/filled_jar_5"
+      },
+      "when": {
+        "level": 5
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/jar/filled_jar_6"
+      },
+      "when": {
+        "level": 6
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/jar/filled_jar_7"
+      },
+      "when": {
+        "level": 7
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/jar/filled_jar_8"
+      },
+      "when": {
+        "level": 8
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/jar/filled_jar_9"
+      },
+      "when": {
+        "level": 9
+      }
+    }
+  ]
+}

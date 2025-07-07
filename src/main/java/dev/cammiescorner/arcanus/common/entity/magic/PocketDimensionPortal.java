@@ -2,8 +2,8 @@ package dev.cammiescorner.arcanus.common.entity.magic;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
-import dev.cammiescorner.arcanus.common.components.entity.PocketDimensionPortalComponent;
-import dev.cammiescorner.arcanus.common.components.level.PocketDimensionComponent;
+import dev.cammiescorner.arcanus.common.component.entity.PocketDimensionPortalComponent;
+import dev.cammiescorner.arcanus.common.component.level.PocketDimensionComponent;
 import dev.cammiescorner.arcanus.common.data.ArcanusEntityTags;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.fabricmc.fabric.api.entity.FakePlayer;

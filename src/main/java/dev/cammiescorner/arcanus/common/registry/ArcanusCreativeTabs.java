@@ -32,6 +32,7 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusBlocks.ARCANE_WORKBENCH.get());
 		entries.accept(ArcanusBlocks.ARCANE_PLINTH.get());
 		entries.accept(ArcanusBlocks.PEDESTAL.get());
+		entries.accept(ArcanusBlocks.JAR.get());
 
 		entries.accept(ArcanusItems.WIZARD_SPAWN_EGG.get());
 		entries.accept(ArcanusItems.OPOSSUM_SPAWN_EGG.get());

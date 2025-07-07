@@ -1,4 +1,5 @@
 {
+  "parent": "minecraft:block/block",
 	"format_version": "1.21.1",
 	"texture_size": [64, 64],
 	"textures": {
@@ -35,31 +36,6 @@
 			}
 		}
 	],
-	"display": {
-		"thirdperson_righthand": {
-			"rotation": [0, 135, 0],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"firstperson_righthand": {
-			"rotation": [0, 135, 0],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"ground": {
-			"translation": [0, 4, 0],
-			"scale": [0.3, 0.3, 0.3]
-		},
-		"gui": {
-			"rotation": [30, 45, 0],
-			"translation": [0, 0.5, 0],
-			"scale": [0.65, 0.65, 0.65]
-		},
-		"head": {
-			"translation": [0, 12, 0]
-		},
-		"fixed": {
-			"scale": [0.5, 0.5, 0.5]
-		}
-	},
 	"groups": [
 		{
 			"name": "arcane_plinth",

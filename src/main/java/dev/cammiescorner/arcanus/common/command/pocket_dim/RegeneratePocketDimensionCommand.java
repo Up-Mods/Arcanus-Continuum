@@ -6,7 +6,7 @@ import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.cammiescorner.arcanus.common.command.PocketDimensionCommand;
-import dev.cammiescorner.arcanus.common.components.level.PocketDimensionComponent;
+import dev.cammiescorner.arcanus.common.component.level.PocketDimensionComponent;
 import dev.cammiescorner.arcanus.common.data.ArcanusDimensions;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.commands.CommandSourceStack;
