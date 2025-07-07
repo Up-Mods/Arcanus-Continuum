@@ -7,7 +7,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 
 public final class ItemRiteResult extends RiteResult {
-
 	public static final MapCodec<ItemRiteResult> CODEC = MapCodec.assumeMapUnsafe(ItemStack.CODEC).xmap(ItemRiteResult::new, ItemRiteResult::getItemStack);
 	public static final StreamCodec<RegistryFriendlyByteBuf, ItemRiteResult> STREAM_CODEC = ItemStack.STREAM_CODEC.map(ItemRiteResult::new, ItemRiteResult::getItemStack);
 	private final ItemStack itemStack;
