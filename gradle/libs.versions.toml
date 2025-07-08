@@ -12,6 +12,10 @@ parchment_mappings = "2024.11.17"
 jetbrains_annotations = "26.0.1"
 autoservice = "1.1.1"
 
+# misc
+yeetus_experimentus_fabric = "b7C4gGUr" # [FABRIC][1.21] YeetusExperimentus 87.0.0
+yeetus_experimentus_neoforge = "HaaH232J" # [NEOFORGE][1.21] YeetusExperimentus 87.0.0
+
 # required dependencies
 fabric_api = "0.115.4+1.21.1"
 cca = "6.1.2"
@@ -56,6 +60,9 @@ lambdynamiclights = { module = "dev.lambdaurora.lambdynamiclights:lambdynamiclig
 explosive_enhancement = { module = "maven.modrinth:explosive-enhancement", version.ref = "explosive_enhancement" }
 sodium = { module = "maven.modrinth:sodium", version.ref = "sodium" }
 iris = { module = "maven.modrinth:iris", version.ref = "iris" }
+
+yeetus_experimentus_fabric = { module = "maven.modrinth:yeetus-experimentus", version.ref = "yeetus_experimentus_fabric" }
+yeetus_experimentus_neoforge = { module = "maven.modrinth:yeetus-experimentus", version.ref = "yeetus_experimentus_neoforge" }
 
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]

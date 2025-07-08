@@ -132,6 +132,8 @@ dependencies {
 	// emi
 	modCompileOnly variantOf(libs.emi) { classifier 'api' }
 	modLocalRuntime libs.emi
+
+	modLocalRuntime libs.yeetus.experimentus.fabric
 }
 
 loom {
