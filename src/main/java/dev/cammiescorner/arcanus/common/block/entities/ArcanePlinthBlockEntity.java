@@ -12,7 +12,6 @@ import net.minecraft.world.phys.Vec3;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO block entity renderer
 public class ArcanePlinthBlockEntity extends AbstractPedestalBlockEntity implements RiteRecipeInput {
 	public final Map<ManaType, Double> mana = new HashMap<>();
 
