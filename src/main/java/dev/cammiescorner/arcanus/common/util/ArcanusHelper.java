@@ -12,6 +12,7 @@ import net.minecraft.Util;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.TraceableEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
@@ -129,5 +130,16 @@ public class ArcanusHelper {
 	 */
 	public static void copyMagicColor(Object to, Entity from) {
 		ArcanusComponents.MAGIC_COLOR.maybeGet(from).ifPresent(sourceComponent -> setMagicColorSource(to, sourceComponent.getSourceId()));
+	}
+
+	public static void giveOrDrop(Player player, ItemStack stack) {
+		if(!player.addItem(stack)) {
+			@Nullable var itemEntity = player.drop(stack, false);
+
+			if(itemEntity != null) {
+				itemEntity.setNoPickUpDelay();
+				itemEntity.setTarget(player.getUUID());
+			}
+		}
 	}
 }

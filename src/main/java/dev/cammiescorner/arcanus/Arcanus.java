@@ -78,6 +78,10 @@ public class Arcanus implements MainEntryPoint {
 		SharedConstants.IS_RUNNING_IN_IDE = true;
 		configurator.register(ArcanusConfig.class);
 
+		// FIXME sparkweave bug: need to delay the actual registering on fabric
+		//  first block entities, then blocks, then items,
+		//  then remaining vanilla registries in alphabetical order,
+		//  then modded registries in alphabetical order
 		RegistryService registryService = RegistryService.get();
 		ArcanusAttributes.registerAll();
 		ArcanusSpellComponents.SPELL_COMPONENTS.accept(registryService);
