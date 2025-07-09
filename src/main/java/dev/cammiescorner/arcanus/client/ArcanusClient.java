@@ -21,10 +21,7 @@ import dev.cammiescorner.arcanus.client.model.feature.SpellPatternModel;
 import dev.cammiescorner.arcanus.client.particle.CollapseParticle;
 import dev.cammiescorner.arcanus.client.renderer.armor.BattleMageArmorRenderer;
 import dev.cammiescorner.arcanus.client.renderer.armor.WizardRobesRenderer;
-import dev.cammiescorner.arcanus.client.renderer.block.LecternSpellScrollRenderer;
-import dev.cammiescorner.arcanus.client.renderer.block.MagicBlockEntityRenderer;
-import dev.cammiescorner.arcanus.client.renderer.block.PedestalBlockEntityRenderer;
-import dev.cammiescorner.arcanus.client.renderer.block.SpatialRiftExitBlockEntityRenderer;
+import dev.cammiescorner.arcanus.client.renderer.block.*;
 import dev.cammiescorner.arcanus.client.renderer.entity.living.OpossumRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.living.WizardRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.magic.*;
@@ -139,6 +136,7 @@ public class ArcanusClient implements ClientEntryPoint {
 		BlockEntityRenderers.register(ArcanusBlockEntities.MAGIC_BLOCK.get(), MagicBlockEntityRenderer.factory(ArcanusHelper::getMagicColor));
 		BlockEntityRenderers.register(ArcanusBlockEntities.SPATIAL_RIFT_EXIT.get(), SpatialRiftExitBlockEntityRenderer::new);
 		BlockEntityRenderers.register(ArcanusBlockEntities.SPATIAL_RIFT_WALL.get(), MagicBlockEntityRenderer.factory(ArcanusHelper::getPocketDimensionColor));
+		BlockEntityRenderers.register(ArcanusBlockEntities.ARCANE_PLINTH.get(), ArcanePlinthBlockEntityRenderer::new);
 		BlockEntityRenderers.register(ArcanusBlockEntities.PEDESTAL.get(), PedestalBlockEntityRenderer::new);
 
 		RegisterLecternItemRendererEvent.EVENT.register(event -> {

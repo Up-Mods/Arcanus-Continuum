@@ -11,8 +11,7 @@ import net.minecraft.network.codec.StreamCodec;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public record ManaCost(double redMana, double greenMana, double blueMana, double whiteMana,
-					   double blackMana) implements Predicate<ManaProvider> {
+public record ManaCost(double redMana, double greenMana, double blueMana, double whiteMana, double blackMana) implements Predicate<ManaProvider> {
 	public static final Codec<ManaCost> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		Codec.DOUBLE.optionalFieldOf("red_mana", 0d).forGetter(ManaCost::redMana),
 		Codec.DOUBLE.optionalFieldOf("green_mana", 0d).forGetter(ManaCost::greenMana),

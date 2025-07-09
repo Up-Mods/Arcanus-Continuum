@@ -9,8 +9,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.HashMap;
+import java.util.Map;
+
 // TODO block entity renderer
 public class ArcanePlinthBlockEntity extends AbstractPedestalBlockEntity implements RiteRecipeInput {
+	public final Map<ManaType, Double> mana = new HashMap<>();
 
 	public ArcanePlinthBlockEntity(BlockPos pos, BlockState blockState) {
 		super(ArcanusBlockEntities.ARCANE_PLINTH.get(), pos, blockState);
@@ -19,6 +23,7 @@ public class ArcanePlinthBlockEntity extends AbstractPedestalBlockEntity impleme
 	@Override
 	public void setItem(int slot, ItemStack stack) {
 		super.setItem(slot, stack);
+
 		if(slot == 0) {
 			// TODO update crafting process
 		}
@@ -26,8 +31,12 @@ public class ArcanePlinthBlockEntity extends AbstractPedestalBlockEntity impleme
 
 	@Override
 	public double getMana(ManaType type) {
-		// TODO implement
-		return 0;
+		return mana.getOrDefault(type, 0d);
+	}
+
+	public void setMana(ManaType type, double amount) {
+		mana.put(type, amount);
+		markUpdated();
 	}
 
 	@Override
@@ -48,7 +57,7 @@ public class ArcanePlinthBlockEntity extends AbstractPedestalBlockEntity impleme
 
 	@Override
 	public Vec3 getOrigin() {
-		return Vec3.upFromBottomCenterOf(getBlockPos(), 1.0D);
+		return Vec3.upFromBottomCenterOf(getBlockPos(), 1);
 	}
 
 	@Override
