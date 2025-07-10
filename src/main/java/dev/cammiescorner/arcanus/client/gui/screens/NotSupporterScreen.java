@@ -19,7 +19,6 @@ import java.util.Objects;
 
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
-// TODO whole screen is borked rn apparently
 public class NotSupporterScreen extends Screen {
 	private static final ResourceLocation DEMO_BACKGROUND_LOCATION = ResourceLocation.withDefaultNamespace("textures/gui/demo_background.png");
 	private static final String CAMMIE_KOFI_URL = "https://ko-fi.com/camellias";
@@ -60,21 +59,19 @@ public class NotSupporterScreen extends Screen {
 
 	@Override
 	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+		super.render(guiGraphics, mouseX, mouseY, partialTick);
 
 		int x = (this.width - 248) / 2 + 10;
 		int y = (this.height - 166) / 2 + 8;
 		guiGraphics.drawString(this.font, this.title, x, y, 0x1F1F1F, false);
-		y = welcomeMessage.renderLeftAlignedNoShadow(guiGraphics, x, y + 14, 12, 0x4F4F4F);
+		y = welcomeMessage.renderLeftAlignedNoShadow(guiGraphics, x, y + 14, 12, 0xFF4F4F4F);
 		Objects.requireNonNull(this.font);
-		perksMessage.renderLeftAlignedNoShadow(guiGraphics, x, y + 20, 9, 0x1F1F1F);
-
-		super.render(guiGraphics, mouseX, mouseY, partialTick);
+		perksMessage.renderLeftAlignedNoShadow(guiGraphics, x, y + 20, 9, 0xFF1F1F1F);
 	}
 
 	@Override
 	public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-//		renderDirtBackground(guiGraphics);
+		renderBlurredBackground(partialTick);
 
 		int centerX = (this.width - 248) / 2;
 		int centerY = (this.height - 166) / 2;
