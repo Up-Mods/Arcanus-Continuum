@@ -29,20 +29,15 @@ public class SupporterSavingScreen extends Screen {
 	}
 
 	@Override
-	public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-//		this.renderDirtBackground(graphics);
+	public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+		this.renderBlurredBackground(partialTick);
 	}
 
 	@Override
 	public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-		this.renderBackground(graphics, mouseX, mouseY, delta);
-
-		int centerX = width / 2;
-		int centerY = height / 2;
-
-		graphics.drawCenteredString(font, Component.translatable(TranslationKeys.CONFIG_SUPPORTER_SETTINGS_SAVING), centerX, centerY, 0xffffffff);
-
 		super.render(graphics, mouseX, mouseY, delta);
+
+		graphics.drawCenteredString(font, Component.translatable(TranslationKeys.CONFIG_SUPPORTER_SETTINGS_SAVING), width / 2, height / 2, 0xffffffff);
 	}
 
 	@Override

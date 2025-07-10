@@ -138,7 +138,7 @@ public class SupporterScreen extends Screen {
 
 	@Override
 	public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-//		this.renderDirtBackground(graphics);
+		this.renderBlurredBackground(delta);
 		graphics.setColor(0.125f, 0.125f, 0.125f, 1f);
 		graphics.blit(Screen.MENU_BACKGROUND, 16, 32, 0, 0, width - 32, height - 65, 32, 32);
 		graphics.setColor(1f, 1f, 1f, 1f);
@@ -173,7 +173,7 @@ public class SupporterScreen extends Screen {
 
 	@Override
 	public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-		renderBackground(graphics, mouseX, mouseY, delta);
+		super.render(graphics, mouseX, mouseY, delta);
 
 		int centerX = width / 2;
 		int centerY = height / 2;
@@ -198,9 +198,6 @@ public class SupporterScreen extends Screen {
 			renderColorDisplay(graphics, centerX - 2, centerY + yOffset + 30, getColorFromField(pocketDimensionColorField));
 			graphics.drawString(font, Component.translatable(CONFIG_SUPPORTER_SETTINGS_POCKET_COLOR), centerX + xOffset, centerY + yOffset + 30 - font.lineHeight / 2, 0xffffff, false);
 		}
-
-
-		super.render(graphics, mouseX, mouseY, delta);
 	}
 
 	@Override
