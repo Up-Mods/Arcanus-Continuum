@@ -64,9 +64,9 @@ public class NotSupporterScreen extends Screen {
 		int x = (this.width - 248) / 2 + 10;
 		int y = (this.height - 166) / 2 + 8;
 		guiGraphics.drawString(this.font, this.title, x, y, 0x1F1F1F, false);
-		y = welcomeMessage.renderLeftAlignedNoShadow(guiGraphics, x, y + 14, 12, 0xFF4F4F4F);
+		y = welcomeMessage.renderLeftAlignedNoShadow(guiGraphics, x, y + 14, 12, 0x4F4F4F);
 		Objects.requireNonNull(this.font);
-		perksMessage.renderLeftAlignedNoShadow(guiGraphics, x, y + 20, 9, 0xFF1F1F1F);
+		perksMessage.renderLeftAlignedNoShadow(guiGraphics, x, y + 20, 9, 0x1F1F1F);
 	}
 
 	@Override
