@@ -8,11 +8,12 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.recipes.*;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
@@ -43,15 +44,15 @@ public class ArcanusRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
 			.save(exporter);
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get())
-			.pattern("#A#")
-			.pattern("#S#")
-			.pattern("###")
-			.define('#', Blocks.COPPER_BLOCK)
-			.define('S', Blocks.STONE)
-			.define('A', Items.AMETHYST_SHARD)
-			.unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
-			.save(exporter);
+//		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get())
+//			.pattern("#A#")
+//			.pattern("#S#")
+//			.pattern("###")
+//			.define('#', Blocks.COPPER_BLOCK)
+//			.define('S', Blocks.STONE)
+//			.define('A', Items.AMETHYST_SHARD)
+//			.unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
+//			.save(exporter);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ArcanusItems.CRYSTAL_STAFF.get())
 			.pattern("  A")
@@ -121,13 +122,13 @@ public class ArcanusRecipeProvider extends FabricRecipeProvider {
 			.group(Arcanus.id("spell_book").toString())
 			.save(exporter, Arcanus.id("spell_book_from_writable_book"));
 
-		battleMageSmithing(exporter, Items.DIAMOND_HELMET, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_HELMET.get());
-		battleMageSmithing(exporter, Items.DIAMOND_CHESTPLATE, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_CHESTPLATE.get());
-		battleMageSmithing(exporter, Items.DIAMOND_LEGGINGS, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_LEGGINGS.get());
-		battleMageSmithing(exporter, Items.DIAMOND_BOOTS, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_BOOTS.get());
+//		battleMageSmithing(exporter, Items.DIAMOND_HELMET, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_HELMET.get());
+//		battleMageSmithing(exporter, Items.DIAMOND_CHESTPLATE, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_CHESTPLATE.get());
+//		battleMageSmithing(exporter, Items.DIAMOND_LEGGINGS, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_LEGGINGS.get());
+//		battleMageSmithing(exporter, Items.DIAMOND_BOOTS, RecipeCategory.COMBAT, ArcanusItems.BATTLE_MAGE_BOOTS.get());
 	}
 
-	public static void battleMageSmithing(RecipeOutput finishedRecipeConsumer, Item ingredientItem, RecipeCategory category, Item resultItem) {
-		SmithingTransformRecipeBuilder.smithing(Ingredient.of(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get()), Ingredient.of(ingredientItem), Ingredient.of(Items.AMETHYST_SHARD), category, resultItem).unlocks("has_amethyst", has(Items.AMETHYST_SHARD)).save(finishedRecipeConsumer, getItemName(resultItem) + "_smithing");
-	}
+//	public static void battleMageSmithing(RecipeOutput finishedRecipeConsumer, Item ingredientItem, RecipeCategory category, Item resultItem) {
+//		SmithingTransformRecipeBuilder.smithing(Ingredient.of(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get()), Ingredient.of(ingredientItem), Ingredient.of(Items.AMETHYST_SHARD), category, resultItem).unlocks("has_amethyst", has(Items.AMETHYST_SHARD)).save(finishedRecipeConsumer, getItemName(resultItem) + "_smithing");
+//	}
 }

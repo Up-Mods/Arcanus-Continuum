@@ -61,11 +61,31 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusItems.WIZARD_ROBES.get());
 		entries.accept(ArcanusItems.WIZARD_PANTS.get());
 		entries.accept(ArcanusItems.WIZARD_BOOTS.get());
-		entries.accept(ArcanusItems.BATTLE_MAGE_HELMET.get());
-		entries.accept(ArcanusItems.BATTLE_MAGE_CHESTPLATE.get());
-		entries.accept(ArcanusItems.BATTLE_MAGE_LEGGINGS.get());
-		entries.accept(ArcanusItems.BATTLE_MAGE_BOOTS.get());
-		entries.accept(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get());
+		entries.accept(ArcanusItems.RED_CULT_HOOD.get());
+		entries.accept(ArcanusItems.RED_CULT_ROBES.get());
+		entries.accept(ArcanusItems.RED_CULT_PANTS.get());
+		entries.accept(ArcanusItems.RED_CULT_BOOTS.get());
+		entries.accept(ArcanusItems.GREEN_CULT_HOOD.get());
+		entries.accept(ArcanusItems.GREEN_CULT_ROBES.get());
+		entries.accept(ArcanusItems.GREEN_CULT_PANTS.get());
+		entries.accept(ArcanusItems.GREEN_CULT_BOOTS.get());
+		entries.accept(ArcanusItems.BLUE_CULT_HOOD.get());
+		entries.accept(ArcanusItems.BLUE_CULT_ROBES.get());
+		entries.accept(ArcanusItems.BLUE_CULT_PANTS.get());
+		entries.accept(ArcanusItems.BLUE_CULT_BOOTS.get());
+		entries.accept(ArcanusItems.WHITE_CULT_HOOD.get());
+		entries.accept(ArcanusItems.WHITE_CULT_ROBES.get());
+		entries.accept(ArcanusItems.WHITE_CULT_PANTS.get());
+		entries.accept(ArcanusItems.WHITE_CULT_BOOTS.get());
+		entries.accept(ArcanusItems.BLACK_CULT_HOOD.get());
+		entries.accept(ArcanusItems.BLACK_CULT_ROBES.get());
+		entries.accept(ArcanusItems.BLACK_CULT_PANTS.get());
+		entries.accept(ArcanusItems.BLACK_CULT_BOOTS.get());
+//		entries.accept(ArcanusItems.BATTLE_MAGE_HELMET.get());
+//		entries.accept(ArcanusItems.BATTLE_MAGE_CHESTPLATE.get());
+//		entries.accept(ArcanusItems.BATTLE_MAGE_LEGGINGS.get());
+//		entries.accept(ArcanusItems.BATTLE_MAGE_BOOTS.get());
+//		entries.accept(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get());
 	}).build());
 
 	public static final RegistrySupplier<CreativeModeTab> SCROLLS = CREATIVE_TABS.register("arcanus_scrolls", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_SCROLLS)).icon(() -> new ItemStack(ArcanusItems.SCROLL_OF_KNOWLEDGE.get())).displayItems((params, entries) -> {

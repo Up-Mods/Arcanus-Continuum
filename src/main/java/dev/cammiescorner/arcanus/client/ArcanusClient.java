@@ -11,7 +11,8 @@ import dev.cammiescorner.arcanus.client.gui.overlay.ManaBarOverlay;
 import dev.cammiescorner.arcanus.client.gui.overlay.StunOverlay;
 import dev.cammiescorner.arcanus.client.gui.screens.*;
 import dev.cammiescorner.arcanus.client.model.armor.BattleMageArmorModel;
-import dev.cammiescorner.arcanus.client.model.armor.WizardArmorModel;
+import dev.cammiescorner.arcanus.client.model.armor.CultRobesModel;
+import dev.cammiescorner.arcanus.client.model.armor.WizardRobesModel;
 import dev.cammiescorner.arcanus.client.model.block.SpellScrollModel;
 import dev.cammiescorner.arcanus.client.model.entity.living.OpossumModel;
 import dev.cammiescorner.arcanus.client.model.entity.living.WizardModel;
@@ -19,7 +20,7 @@ import dev.cammiescorner.arcanus.client.model.entity.magic.*;
 import dev.cammiescorner.arcanus.client.model.feature.HaloModel;
 import dev.cammiescorner.arcanus.client.model.feature.SpellPatternModel;
 import dev.cammiescorner.arcanus.client.particle.CollapseParticle;
-import dev.cammiescorner.arcanus.client.renderer.armor.BattleMageArmorRenderer;
+import dev.cammiescorner.arcanus.client.renderer.armor.CultRobesRenderer;
 import dev.cammiescorner.arcanus.client.renderer.armor.WizardRobesRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.*;
 import dev.cammiescorner.arcanus.client.renderer.entity.living.OpossumRenderer;
@@ -29,7 +30,6 @@ import dev.cammiescorner.arcanus.client.renderer.item.StaffItemRenderer;
 import dev.cammiescorner.arcanus.client.renderer.world.WardedBlockRenderer;
 import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.common.compat.FirstPersonCompat;
-import dev.cammiescorner.arcanus.common.item.BattleMageArmorItem;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
@@ -55,7 +55,6 @@ import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -72,6 +71,11 @@ import java.util.function.BooleanSupplier;
 @AutoService(ClientEntryPoint.class)
 public class ArcanusClient implements ClientEntryPoint {
 	public static final ResourceLocation WHITE = ResourceLocation.withDefaultNamespace("textures/misc/white.png");
+	private static final ResourceLocation RED_CULT_ROBES = Arcanus.id("textures/entity/armor/red_cult_robes.png");
+	private static final ResourceLocation GREEN_CULT_ROBES = Arcanus.id("textures/entity/armor/green_cult_robes.png");
+	private static final ResourceLocation BLUE_CULT_ROBES = Arcanus.id("textures/entity/armor/blue_cult_robes.png");
+	private static final ResourceLocation WHITE_CULT_ROBES = Arcanus.id("textures/entity/armor/white_cult_robes.png");
+	private static final ResourceLocation BLACK_CULT_ROBES = Arcanus.id("textures/entity/armor/black_cult_robes.png");
 	public static BooleanSupplier FIRST_PERSON_MODEL_ENABLED = () -> false;
 	public static BooleanSupplier FIRST_PERSON_SHOW_HANDS = () -> true;
 	public static boolean castingSpeedHasCoolDown;
@@ -88,7 +92,8 @@ public class ArcanusClient implements ClientEntryPoint {
 		MenuScreens.register(ArcanusMenus.BOOK_POUCH_MENU.get(), BookPouchScreen::new);
 		MenuScreens.register(ArcanusMenus.ARCANE_WORKBENCH_MENU.get(), ArcaneWorkbenchScreen::new);
 
-		EntityModelLayerRegistry.registerModelLayer(WizardArmorModel.MODEL_LAYER, WizardArmorModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(WizardRobesModel.MODEL_LAYER, WizardRobesModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(CultRobesModel.MODEL_LAYER, CultRobesModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(BattleMageArmorModel.MODEL_LAYER, BattleMageArmorModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(WizardModel.MODEL_LAYER, WizardModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(OpossumModel.MODEL_LAYER, OpossumModel::getTexturedModelData);
@@ -125,9 +130,14 @@ public class ArcanusClient implements ClientEntryPoint {
 
 		RegisterCustomArmorRenderersEvent.EVENT.register(event -> {
 			event.register(WizardRobesRenderer::new, ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS);
+			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, RED_CULT_ROBES), ArcanusItems.RED_CULT_HOOD, ArcanusItems.RED_CULT_ROBES, ArcanusItems.RED_CULT_PANTS, ArcanusItems.RED_CULT_BOOTS);
+			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, GREEN_CULT_ROBES), ArcanusItems.GREEN_CULT_HOOD, ArcanusItems.GREEN_CULT_ROBES, ArcanusItems.GREEN_CULT_PANTS, ArcanusItems.GREEN_CULT_BOOTS);
+			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, BLUE_CULT_ROBES), ArcanusItems.BLUE_CULT_HOOD, ArcanusItems.BLUE_CULT_ROBES, ArcanusItems.BLUE_CULT_PANTS, ArcanusItems.BLUE_CULT_BOOTS);
+			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, WHITE_CULT_ROBES), ArcanusItems.WHITE_CULT_HOOD, ArcanusItems.WHITE_CULT_ROBES, ArcanusItems.WHITE_CULT_PANTS, ArcanusItems.WHITE_CULT_BOOTS);
+			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, BLACK_CULT_ROBES), ArcanusItems.BLACK_CULT_HOOD, ArcanusItems.BLACK_CULT_ROBES, ArcanusItems.BLACK_CULT_PANTS, ArcanusItems.BLACK_CULT_BOOTS);
 		});
 
-		ArmorRenderer.register(new BattleMageArmorRenderer(), ArcanusItems.BATTLE_MAGE_HELMET.get(), ArcanusItems.BATTLE_MAGE_CHESTPLATE.get(), ArcanusItems.BATTLE_MAGE_LEGGINGS.get(), ArcanusItems.BATTLE_MAGE_BOOTS.get());
+//		ArmorRenderer.register(new BattleMageArmorRenderer(), ArcanusItems.BATTLE_MAGE_HELMET.get(), ArcanusItems.BATTLE_MAGE_CHESTPLATE.get(), ArcanusItems.BATTLE_MAGE_LEGGINGS.get(), ArcanusItems.BATTLE_MAGE_BOOTS.get());
 
 		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE.get(), CollapseParticle.Factory::new);
 
@@ -167,10 +177,10 @@ public class ArcanusClient implements ClientEntryPoint {
 			ArcanusItems.SPELL_BOOK.get()
 		);
 
-		ItemProperties.register(ArcanusItems.BATTLE_MAGE_HELMET.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
-		ItemProperties.register(ArcanusItems.BATTLE_MAGE_CHESTPLATE.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
-		ItemProperties.register(ArcanusItems.BATTLE_MAGE_LEGGINGS.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
-		ItemProperties.register(ArcanusItems.BATTLE_MAGE_BOOTS.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
+//		ItemProperties.register(ArcanusItems.BATTLE_MAGE_HELMET.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
+//		ItemProperties.register(ArcanusItems.BATTLE_MAGE_CHESTPLATE.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
+//		ItemProperties.register(ArcanusItems.BATTLE_MAGE_LEGGINGS.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
+//		ItemProperties.register(ArcanusItems.BATTLE_MAGE_BOOTS.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
 
 		ArcanusItems.ITEMS.stream().forEach(holder -> {
 			if(holder.get() instanceof StaffItem item) {

@@ -2,8 +2,8 @@ package dev.cammiescorner.arcanus.common.util;
 
 public class TranslationKeys {
 	public static final String CREATIVE_TAB_ARCANUS = "itemGroup.arcanus.arcanus";
-	public static final String CREATIVE_TAB_GEAR = "itemGroup.arcanus.gear";
-	public static final String CREATIVE_TAB_SCROLLS = "itemGroup.arcanus.scrolls";
+	public static final String CREATIVE_TAB_GEAR = "itemGroup.arcanus.arcanus_gear";
+	public static final String CREATIVE_TAB_SCROLLS = "itemGroup.arcanus.arcanus_scrolls";
 	public static final String SPELL_BOOK_SLOT = "trinkets.slot.legs.spell_book";
 	public static final String BRACELET_HAND_SLOT = "trinkets.slot.hand.bracelet";
 	public static final String BRACELET_OFFHAND_SLOT = "trinkets.slot.offhand.bracelet";

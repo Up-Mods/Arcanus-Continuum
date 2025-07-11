@@ -42,7 +42,7 @@ public class ArcanusItemTagsProvider extends FabricTagProvider.ItemTagProvider {
 			.add(Items.ELYTRA)
 			.forceAddTag(ItemTags.TRIM_TEMPLATES)
 			.add(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
-			.add(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get())
+//			.add(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get())
 			.forceAddTag(ItemTags.DECORATED_POT_SHERDS)
 			.addTag(ArcanusItemTags.WIZARD_ARMOR);
 
@@ -70,9 +70,29 @@ public class ArcanusItemTagsProvider extends FabricTagProvider.ItemTagProvider {
 			.add(ArcanusItems.WIZARD_ROBES.get())
 			.add(ArcanusItems.WIZARD_PANTS.get())
 			.add(ArcanusItems.WIZARD_BOOTS.get())
-			.add(ArcanusItems.BATTLE_MAGE_HELMET.get())
-			.add(ArcanusItems.BATTLE_MAGE_CHESTPLATE.get())
-			.add(ArcanusItems.BATTLE_MAGE_LEGGINGS.get())
-			.add(ArcanusItems.BATTLE_MAGE_BOOTS.get());
+			.add(ArcanusItems.RED_CULT_HOOD.get())
+			.add(ArcanusItems.RED_CULT_ROBES.get())
+			.add(ArcanusItems.RED_CULT_PANTS.get())
+			.add(ArcanusItems.RED_CULT_BOOTS.get())
+			.add(ArcanusItems.GREEN_CULT_HOOD.get())
+			.add(ArcanusItems.GREEN_CULT_ROBES.get())
+			.add(ArcanusItems.GREEN_CULT_PANTS.get())
+			.add(ArcanusItems.GREEN_CULT_BOOTS.get())
+			.add(ArcanusItems.BLUE_CULT_HOOD.get())
+			.add(ArcanusItems.BLUE_CULT_ROBES.get())
+			.add(ArcanusItems.BLUE_CULT_PANTS.get())
+			.add(ArcanusItems.BLUE_CULT_BOOTS.get())
+			.add(ArcanusItems.WHITE_CULT_HOOD.get())
+			.add(ArcanusItems.WHITE_CULT_ROBES.get())
+			.add(ArcanusItems.WHITE_CULT_PANTS.get())
+			.add(ArcanusItems.WHITE_CULT_BOOTS.get())
+			.add(ArcanusItems.BLACK_CULT_HOOD.get())
+			.add(ArcanusItems.BLACK_CULT_ROBES.get())
+			.add(ArcanusItems.BLACK_CULT_PANTS.get())
+			.add(ArcanusItems.BLACK_CULT_BOOTS.get());
+//			.add(ArcanusItems.BATTLE_MAGE_HELMET.get())
+//			.add(ArcanusItems.BATTLE_MAGE_CHESTPLATE.get())
+//			.add(ArcanusItems.BATTLE_MAGE_LEGGINGS.get())
+//			.add(ArcanusItems.BATTLE_MAGE_BOOTS.get());
 	}
 }

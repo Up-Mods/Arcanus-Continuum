@@ -1,9 +1,7 @@
 package dev.cammiescorner.arcanus.datagen.client;
 
-import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.common.data.*;
-import dev.cammiescorner.arcanus.common.item.BattleMageArmorItem;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.upcraft.sparkweave.api.datagen.ContextAwarePackOutput;
 import dev.upcraft.sparkweave.api.datagen.TranslationBuilder;
@@ -20,7 +18,6 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DeathMessageType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.WeatheringCopper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -55,10 +52,30 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.WIZARD_ROBES, "Wizard Robes");
 		builder.item(ArcanusItems.WIZARD_PANTS, "Wizard Pants");
 		builder.item(ArcanusItems.WIZARD_BOOTS, "Wizard Boots");
-		builder.item(ArcanusItems.BATTLE_MAGE_HELMET, "Battle Mage Helmet");
-		builder.item(ArcanusItems.BATTLE_MAGE_CHESTPLATE, "Battle Mage Chestplate");
-		builder.item(ArcanusItems.BATTLE_MAGE_LEGGINGS, "Battle Mage Leggings");
-		builder.item(ArcanusItems.BATTLE_MAGE_BOOTS, "Battle Mage Boots");
+		builder.item(ArcanusItems.RED_CULT_HOOD, "Red Cultist Hood");
+		builder.item(ArcanusItems.RED_CULT_ROBES, "Red Cultist Robes");
+		builder.item(ArcanusItems.RED_CULT_PANTS, "Red Cultist Pants");
+		builder.item(ArcanusItems.RED_CULT_BOOTS, "Red Cultist Boots");
+		builder.item(ArcanusItems.GREEN_CULT_HOOD, "Green Cultist Hood");
+		builder.item(ArcanusItems.GREEN_CULT_ROBES, "Green Cultist Robes");
+		builder.item(ArcanusItems.GREEN_CULT_PANTS, "Green Cultist Pants");
+		builder.item(ArcanusItems.GREEN_CULT_BOOTS, "Green Cultist Boots");
+		builder.item(ArcanusItems.BLUE_CULT_HOOD, "Blue Cultist Hood");
+		builder.item(ArcanusItems.BLUE_CULT_ROBES, "Blue Cultist Robes");
+		builder.item(ArcanusItems.BLUE_CULT_PANTS, "Blue Cultist Pants");
+		builder.item(ArcanusItems.BLUE_CULT_BOOTS, "Blue Cultist Boots");
+		builder.item(ArcanusItems.WHITE_CULT_HOOD, "White Cultist Hood");
+		builder.item(ArcanusItems.WHITE_CULT_ROBES, "White Cultist Robes");
+		builder.item(ArcanusItems.WHITE_CULT_PANTS, "White Cultist Pants");
+		builder.item(ArcanusItems.WHITE_CULT_BOOTS, "White Cultist Boots");
+		builder.item(ArcanusItems.BLACK_CULT_HOOD, "Black Cultist Hood");
+		builder.item(ArcanusItems.BLACK_CULT_ROBES, "Black Cultist Robes");
+		builder.item(ArcanusItems.BLACK_CULT_PANTS, "Black Cultist Pants");
+		builder.item(ArcanusItems.BLACK_CULT_BOOTS, "Black Cultist Boots");
+//		builder.item(ArcanusItems.BATTLE_MAGE_HELMET, "Battle Mage Helmet");
+//		builder.item(ArcanusItems.BATTLE_MAGE_CHESTPLATE, "Battle Mage Chestplate");
+//		builder.item(ArcanusItems.BATTLE_MAGE_LEGGINGS, "Battle Mage Leggings");
+//		builder.item(ArcanusItems.BATTLE_MAGE_BOOTS, "Battle Mage Boots");
 		builder.item(ArcanusItems.BOOK_POUCH, "Book Pouch");
 		builder.item(ArcanusItems.SPELL_BOOK, "Spell Book");
 		builder.item(ArcanusItems.SPELL_SCROLL, "Spell Scroll");
@@ -66,48 +83,48 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.WIZARD_SPAWN_EGG, "Wizard Spawn Egg");
 		builder.item(ArcanusItems.OPOSSUM_SPAWN_EGG, "Opossum Spawn Egg");
 
-		builder.item(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE, "Smithing Template");
+//		builder.item(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE, "Smithing Template");
 		builder.add(BATTLE_MAGE_UPGRADE, "Battle Mage Upgrade");
 		builder.add(BATTLE_MAGE_UPGRADE_APPLIES_TO, "Diamond Armor");
 		builder.add(BATTLE_MAGE_UPGRADE_INGREDIENTS, "Amethyst Shard");
 		builder.add(BATTLE_MAGE_UPGRADE_BASE_SLOT_DESC, "Add diamond armor");
 		builder.add(BATTLE_MAGE_UPGRADE_ADDITIONS_SLOT_DESC, "Add Amethyst Shard");
 
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.UNAFFECTED, false), "Battle Mage Helmet");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.UNAFFECTED, true), "Waxed Battle Mage Helmet");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.EXPOSED, false), "Exposed Battle Mage Helmet");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.EXPOSED, true), "Waxed Exposed Battle Mage Helmet");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.WEATHERED, false), "Weathered Battle Mage Helmet");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.WEATHERED, true), "Waxed Weathered Battle Mage Helmet");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.OXIDIZED, false), "Oxidized Battle Mage Helmet");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.OXIDIZED, true), "Waxed Oxidized Battle Mage Helmet");
-
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.UNAFFECTED, false), "Battle Mage Chestplate");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.UNAFFECTED, true), "Waxed Battle Mage Chestplate");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.EXPOSED, false), "Exposed Battle Mage Chestplate");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.EXPOSED, true), "Waxed Exposed Battle Mage Chestplate");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.WEATHERED, false), "Weathered Battle Mage Chestplate");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.WEATHERED, true), "Waxed Weathered Battle Mage Chestplate");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.OXIDIZED, false), "Oxidized Battle Mage Chestplate");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.OXIDIZED, true), "Waxed Oxidized Battle Mage Chestplate");
-
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.UNAFFECTED, false), "Battle Mage Leggings");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.UNAFFECTED, true), "Waxed Battle Mage Leggings");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.EXPOSED, false), "Exposed Battle Mage Leggings");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.EXPOSED, true), "Waxed Exposed Battle Mage Leggings");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.WEATHERED, false), "Weathered Battle Mage Leggings");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.WEATHERED, true), "Waxed Weathered Battle Mage Leggings");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.OXIDIZED, false), "Oxidized Battle Mage Leggings");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.OXIDIZED, true), "Waxed Oxidized Battle Mage Leggings");
-
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.UNAFFECTED, false), "Battle Mage Boots");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.UNAFFECTED, true), "Waxed Battle Mage Boots");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.EXPOSED, false), "Exposed Battle Mage Boots");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.EXPOSED, true), "Waxed Exposed Battle Mage Boots");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.WEATHERED, false), "Weathered Battle Mage Boots");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.WEATHERED, true), "Waxed Weathered Battle Mage Boots");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.OXIDIZED, false), "Oxidized Battle Mage Boots");
-		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.OXIDIZED, true), "Waxed Oxidized Battle Mage Boots");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.UNAFFECTED, false), "Battle Mage Helmet");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.UNAFFECTED, true), "Waxed Battle Mage Helmet");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.EXPOSED, false), "Exposed Battle Mage Helmet");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.EXPOSED, true), "Waxed Exposed Battle Mage Helmet");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.WEATHERED, false), "Weathered Battle Mage Helmet");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.WEATHERED, true), "Waxed Weathered Battle Mage Helmet");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.OXIDIZED, false), "Oxidized Battle Mage Helmet");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_HELMET, WeatheringCopper.WeatherState.OXIDIZED, true), "Waxed Oxidized Battle Mage Helmet");
+//
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.UNAFFECTED, false), "Battle Mage Chestplate");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.UNAFFECTED, true), "Waxed Battle Mage Chestplate");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.EXPOSED, false), "Exposed Battle Mage Chestplate");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.EXPOSED, true), "Waxed Exposed Battle Mage Chestplate");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.WEATHERED, false), "Weathered Battle Mage Chestplate");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.WEATHERED, true), "Waxed Weathered Battle Mage Chestplate");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.OXIDIZED, false), "Oxidized Battle Mage Chestplate");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_CHESTPLATE, WeatheringCopper.WeatherState.OXIDIZED, true), "Waxed Oxidized Battle Mage Chestplate");
+//
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.UNAFFECTED, false), "Battle Mage Leggings");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.UNAFFECTED, true), "Waxed Battle Mage Leggings");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.EXPOSED, false), "Exposed Battle Mage Leggings");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.EXPOSED, true), "Waxed Exposed Battle Mage Leggings");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.WEATHERED, false), "Weathered Battle Mage Leggings");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.WEATHERED, true), "Waxed Weathered Battle Mage Leggings");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.OXIDIZED, false), "Oxidized Battle Mage Leggings");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_LEGGINGS, WeatheringCopper.WeatherState.OXIDIZED, true), "Waxed Oxidized Battle Mage Leggings");
+//
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.UNAFFECTED, false), "Battle Mage Boots");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.UNAFFECTED, true), "Waxed Battle Mage Boots");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.EXPOSED, false), "Exposed Battle Mage Boots");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.EXPOSED, true), "Waxed Exposed Battle Mage Boots");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.WEATHERED, false), "Weathered Battle Mage Boots");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.WEATHERED, true), "Waxed Weathered Battle Mage Boots");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.OXIDIZED, false), "Oxidized Battle Mage Boots");
+//		itemStack(builder, BattleMageArmorItem.getStack(ArcanusItems.BATTLE_MAGE_BOOTS, WeatheringCopper.WeatherState.OXIDIZED, true), "Waxed Oxidized Battle Mage Boots");
 
 		biome(builder, ArcanusBiomes.POCKET_DIMENSION, "Pocket Dimension");
 

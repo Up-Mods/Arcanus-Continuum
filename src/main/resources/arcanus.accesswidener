@@ -9,6 +9,7 @@ accessible field net/minecraft/world/entity/monster/Creeper DATA_IS_POWERED Lnet
 accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_AMETHYST_SHARD Lnet/minecraft/resources/ResourceLocation;
 accessible field net/minecraft/client/multiplayer/ClientChunkCache storage Lnet/minecraft/client/multiplayer/ClientChunkCache$Storage;
 accessible field net/minecraft/client/multiplayer/ClientChunkCache$Storage chunks Ljava/util/concurrent/atomic/AtomicReferenceArray;
+accessible field net/minecraft/client/model/PlayerModel slim Z
 
 extendable method net/minecraft/world/entity/monster/AbstractSkeleton getStepSound ()Lnet/minecraft/sounds/SoundEvent;
 accessible method net/minecraft/world/item/SmithingTemplateItem createTrimmableArmorIconList ()Ljava/util/List;
