@@ -18,7 +18,6 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-// TODO add the blocks in a similar way to ShapedRecipePattern
 public record RiteRecipe(List<Ingredient> itemIngredients, ManaCost manaCost, List<RiteResult> results) implements Recipe<RiteRecipeInput> {
 
 	@Override
