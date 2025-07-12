@@ -8,6 +8,7 @@ import dev.upcraft.sparkweave.api.client.render.CustomHumanoidModelArmorRenderer
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -28,6 +29,7 @@ public class WizardRobesRenderer extends CustomHumanoidModelArmorRenderer<Living
 	private final ResourceLocation mainTexture = Arcanus.id("textures/entity/armor/wizard_robes.png");
 	private final ResourceLocation overlayTexture = Arcanus.id("textures/entity/armor/wizard_robes_overlay.png");
 	private final WizardRobesModel<LivingEntity> model;
+	private boolean slim = false;
 
 	public WizardRobesRenderer(LivingEntity entity, EntityRendererProvider.Context context, RenderLayerParent<LivingEntity, ? extends EntityModel<?>> layerParent) {
 		this.model = new WizardRobesModel<>(context.bakeLayer(WizardRobesModel.MODEL_LAYER));
@@ -38,8 +40,10 @@ public class WizardRobesRenderer extends CustomHumanoidModelArmorRenderer<Living
 		model.setAllVisible(true);
 		model.wizardHat.visible = slot == EquipmentSlot.HEAD;
 		model.robes.visible = slot == EquipmentSlot.CHEST;
-		model.rightSleeve.visible = slot == EquipmentSlot.CHEST;
-		model.leftSleeve.visible = slot == EquipmentSlot.CHEST;
+		model.rightSleeve.visible = slot == EquipmentSlot.CHEST && !slim;
+		model.leftSleeve.visible = slot == EquipmentSlot.CHEST && !slim;
+		model.rightSleeveSlim.visible = slot == EquipmentSlot.CHEST && slim;
+		model.leftSleeveSlim.visible = slot == EquipmentSlot.CHEST && slim;
 		model.rightPants.visible = slot == EquipmentSlot.LEGS;
 		model.leftPants.visible = slot == EquipmentSlot.LEGS;
 		model.rightBoot.visible = slot == EquipmentSlot.FEET;
@@ -53,6 +57,8 @@ public class WizardRobesRenderer extends CustomHumanoidModelArmorRenderer<Living
 
 	@Override
 	protected void renderModelPart(PoseStack matrices, MultiBufferSource bufferSource, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, int dyeColor, HumanoidModel<LivingEntity> contextModel, WizardRobesModel<LivingEntity> armorModel) {
+		slim = contextModel instanceof PlayerModel<LivingEntity> playerModel && playerModel.slim;
+
 		if(stack.getItem() instanceof WizardRobesItem wizardArmor) {
 			int hexColor = wizardArmor.getColor(stack);
 
