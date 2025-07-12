@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanus.client.renderer.armor;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.client.model.armor.CultRobesModel;
+import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.upcraft.sparkweave.api.client.render.CustomHumanoidModelArmorRenderer;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
@@ -30,11 +31,11 @@ public class CultRobesRenderer extends CustomHumanoidModelArmorRenderer<LivingEn
 
 	@Override
 	protected void setPartVisibility(CultRobesModel<LivingEntity> model, LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
-		boolean isClosed = true;//stack.getOrDefault(DevotionData.CLOSED_HOOD.get(), false);
+		boolean isDown = stack.getOrDefault(ArcanusDataComponents.HOOD_DOWN.get(), false);
 
 		model.setAllVisible(true);
-		model.closedHood.visible = isClosed && slot == EquipmentSlot.HEAD;
-		model.openHood.visible = !isClosed && slot == EquipmentSlot.HEAD;
+		model.closedHood.visible = !isDown && slot == EquipmentSlot.HEAD;
+		model.openHood.visible = isDown && slot == EquipmentSlot.HEAD;
 		model.cloak.visible = slot == EquipmentSlot.HEAD;
 		model.garb.visible = slot == EquipmentSlot.CHEST;
 		model.rightSleeve.visible = slot == EquipmentSlot.CHEST && !slim;

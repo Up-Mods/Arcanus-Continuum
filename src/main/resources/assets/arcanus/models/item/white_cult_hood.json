@@ -6,7 +6,7 @@
   "overrides": [
     {
       "predicate": {
-        "arcanus:hood_up": 1
+        "arcanus:hood_down": 1
       },
       "model": "arcanus:item/white_cult_hood_down"
     }

@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
@@ -76,4 +77,8 @@ public class ArcanusItems {
 		var additionsIcons = List.of(SmithingTemplateItem.EMPTY_SLOT_AMETHYST_SHARD);
 		return new SmithingTemplateItem(appliesToText, ingredientsText, upgradeText, baseSlotText, additionsSlotText, baseIcons, additionsIcons);
 	}
+
+	public static final List<Supplier<Item>> HOOD_ITEMS = List.of(
+		RED_CULT_HOOD, GREEN_CULT_HOOD, BLUE_CULT_HOOD, WHITE_CULT_HOOD, BLACK_CULT_HOOD
+	);
 }

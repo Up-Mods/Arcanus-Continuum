@@ -35,6 +35,7 @@ import dev.cammiescorner.arcanus.common.registry.*;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.client.event.RegisterCustomArmorRenderersEvent;
 import dev.upcraft.sparkweave.api.client.event.RegisterEntityRenderersEvent;
+import dev.upcraft.sparkweave.api.client.event.RegisterItemPropertiesEvent;
 import dev.upcraft.sparkweave.api.client.event.RegisterLecternItemRendererEvent;
 import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.entrypoint.ClientEntryPoint;
@@ -61,11 +62,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
 import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
 
 @Environment(EnvType.CLIENT)
 @AutoService(ClientEntryPoint.class)
@@ -181,6 +184,11 @@ public class ArcanusClient implements ClientEntryPoint {
 //		ItemProperties.register(ArcanusItems.BATTLE_MAGE_CHESTPLATE.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
 //		ItemProperties.register(ArcanusItems.BATTLE_MAGE_LEGGINGS.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
 //		ItemProperties.register(ArcanusItems.BATTLE_MAGE_BOOTS.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
+
+		RegisterItemPropertiesEvent.EVENT.register(event -> {
+			for(Supplier<Item> itemSupplier : ArcanusItems.HOOD_ITEMS)
+				event.register(itemSupplier, Arcanus.id("hood_down"), (stack, level, entity, seed) -> stack.getOrDefault(ArcanusDataComponents.HOOD_DOWN.get(), false) ? 1f : 0f);
+		});
 
 		ArcanusItems.ITEMS.stream().forEach(holder -> {
 			if(holder.get() instanceof StaffItem item) {

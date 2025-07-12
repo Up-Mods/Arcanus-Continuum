@@ -14,10 +14,7 @@ import dev.cammiescorner.arcanus.common.entity.living.Wizard;
 import dev.cammiescorner.arcanus.common.item.BookPouchItem;
 import dev.cammiescorner.arcanus.common.menu.providers.SpellcraftMenuProvider;
 import dev.cammiescorner.arcanus.common.networking.clientbound.*;
-import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundIsCastingPacket;
-import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundSaveBookDataPacket;
-import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundShootOrbsPacket;
-import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundSyncPatternPacket;
+import dev.cammiescorner.arcanus.common.networking.serverbound.*;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import dev.cammiescorner.arcanus.common.util.supporters.HaloData;
@@ -28,6 +25,7 @@ import dev.upcraft.datasync.api.DataSyncAPI;
 import dev.upcraft.datasync.api.SyncToken;
 import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
+import dev.upcraft.sparkweave.api.event.ItemMenuInteractionEvent;
 import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
@@ -41,14 +39,18 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.minecraft.ChatFormatting;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -110,6 +112,7 @@ public class Arcanus implements MainEntryPoint {
 		Network.registerPacket(ServerboundSaveBookDataPacket.TYPE, ServerboundSaveBookDataPacket.class, ServerboundSaveBookDataPacket.CODEC, ServerboundSaveBookDataPacket::handle);
 		Network.registerPacket(ServerboundShootOrbsPacket.TYPE, ServerboundShootOrbsPacket.class, ServerboundShootOrbsPacket.CODEC, ServerboundShootOrbsPacket::handle);
 		Network.registerPacket(ServerboundSyncPatternPacket.TYPE, ServerboundSyncPatternPacket.class, ServerboundSyncPatternPacket.CODEC, ServerboundSyncPatternPacket::handle);
+		Network.registerPacket(ServerboundOpenCloseHoodPacket.TYPE, ServerboundOpenCloseHoodPacket.class, ServerboundOpenCloseHoodPacket.CODEC, ServerboundOpenCloseHoodPacket::handle);
 
 		Network.registerPacket(ClientboundUpdateSpellcraftScreenPacket.TYPE, ClientboundUpdateSpellcraftScreenPacket.class, ClientboundUpdateSpellcraftScreenPacket.CODEC, ClientboundUpdateSpellcraftScreenPacket::handle);
 		Network.registerPacket(ClientboundEnforceConfigPacket.TYPE, ClientboundEnforceConfigPacket.class, ClientboundEnforceConfigPacket.CODEC, ClientboundEnforceConfigPacket::handle);
@@ -136,6 +139,23 @@ public class Arcanus implements MainEntryPoint {
 		EntityTrackingEvents.START_TRACKING.register((trackedEntity, player) -> {
 			if(trackedEntity instanceof ServerPlayer playerEntity)
 				Network.getNetworkHandler().sendToClient(new ClientboundStatusEffectPacket(playerEntity.getId(), ArcanusMobEffects.ANONYMITY.holder(), playerEntity.hasEffect(ArcanusMobEffects.ANONYMITY.holder())), player);
+		});
+
+		ItemMenuInteractionEvent.EVENT.register((menu, player, level, clickAction, slot, slotStack, cursorStack) -> {
+			if(clickAction == ClickAction.SECONDARY && cursorStack.isEmpty() && slotStack.has(ArcanusDataComponents.HOOD_DOWN.get())) {
+				DataComponentType<Boolean> hoodData = ArcanusDataComponents.HOOD_DOWN.get();
+				boolean value = !slotStack.getOrDefault(hoodData, true);
+
+				slotStack.set(hoodData, value);
+				Network.getNetworkHandler().sendToServer(new ServerboundOpenCloseHoodPacket(slot.getContainerSlot(), value));
+
+				if(slotStack.getItem() instanceof Equipable equipable)
+					level.playSeededSound(player, player.getX(), player.getY(), player.getZ(), equipable.getEquipSound().value(), SoundSource.NEUTRAL, 1f, 1f, player.getRandom().nextLong());
+
+				return true;
+			}
+
+			return false;
 		});
 
 		EntitySleepEvents.STOP_SLEEPING.register((entity, sleepingPos) -> {

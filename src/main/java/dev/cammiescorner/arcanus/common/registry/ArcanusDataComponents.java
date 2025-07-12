@@ -15,6 +15,7 @@ import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.block.WeatheringCopper;
 
@@ -22,6 +23,13 @@ import java.util.UUID;
 
 public class ArcanusDataComponents {
 	public static final RegistryHandler<DataComponentType<?>> DATA_COMPONENTS = RegistryHandler.create(Registries.DATA_COMPONENT_TYPE, Arcanus.MOD_ID);
+
+	public static final RegistrySupplier<DataComponentType<Boolean>> HOOD_DOWN = DATA_COMPONENTS.register("hood_down", () -> DataComponentType.<Boolean>builder()
+		.persistent(Codec.BOOL)
+		.networkSynchronized(ByteBufCodecs.BOOL)
+		.cacheEncoding()
+		.build()
+	);
 
 	public static final RegistrySupplier<DataComponentType<SpellComponent>> SPELL_COMPONENT = DATA_COMPONENTS.register("spell_component", () -> DataComponentType.<SpellComponent>builder()
 		.persistent(SpellComponent.CODEC)
