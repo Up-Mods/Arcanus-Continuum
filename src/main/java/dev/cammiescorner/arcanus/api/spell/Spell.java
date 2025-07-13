@@ -130,7 +130,7 @@ public class Spell {
 	}
 
 	public int getCoolDown() {
-		int coolDown = Math.toIntExact(Math.max(10, components().count()));
+		int coolDown = Math.max(Math.toIntExact(components().count()) + 8, 10);
 		double coolDownModifier = 1d;
 
 		if(!groups.isEmpty())
