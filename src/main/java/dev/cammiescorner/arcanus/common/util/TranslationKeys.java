@@ -97,6 +97,8 @@ public class TranslationKeys {
 	public static final String CONFIG_UTILITY_EFFECTS_CATEGORY = "config.arcanus.utility_effects_category";
 	public static final String CONFIG_MOVEMENT_EFFECTS_CATEGORY = "config.arcanus.movement_effects_category";
 	public static final String CONFIG_CASTING_HAS_SPEED_LIMIT = "config.arcanus.casting_has_speed_limit";
+	public static final String CONFIG_COOL_DOWN_PER_COMPONENT = "config.arcanus.cool_down_per_component";
+	public static final String CONFIG_MINIMUM_COOL_DOWN = "config.arcanus.minimum_cool_down";
 	public static final String CONFIG_SIZE_CHANGE_IS_PERMA = "config.arcanus.size_changing_is_permanent";
 	public static final String CONFIG_SCALE_MANA_BARS = "config.arcanus.scale_mana_bars";
 	public static final String CONFIG_MANA_BARS_MIN_LENGTH = "config.arcanus.mana_bars_min_length";

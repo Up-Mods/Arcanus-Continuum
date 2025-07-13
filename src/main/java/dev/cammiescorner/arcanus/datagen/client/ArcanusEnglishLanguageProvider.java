@@ -388,6 +388,8 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_SCALE_MANA_BARS, "Scale Mana Bars Based on Maximum Mana");
 		builder.add(CONFIG_MANA_BARS_MIN_LENGTH, "Min Length of Scaled Mana Bars");
 		builder.add(CONFIG_MANA_BARS_MAX_LENGTH, "Max Length of Scaled Mana Bars");
+		builder.add(CONFIG_COOL_DOWN_PER_COMPONENT, "Cool Down in Ticks Added Per Component");
+		builder.add(CONFIG_MINIMUM_COOL_DOWN, "Minimum Spell Cool Down");
 		builder.add(CONFIG_MANA_BARS_ON_TOP, "Move Mana Bars to the Top");
 		builder.add(CONFIG_RIGHT_SIDE_MANA_BARS, "Move Mana Bars to the Right");
 		builder.add(CONFIG_NUMERICAL_MANA_DISPLAY, "Display Exact Mana Amounts by Mana Bars");

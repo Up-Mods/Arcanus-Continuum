@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanus.api.spell;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
@@ -130,7 +131,7 @@ public class Spell {
 	}
 
 	public int getCoolDown() {
-		int coolDown = Math.max(Math.toIntExact(components().count()) + 8, 10);
+		int coolDown = Math.max(Math.toIntExact(components().count()) * ArcanusConfig.coolDownPerComponent, ArcanusConfig.minimumCoolDown);
 		double coolDownModifier = 1d;
 
 		if(!groups.isEmpty())

@@ -18,8 +18,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
 
 public class BoltSpellShape extends SpellShape {
 	public BoltSpellShape() {
@@ -36,72 +34,28 @@ public class BoltSpellShape extends SpellShape {
 	@Override
 	public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 		potency += getPotencyModifier();
-		double range = ArcanusConfig.SpellShapes.BoltShapeProperties.range;
 		Entity sourceEntity = castSource != null ? castSource : caster;
-		AABB box = new AABB(castFrom.add(-range, -range, -range), castFrom.add(range, range, range));
-		List<Entity> affectedEntities = level.getEntities(sourceEntity, box);
+		double range = ArcanusConfig.SpellShapes.BoltShapeProperties.range;
 
-		Predicate<Entity> predicate = entity -> {
-			if(entity.getBoundingBox().intersects(sourceEntity.getBoundingBox()))
-				return true;
-			if(sourceEntity instanceof LivingEntity livingEntity && !livingEntity.hasLineOfSight(entity))
-				return false;
-
-			Vec3 look = sourceEntity.getLookAngle();
-			Optional<Vec3> vecOptional = entity.getBoundingBox().inflate(0.75).clip(castFrom, castFrom.add(look.scale(range)));
-			return vecOptional.isPresent();
-		};
-
-		Entity entityTarget = getClosestEntity(affectedEntities, range, castFrom, sourceEntity == caster ? predicate : entity -> true);
-		Vec3 castAt = castFrom;
-
-		if(entityTarget != null) {
-			castAt = entityTarget.position();
-
-			if(sourceEntity instanceof LivingEntity livingEntity)
-				ArcanusComponents.setBoltPos(livingEntity, entityTarget.getBoundingBox().getCenter());
-
-			for(SpellEffect effect : new HashSet<>(effects))
-				effect.effect(caster, sourceEntity, level, new EntityHitResult(entityTarget), effects, stack, potency);
-		}
-		else if(sourceEntity != null) {
+		if(sourceEntity instanceof LivingEntity livingEntity) {
 			HitResult target = ArcanusHelper.raycast(sourceEntity, range, false, true);
+			List<Entity> entityTargets = level.getEntities(sourceEntity, new AABB(target.getLocation(), target.getLocation()).inflate(2));
+
+			ArcanusComponents.setBoltPos(livingEntity, target.getLocation());
+			ArcanusComponents.setShouldRenderBolt(livingEntity, true);
+			ArcanusComponents.setBoltAge(livingEntity, 0);
 
 			if(target.getType() == HitResult.Type.BLOCK) {
 				for(SpellEffect effect : new HashSet<>(effects))
 					effect.effect(caster, sourceEntity, level, target, effects, stack, potency);
-
-				castAt = target.getLocation();
 			}
 
-			if(target.getType() != HitResult.Type.ENTITY && sourceEntity instanceof LivingEntity livingEntity)
-				ArcanusComponents.setBoltPos(livingEntity, target.getLocation());
-		}
-
-		if(sourceEntity instanceof LivingEntity livingEntity) {
-			ArcanusComponents.setShouldRenderBolt(livingEntity, true);
-			ArcanusComponents.setBoltAge(livingEntity, 0);
-		}
-
-		castNext(caster, castAt, entityTarget, level, stack, spellGroups, groupIndex, potency);
-	}
-
-	@Nullable
-	private static Entity getClosestEntity(List<Entity> entityList, double range, Vec3 pos, Predicate<Entity> predicate) {
-		double d = -1.0;
-		Entity value = null;
-
-		for(Entity entity : entityList) {
-			if(predicate.test(entity)) {
-				double e = entity.position().distanceTo(pos);
-
-				if(e <= range && (d == -1.0 || e < d)) {
-					d = e;
-					value = entity;
-				}
+			for(Entity entityTarget : entityTargets) {
+				for(SpellEffect effect : new HashSet<>(effects))
+					effect.effect(caster, sourceEntity, level, new EntityHitResult(entityTarget), effects, stack, potency);
 			}
-		}
 
-		return value;
+			castNext(caster, target.getLocation(), null, level, stack, spellGroups, groupIndex, potency);
+		}
 	}
 }

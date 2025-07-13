@@ -33,6 +33,12 @@ public final class ArcanusConfig {
 	@ConfigEntry(id = "manaBarsMaxLength", translation = CONFIG_MANA_BARS_MAX_LENGTH)
 	public static int manaBarsMaxLength = 200;
 
+	@ConfigEntry(id = "coolDownPerComponent", translation = CONFIG_COOL_DOWN_PER_COMPONENT)
+	public static int coolDownPerComponent = 5;
+
+	@ConfigEntry(id = "minimumCoolDown", translation = CONFIG_MINIMUM_COOL_DOWN)
+	public static int minimumCoolDown = 10;
+
 	@ConfigEntry(id = "manaBarsOnBottom", translation = CONFIG_MANA_BARS_ON_TOP)
 	public static boolean manaBarsOnTop = true;
 
