@@ -26,11 +26,10 @@ public class AggressorbSpellShape extends SpellShape {
 			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.enabled,
 			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.weight,
 			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.manaCosts(),
-			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.manaMultiplier,
-			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.coolDown,
+			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.manaModifier,
 			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.potencyModifier,
-			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.procsOnce
-		);
+			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.coolDownModifier,
+			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.procsOnce);
 	}
 
 	@Override

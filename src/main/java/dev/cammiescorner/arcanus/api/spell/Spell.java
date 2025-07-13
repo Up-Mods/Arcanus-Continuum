@@ -26,6 +26,8 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+
+// TODO implement mana reduction & potency increases directly on the individual spell
 public class Spell {
 	public static final Codec<Spell> CODEC = RecordCodecBuilder.create(spellInstance -> spellInstance.group(
 		Codec.list(SpellGroup.CODEC).optionalFieldOf("ComponentGroups", List.of(new SpellGroup(SpellShape.empty(), List.of(), List.of()))).forGetter(Spell::getComponentGroups),
@@ -95,7 +97,7 @@ public class Spell {
 				if(group.isEmpty())
 					continue;
 
-				averageWeightIndex += group.getAverageWeight().ordinal();
+				averageWeightIndex += group.getWeight().ordinal();
 				i++;
 			}
 
@@ -122,19 +124,20 @@ public class Spell {
 		double manaMultiplier = 1;
 
 		for(SpellGroup group : groups)
-			manaMultiplier += group.shape().getManaMultiplier();
+			manaMultiplier += group.shape().getManaModifier();
 
 		return manaMultiplier;
 	}
 
 	public int getCoolDown() {
-		int coolDown = 0;
+		int coolDown = Math.toIntExact(Math.max(10, components().count()));
+		double coolDownModifier = 1d;
 
 		if(!groups.isEmpty())
 			for(SpellGroup group : groups)
-				coolDown += group.getCoolDown();
+				coolDownModifier *= group.shape().getCoolDownModifier();
 
-		return coolDown;
+		return (int) (coolDown * coolDownModifier);
 	}
 
 	public String getManaCostAsString(ManaType manaType) {

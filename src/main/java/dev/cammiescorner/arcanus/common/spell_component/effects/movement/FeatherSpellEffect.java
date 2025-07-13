@@ -21,9 +21,7 @@ public class FeatherSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.MovementEffects.FeatherEffectProperties.enabled,
 			() -> SpellType.MOVEMENT,
-			() -> ArcanusConfig.MovementEffects.FeatherEffectProperties.weight,
 			() -> ArcanusConfig.MovementEffects.FeatherEffectProperties.manaCosts(),
-			() -> ArcanusConfig.MovementEffects.FeatherEffectProperties.coolDown,
 			() -> ArcanusConfig.MovementEffects.FeatherEffectProperties.procsOnce
 		);
 	}

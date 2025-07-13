@@ -73,20 +73,8 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 		return tag;
 	}
 
-	public Weight getAverageWeight() {
-		int cumulativeWeightIndex = shape.getWeight().ordinal();
-		int effectCount = 0;
-
-		for(int i = 0; i < effects.size(); i++) {
-			SpellEffect effect = effects().get(i);
-
-			if(effect.getWeight() != Weight.NONE) {
-				cumulativeWeightIndex += effect.getWeight().ordinal();
-				effectCount++;
-			}
-		}
-
-		return Weight.values()[Math.round(cumulativeWeightIndex / ((float) effectCount + 1f))];
+	public Weight getWeight() {
+		return shape.getWeight();
 	}
 
 	public Map<ManaType, Double> getManaCost() {
@@ -97,15 +85,6 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 				cumulativeManaCost.put(manaType, effect.getManaCost().get(manaType) + cumulativeManaCost.get(manaType));
 
 		return cumulativeManaCost;
-	}
-
-	public int getCoolDown() {
-		int cumulativeCoolDown = shape().getCoolDown();
-
-		for(SpellEffect effect : effects)
-			cumulativeCoolDown += effect.getCoolDown();
-
-		return cumulativeCoolDown;
 	}
 
 	public Stream<SpellComponent> getAllComponents() {

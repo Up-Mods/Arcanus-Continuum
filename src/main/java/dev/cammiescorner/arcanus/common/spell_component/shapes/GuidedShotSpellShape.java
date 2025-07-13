@@ -22,10 +22,9 @@ public class GuidedShotSpellShape extends SpellShape {
 			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.weight,
 			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.manaCosts(),
 			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.manaMultiplier,
-			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.coolDown,
 			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.potencyModifier,
-			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.procsOnce
-		);
+			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.coolDownModifier,
+			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.procsOnce);
 	}
 
 	@Override

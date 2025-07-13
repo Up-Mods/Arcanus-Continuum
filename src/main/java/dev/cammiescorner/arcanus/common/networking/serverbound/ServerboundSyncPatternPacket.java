@@ -31,14 +31,16 @@ import java.util.Optional;
 
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
-public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements CustomPacketPayload {
+public record ServerboundSyncPatternPacket(List<Pattern> patterns, boolean castSpell) implements CustomPacketPayload {
 	public static final CustomPacketPayload.Type<ServerboundSyncPatternPacket> TYPE = new CustomPacketPayload.Type<>(Arcanus.id("sync_pattern"));
 	public static final StreamCodec<? extends FriendlyByteBuf, ServerboundSyncPatternPacket> CODEC = StreamCodec.of((buffer, packet) -> {
 		buffer.writeCollection(packet.patterns, FriendlyByteBuf::writeEnum);
+		buffer.writeBoolean(packet.castSpell);
 	}, buffer -> {
 		List<Pattern> patterns = buffer.readCollection(ArrayList::new, buf -> buf.readEnum(Pattern.class));
+		boolean castSpell = buffer.readBoolean();
 
-		return new ServerboundSyncPatternPacket(patterns);
+		return new ServerboundSyncPatternPacket(patterns, castSpell);
 	});
 
 	public static void handle(PacketContext<ServerboundSyncPatternPacket> context) {
@@ -47,7 +49,7 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements Cu
 
 		ArcanusComponents.setPattern(player, pattern);
 
-		if(pattern.size() >= 3) {
+		if(pattern.size() >= 3 && context.message().castSpell()) {
 			ItemStack stack = player.getMainHandItem();
 
 			if(stack.getItem() instanceof StaffItem staff) {
@@ -72,7 +74,7 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns) implements Cu
 						}
 
 						for(ManaType manaType : spell.getManaCost().keySet()) {
-							if(!ArcanusComponents.drainMana(player, manaType, spell.getManaCost().get(manaType), false)) {
+							if(!player.isCreative() && !ArcanusComponents.drainMana(player, manaType, spell.getManaCost().get(manaType), false)) {
 								player.displayClientMessage(Component.translatable(SPELL_NOT_ENOUGH_MANA).withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
 								return;
 							}

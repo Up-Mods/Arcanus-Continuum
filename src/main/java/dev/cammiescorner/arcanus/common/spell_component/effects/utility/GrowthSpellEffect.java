@@ -24,9 +24,7 @@ public class GrowthSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.UtilityEffects.GrowthEffectProperties.enabled,
 			() -> SpellType.UTILITY,
-			() -> ArcanusConfig.UtilityEffects.GrowthEffectProperties.weight,
 			() -> ArcanusConfig.UtilityEffects.GrowthEffectProperties.manaCosts(),
-			() -> ArcanusConfig.UtilityEffects.GrowthEffectProperties.coolDown,
 			() -> ArcanusConfig.UtilityEffects.GrowthEffectProperties.procsOnce
 		);
 	}

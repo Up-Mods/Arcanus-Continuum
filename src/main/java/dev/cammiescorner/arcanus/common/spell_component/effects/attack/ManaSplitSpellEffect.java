@@ -22,9 +22,7 @@ public class ManaSplitSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.enabled,
 			() -> SpellType.ATTACK,
-			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.weight,
 			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.manaCosts(),
-			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.coolDown,
 			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.procsOnce
 		);
 	}

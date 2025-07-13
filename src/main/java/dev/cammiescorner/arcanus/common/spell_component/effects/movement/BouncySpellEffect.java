@@ -21,9 +21,7 @@ public class BouncySpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.MovementEffects.BouncyEffectProperties.enabled,
 			() -> SpellType.MOVEMENT,
-			() -> ArcanusConfig.MovementEffects.BouncyEffectProperties.weight,
 			() -> ArcanusConfig.MovementEffects.BouncyEffectProperties.manaCosts(),
-			() -> ArcanusConfig.MovementEffects.BouncyEffectProperties.coolDown,
 			() -> ArcanusConfig.MovementEffects.BouncyEffectProperties.procsOnce
 		);
 	}

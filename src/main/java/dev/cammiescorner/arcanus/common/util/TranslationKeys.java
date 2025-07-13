@@ -74,6 +74,7 @@ public class TranslationKeys {
 	public static final String SPELL_BOOK_BLACK_MANA = "spell_book.arcanus.black_mana";
 	public static final String SPELL_BOOK_MANA_MULTIPLIER = "spell_book.arcanus.mana_multiplier";
 	public static final String SPELL_BOOK_POTENCY_MODIFIER = "spell_book.arcanus.potency_modifier";
+	public static final String SPELL_BOOK_COOL_DOWN_MODIFIER = "spell_book.arcanus.cool_down_modifier";
 	public static final String SPELL_BOOK_COOL_DOWN = "spell_book.arcanus.cool_down";
 	public static final String SPELL_TOO_MANY_COMPONENTS = "spell.arcanus.too_many_components";
 	public static final String SPELL_UNKNOWN_SPELL_COMPONENTS = "spell.arcanus.unknown_spell_components";
@@ -112,8 +113,8 @@ public class TranslationKeys {
 	public static final String CONFIG_BLUE_MANA_COST = "config.arcanus.blue_mana_cost";
 	public static final String CONFIG_WHITE_MANA_COST = "config.arcanus.white_mana_cost";
 	public static final String CONFIG_BLACK_MANA_COST = "config.arcanus.black_mana_cost";
-	public static final String CONFIG_MANA_MULTIPLIER = "config.arcanus.mana_multiplier";
-	public static final String CONFIG_COOL_DOWN = "config.arcanus.cool_down";
+	public static final String CONFIG_MANA_MODIFIER = "config.arcanus.mana_modifier";
+	public static final String CONFIG_COOL_DOWN_MODIFIER = "config.arcanus.cool_down_modifier";
 	public static final String CONFIG_PROCS_ONCE = "config.arcanus.procs_once";
 	public static final String CONFIG_POTENCY_MODIFIER = "config.arcanus.potency_modifier";
 	public static final String CONFIG_PROJECTILE_SPEED = "config.arcanus.projectile_speed";

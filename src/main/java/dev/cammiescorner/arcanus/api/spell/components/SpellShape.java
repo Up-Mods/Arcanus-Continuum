@@ -19,33 +19,49 @@ import java.util.function.Supplier;
 
 public abstract class SpellShape extends SpellComponent {
 	public static final Codec<SpellShape> CODEC = ArcanusSpellComponents.REGISTRY.byNameCodec().flatXmap(spellComponent -> spellComponent instanceof SpellShape shape ? DataResult.success(shape) : DataResult.error(() -> "Not instance of SpellShape"), DataResult::success);
-	private final Supplier<Double> manaMultiplier;
+	private final Supplier<Weight> weight;
+	private final Supplier<Double> manaModifier;
 	private final Supplier<Double> potencyModifier;
+	private final Supplier<Double> coolDownModifier;
 
 	public static SpellShape empty() {
 		return (SpellShape) ArcanusSpellComponents.EMPTY.get();
 	}
 
-	public SpellShape(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Map<ManaType, Double>> manaCost, Supplier<Double> manaMultiplier, Supplier<Integer> coolDown, Supplier<Double> potencyModifier, Supplier<Boolean> procsOnce) {
-		super(isEnabled, weight, manaCost, coolDown, procsOnce);
-		this.manaMultiplier = manaMultiplier;
+	public SpellShape(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Map<ManaType, Double>> manaCost, Supplier<Double> manaModifier, Supplier<Double> potencyModifier, Supplier<Double> coolDownModifier, Supplier<Boolean> procsOnce) {
+		super(isEnabled, manaCost, procsOnce);
+		this.weight = weight;
+		this.manaModifier = manaModifier;
 		this.potencyModifier = potencyModifier;
+		this.coolDownModifier = coolDownModifier;
+	}
+
+	public Weight getWeight() {
+		return weight.get();
 	}
 
 	public double getPotencyModifier() {
 		return potencyModifier.get();
 	}
 
-	public double getManaMultiplier() {
-		return manaMultiplier.get() - 1;
+	public double getManaModifier() {
+		return manaModifier.get() - 1;
+	}
+
+	public double getCoolDownModifier() {
+		return coolDownModifier.get();
 	}
 
 	public String getPotencyModifierAsString() {
-		return (getPotencyModifier() < 0 ? "" : "+") + Arcanus.format(getPotencyModifier() * 100) + "%";
+		return (getPotencyModifier() < 0 ? "-" : "+") + Arcanus.format(getPotencyModifier() * 100) + "%";
 	}
 
 	public String getManaMultiplierAsString() {
-		return (getManaMultiplier() < 0 ? "" : "+") + Arcanus.format(getManaMultiplier() * 100) + "%";
+		return (getManaModifier() < 0 ? "-" : "+") + Arcanus.format(getManaModifier() * 100) + "%";
+	}
+
+	public String getCoolDownModifierAsString() {
+		return (getCoolDownModifier() < 0 ? "-" : "+") + Arcanus.format(getCoolDownModifier() * 100) + "%";
 	}
 
 	public abstract void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency);

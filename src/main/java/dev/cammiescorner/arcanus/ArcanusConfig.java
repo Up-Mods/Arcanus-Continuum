@@ -85,12 +85,12 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "manaMultiplier", translation = CONFIG_MANA_MULTIPLIER)
+			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double manaMultiplier = 0.85;
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 10;
+			public static double coolDownModifier = 1;
 
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
@@ -126,12 +126,12 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "manaMultiplier", translation = CONFIG_MANA_MULTIPLIER)
+			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double manaMultiplier = 1;
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 10;
+			public static double coolDownModifier = 1;
 
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
@@ -174,12 +174,12 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "manaMultiplier", translation = CONFIG_MANA_MULTIPLIER)
+			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double manaMultiplier = 1;
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 20;
+			public static double coolDownModifier = 1;
 
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
@@ -218,12 +218,12 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "manaMultiplier", translation = CONFIG_MANA_MULTIPLIER)
+			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double manaMultiplier = 1;
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 15;
+			public static double coolDownModifier = 1;
 
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
@@ -263,12 +263,12 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "manaMultiplier", translation = CONFIG_MANA_MULTIPLIER)
+			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double manaMultiplier = 0.1;
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
+			public static double coolDownModifier = 1;
 
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0.1;
@@ -312,12 +312,12 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "manaMultiplier", translation = CONFIG_MANA_MULTIPLIER)
+			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double manaMultiplier = 1;
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 50;
+			public static double coolDownModifier = 1;
 
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
@@ -357,12 +357,12 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "manaMultiplier", translation = CONFIG_MANA_MULTIPLIER)
+			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double manaMultiplier = 1.25;
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 60;
+			public static double coolDownModifier = 1;
 
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
@@ -401,12 +401,12 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "manaMultiplier", translation = CONFIG_MANA_MULTIPLIER)
+			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double manaMultiplier = 1;
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 100;
+			public static double coolDownModifier = 1;
 
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
@@ -442,12 +442,12 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "manaMultiplier", translation = CONFIG_MANA_MULTIPLIER)
+			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double manaMultiplier = 1.2;
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 300;
+			public static double coolDownModifier = 1;
 
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
@@ -487,12 +487,12 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "manaMultiplier", translation = CONFIG_MANA_MULTIPLIER)
+			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double manaMultiplier = 4;
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 60;
+			public static double coolDownModifier = 1;
 
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
@@ -538,12 +538,12 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "manaMultiplier", translation = CONFIG_MANA_MULTIPLIER)
+			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double manaMultiplier = 1.75;
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 60;
+			public static double coolDownModifier = 1;
 
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0.5;
@@ -579,22 +579,18 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "manaMultiplier", translation = CONFIG_MANA_MULTIPLIER)
+			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double manaMultiplier = 1.5;
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 100;
+			public static double coolDownModifier = 1;
 
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
-
-			@ConfigEntry(id = "maximumManaLock", translation = CONFIG_MAX_MANA_LOCK)
-			@ConfigOption.Range(min = 0, max = 1)
-			public static double maximumManaLock = 0.5;
 
 			@ConfigEntry(id = "baseManaDrain", translation = CONFIG_BASE_MANA_DRAIN)
 			public static double baseManaDrain = 3;
@@ -627,12 +623,12 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "manaMultiplier", translation = CONFIG_MANA_MULTIPLIER)
-			public static double manaMultiplier = 0.8;
+			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
+			public static double manaModifier = 0.8;
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 200;
+			public static double coolDownModifier = 1;
 
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
@@ -695,7 +691,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -734,7 +730,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -773,7 +769,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -816,7 +812,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -855,7 +851,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -894,7 +890,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -933,7 +929,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -972,7 +968,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1011,7 +1007,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1046,7 +1042,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1093,7 +1089,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1136,7 +1132,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1195,7 +1191,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1234,7 +1230,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1269,7 +1265,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1308,7 +1304,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1347,7 +1343,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1386,7 +1382,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1429,7 +1425,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1472,7 +1468,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1519,7 +1515,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1558,7 +1554,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1597,7 +1593,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1632,7 +1628,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1667,7 +1663,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1710,7 +1706,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1753,7 +1749,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1809,7 +1805,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1859,7 +1855,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1898,7 +1894,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1937,7 +1933,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -1976,7 +1972,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -2015,7 +2011,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -2054,7 +2050,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -2093,7 +2089,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 
@@ -2132,7 +2128,7 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN)
+			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int coolDown = 0;
 

@@ -29,10 +29,9 @@ public class LobSpellShape extends SpellShape {
 			() -> ArcanusConfig.SpellShapes.LobShapeProperties.weight,
 			() -> ArcanusConfig.SpellShapes.LobShapeProperties.manaCosts(),
 			() -> ArcanusConfig.SpellShapes.LobShapeProperties.manaMultiplier,
-			() -> ArcanusConfig.SpellShapes.LobShapeProperties.coolDown,
 			() -> ArcanusConfig.SpellShapes.LobShapeProperties.potencyModifier,
-			() -> ArcanusConfig.SpellShapes.LobShapeProperties.procsOnce
-		);
+			() -> ArcanusConfig.SpellShapes.LobShapeProperties.coolDownModifier,
+			() -> ArcanusConfig.SpellShapes.LobShapeProperties.procsOnce);
 	}
 
 	@Override

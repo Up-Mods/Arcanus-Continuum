@@ -22,9 +22,7 @@ public class DiscombobulateSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.enabled,
 			() -> SpellType.ATTACK,
-			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.weight,
 			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.manaCosts(),
-			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.coolDown,
 			() -> ArcanusConfig.AttackEffects.DiscombobulateEffectProperties.procsOnce
 		);
 	}

@@ -3,7 +3,6 @@ package dev.cammiescorner.arcanus.api.spell.components;
 import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.ArcanusRegistries;
-import dev.cammiescorner.arcanus.api.spell.Weight;
 import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
@@ -27,18 +26,14 @@ public class SpellComponent {
 	public static final String DISABLED_TRANSLATION_KEY = Util.makeDescriptionId("arcanus.spell_component", Arcanus.id("disabled"));
 	private static final MutableComponent DISABLED_TRANSLATED_NAME = Component.translatable(DISABLED_TRANSLATION_KEY).withStyle(ChatFormatting.OBFUSCATED);
 	private final Supplier<Boolean> isEnabled;
-	private final Supplier<Weight> weight;
 	private final Supplier<Map<ManaType, Double>> manaCost;
-	private final Supplier<Integer> coolDown;
 	private final Supplier<Boolean> procsOnce;
 	private String translationKey;
 	private ResourceLocation texture;
 
-	public SpellComponent(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Map<ManaType, Double>> manaCost, Supplier<Integer> coolDown, Supplier<Boolean> procsOnce) {
+	public SpellComponent(Supplier<Boolean> isEnabled, Supplier<Map<ManaType, Double>> manaCost, Supplier<Boolean> procsOnce) {
 		this.isEnabled = isEnabled;
-		this.weight = weight;
 		this.manaCost = manaCost;
-		this.coolDown = coolDown;
 		this.procsOnce = procsOnce;
 	}
 
@@ -46,16 +41,8 @@ public class SpellComponent {
 		return isEnabled.get();
 	}
 
-	public Weight getWeight() {
-		return weight.get();
-	}
-
 	public Map<ManaType, Double> getManaCost() {
 		return Map.copyOf(manaCost.get());
-	}
-
-	public int getCoolDown() {
-		return coolDown.get();
 	}
 
 	public boolean singleCastOnly() {
@@ -64,10 +51,6 @@ public class SpellComponent {
 
 	public String getManaCostAsString(ManaType manaType) {
 		return Arcanus.format(getManaCost().get(manaType));
-	}
-
-	public String getCoolDownAsString() {
-		return Arcanus.format(getCoolDown() / 20d) + "s";
 	}
 
 	public ResourceLocation getTexture(Player player) {

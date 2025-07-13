@@ -22,10 +22,9 @@ public class CounterSpellShape extends SpellShape {
 			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.weight,
 			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.manaCosts(),
 			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.manaMultiplier,
-			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.coolDown,
 			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.potencyModifier,
-			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.procsOnce
-		);
+			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.coolDownModifier,
+			() -> ArcanusConfig.SpellShapes.CounterShapeProperties.procsOnce);
 	}
 
 	@Override

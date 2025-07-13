@@ -228,7 +228,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 					action.Do().run();
 				}
 
-				if(draggedComponent instanceof SpellEffect effect && !SPELL_GROUPS.isEmpty() && !ArcanusSpellComponents.EMPTY.is(SPELL_GROUPS.getLast().shape())) {
+				if(draggedComponent instanceof SpellEffect effect && !SPELL_GROUPS.isEmpty() && (SPELL_GROUPS.getLast().effects().isEmpty() || !SPELL_GROUPS.getLast().effects().contains(effect)) && !ArcanusSpellComponents.EMPTY.is(SPELL_GROUPS.getLast().shape())) {
 					Action action = undoRedoStack.addAction(new Action(draggedComponent, pos, () -> {
 						SPELL_GROUPS.getLast().effects().add(effect);
 						SPELL_GROUPS.getLast().positions().add(pos);
@@ -406,7 +406,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		if(!ArcanusSpellComponents.EMPTY.is(draggedComponent)) {
 			int color = 0xff0000;
 
-			if((isHovering(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) && (!(draggedComponent instanceof SpellEffect) || (!SPELL_GROUPS.isEmpty() && !SPELL_GROUPS.getLast().isEmpty())))
+			if((isHovering(VALID_BOUNDS.x(), VALID_BOUNDS.y(), VALID_BOUNDS.z(), VALID_BOUNDS.w(), mouseX, mouseY) && !isTooCloseToComponents(mouseX, mouseY)) && (!(draggedComponent instanceof SpellEffect) || (!SPELL_GROUPS.isEmpty() && !SPELL_GROUPS.getLast().isEmpty() && (SPELL_GROUPS.getLast().effects().isEmpty() || !SPELL_GROUPS.getLast().effects().contains(draggedComponent)))))
 				color = 0x00ff00;
 
 			float r = (color >> 16 & 255) / 255f;
@@ -484,7 +484,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 					}
 
 					if(component instanceof SpellShape shape) {
-						if(shape.getManaMultiplier() != 0)
+						if(shape.getManaModifier() != 0)
 							textList.add(Component.translatable(TWO_ARGUMENT_KEY,
 								Component.translatable(SPELL_BOOK_MANA_MULTIPLIER),
 								Component.literal(knowsComponent ? shape.getManaMultiplierAsString() : "???").withStyle(ChatFormatting.GRAY)
@@ -494,16 +494,17 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 								Component.translatable(SPELL_BOOK_POTENCY_MODIFIER),
 								Component.literal(knowsComponent ? shape.getManaMultiplierAsString() : "???").withStyle(ChatFormatting.GRAY)
 							).withStyle(ChatFormatting.YELLOW));
-					}
+						if(shape.getCoolDownModifier() != 1)
+							textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+								Component.translatable(SPELL_BOOK_COOL_DOWN_MODIFIER),
+								Component.literal(knowsComponent ? shape.getCoolDownModifierAsString() : "???").withStyle(ChatFormatting.GRAY)
+							).withStyle(ChatFormatting.AQUA));
 
-					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
-						Component.translatable(SPELL_BOOK_WEIGHT),
-						Component.translatable(knowsComponent ? component.getWeight().translationKey() : "???").withStyle(ChatFormatting.GRAY)
-					).withStyle(ChatFormatting.DARK_GREEN));
-					textList.add(Component.translatable(TWO_ARGUMENT_KEY,
-						Component.translatable(SPELL_BOOK_COOL_DOWN),
-						Component.literal(knowsComponent ? component.getCoolDownAsString() : "???").withStyle(ChatFormatting.GRAY)
-					).withStyle(ChatFormatting.DARK_RED));
+						textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+							Component.translatable(SPELL_BOOK_WEIGHT),
+							Component.translatable(knowsComponent ? shape.getWeight().translationKey() : "???").withStyle(ChatFormatting.GRAY)
+						).withStyle(ChatFormatting.DARK_GREEN));
+					}
 
 					gui.renderComponentTooltip(font, textList, mouseX - leftPos, mouseY - topPos);
 				}

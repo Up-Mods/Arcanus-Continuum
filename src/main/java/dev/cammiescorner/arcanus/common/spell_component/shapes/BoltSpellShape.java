@@ -28,10 +28,9 @@ public class BoltSpellShape extends SpellShape {
 			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.weight,
 			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.manaCosts(),
 			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.manaMultiplier,
-			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.coolDown,
 			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.potencyModifier,
-			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.procsOnce
-		);
+			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.coolDownModifier,
+			() -> ArcanusConfig.SpellShapes.BoltShapeProperties.procsOnce);
 	}
 
 	@Override

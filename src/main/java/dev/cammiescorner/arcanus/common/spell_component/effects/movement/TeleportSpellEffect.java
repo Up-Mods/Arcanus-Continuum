@@ -22,9 +22,7 @@ public class TeleportSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.MovementEffects.TeleportEffectProperties.enabled,
 			() -> SpellType.MOVEMENT,
-			() -> ArcanusConfig.MovementEffects.TeleportEffectProperties.weight,
 			() -> ArcanusConfig.MovementEffects.TeleportEffectProperties.manaCosts(),
-			() -> ArcanusConfig.MovementEffects.TeleportEffectProperties.coolDown,
 			() -> ArcanusConfig.MovementEffects.TeleportEffectProperties.procsOnce
 		);
 	}

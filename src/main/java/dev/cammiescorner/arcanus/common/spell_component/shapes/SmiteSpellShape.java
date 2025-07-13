@@ -24,10 +24,9 @@ public class SmiteSpellShape extends SpellShape {
 			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.weight,
 			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.manaCosts(),
 			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.manaMultiplier,
-			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.coolDown,
 			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.potencyModifier,
-			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.procsOnce
-		);
+			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.coolDownModifier,
+			() -> ArcanusConfig.SpellShapes.SmiteShapeProperties.procsOnce);
 	}
 
 	@Override

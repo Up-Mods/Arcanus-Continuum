@@ -26,9 +26,7 @@ public class WardingSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.UtilityEffects.WardingEffectProperties.enabled,
 			() -> SpellType.UTILITY,
-			() -> ArcanusConfig.UtilityEffects.WardingEffectProperties.weight,
 			() -> ArcanusConfig.UtilityEffects.WardingEffectProperties.manaCosts(),
-			() -> ArcanusConfig.UtilityEffects.WardingEffectProperties.coolDown,
 			() -> ArcanusConfig.UtilityEffects.WardingEffectProperties.procsOnce
 		);
 	}

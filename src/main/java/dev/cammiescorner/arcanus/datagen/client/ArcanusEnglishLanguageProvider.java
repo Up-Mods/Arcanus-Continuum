@@ -356,6 +356,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(SPELL_BOOK_BLACK_MANA, "Black Mana");
 		builder.add(SPELL_BOOK_MANA_MULTIPLIER, "Mana Multiplier");
 		builder.add(SPELL_BOOK_POTENCY_MODIFIER, "Potency Modifier");
+		builder.add(SPELL_BOOK_COOL_DOWN_MODIFIER, "Cool Down Modifier");
 		builder.add(SPELL_BOOK_COOL_DOWN, "Cool Down");
 
 		builder.add(SPELL_TOO_MANY_COMPONENTS, "Too many components!");
@@ -399,8 +400,8 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_BLUE_MANA_COST, "Blue Mana Cost");
 		builder.add(CONFIG_WHITE_MANA_COST, "White Mana Cost");
 		builder.add(CONFIG_BLACK_MANA_COST, "Black Mana Cost");
-		builder.add(CONFIG_MANA_MULTIPLIER, "Mana Multiplier");
-		builder.add(CONFIG_COOL_DOWN, "Cool Down");
+		builder.add(CONFIG_MANA_MODIFIER, "Mana Cost Modifier");
+		builder.add(CONFIG_COOL_DOWN_MODIFIER, "Cool Down Modifier");
 		builder.add(CONFIG_PROCS_ONCE, "Only Procs Once When Chained");
 		builder.add(CONFIG_POTENCY_MODIFIER, "Potency Modifier");
 		builder.add(CONFIG_PROJECTILE_SPEED, "Projectile Speed");

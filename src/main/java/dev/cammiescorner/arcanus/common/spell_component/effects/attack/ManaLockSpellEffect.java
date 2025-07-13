@@ -22,9 +22,7 @@ public class ManaLockSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.AttackEffects.ManaLockEffectProperties.enabled,
 			() -> SpellType.ATTACK,
-			() -> ArcanusConfig.AttackEffects.ManaLockEffectProperties.weight,
 			() -> ArcanusConfig.AttackEffects.ManaLockEffectProperties.manaCosts(),
-			() -> ArcanusConfig.AttackEffects.ManaLockEffectProperties.coolDown,
 			() -> ArcanusConfig.AttackEffects.ManaLockEffectProperties.procsOnce
 		);
 	}

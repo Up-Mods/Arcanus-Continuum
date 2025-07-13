@@ -58,7 +58,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 
 		if(timer == 0 || (lastMouseDown != null && !lastMouseDown.isDown()) || ArcanusComponents.getStunTimer(player) > 0) {
 			patterns.clear();
-			Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns));
+			Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns, false));
 			lastMouseDown = null;
 			isCasting = false;
 			timer = 0;
@@ -75,7 +75,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 					mouseDownTimer++;
 
 					if(player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0) {
-						Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns));
+						Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns, true));
 						timer = 20;
 					}
 				}
@@ -127,7 +127,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 				if(player.getAttackStrengthScale(getFrameTimeNs()) >= ((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) ? 1f : 0.15f) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && !isCasting) {
 					timer = 20;
 					patterns.add(Pattern.LEFT);
-					Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns));
+					Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns, false));
 					player.swing(InteractionHand.MAIN_HAND);
 					player.resetAttackStrengthTicker();
 					player.level().playSeededSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundSource.PLAYERS, 1f, 1.3f, 1L);
@@ -162,7 +162,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 			if(player.getAttackStrengthScale(getFrameTimeNs()) >= ((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) ? 1 : 0.15f) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && !isCasting) {
 				timer = 20;
 				patterns.add(Pattern.RIGHT);
-				Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns));
+				Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns, false));
 				player.swing(InteractionHand.MAIN_HAND);
 				player.resetAttackStrengthTicker();
 				player.level().playSeededSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK, SoundSource.PLAYERS, 1f, 1.1f, 1L);

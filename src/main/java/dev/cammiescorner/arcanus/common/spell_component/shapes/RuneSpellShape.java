@@ -24,10 +24,9 @@ public class RuneSpellShape extends SpellShape {
 			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.weight,
 			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.manaCosts(),
 			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.manaMultiplier,
-			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.coolDown,
 			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.potencyModifier,
-			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.procsOnce
-		);
+			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.coolDownModifier,
+			() -> ArcanusConfig.SpellShapes.RuneShapeProperties.procsOnce);
 	}
 
 	@Override

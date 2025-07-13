@@ -19,9 +19,7 @@ public class PullSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.MovementEffects.PullEffectProperties.enabled,
 			() -> SpellType.MOVEMENT,
-			() -> ArcanusConfig.MovementEffects.PullEffectProperties.weight,
 			() -> ArcanusConfig.MovementEffects.PullEffectProperties.manaCosts(),
-			() -> ArcanusConfig.MovementEffects.PullEffectProperties.coolDown,
 			() -> ArcanusConfig.MovementEffects.PullEffectProperties.procsOnce
 		);
 	}

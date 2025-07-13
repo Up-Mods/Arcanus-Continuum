@@ -39,20 +39,27 @@ public class SpellComponentWidget extends AbstractButton {
 			).withStyle(manaType.getChatFormatting()));
 
 		if(component instanceof SpellShape shape) {
-			if(shape.getManaMultiplier() != 0)
-				textList.add(Component.translatable(TWO_ARGUMENT_KEY, Component.translatable(SPELL_BOOK_MANA_MULTIPLIER), Component.literal(shape.getManaMultiplierAsString()).withStyle(ChatFormatting.GRAY)).withStyle(ChatFormatting.LIGHT_PURPLE));
+			if(shape.getManaModifier() != 0)
+				textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+					Component.translatable(SPELL_BOOK_MANA_MULTIPLIER),
+					Component.literal(shape.getManaMultiplierAsString()).withStyle(ChatFormatting.GRAY)
+				).withStyle(ChatFormatting.LIGHT_PURPLE));
 			if(shape.getPotencyModifier() != 0)
-				textList.add(Component.translatable(TWO_ARGUMENT_KEY, Component.translatable(SPELL_BOOK_POTENCY_MODIFIER), Component.literal(shape.getPotencyModifierAsString()).withStyle(ChatFormatting.GRAY)).withStyle(ChatFormatting.YELLOW));
-		}
+				textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+					Component.translatable(SPELL_BOOK_POTENCY_MODIFIER),
+					Component.literal(shape.getPotencyModifierAsString()).withStyle(ChatFormatting.GRAY)
+				).withStyle(ChatFormatting.YELLOW));
+			if(shape.getCoolDownModifier() != 1)
+				textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+					Component.translatable(SPELL_BOOK_COOL_DOWN_MODIFIER),
+					Component.literal(shape.getCoolDownModifierAsString()).withStyle(ChatFormatting.GRAY)
+				).withStyle(ChatFormatting.AQUA));
 
-		textList.add(Component.translatable(TWO_ARGUMENT_KEY,
-			Component.translatable(SPELL_BOOK_WEIGHT),
-			Component.translatable(component.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
-		).withStyle(ChatFormatting.DARK_GREEN));
-		textList.add(Component.translatable(TWO_ARGUMENT_KEY,
-			Component.translatable(SPELL_BOOK_COOL_DOWN),
-			Component.literal(component.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)
-		).withStyle(ChatFormatting.DARK_RED));
+			textList.add(Component.translatable(TWO_ARGUMENT_KEY,
+				Component.translatable(SPELL_BOOK_WEIGHT),
+				Component.translatable(shape.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
+			).withStyle(ChatFormatting.DARK_GREEN));
+		}
 
 		this.tooltipSupplier = new TooltipSupplier() {
 			@Override
