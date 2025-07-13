@@ -20,6 +20,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -115,7 +116,8 @@ public class Lob extends AbstractArrow implements Targetable {
 		ListTag effectList = new ListTag();
 		ListTag groupsList = new ListTag();
 
-		tag.put("ItemStack", stack.save(registryAccess()));
+		if(!stack.isEmpty())
+			tag.put("ItemStack", stack.save(registryAccess()));
 		tag.putDouble("Potency", potency);
 		tag.putInt("GroupIndex", groupIndex);
 
@@ -139,12 +141,12 @@ public class Lob extends AbstractArrow implements Targetable {
 	}
 
 	@Override
-	protected ItemStack getPickupItem() {
-		return ItemStack.EMPTY;
+	protected ItemStack getDefaultPickupItem() {
+		return new ItemStack(Items.DIRT);
 	}
 
 	@Override
-	protected ItemStack getDefaultPickupItem() {
+	protected ItemStack getPickupItem() {
 		return ItemStack.EMPTY;
 	}
 

@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanus.mixin.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import commonnetwork.api.Network;
+import dev.cammiescorner.arcanus.common.data_component.BookPouchComponent;
 import dev.cammiescorner.arcanus.common.item.BookPouchItem;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundCycleBookPouchPacket;
@@ -26,6 +27,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
+import java.util.function.Predicate;
+
 @Mixin(MouseHandler.class)
 public class MouseHandlerMixin {
 	@Shadow @Final private Minecraft minecraft;
@@ -34,14 +37,27 @@ public class MouseHandlerMixin {
 	private void cycleSpellBookPouch(long windowPointer, double xOffset, double yOffset, CallbackInfo ci, boolean bl, double d, double e, double f, int i, int j, int k) {
 		if(minecraft.player.getMainHandItem().getItem() instanceof StaffItem && minecraft.player.isCrouching() && TrinketsApi.getTrinketComponent(minecraft.player).get() instanceof TrinketComponent component && component.isEquipped(ArcanusItems.BOOK_POUCH.get())) {
 			ItemStack stack = component.getEquipped(ArcanusItems.BOOK_POUCH.get()).getFirst().getB();
-			int index = stack.getOrDefault(ArcanusDataComponents.BOOK_POUCH_INDEX.get(), 0) + k;
+			BookPouchComponent spellBooks = stack.getOrDefault(ArcanusDataComponents.BOOK_POUCH.get(), BookPouchComponent.EMPTY);
 
-			if(index < 0)
-				index = BookPouchItem.SLOT_COUNT - 1;
-			else if(index >= BookPouchItem.SLOT_COUNT)
-				index = 0;
+			if(!spellBooks.spellBooks().isEmpty() && spellBooks.spellBooks().stream().filter(Predicate.not(ItemStack::isEmpty)).count() > 1) {
+				int index = stack.getOrDefault(ArcanusDataComponents.BOOK_POUCH_INDEX.get(), 0) + k;
 
-			Network.getNetworkHandler().sendToServer(new ServerboundCycleBookPouchPacket(index));
+				if(index < 0)
+					index = BookPouchItem.SLOT_COUNT - 1;
+				else if(index >= BookPouchItem.SLOT_COUNT)
+					index = 0;
+
+				while(spellBooks.spellBooks().get(index).isEmpty()) {
+					index += k;
+
+					if(index < 0)
+						index = BookPouchItem.SLOT_COUNT - 1;
+					else if(index >= BookPouchItem.SLOT_COUNT)
+						index = 0;
+				}
+
+				Network.getNetworkHandler().sendToServer(new ServerboundCycleBookPouchPacket(index));
+			}
 
 			ci.cancel();
 		}
