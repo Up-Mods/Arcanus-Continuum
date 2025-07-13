@@ -37,6 +37,7 @@ public class CultRobesRenderer extends CustomHumanoidModelArmorRenderer<LivingEn
 		model.closedHood.visible = !isDown && slot == EquipmentSlot.HEAD;
 		model.openHood.visible = isDown && slot == EquipmentSlot.HEAD;
 		model.cloak.visible = slot == EquipmentSlot.HEAD;
+		model.undershirt.visible = slot == EquipmentSlot.CHEST;
 		model.garb.visible = slot == EquipmentSlot.CHEST;
 		model.rightSleeve.visible = slot == EquipmentSlot.CHEST && !slim;
 		model.leftSleeve.visible = slot == EquipmentSlot.CHEST && !slim;
