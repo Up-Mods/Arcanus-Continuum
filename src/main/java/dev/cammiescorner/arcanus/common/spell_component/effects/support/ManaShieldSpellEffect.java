@@ -1,11 +1,10 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.support;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.common.entity.magic.ManaShield;
 import dev.cammiescorner.arcanus.common.registry.ArcanusEntities;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -39,7 +38,7 @@ public class ManaShieldSpellEffect extends SpellEffect {
 			ManaShield manaShield = ArcanusEntities.MANA_SHIELD.get().create(level);
 
 			if(manaShield != null) {
-				manaShield.setProperties(caster.getUUID(), target.getLocation().add(0d, -0.7d, 0d), (int) ((ArcanusConfig.SupportEffects.ManaShieldEffectProperties.baseLifeSpan + ArcanusConfig.SupportEffects.ManaShieldEffectProperties.lifeSpanModifier * (effects.stream().filter(ArcanusSpellComponents.MANA_SHIELD::is).count() - 1)) * potency));
+				manaShield.setProperties(caster.getUUID(), target.getLocation().add(0d, -0.7d, 0d), (int) ((ArcanusConfig.SupportEffects.ManaShieldEffectProperties.baseLifeSpan + ArcanusConfig.SupportEffects.ManaShieldEffectProperties.lifeSpanModifier * potency)));
 				ArcanusHelper.copyMagicColor(manaShield, caster);
 				level.addFreshEntity(manaShield);
 			}

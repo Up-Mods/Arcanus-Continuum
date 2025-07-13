@@ -1,9 +1,8 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.movement;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -29,7 +28,7 @@ public class PullSpellEffect extends SpellEffect {
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 			Entity entity = entityHit.getEntity();
-			double amount = -effects.stream().filter(ArcanusSpellComponents.PULL::is).count() * ArcanusConfig.MovementEffects.PullEffectProperties.basePullStrength * potency;
+			double amount = -ArcanusConfig.MovementEffects.PullEffectProperties.basePullStrength * potency;
 
 			if(sourceEntity != null) {
 				if(entity.equals(caster))

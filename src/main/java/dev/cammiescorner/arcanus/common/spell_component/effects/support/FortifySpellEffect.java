@@ -1,10 +1,9 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.support;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -32,7 +31,7 @@ public class FortifySpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.FORTIFY.holder(), ArcanusConfig.SupportEffects.FortifyEffectProperties.baseEffectDuration, (int) ((effects.stream().filter(ArcanusSpellComponents.FORTIFY::is).count() - 1) * potency), true, false));
+				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.FORTIFY.holder(), ArcanusConfig.SupportEffects.FortifyEffectProperties.baseEffectDuration, (int) Math.min(potency - 1, 0), true, false));
 		}
 	}
 }

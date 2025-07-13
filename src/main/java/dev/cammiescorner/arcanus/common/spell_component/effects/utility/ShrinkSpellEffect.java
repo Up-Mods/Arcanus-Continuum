@@ -47,7 +47,7 @@ public class ShrinkSpellEffect extends SpellEffect {
 				else {
 					MobEffectInstance shrinkEffect = livingEntity.getEffect(ArcanusMobEffects.SHRINK.holder());
 					int amplifier = shrinkEffect != null ? Math.min(shrinkEffect.getAmplifier() + 1, 3) : 0;
-					int duration = ArcanusConfig.sizeChangingIsPermanent ? -1 : (int) (ArcanusConfig.UtilityEffects.ShrinkEffectProperties.baseEffectDuration * effects.stream().filter(ArcanusSpellComponents.SHRINK::is).count() * potency);
+					int duration = ArcanusConfig.sizeChangingIsPermanent ? -1 : (int) (ArcanusConfig.UtilityEffects.ShrinkEffectProperties.baseEffectDuration * potency);
 
 					livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.SHRINK.holder(), duration, amplifier, false, false, true));
 				}

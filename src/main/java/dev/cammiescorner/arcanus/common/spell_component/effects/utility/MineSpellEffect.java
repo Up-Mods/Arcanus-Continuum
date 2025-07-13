@@ -1,9 +1,8 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.utility;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,13 +34,11 @@ public class MineSpellEffect extends SpellEffect {
 
 			if(state.getDestroySpeed(level, blockHit.getBlockPos()) > 0) {
 				if(!(caster instanceof Player player) || level.mayInteract(player, blockHit.getBlockPos())) {
-					int count = (int) effects.stream().filter(ArcanusSpellComponents.MINE::is).count();
-
-					if(count < 2 && state.is(BlockTags.NEEDS_STONE_TOOL))
+					if(potency < 2 && state.is(BlockTags.NEEDS_STONE_TOOL))
 						return;
-					if(count < 3 && state.is(BlockTags.NEEDS_IRON_TOOL))
+					if(potency < 3 && state.is(BlockTags.NEEDS_IRON_TOOL))
 						return;
-					if(count < 4 && state.is(BlockTags.NEEDS_DIAMOND_TOOL))
+					if(potency < 4 && state.is(BlockTags.NEEDS_DIAMOND_TOOL))
 						return;
 
 					level.destroyBlock(blockHit.getBlockPos(), true, caster);

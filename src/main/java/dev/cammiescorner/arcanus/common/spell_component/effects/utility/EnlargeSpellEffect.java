@@ -47,7 +47,7 @@ public class EnlargeSpellEffect extends SpellEffect {
 				else {
 					MobEffectInstance enlargeEffect = livingEntity.getEffect(ArcanusMobEffects.ENLARGE.holder());
 					int amplifier = enlargeEffect != null ? Math.min(enlargeEffect.getAmplifier() + 1, 3) : 0;
-					int duration = ArcanusConfig.sizeChangingIsPermanent ? -1 : (int) (ArcanusConfig.UtilityEffects.EnlargeEffectProperties.baseEffectDuration * effects.stream().filter(ArcanusSpellComponents.ENLARGE::is).count() * potency);
+					int duration = ArcanusConfig.sizeChangingIsPermanent ? -1 : (int) (ArcanusConfig.UtilityEffects.EnlargeEffectProperties.baseEffectDuration * potency);
 
 					livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.ENLARGE.holder(), duration, amplifier, false, false, true));
 				}

@@ -1,10 +1,9 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.movement;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -32,7 +31,7 @@ public class BouncySpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.BOUNCY.holder(), ArcanusConfig.MovementEffects.BouncyEffectProperties.baseEffectDuration * (int) (effects.stream().filter(ArcanusSpellComponents.BOUNCY::is).count() * potency), 0, true, false));
+				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.BOUNCY.holder(), (int) (ArcanusConfig.MovementEffects.BouncyEffectProperties.baseEffectDuration * potency), 0, true, false));
 		}
 	}
 }

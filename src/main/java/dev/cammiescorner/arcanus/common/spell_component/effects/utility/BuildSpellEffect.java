@@ -1,11 +1,10 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.utility;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
@@ -38,7 +37,7 @@ public class BuildSpellEffect extends SpellEffect {
 
 			if(level.getBlockState(pos).canBeReplaced() && (!(caster instanceof Player player) || level.mayInteract(player, pos))) {
 				level.setBlock(pos, ArcanusBlocks.MAGIC_BLOCK.get().defaultBlockState(), Block.UPDATE_CLIENTS);
-				level.scheduleTick(pos, level.getBlockState(pos).getBlock(), (int) (ArcanusConfig.UtilityEffects.BuildEffectProperties.baseLifeSpan * effects.stream().filter(ArcanusSpellComponents.BUILD::is).count() * potency));
+				level.scheduleTick(pos, level.getBlockState(pos).getBlock(), (int) (ArcanusConfig.UtilityEffects.BuildEffectProperties.baseLifeSpan * potency));
 
 				if(caster != null) {
 					level.getBlockEntity(pos, ArcanusBlockEntities.MAGIC_BLOCK.get()).ifPresent(blockEntity -> ArcanusHelper.copyMagicColor(blockEntity, caster));

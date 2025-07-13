@@ -1,10 +1,9 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.attack;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Creeper;
@@ -37,7 +36,7 @@ public class ElectricSpellEffect extends SpellEffect {
 				return;
 
 			if(entity instanceof LivingEntity livingEntity) {
-				ArcanusComponents.setStunTimer(livingEntity, ArcanusConfig.AttackEffects.ElectricEffectProperties.baseStunTime * (int) (effects.stream().filter(ArcanusSpellComponents.ELECTRIC::is).count() * potency));
+				ArcanusComponents.setStunTimer(livingEntity, (int) (ArcanusConfig.AttackEffects.ElectricEffectProperties.baseStunTime * potency));
 
 				if(livingEntity instanceof Creeper creeper && !creeper.getEntityData().get(Creeper.DATA_IS_POWERED))
 					creeper.getEntityData().set(Creeper.DATA_IS_POWERED, true);

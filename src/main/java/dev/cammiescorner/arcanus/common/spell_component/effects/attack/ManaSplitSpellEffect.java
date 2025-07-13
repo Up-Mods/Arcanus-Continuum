@@ -1,11 +1,10 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.attack;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
+import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -39,7 +38,7 @@ public class ManaSplitSpellEffect extends SpellEffect {
 			if(entity instanceof LivingEntity livingEntity && caster != null) {
 				for(ManaType manaType : ManaType.values()) {
 					double splitMana = ArcanusComponents.getMana(caster, manaType) + ArcanusComponents.getMana(livingEntity, manaType);
-					double percent = 0.5 + (effects.stream().filter(ArcanusSpellComponents.MANA_SPLIT::is).count() / 11f) * 0.3 * potency;
+					double percent = 0.5 * potency;
 					double casterMana = splitMana * percent;
 
 					ArcanusComponents.setMana(caster, manaType, casterMana);

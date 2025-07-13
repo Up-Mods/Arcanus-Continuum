@@ -1,9 +1,8 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.utility;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
@@ -31,19 +30,17 @@ public class GrowthSpellEffect extends SpellEffect {
 
 	@Override
 	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, Level level, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
-		int growthCount = (int) (effects.stream().filter(ArcanusSpellComponents.GROWTH::is).count() * potency);
-
 		if(target.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof Animal animal && animal.isBaby())
-				animal.ageUp(AgeableMob.getSpeedUpSecondsWhenFeeding(-animal.getAge()) * growthCount, true);
+				animal.ageUp((int) (AgeableMob.getSpeedUpSecondsWhenFeeding(-animal.getAge()) * potency), true);
 		}
 		else if(target.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult blockHit = (BlockHitResult) target;
 			BlockPos pos = blockHit.getBlockPos().relative(blockHit.getDirection());
 
-			for(int i = 0; i < growthCount; i++) {
+			for(int i = 0; i < potency; i++) {
 				BoneMealItem.growCrop(ItemStack.EMPTY, level, pos);
 				BoneMealItem.growWaterPlant(ItemStack.EMPTY, level, pos, blockHit.getDirection());
 			}

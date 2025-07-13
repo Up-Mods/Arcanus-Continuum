@@ -1,10 +1,9 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.attack;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -37,7 +36,7 @@ public class StockpileSpellEffect extends SpellEffect {
 				return;
 
 			if(entity instanceof LivingEntity livingEntity)
-				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.STOCKPILE.holder(), ArcanusConfig.AttackEffects.StockpileEffectProperties.baseEffectDuration + ArcanusConfig.AttackEffects.StockpileEffectProperties.effectDurationModifier * (int) (effects.stream().filter(ArcanusSpellComponents.STOCKPILE::is).count() * potency), 0, true, false));
+				livingEntity.addEffect(new MobEffectInstance(ArcanusMobEffects.STOCKPILE.holder(), ArcanusConfig.AttackEffects.StockpileEffectProperties.baseEffectDuration + (int) (ArcanusConfig.AttackEffects.StockpileEffectProperties.effectDurationModifier * potency), 0, true, false));
 		}
 	}
 }

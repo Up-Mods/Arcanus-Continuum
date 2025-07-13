@@ -1,9 +1,8 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.support;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -32,7 +31,7 @@ public class RegenerateSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, ArcanusConfig.SupportEffects.RegenerateEffectProperties.baseEffectDuration, (int) ((effects.stream().filter(ArcanusSpellComponents.REGENERATE::is).count() - 1) * potency), true, false));
+				livingEntity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, ArcanusConfig.SupportEffects.RegenerateEffectProperties.baseEffectDuration, (int) Math.min(potency - 1, 0), true, false));
 		}
 	}
 }

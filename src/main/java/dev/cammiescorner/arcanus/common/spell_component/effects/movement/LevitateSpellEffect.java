@@ -1,9 +1,8 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.movement;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -32,7 +31,7 @@ public class LevitateSpellEffect extends SpellEffect {
 			EntityHitResult entityHit = (EntityHitResult) target;
 
 			if(entityHit.getEntity() instanceof LivingEntity livingEntity)
-				livingEntity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, ArcanusConfig.MovementEffects.LevitateEffectProperties.baseEffectDuration * (int) (effects.stream().filter(ArcanusSpellComponents.LEVITATE::is).count() * potency), 0, true, false));
+				livingEntity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, (int) (ArcanusConfig.MovementEffects.LevitateEffectProperties.baseEffectDuration * potency), 0, true, false));
 		}
 	}
 }

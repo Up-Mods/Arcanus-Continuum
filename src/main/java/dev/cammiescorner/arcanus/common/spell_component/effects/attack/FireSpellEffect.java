@@ -1,9 +1,8 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.attack;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
@@ -42,7 +41,7 @@ public class FireSpellEffect extends SpellEffect {
 				return;
 
 			if(entity instanceof LivingEntity livingEntity)
-				livingEntity.setRemainingFireTicks((int) (ArcanusConfig.AttackEffects.FireEffectProperties.baseTimeOnFire * effects.stream().filter(ArcanusSpellComponents.FIRE::is).count() * potency));
+				livingEntity.setRemainingFireTicks((int) (ArcanusConfig.AttackEffects.FireEffectProperties.baseTimeOnFire * potency));
 		}
 		else if(target.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult blockHit = (BlockHitResult) target;

@@ -1,9 +1,8 @@
 package dev.cammiescorner.arcanus.common.spell_component.effects.attack;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -40,7 +39,7 @@ public class IceSpellEffect extends SpellEffect {
 				return;
 
 			if(entity instanceof LivingEntity livingEntity)
-				livingEntity.setTicksFrozen(livingEntity.getTicksFrozen() + (int) (ArcanusConfig.AttackEffects.IceEffectProperties.baseFreezingTime * effects.stream().filter(ArcanusSpellComponents.ICE::is).count() * potency));
+				livingEntity.setTicksFrozen(livingEntity.getTicksFrozen() + (int) (ArcanusConfig.AttackEffects.IceEffectProperties.baseFreezingTime * potency));
 		}
 		else if(target.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult blockHit = (BlockHitResult) target;
