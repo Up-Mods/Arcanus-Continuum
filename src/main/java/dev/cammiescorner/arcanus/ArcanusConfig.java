@@ -691,16 +691,12 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
 			@ConfigEntry(id = "baseDamage", translation = CONFIG_BASE_DAMAGE)
 			@ConfigOption.Range(min = 0, max = 1000)
-			public static float baseDamage = 2f;
+			public static float baseDamage = 6f;
 		}
 
 		@Category("Fire")
@@ -729,10 +725,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
@@ -768,10 +760,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
@@ -812,10 +800,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
@@ -850,10 +834,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
@@ -890,10 +870,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
@@ -928,10 +904,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
@@ -968,10 +940,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
@@ -1007,10 +975,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 		}
@@ -1041,10 +1005,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
@@ -1089,10 +1049,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
@@ -1131,10 +1087,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
@@ -1191,10 +1143,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
@@ -1230,10 +1178,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 		}
@@ -1264,10 +1208,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
@@ -1304,10 +1244,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
@@ -1343,10 +1279,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
@@ -1381,10 +1313,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
@@ -1425,10 +1353,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
@@ -1467,10 +1391,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
@@ -1515,10 +1435,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
@@ -1553,10 +1469,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
@@ -1593,10 +1505,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 		}
@@ -1628,10 +1536,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 		}
@@ -1662,10 +1566,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
@@ -1706,10 +1606,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
@@ -1748,10 +1644,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
@@ -1805,10 +1697,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
@@ -1855,10 +1743,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
@@ -1893,10 +1777,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
@@ -1933,10 +1813,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
@@ -1971,10 +1847,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
@@ -2011,10 +1883,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
@@ -2049,10 +1917,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
@@ -2089,10 +1953,6 @@ public final class ArcanusConfig {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
 
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
-
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
@@ -2127,10 +1987,6 @@ public final class ArcanusConfig {
 			public static Map<ManaType, Double> manaCosts() {
 				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
 			}
-
-			@ConfigEntry(id = "coolDown", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int coolDown = 0;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;

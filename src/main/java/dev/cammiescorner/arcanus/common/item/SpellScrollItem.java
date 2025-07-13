@@ -49,10 +49,19 @@ public class SpellScrollItem extends Item {
 			Component.translatable(SPELL_BOOK_WEIGHT),
 			Component.translatable(spell.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
 		).withStyle(ChatFormatting.DARK_GREEN));
-		tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
-			Component.translatable(SPELL_BOOK_COOL_DOWN),
-			Component.literal(spell.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)
-		).withStyle(ChatFormatting.DARK_RED));
+
+		if(spell.getCoolDown() > 0) {
+			tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
+				Component.translatable(SPELL_BOOK_COOL_DOWN),
+				Component.literal(spell.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)
+			).withStyle(ChatFormatting.DARK_RED));
+		}
+		else {
+			tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
+				Component.translatable(SPELL_BOOK_COOL_DOWN),
+				Component.translatable(SPELL_BOOK_INSTANT_COOL_DOWN).withStyle(ChatFormatting.GRAY)
+			).withStyle(ChatFormatting.DARK_RED));
+		}
 
 		super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
 	}

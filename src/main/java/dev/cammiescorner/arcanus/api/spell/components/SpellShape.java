@@ -53,15 +53,15 @@ public abstract class SpellShape extends SpellComponent {
 	}
 
 	public String getPotencyModifierAsString() {
-		return (getPotencyModifier() < 0 ? "-" : "+") + Arcanus.format(getPotencyModifier() * 100) + "%";
+		return (getPotencyModifier() < 0 ? "" : "+") + Arcanus.format(getPotencyModifier() * 100) + "%";
 	}
 
 	public String getManaMultiplierAsString() {
-		return (getManaModifier() < 0 ? "-" : "+") + Arcanus.format(getManaModifier() * 100) + "%";
+		return (getManaModifier() < 0 ? "" : "+") + Arcanus.format(getManaModifier() * 100) + "%";
 	}
 
 	public String getCoolDownModifierAsString() {
-		return (getCoolDownModifier() < 0 ? "-" : "+") + Arcanus.format(getCoolDownModifier() * 100) + "%";
+		return "x" + Arcanus.format(getCoolDownModifier());
 	}
 
 	public abstract void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency);

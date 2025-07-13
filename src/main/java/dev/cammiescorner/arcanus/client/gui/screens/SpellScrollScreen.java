@@ -125,7 +125,7 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 
 		MutableComponent mana = Component.empty();
 		MutableComponent weight = Component.translatable(getWeight().translationKey()).withStyle(ChatFormatting.DARK_GREEN);
-		MutableComponent coolDown = Component.literal(Arcanus.format(getCoolDown() / 20d) + "s").withStyle(ChatFormatting.DARK_RED);
+		MutableComponent coolDown = (getCoolDown() > 0 ? Component.literal(Arcanus.format(getCoolDown() / 20d) + "s") : Component.translatable(SPELL_BOOK_INSTANT_COOL_DOWN)).withStyle(ChatFormatting.DARK_RED);
 
 		for(ManaType manaType : ManaType.values()) {
 			if(!mana.equals(Component.empty()))
