@@ -38,7 +38,7 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusItems.OPOSSUM_SPAWN_EGG.get());
 	}).build());
 
-	public static final RegistrySupplier<CreativeModeTab> GEAR = CREATIVE_TABS.register("arcanus_gear", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_GEAR)).icon(() -> new ItemStack(ArcanusItems.CRYSTAL_STAFF.get())).displayItems((params, entries) -> {
+	public static final RegistrySupplier<CreativeModeTab> GEAR = CREATIVE_TABS.register("arcanus_gear", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_GEAR)).icon(() -> new ItemStack(ArcanusItems.SPELL_BOOK.get())).displayItems((params, entries) -> {
 		UUID dummyId = UUID.fromString("6147825f-5493-4154-87c5-5c03c6b0a7c2");
 
 		// staves

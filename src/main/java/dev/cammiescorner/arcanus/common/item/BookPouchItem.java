@@ -16,7 +16,6 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-// TODO scroll wheel this shit babyyyy
 public class BookPouchItem extends Item {
 	public static final int SLOT_COUNT = 8;
 
