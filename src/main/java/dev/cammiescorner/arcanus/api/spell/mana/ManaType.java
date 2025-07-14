@@ -12,33 +12,39 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 
 public enum ManaType implements StringRepresentable {
-	RED(ArcanusAttributes.RED_MANA, ChatFormatting.RED, Color.fromRGB(184, 28, 14), "red_mana", TranslationKeys.SPELL_BOOK_RED_MANA),
-	GREEN(ArcanusAttributes.GREEN_MANA, ChatFormatting.GREEN, Color.fromRGB(54, 124, 38), "green_mana", TranslationKeys.SPELL_BOOK_GREEN_MANA),
-	BLUE(ArcanusAttributes.BLUE_MANA, ChatFormatting.BLUE, Color.fromRGB(6, 51, 141), "blue_mana", TranslationKeys.SPELL_BOOK_BLUE_MANA),
-	WHITE(ArcanusAttributes.WHITE_MANA, ChatFormatting.WHITE, Color.fromRGB(255, 251, 213), "white_mana", TranslationKeys.SPELL_BOOK_WHITE_MANA),
-	BLACK(ArcanusAttributes.BLACK_MANA, ChatFormatting.DARK_GRAY, Color.fromRGB(41, 29, 42), "black_mana", TranslationKeys.SPELL_BOOK_BLACK_MANA);
+	RED(ArcanusAttributes.RED_MANA, ArcanusAttributes.RED_MANA_REGEN, ChatFormatting.RED, Color.fromRGB(184, 28, 14), "red_mana", TranslationKeys.SPELL_BOOK_RED_MANA),
+	GREEN(ArcanusAttributes.GREEN_MANA, ArcanusAttributes.GREEN_MANA_REGEN, ChatFormatting.GREEN, Color.fromRGB(54, 124, 38), "green_mana", TranslationKeys.SPELL_BOOK_GREEN_MANA),
+	BLUE(ArcanusAttributes.BLUE_MANA, ArcanusAttributes.BLUE_MANA_REGEN, ChatFormatting.BLUE, Color.fromRGB(6, 51, 141), "blue_mana", TranslationKeys.SPELL_BOOK_BLUE_MANA),
+	WHITE(ArcanusAttributes.WHITE_MANA, ArcanusAttributes.WHITE_MANA_REGEN, ChatFormatting.WHITE, Color.fromRGB(255, 251, 213), "white_mana", TranslationKeys.SPELL_BOOK_WHITE_MANA),
+	BLACK(ArcanusAttributes.BLACK_MANA, ArcanusAttributes.BLACK_MANA_REGEN, ChatFormatting.DARK_GRAY, Color.fromRGB(41, 29, 42), "black_mana", TranslationKeys.SPELL_BOOK_BLACK_MANA);
 
 	public static final Codec<ManaType> CODEC = StringRepresentable.fromEnum(ManaType::values);
-	final Holder<Attribute> attribute;
+	final Holder<Attribute> manaAttribute;
+	final Holder<Attribute> regenAttribute;
 	final ChatFormatting formatting;
 	final Color color;
 	final String serializedName;
 	final String translationKey;
 
-	ManaType(RegistrySupplier<Attribute> attributeSupplier, ChatFormatting formatting, Color color, String name, String translationKey) {
-		this(attributeSupplier.holder(), formatting, color, name, translationKey);
+	ManaType(RegistrySupplier<Attribute> attributeSupplier, RegistrySupplier<Attribute> regenAttributeSupplier, ChatFormatting formatting, Color color, String name, String translationKey) {
+		this(attributeSupplier.holder(), regenAttributeSupplier.holder(), formatting, color, name, translationKey);
 	}
 
-	ManaType(Holder<Attribute> attribute, ChatFormatting formatting, Color color, String name, String translationKey) {
-		this.attribute = attribute;
+	ManaType(Holder<Attribute> manaAttribute, Holder<Attribute> regenAttribute, ChatFormatting formatting, Color color, String name, String translationKey) {
+		this.manaAttribute = manaAttribute;
+		this.regenAttribute = regenAttribute;
 		this.formatting = formatting;
 		this.color = color;
 		this.serializedName = name;
 		this.translationKey = translationKey;
 	}
 
-	public Holder<Attribute> getAttribute() {
-		return attribute;
+	public Holder<Attribute> getManaAttribute() {
+		return manaAttribute;
+	}
+
+	public Holder<Attribute> getRegenAttribute() {
+		return regenAttribute;
 	}
 
 	public ChatFormatting getChatFormatting() {
@@ -54,7 +60,7 @@ public enum ManaType implements StringRepresentable {
 	}
 
 	public double getMaxMana(LivingEntity entity) {
-		return entity.getAttributeValue(attribute);
+		return entity.getAttributeValue(manaAttribute);
 	}
 
 	@Override

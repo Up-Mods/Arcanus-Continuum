@@ -169,7 +169,7 @@ public class Arcanus implements MainEntryPoint {
 			AttributeMap attributeMap = entity.getAttributes();
 
 			for(ManaType manaType : ManaType.values()) {
-				AttributeInstance attributeInstance = attributeMap.getInstance(manaType.getAttribute());
+				AttributeInstance attributeInstance = attributeMap.getInstance(manaType.getManaAttribute());
 
 				if(attributeInstance != null && attributeInstance.hasModifier(CultRobesItem.FULL_SET_BONUS))
 					attributeInstance.removeModifier(CultRobesItem.FULL_SET_BONUS);

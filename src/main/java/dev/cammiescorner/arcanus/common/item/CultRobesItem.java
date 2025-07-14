@@ -46,7 +46,7 @@ public class CultRobesItem extends ArmorItem {
 			if(knockbackResist > 0f)
 				builder.add(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(resourceLocation, knockbackResist, AttributeModifier.Operation.ADD_VALUE), equipmentSlotGroup);
 
-			builder.add(manaType.getAttribute(), new AttributeModifier(resourceLocation, 10, AttributeModifier.Operation.ADD_VALUE), equipmentSlotGroup);
+			builder.add(manaType.getManaAttribute(), new AttributeModifier(resourceLocation, 10, AttributeModifier.Operation.ADD_VALUE), equipmentSlotGroup);
 
 			return builder.build();
 		});
@@ -63,7 +63,7 @@ public class CultRobesItem extends ArmorItem {
 	}
 
 	public Holder<Attribute> getAttribute() {
-		return manaType.getAttribute();
+		return manaType.getManaAttribute();
 	}
 
 	public ManaType getManaType() {

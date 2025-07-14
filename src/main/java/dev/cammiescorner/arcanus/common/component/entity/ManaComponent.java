@@ -29,8 +29,8 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 		for(ManaType manaType : ManaType.values()) {
 			if(entity instanceof Player player && player.isCreative() && getMana(manaType) < manaType.getMaxMana(entity))
 				addMana(manaType, 1, false);
-			else if(getMana(manaType) < manaType.getMaxMana(entity))
-				addMana(manaType, entity.getAttributeValue(manaType.getAttribute()) / 20, false);
+			else if(getMana(manaType) < manaType.getMaxMana(entity) && entity.getAttributeValue(manaType.getRegenAttribute()) > 0)
+				addMana(manaType, entity.getAttributeValue(manaType.getRegenAttribute()) / 20, false);
 
 			if(getMana(manaType) > manaType.getMaxMana(entity))
 				setMana(manaType, manaType.getMaxMana(entity));
