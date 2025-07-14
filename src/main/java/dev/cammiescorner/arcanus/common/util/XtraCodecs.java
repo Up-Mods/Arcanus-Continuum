@@ -3,8 +3,10 @@ package dev.cammiescorner.arcanus.common.util;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.level.block.WeatheringCopper;
@@ -17,6 +19,12 @@ public class XtraCodecs {
 		Codec.INT.fieldOf("X").forGetter(Vector2i::x),
 		Codec.INT.fieldOf("Y").forGetter(Vector2i::y)
 	).apply(instance, Vector2i::new));
+
+	public static final StreamCodec<ByteBuf, Vector2i> VEC2I_STREAM_CODEC = StreamCodec.composite(
+		ByteBufCodecs.VAR_INT, Vector2i::x,
+		ByteBufCodecs.VAR_INT, Vector2i::y,
+		Vector2i::new
+	);
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, WeatheringCopper.WeatherState> WEATHER_STATE_STREAM_CODEC = StreamCodec.of(FriendlyByteBuf::writeEnum, buffer -> buffer.readEnum(WeatheringCopper.WeatherState.class));
 

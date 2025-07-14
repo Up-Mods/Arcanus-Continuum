@@ -6,7 +6,6 @@
   "compatibilityLevel": "JAVA_${java_version}",
   "mixins": [
     "common.AbstractArrowMixin",
-    "common.ArmorStandMixin",
     "common.BlockStateBaseMixin",
     "common.EnderDragonPartMixin",
     "common.EntityGetterMixin",

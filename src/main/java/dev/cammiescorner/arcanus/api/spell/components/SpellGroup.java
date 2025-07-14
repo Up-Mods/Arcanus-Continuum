@@ -10,6 +10,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Vector2i;
 
@@ -17,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vector2i> positions) {
@@ -25,6 +29,12 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 		Codec.list(SpellEffect.CODEC).optionalFieldOf("Effects", List.of()).forGetter(SpellGroup::effects),
 		Codec.list(XtraCodecs.VEC2I_CODEC).optionalFieldOf("Positions", List.of()).forGetter(SpellGroup::positions)
 	).apply(instance, SpellGroup::new));
+	public static final StreamCodec<RegistryFriendlyByteBuf, SpellGroup> STREAM_CODEC = StreamCodec.composite(
+		SpellComponent.STREAM_CODEC.map(spellComponent -> (SpellShape) spellComponent, Function.identity()), SpellGroup::shape,
+		SpellComponent.STREAM_CODEC.map(spellComponent -> (SpellEffect) spellComponent, Function.identity()).apply(ByteBufCodecs.list()), SpellGroup::effects,
+		XtraCodecs.VEC2I_STREAM_CODEC.apply(ByteBufCodecs.list()), SpellGroup::positions,
+		SpellGroup::new
+	);
 
 	public static SpellGroup fromNbt(CompoundTag tag) {
 		SpellShape shape = (SpellShape) ArcanusSpellComponents.REGISTRY.get(ResourceLocation.parse(tag.getString("Shape")));

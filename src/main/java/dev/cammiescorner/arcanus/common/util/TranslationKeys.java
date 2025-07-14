@@ -7,11 +7,6 @@ public class TranslationKeys {
 	public static final String SPELL_BOOK_SLOT = "trinkets.slot.legs.spell_book";
 	public static final String BRACELET_HAND_SLOT = "trinkets.slot.hand.bracelet";
 	public static final String BRACELET_OFFHAND_SLOT = "trinkets.slot.offhand.bracelet";
-	public static final String BATTLE_MAGE_UPGRADE = "upgrade.arcanus.battle_mage_upgrade";
-	public static final String BATTLE_MAGE_UPGRADE_APPLIES_TO = "stack.arcanus.smithing_template.battle_mage_upgrade.applies_to";
-	public static final String BATTLE_MAGE_UPGRADE_INGREDIENTS = "stack.arcanus.smithing_template.battle_mage_upgrade.ingredients";
-	public static final String BATTLE_MAGE_UPGRADE_BASE_SLOT_DESC = "stack.arcanus.smithing_template.battle_mage_upgrade.base_slot_description";
-	public static final String BATTLE_MAGE_UPGRADE_ADDITIONS_SLOT_DESC = "stack.arcanus.smithing_template.battle_mage_upgrade.additions_slot_description";
 	public static final String BLOCK_IS_WARDED = "text.arcanus.block_is_warded";
 	public static final String CANT_WARD_IN_DIM = "text.arcanus.cannot_ward_in_dimension";
 	public static final String CANT_WARD_BLOCK = "text.arcanus.cannot_ward_block";
@@ -23,6 +18,7 @@ public class TranslationKeys {
 	public static final String USE_SCROLL_DISABLED_COMPONENT = "text.arcanus.use_item.scroll_of_knowledge.disabled_spell_component";
 	public static final String WIZARD_NO_WIZARD_ARMOR = "text.arcanus.wizard_dialogue.no_wizard_armor";
 	public static final String WIZARD_ARMOR_HINT = "tooltip.arcanus.wizard_dialogue.no_wizard_armor";
+	public static final String SET_BONUS = "tooltip.arcanus.set_bonus";
 	public static final String MAGIC_DOOR_ACCESS_GRANTED = "door.arcanus.access_granted";
 	public static final String MAGIC_DOOR_NOT_OWNER = "door.arcanus.not_owner";
 	public static final String MAGIC_DOOR_SAY_MAGIC_WORD = "door.arcanus.say_magic_word";

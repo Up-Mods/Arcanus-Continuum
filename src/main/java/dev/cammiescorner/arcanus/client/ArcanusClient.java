@@ -10,7 +10,6 @@ import dev.cammiescorner.arcanus.client.gui.overlay.FirstPersonCastingOverlay;
 import dev.cammiescorner.arcanus.client.gui.overlay.ManaBarOverlay;
 import dev.cammiescorner.arcanus.client.gui.overlay.StunOverlay;
 import dev.cammiescorner.arcanus.client.gui.screens.*;
-import dev.cammiescorner.arcanus.client.model.armor.BattleMageArmorModel;
 import dev.cammiescorner.arcanus.client.model.armor.CultRobesModel;
 import dev.cammiescorner.arcanus.client.model.armor.WizardRobesModel;
 import dev.cammiescorner.arcanus.client.model.block.SpellScrollModel;
@@ -97,7 +96,6 @@ public class ArcanusClient implements ClientEntryPoint {
 
 		EntityModelLayerRegistry.registerModelLayer(WizardRobesModel.MODEL_LAYER, WizardRobesModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(CultRobesModel.MODEL_LAYER, CultRobesModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(BattleMageArmorModel.MODEL_LAYER, BattleMageArmorModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(WizardModel.MODEL_LAYER, WizardModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(OpossumModel.MODEL_LAYER, OpossumModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(MagicLobModel.MODEL_LAYER, MagicLobModel::getTexturedModelData);

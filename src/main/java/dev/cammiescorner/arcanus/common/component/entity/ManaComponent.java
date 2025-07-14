@@ -21,7 +21,7 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 	public ManaComponent(LivingEntity entity) {
 		this.entity = entity;
 
-		Arrays.fill(mana, 25.0D);
+		Arrays.fill(mana, 25d);
 	}
 
 	@Override
@@ -29,6 +29,8 @@ public class ManaComponent implements AutoSyncedComponent, ServerTickingComponen
 		for(ManaType manaType : ManaType.values()) {
 			if(entity instanceof Player player && player.isCreative() && getMana(manaType) < manaType.getMaxMana(entity))
 				addMana(manaType, 1, false);
+			else if(getMana(manaType) < manaType.getMaxMana(entity))
+				addMana(manaType, entity.getAttributeValue(manaType.getAttribute()) / 20, false);
 
 			if(getMana(manaType) > manaType.getMaxMana(entity))
 				setMana(manaType, manaType.getMaxMana(entity));

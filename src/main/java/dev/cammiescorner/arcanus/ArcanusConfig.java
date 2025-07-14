@@ -229,10 +229,10 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
-			public static double coolDownModifier = 1;
+			public static double coolDownModifier = 0.5;
 
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
-			public static double potencyModifier = 0;
+			public static double potencyModifier = -0.3;
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
@@ -679,7 +679,7 @@ public final class ArcanusConfig {
 			public static Weight weight = Weight.NONE;
 
 			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			public static double redManaCost = 3;
 
 			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
 			public static double greenManaCost = 0;

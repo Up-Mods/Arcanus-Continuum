@@ -11,69 +11,43 @@ import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-
-// TODO implement mana reduction & potency increases directly on the individual spell
 public class Spell {
 	public static final Codec<Spell> CODEC = RecordCodecBuilder.create(spellInstance -> spellInstance.group(
 		Codec.list(SpellGroup.CODEC).optionalFieldOf("ComponentGroups", List.of(new SpellGroup(SpellShape.empty(), List.of(), List.of()))).forGetter(Spell::getComponentGroups),
-		Codec.STRING.optionalFieldOf("Name", "Blank").forGetter(Spell::getName)
+		Codec.STRING.optionalFieldOf("Name", "Blank").forGetter(Spell::getName),
+		SpellAspects.CODEC.optionalFieldOf("Aspects", new SpellAspects(1, 1, 1)).forGetter(Spell::getAspects)
 	).apply(spellInstance, Spell::new));
-	public static final StreamCodec<RegistryFriendlyByteBuf, Spell> STREAM_CODEC = StreamCodec.of((buffer, spell) -> buffer.writeNbt(spell.toNbt()), buffer -> buffer.readNbt() instanceof CompoundTag tag ? Spell.fromNbt(tag) : new Spell());
+	public static final StreamCodec<RegistryFriendlyByteBuf, Spell> STREAM_CODEC = StreamCodec.composite(
+		SpellGroup.STREAM_CODEC.apply(ByteBufCodecs.list()), Spell::getComponentGroups,
+		ByteBufCodecs.STRING_UTF8, Spell::getName,
+		SpellAspects.STREAM_CODEC, Spell::getAspects,
+		Spell::new
+	);
 	private final List<SpellGroup> groups;
 	private final String name;
+	private final SpellAspects aspects;
 
-	public Spell(List<SpellGroup> groups, String name) {
+	public Spell(List<SpellGroup> groups, String name, SpellAspects aspects) {
 		this.groups = groups;
 		this.name = name;
+		this.aspects = aspects;
 	}
 
 	public Spell() {
-		this(List.of(new SpellGroup(SpellShape.empty(), List.of(), List.of())), "Blank");
-	}
-
-	public static Spell fromNbt(CompoundTag nbt) {
-		List<SpellGroup> groups = new ArrayList<>();
-		ListTag nbtList = nbt.getList("ComponentGroups", Tag.TAG_COMPOUND);
-
-		for(int i = 0; i < nbtList.size(); i++) {
-			SpellGroup group = SpellGroup.fromNbt(nbtList.getCompound(i));
-
-			if(group.isEmpty())
-				return new Spell();
-
-			groups.add(group);
-		}
-
-		return new Spell(groups, nbt.getString("Name"));
-	}
-
-	public CompoundTag toNbt() {
-		CompoundTag nbt = new CompoundTag();
-		ListTag nbtList = new ListTag();
-
-		for(SpellGroup group : groups)
-			nbtList.add(group.toNbt());
-
-		nbt.put("ComponentGroups", nbtList);
-		nbt.putString("Name", name != null ? name : "Empty");
-
-		return nbt;
+		this(List.of(new SpellGroup(SpellShape.empty(), List.of(), List.of())), "Blank", new SpellAspects(1, 1, 1));
 	}
 
 	public List<SpellGroup> getComponentGroups() {
@@ -82,6 +56,10 @@ public class Spell {
 
 	public String getName() {
 		return name;
+	}
+
+	public SpellAspects getAspects() {
+		return aspects;
 	}
 
 	public boolean isEmpty() {

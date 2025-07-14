@@ -566,7 +566,8 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		if(SPELL_GROUPS.get(0).isEmpty() && SPELL_GROUPS.size() > 1 && !SPELL_GROUPS.get(1).isEmpty())
 			SPELL_GROUPS.removeFirst();
 
-		return new Spell(SPELL_GROUPS, textBox.getValue().isBlank() ? "Empty" : textBox.getValue());
+		// TODO store aspects from original spell
+		return new Spell(SPELL_GROUPS, textBox.getValue().isBlank() ? "Empty" : textBox.getValue(), new SpellAspects(1, 1, 1));
 	}
 
 	public Weight getWeight() {
