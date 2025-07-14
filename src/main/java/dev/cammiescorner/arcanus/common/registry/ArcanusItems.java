@@ -59,6 +59,7 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> SPELL_SCROLL = ITEMS.register("spell_scroll", SpellScrollItem::new);
 	public static final RegistrySupplier<Item> SCROLL_OF_KNOWLEDGE = ITEMS.register("scroll_of_knowledge", ScrollOfKnowledgeItem::new);
 	public static final RegistrySupplier<Item> WIZARD_SPAWN_EGG = ITEMS.register("wizard_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.WIZARD.get(), 0x52392a, 0xffd87c, new Item.Properties()));
+	public static final RegistrySupplier<Item> CULTIST_SPAWN_EGG = ITEMS.register("cultist_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.CULTIST.get(), 0x52392a, 0xffd87c, new Item.Properties())); // TODO colors
 	public static final RegistrySupplier<Item> OPOSSUM_SPAWN_EGG = ITEMS.register("opossum_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.OPOSSUM.get(), 0x131317, 0xbdbdbd, new Item.Properties()));
 
 	public static final List<Supplier<Item>> HOOD_ITEMS = List.of(
