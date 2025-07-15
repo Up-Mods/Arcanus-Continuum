@@ -22,6 +22,7 @@ import dev.cammiescorner.arcanus.client.particle.CollapseParticle;
 import dev.cammiescorner.arcanus.client.renderer.armor.CultRobesRenderer;
 import dev.cammiescorner.arcanus.client.renderer.armor.WizardRobesRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.*;
+import dev.cammiescorner.arcanus.client.renderer.entity.living.CultistRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.living.OpossumRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.living.WizardRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.magic.*;
@@ -113,6 +114,7 @@ public class ArcanusClient implements ClientEntryPoint {
 
 		RegisterEntityRenderersEvent.EVENT.register(event -> {
 			event.registerRenderer(ArcanusEntities.WIZARD, WizardRenderer::new);
+			event.registerRenderer(ArcanusEntities.CULTIST, CultistRenderer::new);
 			event.registerRenderer(ArcanusEntities.OPOSSUM, OpossumRenderer::new);
 			event.registerRenderer(ArcanusEntities.NECRO_SKELETON, SkeletonRenderer::new);
 			event.registerRenderer(ArcanusEntities.MANA_SHIELD, ManaShieldRenderer::new);

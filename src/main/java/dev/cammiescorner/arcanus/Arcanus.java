@@ -8,6 +8,7 @@ import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
 import dev.cammiescorner.arcanus.common.block.MagicDoorBlock;
 import dev.cammiescorner.arcanus.common.block.entities.MagicDoorBlockEntity;
+import dev.cammiescorner.arcanus.common.entity.living.Cultist;
 import dev.cammiescorner.arcanus.common.entity.living.NecroSkeleton;
 import dev.cammiescorner.arcanus.common.entity.living.Opossum;
 import dev.cammiescorner.arcanus.common.entity.living.Wizard;
@@ -111,6 +112,7 @@ public class Arcanus implements MainEntryPoint {
 		ArcanusCriteriaTriggers.CRITERIA_TRIGGERS.accept(registryService);
 
 		FabricDefaultAttributeRegistry.register(ArcanusEntities.WIZARD.get(), Wizard.createMobAttributes());
+		FabricDefaultAttributeRegistry.register(ArcanusEntities.CULTIST.get(), Cultist.createMobAttributes());
 		FabricDefaultAttributeRegistry.register(ArcanusEntities.OPOSSUM.get(), Opossum.createMobAttributes());
 		FabricDefaultAttributeRegistry.register(ArcanusEntities.NECRO_SKELETON.get(), NecroSkeleton.createAttributes());
 
@@ -179,7 +181,7 @@ public class Arcanus implements MainEntryPoint {
 				AttributeInstance attributeInstance = attributeMap.getInstance(item.getAttribute());
 
 				if(attributeInstance != null && CultRobesItem.isWearingFullSet(entity))
-						attributeInstance.addTransientModifier(new AttributeModifier(CultRobesItem.FULL_SET_BONUS, 40, AttributeModifier.Operation.ADD_VALUE));
+					attributeInstance.addTransientModifier(new AttributeModifier(CultRobesItem.FULL_SET_BONUS, 40, AttributeModifier.Operation.ADD_VALUE));
 			}
 		});
 
