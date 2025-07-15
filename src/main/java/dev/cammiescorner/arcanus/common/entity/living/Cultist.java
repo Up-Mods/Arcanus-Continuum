@@ -6,7 +6,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 
-// TODO make two child classes, one mage the other soldier
 public class Cultist extends Mob {
 	public Cultist(EntityType<? extends Mob> entityType, Level level) {
 		super(entityType, level);

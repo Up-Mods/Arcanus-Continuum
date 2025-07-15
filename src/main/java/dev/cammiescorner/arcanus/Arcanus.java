@@ -112,7 +112,8 @@ public class Arcanus implements MainEntryPoint {
 		ArcanusCriteriaTriggers.CRITERIA_TRIGGERS.accept(registryService);
 
 		FabricDefaultAttributeRegistry.register(ArcanusEntities.WIZARD.get(), Wizard.createMobAttributes());
-		FabricDefaultAttributeRegistry.register(ArcanusEntities.CULTIST.get(), Cultist.createMobAttributes());
+		FabricDefaultAttributeRegistry.register(ArcanusEntities.CULTIST_CLERIC.get(), Cultist.createMobAttributes());
+		FabricDefaultAttributeRegistry.register(ArcanusEntities.CULTIST_KNIGHT.get(), Cultist.createMobAttributes());
 		FabricDefaultAttributeRegistry.register(ArcanusEntities.OPOSSUM.get(), Opossum.createMobAttributes());
 		FabricDefaultAttributeRegistry.register(ArcanusEntities.NECRO_SKELETON.get(), NecroSkeleton.createAttributes());
 

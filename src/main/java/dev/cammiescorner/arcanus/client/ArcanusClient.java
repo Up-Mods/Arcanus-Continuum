@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanus.client;
 
 import com.google.auto.service.AutoService;
+import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -30,6 +31,7 @@ import dev.cammiescorner.arcanus.client.renderer.item.StaffItemRenderer;
 import dev.cammiescorner.arcanus.client.renderer.world.WardedBlockRenderer;
 import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.common.compat.FirstPersonCompat;
+import dev.cammiescorner.arcanus.common.entity.living.Cultist;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
@@ -55,8 +57,11 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
@@ -67,6 +72,7 @@ import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
+import java.util.Map;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
@@ -79,6 +85,12 @@ public class ArcanusClient implements ClientEntryPoint {
 	private static final ResourceLocation BLUE_CULT_ROBES = Arcanus.id("textures/entity/armor/blue_cult_robes.png");
 	private static final ResourceLocation WHITE_CULT_ROBES = Arcanus.id("textures/entity/armor/white_cult_robes.png");
 	private static final ResourceLocation BLACK_CULT_ROBES = Arcanus.id("textures/entity/armor/black_cult_robes.png");
+	private static final Map<PlayerSkin.Model, EntityRendererProvider<Cultist>> CULTIST_PROVIDERS = Map.of(
+		PlayerSkin.Model.WIDE,
+		context -> new CultistRenderer<>(context, false),
+		PlayerSkin.Model.SLIM,
+		context -> new CultistRenderer<>(context, true)
+	);
 	public static BooleanSupplier FIRST_PERSON_MODEL_ENABLED = () -> false;
 	public static BooleanSupplier FIRST_PERSON_SHOW_HANDS = () -> true;
 	public static boolean castingSpeedHasCoolDown;
@@ -114,7 +126,8 @@ public class ArcanusClient implements ClientEntryPoint {
 
 		RegisterEntityRenderersEvent.EVENT.register(event -> {
 			event.registerRenderer(ArcanusEntities.WIZARD, WizardRenderer::new);
-			event.registerRenderer(ArcanusEntities.CULTIST, CultistRenderer::new);
+			event.registerRenderer(ArcanusEntities.CULTIST_CLERIC, context -> new CultistRenderer<>(context, false));
+			event.registerRenderer(ArcanusEntities.CULTIST_KNIGHT, context -> new CultistRenderer<>(context, false));
 			event.registerRenderer(ArcanusEntities.OPOSSUM, OpossumRenderer::new);
 			event.registerRenderer(ArcanusEntities.NECRO_SKELETON, SkeletonRenderer::new);
 			event.registerRenderer(ArcanusEntities.MANA_SHIELD, ManaShieldRenderer::new);
@@ -139,8 +152,6 @@ public class ArcanusClient implements ClientEntryPoint {
 			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, WHITE_CULT_ROBES), ArcanusItems.WHITE_CULT_HOOD, ArcanusItems.WHITE_CULT_ROBES, ArcanusItems.WHITE_CULT_PANTS, ArcanusItems.WHITE_CULT_BOOTS);
 			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, BLACK_CULT_ROBES), ArcanusItems.BLACK_CULT_HOOD, ArcanusItems.BLACK_CULT_ROBES, ArcanusItems.BLACK_CULT_PANTS, ArcanusItems.BLACK_CULT_BOOTS);
 		});
-
-//		ArmorRenderer.register(new BattleMageArmorRenderer(), ArcanusItems.BATTLE_MAGE_HELMET.get(), ArcanusItems.BATTLE_MAGE_CHESTPLATE.get(), ArcanusItems.BATTLE_MAGE_LEGGINGS.get(), ArcanusItems.BATTLE_MAGE_BOOTS.get());
 
 		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE.get(), CollapseParticle.Factory::new);
 
@@ -180,11 +191,6 @@ public class ArcanusClient implements ClientEntryPoint {
 			ArcanusItems.SPELL_BOOK.get()
 		);
 
-//		ItemProperties.register(ArcanusItems.BATTLE_MAGE_HELMET.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
-//		ItemProperties.register(ArcanusItems.BATTLE_MAGE_CHESTPLATE.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
-//		ItemProperties.register(ArcanusItems.BATTLE_MAGE_LEGGINGS.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
-//		ItemProperties.register(ArcanusItems.BATTLE_MAGE_BOOTS.get(), Arcanus.id("oxidation"), (stack, world, entity, seed) -> BattleMageArmorItem.getOxidation(stack).ordinal() / 10f);
-
 		RegisterItemPropertiesEvent.EVENT.register(event -> {
 			for(Supplier<Item> itemSupplier : ArcanusItems.HOOD_ITEMS)
 				event.register(itemSupplier, Arcanus.id("hood_down"), (stack, level, entity, seed) -> stack.getOrDefault(ArcanusDataComponents.HOOD_DOWN.get(), false) ? 1f : 0f);
@@ -222,6 +228,18 @@ public class ArcanusClient implements ClientEntryPoint {
 				ManaBarOverlay.render(gui, tickDelta, client.player);
 			}
 		});
+	}
+
+	public static Map<PlayerSkin.Model, EntityRenderer<? extends Cultist>> createCultistRenderers(EntityRendererProvider.Context context) {
+		ImmutableMap.Builder<PlayerSkin.Model, EntityRenderer<? extends Cultist>> builder = ImmutableMap.builder();
+		CULTIST_PROVIDERS.forEach((model, entityRendererProvider) -> {
+			try {
+				builder.put(model, entityRendererProvider.create(context));
+			} catch (Exception var5) {
+				throw new IllegalArgumentException("Failed to create cultist model for " + model, var5);
+			}
+		});
+		return builder.build();
 	}
 
 	public static void renderBolts(LivingEntity entity, Vec3 startPos, PoseStack matrices, MultiBufferSource vertices) {

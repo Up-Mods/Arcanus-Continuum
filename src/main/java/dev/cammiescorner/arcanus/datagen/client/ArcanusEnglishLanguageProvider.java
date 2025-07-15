@@ -108,6 +108,8 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.entity(ArcanusEntities.TEMPORAL_DILATION_FIELD, "Temporal Dilation Field");
 		builder.entity(ArcanusEntities.SMITE, "Smite");
 		builder.entity(ArcanusEntities.WIZARD, "Wizard");
+		builder.entity(ArcanusEntities.CULTIST_CLERIC, "Cultist Cleric");
+		builder.entity(ArcanusEntities.CULTIST_KNIGHT, "Cultist Knight");
 
 		builder.add(ArcanusMobEffects.ANONYMITY.get().getDescriptionId(), "Anonymity");
 		builder.add(ArcanusMobEffects.BOUNCY.get().getDescriptionId(), "Bouncy");

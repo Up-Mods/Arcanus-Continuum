@@ -1,10 +1,7 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.entity.living.Cultist;
-import dev.cammiescorner.arcanus.common.entity.living.NecroSkeleton;
-import dev.cammiescorner.arcanus.common.entity.living.Opossum;
-import dev.cammiescorner.arcanus.common.entity.living.Wizard;
+import dev.cammiescorner.arcanus.common.entity.living.*;
 import dev.cammiescorner.arcanus.common.entity.magic.*;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
@@ -16,7 +13,8 @@ public class ArcanusEntities {
 	public static final RegistryHandler<EntityType<?>> ENTITY_TYPES = RegistryHandler.create(Registries.ENTITY_TYPE, Arcanus.MOD_ID);
 
 	public static final RegistrySupplier<EntityType<Wizard>> WIZARD = ENTITY_TYPES.register("wizard", () -> EntityType.Builder.of(Wizard::new, MobCategory.MISC).sized(0.7f, 1.8f).build());
-	public static final RegistrySupplier<EntityType<Cultist>> CULTIST = ENTITY_TYPES.register("cultist", () -> EntityType.Builder.of(Cultist::new, MobCategory.MONSTER).sized(0.6f, 1.8f).build());
+	public static final RegistrySupplier<EntityType<CultistCleric>> CULTIST_CLERIC = ENTITY_TYPES.register("cultist_cleric", () -> EntityType.Builder.of(CultistCleric::new, MobCategory.MONSTER).sized(0.6f, 1.8f).build());
+	public static final RegistrySupplier<EntityType<CultistKnight>> CULTIST_KNIGHT = ENTITY_TYPES.register("cultist_knight", () -> EntityType.Builder.of(CultistKnight::new, MobCategory.MONSTER).sized(0.6f, 1.8f).build());
 	public static final RegistrySupplier<EntityType<Opossum>> OPOSSUM = ENTITY_TYPES.register("opossum", () -> EntityType.Builder.of(Opossum::new, MobCategory.CREATURE).sized(0.6f, 0.7f).build());
 	public static final RegistrySupplier<EntityType<NecroSkeleton>> NECRO_SKELETON = ENTITY_TYPES.register("necro_skeleton", () -> EntityType.Builder.of(NecroSkeleton::new, MobCategory.MONSTER).noSummon().sized(0.6f, 1.8f).build());
 	public static final RegistrySupplier<EntityType<ManaShield>> MANA_SHIELD = ENTITY_TYPES.register("mana_shield", () -> EntityType.Builder.of(ManaShield::new, MobCategory.MISC).fireImmune().noSummon().sized(4f, 4f).build());

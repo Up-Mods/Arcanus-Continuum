@@ -267,6 +267,8 @@
   "entity.arcanus.aggressorb": "Aggressorb",
   "entity.arcanus.area_of_effect": "Area Of Effect",
   "entity.arcanus.beam": "Beam",
+  "entity.arcanus.cultist_cleric": "Cultist Cleric",
+  "entity.arcanus.cultist_knight": "Cultist Knight",
   "entity.arcanus.following_orb": "Following Orb",
   "entity.arcanus.guided_shot": "Guided Shot",
   "entity.arcanus.lob": "Lob",

@@ -38,7 +38,7 @@ public class BoltSpellShape extends SpellShape {
 		double range = ArcanusConfig.SpellShapes.BoltShapeProperties.range;
 
 		if(sourceEntity instanceof LivingEntity livingEntity) {
-			HitResult target = ArcanusHelper.raycast(sourceEntity, range, false, true);
+			HitResult target = ArcanusHelper.raycast(sourceEntity, range, true, false);
 			List<Entity> entityTargets = level.getEntities(sourceEntity, new AABB(target.getLocation(), target.getLocation()).inflate(2));
 
 			ArcanusComponents.setBoltPos(livingEntity, target.getLocation());
