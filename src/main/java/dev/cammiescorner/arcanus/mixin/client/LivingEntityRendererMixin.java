@@ -33,6 +33,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extends EntityModel<T>> extends EntityRenderer<T> implements RenderLayerParent<T, M> {
 	@Shadow protected abstract boolean addLayer(RenderLayer<T, M> feature);
 
+	@Shadow
+	protected abstract float getBob(T livingBase, float partialTick);
+
 	protected LivingEntityRendererMixin(EntityRendererProvider.Context context) {
 		super(context);
 	}
