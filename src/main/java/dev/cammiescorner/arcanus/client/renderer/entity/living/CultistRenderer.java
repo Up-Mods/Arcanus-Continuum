@@ -34,8 +34,6 @@ public class CultistRenderer<T extends Cultist> extends HumanoidMobRenderer<T, P
 
 	@Override
 	public ResourceLocation getTextureLocation(T entity) {
-		System.out.println(entity.getId());
-		System.out.println(entity.getSkin().model());
 		return entity.getSkin().texture();
 	}
 }
