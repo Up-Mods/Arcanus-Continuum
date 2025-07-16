@@ -25,18 +25,18 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
 public class WizardRobesRenderer extends CustomHumanoidModelArmorRenderer<LivingEntity, HumanoidModel<LivingEntity>, WizardRobesModel<LivingEntity>> {
-	private final Minecraft client = Minecraft.getInstance();
 	private final ResourceLocation mainTexture = Arcanus.id("textures/entity/armor/wizard_robes.png");
 	private final ResourceLocation overlayTexture = Arcanus.id("textures/entity/armor/wizard_robes_overlay.png");
 	private final WizardRobesModel<LivingEntity> model;
-	private boolean slim = false;
 
 	public WizardRobesRenderer(LivingEntity entity, EntityRendererProvider.Context context, RenderLayerParent<LivingEntity, ? extends EntityModel<?>> layerParent) {
 		this.model = new WizardRobesModel<>(context.bakeLayer(WizardRobesModel.MODEL_LAYER));
 	}
 
 	@Override
-	protected void setPartVisibility(WizardRobesModel<LivingEntity> model, LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
+	protected void setPartVisibility(WizardRobesModel<LivingEntity> model, HumanoidModel<LivingEntity> contextModel, LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
+		boolean slim = contextModel instanceof PlayerModel<LivingEntity> playerModel && playerModel.slim;
+
 		model.setAllVisible(true);
 		model.wizardHat.visible = slot == EquipmentSlot.HEAD;
 		model.robes.visible = slot == EquipmentSlot.CHEST;
@@ -57,8 +57,6 @@ public class WizardRobesRenderer extends CustomHumanoidModelArmorRenderer<Living
 
 	@Override
 	protected void renderModelPart(PoseStack matrices, MultiBufferSource bufferSource, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, int dyeColor, HumanoidModel<LivingEntity> contextModel, WizardRobesModel<LivingEntity> armorModel) {
-		slim = contextModel instanceof PlayerModel<LivingEntity> playerModel && playerModel.slim;
-
 		if(stack.getItem() instanceof WizardRobesItem wizardArmor) {
 			int hexColor = wizardArmor.getColor(stack);
 
@@ -66,7 +64,7 @@ public class WizardRobesRenderer extends CustomHumanoidModelArmorRenderer<Living
 				int interval = 15;
 				int idfk = entity.tickCount / interval + entity.getId();
 				int colorCount = DyeColor.values().length;
-				float f = ((entity.tickCount % interval) + client.getFrameTimeNs()) / 15f;
+				float f = ((entity.tickCount % interval) + Minecraft.getInstance().getFrameTimeNs()) / 15f;
 				int color1 = Sheep.getColor(DyeColor.byId(idfk % colorCount));
 				int color2 = Sheep.getColor(DyeColor.byId((idfk + 1) % colorCount));
 				hexColor = FastColor.ARGB32.lerp(f, color1, color2);

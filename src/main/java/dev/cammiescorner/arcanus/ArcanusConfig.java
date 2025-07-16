@@ -1,11 +1,9 @@
 package dev.cammiescorner.arcanus;
 
 import com.teamresourceful.resourcefulconfig.api.annotations.*;
-import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
 import dev.cammiescorner.arcanus.api.spell.Weight;
-import dev.cammiescorner.arcanus.client.util.MirrorHudElement;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.common.util.MirrorHudElement;
 
 import java.util.Map;
 
@@ -33,7 +31,6 @@ public final class ArcanusConfig {
 	@ConfigEntry(id = "minimumCoolDown", translation = CONFIG_MINIMUM_COOL_DOWN)
 	public static int minimumCoolDown = 10;
 
-	@Environment(EnvType.CLIENT)
 	@Category("Client")
 	public static final class ClientStuff {
 		@ConfigEntry(id = "scaleManaBarsWithMaxMana", translation = CONFIG_SCALE_MANA_BARS)

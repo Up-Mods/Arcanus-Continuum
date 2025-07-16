@@ -4,6 +4,8 @@ import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.common.compat.ExplosiveEnhancementCompat;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
@@ -26,25 +28,32 @@ public record ClientboundBurstVfxPacket(Vec3 pos, float strength, boolean didDes
 		return new ClientboundBurstVfxPacket(pos, strength, destroyedBlocks);
 	});
 
-	public static void handle(PacketContext<ClientboundBurstVfxPacket> context) {
-		Level level = Minecraft.getInstance().level;
-
-		if(level != null) {
-			double x = context.message().pos().x();
-			double y = context.message().pos().y();
-			double z = context.message().pos().z();
-			float strength = context.message().strength();
-			boolean destroyedBlocks = context.message().didDestroyBlocks();
-
-			if(ArcanusCompat.EXPLOSIVE_ENHANCEMENT.isEnabled())
-				ExplosiveEnhancementCompat.spawnEnhancedBooms(level, x, y, z, strength, destroyedBlocks);
-			else
-				level.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1, 1, 1);
-		}
-	}
-
 	@Override
 	public Type<? extends CustomPacketPayload> type() {
 		return TYPE;
+	}
+
+	public static void handle(PacketContext<ClientboundBurstVfxPacket> context) {
+		Handler.handle(context);
+	}
+
+	@Environment(EnvType.CLIENT)
+	private static class Handler {
+		private static void handle(PacketContext<ClientboundBurstVfxPacket> context) {
+			Level level = Minecraft.getInstance().level;
+
+			if(level != null) {
+				double x = context.message().pos().x();
+				double y = context.message().pos().y();
+				double z = context.message().pos().z();
+				float strength = context.message().strength();
+				boolean destroyedBlocks = context.message().didDestroyBlocks();
+
+				if(ArcanusCompat.EXPLOSIVE_ENHANCEMENT.isEnabled())
+					ExplosiveEnhancementCompat.spawnEnhancedBooms(level, x, y, z, strength, destroyedBlocks);
+				else
+					level.addParticle(ParticleTypes.EXPLOSION_EMITTER, x, y, z, 1, 1, 1);
+			}
+		}
 	}
 }

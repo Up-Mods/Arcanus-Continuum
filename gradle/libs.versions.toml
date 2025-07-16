@@ -19,7 +19,7 @@ yeetus_experimentus_neoforge = "HaaH232J" # [NEOFORGE][1.21] YeetusExperimentus 
 # required dependencies
 fabric_api = "0.115.4+1.21.1"
 cca = "6.1.2"
-sparkweave = "0.509.3"
+sparkweave = "0.510.0"
 resourceful_config = "3.0.11"
 common_network = "1.0.18-1.21.1"
 datasync = "0.10.0"
