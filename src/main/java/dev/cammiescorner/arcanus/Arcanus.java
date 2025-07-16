@@ -196,6 +196,9 @@ public class Arcanus implements MainEntryPoint {
 					if(copperCurse.getDuration() > 24000)
 						entity.addEffect(new MobEffectInstance(ArcanusMobEffects.COPPER_CURSE.holder(), copperCurse.getDuration() - 24000, 0, true, false));
 				}
+
+				for(ManaType manaType : ManaType.values())
+					ArcanusComponents.setMana(entity, manaType, manaType.getMaxMana(entity));
 			}
 		});
 

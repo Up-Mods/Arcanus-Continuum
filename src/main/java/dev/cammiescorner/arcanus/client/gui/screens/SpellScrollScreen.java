@@ -129,7 +129,7 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 
 		for(ManaType manaType : ManaType.values()) {
 			if(!mana.equals(Component.empty()))
-				mana.append(Component.literal(", ").withStyle(ChatFormatting.GRAY));
+				mana.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
 			mana.append(Component.literal(Arcanus.format(getManaCost(manaType))).withStyle(manaType.getChatFormatting()));
 		}
@@ -145,16 +145,19 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 				if(isHovering(position.x() - 2, position.y() - 2, 28, 28, mouseX, mouseY)) {
 					List<Component> textList = new ArrayList<>();
 					SpellComponent component = group.getAllComponents().toList().get(i);
+					MutableComponent manaCost = Component.empty();
 					boolean knowsComponent = ArcanusComponents.knowsSpellComponents(minecraft.player, component);
 
 					textList.add(knowsComponent ? component.getName() : Component.literal("???"));
 
 					for(ManaType manaType : ManaType.values()) {
-						textList.add(Component.translatable(TWO_ARGUMENT_KEY,
-							Component.translatable(manaType.getTranslationKey()),
-							Component.literal(knowsComponent ? component.getManaCostAsString(manaType) : "???").withStyle(ChatFormatting.GRAY)
-						).withStyle(manaType.getChatFormatting()));
+						if(!manaCost.equals(Component.empty()))
+							manaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
+
+						manaCost.append(Component.literal(Arcanus.format(getManaCost(manaType))).withStyle(manaType.getChatFormatting()));
 					}
+
+					textList.add(manaCost);
 
 					if(component instanceof SpellShape shape) {
 						if(shape.getManaModifier() != 0)
@@ -165,7 +168,7 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 						if(shape.getPotencyModifier() != 0)
 							textList.add(Component.translatable(TWO_ARGUMENT_KEY,
 								Component.translatable(SPELL_BOOK_POTENCY_MODIFIER),
-								Component.literal(knowsComponent ? shape.getManaMultiplierAsString() : "???").withStyle(ChatFormatting.GRAY)
+								Component.literal(knowsComponent ? shape.getPotencyModifierAsString() : "???").withStyle(ChatFormatting.GRAY)
 							).withStyle(ChatFormatting.YELLOW));
 						if(shape.getCoolDownModifier() != 1)
 							textList.add(Component.translatable(TWO_ARGUMENT_KEY,

@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanus.client.gui.widgets;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
 import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
@@ -11,6 +12,7 @@ import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +32,18 @@ public class SpellComponentWidget extends AbstractButton {
 		this.onPress = onPress;
 
 		List<Component> textList = new ArrayList<>();
+		MutableComponent manaCost = Component.empty();
+
 		textList.add(component.getName());
 
-		for(ManaType manaType : ManaType.values())
-			textList.add(Component.translatable(TWO_ARGUMENT_KEY,
-				Component.translatable(manaType.getTranslationKey()),
-				Component.literal(component.getManaCostAsString(manaType)).withStyle(ChatFormatting.GRAY)
-			).withStyle(manaType.getChatFormatting()));
+		for(ManaType manaType : ManaType.values()) {
+			if(!manaCost.equals(Component.empty()))
+				manaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
+
+			manaCost.append(Component.literal(Arcanus.format(component.getManaCost().get(manaType))).withStyle(manaType.getChatFormatting()));
+		}
+
+		textList.add(manaCost);
 
 		if(component instanceof SpellShape shape) {
 			if(shape.getManaModifier() != 0)
