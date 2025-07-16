@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Map;
 
-// TODO this doesnt work and i dont know how to make it work mojang why does this have to be so complicated bruh
 @Mixin(EntityRenderDispatcher.class)
 public class EntityRenderDispatcherMixin {
 	@Unique private Map<PlayerSkin.Model, EntityRenderer<? extends Cultist>> cultistRenderers = Map.of();

@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
-// TODO this doesnt work and i dont know how to make it work mojang why does this have to be so complicated bruh
 public class CultistRenderer<T extends Cultist> extends HumanoidMobRenderer<T, PlayerModel<T>> {
 	public CultistRenderer(EntityRendererProvider.Context context, boolean slim) {
 		super(context, new PlayerModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(slim ? ModelLayers.PLAYER_SLIM : ModelLayers.PLAYER), slim), 0.5f);
