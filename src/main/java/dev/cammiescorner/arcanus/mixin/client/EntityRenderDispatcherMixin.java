@@ -5,7 +5,6 @@ import dev.cammiescorner.arcanus.common.entity.living.Cultist;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.entity.Entity;
@@ -26,9 +25,10 @@ public class EntityRenderDispatcherMixin {
 
 	@Inject(method = "getRenderer", at = @At(value = "INVOKE", target = "Ljava/util/Map;get(Ljava/lang/Object;)Ljava/lang/Object;", ordinal = 2), cancellable = true)
 	private <T extends Entity> void getCultistRenderer(T entity, CallbackInfoReturnable<EntityRenderer<?>> cir) {
-		if(entity instanceof Cultist) {
-			PlayerSkin.Model model = DefaultPlayerSkin.get(entity.getUUID()).model();
+		if(entity instanceof Cultist cultist) {
+			PlayerSkin.Model model = cultist.getSkin().model();
 			EntityRenderer<? extends Cultist> entityRenderer = cultistRenderers.get(model);
+
 			cir.setReturnValue(entityRenderer != null ? entityRenderer : cultistRenderers.get(PlayerSkin.Model.WIDE));
 		}
 	}

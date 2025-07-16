@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.entity.layers.ArrowLayer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.resources.ResourceLocation;
 
 // TODO this doesnt work and i dont know how to make it work mojang why does this have to be so complicated bruh
@@ -36,6 +35,6 @@ public class CultistRenderer<T extends Cultist> extends HumanoidMobRenderer<T, P
 
 	@Override
 	public ResourceLocation getTextureLocation(T entity) {
-		return DefaultPlayerSkin.get(entity.getUUID()).texture();
+		return entity.getSkin().texture();
 	}
 }

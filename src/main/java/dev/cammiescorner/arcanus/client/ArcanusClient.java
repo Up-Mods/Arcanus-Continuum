@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.gui.overlay.FirstPersonCastingOverlay;
 import dev.cammiescorner.arcanus.client.gui.overlay.ManaBarOverlay;
@@ -33,6 +34,7 @@ import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.common.compat.FirstPersonCompat;
 import dev.cammiescorner.arcanus.common.entity.living.Cultist;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
+import dev.cammiescorner.arcanus.common.networking.clientbound.*;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.client.event.RegisterCustomArmorRenderersEvent;
@@ -124,10 +126,15 @@ public class ArcanusClient implements ClientEntryPoint {
 		EntityModelLayerRegistry.registerModelLayer(TemporalDilationFieldModel.MODEL_LAYER, TemporalDilationFieldModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(SpellScrollModel.MODEL_LAYER, SpellScrollModel::getTexturedModelData);
 
+		Network.registerPacket(ClientboundUpdateSpellcraftScreenPacket.TYPE, ClientboundUpdateSpellcraftScreenPacket.class, ClientboundUpdateSpellcraftScreenPacket.CODEC, ClientboundUpdateSpellcraftScreenPacket::handle);
+		Network.registerPacket(ClientboundEnforceConfigPacket.TYPE, ClientboundEnforceConfigPacket.class, ClientboundEnforceConfigPacket.CODEC, ClientboundEnforceConfigPacket::handle);
+		Network.registerPacket(ClientboundBurstVfxPacket.TYPE, ClientboundBurstVfxPacket.class, ClientboundBurstVfxPacket.CODEC, ClientboundBurstVfxPacket::handle);
+		Network.registerPacket(ClientboundStaffTemplatePacket.TYPE, ClientboundStaffTemplatePacket.class, ClientboundStaffTemplatePacket.CODEC, ClientboundStaffTemplatePacket::handle);
+		Network.registerPacket(ClientboundStatusEffectPacket.TYPE, ClientboundStatusEffectPacket.class, ClientboundStatusEffectPacket.CODEC, ClientboundStatusEffectPacket::handle);
+		Network.registerPacket(ClientboundWorkbenchModePacket.TYPE, ClientboundWorkbenchModePacket.class, ClientboundWorkbenchModePacket.CODEC, ClientboundWorkbenchModePacket::handle);
+
 		RegisterEntityRenderersEvent.EVENT.register(event -> {
 			event.registerRenderer(ArcanusEntities.WIZARD, WizardRenderer::new);
-			event.registerRenderer(ArcanusEntities.CULTIST_CLERIC, context -> new CultistRenderer<>(context, false));
-			event.registerRenderer(ArcanusEntities.CULTIST_KNIGHT, context -> new CultistRenderer<>(context, false));
 			event.registerRenderer(ArcanusEntities.OPOSSUM, OpossumRenderer::new);
 			event.registerRenderer(ArcanusEntities.NECRO_SKELETON, SkeletonRenderer::new);
 			event.registerRenderer(ArcanusEntities.MANA_SHIELD, ManaShieldRenderer::new);
@@ -235,7 +242,8 @@ public class ArcanusClient implements ClientEntryPoint {
 		CULTIST_PROVIDERS.forEach((model, entityRendererProvider) -> {
 			try {
 				builder.put(model, entityRendererProvider.create(context));
-			} catch (Exception var5) {
+			}
+			catch (Exception var5) {
 				throw new IllegalArgumentException("Failed to create cultist model for " + model, var5);
 			}
 		});

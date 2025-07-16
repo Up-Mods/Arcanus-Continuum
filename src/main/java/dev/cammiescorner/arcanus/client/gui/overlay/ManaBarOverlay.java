@@ -40,22 +40,22 @@ public class ManaBarOverlay {
 			poseStack.pushPose();
 			poseStack.translate(0, 11, 0);
 
-			if(ArcanusConfig.rightSideManaBars.mirror())
+			if(ArcanusConfig.ClientStuff.rightSideManaBars.mirror())
 				poseStack.translate(scaledWidth - 29, 0, 0);
-			if(!ArcanusConfig.manaBarsOnTop)
+			if(!ArcanusConfig.ClientStuff.manaBarsOnTop)
 				poseStack.translate(0, scaledHeight - 29, 0);
 
-			float angleOffsetDegrees = ArcanusConfig.rightSideManaBars.mirror() ? -27f : 27f;
+			float angleOffsetDegrees = ArcanusConfig.ClientStuff.rightSideManaBars.mirror() ? -27f : 27f;
 			float startingAngleDegrees;
 
-			if(ArcanusConfig.manaBarsOnTop) {
-				if(ArcanusConfig.rightSideManaBars.mirror())
+			if(ArcanusConfig.ClientStuff.manaBarsOnTop) {
+				if(ArcanusConfig.ClientStuff.rightSideManaBars.mirror())
 					startingAngleDegrees = 189;
 				else
 					startingAngleDegrees = -9f;
 			}
 			else {
-				if(ArcanusConfig.rightSideManaBars.mirror())
+				if(ArcanusConfig.ClientStuff.rightSideManaBars.mirror())
 					startingAngleDegrees = -81f;
 				else
 					startingAngleDegrees = -99f;
@@ -90,8 +90,8 @@ public class ManaBarOverlay {
 				double maxMana = ArcanusComponents.getMaxMana(player, manaType);
 				double mana = ArcanusComponents.getMana(player, manaType);
 
-				int x = ArcanusConfig.rightSideManaBars.mirror() ? 68 : 60;
-				int y = ArcanusConfig.manaBarsOnTop ? 12 : 20;
+				int x = ArcanusConfig.ClientStuff.rightSideManaBars.mirror() ? 68 : 60;
+				int y = ArcanusConfig.ClientStuff.manaBarsOnTop ? 12 : 20;
 				var angle = (float) Math.toRadians(startingAngleDegrees + angleOffsetDegrees * manaType.ordinal());
 
 				poseStack.pushPose();
@@ -102,7 +102,7 @@ public class ManaBarOverlay {
 				poseStack.translate(-8, -8, 0);
 
 				double ratio = Math.min(1f, maxMana <= 0f ? 0f : (mana / maxMana));
-				double halfNHalf = ArcanusConfig.scaleManaBarsWithMaxMana ? (Math.clamp(maxMana, Math.min(ArcanusConfig.manaBarsMinLength, ArcanusConfig.manaBarsMaxLength), ArcanusConfig.manaBarsMaxLength) - 12) / 2f : (35 - 6);
+				double halfNHalf = ArcanusConfig.ClientStuff.scaleManaBarsWithMaxMana ? (Math.clamp(maxMana, Math.min(ArcanusConfig.ClientStuff.manaBarsMinLength, ArcanusConfig.ClientStuff.manaBarsMaxLength), ArcanusConfig.ClientStuff.manaBarsMaxLength) - 12) / 2f : (35 - 6);
 				int bottomMana = (int) (halfNHalf * Math.clamp(ratio / 0.44f, 0f, 1f));
 				int switchMana = (int) (12 * (ratio <= 0.56f ? Math.clamp((ratio - 0.44f) / 0.12f, 0f, 1f) : 1f)); // FIXME fills at a different speed than the rest of the bar
 				int topMana = (int) (halfNHalf * Math.clamp((ratio - 0.56f) / 0.44f, 0f, 1f));
@@ -122,10 +122,10 @@ public class ManaBarOverlay {
 
 				poseStack.popPose();
 
-				if(ArcanusConfig.numericalManaDisplay) {
+				if(ArcanusConfig.ClientStuff.numericalManaDisplay) {
 					poseStack.pushPose();
 
-					double offset = 24 + Math.min(ArcanusConfig.manaBarsMaxLength, maxMana) * scale;
+					double offset = 24 + Math.min(ArcanusConfig.ClientStuff.manaBarsMaxLength, maxMana) * scale;
 					poseStack.translate(2f, -2f, 0f);
 					poseStack.translate(x * scale + Mth.cos(angle) * offset, y * scale + Mth.sin(angle) * offset, 0);
 					poseStack.scale(0.5f, 0.5f, 1f);
