@@ -28,6 +28,7 @@
     "client.ClientLevelMixin",
     "client.CreativeModeInventoryScreenMixin",
     "client.EntityRenderDispatcherMixin",
+    "client.EntityRenderersMixin",
     "client.GameRendererMixin",
     "client.GuiMixin",
     "client.HumanoidModelMixin",

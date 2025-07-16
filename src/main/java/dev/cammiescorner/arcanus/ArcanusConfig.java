@@ -12,6 +12,7 @@ import java.util.Map;
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 @Config(value = Arcanus.MOD_ID, categories = {
+	ArcanusConfig.ClientStuff.class,
 	ArcanusConfig.SpellShapes.class,
 	ArcanusConfig.AttackEffects.class,
 	ArcanusConfig.SupportEffects.class,
