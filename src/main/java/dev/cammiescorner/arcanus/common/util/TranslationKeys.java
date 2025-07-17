@@ -13,6 +13,7 @@ public class TranslationKeys {
 	public static final String DISABLED_COMPONENT = "text.arcanus.disabled_component";
 	public static final String SPELL_HAS_DISABLED_COMPONENT = "text.arcanus.spell_has_disabled_component";
 	public static final String TOO_MANY_ORBS = "text.arcanus.too_many_orbs";
+	public static final String SPELL_SCROLL_WITH_SPELL = "item.arcanus.spell_scroll.with_spell";
 	public static final String USE_SCROLL_SUCCESS = "text.arcanus.use_item.scroll_of_knowledge";
 	public static final String USE_SCROLL_ALREADY_KNOW = "text.arcanus.use_item.scroll_of_knowledge.already_knows_spell_component";
 	public static final String USE_SCROLL_DISABLED_COMPONENT = "text.arcanus.use_item.scroll_of_knowledge.disabled_spell_component";

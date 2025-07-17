@@ -311,6 +311,7 @@
   "item.arcanus.scroll_of_knowledge": "Scroll of Knowledge",
   "item.arcanus.spell_book": "Spell Book",
   "item.arcanus.spell_scroll": "Spell Scroll",
+  "item.arcanus.spell_scroll.with_spell": "%s (%s)",
   "item.arcanus.thaumaturges_gauntlet": "Thaumaturge's Gauntlet",
   "item.arcanus.wand": "Wand",
   "item.arcanus.white_cult_boots": "White Cultist Boots",

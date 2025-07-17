@@ -26,9 +26,7 @@ public class SpellScrollItem extends Item {
 
 	@Override
 	public Component getName(ItemStack stack) {
-		Spell spell = getSpell(stack);
-
-		return ((MutableComponent) super.getName(stack)).append(" (" + spell.getName() + ")");
+		return Component.translatable(SPELL_SCROLL_WITH_SPELL, super.getName(stack), getSpell(stack).getName());
 	}
 
 	@Override

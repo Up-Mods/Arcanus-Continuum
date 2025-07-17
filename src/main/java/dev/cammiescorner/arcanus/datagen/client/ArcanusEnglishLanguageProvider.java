@@ -75,6 +75,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.BOOK_POUCH, "Book Pouch");
 		builder.item(ArcanusItems.SPELL_BOOK, "Spell Book");
 		builder.item(ArcanusItems.SPELL_SCROLL, "Spell Scroll");
+		builder.add(SPELL_SCROLL_WITH_SPELL, "%s (%s)");
 		builder.item(ArcanusItems.SCROLL_OF_KNOWLEDGE, "Scroll of Knowledge");
 		builder.item(ArcanusItems.WIZARD_SPAWN_EGG, "Wizard Spawn Egg");
 		builder.item(ArcanusItems.CULTIST_CLERIC_SPAWN_EGG, "Cultist Cleric Spawn Egg");
