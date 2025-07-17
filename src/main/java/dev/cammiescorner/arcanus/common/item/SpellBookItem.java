@@ -47,7 +47,7 @@ public class SpellBookItem extends TrinketItem {
 
 				if(spell.getComponentGroups().isEmpty()) {
 					tooltip.add(Component.translatable(STAFF_INVALID_DATA).withStyle(ChatFormatting.DARK_RED));
-					return;
+					continue;
 				}
 
 				MutableComponent text = Component.literal(spell.getName()).withStyle(spell.isEmpty() ? ChatFormatting.GRAY : ChatFormatting.GREEN);
