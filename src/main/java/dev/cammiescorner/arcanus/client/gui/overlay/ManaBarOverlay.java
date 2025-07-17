@@ -13,7 +13,6 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
@@ -130,7 +129,7 @@ public class ManaBarOverlay {
 					poseStack.translate(x * scale + Mth.cos(angle) * offset, y * scale + Mth.sin(angle) * offset, 0);
 					poseStack.scale(0.5f, 0.5f, 1f);
 
-					guiGraphics.drawCenteredString(client.font, Component.literal(String.valueOf(Mth.floor(mana))).withColor(color.asIntARGB()), 0, 0, 0xffffffff);
+					guiGraphics.drawCenteredString(client.font, String.valueOf(Mth.floor(mana)), 0, 0, color.asIntARGB());
 					poseStack.popPose();
 				}
 			}

@@ -81,6 +81,7 @@ public class Arcanus implements MainEntryPoint {
 	public static final SyncToken<WizardData> WIZARD_DATA = DataSyncAPI.register(WizardData.class, WizardData.ID, WizardData.CODEC);
 	public static final SyncToken<HaloData> HALO_DATA = DataSyncAPI.register(HaloData.class, HaloData.ID, HaloData.CODEC);
 	public static final ResourceLocation SPELL_SPEED_MODIFIER_ID = Arcanus.id("speed_effect_modifier");
+	public static final ResourceLocation MAGIC_SYMBOLS_FONT_ID = Arcanus.id("magic_symbols");
 
 	@Override
 	public void onInitialize(ModContainer mod) {
@@ -288,7 +289,7 @@ public class Arcanus implements MainEntryPoint {
 			default -> "ERROR";
 		};
 
-		return Component.literal(string).withStyle(style -> style.withFont(Arcanus.id("magic_symbols")));
+		return Component.literal(string).withStyle(style -> style.withFont(MAGIC_SYMBOLS_FONT_ID));
 	}
 
 	public static ItemStack getActiveSpellBook(LivingEntity entity) {

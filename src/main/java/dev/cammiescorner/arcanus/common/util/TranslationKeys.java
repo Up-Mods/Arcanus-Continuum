@@ -56,6 +56,7 @@ public class TranslationKeys {
 	public static final String SCREEN_SUPPORT_US_CAMMIE = "screen.arcanus.support_us.button_support_cammie";
 	public static final String SCREEN_SUPPORT_US_UP = "screen.arcanus.support_us.button_support_up";
 	public static final String BUTTON_TAKE_SCROLL = "screen.arcanus.button.take_scroll";
+	@Deprecated(forRemoval = true) // TODO get rid of this
 	public static final String TWO_ARGUMENT_KEY = "text.arcanus.two_argument_key";
 	public static final String SPELL_BOOK_WEIGHT = "spell_book.arcanus.weight";
 	public static final String SPELL_BOOK_WEIGHT_NONE = "spell_book.arcanus.weight.none";
