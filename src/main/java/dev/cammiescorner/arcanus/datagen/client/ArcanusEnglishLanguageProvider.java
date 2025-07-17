@@ -176,8 +176,8 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(MAGIC_DOOR_SET_PASSWORD, "Password set to %s");
 
 		builder.add(STAFF_INVALID_DATA, "!!! INVALID DATA !!!");
-		builder.add(STAFF_PRIMARY_COLOR, "Focus Color");
-		builder.add(STAFF_SECONDARY_COLOR, "Body Color");
+		builder.add(STAFF_PRIMARY_COLOR, "Focus Color: %s");
+		builder.add(STAFF_SECONDARY_COLOR, "Body Color: %s");
 
 		builder.add(COMMAND_REGEN_POCKET_WALLS_ONLY, "Repaired the walls of %s's pocket dimension");
 		builder.add(COMMAND_REGEN_POCKET_SUCCESS, "Regenerated %s's pocket dimension");

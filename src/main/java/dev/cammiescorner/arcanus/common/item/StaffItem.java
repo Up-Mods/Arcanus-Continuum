@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanus.common.item;
 
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
+import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.cammiescorner.arcanus.common.util.StaffType;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.ChatFormatting;
@@ -15,7 +16,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.STAFF_PRIMARY_COLOR;
@@ -49,8 +49,8 @@ public class StaffItem extends Item {
 		int primaryColor = getPrimaryColorRGB(stack);
 		int secondaryColor = getSecondaryColorRGB(stack);
 
-		tooltip.add(Component.translatable(STAFF_PRIMARY_COLOR).withStyle(style -> style.withColor(primaryColor)).append(Component.literal(": " + String.format(Locale.ROOT, "#%06x", primaryColor & 0xffffff)).withStyle(ChatFormatting.GRAY)));
-		tooltip.add(Component.translatable(STAFF_SECONDARY_COLOR).withStyle(style -> style.withColor(secondaryColor)).append(Component.literal(": " + String.format(Locale.ROOT, "#%06x", secondaryColor & 0xffffff)).withStyle(ChatFormatting.GRAY)));
+		tooltip.add(Component.translatable(STAFF_PRIMARY_COLOR, ArcanusHelper.formatColorRGB(primaryColor).withStyle(ChatFormatting.GRAY)).withColor(primaryColor));
+		tooltip.add(Component.translatable(STAFF_SECONDARY_COLOR, ArcanusHelper.formatColorRGB(secondaryColor).withStyle(ChatFormatting.GRAY)).withColor(secondaryColor));
 	}
 
 	public static ItemAttributeModifiers createAttributes() {

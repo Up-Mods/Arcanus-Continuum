@@ -10,6 +10,8 @@ import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.Util;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.entity.player.Player;
@@ -141,5 +143,13 @@ public class ArcanusHelper {
 				itemEntity.setTarget(player.getUUID());
 			}
 		}
+	}
+
+	public static MutableComponent formatColorARGB(int color) {
+		return Component.literal(String.format("#%08X", color));
+	}
+
+	public static MutableComponent formatColorRGB(int color) {
+		return  Component.literal(String.format("#%06X", color & 0x00FFFFFF));
 	}
 }
