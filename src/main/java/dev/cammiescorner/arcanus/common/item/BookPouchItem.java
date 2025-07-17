@@ -1,6 +1,5 @@
 package dev.cammiescorner.arcanus.common.item;
 
-import com.google.common.base.Preconditions;
 import dev.cammiescorner.arcanus.common.data_component.BookPouchComponent;
 import dev.cammiescorner.arcanus.common.menu.providers.BookPouchMenuProvider;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
@@ -46,10 +45,9 @@ public class BookPouchItem extends Item {
 		if(stack.is(ArcanusItems.BOOK_POUCH.get())) {
 			BookPouchComponent spellBooks = stack.getOrDefault(ArcanusDataComponents.BOOK_POUCH.get(), BookPouchComponent.EMPTY);
 			int index = stack.getOrDefault(ArcanusDataComponents.BOOK_POUCH_INDEX.get(), 0);
-
-			Preconditions.checkArgument(index < BookPouchItem.SLOT_COUNT, "Index is larger than inventory size!");
-
-			return spellBooks.spellBooks().get(index);
+			if(index >= 0 && index < SLOT_COUNT) {
+				return spellBooks.spellBooks().get(index);
+			}
 		}
 
 		return ItemStack.EMPTY;
