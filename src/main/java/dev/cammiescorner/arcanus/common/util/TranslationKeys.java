@@ -20,6 +20,7 @@ public class TranslationKeys {
 	public static final String WIZARD_NO_WIZARD_ARMOR = "text.arcanus.wizard_dialogue.no_wizard_armor";
 	public static final String WIZARD_ARMOR_HINT = "tooltip.arcanus.wizard_dialogue.no_wizard_armor";
 	public static final String SET_BONUS = "tooltip.arcanus.set_bonus";
+	public static final String UNKNOWN = "text.arcanus.unknown"; // TODO make all '???' literals translatable
 	public static final String MAGIC_DOOR_ACCESS_GRANTED = "door.arcanus.access_granted";
 	public static final String MAGIC_DOOR_NOT_OWNER = "door.arcanus.not_owner";
 	public static final String MAGIC_DOOR_SAY_MAGIC_WORD = "door.arcanus.say_magic_word";

@@ -393,6 +393,7 @@
   "text.arcanus.spell_has_disabled_component": "This spell contains one or more disabled spell components. Aborting spell.",
   "text.arcanus.too_many_orbs": "That target already has the maximum amount of Aggressorbs!",
   "text.arcanus.two_argument_key": "%1$s: %2$s",
+  "text.arcanus.unknown": "???",
   "text.arcanus.use_item.scroll_of_knowledge": "You feel a little smarter...",
   "text.arcanus.use_item.scroll_of_knowledge.already_knows_spell_component": "You have learned everything you can.",
   "text.arcanus.use_item.scroll_of_knowledge.disabled_spell_component": "This spell component doesn't seem possible.",

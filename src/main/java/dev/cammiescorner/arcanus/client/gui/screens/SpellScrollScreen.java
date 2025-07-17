@@ -3,7 +3,8 @@ package dev.cammiescorner.arcanus.client.gui.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.spell.*;
+import dev.cammiescorner.arcanus.api.spell.Spell;
+import dev.cammiescorner.arcanus.api.spell.Weight;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
@@ -148,7 +149,7 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 					MutableComponent manaCost = Component.empty();
 					boolean knowsComponent = ArcanusComponents.knowsSpellComponents(minecraft.player, component);
 
-					textList.add(knowsComponent ? component.getName() : Component.literal("???"));
+					textList.add(knowsComponent ? component.getName() : Component.translatable(UNKNOWN));
 
 					for(ManaType manaType : ManaType.values()) {
 						if(!manaCost.equals(Component.empty()))

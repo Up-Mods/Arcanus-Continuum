@@ -170,6 +170,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(WIZARD_ARMOR_HINT, "Maybe wearing Wizard Robes will help...");
 
 		builder.add(SET_BONUS, "Full Set Bonus: +40 %s");
+		builder.add(UNKNOWN, "???");
 
 		builder.add(MAGIC_DOOR_ACCESS_GRANTED, "Access Granted...");
 		builder.add(MAGIC_DOOR_NOT_OWNER, "You do not own this door");
