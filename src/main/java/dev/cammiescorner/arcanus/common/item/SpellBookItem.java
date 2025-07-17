@@ -5,10 +5,10 @@ import dev.cammiescorner.arcanus.api.spell.Spell;
 import dev.cammiescorner.arcanus.common.data_component.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.menu.providers.SpellBookMenuProvider;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import dev.emi.trinkets.api.TrinketItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -50,11 +50,9 @@ public class SpellBookItem extends TrinketItem {
 					continue;
 				}
 
-				MutableComponent text = Component.literal(spell.getName()).withStyle(spell.isEmpty() ? ChatFormatting.GRAY : ChatFormatting.GREEN);
-				// TODO turn the () into a translatable spellComponent
-				tooltip.add(text.append(Component.literal(" (").withStyle(ChatFormatting.DARK_GRAY))
-					.append(Arcanus.getSpellPatternAsText(i).withStyle(ChatFormatting.GRAY))
-					.append(Component.literal(")").withStyle(ChatFormatting.DARK_GRAY)));
+				var spellName = Component.literal(spell.getName()).withStyle(spell.isEmpty() ? ChatFormatting.GRAY : ChatFormatting.GREEN);
+				var spellPattern = Arcanus.getSpellPatternAsText(i).withStyle(ChatFormatting.GRAY);
+				tooltip.add(Component.translatable(TranslationKeys.SPELL_BOOK_SPELL_WITH_PATTERN_TOOLTIP, spellName, spellPattern).withStyle(ChatFormatting.DARK_GRAY));
 			}
 		}
 	}

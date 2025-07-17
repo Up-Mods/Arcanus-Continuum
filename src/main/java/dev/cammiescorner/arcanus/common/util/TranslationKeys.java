@@ -73,6 +73,7 @@ public class TranslationKeys {
 	public static final String SPELL_BOOK_COOL_DOWN_MODIFIER = "spell_book.arcanus.cool_down_modifier";
 	public static final String SPELL_BOOK_COOL_DOWN = "spell_book.arcanus.cool_down";
 	public static final String SPELL_BOOK_INSTANT_COOL_DOWN = "spell_book.arcanus.instant_cool_down";
+	public static final String SPELL_BOOK_SPELL_WITH_PATTERN_TOOLTIP = "tooltip.arcanus.spell_book.spell_pattern";
 	public static final String SPELL_TOO_MANY_COMPONENTS = "spell.arcanus.too_many_components";
 	public static final String SPELL_UNKNOWN_SPELL_COMPONENTS = "spell.arcanus.unknown_spell_components";
 	public static final String SPELL_NOT_ENOUGH_MANA = "spell.arcanus.not_enough_mana";
