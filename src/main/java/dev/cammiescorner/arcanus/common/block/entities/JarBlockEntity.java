@@ -1,11 +1,11 @@
 package dev.cammiescorner.arcanus.common.block.entities;
 
 import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.common.block.JarBlock;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class JarBlockEntity extends BlockEntity {
-	@Nullable private ManaType manaType;
 	private double mana = 0;
 
 	public JarBlockEntity(BlockPos pos, BlockState blockState) {
@@ -39,18 +38,12 @@ public class JarBlockEntity extends BlockEntity {
 	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.saveAdditional(tag, registries);
 
-		if(manaType != null)
-			tag.putString("ManaType", manaType.getSerializedName());
-
 		tag.putDouble("Mana", mana);
 	}
 
 	@Override
 	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.loadAdditional(tag, registries);
-
-		if(tag.contains("ManaType", Tag.TAG_STRING))
-			manaType = ManaType.valueOf(tag.getString("ManaType"));
 
 		mana = tag.getDouble("Mana");
 	}
@@ -61,11 +54,11 @@ public class JarBlockEntity extends BlockEntity {
 	}
 
 	public ManaType getManaType() {
-		return manaType;
+		return getLevel().getBlockState(getBlockPos()).getValue(JarBlock.MANA_TYPE);
 	}
 
 	public void setManaType(ManaType manaType) {
-		this.manaType = manaType;
+		getLevel().getBlockState(getBlockPos()).setValue(JarBlock.MANA_TYPE, manaType);
 		markUpdated();
 	}
 

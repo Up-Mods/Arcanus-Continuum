@@ -29,6 +29,7 @@ import dev.cammiescorner.arcanus.client.renderer.entity.living.WizardRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.magic.*;
 import dev.cammiescorner.arcanus.client.renderer.item.StaffItemRenderer;
 import dev.cammiescorner.arcanus.client.renderer.world.WardedBlockRenderer;
+import dev.cammiescorner.arcanus.common.block.JarBlock;
 import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.common.compat.FirstPersonCompat;
 import dev.cammiescorner.arcanus.common.entity.living.Cultist;
@@ -165,6 +166,10 @@ public class ArcanusClient implements ClientEntryPoint {
 			event.registerRenderer(LecternSpellScrollRenderer::new, ArcanusItems.SPELL_SCROLL);
 		});
 
+		ColorProviderRegistry.BLOCK.register((blockState, blockAndTintGetter, blockPos, tintIndex) -> tintIndex == 1 ? blockState.getValue(JarBlock.MANA_TYPE).getColor().asInt(Color.Ordering.ARGB) : 0xffffffff,
+			ArcanusBlocks.JAR.get()
+		);
+               
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> switch(tintIndex) {
 				case 0 -> StaffItem.getPrimaryColorRGB(stack);
 				case 1 -> StaffItem.getSecondaryColorRGB(stack);

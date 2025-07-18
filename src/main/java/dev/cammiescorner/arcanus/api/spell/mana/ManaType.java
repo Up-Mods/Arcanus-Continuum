@@ -11,6 +11,8 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 
+import java.util.Arrays;
+
 public enum ManaType implements StringRepresentable {
 	RED(ArcanusAttributes.RED_MANA, ArcanusAttributes.RED_MANA_REGEN, ChatFormatting.RED, Color.fromRGB(184, 28, 14), "red_mana", TranslationKeys.SPELL_BOOK_RED_MANA),
 	GREEN(ArcanusAttributes.GREEN_MANA, ArcanusAttributes.GREEN_MANA_REGEN, ChatFormatting.GREEN, Color.fromRGB(54, 124, 38), "green_mana", TranslationKeys.SPELL_BOOK_GREEN_MANA),
@@ -39,6 +41,11 @@ public enum ManaType implements StringRepresentable {
 		this.translationKey = translationKey;
 	}
 
+	@Override
+	public String getSerializedName() {
+		return serializedName;
+	}
+
 	public Holder<Attribute> getManaAttribute() {
 		return manaAttribute;
 	}
@@ -63,8 +70,8 @@ public enum ManaType implements StringRepresentable {
 		return entity.getAttributeValue(manaAttribute);
 	}
 
-	@Override
-	public String getSerializedName() {
-		return serializedName;
+	public static ManaType getByName(String serializedName) {
+		var optional = Arrays.stream(ManaType.values()).filter(manaType -> manaType.getSerializedName().equals(serializedName)).findFirst();
+		return optional.orElse(ManaType.RED);
 	}
 }
