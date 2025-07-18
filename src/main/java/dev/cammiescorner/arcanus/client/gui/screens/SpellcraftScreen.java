@@ -5,7 +5,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.spell.*;
+import dev.cammiescorner.arcanus.api.spell.Spell;
+import dev.cammiescorner.arcanus.api.spell.Weight;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
@@ -20,6 +21,7 @@ import dev.cammiescorner.arcanus.common.item.SpellScrollItem;
 import dev.cammiescorner.arcanus.common.menu.SpellcraftMenu;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundSaveBookDataPacket;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
@@ -569,8 +571,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		if(SPELL_GROUPS.get(0).isEmpty() && SPELL_GROUPS.size() > 1 && !SPELL_GROUPS.get(1).isEmpty())
 			SPELL_GROUPS.removeFirst();
 
-		// TODO store aspects from original spell
-		return new Spell(SPELL_GROUPS, textBox.getValue().isBlank() ? "Empty" : textBox.getValue(), new SpellAspects(1, 1, 1));
+		return new Spell(SPELL_GROUPS, textBox.getValue().isBlank() ? "Empty" : textBox.getValue(), stack.getOrDefault(ArcanusDataComponents.SPELL.get(), new Spell()).getAspects());
 	}
 
 	public Weight getWeight() {
