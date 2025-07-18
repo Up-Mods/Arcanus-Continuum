@@ -169,7 +169,7 @@ public class ArcanusClient implements ClientEntryPoint {
 		ColorProviderRegistry.BLOCK.register((blockState, blockAndTintGetter, blockPos, tintIndex) -> tintIndex == 1 ? blockState.getValue(JarBlock.MANA_TYPE).getColor().asInt(Color.Ordering.ARGB) : 0xffffffff,
 			ArcanusBlocks.JAR.get()
 		);
-               
+
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> switch(tintIndex) {
 				case 0 -> StaffItem.getPrimaryColorRGB(stack);
 				case 1 -> StaffItem.getSecondaryColorRGB(stack);
