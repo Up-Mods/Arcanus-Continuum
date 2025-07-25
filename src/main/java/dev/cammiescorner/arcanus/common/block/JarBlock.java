@@ -1,8 +1,6 @@
 package dev.cammiescorner.arcanus.common.block;
 
-import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
 import dev.cammiescorner.arcanus.common.block.entities.JarBlockEntity;
-import dev.cammiescorner.arcanus.common.block.properties.ManaTypeProperty;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,7 +11,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -24,13 +21,11 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock {
 		Shapes.box(0.1875,  0,    0.1875,  0.8125,  0.75,  0.8125),
 		Shapes.box(0.28125, 0.75, 0.28125, 0.71875, 0.875, 0.71875)
 	);
-	public static final IntegerProperty LEVEL = IntegerProperty.create("level", 0, 9);
-	public static final ManaTypeProperty MANA_TYPE = ManaTypeProperty.create("mana_type");
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
 	public JarBlock() {
 		super(Properties.of().noOcclusion());
-		registerDefaultState(getStateDefinition().any().setValue(LEVEL, 0).setValue(MANA_TYPE, ManaType.RED).setValue(FACING, Direction.NORTH));
+		registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH));
 	}
 
 	@Override
@@ -55,7 +50,7 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(LEVEL, MANA_TYPE, FACING);
+		builder.add(FACING);
 	}
 
 	@Override

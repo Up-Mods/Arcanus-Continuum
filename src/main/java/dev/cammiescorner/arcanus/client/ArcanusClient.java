@@ -13,6 +13,7 @@ import dev.cammiescorner.arcanus.client.gui.overlay.StunOverlay;
 import dev.cammiescorner.arcanus.client.gui.screens.*;
 import dev.cammiescorner.arcanus.client.model.armor.CultRobesModel;
 import dev.cammiescorner.arcanus.client.model.armor.WizardRobesModel;
+import dev.cammiescorner.arcanus.client.model.block.JarFluidModel;
 import dev.cammiescorner.arcanus.client.model.block.SpellScrollModel;
 import dev.cammiescorner.arcanus.client.model.entity.living.OpossumModel;
 import dev.cammiescorner.arcanus.client.model.entity.living.WizardModel;
@@ -29,7 +30,6 @@ import dev.cammiescorner.arcanus.client.renderer.entity.living.WizardRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.magic.*;
 import dev.cammiescorner.arcanus.client.renderer.item.StaffItemRenderer;
 import dev.cammiescorner.arcanus.client.renderer.world.WardedBlockRenderer;
-import dev.cammiescorner.arcanus.common.block.JarBlock;
 import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.common.compat.FirstPersonCompat;
 import dev.cammiescorner.arcanus.common.entity.living.Cultist;
@@ -124,6 +124,7 @@ public class ArcanusClient implements ClientEntryPoint {
 		EntityModelLayerRegistry.registerModelLayer(AggressorbModel.MODEL_LAYER, AggressorbModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(TemporalDilationFieldModel.MODEL_LAYER, TemporalDilationFieldModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(SpellScrollModel.MODEL_LAYER, SpellScrollModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(JarFluidModel.MODEL_LAYER, JarFluidModel::getTexturedModelData);
 
 		RegisterEntityRenderersEvent.EVENT.register(event -> {
 			event.registerRenderer(ArcanusEntities.WIZARD, WizardRenderer::new);
@@ -161,14 +162,11 @@ public class ArcanusClient implements ClientEntryPoint {
 		BlockEntityRenderers.register(ArcanusBlockEntities.SPATIAL_RIFT_WALL.get(), MagicBlockEntityRenderer.factory(ArcanusHelper::getPocketDimensionColor));
 		BlockEntityRenderers.register(ArcanusBlockEntities.ARCANE_PLINTH.get(), ArcanePlinthBlockEntityRenderer::new);
 		BlockEntityRenderers.register(ArcanusBlockEntities.PEDESTAL.get(), PedestalBlockEntityRenderer::new);
+		BlockEntityRenderers.register(ArcanusBlockEntities.JAR.get(), JarBlockEntityRenderer::new);
 
 		RegisterLecternItemRendererEvent.EVENT.register(event -> {
 			event.registerRenderer(LecternSpellScrollRenderer::new, ArcanusItems.SPELL_SCROLL);
 		});
-
-		ColorProviderRegistry.BLOCK.register((blockState, blockAndTintGetter, blockPos, tintIndex) -> tintIndex == 1 ? blockState.getValue(JarBlock.MANA_TYPE).getColor().asInt(Color.Ordering.ARGB) : 0xffffffff,
-			ArcanusBlocks.JAR.get()
-		);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> switch(tintIndex) {
 				case 0 -> StaffItem.getPrimaryColorRGB(stack);
