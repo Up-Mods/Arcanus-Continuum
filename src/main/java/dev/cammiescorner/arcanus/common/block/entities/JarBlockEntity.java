@@ -42,15 +42,22 @@ public class JarBlockEntity extends BlockEntity {
 			tag.putString("ManaType", manaType.getSerializedName());
 			tag.putDouble("Mana", mana);
 		}
+		else {
+			tag.putDouble("Mana", 0);
+		}
 	}
 
 	@Override
 	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.loadAdditional(tag, registries);
 
-		if(tag.contains("ManaType")) {
+		if(tag.contains("ManaType") && !tag.getString("ManaType").isBlank()) {
 			manaType = ManaType.getByName(tag.getString("ManaType"));
 			mana = tag.getDouble("Mana");
+		}
+		else {
+			manaType = null;
+			mana = 0;
 		}
 	}
 
