@@ -35,6 +35,8 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusBlocks.JAR.get());
 
 		entries.accept(ArcanusItems.WIZARD_SPAWN_EGG.get());
+		entries.accept(ArcanusItems.CULTIST_CLERIC_SPAWN_EGG.get());
+		entries.accept(ArcanusItems.CULTIST_KNIGHT_SPAWN_EGG.get());
 		entries.accept(ArcanusItems.OPOSSUM_SPAWN_EGG.get());
 	}).build());
 

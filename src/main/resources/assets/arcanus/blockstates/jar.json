@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "arcanus:block/empty_jar"
+      "model": "arcanus:block/jar"
     }
   }
 }
