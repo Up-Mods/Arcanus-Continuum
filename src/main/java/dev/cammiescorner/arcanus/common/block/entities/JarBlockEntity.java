@@ -1,19 +1,22 @@
 package dev.cammiescorner.arcanus.common.block.entities;
 
 import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.client.util.JarRenderData;
+import dev.cammiescorner.arcanus.common.block.JarBlock;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
+import dev.upcraft.sparkweave.api.color.Color;
+import net.fabricmc.fabric.api.blockview.v2.RenderDataBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class JarBlockEntity extends BlockEntity {
+public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity {
 	private ManaType manaType;
 	private double mana = 0;
 
@@ -53,17 +56,26 @@ public class JarBlockEntity extends BlockEntity {
 
 		if(tag.contains("ManaType") && !tag.getString("ManaType").isBlank()) {
 			manaType = ManaType.getByName(tag.getString("ManaType"));
-			mana = tag.getDouble("Mana");
+			mana = Math.clamp(tag.getDouble("Mana"), 0, 64);
 		}
 		else {
 			manaType = null;
 			mana = 0;
 		}
+
+		if(hasLevel())
+			markUpdated();
+	}
+
+	@Override
+	public Object getRenderData() {
+		return new JarRenderData(manaType != null ? manaType.getColor() : Color.fromARGB(0xffffffff));
 	}
 
 	protected void markUpdated() {
+		BlockState newState = getBlockState().setValue(JarBlock.LEVEL, (int) Math.ceil(getMana() / 8f));
 		setChanged();
-		getLevel().sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
+		getLevel().setBlockAndUpdate(getBlockPos(), newState);
 	}
 
 	public ManaType getManaType() {
@@ -80,7 +92,7 @@ public class JarBlockEntity extends BlockEntity {
 	}
 
 	public void setMana(double mana) {
-		this.mana = mana;
+		this.mana = Math.clamp(mana, 0, 64);
 		markUpdated();
 	}
 }

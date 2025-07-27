@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/block",
-	"format_version": "1.21.1",
-	"texture_size": [64, 64],
+	"format_version": "1.9.0",
+	"texture_size": [32, 32],
 	"textures": {
 		"0": "arcanus:block/jar",
 		"particle": "arcanus:block/jar"
@@ -9,36 +9,29 @@
 	"elements": [
 		{
 			"name": "jar",
-			"from": [3, 0, 3],
-			"to": [13, 12, 13],
+			"from": [4, 0, 4],
+			"to": [12, 10, 12],
 			"faces": {
-				"north": {"uv": [2.5, 2.5, 5, 5.5], "texture": "#0"},
-				"east": {"uv": [0, 2.5, 2.5, 5.5], "texture": "#0"},
-				"south": {"uv": [7.5, 2.5, 10, 5.5], "texture": "#0"},
-				"west": {"uv": [5, 2.5, 7.5, 5.5], "texture": "#0"},
-				"up": {"uv": [5, 2.5, 2.5, 0], "texture": "#0"},
-				"down": {"uv": [7.5, 0, 5, 2.5], "texture": "#0"}
+				"north": {"uv": [4, 4, 8, 9], "texture": "#0", "tintindex": 0},
+				"east": {"uv": [0, 4, 4, 9], "texture": "#0", "tintindex": 0},
+				"south": {"uv": [12, 4, 16, 9], "texture": "#0", "tintindex": 0},
+				"west": {"uv": [8, 4, 12, 9], "texture": "#0", "tintindex": 0},
+				"up": {"uv": [8, 4, 4, 0], "texture": "#0", "tintindex": 0},
+				"down": {"uv": [12, 0, 8, 4], "texture": "#0", "tintindex": 0}
 			}
 		},
 		{
 			"name": "lid",
-			"from": [4.5, 12, 4.5],
-			"to": [11.5, 14, 11.5],
+			"from": [4.5, 10, 4.5],
+			"to": [11.5, 12, 11.5],
 			"faces": {
-				"north": {"uv": [1.75, 7.25, 3.5, 7.75], "texture": "#0"},
-				"east": {"uv": [0, 7.25, 1.75, 7.75], "texture": "#0"},
-				"south": {"uv": [5.25, 7.25, 7, 7.75], "texture": "#0"},
-				"west": {"uv": [3.5, 7.25, 5.25, 7.75], "texture": "#0"},
-				"up": {"uv": [3.5, 7.25, 1.75, 5.5], "texture": "#0"},
-				"down": {"uv": [5.25, 5.5, 3.5, 7.25], "texture": "#0"}
+				"north": {"uv": [4.5, 15, 8, 16], "texture": "#0", "tintindex": 0},
+				"east": {"uv": [1, 15, 4.5, 16], "texture": "#0", "tintindex": 0},
+				"south": {"uv": [11.5, 15, 15, 16], "texture": "#0", "tintindex": 0},
+				"west": {"uv": [8, 15, 11.5, 16], "texture": "#0", "tintindex": 0},
+				"up": {"uv": [8, 15, 4.5, 11.5], "texture": "#0", "tintindex": 0},
+				"down": {"uv": [11.5, 11.5, 8, 15], "texture": "#0", "tintindex": 0}
 			}
-		}
-	],
-	"groups": [
-		{
-			"name": "group",
-			"origin": [8, 8, 8],
-			"color": 0
 		}
 	]
 }

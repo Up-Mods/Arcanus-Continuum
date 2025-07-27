@@ -639,7 +639,7 @@
           ],
           "rotation": 90,
           "texture": "#layer2",
-          "tint_index": 2
+          "tintindex": 2
         },
         "up": {
           "uv": [
