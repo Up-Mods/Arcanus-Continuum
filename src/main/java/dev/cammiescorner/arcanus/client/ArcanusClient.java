@@ -30,6 +30,7 @@ import dev.cammiescorner.arcanus.client.renderer.entity.magic.*;
 import dev.cammiescorner.arcanus.client.renderer.item.StaffItemRenderer;
 import dev.cammiescorner.arcanus.client.renderer.world.WardedBlockRenderer;
 import dev.cammiescorner.arcanus.client.util.JarRenderData;
+import dev.cammiescorner.arcanus.common.block.ManaFruitBlock;
 import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.common.compat.FirstPersonCompat;
 import dev.cammiescorner.arcanus.common.entity.living.Cultist;
@@ -154,8 +155,20 @@ public class ArcanusClient implements ClientEntryPoint {
 
 		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE.get(), CollapseParticle.Factory::new);
 
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(), ArcanusBlocks.MAGIC_DOOR.get(), ArcanusBlocks.ARCANE_WORKBENCH.get(), ArcanusBlocks.CHALK.get());
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(), ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get(), ArcanusBlocks.JAR.get());
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(),
+			ArcanusBlocks.MAGIC_DOOR.get(),
+			ArcanusBlocks.ARCANE_WORKBENCH.get(),
+			ArcanusBlocks.CHALK.get()
+		);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(),
+			ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get(),
+			ArcanusBlocks.JAR.get(),
+			ArcanusBlocks.RED_MANA_FRUIT.get(),
+			ArcanusBlocks.GREEN_MANA_FRUIT.get(),
+			ArcanusBlocks.BLUE_MANA_FRUIT.get(),
+			ArcanusBlocks.WHITE_MANA_FRUIT.get(),
+			ArcanusBlocks.BLACK_MANA_FRUIT.get()
+		);
 		BlockEntityRenderers.register(ArcanusBlockEntities.MAGIC_BLOCK.get(), MagicBlockEntityRenderer.factory(ArcanusHelper::getMagicColor));
 		BlockEntityRenderers.register(ArcanusBlockEntities.SPATIAL_RIFT_EXIT.get(), SpatialRiftExitBlockEntityRenderer::new);
 		BlockEntityRenderers.register(ArcanusBlockEntities.SPATIAL_RIFT_WALL.get(), MagicBlockEntityRenderer.factory(ArcanusHelper::getPocketDimensionColor));
@@ -188,6 +201,14 @@ public class ArcanusClient implements ClientEntryPoint {
 			ArcanusItems.WIZARD_PANTS.get(),
 			ArcanusItems.WIZARD_BOOTS.get(),
 			ArcanusItems.SPELL_BOOK.get()
+		);
+
+		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && state.getBlock() instanceof ManaFruitBlock manaFruit ? manaFruit.getManaType().getColor().asIntARGB() : 0xffffffff,
+			ArcanusBlocks.RED_MANA_FRUIT.get(),
+			ArcanusBlocks.GREEN_MANA_FRUIT.get(),
+			ArcanusBlocks.BLUE_MANA_FRUIT.get(),
+			ArcanusBlocks.WHITE_MANA_FRUIT.get(),
+			ArcanusBlocks.BLACK_MANA_FRUIT.get()
 		);
 
 		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && tintGetter.getBlockEntityRenderData(pos) instanceof JarRenderData(Color color) ? color.asIntARGB() : 0xffffffff,
