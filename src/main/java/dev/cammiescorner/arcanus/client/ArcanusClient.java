@@ -160,6 +160,7 @@ public class ArcanusClient implements ClientEntryPoint {
 			ArcanusBlocks.ARCANE_WORKBENCH.get(),
 			ArcanusBlocks.CHALK.get()
 		);
+
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(),
 			ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get(),
 			ArcanusBlocks.JAR.get(),
@@ -169,6 +170,7 @@ public class ArcanusClient implements ClientEntryPoint {
 			ArcanusBlocks.WHITE_MANA_FRUIT.get(),
 			ArcanusBlocks.BLACK_MANA_FRUIT.get()
 		);
+
 		BlockEntityRenderers.register(ArcanusBlockEntities.MAGIC_BLOCK.get(), MagicBlockEntityRenderer.factory(ArcanusHelper::getMagicColor));
 		BlockEntityRenderers.register(ArcanusBlockEntities.SPATIAL_RIFT_EXIT.get(), SpatialRiftExitBlockEntityRenderer::new);
 		BlockEntityRenderers.register(ArcanusBlockEntities.SPATIAL_RIFT_WALL.get(), MagicBlockEntityRenderer.factory(ArcanusHelper::getPocketDimensionColor));

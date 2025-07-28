@@ -89,6 +89,11 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.block(ArcanusBlocks.PEDESTAL, "Pedestal");
 		builder.block(ArcanusBlocks.JAR, "Jar");
 		builder.block(ArcanusBlocks.CHALK, "Chalk");
+		builder.block(ArcanusBlocks.RED_MANA_FRUIT, "Red Mana Fruit");
+		builder.block(ArcanusBlocks.GREEN_MANA_FRUIT, "Green Mana Fruit");
+		builder.block(ArcanusBlocks.BLUE_MANA_FRUIT, "Blue Mana Fruit");
+		builder.block(ArcanusBlocks.WHITE_MANA_FRUIT, "White Mana Fruit");
+		builder.block(ArcanusBlocks.BLACK_MANA_FRUIT, "Black Mana Fruit");
 		builder.block(ArcanusBlocks.DUMMY_BOOKSHELF, "[DEVELOPER ONLY] Dummy Chiseled Bookshelf");
 		builder.block(ArcanusBlocks.MAGIC_BLOCK, "Magic Block");
 		builder.block(ArcanusBlocks.MAGIC_DOOR, "Magic Door");
