@@ -4,10 +4,12 @@ import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.Spell;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
-import dev.cammiescorner.arcanus.common.util.XtraCodecs;
+import dev.cammiescorner.arcanus.api.staff.StaffCap;
+import dev.cammiescorner.arcanus.api.staff.StaffCore;
 import dev.cammiescorner.arcanus.common.data_component.BookPouchComponent;
 import dev.cammiescorner.arcanus.common.data_component.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.item.BookPouchItem;
+import dev.cammiescorner.arcanus.common.util.XtraCodecs;
 import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
@@ -27,6 +29,20 @@ public class ArcanusDataComponents {
 	public static final RegistrySupplier<DataComponentType<Boolean>> HOOD_DOWN = DATA_COMPONENTS.register("hood_down", () -> DataComponentType.<Boolean>builder()
 		.persistent(Codec.BOOL)
 		.networkSynchronized(ByteBufCodecs.BOOL)
+		.cacheEncoding()
+		.build()
+	);
+
+	public static final RegistrySupplier<DataComponentType<StaffCore>> STAFF_CORE = DATA_COMPONENTS.register("staff_core", () -> DataComponentType.<StaffCore>builder()
+		.persistent(StaffCore.CODEC)
+		.networkSynchronized(StaffCore.STREAM_CODEC)
+		.cacheEncoding()
+		.build()
+	);
+
+	public static final RegistrySupplier<DataComponentType<StaffCap>> STAFF_CAP = DATA_COMPONENTS.register("staff_cap", () -> DataComponentType.<StaffCap>builder()
+		.persistent(StaffCap.CODEC)
+		.networkSynchronized(StaffCap.STREAM_CODEC)
 		.cacheEncoding()
 		.build()
 	);
