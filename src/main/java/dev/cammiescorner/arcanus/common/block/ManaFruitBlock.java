@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.block;
 
-import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.api.mana.ManaType;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

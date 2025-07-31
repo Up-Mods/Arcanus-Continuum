@@ -1,4 +1,4 @@
-package dev.cammiescorner.arcanus.api.spell.mana;
+package dev.cammiescorner.arcanus.api.mana;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

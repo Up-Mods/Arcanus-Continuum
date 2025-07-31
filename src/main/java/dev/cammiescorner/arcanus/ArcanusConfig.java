@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus;
 
 import com.teamresourceful.resourcefulconfig.api.annotations.*;
 import dev.cammiescorner.arcanus.api.spell.Weight;
-import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.api.mana.ManaType;
 import dev.cammiescorner.arcanus.common.util.MirrorHudElement;
 
 import java.util.Map;

@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.api.spell.components;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.api.spell.Weight;
-import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.api.mana.ManaType;
 import dev.cammiescorner.arcanus.common.util.XtraCodecs;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.nbt.CompoundTag;

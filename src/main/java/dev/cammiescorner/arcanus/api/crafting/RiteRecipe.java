@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.api.crafting;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.cammiescorner.arcanus.api.spell.mana.ManaCost;
+import dev.cammiescorner.arcanus.api.mana.ManaCost;
 import dev.cammiescorner.arcanus.common.util.XtraCodecs;
 import dev.cammiescorner.arcanus.common.registry.ArcanusRecipes;
 import net.minecraft.core.HolderLookup;

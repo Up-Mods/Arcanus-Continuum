@@ -8,7 +8,7 @@ import dev.cammiescorner.arcanus.api.spell.Weight;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.api.mana.ManaType;
 import dev.cammiescorner.arcanus.common.item.SpellScrollItem;
 import dev.cammiescorner.arcanus.common.menu.SpellScrollMenu;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;

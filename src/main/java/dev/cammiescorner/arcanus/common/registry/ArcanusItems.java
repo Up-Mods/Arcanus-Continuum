@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.api.mana.ManaType;
 import dev.cammiescorner.arcanus.common.item.*;
 import dev.cammiescorner.arcanus.common.util.StaffType;
 import dev.upcraft.sparkweave.api.color.Color;
@@ -28,6 +28,8 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> MIND_STAFF = ITEMS.register("mind_staff", () -> new StaffItem(StaffType.STAFF, Color.fromARGB(0xffffffff), Color.fromARGB(0xffffffff), true));
 	public static final RegistrySupplier<Item> MAGIC_TOME = ITEMS.register("magic_tome", () -> new StaffItem(StaffType.BOOK, Color.fromARGB(0xff8b4513), Color.fromARGB(0xff1e1b1b), true));
 	public static final RegistrySupplier<Item> MAGE_PISTOL = ITEMS.register("mage_pistol", () -> new StaffItem(StaffType.GUN, Color.fromARGB(0xffffffff), Color.fromARGB(0xffffffff), true));
+	public static final RegistrySupplier<Item> STAFF_CAP = ITEMS.register("staff_cap", StaffCapItem::new);
+	public static final RegistrySupplier<Item> STAFF_CORE = ITEMS.register("staff_core", StaffCoreItem::new);
 
 	public static final RegistrySupplier<Item> WIZARD_HAT = ITEMS.register("wizard_hat", () -> new WizardRobesItem(ArcanusArmorMaterials.WIZARD.holder(), ArmorItem.Type.HELMET));
 	public static final RegistrySupplier<Item> WIZARD_ROBES = ITEMS.register("wizard_robes", () -> new WizardRobesItem(ArcanusArmorMaterials.WIZARD.holder(), ArmorItem.Type.CHESTPLATE));

@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.block.properties;
 
-import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.api.mana.ManaType;
 import net.minecraft.world.level.block.state.properties.Property;
 
 import java.util.Collection;

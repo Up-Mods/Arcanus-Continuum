@@ -13,6 +13,7 @@ import dev.cammiescorner.arcanus.common.util.XtraCodecs;
 import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
+import net.minecraft.core.Holder;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -33,16 +34,16 @@ public class ArcanusDataComponents {
 		.build()
 	);
 
-	public static final RegistrySupplier<DataComponentType<StaffCore>> STAFF_CORE = DATA_COMPONENTS.register("staff_core", () -> DataComponentType.<StaffCore>builder()
-		.persistent(StaffCore.CODEC)
-		.networkSynchronized(StaffCore.STREAM_CODEC)
+	public static final RegistrySupplier<DataComponentType<Holder<StaffCore>>> STAFF_CORE = DATA_COMPONENTS.register("staff_core", () -> DataComponentType.<Holder<StaffCore>>builder()
+		.persistent(StaffCore.HOLDER_CODEC)
+		.networkSynchronized(StaffCore.STREAM_HOLDER_CODEC)
 		.cacheEncoding()
 		.build()
 	);
 
-	public static final RegistrySupplier<DataComponentType<StaffCap>> STAFF_CAP = DATA_COMPONENTS.register("staff_cap", () -> DataComponentType.<StaffCap>builder()
-		.persistent(StaffCap.CODEC)
-		.networkSynchronized(StaffCap.STREAM_CODEC)
+	public static final RegistrySupplier<DataComponentType<Holder<StaffCap>>> STAFF_CAP = DATA_COMPONENTS.register("staff_cap", () -> DataComponentType.<Holder<StaffCap>>builder()
+		.persistent(StaffCap.HOLDER_CODEC)
+		.networkSynchronized(StaffCap.STREAM_HOLDER_CODEC)
 		.cacheEncoding()
 		.build()
 	);

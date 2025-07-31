@@ -1,0 +1,9 @@
+{
+  "mana_modifiers": {
+    "red_mana": 1.1,
+    "green_mana": 1.1,
+    "blue_mana": 1.1,
+    "white_mana": 1.1,
+    "black_mana": 1.1
+  }
+}

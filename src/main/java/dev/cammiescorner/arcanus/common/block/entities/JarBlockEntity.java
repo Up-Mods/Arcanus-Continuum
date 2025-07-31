@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.block.entities;
 
-import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.api.mana.ManaType;
 import dev.cammiescorner.arcanus.client.util.JarRenderData;
 import dev.cammiescorner.arcanus.common.block.JarBlock;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;

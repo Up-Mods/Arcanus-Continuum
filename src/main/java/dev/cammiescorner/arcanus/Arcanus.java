@@ -6,7 +6,7 @@ import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
 import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.api.ArcanusRegistries;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
-import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.api.mana.ManaType;
 import dev.cammiescorner.arcanus.api.staff.StaffCap;
 import dev.cammiescorner.arcanus.api.staff.StaffCore;
 import dev.cammiescorner.arcanus.common.block.MagicDoorBlock;

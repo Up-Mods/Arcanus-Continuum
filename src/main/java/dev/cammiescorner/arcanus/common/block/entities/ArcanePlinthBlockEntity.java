@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.block.entities;
 
 import dev.cammiescorner.arcanus.api.crafting.RiteRecipeInput;
-import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.api.mana.ManaType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.StackedContents;

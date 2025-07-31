@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.api.crafting;
 
-import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.api.mana.ManaType;
 import dev.cammiescorner.arcanus.api.util.ManaProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.StackedContents;

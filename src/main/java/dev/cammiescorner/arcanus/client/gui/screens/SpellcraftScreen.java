@@ -11,7 +11,7 @@ import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.api.mana.ManaType;
 import dev.cammiescorner.arcanus.api.util.Rectangle;
 import dev.cammiescorner.arcanus.client.gui.util.Action;
 import dev.cammiescorner.arcanus.client.gui.util.UndoRedoStack;

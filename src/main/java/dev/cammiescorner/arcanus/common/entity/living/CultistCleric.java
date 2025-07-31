@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.entity.living;
 
-import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
+import dev.cammiescorner.arcanus.api.mana.ManaType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
