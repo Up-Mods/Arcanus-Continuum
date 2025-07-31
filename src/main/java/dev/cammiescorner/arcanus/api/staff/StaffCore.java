@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.api.ArcanusRegistries;
 import dev.cammiescorner.arcanus.api.spell.mana.ManaType;
 import dev.cammiescorner.arcanus.api.util.ManaDiscount;
-import dev.cammiescorner.arcanus.common.registry.ArcanusStaffCores;
+import dev.upcraft.sparkweave.api.registry.RegistryHelper;
 import net.minecraft.Util;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -39,7 +39,7 @@ public class StaffCore implements StaffComponent {
 	@Override
 	public ResourceLocation getResourceLocation() {
 		if(resourceLocation == null)
-			resourceLocation = ArcanusStaffCores.REGISTRY.getKey(this);
+			resourceLocation = RegistryHelper.getBuiltinRegistry(ArcanusRegistries.STAFF_CORE).getKey(this);
 
 		return resourceLocation;
 	}

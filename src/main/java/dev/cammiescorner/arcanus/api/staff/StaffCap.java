@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.api.staff;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.api.ArcanusRegistries;
-import dev.cammiescorner.arcanus.common.registry.ArcanusStaffCaps;
+import dev.upcraft.sparkweave.api.registry.RegistryHelper;
 import net.minecraft.Util;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -36,7 +36,7 @@ public class StaffCap implements StaffComponent {
 	@Override
 	public ResourceLocation getResourceLocation() {
 		if(resourceLocation == null)
-			resourceLocation = ArcanusStaffCaps.REGISTRY.getKey(this);
+			resourceLocation = RegistryHelper.getBuiltinRegistry(ArcanusRegistries.STAFF_CAP).getKey(this);
 
 		return resourceLocation;
 	}
@@ -60,7 +60,7 @@ public class StaffCap implements StaffComponent {
 	@Override
 	public String getDescriptionId() {
 		if(descriptionId == null)
-			descriptionId = Util.makeDescriptionId("item", ArcanusStaffCaps.REGISTRY.getKey(this));
+			descriptionId = Util.makeDescriptionId("item", getResourceLocation());
 
 		return descriptionId;
 	}
@@ -68,7 +68,7 @@ public class StaffCap implements StaffComponent {
 	@Override
 	public String getStaffId() {
 		if(staffId == null)
-			staffId = Util.makeDescriptionId("staff", ArcanusStaffCaps.REGISTRY.getKey(this)) + "ped";
+			staffId = Util.makeDescriptionId("staff", getResourceLocation()) + "ped";
 
 		return staffId;
 	}

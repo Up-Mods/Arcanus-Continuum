@@ -102,8 +102,6 @@ public class Arcanus implements MainEntryPoint {
 		DynamicRegistries.registerSynced(ArcanusRegistries.STAFF_CAP, StaffCap.CODEC);
 
 		ArcanusAttributes.registerAll();
-		ArcanusStaffCores.STAFF_CORES.accept(registryService);
-		ArcanusStaffCaps.STAFF_CAPS.accept(registryService);
 		ArcanusSpellComponents.SPELL_COMPONENTS.accept(registryService);
 		ArcanusEntities.ENTITY_TYPES.accept(registryService);
 		ArcanusArmorMaterials.MATERIALS.accept(registryService);
