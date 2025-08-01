@@ -2,7 +2,7 @@
 fabric_loom = "1.12.0-alpha.6"
 
 minecraft = "1.21.1"
-fabric_loader = "0.16.13"
+fabric_loader = "0.16.14"
 
 # https://parchmentmc.org/docs/getting-started
 parchment_minecraft = "1.21.1"
@@ -17,7 +17,7 @@ yeetus_experimentus_fabric = "b7C4gGUr" # [FABRIC][1.21] YeetusExperimentus 87.0
 yeetus_experimentus_neoforge = "HaaH232J" # [NEOFORGE][1.21] YeetusExperimentus 87.0.0
 
 # required dependencies
-fabric_api = "0.115.4+1.21.1"
+fabric_api = "0.116.4+1.21.1"
 cca = "6.1.2"
 sparkweave = "0.510.0"
 resourceful_config = "3.0.11"
