@@ -83,8 +83,13 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.OPOSSUM_SPAWN_EGG, "Opossum Spawn Egg");
 
 		builder.item(ArcanusItems.IRON_STAFF_CAP, "Iron Staff Cap");
+		builder.item(ArcanusItems.GOLD_STAFF_CAP, "Gold Staff Cap");
+		builder.item(ArcanusItems.COPPER_STAFF_CAP, "Copper Staff Cap");
+		builder.item(ArcanusItems.NETHERITE_STAFF_CAP, "Netherite Staff Cap");
 
-		builder.item(ArcanusItems.OAK_STAFF_CORE, "Oak Staff Core");
+		builder.item(ArcanusItems.WOODEN_STAFF_CORE, "Wooden Staff Core");
+		builder.item(ArcanusItems.CRIMSON_STAFF_CORE, "Crimson Staff Core");
+		builder.item(ArcanusItems.WARPED_STAFF_CORE, "Warped Staff Core");
 
 		biome(builder, ArcanusBiomes.POCKET_DIMENSION, "Pocket Dimension");
 
