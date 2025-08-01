@@ -43,7 +43,7 @@ public record StaffCoreComponent(ManaModifiers manaModifiers) implements Tooltip
 		for (ManaType manaType : ManaType.values()) {
 			// make sure to keep this bit when making translatable!
 			var modStr = String.format("%.2f", modifier(manaType));
-			tooltipAdder.accept(Component.literal("%s: x%s".formatted(manaType.name(), modStr)).withColor(manaType.getColor().asIntARGB()));
+			tooltipAdder.accept(Component.literal("  %s: x%s".formatted(manaType.name(), modStr)).withColor(manaType.getColor().asIntARGB()));
 		}
 
 

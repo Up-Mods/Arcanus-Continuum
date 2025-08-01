@@ -13,6 +13,7 @@
     "common.ExplosionMixin",
     "common.FallingBlockMixin",
     "common.ItemEntityMixin",
+    "common.ItemStackMixin",
     "common.LevelMixin",
     "common.LivingEntityMixin",
     "common.MilkBucketItemMixin",
