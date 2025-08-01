@@ -4,11 +4,8 @@ import com.google.auto.service.AutoService;
 import com.mojang.authlib.GameProfile;
 import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
 import commonnetwork.api.Network;
-import dev.cammiescorner.arcanus.api.ArcanusRegistries;
-import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.api.mana.ManaType;
-import dev.cammiescorner.arcanus.api.staff.StaffCap;
-import dev.cammiescorner.arcanus.api.staff.StaffCore;
+import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.common.block.MagicDoorBlock;
 import dev.cammiescorner.arcanus.common.block.entities.MagicDoorBlockEntity;
 import dev.cammiescorner.arcanus.common.entity.living.Cultist;
@@ -38,7 +35,6 @@ import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -97,9 +93,6 @@ public class Arcanus implements MainEntryPoint {
 		//  then remaining vanilla registries in alphabetical order,
 		//  then modded registries in alphabetical order
 		RegistryService registryService = RegistryService.get();
-
-		DynamicRegistries.registerSynced(ArcanusRegistries.STAFF_CORE, StaffCore.CODEC);
-		DynamicRegistries.registerSynced(ArcanusRegistries.STAFF_CAP, StaffCap.CODEC);
 
 		ArcanusAttributes.registerAll();
 		ArcanusSpellComponents.SPELL_COMPONENTS.accept(registryService);

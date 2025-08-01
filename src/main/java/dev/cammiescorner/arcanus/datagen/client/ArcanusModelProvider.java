@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.datagen.client;
 
 // TODO fix this class
-public class ArcanusModelProvider {//extends SparkweaveModelProvider {
+//public class ArcanusModelProvider {extends SparkweaveModelProvider {
 //	public ArcanusModelProvider(FabricDataOutput output) {
 //		super(output);
 //	}
@@ -35,4 +35,4 @@ public class ArcanusModelProvider {//extends SparkweaveModelProvider {
 //		gen.generateFlatItem(ArcanusItems.WIZARD_PANTS.get(), ModelTemplates.FLAT_ITEM);
 //		gen.generateFlatItem(ArcanusItems.WIZARD_BOOTS.get(), ModelTemplates.FLAT_ITEM);
 //	}
-}
+//}

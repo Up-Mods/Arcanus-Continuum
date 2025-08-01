@@ -4,16 +4,15 @@ import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.Spell;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
-import dev.cammiescorner.arcanus.api.staff.StaffCap;
-import dev.cammiescorner.arcanus.api.staff.StaffCore;
 import dev.cammiescorner.arcanus.common.data_component.BookPouchComponent;
 import dev.cammiescorner.arcanus.common.data_component.SpellBookComponent;
+import dev.cammiescorner.arcanus.common.data_component.StaffCapComponent;
+import dev.cammiescorner.arcanus.common.data_component.StaffCoreComponent;
 import dev.cammiescorner.arcanus.common.item.BookPouchItem;
 import dev.cammiescorner.arcanus.common.util.XtraCodecs;
 import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
-import net.minecraft.core.Holder;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -30,21 +29,18 @@ public class ArcanusDataComponents {
 	public static final RegistrySupplier<DataComponentType<Boolean>> HOOD_DOWN = DATA_COMPONENTS.register("hood_down", () -> DataComponentType.<Boolean>builder()
 		.persistent(Codec.BOOL)
 		.networkSynchronized(ByteBufCodecs.BOOL)
-		.cacheEncoding()
 		.build()
 	);
 
-	public static final RegistrySupplier<DataComponentType<Holder<StaffCore>>> STAFF_CORE = DATA_COMPONENTS.register("staff_core", () -> DataComponentType.<Holder<StaffCore>>builder()
-		.persistent(StaffCore.HOLDER_CODEC)
-		.networkSynchronized(StaffCore.STREAM_HOLDER_CODEC)
-		.cacheEncoding()
+	public static final RegistrySupplier<DataComponentType<StaffCoreComponent>> STAFF_CORE = DATA_COMPONENTS.register("staff_core", () -> DataComponentType.<StaffCoreComponent>builder()
+		.persistent(StaffCoreComponent.CODEC)
+		.networkSynchronized(StaffCoreComponent.STREAM_CODEC)
 		.build()
 	);
 
-	public static final RegistrySupplier<DataComponentType<Holder<StaffCap>>> STAFF_CAP = DATA_COMPONENTS.register("staff_cap", () -> DataComponentType.<Holder<StaffCap>>builder()
-		.persistent(StaffCap.HOLDER_CODEC)
-		.networkSynchronized(StaffCap.STREAM_HOLDER_CODEC)
-		.cacheEncoding()
+	public static final RegistrySupplier<DataComponentType<StaffCapComponent>> STAFF_CAP = DATA_COMPONENTS.register("staff_cap", () -> DataComponentType.<StaffCapComponent>builder()
+		.persistent(StaffCapComponent.CODEC)
+		.networkSynchronized(StaffCapComponent.STREAM_CODEC)
 		.build()
 	);
 
@@ -79,7 +75,6 @@ public class ArcanusDataComponents {
 	public static final RegistrySupplier<DataComponentType<Integer>> BOOK_POUCH_INDEX = DATA_COMPONENTS.register("book_pouch_index", () -> DataComponentType.<Integer>builder()
 		.persistent(Codec.intRange(0, BookPouchItem.SLOT_COUNT - 1))
 		.networkSynchronized(StreamCodec.of(FriendlyByteBuf::writeVarInt, FriendlyByteBuf::readVarInt))
-		.cacheEncoding()
 		.build()
 	);
 
@@ -91,27 +86,23 @@ public class ArcanusDataComponents {
 	public static final RegistrySupplier<DataComponentType<Color>> PRIMARY_COLOR = DATA_COMPONENTS.register("primary_color", () -> DataComponentType.<Color>builder()
 		.persistent(Color.CODEC)
 		.networkSynchronized(Color.STREAM_CODEC)
-		.cacheEncoding()
 		.build()
 	);
 
 	public static final RegistrySupplier<DataComponentType<Color>> SECONDARY_COLOR = DATA_COMPONENTS.register("secondary_color", () -> DataComponentType.<Color>builder()
 		.persistent(Color.CODEC)
 		.networkSynchronized(Color.STREAM_CODEC)
-		.cacheEncoding()
 		.build()
 	);
 
 	public static final RegistrySupplier<DataComponentType<WeatheringCopper.WeatherState>> WEATHER_STATE = DATA_COMPONENTS.register("weather_state", () -> DataComponentType.<WeatheringCopper.WeatherState>builder()
 		.persistent(WeatheringCopper.WeatherState.CODEC)
 		.networkSynchronized(XtraCodecs.WEATHER_STATE_STREAM_CODEC)
-		.cacheEncoding()
 		.build()
 	);
 
 	public static final RegistrySupplier<DataComponentType<Boolean>> WAXED = DATA_COMPONENTS.register("waxed", () -> DataComponentType.<Boolean>builder()
 		.persistent(Codec.BOOL)
-		.cacheEncoding()
 		.build()
 	);
 }

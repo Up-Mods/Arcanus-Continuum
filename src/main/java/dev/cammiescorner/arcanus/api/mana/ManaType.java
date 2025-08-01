@@ -7,6 +7,8 @@ import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -21,6 +23,7 @@ public enum ManaType implements StringRepresentable {
 	BLACK(ArcanusAttributes.BLACK_MANA, ArcanusAttributes.BLACK_MANA_REGEN, ChatFormatting.DARK_GRAY, Color.fromRGB(41, 29, 42), "black_mana", TranslationKeys.SPELL_BOOK_BLACK_MANA);
 
 	public static final Codec<ManaType> CODEC = StringRepresentable.fromEnum(ManaType::values);
+	public static final StreamCodec<FriendlyByteBuf, ManaType> STREAM_CODEC = StreamCodec.ofMember((type, buf) -> buf.writeEnum(type), buf -> buf.readEnum(ManaType.class));
 	final Holder<Attribute> manaAttribute;
 	final Holder<Attribute> regenAttribute;
 	final ChatFormatting formatting;
