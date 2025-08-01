@@ -30,8 +30,6 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> MIND_STAFF = ITEMS.register("mind_staff", () -> new StaffItem(StaffType.STAFF, Color.fromARGB(0xffffffff), Color.fromARGB(0xffffffff), true));
 	public static final RegistrySupplier<Item> MAGIC_TOME = ITEMS.register("magic_tome", () -> new StaffItem(StaffType.BOOK, Color.fromARGB(0xff8b4513), Color.fromARGB(0xff1e1b1b), true));
 	public static final RegistrySupplier<Item> MAGE_PISTOL = ITEMS.register("mage_pistol", () -> new StaffItem(StaffType.GUN, Color.fromARGB(0xffffffff), Color.fromARGB(0xffffffff), true));
-	public static final RegistrySupplier<Item> IRON_STAFF_CAP = ITEMS.register("iron_staff_cap", () -> new StaffCapItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CAP.get(), new StaffCapComponent(-0.1D))));
-	public static final RegistrySupplier<Item> OAK_STAFF_CORE = ITEMS.register("oak_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(1.1D, 1.1D, 1.1D, 1.1D, 1.1D))));
 
 	public static final RegistrySupplier<Item> WIZARD_HAT = ITEMS.register("wizard_hat", () -> new WizardRobesItem(ArcanusArmorMaterials.WIZARD.holder(), ArmorItem.Type.HELMET));
 	public static final RegistrySupplier<Item> WIZARD_ROBES = ITEMS.register("wizard_robes", () -> new WizardRobesItem(ArcanusArmorMaterials.WIZARD.holder(), ArmorItem.Type.CHESTPLATE));
@@ -66,6 +64,10 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> CULTIST_CLERIC_SPAWN_EGG = ITEMS.register("cultist_cleric_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.CULTIST_CLERIC.get(), 0x52392a, 0xffd87c, new Item.Properties())); // TODO colors
 	public static final RegistrySupplier<Item> CULTIST_KNIGHT_SPAWN_EGG = ITEMS.register("cultist_knight_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.CULTIST_KNIGHT.get(), 0x52392a, 0xffd87c, new Item.Properties())); // TODO colors
 	public static final RegistrySupplier<Item> OPOSSUM_SPAWN_EGG = ITEMS.register("opossum_spawn_egg", () -> new SpawnEggItem(ArcanusEntities.OPOSSUM.get(), 0x131317, 0xbdbdbd, new Item.Properties()));
+
+	public static final RegistrySupplier<Item> IRON_STAFF_CAP = ITEMS.register("iron_staff_cap", () -> new StaffCapItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CAP.get(), new StaffCapComponent(-0.1D))));
+
+	public static final RegistrySupplier<Item> OAK_STAFF_CORE = ITEMS.register("oak_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(1.1D, 1.1D, 1.1D, 1.1D, 1.1D))));
 
 	public static final List<Supplier<Item>> HOOD_ITEMS = List.of(
 		RED_CULT_HOOD, GREEN_CULT_HOOD, BLUE_CULT_HOOD, WHITE_CULT_HOOD, BLACK_CULT_HOOD

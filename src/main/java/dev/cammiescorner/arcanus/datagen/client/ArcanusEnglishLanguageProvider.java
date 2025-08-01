@@ -82,6 +82,10 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.CULTIST_KNIGHT_SPAWN_EGG, "Cultist Knight Spawn Egg");
 		builder.item(ArcanusItems.OPOSSUM_SPAWN_EGG, "Opossum Spawn Egg");
 
+		builder.item(ArcanusItems.IRON_STAFF_CAP, "Iron Staff Cap");
+
+		builder.item(ArcanusItems.OAK_STAFF_CORE, "Oak Staff Core");
+
 		biome(builder, ArcanusBiomes.POCKET_DIMENSION, "Pocket Dimension");
 
 		builder.block(ArcanusBlocks.ARCANE_WORKBENCH, "Arcane Workbench");
