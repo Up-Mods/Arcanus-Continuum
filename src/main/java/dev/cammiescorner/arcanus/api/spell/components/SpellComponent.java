@@ -1,3 +1,22 @@
+/***
+ * Defines the base class and methods for Spell Effects, Groups, and Shapes.
+ *
+ * isEnabled - Gets whether a component is enabled from the config.
+ *
+ * getManaCost - gets the mana cost
+ *
+ * singleCastOnly - returns if a component can only proc once when spell is cast.
+ *
+ * getManaCostAsString - makes the mana cost printable in the console. Testing Purposes only.
+ *
+ * getTexture - Gets the texture and returns it as a variable.
+ *
+ * getTranslationKey - Used to return the id of individual objects when making lang files.
+ *
+ * getName - Used to return a human-readable name for an object.
+ */
+
+
 package dev.cammiescorner.arcanus.api.spell.components;
 
 import com.mojang.serialization.Codec;

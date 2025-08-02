@@ -1,3 +1,9 @@
+/***
+ * Entrypoint
+ *
+ * Registers mod and its objects when game loads.
+ */
+
 package dev.cammiescorner.arcanus;
 
 import com.google.auto.service.AutoService;

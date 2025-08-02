@@ -56,5 +56,22 @@ public class ArcanusBiomeTagsProvider extends FabricTagProvider<Biome> {
 
 		getOrCreateTagBuilder(BiomeTags.MINESHAFT_BLOCKING)
 			.add(ArcanusBiomes.POCKET_DIMENSION);
+
+		getOrCreateTagBuilder(ArcanusBiomeTags.CAN_SPAWN_RED_BEANZ)
+			.addOptionalTag(BiomeTags.IS_BADLANDS)
+			.add(Biomes.DESERT);
+
+		getOrCreateTagBuilder(ArcanusBiomeTags.CAN_SPAWN_BLUE_BEANZ)
+			.addOptionalTag(BiomeTags.IS_OCEAN);
+
+		getOrCreateTagBuilder(ArcanusBiomeTags.CAN_SPAWN_BLACK_BEANZ)
+			.add(Biomes.DEEP_DARK);
+
+		getOrCreateTagBuilder(ArcanusBiomeTags.CAN_SPAWN_WHITE_BEANZ)
+			.add(Biomes.STONY_PEAKS)
+			.add(Biomes.FROZEN_PEAKS);
+
+		getOrCreateTagBuilder(ArcanusBiomeTags.CAN_SPAWN_GREEN_BEANZ)
+			.add(Biomes.LUSH_CAVES);
 	}
 }

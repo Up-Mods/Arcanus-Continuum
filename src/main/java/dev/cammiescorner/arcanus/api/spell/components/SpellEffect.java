@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public abstract class SpellEffect extends SpellComponent {
+	// Checks to see if a given SpellComponent is a SpellEffect. If true, return success. If false, return a String.
 	public static final Codec<SpellEffect> CODEC = ArcanusSpellComponents.REGISTRY.byNameCodec().flatXmap(spellComponent -> spellComponent instanceof SpellEffect effect ? DataResult.success(effect) : DataResult.error(() -> "Not an instance of SpellEffect"), DataResult::success);
 	private final Supplier<SpellType> type;
 
