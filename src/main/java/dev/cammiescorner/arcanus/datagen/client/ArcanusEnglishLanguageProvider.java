@@ -48,6 +48,8 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.MIND_STAFF, "Mind Staff");
 		builder.item(ArcanusItems.MAGIC_TOME, "Magic Tome");
 		builder.item(ArcanusItems.MAGE_PISTOL, "Mage Pistol");
+		builder.item(ArcanusItems.POLYSIUM_INGOT, "Polysium Ingot");
+		builder.item(ArcanusItems.POLYSIUM_NUGGET, "Polysium Nugget");
 		builder.item(ArcanusItems.WIZARD_HAT, "Wizard Hat");
 		builder.item(ArcanusItems.WIZARD_ROBES, "Wizard Robes");
 		builder.item(ArcanusItems.WIZARD_PANTS, "Wizard Pants");
@@ -86,6 +88,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.GOLD_STAFF_CAP, "Gold Staff Cap");
 		builder.item(ArcanusItems.COPPER_STAFF_CAP, "Copper Staff Cap");
 		builder.item(ArcanusItems.NETHERITE_STAFF_CAP, "Netherite Staff Cap");
+		builder.item(ArcanusItems.POLYSIUM_STAFF_CAP, "Polysium Staff Cap");
 
 		builder.item(ArcanusItems.WOODEN_STAFF_CORE, "Wooden Staff Core");
 		builder.item(ArcanusItems.CRIMSON_STAFF_CORE, "Crimson Staff Core");

@@ -31,6 +31,9 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> MAGIC_TOME = ITEMS.register("magic_tome", () -> new StaffItem(StaffType.BOOK, Color.fromARGB(0xff8b4513), Color.fromARGB(0xff1e1b1b), true));
 	public static final RegistrySupplier<Item> MAGE_PISTOL = ITEMS.register("mage_pistol", () -> new StaffItem(StaffType.GUN, Color.fromARGB(0xffffffff), Color.fromARGB(0xffffffff), true));
 
+	public static final RegistrySupplier<Item> POLYSIUM_INGOT = ITEMS.register("polysium_ingot", () -> new Item(new Item.Properties()));
+	public static final RegistrySupplier<Item> POLYSIUM_NUGGET = ITEMS.register("polysium_nugget", () -> new Item(new Item.Properties()));
+
 	public static final RegistrySupplier<Item> WIZARD_HAT = ITEMS.register("wizard_hat", () -> new WizardRobesItem(ArcanusArmorMaterials.WIZARD.holder(), ArmorItem.Type.HELMET));
 	public static final RegistrySupplier<Item> WIZARD_ROBES = ITEMS.register("wizard_robes", () -> new WizardRobesItem(ArcanusArmorMaterials.WIZARD.holder(), ArmorItem.Type.CHESTPLATE));
 	public static final RegistrySupplier<Item> WIZARD_PANTS = ITEMS.register("wizard_pants", () -> new WizardRobesItem(ArcanusArmorMaterials.WIZARD.holder(), ArmorItem.Type.LEGGINGS));
@@ -67,8 +70,9 @@ public class ArcanusItems {
 
 	public static final RegistrySupplier<Item> IRON_STAFF_CAP = ITEMS.register("iron_staff_cap", () -> new StaffCapItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CAP.get(), new StaffCapComponent(-0.1d))));
 	public static final RegistrySupplier<Item> GOLD_STAFF_CAP = ITEMS.register("gold_staff_cap", () -> new StaffCapItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CAP.get(), new StaffCapComponent(0d))));
-	public static final RegistrySupplier<Item> COPPER_STAFF_CAP = ITEMS.register("copper_staff_cap", () -> new StaffCapItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CAP.get(), new StaffCapComponent(0.1d).withInert(true))));
-	public static final RegistrySupplier<Item> NETHERITE_STAFF_CAP = ITEMS.register("netherite_staff_cap", () -> new StaffCapItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CAP.get(), new StaffCapComponent(-0.9d).withInert(true))));
+	public static final RegistrySupplier<Item> COPPER_STAFF_CAP = ITEMS.register("copper_staff_cap", () -> new StaffCapItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CAP.get(), new StaffCapComponent(0.1d, true))));
+	public static final RegistrySupplier<Item> NETHERITE_STAFF_CAP = ITEMS.register("netherite_staff_cap", () -> new StaffCapItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CAP.get(), new StaffCapComponent(-0.9d, true))));
+	public static final RegistrySupplier<Item> POLYSIUM_STAFF_CAP = ITEMS.register("polysium_staff_cap", () -> new StaffCapItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CAP.get(), new StaffCapComponent(0.25d, true))));
 
 	public static final RegistrySupplier<Item> WOODEN_STAFF_CORE = ITEMS.register("wooden_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(1.1d, 1.1d, 1.1d, 1.1d, 1.1d))));
 	public static final RegistrySupplier<Item> CRIMSON_STAFF_CORE = ITEMS.register("crimson_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.8d, 1d, 1d, 1d, 0.8d))));
