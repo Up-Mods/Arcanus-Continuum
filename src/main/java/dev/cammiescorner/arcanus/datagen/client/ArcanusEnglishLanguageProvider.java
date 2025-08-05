@@ -77,7 +77,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.STAFF, "Staff");
 
 		builder.item(ArcanusItems.IRON_STAFF_CAP, "Iron Staff Cap");
-		builder.item(ArcanusItems.GOLD_STAFF_CAP, "Gold Staff Cap");
+		builder.item(ArcanusItems.GOLDEN_STAFF_CAP, "Golden Staff Cap");
 		builder.item(ArcanusItems.COPPER_STAFF_CAP, "Copper Staff Cap");
 		builder.item(ArcanusItems.NETHERITE_STAFF_CAP, "Netherite Staff Cap");
 		builder.item(ArcanusItems.POLYSIUM_STAFF_CAP, "Polysium Staff Cap");

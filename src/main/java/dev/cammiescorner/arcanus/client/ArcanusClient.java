@@ -19,6 +19,7 @@ import dev.cammiescorner.arcanus.client.model.entity.living.WizardModel;
 import dev.cammiescorner.arcanus.client.model.entity.magic.*;
 import dev.cammiescorner.arcanus.client.model.feature.HaloModel;
 import dev.cammiescorner.arcanus.client.model.feature.SpellPatternModel;
+import dev.cammiescorner.arcanus.client.model.item.CompositeStaffModel;
 import dev.cammiescorner.arcanus.client.particle.CollapseParticle;
 import dev.cammiescorner.arcanus.client.renderer.armor.CultRobesRenderer;
 import dev.cammiescorner.arcanus.client.renderer.armor.WizardRobesRenderer;
@@ -27,14 +28,14 @@ import dev.cammiescorner.arcanus.client.renderer.entity.living.CultistRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.living.OpossumRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.living.WizardRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.magic.*;
-import dev.cammiescorner.arcanus.client.renderer.item.StaffItemRenderer;
 import dev.cammiescorner.arcanus.client.renderer.world.WardedBlockRenderer;
 import dev.cammiescorner.arcanus.client.util.JarRenderData;
 import dev.cammiescorner.arcanus.common.block.ManaFruitBlock;
 import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.common.compat.FirstPersonCompat;
 import dev.cammiescorner.arcanus.common.entity.living.Cultist;
-import dev.cammiescorner.arcanus.common.item.StaffItem;
+import dev.cammiescorner.arcanus.common.item.StaffCapItem;
+import dev.cammiescorner.arcanus.common.item.StaffCoreItem;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.client.event.RegisterCustomArmorRenderersEvent;
@@ -50,7 +51,6 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.player.LocalPlayer;
@@ -64,9 +64,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.PlayerSkin;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -74,6 +77,7 @@ import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
@@ -87,6 +91,7 @@ public class ArcanusClient implements ClientEntryPoint {
 	private static final ResourceLocation BLUE_CULT_ROBES = Arcanus.id("textures/entity/armor/blue_cult_robes.png");
 	private static final ResourceLocation WHITE_CULT_ROBES = Arcanus.id("textures/entity/armor/white_cult_robes.png");
 	private static final ResourceLocation BLACK_CULT_ROBES = Arcanus.id("textures/entity/armor/black_cult_robes.png");
+	private static final ModelResourceLocation STAFF_RESOURCE_LOCATION = ModelResourceLocation.inventory(Arcanus.id("staff"));
 	private static final Map<PlayerSkin.Model, EntityRendererProvider<Cultist>> CULTIST_PROVIDERS = Map.of(
 		PlayerSkin.Model.WIDE,
 		context -> new CultistRenderer<>(context, false),
@@ -206,16 +211,6 @@ public class ArcanusClient implements ClientEntryPoint {
 				event.register(itemSupplier, Arcanus.id("hood_down"), (stack, level, entity, seed) -> stack.getOrDefault(ArcanusDataComponents.HOOD_DOWN.get(), false) ? 1f : 0f);
 		});
 
-		ArcanusItems.ITEMS.stream().forEach(holder -> {
-			if(holder.get() instanceof StaffItem item) {
-				ResourceLocation id = holder.getId().withPrefix("item/");
-				StaffItemRenderer staffItemRenderer = new StaffItemRenderer(id);
-				ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(staffItemRenderer);
-				BuiltinItemRendererRegistry.INSTANCE.register(item, staffItemRenderer);
-				ModelLoadingPlugin.register(ctx -> ctx.addModels(id.withSuffix("_gui"), id.withSuffix("_in_hand")));
-			}
-		});
-
 		WorldRenderEvents.AFTER_ENTITIES.register(context -> {
 			if(!context.camera().isDetached() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean())
 				renderFirstPersonBolt(context);
@@ -237,6 +232,39 @@ public class ArcanusClient implements ClientEntryPoint {
 				StunOverlay.render(gui, tickDelta, client.player);
 				ManaBarOverlay.render(gui, tickDelta, client.player);
 			}
+		});
+
+		ModelLoadingPlugin.register(ctx -> {
+			Registry<Item> registry = BuiltInRegistries.ITEM;
+
+			for(ResourceLocation location : registry.keySet()) {
+				Item item = registry.get(location);
+
+				if(item instanceof StaffCoreItem)
+					ctx.addModels(StaffCoreItem.getStaffModelLocation(location));
+				if(item instanceof StaffCapItem)
+					ctx.addModels(StaffCapItem.getStaffModelLocation(location));
+			}
+
+			ctx.modifyModelOnLoad().register((unbakedModel, context) -> {
+				if(STAFF_RESOURCE_LOCATION.equals(context.topLevelId())) {
+					Map<StaffCoreItem, UnbakedModel> coreModels = new HashMap<>();
+					Map<StaffCapItem, UnbakedModel> capModels = new HashMap<>();
+
+					for(ResourceLocation location : registry.keySet()) {
+						Item item = registry.get(location);
+
+						if(item instanceof StaffCoreItem staffCore)
+							coreModels.put(staffCore, context.getOrLoadModel(StaffCoreItem.getStaffModelLocation(location)));
+						if(item instanceof StaffCapItem staffCap)
+							capModels.put(staffCap, context.getOrLoadModel(StaffCapItem.getStaffModelLocation(location)));
+					}
+
+					return new CompositeStaffModel(coreModels, capModels);
+				}
+
+				return unbakedModel;
+			});
 		});
 	}
 

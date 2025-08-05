@@ -1,0 +1,6 @@
+{
+  "parent": "arcanus:arcanus/staff_part/staff_cap_base",
+  "textures": {
+    "layer0": "arcanus:item/staff_part/staff_cap/iron_staff_cap"
+  }
+}
