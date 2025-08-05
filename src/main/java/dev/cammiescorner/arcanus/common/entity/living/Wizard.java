@@ -8,7 +8,6 @@ import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -82,7 +81,6 @@ public class Wizard extends AbstractVillager implements NeutralMob {
 		setItemSlot(EquipmentSlot.CHEST, ArcanusHelper.applyColorToItem(new ItemStack(ArcanusItems.WIZARD_ROBES.get()), robeColor));
 		setItemSlot(EquipmentSlot.LEGS, ArcanusHelper.applyColorToItem(new ItemStack(ArcanusItems.WIZARD_PANTS.get()), robeColor));
 		setItemSlot(EquipmentSlot.FEET, ArcanusHelper.applyColorToItem(new ItemStack(ArcanusItems.WIZARD_BOOTS.get()), robeColor));
-		setItemSlot(EquipmentSlot.MAINHAND, getRandomStaff(random));
 	}
 
 	@Override
@@ -174,14 +172,6 @@ public class Wizard extends AbstractVillager implements NeutralMob {
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
 		return null;
-	}
-
-	private ItemStack getRandomStaff(RandomSource random) {
-		return new ItemStack(BuiltInRegistries.ITEM.getOrCreateTag(ArcanusItemTags.STAVES_FOR_WIZARDS)
-			.getRandomElement(random)
-			.orElse(BuiltInRegistries.ITEM.wrapAsHolder(ArcanusItems.CRYSTAL_STAFF.get()))
-			.value()
-		);
 	}
 
 	public void setRobeColor(int color) {

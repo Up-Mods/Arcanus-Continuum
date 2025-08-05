@@ -22,21 +22,10 @@ import static dev.cammiescorner.arcanus.common.util.TranslationKeys.STAFF_PRIMAR
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.STAFF_SECONDARY_COLOR;
 
 public class StaffItem extends Item {
-	public final StaffType staffType;
-	public final Color defaultPrimaryColor;
-	public final Color defaultSecondaryColor;
-	public final boolean isDonorOnly;
+	public final StaffType staffType = StaffType.STAFF;
 
-	public StaffItem(StaffType staffType, Color defaultPrimaryColor, Color defaultSecondaryColor) {
-		this(staffType, defaultPrimaryColor, defaultSecondaryColor, false);
-	}
-
-	public StaffItem(StaffType staffType, Color defaultPrimaryColor, Color defaultSecondaryColor, boolean isDonorOnly) {
-		super(new Item.Properties().stacksTo(1).attributes(createAttributes()).component(ArcanusDataComponents.PRIMARY_COLOR.get(), defaultPrimaryColor).component(ArcanusDataComponents.SECONDARY_COLOR.get(), defaultSecondaryColor));
-		this.staffType = staffType;
-		this.defaultPrimaryColor = defaultPrimaryColor;
-		this.defaultSecondaryColor = defaultSecondaryColor;
-		this.isDonorOnly = isDonorOnly;
+	public StaffItem() {
+		super(new Item.Properties().stacksTo(1).attributes(createAttributes()));
 	}
 
 	@Override
@@ -66,7 +55,7 @@ public class StaffItem extends Item {
 	}
 
 	public static Color getPrimaryColor(ItemStack stack) {
-		return stack.get(ArcanusDataComponents.PRIMARY_COLOR.get());
+		return Color.fromARGB(0xffffffff);
 	}
 
 	public static int getPrimaryColorRGB(ItemStack stack) {
@@ -78,7 +67,7 @@ public class StaffItem extends Item {
 	}
 
 	public static Color getSecondaryColor(ItemStack stack) {
-		return stack.get(ArcanusDataComponents.SECONDARY_COLOR.get());
+		return Color.fromARGB(0xffffffff);
 	}
 
 	public static int getSecondaryColorRGB(ItemStack stack) {

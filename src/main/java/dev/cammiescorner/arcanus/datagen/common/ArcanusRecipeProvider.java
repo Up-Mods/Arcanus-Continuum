@@ -54,15 +54,6 @@ public class ArcanusRecipeProvider extends FabricRecipeProvider {
 //			.unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
 //			.save(exporter);
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ArcanusItems.CRYSTAL_STAFF.get())
-			.pattern("  A")
-			.pattern(" # ")
-			.pattern("#  ")
-			.define('A', Items.AMETHYST_SHARD)
-			.define('#', ItemTags.LOGS)
-			.unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
-			.save(exporter);
-
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ArcanusBlocks.MAGIC_DOOR.get())
 			.pattern("##")
 			.pattern("AA")

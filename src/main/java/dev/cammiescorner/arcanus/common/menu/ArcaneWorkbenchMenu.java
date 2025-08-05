@@ -47,7 +47,7 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
 		this.player = playerInventory.player;
 		getSlotsForMode(mode);
 		var isSupporter = player.datasync$getEntitlements().keys().contains(WizardData.ID);
-		templates = BuiltInRegistries.ITEM.stream().filter(item -> item instanceof StaffItem).map(StaffItem.class::cast).filter(staffItem -> !staffItem.isDonorOnly || isSupporter).toList();
+		templates = BuiltInRegistries.ITEM.stream().filter(item -> item instanceof StaffItem).map(StaffItem.class::cast).toList();
 	}
 
 	@Override

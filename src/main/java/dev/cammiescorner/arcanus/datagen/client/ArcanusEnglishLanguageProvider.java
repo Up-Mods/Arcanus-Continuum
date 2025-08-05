@@ -38,16 +38,6 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.creativeTab(ArcanusCreativeTabs.GEAR, "Arcanus - Gear");
 		builder.creativeTab(ArcanusCreativeTabs.SCROLLS, "Arcanus - Spell Components");
 
-		builder.item(ArcanusItems.WOODEN_STAFF, "Wooden Staff");
-		builder.item(ArcanusItems.CRYSTAL_STAFF, "Crystal Staff");
-		builder.item(ArcanusItems.DIVINATION_STAFF, "Divination Staff");
-		builder.item(ArcanusItems.CRESCENT_STAFF, "Crescent Staff");
-		builder.item(ArcanusItems.ANCIENT_STAFF, "Ancient Staff");
-		builder.item(ArcanusItems.WAND, "Wand");
-		builder.item(ArcanusItems.THAUMATURGES_GAUNTLET, "Thaumaturge's Gauntlet");
-		builder.item(ArcanusItems.MIND_STAFF, "Mind Staff");
-		builder.item(ArcanusItems.MAGIC_TOME, "Magic Tome");
-		builder.item(ArcanusItems.MAGE_PISTOL, "Mage Pistol");
 		builder.item(ArcanusItems.POLYSIUM_INGOT, "Polysium Ingot");
 		builder.item(ArcanusItems.POLYSIUM_NUGGET, "Polysium Nugget");
 		builder.item(ArcanusItems.WIZARD_HAT, "Wizard Hat");
@@ -83,6 +73,8 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.CULTIST_CLERIC_SPAWN_EGG, "Cultist Cleric Spawn Egg");
 		builder.item(ArcanusItems.CULTIST_KNIGHT_SPAWN_EGG, "Cultist Knight Spawn Egg");
 		builder.item(ArcanusItems.OPOSSUM_SPAWN_EGG, "Opossum Spawn Egg");
+
+		builder.item(ArcanusItems.STAFF, "Staff");
 
 		builder.item(ArcanusItems.IRON_STAFF_CAP, "Iron Staff Cap");
 		builder.item(ArcanusItems.GOLD_STAFF_CAP, "Gold Staff Cap");

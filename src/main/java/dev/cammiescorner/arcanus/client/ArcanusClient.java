@@ -181,22 +181,6 @@ public class ArcanusClient implements ClientEntryPoint {
 			event.registerRenderer(LecternSpellScrollRenderer::new, ArcanusItems.SPELL_SCROLL);
 		});
 
-		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> switch(tintIndex) {
-				case 0 -> StaffItem.getPrimaryColorRGB(stack);
-				case 1 -> StaffItem.getSecondaryColorRGB(stack);
-				default -> 0xffffffff;
-			},
-			ArcanusItems.WOODEN_STAFF.get(),
-			ArcanusItems.CRYSTAL_STAFF.get(),
-			ArcanusItems.DIVINATION_STAFF.get(),
-			ArcanusItems.CRESCENT_STAFF.get(),
-			ArcanusItems.ANCIENT_STAFF.get(),
-			ArcanusItems.WAND.get(),
-			ArcanusItems.THAUMATURGES_GAUNTLET.get(),
-			ArcanusItems.MAGIC_TOME.get(),
-			ArcanusItems.MAGE_PISTOL.get()
-		);
-
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? DyedItemColor.getOrDefault(stack, 0xff52392a) : -1,
 			ArcanusItems.WIZARD_HAT.get(),
 			ArcanusItems.WIZARD_ROBES.get(),

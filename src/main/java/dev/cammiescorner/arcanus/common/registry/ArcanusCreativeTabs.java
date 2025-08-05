@@ -4,7 +4,6 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -44,16 +43,6 @@ public class ArcanusCreativeTabs {
 		UUID dummyId = UUID.fromString("6147825f-5493-4154-87c5-5c03c6b0a7c2");
 
 		// staves
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.WOODEN_STAFF.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.CRYSTAL_STAFF.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.DIVINATION_STAFF.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.CRESCENT_STAFF.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.ANCIENT_STAFF.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.WAND.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.THAUMATURGES_GAUNTLET.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.MIND_STAFF.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.MAGIC_TOME.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.MAGE_PISTOL.get()), dummyId));
 
 		// trinkets
 		entries.accept(ArcanusItems.BOOK_POUCH.get());

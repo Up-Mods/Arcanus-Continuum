@@ -46,25 +46,6 @@ public class ArcanusItemTagsProvider extends FabricTagProvider.ItemTagProvider {
 			.forceAddTag(ItemTags.DECORATED_POT_SHERDS)
 			.addTag(ArcanusItemTags.WIZARD_ARMOR);
 
-		getOrCreateTagBuilder(ArcanusItemTags.STAVES)
-			.add(ArcanusItems.WOODEN_STAFF.get())
-			.add(ArcanusItems.CRYSTAL_STAFF.get())
-			.add(ArcanusItems.DIVINATION_STAFF.get())
-			.add(ArcanusItems.CRESCENT_STAFF.get())
-			.add(ArcanusItems.ANCIENT_STAFF.get())
-			.add(ArcanusItems.WAND.get())
-			.add(ArcanusItems.THAUMATURGES_GAUNTLET.get())
-			.add(ArcanusItems.MIND_STAFF.get())
-			.add(ArcanusItems.MAGIC_TOME.get())
-			.add(ArcanusItems.MAGE_PISTOL.get());
-
-		getOrCreateTagBuilder(ArcanusItemTags.STAVES_FOR_WIZARDS)
-			.add(ArcanusItems.WOODEN_STAFF.get())
-			.add(ArcanusItems.CRYSTAL_STAFF.get())
-			.add(ArcanusItems.DIVINATION_STAFF.get())
-			.add(ArcanusItems.CRESCENT_STAFF.get())
-			.add(ArcanusItems.ANCIENT_STAFF.get());
-
 		getOrCreateTagBuilder(ArcanusItemTags.WIZARD_ARMOR)
 			.add(ArcanusItems.WIZARD_HAT.get())
 			.add(ArcanusItems.WIZARD_ROBES.get())
