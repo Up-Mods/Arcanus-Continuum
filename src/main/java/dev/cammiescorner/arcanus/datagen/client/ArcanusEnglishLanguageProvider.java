@@ -38,12 +38,12 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.creativeTab(ArcanusCreativeTabs.GEAR, "Arcanus - Gear");
 		builder.creativeTab(ArcanusCreativeTabs.SCROLLS, "Arcanus - Spell Components");
 
-		builder.item(ArcanusItems.POLYSIUM_INGOT, "Polysium Ingot");
-		builder.item(ArcanusItems.POLYSIUM_NUGGET, "Polysium Nugget");
-		builder.item(ArcanusItems.WIZARD_HAT, "Wizard Hat");
-		builder.item(ArcanusItems.WIZARD_ROBES, "Wizard Robes");
-		builder.item(ArcanusItems.WIZARD_PANTS, "Wizard Pants");
-		builder.item(ArcanusItems.WIZARD_BOOTS, "Wizard Boots");
+		builder.item(ArcanusItems.ARCANEUM_INGOT, "Arcaneum Ingot");
+		builder.item(ArcanusItems.ARCANEUM_NUGGET, "Arcaneum Nugget");
+		builder.item(ArcanusItems.ARCANIST_HAT, "Arcanist Hat");
+		builder.item(ArcanusItems.ARCANIST_ROBES, "Arcanist Robes");
+		builder.item(ArcanusItems.ARCANIST_PANTS, "Arcanist Pants");
+		builder.item(ArcanusItems.ARCANIST_BOOTS, "Arcanist Boots");
 		builder.item(ArcanusItems.RED_CULT_HOOD, "Red Cultist Hood");
 		builder.item(ArcanusItems.RED_CULT_ROBES, "Red Cultist Robes");
 		builder.item(ArcanusItems.RED_CULT_PANTS, "Red Cultist Pants");
@@ -69,7 +69,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.SPELL_SCROLL, "Spell Scroll");
 		builder.add(SPELL_SCROLL_WITH_SPELL, "%s (%s)");
 		builder.item(ArcanusItems.SCROLL_OF_KNOWLEDGE, "Scroll of Knowledge");
-		builder.item(ArcanusItems.WIZARD_SPAWN_EGG, "Wizard Spawn Egg");
+		builder.item(ArcanusItems.ARCANIST_SPAWN_EGG, "Arcanist Spawn Egg");
 		builder.item(ArcanusItems.CULTIST_CLERIC_SPAWN_EGG, "Cultist Cleric Spawn Egg");
 		builder.item(ArcanusItems.CULTIST_KNIGHT_SPAWN_EGG, "Cultist Knight Spawn Egg");
 		builder.item(ArcanusItems.OPOSSUM_SPAWN_EGG, "Opossum Spawn Egg");
@@ -80,7 +80,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.GOLDEN_STAFF_CAP, "Golden Staff Cap");
 		builder.item(ArcanusItems.COPPER_STAFF_CAP, "Copper Staff Cap");
 		builder.item(ArcanusItems.NETHERITE_STAFF_CAP, "Netherite Staff Cap");
-		builder.item(ArcanusItems.POLYSIUM_STAFF_CAP, "Polysium Staff Cap");
+		builder.item(ArcanusItems.ARCANEUM_STAFF_CAP, "Arcaneum Staff Cap");
 
 		builder.item(ArcanusItems.WOODEN_STAFF_CORE, "Wooden Staff Core");
 		builder.item(ArcanusItems.CRIMSON_STAFF_CORE, "Crimson Staff Core");
@@ -119,7 +119,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.entity(ArcanusEntities.PORTAL, "Pocket Dimension Portal");
 		builder.entity(ArcanusEntities.TEMPORAL_DILATION_FIELD, "Temporal Dilation Field");
 		builder.entity(ArcanusEntities.SMITE, "Smite");
-		builder.entity(ArcanusEntities.WIZARD, "Wizard");
+		builder.entity(ArcanusEntities.ARCANIST, "Arcanist");
 		builder.entity(ArcanusEntities.CULTIST_CLERIC, "Cultist Cleric");
 		builder.entity(ArcanusEntities.CULTIST_KNIGHT, "Cultist Knight");
 
@@ -137,7 +137,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(ArcanusMobEffects.ENLARGE.get().getDescriptionId(), "Enlarge");
 
 		tag(builder, ArcanusBiomeTags.C_HAS_VILLAGE, "Has Village");
-		tag(builder, ArcanusBiomeTags.HAS_WIZARD_TOWER, "Has Wizard Tower");
+		tag(builder, ArcanusBiomeTags.HAS_WIZARD_TOWER, "Has Arcanist Tower");
 		tag(builder, ArcanusBiomeTags.IS_POCKET_DIMENSION, "Is Pocket Dimension");
 
 		tag(builder, ArcanusBlockTags.WARDING_NOT_ALLOWED, "Warding Not Allowed");
@@ -158,8 +158,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		tag(builder, ArcanusItemTags.SPELL_BOOK, "Spell Books");
 		tag(builder, ArcanusItemTags.COPPER_CURSE_IMMUNE, "Ignored by Copper Curse");
 		tag(builder, ArcanusItemTags.STAVES, "Staves");
-		tag(builder, ArcanusItemTags.STAVES_FOR_WIZARDS, "Staves for Wizards");
-		tag(builder, ArcanusItemTags.WIZARD_ARMOR, "Wizard Armor");
+		tag(builder, ArcanusItemTags.ARCANIST_ARMOR, "Arcanist Armor");
 
 		builder.add(SPELL_BOOK_SLOT, "Spell Book");
 		builder.add(BRACELET_HAND_SLOT, "Bracelet");
@@ -175,8 +174,8 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(USE_SCROLL_ALREADY_KNOW, "You have learned everything you can.");
 		builder.add(USE_SCROLL_DISABLED_COMPONENT, "This spell component doesn't seem possible.");
 
-		builder.add(WIZARD_NO_WIZARD_ARMOR, "Come back to me when you look like a wizard.");
-		builder.add(WIZARD_ARMOR_HINT, "Maybe wearing Wizard Robes will help...");
+		builder.add(ARCANIST_NO_ARCANIST_ARMOR, "Come back to me when you look like a arcanist.");
+		builder.add(ARCANIST_ARMOR_HINT, "Maybe wearing Arcanist Robes will help...");
 
 		builder.add(SET_BONUS, "Full Set Bonus: +40 %s");
 		builder.add(UNKNOWN, "???");
@@ -198,8 +197,8 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(COMMAND_EXPORT_POCKET_DIM_NOT_FOUND, "unable to find %s!");
 		builder.add(COMMAND_EXPORT_POCKET_POCKET_NOT_FOUND, "Pocket dimension for player %s has not been created yet!");
 
-		builder.add(COMMAND_WIZARD_LEVEL_GET_SUCCESS, "%s's wizard level is %s");
-		builder.add(COMMAND_WIZARD_LEVEL_SET_SUCCESS, "Set %s's wizard level to %s");
+		builder.add(COMMAND_WIZARD_LEVEL_GET_SUCCESS, "%s's arcanist level is %s");
+		builder.add(COMMAND_WIZARD_LEVEL_SET_SUCCESS, "Set %s's arcanist level to %s");
 
 		builder.add(COMMAND_SPELL_COMPONENT_LIST_SUCCESS, "%s's known Spell Components:");
 		builder.add(COMMAND_SPELL_COMPONENT_LIST_FAIL, "%s doesn't know any Spell Components");
@@ -211,17 +210,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		advancement(builder, ArcanusAdvancements.ARCANE_ROOT, "Arcanus", "[insert witty sales pitch for something you're already playing]");
 		advancement(builder, ArcanusAdvancements.A_MAGICAL_CRYSTAL, "A Magical Crystal", "Find an Amethyst Shard");
 		advancement(builder, ArcanusAdvancements.ARCANE_ARTIFICE, "Arcane Artifice", "Craft an Arcane Workbench");
-		advancement(builder, ArcanusAdvancements.MAGICAL_MEET_AND_GREET, "Magical Meet & Greet", "Find a Wizard Tower and meet the residents");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_1, "First Steps", "Obtain your first Scroll of Knowledge from a Wizard");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_2, "Wizard Level 2", "Use a Scroll of Knowledge to reach level 2");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_3, "Wizard Level 3", "Use a Scroll of Knowledge to reach level 3");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_4, "Wizard Level 4", "Use a Scroll of Knowledge to reach level 4");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_5, "Wizard Level 5", "Use a Scroll of Knowledge to reach level 5");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_6, "Wizard Level 6", "Use a Scroll of Knowledge to reach level 6");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_7, "Wizard Level 7", "Use a Scroll of Knowledge to reach level 7");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_8, "Wizard Level 8", "Use a Scroll of Knowledge to reach level 8");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_9, "Wizard Level 9", "Use a Scroll of Knowledge to reach level 9");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_10, "Master of The Arcane", "Achieve maximum magical power!");
+		advancement(builder, ArcanusAdvancements.MAGICAL_MEET_AND_GREET, "Magical Meet & Greet", "Find an Arcanist Tower and meet the residents");
 
 		damageType(builder, ArcanusDamageTypes.MAGIC, "%s was killed by %s using magic", null, "%s was killed by %s using magic with %s");
 		damageType(builder, ArcanusDamageTypes.MAGIC_PROJECTILE, "%s was shot by %s using magic", null, "%s was shot by %s using magic with %s");
@@ -447,7 +436,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_REGENERATE_EFFECT_PROPERTIES, "Regenerate Effect");
 		builder.add(CONFIG_FORTIFY_EFFECT_PROPERTIES, "Fortify Effect");
 		builder.add(CONFIG_HASTE_EFFECT_PROPERTIES, "Haste Effect");
-		builder.add(CONFIG_MANA_SHIELD_EFFECT_PROPERTIES, "Arcana Shield Effect");
+		builder.add(CONFIG_MANA_SHIELD_EFFECT_PROPERTIES, "Mana Shield Effect");
 		builder.add(CONFIG_DANGER_SENSE_EFFECT_PROPERTIES, "Danger Sense Effect");
 		builder.add(CONFIG_TEMPORAL_DILATION_EFFECT_PROPERTIES, "Temporal Dilation Effect");
 		builder.add(CONFIG_PUSH_EFFECT_PROPERTIES, "Push Effect");

@@ -5,8 +5,8 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
 
-public class WizardRobesItem extends WizardArmorItem {
-	public WizardRobesItem(Holder<ArmorMaterial> armorMaterial, Type equipmentSlot) {
+public class ArcanistRobesItem extends WizardArmorItem {
+	public ArcanistRobesItem(Holder<ArmorMaterial> armorMaterial, Type equipmentSlot) {
 		super(armorMaterial, equipmentSlot);
 	}
 

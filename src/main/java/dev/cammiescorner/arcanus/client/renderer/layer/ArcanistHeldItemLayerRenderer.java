@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.client.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.cammiescorner.arcanus.common.entity.living.Wizard;
+import dev.cammiescorner.arcanus.common.entity.living.Arcanist;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -18,12 +18,12 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public class WizardHeldItemLayerRenderer<T extends Wizard, M extends EntityModel<T> & ArmedModel & HeadedModel> extends ItemInHandLayer<T, M> {
+public class ArcanistHeldItemLayerRenderer<T extends Arcanist, M extends EntityModel<T> & ArmedModel & HeadedModel> extends ItemInHandLayer<T, M> {
 	private final ItemInHandRenderer itemRenderer;
 	private static final float HEAD_YAW = (float) (-Math.PI / 6);
 	private static final float HEAD_ROLL = (float) (Math.PI / 2);
 
-	public WizardHeldItemLayerRenderer(RenderLayerParent<T, M> featureRendererContext, ItemInHandRenderer heldItemRenderer) {
+	public ArcanistHeldItemLayerRenderer(RenderLayerParent<T, M> featureRendererContext, ItemInHandRenderer heldItemRenderer) {
 		super(featureRendererContext, heldItemRenderer);
 		this.itemRenderer = heldItemRenderer;
 	}

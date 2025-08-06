@@ -44,13 +44,13 @@ public class ArcanusItemTagsProvider extends FabricTagProvider.ItemTagProvider {
 			.add(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
 //			.add(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get())
 			.forceAddTag(ItemTags.DECORATED_POT_SHERDS)
-			.addTag(ArcanusItemTags.WIZARD_ARMOR);
+			.addTag(ArcanusItemTags.ARCANIST_ARMOR);
 
-		getOrCreateTagBuilder(ArcanusItemTags.WIZARD_ARMOR)
-			.add(ArcanusItems.WIZARD_HAT.get())
-			.add(ArcanusItems.WIZARD_ROBES.get())
-			.add(ArcanusItems.WIZARD_PANTS.get())
-			.add(ArcanusItems.WIZARD_BOOTS.get())
+		getOrCreateTagBuilder(ArcanusItemTags.ARCANIST_ARMOR)
+			.add(ArcanusItems.ARCANIST_HAT.get())
+			.add(ArcanusItems.ARCANIST_ROBES.get())
+			.add(ArcanusItems.ARCANIST_PANTS.get())
+			.add(ArcanusItems.ARCANIST_BOOTS.get())
 			.add(ArcanusItems.RED_CULT_HOOD.get())
 			.add(ArcanusItems.RED_CULT_ROBES.get())
 			.add(ArcanusItems.RED_CULT_PANTS.get())

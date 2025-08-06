@@ -2,8 +2,8 @@ package dev.cammiescorner.arcanus.client.renderer.armor;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.client.model.armor.WizardRobesModel;
-import dev.cammiescorner.arcanus.common.item.WizardRobesItem;
+import dev.cammiescorner.arcanus.client.model.armor.ArcanistRobesModel;
+import dev.cammiescorner.arcanus.common.item.ArcanistRobesItem;
 import dev.upcraft.sparkweave.api.client.render.CustomHumanoidModelArmorRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
@@ -24,17 +24,17 @@ import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
-public class WizardRobesRenderer extends CustomHumanoidModelArmorRenderer<LivingEntity, HumanoidModel<LivingEntity>, WizardRobesModel<LivingEntity>> {
-	private final ResourceLocation mainTexture = Arcanus.id("textures/entity/armor/wizard_robes.png");
-	private final ResourceLocation overlayTexture = Arcanus.id("textures/entity/armor/wizard_robes_overlay.png");
-	private final WizardRobesModel<LivingEntity> model;
+public class ArcanistRobesRenderer extends CustomHumanoidModelArmorRenderer<LivingEntity, HumanoidModel<LivingEntity>, ArcanistRobesModel<LivingEntity>> {
+	private final ResourceLocation mainTexture = Arcanus.id("textures/entity/armor/arcanist_robes.png");
+	private final ResourceLocation overlayTexture = Arcanus.id("textures/entity/armor/arcanist_robes_overlay.png");
+	private final ArcanistRobesModel<LivingEntity> model;
 
-	public WizardRobesRenderer(LivingEntity entity, EntityRendererProvider.Context context, RenderLayerParent<LivingEntity, ? extends EntityModel<?>> layerParent) {
-		this.model = new WizardRobesModel<>(context.bakeLayer(WizardRobesModel.MODEL_LAYER));
+	public ArcanistRobesRenderer(LivingEntity entity, EntityRendererProvider.Context context, RenderLayerParent<LivingEntity, ? extends EntityModel<?>> layerParent) {
+		this.model = new ArcanistRobesModel<>(context.bakeLayer(ArcanistRobesModel.MODEL_LAYER));
 	}
 
 	@Override
-	protected void setPartVisibility(WizardRobesModel<LivingEntity> model, HumanoidModel<LivingEntity> contextModel, LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
+	protected void setPartVisibility(ArcanistRobesModel<LivingEntity> model, HumanoidModel<LivingEntity> contextModel, LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
 		boolean slim = contextModel instanceof PlayerModel<LivingEntity> playerModel && playerModel.slim;
 
 		model.setAllVisible(true);
@@ -51,13 +51,13 @@ public class WizardRobesRenderer extends CustomHumanoidModelArmorRenderer<Living
 	}
 
 	@Override
-	protected WizardRobesModel<LivingEntity> getArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
+	protected ArcanistRobesModel<LivingEntity> getArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
 		return model;
 	}
 
 	@Override
-	protected void renderModelPart(PoseStack matrices, MultiBufferSource bufferSource, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, int dyeColor, HumanoidModel<LivingEntity> contextModel, WizardRobesModel<LivingEntity> armorModel) {
-		if(stack.getItem() instanceof WizardRobesItem wizardArmor) {
+	protected void renderModelPart(PoseStack matrices, MultiBufferSource bufferSource, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, int dyeColor, HumanoidModel<LivingEntity> contextModel, ArcanistRobesModel<LivingEntity> armorModel) {
+		if(stack.getItem() instanceof ArcanistRobesItem wizardArmor) {
 			int hexColor = wizardArmor.getColor(stack);
 
 			if(stack.has(DataComponents.CUSTOM_NAME) && stack.getHoverName().getString().equals("jeb_")) {

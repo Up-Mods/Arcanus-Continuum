@@ -17,7 +17,7 @@ import dev.cammiescorner.arcanus.common.block.entities.MagicDoorBlockEntity;
 import dev.cammiescorner.arcanus.common.entity.living.Cultist;
 import dev.cammiescorner.arcanus.common.entity.living.NecroSkeleton;
 import dev.cammiescorner.arcanus.common.entity.living.Opossum;
-import dev.cammiescorner.arcanus.common.entity.living.Wizard;
+import dev.cammiescorner.arcanus.common.entity.living.Arcanist;
 import dev.cammiescorner.arcanus.common.item.BookPouchItem;
 import dev.cammiescorner.arcanus.common.item.CultRobesItem;
 import dev.cammiescorner.arcanus.common.menu.providers.SpellcraftMenuProvider;
@@ -119,7 +119,7 @@ public class Arcanus implements MainEntryPoint {
 		ArcanusStructureProcessorTypes.STRUCTURE_PROCESSORS.accept(registryService);
 		ArcanusCriteriaTriggers.CRITERIA_TRIGGERS.accept(registryService);
 
-		FabricDefaultAttributeRegistry.register(ArcanusEntities.WIZARD.get(), Wizard.createMobAttributes());
+		FabricDefaultAttributeRegistry.register(ArcanusEntities.ARCANIST.get(), Arcanist.createMobAttributes());
 		FabricDefaultAttributeRegistry.register(ArcanusEntities.CULTIST_CLERIC.get(), Cultist.createMobAttributes());
 		FabricDefaultAttributeRegistry.register(ArcanusEntities.CULTIST_KNIGHT.get(), Cultist.createMobAttributes());
 		FabricDefaultAttributeRegistry.register(ArcanusEntities.OPOSSUM.get(), Opossum.createMobAttributes());

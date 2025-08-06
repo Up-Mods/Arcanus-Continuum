@@ -73,7 +73,7 @@ public class ArcanusSpellComponents {
 	public static final RegistrySupplier<SpellEffect> REGENERATE = SPELL_COMPONENTS.register("regenerate_effect", RegenerateSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> FORTIFY = SPELL_COMPONENTS.register("fortify_effect", FortifySpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> HASTE = SPELL_COMPONENTS.register("haste_effect", HasteSpellEffect::new);
-	public static final RegistrySupplier<SpellEffect> MANA_SHIELD = SPELL_COMPONENTS.register("arcana_shield_effect", ManaShieldSpellEffect::new);
+	public static final RegistrySupplier<SpellEffect> MANA_SHIELD = SPELL_COMPONENTS.register("mana_shield_effect", ManaShieldSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> TEMPORAL_DILATION = SPELL_COMPONENTS.register("temporal_dilation_effect", TemporalDilationSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> DANGER_SENSE = SPELL_COMPONENTS.register("danger_sense_effect", DangerSenseSpellEffect::new);
 

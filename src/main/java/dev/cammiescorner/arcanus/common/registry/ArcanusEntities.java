@@ -12,12 +12,12 @@ import net.minecraft.world.entity.MobCategory;
 public class ArcanusEntities {
 	public static final RegistryHandler<EntityType<?>> ENTITY_TYPES = RegistryHandler.create(Registries.ENTITY_TYPE, Arcanus.MOD_ID);
 
-	public static final RegistrySupplier<EntityType<Wizard>> WIZARD = ENTITY_TYPES.register("wizard", () -> EntityType.Builder.of(Wizard::new, MobCategory.MISC).sized(0.7f, 1.8f).build());
+	public static final RegistrySupplier<EntityType<Arcanist>> ARCANIST = ENTITY_TYPES.register("arcanist", () -> EntityType.Builder.of(Arcanist::new, MobCategory.MISC).sized(0.7f, 1.8f).build());
 	public static final RegistrySupplier<EntityType<CultistCleric>> CULTIST_CLERIC = ENTITY_TYPES.register("cultist_cleric", () -> EntityType.Builder.of(CultistCleric::new, MobCategory.MONSTER).sized(0.6f, 1.8f).build());
 	public static final RegistrySupplier<EntityType<CultistKnight>> CULTIST_KNIGHT = ENTITY_TYPES.register("cultist_knight", () -> EntityType.Builder.of(CultistKnight::new, MobCategory.MONSTER).sized(0.6f, 1.8f).build());
 	public static final RegistrySupplier<EntityType<Opossum>> OPOSSUM = ENTITY_TYPES.register("opossum", () -> EntityType.Builder.of(Opossum::new, MobCategory.CREATURE).sized(0.6f, 0.7f).build());
 	public static final RegistrySupplier<EntityType<NecroSkeleton>> NECRO_SKELETON = ENTITY_TYPES.register("necro_skeleton", () -> EntityType.Builder.of(NecroSkeleton::new, MobCategory.MONSTER).noSummon().sized(0.6f, 1.8f).build());
-	public static final RegistrySupplier<EntityType<ManaShield>> MANA_SHIELD = ENTITY_TYPES.register("arcana_shield", () -> EntityType.Builder.of(ManaShield::new, MobCategory.MISC).fireImmune().noSummon().sized(4f, 4f).build());
+	public static final RegistrySupplier<EntityType<ManaShield>> MANA_SHIELD = ENTITY_TYPES.register("mana_shield", () -> EntityType.Builder.of(ManaShield::new, MobCategory.MISC).fireImmune().noSummon().sized(4f, 4f).build());
 	public static final RegistrySupplier<EntityType<Missile>> MISSILE = ENTITY_TYPES.register("missile", () -> EntityType.Builder.of(Missile::new, MobCategory.MISC).fireImmune().noSummon().sized(0.6f, 0.6f).build());
 	public static final RegistrySupplier<EntityType<Lob>> LOB = ENTITY_TYPES.register("lob", () -> EntityType.Builder.of(Lob::new, MobCategory.MISC).fireImmune().noSummon().sized(0.6f, 0.6f).build());
 	public static final RegistrySupplier<EntityType<Smite>> SMITE = ENTITY_TYPES.register("smite", () -> EntityType.Builder.of(Smite::new, MobCategory.MISC).fireImmune().noSummon().sized(4f, 4f).build());

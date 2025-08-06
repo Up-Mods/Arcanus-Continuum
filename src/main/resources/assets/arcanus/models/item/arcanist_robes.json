@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "arcanus:item/arcanist_robes",
+    "layer1": "arcanus:item/arcanist_robes_trim"
+  }
+}

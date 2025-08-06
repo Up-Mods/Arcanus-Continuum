@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.client.model.entity.living;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.entity.living.Wizard;
+import dev.cammiescorner.arcanus.common.entity.living.Arcanist;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -14,7 +14,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class WizardModel extends EntityModel<Wizard> implements ArmedModel, HeadedModel {
+public class ArcanistModel extends EntityModel<Arcanist> implements ArmedModel, HeadedModel {
 	public static final ModelLayerLocation MODEL_LAYER = new ModelLayerLocation(Arcanus.id("wizard"), "main");
 	public final ModelPart head;
 	public final ModelPart leftArm;
@@ -23,7 +23,7 @@ public class WizardModel extends EntityModel<Wizard> implements ArmedModel, Head
 	public final ModelPart leftLeg;
 	public final ModelPart rightLeg;
 
-	public WizardModel(ModelPart root) {
+	public ArcanistModel(ModelPart root) {
 		this.head = root.getChild("head");
 		this.leftArm = root.getChild("leftArm");
 		this.rightArm = root.getChild("rightArm");
@@ -63,7 +63,7 @@ public class WizardModel extends EntityModel<Wizard> implements ArmedModel, Head
 	}
 
 	@Override
-	public void setupAnim(Wizard wizard, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+	public void setupAnim(Arcanist arcanist, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 		rightArm.xRot = Mth.cos(limbAngle * 0.6662f + (float) Math.PI) * 2f * limbDistance * 0.5f;
 		leftArm.xRot = Mth.cos(limbAngle * 0.6662f) * 2f * limbDistance * 0.5f;
 		rightArm.yRot = 0;
@@ -74,8 +74,8 @@ public class WizardModel extends EntityModel<Wizard> implements ArmedModel, Head
 		head.xRot = (float) Math.toRadians(headPitch);
 		head.yRot = (float) Math.toRadians(headYaw);
 
-		if(!wizard.getMainHandItem().isEmpty()) {
-			if(wizard.isLeftHanded()) {
+		if(!arcanist.getMainHandItem().isEmpty()) {
+			if(arcanist.isLeftHanded()) {
 				leftArm.xRot = (float) Math.toRadians(-75) + Mth.cos(limbAngle * 0.6662f) * 2f * limbDistance * 0.25f;
 				leftArm.yRot = (float) Math.toRadians(-20);
 			}
@@ -85,8 +85,8 @@ public class WizardModel extends EntityModel<Wizard> implements ArmedModel, Head
 			}
 		}
 
-		leftLeg.xRot = Mth.lerp(wizard.getSwimAmount(animationProgress), leftLeg.xRot, 0.3f * Mth.cos(limbAngle * 0.33333334f + (float) Math.PI));
-		rightLeg.xRot = Mth.lerp(wizard.getSwimAmount(animationProgress), rightLeg.xRot, 0.3f * Mth.cos(limbAngle * 0.33333334f));
+		leftLeg.xRot = Mth.lerp(arcanist.getSwimAmount(animationProgress), leftLeg.xRot, 0.3f * Mth.cos(limbAngle * 0.33333334f + (float) Math.PI));
+		rightLeg.xRot = Mth.lerp(arcanist.getSwimAmount(animationProgress), rightLeg.xRot, 0.3f * Mth.cos(limbAngle * 0.33333334f));
 	}
 
 	@Override

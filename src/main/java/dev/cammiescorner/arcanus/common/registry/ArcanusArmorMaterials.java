@@ -17,7 +17,7 @@ import java.util.List;
 public class ArcanusArmorMaterials {
 	public static final RegistryHandler<ArmorMaterial> MATERIALS = RegistryHandler.create(Registries.ARMOR_MATERIAL, Arcanus.MOD_ID);
 
-	public static final RegistrySupplier<ArmorMaterial> WIZARD = MATERIALS.register("wizard", () -> new ArmorMaterial(
+	public static final RegistrySupplier<ArmorMaterial> ARCANIST = MATERIALS.register("wizard", () -> new ArmorMaterial(
 		Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
 			map.put(ArmorItem.Type.BOOTS, 1);
 			map.put(ArmorItem.Type.LEGGINGS, 4);

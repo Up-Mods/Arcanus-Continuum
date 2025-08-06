@@ -1,7 +1,7 @@
 {
   "parent": "arcanus:arcane/a_magical_crystal",
   "criteria": {
-    "discovered_wizard_tower": {
+    "discovered_arcanist_tower": {
       "conditions": {
         "player": [
           {
@@ -9,7 +9,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "structure": "arcanus:wizard_tower"
+                "structure": "arcanus:arcanist_tower"
               }
             }
           }
@@ -26,7 +26,7 @@
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "id": "arcanus:wizard_hat",
+      "id": "arcanus:arcanist_hat",
       "nbt": "{Damage:0}"
     },
     "show_toast": true,
@@ -36,7 +36,7 @@
   },
   "requirements": [
     [
-      "discovered_wizard_tower"
+      "discovered_arcanist_tower"
     ]
   ],
   "sends_telemetry_event": true

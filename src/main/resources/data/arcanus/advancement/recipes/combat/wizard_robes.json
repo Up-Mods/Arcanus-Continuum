@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "arcanus:wizard_robes"
+        "recipe": "arcanus:arcanist_robes"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "arcanus:wizard_robes"
+      "arcanus:arcanist_robes"
     ]
   },
   "sends_telemetry_event": false

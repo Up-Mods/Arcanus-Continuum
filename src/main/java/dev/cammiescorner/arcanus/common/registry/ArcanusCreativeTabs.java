@@ -21,7 +21,7 @@ import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 public class ArcanusCreativeTabs {
 	public static final RegistryHandler<CreativeModeTab> CREATIVE_TABS = RegistryHandler.create(Registries.CREATIVE_MODE_TAB, Arcanus.MOD_ID);
 
-	public static final RegistrySupplier<CreativeModeTab> ARCANUS = CREATIVE_TABS.register("arcanus", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_ARCANUS)).icon(() -> new ItemStack(ArcanusItems.WIZARD_HAT.get())).displayItems((params, entries) -> {
+	public static final RegistrySupplier<CreativeModeTab> ARCANUS = CREATIVE_TABS.register("arcanus", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_ARCANUS)).icon(() -> new ItemStack(ArcanusItems.ARCANIST_HAT.get())).displayItems((params, entries) -> {
 		entries.accept(ArcanusItems.SPELL_SCROLL.get());
 		entries.accept(ArcanusItems.SPELL_BOOK.get());
 
@@ -33,7 +33,7 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusBlocks.PEDESTAL.get());
 		entries.accept(ArcanusBlocks.JAR.get());
 
-		entries.accept(ArcanusItems.WIZARD_SPAWN_EGG.get());
+		entries.accept(ArcanusItems.ARCANIST_SPAWN_EGG.get());
 		entries.accept(ArcanusItems.CULTIST_CLERIC_SPAWN_EGG.get());
 		entries.accept(ArcanusItems.CULTIST_KNIGHT_SPAWN_EGG.get());
 		entries.accept(ArcanusItems.OPOSSUM_SPAWN_EGG.get());
@@ -48,10 +48,10 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusItems.BOOK_POUCH.get());
 
 		// armor
-		entries.accept(ArcanusItems.WIZARD_HAT.get());
-		entries.accept(ArcanusItems.WIZARD_ROBES.get());
-		entries.accept(ArcanusItems.WIZARD_PANTS.get());
-		entries.accept(ArcanusItems.WIZARD_BOOTS.get());
+		entries.accept(ArcanusItems.ARCANIST_HAT.get());
+		entries.accept(ArcanusItems.ARCANIST_ROBES.get());
+		entries.accept(ArcanusItems.ARCANIST_PANTS.get());
+		entries.accept(ArcanusItems.ARCANIST_BOOTS.get());
 		entries.accept(ArcanusItems.RED_CULT_HOOD.get());
 		entries.accept(ArcanusItems.RED_CULT_ROBES.get());
 		entries.accept(ArcanusItems.RED_CULT_PANTS.get());

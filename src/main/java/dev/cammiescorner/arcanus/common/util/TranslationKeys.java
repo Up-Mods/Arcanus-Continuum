@@ -17,8 +17,8 @@ public class TranslationKeys {
 	public static final String USE_SCROLL_SUCCESS = "text.arcanus.use_item.scroll_of_knowledge";
 	public static final String USE_SCROLL_ALREADY_KNOW = "text.arcanus.use_item.scroll_of_knowledge.already_knows_spell_component";
 	public static final String USE_SCROLL_DISABLED_COMPONENT = "text.arcanus.use_item.scroll_of_knowledge.disabled_spell_component";
-	public static final String WIZARD_NO_WIZARD_ARMOR = "text.arcanus.wizard_dialogue.no_wizard_armor";
-	public static final String WIZARD_ARMOR_HINT = "tooltip.arcanus.wizard_dialogue.no_wizard_armor";
+	public static final String ARCANIST_NO_ARCANIST_ARMOR = "text.arcanus.wizard_dialogue.no_wizard_armor";
+	public static final String ARCANIST_ARMOR_HINT = "tooltip.arcanus.wizard_dialogue.no_wizard_armor";
 	public static final String SET_BONUS = "tooltip.arcanus.set_bonus";
 	public static final String UNKNOWN = "text.arcanus.unknown"; // TODO make all '???' literals translatable
 	public static final String MAGIC_DOOR_ACCESS_GRANTED = "door.arcanus.access_granted";
@@ -186,7 +186,7 @@ public class TranslationKeys {
 	public static final String CONFIG_REGENERATE_EFFECT_PROPERTIES = "config.arcanus.regenerate_effect_properties";
 	public static final String CONFIG_FORTIFY_EFFECT_PROPERTIES = "config.arcanus.fortify_effect_properties";
 	public static final String CONFIG_HASTE_EFFECT_PROPERTIES = "config.arcanus.haste_effect_properties";
-	public static final String CONFIG_MANA_SHIELD_EFFECT_PROPERTIES = "config.arcanus.arcana_shield_effect_properties";
+	public static final String CONFIG_MANA_SHIELD_EFFECT_PROPERTIES = "config.arcanus.mana_shield_effect_properties";
 	public static final String CONFIG_DANGER_SENSE_EFFECT_PROPERTIES = "config.arcanus.danger_sense_effect_properties";
 	public static final String CONFIG_TEMPORAL_DILATION_EFFECT_PROPERTIES = "config.arcanus.temporal_dilation_effect_properties";
 	public static final String CONFIG_PUSH_EFFECT_PROPERTIES = "config.arcanus.push_effect_properties";

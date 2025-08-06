@@ -40,10 +40,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-public class Wizard extends AbstractVillager implements NeutralMob {
-	private static final EntityDataAccessor<Integer> ROBE_COLOR = SynchedEntityData.defineId(Wizard.class, EntityDataSerializers.INT);
+public class Arcanist extends AbstractVillager implements NeutralMob {
+	private static final EntityDataAccessor<Integer> ROBE_COLOR = SynchedEntityData.defineId(Arcanist.class, EntityDataSerializers.INT);
 
-	public Wizard(EntityType<? extends AbstractVillager> entityType, Level world) {
+	public Arcanist(EntityType<? extends AbstractVillager> entityType, Level world) {
 		super(entityType, world);
 		Arrays.fill(armorDropChances, 0.1f);
 		Arrays.fill(handDropChances, 0.05f);
@@ -77,10 +77,10 @@ public class Wizard extends AbstractVillager implements NeutralMob {
 	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
 		var robeColor = newRandomRobeColor(random);
 		setRobeColor(robeColor);
-		setItemSlot(EquipmentSlot.HEAD, ArcanusHelper.applyColorToItem(new ItemStack(ArcanusItems.WIZARD_HAT.get()), robeColor));
-		setItemSlot(EquipmentSlot.CHEST, ArcanusHelper.applyColorToItem(new ItemStack(ArcanusItems.WIZARD_ROBES.get()), robeColor));
-		setItemSlot(EquipmentSlot.LEGS, ArcanusHelper.applyColorToItem(new ItemStack(ArcanusItems.WIZARD_PANTS.get()), robeColor));
-		setItemSlot(EquipmentSlot.FEET, ArcanusHelper.applyColorToItem(new ItemStack(ArcanusItems.WIZARD_BOOTS.get()), robeColor));
+		setItemSlot(EquipmentSlot.HEAD, ArcanusHelper.applyColorToItem(new ItemStack(ArcanusItems.ARCANIST_HAT.get()), robeColor));
+		setItemSlot(EquipmentSlot.CHEST, ArcanusHelper.applyColorToItem(new ItemStack(ArcanusItems.ARCANIST_ROBES.get()), robeColor));
+		setItemSlot(EquipmentSlot.LEGS, ArcanusHelper.applyColorToItem(new ItemStack(ArcanusItems.ARCANIST_PANTS.get()), robeColor));
+		setItemSlot(EquipmentSlot.FEET, ArcanusHelper.applyColorToItem(new ItemStack(ArcanusItems.ARCANIST_BOOTS.get()), robeColor));
 	}
 
 	@Override
@@ -134,14 +134,14 @@ public class Wizard extends AbstractVillager implements NeutralMob {
 	@Override
 	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 		if(!level().isClientSide()) {
-			if(ArcanusComponents.knowsAnySpellComponents(player) || player.getItemBySlot(EquipmentSlot.HEAD).is(ArcanusItemTags.WIZARD_ARMOR) || player.getItemBySlot(EquipmentSlot.CHEST).is(ArcanusItemTags.WIZARD_ARMOR) || player.getItemBySlot(EquipmentSlot.LEGS).is(ArcanusItemTags.WIZARD_ARMOR) || player.getItemBySlot(EquipmentSlot.FEET).is(ArcanusItemTags.WIZARD_ARMOR)) {
+			if(ArcanusComponents.knowsAnySpellComponents(player) || player.getItemBySlot(EquipmentSlot.HEAD).is(ArcanusItemTags.ARCANIST_ARMOR) || player.getItemBySlot(EquipmentSlot.CHEST).is(ArcanusItemTags.ARCANIST_ARMOR) || player.getItemBySlot(EquipmentSlot.LEGS).is(ArcanusItemTags.ARCANIST_ARMOR) || player.getItemBySlot(EquipmentSlot.FEET).is(ArcanusItemTags.ARCANIST_ARMOR)) {
 				if(!getOffers().isEmpty()) {
 					setTradingPlayer(player);
 					openTradingScreen(player, getDisplayName(), 1);
 				}
 			}
 			else {
-				player.displayClientMessage(Component.translatable(TranslationKeys.WIZARD_NO_WIZARD_ARMOR).withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC).withStyle(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable(TranslationKeys.WIZARD_NO_WIZARD_ARMOR).withStyle(ChatFormatting.AQUA, ChatFormatting.ITALIC)))), false);
+				player.displayClientMessage(Component.translatable(TranslationKeys.ARCANIST_NO_ARCANIST_ARMOR).withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC).withStyle(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable(TranslationKeys.ARCANIST_NO_ARCANIST_ARMOR).withStyle(ChatFormatting.AQUA, ChatFormatting.ITALIC)))), false);
 			}
 		}
 

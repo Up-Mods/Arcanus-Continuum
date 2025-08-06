@@ -51,7 +51,7 @@ public class Opossum extends TamableAnimal {
 		ItemStack hatStack = getItemBySlot(EquipmentSlot.HEAD).copy();
 
 		if(isTame()) {
-			if(handStack.is(ArcanusItems.WIZARD_HAT.get())) {
+			if(handStack.is(ArcanusItems.ARCANIST_HAT.get())) {
 				setItemSlot(EquipmentSlot.HEAD, stack);
 
 				if(!player.isCreative())
