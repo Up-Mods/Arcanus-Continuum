@@ -46,11 +46,6 @@ public class CompositeStaffModel implements FabricBakedModel, BakedModel, Unbake
 	}
 
 	@Override
-	public boolean isVanillaAdapter() {
-		return false;
-	}
-
-	@Override
 	public @Nullable BakedModel bake(ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter, ModelState state) {
 		Registry<Item> registry = BuiltInRegistries.ITEM;
 
@@ -79,6 +74,11 @@ public class CompositeStaffModel implements FabricBakedModel, BakedModel, Unbake
 	}
 
 	@Override
+	public boolean isVanillaAdapter() {
+		return false;
+	}
+
+	@Override
 	public boolean useAmbientOcclusion() {
 		return false;
 	}
@@ -100,7 +100,7 @@ public class CompositeStaffModel implements FabricBakedModel, BakedModel, Unbake
 
 	@Override
 	public TextureAtlasSprite getParticleIcon() {
-		return null;
+		return bakedCoreModels.get(ArcanusItems.WOODEN_STAFF_CORE.get()).getParticleIcon();
 	}
 
 	@Override

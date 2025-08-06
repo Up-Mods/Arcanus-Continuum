@@ -19,8 +19,8 @@ import dev.cammiescorner.arcanus.client.model.entity.living.WizardModel;
 import dev.cammiescorner.arcanus.client.model.entity.magic.*;
 import dev.cammiescorner.arcanus.client.model.feature.HaloModel;
 import dev.cammiescorner.arcanus.client.model.feature.SpellPatternModel;
-import dev.cammiescorner.arcanus.client.model.item.CompositeStaffModel;
 import dev.cammiescorner.arcanus.client.particle.CollapseParticle;
+import dev.cammiescorner.arcanus.client.plugin.StaffModelLoadingPlugin;
 import dev.cammiescorner.arcanus.client.renderer.armor.CultRobesRenderer;
 import dev.cammiescorner.arcanus.client.renderer.armor.WizardRobesRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.*;
@@ -34,8 +34,6 @@ import dev.cammiescorner.arcanus.common.block.ManaFruitBlock;
 import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.common.compat.FirstPersonCompat;
 import dev.cammiescorner.arcanus.common.entity.living.Cultist;
-import dev.cammiescorner.arcanus.common.item.StaffCapItem;
-import dev.cammiescorner.arcanus.common.item.StaffCoreItem;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.client.event.RegisterCustomArmorRenderersEvent;
@@ -64,11 +62,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.PlayerSkin;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -77,7 +71,6 @@ import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
@@ -91,7 +84,6 @@ public class ArcanusClient implements ClientEntryPoint {
 	private static final ResourceLocation BLUE_CULT_ROBES = Arcanus.id("textures/entity/armor/blue_cult_robes.png");
 	private static final ResourceLocation WHITE_CULT_ROBES = Arcanus.id("textures/entity/armor/white_cult_robes.png");
 	private static final ResourceLocation BLACK_CULT_ROBES = Arcanus.id("textures/entity/armor/black_cult_robes.png");
-	private static final ModelResourceLocation STAFF_RESOURCE_LOCATION = ModelResourceLocation.inventory(Arcanus.id("staff"));
 	private static final Map<PlayerSkin.Model, EntityRendererProvider<Cultist>> CULTIST_PROVIDERS = Map.of(
 		PlayerSkin.Model.WIDE,
 		context -> new CultistRenderer<>(context, false),
@@ -234,38 +226,7 @@ public class ArcanusClient implements ClientEntryPoint {
 			}
 		});
 
-		ModelLoadingPlugin.register(ctx -> {
-			Registry<Item> registry = BuiltInRegistries.ITEM;
-
-			for(ResourceLocation location : registry.keySet()) {
-				Item item = registry.get(location);
-
-				if(item instanceof StaffCoreItem)
-					ctx.addModels(StaffCoreItem.getStaffModelLocation(location));
-				if(item instanceof StaffCapItem)
-					ctx.addModels(StaffCapItem.getStaffModelLocation(location));
-			}
-
-			ctx.modifyModelOnLoad().register((unbakedModel, context) -> {
-				if(STAFF_RESOURCE_LOCATION.equals(context.topLevelId())) {
-					Map<StaffCoreItem, UnbakedModel> coreModels = new HashMap<>();
-					Map<StaffCapItem, UnbakedModel> capModels = new HashMap<>();
-
-					for(ResourceLocation location : registry.keySet()) {
-						Item item = registry.get(location);
-
-						if(item instanceof StaffCoreItem staffCore)
-							coreModels.put(staffCore, context.getOrLoadModel(StaffCoreItem.getStaffModelLocation(location)));
-						if(item instanceof StaffCapItem staffCap)
-							capModels.put(staffCap, context.getOrLoadModel(StaffCapItem.getStaffModelLocation(location)));
-					}
-
-					return new CompositeStaffModel(coreModels, capModels);
-				}
-
-				return unbakedModel;
-			});
-		});
+		ModelLoadingPlugin.register(new StaffModelLoadingPlugin());
 	}
 
 	public static Map<PlayerSkin.Model, EntityRenderer<? extends Cultist>> createCultistRenderers(EntityRendererProvider.Context context) {
