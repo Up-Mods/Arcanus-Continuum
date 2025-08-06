@@ -1,11 +1,9 @@
 {
-	"format_version": "1.21.1",
-	"credit": "Made with Blockbench",
 	"parent": "arcanus:arcanus/staff_part/staff_base",
 	"elements": [
 		{
 			"name": "cap",
-			"from": [6.75, 14, 6.75],
+			"from": [6.75, 13.5, 6.75],
 			"to": [9.25, 16, 9.25],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
 			"faces": {

@@ -1,8 +1,8 @@
 {
-	"texture_size": [32, 32],
 	"textures": {
 		"layer0": "minecraft:misc/white"
 	},
+  "texture_size": [32, 32],
 	"display": {
 		"thirdperson_righthand": {
 			"rotation":    [5, 0, 0],
