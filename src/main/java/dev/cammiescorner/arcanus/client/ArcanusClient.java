@@ -152,6 +152,8 @@ public class ArcanusClient implements ClientEntryPoint {
 
 		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE.get(), CollapseParticle.Factory::new);
 
+		ModelLoadingPlugin.register(new StaffModelLoadingPlugin());
+
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(),
 			ArcanusBlocks.MAGIC_DOOR.get(),
 			ArcanusBlocks.ARCANE_WORKBENCH.get(),
@@ -225,8 +227,6 @@ public class ArcanusClient implements ClientEntryPoint {
 				ManaBarOverlay.render(gui, tickDelta, client.player);
 			}
 		});
-
-		ModelLoadingPlugin.register(new StaffModelLoadingPlugin());
 	}
 
 	public static Map<PlayerSkin.Model, EntityRenderer<? extends Cultist>> createCultistRenderers(EntityRendererProvider.Context context) {
