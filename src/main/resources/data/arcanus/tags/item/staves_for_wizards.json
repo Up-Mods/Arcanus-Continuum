@@ -1,10 +1,6 @@
 {
   "replace": false,
   "values": [
-    "arcanus:wooden_staff",
-    "arcanus:crystal_staff",
-    "arcanus:divination_staff",
-    "arcanus:crescent_staff",
-    "arcanus:ancient_staff"
+    "arcanus:staff"
   ]
 }

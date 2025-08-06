@@ -35,7 +35,6 @@
     "client.HumanoidModelMixin",
     "client.ItemInHandLayerMixin",
     "client.ItemInHandRendererMixin",
-    "client.ItemRendererMixin",
     "client.LevelRendererMixin",
     "client.LivingEntityRendererMixin",
     "client.MinecraftMixin",
