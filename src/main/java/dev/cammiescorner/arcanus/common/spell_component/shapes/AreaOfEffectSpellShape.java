@@ -22,8 +22,8 @@ public class AreaOfEffectSpellShape extends SpellShape {
 		super(
 			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.enabled,
 			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.weight,
-			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.manaCosts(),
-			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.arcanaCosts(),
+			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.arcanaModifier,
 			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.potencyModifier,
 			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.coolDownModifier,
 			() -> ArcanusConfig.SpellShapes.AOEShapeProperties.procsOnce);

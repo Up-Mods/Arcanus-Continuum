@@ -17,7 +17,7 @@ public class ArcanusEntities {
 	public static final RegistrySupplier<EntityType<CultistKnight>> CULTIST_KNIGHT = ENTITY_TYPES.register("cultist_knight", () -> EntityType.Builder.of(CultistKnight::new, MobCategory.MONSTER).sized(0.6f, 1.8f).build());
 	public static final RegistrySupplier<EntityType<Opossum>> OPOSSUM = ENTITY_TYPES.register("opossum", () -> EntityType.Builder.of(Opossum::new, MobCategory.CREATURE).sized(0.6f, 0.7f).build());
 	public static final RegistrySupplier<EntityType<NecroSkeleton>> NECRO_SKELETON = ENTITY_TYPES.register("necro_skeleton", () -> EntityType.Builder.of(NecroSkeleton::new, MobCategory.MONSTER).noSummon().sized(0.6f, 1.8f).build());
-	public static final RegistrySupplier<EntityType<ManaShield>> MANA_SHIELD = ENTITY_TYPES.register("mana_shield", () -> EntityType.Builder.of(ManaShield::new, MobCategory.MISC).fireImmune().noSummon().sized(4f, 4f).build());
+	public static final RegistrySupplier<EntityType<ManaShield>> MANA_SHIELD = ENTITY_TYPES.register("arcana_shield", () -> EntityType.Builder.of(ManaShield::new, MobCategory.MISC).fireImmune().noSummon().sized(4f, 4f).build());
 	public static final RegistrySupplier<EntityType<Missile>> MISSILE = ENTITY_TYPES.register("missile", () -> EntityType.Builder.of(Missile::new, MobCategory.MISC).fireImmune().noSummon().sized(0.6f, 0.6f).build());
 	public static final RegistrySupplier<EntityType<Lob>> LOB = ENTITY_TYPES.register("lob", () -> EntityType.Builder.of(Lob::new, MobCategory.MISC).fireImmune().noSummon().sized(0.6f, 0.6f).build());
 	public static final RegistrySupplier<EntityType<Smite>> SMITE = ENTITY_TYPES.register("smite", () -> EntityType.Builder.of(Smite::new, MobCategory.MISC).fireImmune().noSummon().sized(4f, 4f).build());

@@ -20,7 +20,7 @@ public class DangerSenseSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.SupportEffects.DangerSenseEffectProperties.enabled,
 			() -> SpellType.SUPPORT,
-			() -> ArcanusConfig.SupportEffects.DangerSenseEffectProperties.manaCosts(),
+			() -> ArcanusConfig.SupportEffects.DangerSenseEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.SupportEffects.DangerSenseEffectProperties.procsOnce
 		);
 	}

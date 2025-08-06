@@ -20,7 +20,7 @@ public class LevitateSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.MovementEffects.LevitateEffectProperties.enabled,
 			() -> SpellType.MOVEMENT,
-			() -> ArcanusConfig.MovementEffects.LevitateEffectProperties.manaCosts(),
+			() -> ArcanusConfig.MovementEffects.LevitateEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.MovementEffects.LevitateEffectProperties.procsOnce
 		);
 	}

@@ -24,7 +24,7 @@ public class IceSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.AttackEffects.IceEffectProperties.enabled,
 			() -> SpellType.ATTACK,
-			() -> ArcanusConfig.AttackEffects.IceEffectProperties.manaCosts(),
+			() -> ArcanusConfig.AttackEffects.IceEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.AttackEffects.IceEffectProperties.procsOnce
 		);
 	}

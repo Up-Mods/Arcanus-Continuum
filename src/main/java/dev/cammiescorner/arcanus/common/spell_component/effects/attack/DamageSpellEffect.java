@@ -23,7 +23,7 @@ public class DamageSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.enabled,
 			() -> SpellType.ATTACK,
-			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.manaCosts(),
+			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.procsOnce
 		);
 	}

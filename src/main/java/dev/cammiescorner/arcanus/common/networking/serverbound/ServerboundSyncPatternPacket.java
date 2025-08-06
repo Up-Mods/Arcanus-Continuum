@@ -5,7 +5,7 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.api.spell.Spell;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
-import dev.cammiescorner.arcanus.api.mana.ManaType;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
 import dev.cammiescorner.arcanus.common.data_component.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
@@ -73,8 +73,8 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns, boolean castS
 							return;
 						}
 
-						for(ManaType manaType : spell.getManaCost().keySet()) {
-							if(!player.isCreative() && !ArcanusComponents.drainMana(player, manaType, spell.getManaCost().get(manaType), false)) {
+						for(ArcanaType arcanaType : spell.getArcanaCost().keySet()) {
+							if(!player.isCreative() && !ArcanusComponents.drainArcana(player, arcanaType, spell.getArcanaCost().get(arcanaType), false)) {
 								player.displayClientMessage(Component.translatable(SPELL_NOT_ENOUGH_MANA).withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
 								return;
 							}

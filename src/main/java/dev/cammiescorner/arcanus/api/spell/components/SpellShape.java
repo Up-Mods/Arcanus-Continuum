@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.Weight;
-import dev.cammiescorner.arcanus.api.mana.ManaType;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 public abstract class SpellShape extends SpellComponent {
 	public static final Codec<SpellShape> CODEC = ArcanusSpellComponents.REGISTRY.byNameCodec().flatXmap(spellComponent -> spellComponent instanceof SpellShape shape ? DataResult.success(shape) : DataResult.error(() -> "Not instance of SpellShape"), DataResult::success);
 	private final Supplier<Weight> weight;
-	private final Supplier<Double> manaModifier;
+	private final Supplier<Double> arcanaModifier;
 	private final Supplier<Double> potencyModifier;
 	private final Supplier<Double> coolDownModifier;
 
@@ -28,10 +28,10 @@ public abstract class SpellShape extends SpellComponent {
 		return (SpellShape) ArcanusSpellComponents.EMPTY.get();
 	}
 
-	public SpellShape(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Map<ManaType, Double>> manaCost, Supplier<Double> manaModifier, Supplier<Double> potencyModifier, Supplier<Double> coolDownModifier, Supplier<Boolean> procsOnce) {
-		super(isEnabled, manaCost, procsOnce);
+	public SpellShape(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Map<ArcanaType, Double>> arcanaCost, Supplier<Double> arcanaModifier, Supplier<Double> potencyModifier, Supplier<Double> coolDownModifier, Supplier<Boolean> procsOnce) {
+		super(isEnabled, arcanaCost, procsOnce);
 		this.weight = weight;
-		this.manaModifier = manaModifier;
+		this.arcanaModifier = arcanaModifier;
 		this.potencyModifier = potencyModifier;
 		this.coolDownModifier = coolDownModifier;
 	}
@@ -44,8 +44,8 @@ public abstract class SpellShape extends SpellComponent {
 		return potencyModifier.get();
 	}
 
-	public double getManaModifier() {
-		return manaModifier.get() - 1;
+	public double getArcanaModifier() {
+		return arcanaModifier.get() - 1;
 	}
 
 	public double getCoolDownModifier() {
@@ -56,8 +56,8 @@ public abstract class SpellShape extends SpellComponent {
 		return (getPotencyModifier() < 0 ? "" : "+") + Arcanus.format(getPotencyModifier() * 100) + "%";
 	}
 
-	public String getManaMultiplierAsString() {
-		return (getManaModifier() < 0 ? "" : "+") + Arcanus.format(getManaModifier() * 100) + "%";
+	public String getArcanaMultiplierAsString() {
+		return (getArcanaModifier() < 0 ? "" : "+") + Arcanus.format(getArcanaModifier() * 100) + "%";
 	}
 
 	public String getCoolDownModifierAsString() {

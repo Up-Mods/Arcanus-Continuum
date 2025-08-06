@@ -21,7 +21,7 @@ public class CopperCurseSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.AttackEffects.CopperCurseEffectProperties.enabled,
 			() -> SpellType.ATTACK,
-			() -> ArcanusConfig.AttackEffects.CopperCurseEffectProperties.manaCosts(),
+			() -> ArcanusConfig.AttackEffects.CopperCurseEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.AttackEffects.CopperCurseEffectProperties.procsOnce
 		);
 	}

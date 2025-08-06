@@ -21,8 +21,8 @@ public class SelfSpellShape extends SpellShape {
 		super(
 			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.enabled,
 			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.weight,
-			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.manaCosts(),
-			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.arcanaCosts(),
+			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.arcanaModifier,
 			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.potencyModifier,
 			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.coolDownModifier,
 			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.procsOnce);

@@ -13,7 +13,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 public class ArcanusMobEffects {
 	public static final RegistryHandler<MobEffect> MOB_EFFECTS = RegistryHandler.create(Registries.MOB_EFFECT, Arcanus.MOD_ID);
 
-	public static final RegistrySupplier<MobEffect> MANA_LOCK = MOB_EFFECTS.register("mana_lock", () -> new ArcanusStatusEffect(MobEffectCategory.HARMFUL, 0xa89d9b).addAttributeModifier(ArcanusAttributes.MANA_LOCK.holder(), Arcanus.id("mana_lock_potion"), 7, AttributeModifier.Operation.ADD_VALUE));
+	public static final RegistrySupplier<MobEffect> MANA_LOCK = MOB_EFFECTS.register("arcana_lock", () -> new ArcanusStatusEffect(MobEffectCategory.HARMFUL, 0xa89d9b).addAttributeModifier(ArcanusAttributes.ARCANA_LOCK.holder(), Arcanus.id("arcana_lock_potion"), 7, AttributeModifier.Operation.ADD_VALUE));
 	public static final RegistrySupplier<MobEffect> VULNERABILITY = MOB_EFFECTS.register("vulnerability", () -> new ArcanusStatusEffect(MobEffectCategory.HARMFUL, 0x3a8e99));
 	public static final RegistrySupplier<MobEffect> FORTIFY = MOB_EFFECTS.register("fortify", () -> new ArcanusStatusEffect(MobEffectCategory.BENEFICIAL, 0xbbbbbb));
 	public static final RegistrySupplier<MobEffect> BOUNCY = MOB_EFFECTS.register("bouncy", () -> new ArcanusStatusEffect(MobEffectCategory.NEUTRAL, 0x77ff88));

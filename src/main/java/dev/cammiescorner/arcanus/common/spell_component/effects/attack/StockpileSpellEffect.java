@@ -21,7 +21,7 @@ public class StockpileSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.AttackEffects.StockpileEffectProperties.enabled,
 			() -> SpellType.ATTACK,
-			() -> ArcanusConfig.AttackEffects.StockpileEffectProperties.manaCosts(),
+			() -> ArcanusConfig.AttackEffects.StockpileEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.AttackEffects.StockpileEffectProperties.procsOnce
 		);
 	}

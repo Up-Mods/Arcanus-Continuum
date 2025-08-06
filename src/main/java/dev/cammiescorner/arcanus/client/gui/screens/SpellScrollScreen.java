@@ -8,7 +8,7 @@ import dev.cammiescorner.arcanus.api.spell.Weight;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.api.mana.ManaType;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import dev.cammiescorner.arcanus.common.item.SpellScrollItem;
 import dev.cammiescorner.arcanus.common.menu.SpellScrollMenu;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
@@ -124,18 +124,18 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 
 		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
-		MutableComponent mana = Component.empty();
+		MutableComponent arcana = Component.empty();
 		MutableComponent weight = Component.translatable(getWeight().translationKey()).withStyle(ChatFormatting.DARK_GREEN);
 		MutableComponent coolDown = (getCoolDown() > 0 ? Component.literal(Arcanus.format(getCoolDown() / 20d) + "s") : Component.translatable(SPELL_BOOK_INSTANT_COOL_DOWN)).withStyle(ChatFormatting.DARK_RED);
 
-		for(ManaType manaType : ManaType.values()) {
-			if(!mana.equals(Component.empty()))
-				mana.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
+		for(ArcanaType arcanaType : ArcanaType.values()) {
+			if(!arcana.equals(Component.empty()))
+				arcana.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
-			mana.append(Component.literal(Arcanus.format(getManaCost(manaType))).withStyle(manaType.getChatFormatting()));
+			arcana.append(Component.literal(Arcanus.format(getArcanaCost(arcanaType))).withStyle(arcanaType.getChatFormatting()));
 		}
 
-		gui.drawString(font, mana, 240 - font.width(mana), 7, 0xffffff, false);
+		gui.drawString(font, arcana, 240 - font.width(arcana), 7, 0xffffff, false);
 		gui.drawString(font, weight, 240 - font.width(weight), 17, 0xffffff, false);
 		gui.drawString(font, coolDown, 240 - font.width(coolDown), 27, 0xffffff, false);
 
@@ -146,25 +146,25 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 				if(isHovering(position.x() - 2, position.y() - 2, 28, 28, mouseX, mouseY)) {
 					List<Component> textList = new ArrayList<>();
 					SpellComponent component = group.getAllComponents().toList().get(i);
-					MutableComponent manaCost = Component.empty();
+					MutableComponent arcanaCost = Component.empty();
 					boolean knowsComponent = ArcanusComponents.knowsSpellComponents(minecraft.player, component);
 
 					textList.add(knowsComponent ? component.getName() : Component.translatable(UNKNOWN));
 
-					for(ManaType manaType : ManaType.values()) {
-						if(!manaCost.equals(Component.empty()))
-							manaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
+					for(ArcanaType arcanaType : ArcanaType.values()) {
+						if(!arcanaCost.equals(Component.empty()))
+							arcanaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
-						manaCost.append(Component.literal(Arcanus.format(getManaCost(manaType))).withStyle(manaType.getChatFormatting()));
+						arcanaCost.append(Component.literal(Arcanus.format(getArcanaCost(arcanaType))).withStyle(arcanaType.getChatFormatting()));
 					}
 
-					textList.add(manaCost);
+					textList.add(arcanaCost);
 
 					if(component instanceof SpellShape shape) {
-						if(shape.getManaModifier() != 0)
+						if(shape.getArcanaModifier() != 0)
 							textList.add(Component.translatable(TWO_ARGUMENT_KEY,
 								Component.translatable(SPELL_BOOK_MANA_MULTIPLIER),
-								Component.literal(knowsComponent ? shape.getManaMultiplierAsString() : "???").withStyle(ChatFormatting.GRAY)
+								Component.literal(knowsComponent ? shape.getArcanaMultiplierAsString() : "???").withStyle(ChatFormatting.GRAY)
 							).withStyle(ChatFormatting.LIGHT_PURPLE));
 						if(shape.getPotencyModifier() != 0)
 							textList.add(Component.translatable(TWO_ARGUMENT_KEY,
@@ -212,8 +212,8 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 		return getSpell().getWeight();
 	}
 
-	public double getManaCost(ManaType manaType) {
-		return getSpell().getManaCost().get(manaType);
+	public double getArcanaCost(ArcanaType arcanaType) {
+		return getSpell().getArcanaCost().get(arcanaType);
 	}
 
 	public int getCoolDown() {

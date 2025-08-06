@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus;
 
 import com.teamresourceful.resourcefulconfig.api.annotations.*;
 import dev.cammiescorner.arcanus.api.spell.Weight;
-import dev.cammiescorner.arcanus.api.mana.ManaType;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import dev.cammiescorner.arcanus.common.util.MirrorHudElement;
 
 import java.util.Map;
@@ -33,23 +33,23 @@ public final class ArcanusConfig {
 
 	@Category("Client")
 	public static final class ClientStuff {
-		@ConfigEntry(id = "scaleManaBarsWithMaxMana", translation = CONFIG_SCALE_MANA_BARS)
-		public static boolean scaleManaBarsWithMaxMana = true;
+		@ConfigEntry(id = "scaleArcanaBarsWithMaxArcana", translation = CONFIG_SCALE_MANA_BARS)
+		public static boolean scaleArcanaBarsWithMaxArcana = true;
 
-		@ConfigEntry(id = "manaBarsMinLength", translation = CONFIG_MANA_BARS_MIN_LENGTH)
-		public static int manaBarsMinLength = 25;
+		@ConfigEntry(id = "arcanaBarsMinLength", translation = CONFIG_ARCANA_BARS_MIN_LENGTH)
+		public static int arcanaBarsMinLength = 25;
 
-		@ConfigEntry(id = "manaBarsMaxLength", translation = CONFIG_MANA_BARS_MAX_LENGTH)
-		public static int manaBarsMaxLength = 200;
+		@ConfigEntry(id = "arcanaBarsMaxLength", translation = CONFIG_ARCANA_BARS_MAX_LENGTH)
+		public static int arcanaBarsMaxLength = 200;
 
-		@ConfigEntry(id = "manaBarsOnBottom", translation = CONFIG_MANA_BARS_ON_TOP)
-		public static boolean manaBarsOnTop = true;
+		@ConfigEntry(id = "arcanaBarsOnBottom", translation = CONFIG_ARCANA_BARS_ON_TOP)
+		public static boolean arcanaBarsOnTop = true;
 
-		@ConfigEntry(id = "rightSideManaBars", translation = CONFIG_RIGHT_SIDE_MANA_BARS)
-		public static MirrorHudElement rightSideManaBars = MirrorHudElement.IF_LEFT_HANDED;
+		@ConfigEntry(id = "rightSideArcanaBars", translation = CONFIG_RIGHT_SIDE_ARCANA_BARS)
+		public static MirrorHudElement rightSideArcanaBars = MirrorHudElement.IF_LEFT_HANDED;
 
-		@ConfigEntry(id = "numericalManaDisplay", translation = CONFIG_NUMERICAL_MANA_DISPLAY)
-		public static boolean numericalManaDisplay = false;
+		@ConfigEntry(id = "numericalArcanaDisplay", translation = CONFIG_NUMERICAL_ARCANA_DISPLAY)
+		public static boolean numericalArcanaDisplay = false;
 	}
 
 	@Category(value = "Spell Shapes", categories = {
@@ -76,27 +76,27 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_LIGHT;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 5;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 5;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
-			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
-			public static double manaMultiplier = 0.85;
+			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
+			public static double arcanaModifier = 0.85;
 
 			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -117,27 +117,27 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.LIGHT;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 5;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 5;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
-			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
-			public static double manaMultiplier = 1;
+			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
+			public static double arcanaModifier = 1;
 
 			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -165,27 +165,27 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.LIGHT;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
-			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
-			public static double manaMultiplier = 1;
+			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
+			public static double arcanaModifier = 1;
 
 			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -209,27 +209,27 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.MEDIUM;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 7;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 7;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
-			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
-			public static double manaMultiplier = 1;
+			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
+			public static double arcanaModifier = 1;
 
 			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -254,27 +254,27 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.MEDIUM;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 1;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 1;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0.5;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0.5;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
-			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
-			public static double manaMultiplier = 0.1;
+			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
+			public static double arcanaModifier = 0.1;
 
 			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -303,27 +303,27 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.HEAVY;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 10;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 10;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 5;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 5;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
-			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
-			public static double manaMultiplier = 1;
+			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
+			public static double arcanaModifier = 1;
 
 			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -348,27 +348,27 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_HEAVY;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 7;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 7;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 5;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 5;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
-			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
-			public static double manaMultiplier = 1.25;
+			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
+			public static double arcanaModifier = 1.25;
 
 			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -392,27 +392,27 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.MEDIUM;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 8;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 8;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
-			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
-			public static double manaMultiplier = 1;
+			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
+			public static double arcanaModifier = 1;
 
 			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -433,27 +433,27 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.HEAVY;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 7;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 7;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 7;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 7;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
-			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
-			public static double manaMultiplier = 1.2;
+			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
+			public static double arcanaModifier = 1.2;
 
 			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -478,27 +478,27 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_HEAVY;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
-			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
-			public static double manaMultiplier = 4;
+			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
+			public static double arcanaModifier = 4;
 
 			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -529,27 +529,27 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_HEAVY;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 20;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 20;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
-			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
-			public static double manaMultiplier = 1.75;
+			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
+			public static double arcanaModifier = 1.75;
 
 			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -570,27 +570,27 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_HEAVY;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 15;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 15;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 5;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 5;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
-			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
-			public static double manaMultiplier = 1.5;
+			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
+			public static double arcanaModifier = 1.5;
 
 			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -602,8 +602,8 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = true;
 
-			@ConfigEntry(id = "baseManaDrain", translation = CONFIG_BASE_MANA_DRAIN)
-			public static double baseManaDrain = 3;
+			@ConfigEntry(id = "baseArcanaDrain", translation = CONFIG_BASE_MANA_DRAIN)
+			public static double baseArcanaDrain = 3;
 		}
 
 		@Category("Aggressorb")
@@ -614,27 +614,27 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.VERY_HEAVY;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 10;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 10;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 5;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 5;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
-			@ConfigEntry(id = "manaModifier", translation = CONFIG_MANA_MODIFIER)
-			public static double manaModifier = 0.8;
+			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
+			public static double arcanaModifier = 0.8;
 
 			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -682,23 +682,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 3;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 3;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -717,23 +717,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 1;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 1;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -752,23 +752,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 2;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 2;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 1;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 1;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -791,23 +791,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 4;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 4;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -826,23 +826,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 2;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 2;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -861,23 +861,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 5;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 5;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -896,23 +896,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 1;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 1;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 3;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 3;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -931,23 +931,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 5;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 5;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -966,23 +966,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 1;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 1;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 3;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 3;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -997,23 +997,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 1;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 1;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 1;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 1;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1040,23 +1040,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 3;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 3;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1079,23 +1079,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 3;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 3;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1134,23 +1134,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 3;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 3;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1169,23 +1169,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 3;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 3;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 1;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 1;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1200,23 +1200,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 3;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 3;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1235,23 +1235,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 3;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 3;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 1;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 1;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1270,23 +1270,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 3;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 3;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 1;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 1;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1305,23 +1305,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 999;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 999;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1344,23 +1344,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1383,23 +1383,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 9999; // Extra turn cards can go fuck themselves I still have flashbacks to Dralnu, Lich Lord --Ruth
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 9999; // Extra turn cards can go fuck themselves I still have flashbacks to Dralnu, Lich Lord --Ruth
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1426,23 +1426,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 1;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 1;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 1;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 1;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 1;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 1;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1461,23 +1461,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 3;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 3;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 3;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 3;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1496,23 +1496,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 3;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 3;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 1;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 1;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1527,23 +1527,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 5;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 5;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1558,23 +1558,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 2;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 2;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 2;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 2;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1597,23 +1597,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 3;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 3;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 2;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 2;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1636,23 +1636,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 5;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 5;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1688,23 +1688,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 5;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 5;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1734,23 +1734,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 3;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 3;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1769,23 +1769,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 3;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 3;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 1;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 1;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1804,23 +1804,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 3;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 3;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1839,23 +1839,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 5;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 5;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 0;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 0;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1874,23 +1874,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 3;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 3;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1909,23 +1909,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 1;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 1;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 1;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 1;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1944,23 +1944,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 3;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 3;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
@@ -1979,23 +1979,23 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
 			public static Weight weight = Weight.NONE;
 
-			@ConfigEntry(id = "redManaCost", translation = CONFIG_RED_MANA_COST)
-			public static double redManaCost = 0;
+			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
+			public static double ignisArcanaCost = 0;
 
-			@ConfigEntry(id = "greenManaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double greenManaCost = 0;
+			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
+			public static double terraArcanaCost = 0;
 
-			@ConfigEntry(id = "blueManaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double blueManaCost = 3;
+			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
+			public static double aquaArcanaCost = 3;
 
-			@ConfigEntry(id = "whiteManaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double whiteManaCost = 0;
+			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
+			public static double aerArcanaCost = 0;
 
-			@ConfigEntry(id = "blackManaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double blackManaCost = 0;
+			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
+			public static double aetherArcanaCost = 0;
 
-			public static Map<ManaType, Double> manaCosts() {
-				return Arcanus.constructManaMap(redManaCost, greenManaCost, blueManaCost, whiteManaCost, blackManaCost);
+			public static Map<ArcanaType, Double> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)

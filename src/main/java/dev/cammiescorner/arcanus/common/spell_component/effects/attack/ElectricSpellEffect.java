@@ -21,7 +21,7 @@ public class ElectricSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.enabled,
 			() -> SpellType.ATTACK,
-			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.manaCosts(),
+			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.procsOnce
 		);
 	}

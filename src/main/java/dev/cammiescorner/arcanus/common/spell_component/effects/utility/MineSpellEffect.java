@@ -21,7 +21,7 @@ public class MineSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.UtilityEffects.MineEffectProperties.enabled,
 			() -> SpellType.UTILITY,
-			() -> ArcanusConfig.UtilityEffects.MineEffectProperties.manaCosts(),
+			() -> ArcanusConfig.UtilityEffects.MineEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.UtilityEffects.MineEffectProperties.procsOnce
 		);
 	}

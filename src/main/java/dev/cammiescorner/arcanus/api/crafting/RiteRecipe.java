@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.api.crafting;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.cammiescorner.arcanus.api.mana.ManaCost;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaCost;
 import dev.cammiescorner.arcanus.common.util.XtraCodecs;
 import dev.cammiescorner.arcanus.common.registry.ArcanusRecipes;
 import net.minecraft.core.HolderLookup;
@@ -18,16 +18,16 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public record RiteRecipe(List<Ingredient> itemIngredients, ManaCost manaCost, List<RiteResult> results) implements Recipe<RiteRecipeInput> {
+public record RiteRecipe(List<Ingredient> itemIngredients, ArcanaCost arcanaCost, List<RiteResult> results) implements Recipe<RiteRecipeInput> {
 
 	@Override
 	public boolean matches(RiteRecipeInput input, Level level) {
-		return manaCost.test(input) && (itemIngredients.isEmpty() || input.getStackedContents().canCraft(this, null));
+		return arcanaCost.test(input) && (itemIngredients.isEmpty() || input.getStackedContents().canCraft(this, null));
 	}
 
 	@Override
 	public ItemStack assemble(RiteRecipeInput input, HolderLookup.Provider registries) {
-		// TODO consume items and mana etc.
+		// TODO consume items and arcana etc.
 
 		// TODO make an RiteResult#apply() method
 
@@ -64,7 +64,7 @@ public record RiteRecipe(List<Ingredient> itemIngredients, ManaCost manaCost, Li
 
 		public static final MapCodec<RiteRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 			Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").forGetter(RiteRecipe::itemIngredients),
-			ManaCost.CODEC.fieldOf("manaCost").forGetter(RiteRecipe::manaCost),
+			ArcanaCost.CODEC.fieldOf("arcanaCost").forGetter(RiteRecipe::arcanaCost),
 
 			XtraCodecs.singleElementOrList(RiteResult.CODEC).fieldOf("result").forGetter(RiteRecipe::results)
 		).apply(instance, RiteRecipe::new));
@@ -73,8 +73,8 @@ public record RiteRecipe(List<Ingredient> itemIngredients, ManaCost manaCost, Li
 			Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()),
 			RiteRecipe::itemIngredients,
 
-			ManaCost.STREAM_CODEC,
-			RiteRecipe::manaCost,
+			ArcanaCost.STREAM_CODEC,
+			RiteRecipe::arcanaCost,
 
 			RiteResult.STREAM_CODEC.apply(ByteBufCodecs.list()),
 			RiteRecipe::results,

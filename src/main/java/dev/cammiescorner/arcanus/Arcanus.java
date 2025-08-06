@@ -10,7 +10,7 @@ import com.google.auto.service.AutoService;
 import com.mojang.authlib.GameProfile;
 import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
 import commonnetwork.api.Network;
-import dev.cammiescorner.arcanus.api.mana.ManaType;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.common.block.MagicDoorBlock;
 import dev.cammiescorner.arcanus.common.block.entities.MagicDoorBlockEntity;
@@ -179,8 +179,8 @@ public class Arcanus implements MainEntryPoint {
 		EntityTickEvents.endTick(LivingEntity.class).register((entity, level) -> {
 			AttributeMap attributeMap = entity.getAttributes();
 
-			for(ManaType manaType : ManaType.values()) {
-				AttributeInstance attributeInstance = attributeMap.getInstance(manaType.getManaAttribute());
+			for(ArcanaType arcanaType : ArcanaType.values()) {
+				AttributeInstance attributeInstance = attributeMap.getInstance(arcanaType.getArcanaAttribute());
 
 				if(attributeInstance != null && attributeInstance.hasModifier(CultRobesItem.FULL_SET_BONUS))
 					attributeInstance.removeModifier(CultRobesItem.FULL_SET_BONUS);
@@ -205,8 +205,8 @@ public class Arcanus implements MainEntryPoint {
 						entity.addEffect(new MobEffectInstance(ArcanusMobEffects.COPPER_CURSE.holder(), copperCurse.getDuration() - 24000, 0, true, false));
 				}
 
-				for(ManaType manaType : ManaType.values())
-					ArcanusComponents.setMana(entity, manaType, manaType.getMaxMana(entity));
+				for(ArcanaType arcanaType : ArcanaType.values())
+					ArcanusComponents.setArcana(entity, arcanaType, arcanaType.getMaxArcana(entity));
 			}
 		});
 
@@ -311,14 +311,14 @@ public class Arcanus implements MainEntryPoint {
 		return ItemStack.EMPTY;
 	}
 
-	public static Map<ManaType, Double> constructManaMap(double redMana, double greenMana, double blueMana, double whiteMana, double blackMana) {
-		Map<ManaType, Double> map = new EnumMap<>(ManaType.class);
+	public static Map<ArcanaType, Double> constructArcanaMap(double redArcana, double greenArcana, double blueArcana, double aerArcana, double aetherArcana) {
+		Map<ArcanaType, Double> map = new EnumMap<>(ArcanaType.class);
 
-		map.put(ManaType.RED, redMana);
-		map.put(ManaType.GREEN, greenMana);
-		map.put(ManaType.BLUE, blueMana);
-		map.put(ManaType.WHITE, whiteMana);
-		map.put(ManaType.BLACK, blackMana);
+		map.put(ArcanaType.IGNIS, redArcana);
+		map.put(ArcanaType.TERRA, greenArcana);
+		map.put(ArcanaType.AQUA, blueArcana);
+		map.put(ArcanaType.AER, aerArcana);
+		map.put(ArcanaType.AETHER, aetherArcana);
 
 		return map;
 	}

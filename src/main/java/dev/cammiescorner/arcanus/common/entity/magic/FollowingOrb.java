@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.common.entity.magic;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
-import dev.cammiescorner.arcanus.api.mana.ManaType;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
@@ -88,11 +88,11 @@ public class FollowingOrb extends Entity implements Targetable {
 			level().addParticle(ParticleTypes.END_ROD, getX(), getY() + getBbHeight() / 2, getZ(), vel.x(), vel.y(), vel.z());
 		}
 
-		for(ManaType manaType : ArcanusSpellComponents.FOLLOWING_ORB.get().getManaCost().keySet()) {
-			if(ArcanusSpellComponents.FOLLOWING_ORB.get().getManaCost().get(manaType) <= 0)
+		for(ArcanaType arcanaType : ArcanusSpellComponents.FOLLOWING_ORB.get().getArcanaCost().keySet()) {
+			if(ArcanusSpellComponents.FOLLOWING_ORB.get().getArcanaCost().get(arcanaType) <= 0)
 				continue;
 
-			if(tickCount % 100 == 0 && ArcanusComponents.drainMana(caster, manaType, ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.baseManaDrain * effects.size(), false)) {
+			if(tickCount % 100 == 0 && ArcanusComponents.drainArcana(caster, arcanaType, ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.baseArcanaDrain * effects.size(), false)) {
 				EntityHitResult hitResult = new EntityHitResult(target);
 
 				for(SpellEffect effect : new HashSet<>(effects))
@@ -204,7 +204,7 @@ public class FollowingOrb extends Entity implements Targetable {
 			this.casterId = caster.getUUID();
 			this.entityData.set(OWNER_ID, caster.getId());
 
-			ArcanusComponents.setGuardianOrbManaLock(caster, getUUID(), effects.size());
+			ArcanusComponents.setGuardianOrbArcanaLock(caster, getUUID(), effects.size());
 			ArcanusHelper.copyMagicColor(this, caster);
 		}
 

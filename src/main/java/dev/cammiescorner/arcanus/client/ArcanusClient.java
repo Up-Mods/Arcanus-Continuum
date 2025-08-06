@@ -8,7 +8,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.gui.overlay.FirstPersonCastingOverlay;
-import dev.cammiescorner.arcanus.client.gui.overlay.ManaBarOverlay;
+import dev.cammiescorner.arcanus.client.gui.overlay.ArcanaBarOverlay;
 import dev.cammiescorner.arcanus.client.gui.overlay.StunOverlay;
 import dev.cammiescorner.arcanus.client.gui.screens.*;
 import dev.cammiescorner.arcanus.client.model.armor.CultRobesModel;
@@ -30,7 +30,7 @@ import dev.cammiescorner.arcanus.client.renderer.entity.living.WizardRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.magic.*;
 import dev.cammiescorner.arcanus.client.renderer.world.WardedBlockRenderer;
 import dev.cammiescorner.arcanus.client.util.JarRenderData;
-import dev.cammiescorner.arcanus.common.block.ManaFruitBlock;
+import dev.cammiescorner.arcanus.common.block.ArcanaFruitBlock;
 import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.common.compat.FirstPersonCompat;
 import dev.cammiescorner.arcanus.common.entity.living.Cultist;
@@ -163,11 +163,11 @@ public class ArcanusClient implements ClientEntryPoint {
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(),
 			ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get(),
 			ArcanusBlocks.JAR.get(),
-			ArcanusBlocks.RED_MANA_FRUIT.get(),
-			ArcanusBlocks.GREEN_MANA_FRUIT.get(),
-			ArcanusBlocks.BLUE_MANA_FRUIT.get(),
-			ArcanusBlocks.WHITE_MANA_FRUIT.get(),
-			ArcanusBlocks.BLACK_MANA_FRUIT.get()
+			ArcanusBlocks.IGNIS_FRUIT.get(),
+			ArcanusBlocks.TERRA_FRUIT.get(),
+			ArcanusBlocks.AQUA_FRUIT.get(),
+			ArcanusBlocks.AER_FRUIT.get(),
+			ArcanusBlocks.AETHER_FRUIT.get()
 		);
 
 		BlockEntityRenderers.register(ArcanusBlockEntities.MAGIC_BLOCK.get(), MagicBlockEntityRenderer.factory(ArcanusHelper::getMagicColor));
@@ -188,12 +188,12 @@ public class ArcanusClient implements ClientEntryPoint {
 			ArcanusItems.SPELL_BOOK.get()
 		);
 
-		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && state.getBlock() instanceof ManaFruitBlock manaFruit ? manaFruit.getManaType().getColor().asIntARGB() : 0xffffffff,
-			ArcanusBlocks.RED_MANA_FRUIT.get(),
-			ArcanusBlocks.GREEN_MANA_FRUIT.get(),
-			ArcanusBlocks.BLUE_MANA_FRUIT.get(),
-			ArcanusBlocks.WHITE_MANA_FRUIT.get(),
-			ArcanusBlocks.BLACK_MANA_FRUIT.get()
+		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && state.getBlock() instanceof ArcanaFruitBlock arcanaFruit ? arcanaFruit.getArcanaType().getColor().asIntARGB() : 0xffffffff,
+			ArcanusBlocks.IGNIS_FRUIT.get(),
+			ArcanusBlocks.TERRA_FRUIT.get(),
+			ArcanusBlocks.AQUA_FRUIT.get(),
+			ArcanusBlocks.AER_FRUIT.get(),
+			ArcanusBlocks.AETHER_FRUIT.get()
 		);
 
 		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && tintGetter.getBlockEntityRenderData(pos) instanceof JarRenderData(Color color) ? color.asIntARGB() : 0xffffffff,
@@ -224,7 +224,7 @@ public class ArcanusClient implements ClientEntryPoint {
 			if(client.player != null && !client.player.isSpectator() && !client.options.hideGui) {
 				FirstPersonCastingOverlay.render(gui, tickDelta, client.player);
 				StunOverlay.render(gui, tickDelta, client.player);
-				ManaBarOverlay.render(gui, tickDelta, client.player);
+				ArcanaBarOverlay.render(gui, tickDelta, client.player);
 			}
 		});
 	}

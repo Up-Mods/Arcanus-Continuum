@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.entity.living;
 
-import dev.cammiescorner.arcanus.api.mana.ManaType;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -11,7 +11,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
 public class CultistCleric extends Cultist {
-	private ManaType manaType;
+	private ArcanaType arcanaType;
 
 	public CultistCleric(EntityType<? extends Mob> entityType, Level level) {
 		super(entityType, level);
@@ -25,35 +25,35 @@ public class CultistCleric extends Cultist {
 
 	@Override
 	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
-		manaType = ManaType.values()[random.nextInt(ManaType.values().length)];
+		arcanaType = ArcanaType.values()[random.nextInt(ArcanaType.values().length)];
 
-		ItemStack headStack = switch(manaType) {
-			case RED -> new ItemStack(ArcanusItems.RED_CULT_HOOD.get());
-			case GREEN -> new ItemStack(ArcanusItems.GREEN_CULT_HOOD.get());
-			case BLUE -> new ItemStack(ArcanusItems.BLUE_CULT_HOOD.get());
-			case WHITE -> new ItemStack(ArcanusItems.WHITE_CULT_HOOD.get());
-			case BLACK -> new ItemStack(ArcanusItems.BLACK_CULT_HOOD.get());
+		ItemStack headStack = switch(arcanaType) {
+			case IGNIS -> new ItemStack(ArcanusItems.RED_CULT_HOOD.get());
+			case TERRA -> new ItemStack(ArcanusItems.GREEN_CULT_HOOD.get());
+			case AQUA -> new ItemStack(ArcanusItems.BLUE_CULT_HOOD.get());
+			case AER -> new ItemStack(ArcanusItems.WHITE_CULT_HOOD.get());
+			case AETHER -> new ItemStack(ArcanusItems.BLACK_CULT_HOOD.get());
 		};
-		ItemStack chestStack = switch(manaType) {
-			case RED -> new ItemStack(ArcanusItems.RED_CULT_ROBES.get());
-			case GREEN -> new ItemStack(ArcanusItems.GREEN_CULT_ROBES.get());
-			case BLUE -> new ItemStack(ArcanusItems.BLUE_CULT_ROBES.get());
-			case WHITE -> new ItemStack(ArcanusItems.WHITE_CULT_ROBES.get());
-			case BLACK -> new ItemStack(ArcanusItems.BLACK_CULT_ROBES.get());
+		ItemStack chestStack = switch(arcanaType) {
+			case IGNIS -> new ItemStack(ArcanusItems.RED_CULT_ROBES.get());
+			case TERRA -> new ItemStack(ArcanusItems.GREEN_CULT_ROBES.get());
+			case AQUA -> new ItemStack(ArcanusItems.BLUE_CULT_ROBES.get());
+			case AER -> new ItemStack(ArcanusItems.WHITE_CULT_ROBES.get());
+			case AETHER -> new ItemStack(ArcanusItems.BLACK_CULT_ROBES.get());
 		};
-		ItemStack legsStack = switch(manaType) {
-			case RED -> new ItemStack(ArcanusItems.RED_CULT_PANTS.get());
-			case GREEN -> new ItemStack(ArcanusItems.GREEN_CULT_PANTS.get());
-			case BLUE -> new ItemStack(ArcanusItems.BLUE_CULT_PANTS.get());
-			case WHITE -> new ItemStack(ArcanusItems.WHITE_CULT_PANTS.get());
-			case BLACK -> new ItemStack(ArcanusItems.BLACK_CULT_PANTS.get());
+		ItemStack legsStack = switch(arcanaType) {
+			case IGNIS -> new ItemStack(ArcanusItems.RED_CULT_PANTS.get());
+			case TERRA -> new ItemStack(ArcanusItems.GREEN_CULT_PANTS.get());
+			case AQUA -> new ItemStack(ArcanusItems.BLUE_CULT_PANTS.get());
+			case AER -> new ItemStack(ArcanusItems.WHITE_CULT_PANTS.get());
+			case AETHER -> new ItemStack(ArcanusItems.BLACK_CULT_PANTS.get());
 		};
-		ItemStack bootsStack = switch(manaType) {
-			case RED -> new ItemStack(ArcanusItems.RED_CULT_BOOTS.get());
-			case GREEN -> new ItemStack(ArcanusItems.GREEN_CULT_BOOTS.get());
-			case BLUE -> new ItemStack(ArcanusItems.BLUE_CULT_BOOTS.get());
-			case WHITE -> new ItemStack(ArcanusItems.WHITE_CULT_BOOTS.get());
-			case BLACK -> new ItemStack(ArcanusItems.BLACK_CULT_BOOTS.get());
+		ItemStack bootsStack = switch(arcanaType) {
+			case IGNIS -> new ItemStack(ArcanusItems.RED_CULT_BOOTS.get());
+			case TERRA -> new ItemStack(ArcanusItems.GREEN_CULT_BOOTS.get());
+			case AQUA -> new ItemStack(ArcanusItems.BLUE_CULT_BOOTS.get());
+			case AER -> new ItemStack(ArcanusItems.WHITE_CULT_BOOTS.get());
+			case AETHER -> new ItemStack(ArcanusItems.BLACK_CULT_BOOTS.get());
 		};
 
 		setItemSlot(EquipmentSlot.HEAD, headStack);

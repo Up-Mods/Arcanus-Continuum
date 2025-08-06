@@ -6,7 +6,7 @@ import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.api.mana.ManaType;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import dev.cammiescorner.arcanus.common.block.entities.AbstractMagicBlockEntity;
 import dev.cammiescorner.arcanus.common.component.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.component.chunk.WardedBlocksComponent;
@@ -54,7 +54,7 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 
 	// ----- Entity Components ----- \\
 	public static final ComponentKey<KnownSpellComponentsComponent> KNOWN_SPELL_COMPONENTS_COMPONENT = createComponent("known_spell_components", KnownSpellComponentsComponent.class);
-	public static final ComponentKey<ManaComponent> MANA_COMPONENT = createComponent("mana", ManaComponent.class);
+	public static final ComponentKey<ArcanaComponent> ARCANA_COMPONENT = createComponent("arcana", ArcanaComponent.class);
 	public static final ComponentKey<CastingComponent> CASTING_COMPONENT = createComponent("casting", CastingComponent.class);
 	public static final ComponentKey<PatternComponent> PATTERN_COMPONENT = createComponent("casting_pattern", PatternComponent.class);
 	public static final ComponentKey<LastCastTimeComponent> LAST_CAST_TIME_COMPONENT = createComponent("last_cast_time", LastCastTimeComponent.class);
@@ -83,7 +83,7 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
 		registry.beginRegistration(Player.class, KNOWN_SPELL_COMPONENTS_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(KnownSpellComponentsComponent::new);
-		registry.beginRegistration(LivingEntity.class, MANA_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(ManaComponent::new);
+		registry.beginRegistration(LivingEntity.class, ARCANA_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(ArcanaComponent::new);
 		registry.beginRegistration(Player.class, CASTING_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(CastingComponent::new);
 		registry.beginRegistration(Player.class, PATTERN_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(PatternComponent::new);
 		registry.beginRegistration(Player.class, POCKET_DIMENSION_PORTAL_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PocketDimensionPortalComponent::new);
@@ -155,32 +155,32 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		return chunk.getComponent(WARDED_BLOCKS_COMPONENT).getWardedBlocks();
 	}
 
-	public static double getMaxMana(LivingEntity entity, ManaType manaType) {
-		return manaType.getMaxMana(entity);
+	public static double getMaxArcana(LivingEntity entity, ArcanaType arcanaType) {
+		return arcanaType.getMaxArcana(entity);
 	}
 
-	public static double getManaLock(LivingEntity entity) {
-		return entity.getComponent(MANA_COMPONENT).getManaLock();
+	public static double getArcanaLock(LivingEntity entity) {
+		return entity.getComponent(ARCANA_COMPONENT).getArcanaLock();
 	}
 
-	public static double getTrueMaxMana(LivingEntity entity, ManaType manaType) {
-		return entity.getComponent(MANA_COMPONENT).getTrueMaxMana(manaType);
+	public static double getTrueMaxArcana(LivingEntity entity, ArcanaType arcanaType) {
+		return entity.getComponent(ARCANA_COMPONENT).getTrueMaxArcana(arcanaType);
 	}
 
-	public static double getMana(LivingEntity entity, ManaType manaType) {
-		return entity.getComponent(MANA_COMPONENT).getMana(manaType);
+	public static double getArcana(LivingEntity entity, ArcanaType arcanaType) {
+		return entity.getComponent(ARCANA_COMPONENT).getArcana(arcanaType);
 	}
 
-	public static void setMana(LivingEntity entity, ManaType manaType, double amount) {
-		entity.getComponent(MANA_COMPONENT).setMana(manaType, amount);
+	public static void setArcana(LivingEntity entity, ArcanaType arcanaType, double amount) {
+		entity.getComponent(ARCANA_COMPONENT).setArcana(arcanaType, amount);
 	}
 
-	public static boolean addMana(LivingEntity entity, ManaType manaType, double amount, boolean simulate) {
-		return entity.getComponent(MANA_COMPONENT).addMana(manaType, amount, simulate);
+	public static boolean addArcana(LivingEntity entity, ArcanaType arcanaType, double amount, boolean simulate) {
+		return entity.getComponent(ARCANA_COMPONENT).addArcana(arcanaType, amount, simulate);
 	}
 
-	public static boolean drainMana(LivingEntity entity, ManaType manaType, double amount, boolean simulate) {
-		return entity.getComponent(MANA_COMPONENT).drainMana(manaType, amount, simulate);
+	public static boolean drainArcana(LivingEntity entity, ArcanaType arcanaType, double amount, boolean simulate) {
+		return entity.getComponent(ARCANA_COMPONENT).drainArcana(arcanaType, amount, simulate);
 	}
 
 	public static List<SpellComponent> getKnownSpellComponents(Player player) {
@@ -319,8 +319,8 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		return entity.getComponent(GUARDIAN_ORB_COMPONENT).getOrbId();
 	}
 
-	public static void setGuardianOrbManaLock(LivingEntity entity, UUID orbId, int strength) {
-		entity.getComponent(GUARDIAN_ORB_COMPONENT).setManaLock(orbId, strength);
+	public static void setGuardianOrbArcanaLock(LivingEntity entity, UUID orbId, int strength) {
+		entity.getComponent(GUARDIAN_ORB_COMPONENT).setArcanaLock(orbId, strength);
 	}
 
 	public static void setPortalCoolDown(Entity entity, int cooldownTicks) {

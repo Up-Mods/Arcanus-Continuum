@@ -20,8 +20,8 @@ public class FollowingOrbShape extends SpellShape {
 		super(
 			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.enabled,
 			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.weight,
-			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.manaCosts(),
-			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.arcanaCosts(),
+			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.arcanaModifier,
 			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.potencyModifier,
 			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.coolDownModifier,
 			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.procsOnce);

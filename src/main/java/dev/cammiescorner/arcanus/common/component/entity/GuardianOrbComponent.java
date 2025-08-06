@@ -15,7 +15,7 @@ import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 import java.util.UUID;
 
 public class GuardianOrbComponent implements ServerTickingComponent {
-	public static final ResourceLocation uUID = Arcanus.id("guardian_orb_mana_lock");
+	public static final ResourceLocation uUID = Arcanus.id("guardian_orb_arcana_lock");
 	private final LivingEntity entity;
 	private UUID orbId = Util.NIL_UUID;
 	private int strength = 0;
@@ -28,13 +28,13 @@ public class GuardianOrbComponent implements ServerTickingComponent {
 	@Override
 	public void serverTick() {
 		if(dirty)
-			setManaLock(orbId, strength);
+			setArcanaLock(orbId, strength);
 
 		if(!orbId.equals(Util.NIL_UUID) && entity.level() instanceof ServerLevel world) {
 			if(world.getEntity(orbId) instanceof FollowingOrb orb && entity == orb.getCaster())
 				return;
 
-			setManaLock(Util.NIL_UUID, 0);
+			setArcanaLock(Util.NIL_UUID, 0);
 		}
 	}
 
@@ -55,14 +55,14 @@ public class GuardianOrbComponent implements ServerTickingComponent {
 		return orbId;
 	}
 
-	public void setManaLock(UUID orbId, int strength) {
-		AttributeInstance manaLock = entity.getAttribute(ArcanusAttributes.MANA_LOCK.holder());
+	public void setArcanaLock(UUID orbId, int strength) {
+		AttributeInstance arcanaLock = entity.getAttribute(ArcanusAttributes.ARCANA_LOCK.holder());
 
 		// TODO redo all this mess
-//		if(manaLock != null)
-//			manaLock.removeModifier(uUID);
-//		if(maxMana != null && manaLock != null && !orbId.equals(Util.NIL_UUID))
-//			manaLock.addPermanentModifier(new AttributeModifier(uUID, maxMana.getValue() * (strength * (ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.maximumManaLock / 11)), AttributeModifier.Operation.ADD_VALUE));
+//		if(arcanaLock != null)
+//			arcanaLock.removeModifier(uUID);
+//		if(maxMana != null && arcanaLock != null && !orbId.equals(Util.NIL_UUID))
+//			arcanaLock.addPermanentModifier(new AttributeModifier(uUID, maxMana.getValue() * (strength * (ArcanusConfig.SpellShapes.EntangledOrbShapeProperties.maximumManaLock / 11)), AttributeModifier.Operation.ADD_VALUE));
 
 		this.orbId = orbId;
 		this.strength = strength;

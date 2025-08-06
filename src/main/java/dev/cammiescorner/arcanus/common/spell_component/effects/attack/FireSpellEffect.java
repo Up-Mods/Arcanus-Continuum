@@ -26,7 +26,7 @@ public class FireSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.AttackEffects.FireEffectProperties.enabled,
 			() -> SpellType.ATTACK,
-			() -> ArcanusConfig.AttackEffects.FireEffectProperties.manaCosts(),
+			() -> ArcanusConfig.AttackEffects.FireEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.AttackEffects.FireEffectProperties.procsOnce
 		);
 	}

@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.block.entities;
 
-import dev.cammiescorner.arcanus.api.mana.ManaType;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import dev.cammiescorner.arcanus.client.util.JarRenderData;
 import dev.cammiescorner.arcanus.common.block.JarBlock;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
@@ -17,8 +17,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity {
-	private ManaType manaType;
-	private double mana = 0;
+	private ArcanaType arcanaType;
+	private double arcana = 0;
 
 	public JarBlockEntity(BlockPos pos, BlockState blockState) {
 		super(ArcanusBlockEntities.JAR.get(), pos, blockState);
@@ -41,9 +41,9 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.saveAdditional(tag, registries);
 
-		if(manaType != null) {
-			tag.putString("ManaType", manaType.getSerializedName());
-			tag.putDouble("Mana", mana);
+		if(arcanaType != null) {
+			tag.putString("ManaType", arcanaType.getSerializedName());
+			tag.putDouble("Mana", arcana);
 		}
 		else {
 			tag.putDouble("Mana", 0);
@@ -55,12 +55,12 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 		super.loadAdditional(tag, registries);
 
 		if(tag.contains("ManaType") && !tag.getString("ManaType").isBlank()) {
-			manaType = ManaType.getByName(tag.getString("ManaType"));
-			mana = Math.clamp(tag.getDouble("Mana"), 0, 64);
+			arcanaType = ArcanaType.getByName(tag.getString("ManaType"));
+			arcana = Math.clamp(tag.getDouble("Mana"), 0, 64);
 		}
 		else {
-			manaType = null;
-			mana = 0;
+			arcanaType = null;
+			arcana = 0;
 		}
 
 		if(hasLevel())
@@ -69,7 +69,7 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 
 	@Override
 	public Object getRenderData() {
-		return new JarRenderData(manaType != null ? manaType.getColor() : Color.fromARGB(0xffffffff));
+		return new JarRenderData(arcanaType != null ? arcanaType.getColor() : Color.fromARGB(0xffffffff));
 	}
 
 	protected void markUpdated() {
@@ -78,21 +78,21 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 		getLevel().setBlockAndUpdate(getBlockPos(), newState);
 	}
 
-	public ManaType getManaType() {
-		return manaType;
+	public ArcanaType getManaType() {
+		return arcanaType;
 	}
 
-	public void setManaType(ManaType manaType) {
-		this.manaType = manaType;
+	public void setManaType(ArcanaType arcanaType) {
+		this.arcanaType = arcanaType;
 		markUpdated();
 	}
 
 	public double getMana() {
-		return mana;
+		return arcana;
 	}
 
-	public void setMana(double mana) {
-		this.mana = Math.clamp(mana, 0, 64);
+	public void setMana(double arcana) {
+		this.arcana = Math.clamp(arcana, 0, 64);
 		markUpdated();
 	}
 }

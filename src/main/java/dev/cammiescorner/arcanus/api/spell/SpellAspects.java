@@ -6,15 +6,15 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-public record SpellAspects(double potency, double manaCost, double coolDown) {
+public record SpellAspects(double potency, double arcanaCost, double coolDown) {
 	public static final Codec<SpellAspects> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		Codec.DOUBLE.optionalFieldOf("Potency", 1d).forGetter(SpellAspects::potency),
-		Codec.DOUBLE.optionalFieldOf("ManaCost", 1d).forGetter(SpellAspects::manaCost),
+		Codec.DOUBLE.optionalFieldOf("ManaCost", 1d).forGetter(SpellAspects::arcanaCost),
 		Codec.DOUBLE.optionalFieldOf("CoolDown", 1d).forGetter(SpellAspects::coolDown)
 	).apply(instance, SpellAspects::new));
 	public static final StreamCodec<ByteBuf, SpellAspects> STREAM_CODEC = StreamCodec.composite(
 		ByteBufCodecs.DOUBLE, SpellAspects::potency,
-		ByteBufCodecs.DOUBLE, SpellAspects::manaCost,
+		ByteBufCodecs.DOUBLE, SpellAspects::arcanaCost,
 		ByteBufCodecs.DOUBLE, SpellAspects::coolDown,
 		SpellAspects::new
 	);
