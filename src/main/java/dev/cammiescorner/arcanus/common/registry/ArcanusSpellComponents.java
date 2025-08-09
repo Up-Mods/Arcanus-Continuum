@@ -64,7 +64,6 @@ public class ArcanusSpellComponents {
 	public static final RegistrySupplier<SpellEffect> WITHERING = SPELL_COMPONENTS.register("withering_effect", WitheringSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> NECROMANCY = SPELL_COMPONENTS.register("necromancy_effect", NecromancySpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> MANA_SPLIT = SPELL_COMPONENTS.register("arcana_split_effect", ManaSplitSpellEffect::new);
-	public static final RegistrySupplier<SpellEffect> COPPER_CURSE = SPELL_COMPONENTS.register("copper_curse_effect", CopperCurseSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> DISCOMBOBULATE = SPELL_COMPONENTS.register("discombobulate_effect", DiscombobulateSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> STOCKPILE = SPELL_COMPONENTS.register("stockpile_effect", StockpileSpellEffect::new);
 

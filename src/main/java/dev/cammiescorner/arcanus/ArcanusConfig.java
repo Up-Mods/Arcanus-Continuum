@@ -669,7 +669,6 @@ public final class ArcanusConfig {
 		AttackEffects.WitheringEffectProperties.class,
 		AttackEffects.NecromancyEffectProperties.class,
 		AttackEffects.ManaSplitEffectProperties.class,
-		AttackEffects.CopperCurseEffectProperties.class,
 		AttackEffects.DiscombobulateEffectProperties.class,
 		AttackEffects.StockpileEffectProperties.class
 	})
@@ -987,49 +986,6 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
-		}
-
-		@Category("Copper Curse")
-		public static final class CopperCurseEffectProperties {
-			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
-			public static boolean enabled = true;
-
-			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
-			public static Weight weight = Weight.NONE;
-
-			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
-			public static double ignisArcanaCost = 0;
-
-			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double terraArcanaCost = 0;
-
-			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double aquaArcanaCost = 1;
-
-			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double aerArcanaCost = 0;
-
-			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double aetherArcanaCost = 1;
-
-			public static Map<ArcanaType, Double> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
-
-			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int baseEffectDuration = 24000;
-
-			@ConfigEntry(id = "effectDurationModifier", translation = CONFIG_EFFECT_DURATION_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int effectDurationModifier = 12000;
-
-			@ConfigEntry(id = "baseChanceToActivate", translation = CONFIG_BASE_ACTIVATION_CHANCE)
-			@ConfigOption.Range(min = 0, max = 1)
-			public static double baseChanceToActivate = 0.0625;
 		}
 
 		@Category("Discombobulate")

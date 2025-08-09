@@ -2,9 +2,12 @@ package dev.cammiescorner.arcanus.common.spell_component.effects.attack;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
+import dev.cammiescorner.arcanus.api.spell.components.DamageModifyingSpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -21,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class FireSpellEffect extends SpellEffect {
+public class FireSpellEffect extends DamageModifyingSpellEffect {
 	public FireSpellEffect() {
 		super(
 			() -> ArcanusConfig.AttackEffects.FireEffectProperties.enabled,
@@ -57,5 +60,10 @@ public class FireSpellEffect extends SpellEffect {
 			if(level.isUnobstructed(state, pos, CollisionContext.empty()) && level.getBlockState(pos).canBeReplaced())
 				level.setBlockAndUpdate(pos, state);
 		}
+	}
+
+	@Override
+	public DamageSource damageSource(DamageSources damageSources) {
+		return damageSources.inFire();
 	}
 }

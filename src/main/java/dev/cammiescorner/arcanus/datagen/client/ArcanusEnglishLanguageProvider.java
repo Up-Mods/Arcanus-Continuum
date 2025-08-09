@@ -275,7 +275,6 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		spell(builder, ArcanusSpellComponents.SPEED, "Speed Effect");
 		spell(builder, ArcanusSpellComponents.SHRINK, "Shrink Effect");
 		spell(builder, ArcanusSpellComponents.ENLARGE, "Enlarge Effect");
-		spell(builder, ArcanusSpellComponents.COPPER_CURSE, "Copper Curse Effect");
 		spell(builder, ArcanusSpellComponents.SPATIAL_RIFT, "Spatial Rift Effect");
 		spell(builder, ArcanusSpellComponents.WARDING, "Warding Effect");
 		spell(builder, ArcanusSpellComponents.DISCOMBOBULATE, "Discombobulate Effect");
