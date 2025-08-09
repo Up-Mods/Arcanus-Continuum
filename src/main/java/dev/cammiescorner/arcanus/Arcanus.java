@@ -14,10 +14,10 @@ import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.common.block.MagicDoorBlock;
 import dev.cammiescorner.arcanus.common.block.entities.MagicDoorBlockEntity;
+import dev.cammiescorner.arcanus.common.entity.living.Arcanist;
 import dev.cammiescorner.arcanus.common.entity.living.Cultist;
 import dev.cammiescorner.arcanus.common.entity.living.NecroSkeleton;
 import dev.cammiescorner.arcanus.common.entity.living.Opossum;
-import dev.cammiescorner.arcanus.common.entity.living.Arcanist;
 import dev.cammiescorner.arcanus.common.item.BookPouchItem;
 import dev.cammiescorner.arcanus.common.item.CultRobesItem;
 import dev.cammiescorner.arcanus.common.menu.providers.SpellcraftMenuProvider;
@@ -56,7 +56,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -196,15 +195,6 @@ public class Arcanus implements MainEntryPoint {
 
 		EntitySleepEvents.STOP_SLEEPING.register((entity, sleepingPos) -> {
 			if(!entity.level().isClientSide() && entity.level().getDayTime() == 24000) {
-				MobEffectInstance copperCurse = entity.getEffect(ArcanusMobEffects.COPPER_CURSE.holder());
-
-				if(copperCurse != null) {
-					entity.removeEffect(ArcanusMobEffects.COPPER_CURSE.holder());
-
-					if(copperCurse.getDuration() > 24000)
-						entity.addEffect(new MobEffectInstance(ArcanusMobEffects.COPPER_CURSE.holder(), copperCurse.getDuration() - 24000, 0, true, false));
-				}
-
 				for(ArcanaType arcanaType : ArcanaType.values())
 					ArcanusComponents.setArcana(entity, arcanaType, arcanaType.getMaxArcana(entity));
 			}

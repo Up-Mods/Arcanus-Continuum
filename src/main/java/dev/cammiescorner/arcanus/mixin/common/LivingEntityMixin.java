@@ -251,9 +251,6 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 
 	@Inject(method = "onEffectRemoved", at = @At("HEAD"), cancellable = true)
 	private void attemptToRemoveEffect(MobEffectInstance effectInstance, CallbackInfo info) {
-		if(effectInstance.getEffect() == ArcanusMobEffects.COPPER_CURSE.get())
-			info.cancel();
-
 		if(level() instanceof ServerLevel level && effectInstance.getEffect().value() instanceof ArcanusStatusEffect effect) {
 			if(effect.shouldSync)
 				Network.getNetworkHandler().sendToAllClients(new ClientboundStatusEffectPacket(getId(), effectInstance.getEffect(), true), level.getServer());

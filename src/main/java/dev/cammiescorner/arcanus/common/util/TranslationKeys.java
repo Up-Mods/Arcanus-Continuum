@@ -132,7 +132,9 @@ public class TranslationKeys {
 	public static final String CONFIG_BASE_DAMAGE = "config.arcanus.base_damage";
 	public static final String CONFIG_BASE_TIME_ON_FIRE = "config.arcanus.base_time_on_fire";
 	public static final String CONFIG_BASE_STUN_TIME = "config.arcanus.base_stun_time";
-	public static final String CONFIG_WET_ENTITY_DAMAGE_MULTIPLIER = "config.arcanus.wet_entity_damage_multiplier";
+	public static final String CONFIG_STUNNED_ENTITY_DAMAGE_MULTIPLIER = "config.arcanus.zapped_entity_damage_multiplier";
+	public static final String CONFIG_FROZEN_ENTITY_DAMAGE_MULTIPLIER = "config.arcanus.frozen_entity_damage_multiplier";
+	public static final String CONFIG_BURNING_ENTITY_DAMAGE_MULTIPLIER = "config.arcanus.burning_entity_damage_multiplier";
 	public static final String CONFIG_BASE_FREEZING_TIME = "config.arcanus.base_freezing_time";
 	public static final String CONFIG_BASE_EFFECT_DURATION = "config.arcanus.base_effect_duration";
 	public static final String CONFIG_BASE_HEALTH = "config.arcanus.base_health";

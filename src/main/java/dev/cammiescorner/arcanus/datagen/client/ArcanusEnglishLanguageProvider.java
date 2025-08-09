@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanus.datagen.client;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.common.data.*;
 import dev.cammiescorner.arcanus.common.registry.*;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import dev.upcraft.sparkweave.api.datagen.ContextAwarePackOutput;
 import dev.upcraft.sparkweave.api.datagen.TranslationBuilder;
 import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveLanguageProvider;
@@ -125,7 +126,6 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 
 		builder.add(ArcanusMobEffects.ANONYMITY.get().getDescriptionId(), "Anonymity");
 		builder.add(ArcanusMobEffects.BOUNCY.get().getDescriptionId(), "Bouncy");
-		builder.add(ArcanusMobEffects.COPPER_CURSE.get().getDescriptionId(), "Copper Curse");
 		builder.add(ArcanusMobEffects.DANGER_SENSE.get().getDescriptionId(), "Danger Sense");
 		builder.add(ArcanusMobEffects.DISCOMBOBULATE.get().getDescriptionId(), "Discombobulate");
 		builder.add(ArcanusMobEffects.FLOAT.get().getDescriptionId(), "Float");
@@ -382,7 +382,9 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_BASE_DAMAGE, "Base Damage");
 		builder.add(CONFIG_BASE_TIME_ON_FIRE, "Base Time On Fire");
 		builder.add(CONFIG_BASE_STUN_TIME, "Base Stun Time");
-		builder.add(CONFIG_WET_ENTITY_DAMAGE_MULTIPLIER, "Damage Multiplier Against Wet Entities");
+		builder.add(TranslationKeys.CONFIG_STUNNED_ENTITY_DAMAGE_MULTIPLIER, "Damage Multiplier Against Stunned Entities");
+		builder.add(TranslationKeys.CONFIG_FROZEN_ENTITY_DAMAGE_MULTIPLIER, "Damage Multiplier Against Frozen Entities");
+		builder.add(TranslationKeys.CONFIG_BURNING_ENTITY_DAMAGE_MULTIPLIER, "Damage Multiplier Against Burning Entities");
 		builder.add(CONFIG_BASE_FREEZING_TIME, "Base Freezing Time");
 		builder.add(CONFIG_BASE_EFFECT_DURATION, "Base Effect Duration");
 		builder.add(CONFIG_BASE_HEALTH, "Base Health");

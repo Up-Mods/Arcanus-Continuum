@@ -239,6 +239,10 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		LAST_CAST_TIME_COMPONENT.get(entity).setLastCastTime(time);
 	}
 
+	public static boolean isStunned(Entity entity) {
+		return entity instanceof LivingEntity livingEntity && getStunTimer(livingEntity) > 0;
+	}
+
 	public static int getStunTimer(LivingEntity entity) {
 		return STUN_COMPONENT.get(entity).getStunTimer();
 	}

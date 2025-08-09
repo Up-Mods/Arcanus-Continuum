@@ -6,7 +6,6 @@ import dev.cammiescorner.arcanus.api.spell.SpellType;
 import dev.cammiescorner.arcanus.api.spell.components.DamageModifyingSpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDamageTypes;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -41,11 +40,11 @@ public class DamageSpellEffect extends SpellEffect {
 				return;
 
 			if(caster != null && entity instanceof Targetable targetable && targetable.arcanus$canBeTargeted()) {
-				DamageSource damageSource = effects.stream().filter(spellEffect -> spellEffect instanceof DamageModifyingSpellEffect).map(spellEffect -> ((DamageModifyingSpellEffect) spellEffect).damageSource(level.damageSources())).findAny().orElse(sourceEntity instanceof Projectile projectile ? ArcanusDamageTypes.getMagicProjectileDamage(projectile, caster) : ArcanusDamageTypes.getMagicDamage(caster));
+				List<DamageModifyingSpellEffect> modifiers = effects.stream().filter(spellEffect -> spellEffect instanceof DamageModifyingSpellEffect).map(spellEffect -> (DamageModifyingSpellEffect) spellEffect).toList();
+				DamageSource damageSource = modifiers.stream().map(spellEffect -> spellEffect.damageSource(level.damageSources())).findAny().orElse(sourceEntity instanceof Projectile projectile ? ArcanusDamageTypes.getMagicProjectileDamage(projectile, caster) : ArcanusDamageTypes.getMagicDamage(caster));
 
-				// TODO move this over to being part of DamageModifyingSpellEffect
-				if(entity.isInWaterRainOrBubble() && effects.contains(ArcanusSpellComponents.ELECTRIC.get()))
-					damage *= ArcanusConfig.AttackEffects.ElectricEffectProperties.wetEntityDamageMultiplier;
+				for(Float value : modifiers.stream().map(spellEffect -> spellEffect.multiplyDamage(entity)).toList())
+					damage *= value;
 
 				entity.invulnerableTime = 0;
 				entity.hurt(damageSource, (float) (damage * potency));

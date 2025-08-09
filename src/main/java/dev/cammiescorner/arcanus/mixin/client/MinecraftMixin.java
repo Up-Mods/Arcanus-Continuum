@@ -56,14 +56,14 @@ public abstract class MinecraftMixin implements ClientUtils {
 
 		ItemStack stack = player.getMainHandItem();
 
-		if(timer == 0 || (lastMouseDown != null && !lastMouseDown.isDown()) || ArcanusComponents.getStunTimer(player) > 0) {
+		if(timer == 0 || (lastMouseDown != null && !lastMouseDown.isDown()) || ArcanusComponents.isStunned(player)) {
 			patterns.clear();
 			Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns, false));
 			lastMouseDown = null;
 			isCasting = false;
 			timer = 0;
 
-			if(ArcanusComponents.getStunTimer(player) > 0)
+			if(ArcanusComponents.isStunned(player))
 				player.resetAttackStrengthTicker();
 		}
 
@@ -100,7 +100,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 
 	@Inject(method = "handleKeybinds", at = @At("HEAD"), cancellable = true)
 	private void handleInputEvents(CallbackInfo info) {
-		if(ArcanusComponents.getStunTimer(player) > 0)
+		if(ArcanusComponents.isStunned(player))
 			info.cancel();
 	}
 

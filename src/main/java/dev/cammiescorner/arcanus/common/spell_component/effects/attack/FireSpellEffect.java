@@ -4,6 +4,7 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
 import dev.cammiescorner.arcanus.api.spell.components.DamageModifyingSpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
+import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.damagesource.DamageSource;
@@ -65,5 +66,13 @@ public class FireSpellEffect extends DamageModifyingSpellEffect {
 	@Override
 	public DamageSource damageSource(DamageSources damageSources) {
 		return damageSources.inFire();
+	}
+
+	@Override
+	public float multiplyDamage(Entity target) {
+		if(ArcanusComponents.isStunned(target))
+			return ArcanusConfig.AttackEffects.FireEffectProperties.stunnedEntityDamageMultiplier;
+
+		return super.multiplyDamage(target);
 	}
 }

@@ -61,4 +61,12 @@ public class IceSpellEffect extends DamageModifyingSpellEffect {
 	public DamageSource damageSource(DamageSources damageSources) {
 		return damageSources.freeze();
 	}
+
+	@Override
+	public float multiplyDamage(Entity target) {
+		if(target.isOnFire())
+			return ArcanusConfig.AttackEffects.IceEffectProperties.burningEntityDamageMultiplier;
+
+		return super.multiplyDamage(target);
+	}
 }

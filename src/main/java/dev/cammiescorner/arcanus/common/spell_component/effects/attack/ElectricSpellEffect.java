@@ -51,4 +51,12 @@ public class ElectricSpellEffect extends DamageModifyingSpellEffect {
 	public DamageSource damageSource(DamageSources damageSources) {
 		return damageSources.lightningBolt();
 	}
+
+	@Override
+	public float multiplyDamage(Entity target) {
+		if(target.isFreezing() || target.isFullyFrozen())
+			return ArcanusConfig.AttackEffects.ElectricEffectProperties.frozenEntityDamageMultiplier;
+
+		return super.multiplyDamage(target);
+	}
 }

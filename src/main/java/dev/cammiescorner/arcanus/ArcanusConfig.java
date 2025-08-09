@@ -4,6 +4,7 @@ import com.teamresourceful.resourcefulconfig.api.annotations.*;
 import dev.cammiescorner.arcanus.api.spell.Weight;
 import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import dev.cammiescorner.arcanus.common.util.MirrorHudElement;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 
 import java.util.Map;
 
@@ -741,6 +742,10 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "baseTimeOnFire", translation = CONFIG_BASE_TIME_ON_FIRE)
 			@ConfigOption.Range(min = 0, max = 100)
 			public static int baseTimeOnFire = 60;
+
+			@ConfigEntry(id = "stunnedEntityDamageMultiplier", translation = CONFIG_STUNNED_ENTITY_DAMAGE_MULTIPLIER)
+			@ConfigOption.Range(min = 1, max = 1000)
+			public static float stunnedEntityDamageMultiplier = 1.5f;
 		}
 
 		@Category("Electric")
@@ -777,9 +782,9 @@ public final class ArcanusConfig {
 			@ConfigOption.Range(min = 0, max = 100)
 			public static int baseStunTime = 10;
 
-			@ConfigEntry(id = "wetEntityDamageMultiplier", translation = CONFIG_WET_ENTITY_DAMAGE_MULTIPLIER)
+			@ConfigEntry(id = "frozenEntityDamageMultiplier", translation = TranslationKeys.CONFIG_FROZEN_ENTITY_DAMAGE_MULTIPLIER)
 			@ConfigOption.Range(min = 1, max = 1000)
-			public static float wetEntityDamageMultiplier = 1.5f;
+			public static float frozenEntityDamageMultiplier = 1.5f;
 		}
 
 		@Category("Ice")
@@ -815,6 +820,10 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "baseFreezingTime", translation = CONFIG_BASE_FREEZING_TIME)
 			@ConfigOption.Range(min = 0, max = 100)
 			public static int baseFreezingTime = 60;
+
+			@ConfigEntry(id = "burningEntityDamageMultiplier", translation = CONFIG_BURNING_ENTITY_DAMAGE_MULTIPLIER)
+			@ConfigOption.Range(min = 1, max = 1000)
+			public static float burningEntityDamageMultiplier = 1.5f;
 		}
 
 		@Category("Vulnerability")
