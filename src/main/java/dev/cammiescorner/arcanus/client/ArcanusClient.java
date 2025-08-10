@@ -8,33 +8,32 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.gui.overlay.FirstPersonCastingOverlay;
-import dev.cammiescorner.arcanus.client.gui.overlay.ManaBarOverlay;
+import dev.cammiescorner.arcanus.client.gui.overlay.ArcanaBarOverlay;
 import dev.cammiescorner.arcanus.client.gui.overlay.StunOverlay;
 import dev.cammiescorner.arcanus.client.gui.screens.*;
 import dev.cammiescorner.arcanus.client.model.armor.CultRobesModel;
-import dev.cammiescorner.arcanus.client.model.armor.WizardRobesModel;
+import dev.cammiescorner.arcanus.client.model.armor.ArcanistRobesModel;
 import dev.cammiescorner.arcanus.client.model.block.SpellScrollModel;
 import dev.cammiescorner.arcanus.client.model.entity.living.OpossumModel;
-import dev.cammiescorner.arcanus.client.model.entity.living.WizardModel;
+import dev.cammiescorner.arcanus.client.model.entity.living.ArcanistModel;
 import dev.cammiescorner.arcanus.client.model.entity.magic.*;
 import dev.cammiescorner.arcanus.client.model.feature.HaloModel;
 import dev.cammiescorner.arcanus.client.model.feature.SpellPatternModel;
 import dev.cammiescorner.arcanus.client.particle.CollapseParticle;
+import dev.cammiescorner.arcanus.client.plugin.StaffModelLoadingPlugin;
 import dev.cammiescorner.arcanus.client.renderer.armor.CultRobesRenderer;
-import dev.cammiescorner.arcanus.client.renderer.armor.WizardRobesRenderer;
+import dev.cammiescorner.arcanus.client.renderer.armor.ArcanistRobesRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.*;
 import dev.cammiescorner.arcanus.client.renderer.entity.living.CultistRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.living.OpossumRenderer;
-import dev.cammiescorner.arcanus.client.renderer.entity.living.WizardRenderer;
+import dev.cammiescorner.arcanus.client.renderer.entity.living.ArcanistRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.magic.*;
-import dev.cammiescorner.arcanus.client.renderer.item.StaffItemRenderer;
 import dev.cammiescorner.arcanus.client.renderer.world.WardedBlockRenderer;
 import dev.cammiescorner.arcanus.client.util.JarRenderData;
-import dev.cammiescorner.arcanus.common.block.ManaFruitBlock;
+import dev.cammiescorner.arcanus.common.block.ArcanaFruitBlock;
 import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.common.compat.FirstPersonCompat;
 import dev.cammiescorner.arcanus.common.entity.living.Cultist;
-import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.client.event.RegisterCustomArmorRenderersEvent;
@@ -50,7 +49,6 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.player.LocalPlayer;
@@ -66,7 +64,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -109,9 +106,9 @@ public class ArcanusClient implements ClientEntryPoint {
 		MenuScreens.register(ArcanusMenus.BOOK_POUCH_MENU.get(), BookPouchScreen::new);
 		MenuScreens.register(ArcanusMenus.ARCANE_WORKBENCH_MENU.get(), ArcaneWorkbenchScreen::new);
 
-		EntityModelLayerRegistry.registerModelLayer(WizardRobesModel.MODEL_LAYER, WizardRobesModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ArcanistRobesModel.MODEL_LAYER, ArcanistRobesModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(CultRobesModel.MODEL_LAYER, CultRobesModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(WizardModel.MODEL_LAYER, WizardModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ArcanistModel.MODEL_LAYER, ArcanistModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(OpossumModel.MODEL_LAYER, OpossumModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(MagicLobModel.MODEL_LAYER, MagicLobModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(MagicProjectileModel.MODEL_LAYER, MagicProjectileModel::getTexturedModelData);
@@ -127,7 +124,7 @@ public class ArcanusClient implements ClientEntryPoint {
 		EntityModelLayerRegistry.registerModelLayer(SpellScrollModel.MODEL_LAYER, SpellScrollModel::getTexturedModelData);
 
 		RegisterEntityRenderersEvent.EVENT.register(event -> {
-			event.registerRenderer(ArcanusEntities.WIZARD, WizardRenderer::new);
+			event.registerRenderer(ArcanusEntities.ARCANIST, ArcanistRenderer::new);
 			event.registerRenderer(ArcanusEntities.OPOSSUM, OpossumRenderer::new);
 			event.registerRenderer(ArcanusEntities.NECRO_SKELETON, SkeletonRenderer::new);
 			event.registerRenderer(ArcanusEntities.MANA_SHIELD, ManaShieldRenderer::new);
@@ -145,7 +142,7 @@ public class ArcanusClient implements ClientEntryPoint {
 		});
 
 		RegisterCustomArmorRenderersEvent.EVENT.register(event -> {
-			event.register(WizardRobesRenderer::new, ArcanusItems.WIZARD_HAT, ArcanusItems.WIZARD_ROBES, ArcanusItems.WIZARD_PANTS, ArcanusItems.WIZARD_BOOTS);
+			event.register(ArcanistRobesRenderer::new, ArcanusItems.ARCANIST_HAT, ArcanusItems.ARCANIST_ROBES, ArcanusItems.ARCANIST_PANTS, ArcanusItems.ARCANIST_BOOTS);
 			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, RED_CULT_ROBES), ArcanusItems.RED_CULT_HOOD, ArcanusItems.RED_CULT_ROBES, ArcanusItems.RED_CULT_PANTS, ArcanusItems.RED_CULT_BOOTS);
 			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, GREEN_CULT_ROBES), ArcanusItems.GREEN_CULT_HOOD, ArcanusItems.GREEN_CULT_ROBES, ArcanusItems.GREEN_CULT_PANTS, ArcanusItems.GREEN_CULT_BOOTS);
 			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, BLUE_CULT_ROBES), ArcanusItems.BLUE_CULT_HOOD, ArcanusItems.BLUE_CULT_ROBES, ArcanusItems.BLUE_CULT_PANTS, ArcanusItems.BLUE_CULT_BOOTS);
@@ -154,6 +151,8 @@ public class ArcanusClient implements ClientEntryPoint {
 		});
 
 		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE.get(), CollapseParticle.Factory::new);
+
+		ModelLoadingPlugin.register(new StaffModelLoadingPlugin());
 
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(),
 			ArcanusBlocks.MAGIC_DOOR.get(),
@@ -164,11 +163,11 @@ public class ArcanusClient implements ClientEntryPoint {
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(),
 			ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get(),
 			ArcanusBlocks.JAR.get(),
-			ArcanusBlocks.RED_MANA_FRUIT.get(),
-			ArcanusBlocks.GREEN_MANA_FRUIT.get(),
-			ArcanusBlocks.BLUE_MANA_FRUIT.get(),
-			ArcanusBlocks.WHITE_MANA_FRUIT.get(),
-			ArcanusBlocks.BLACK_MANA_FRUIT.get()
+			ArcanusBlocks.IGNIS_FRUIT.get(),
+			ArcanusBlocks.TERRA_FRUIT.get(),
+			ArcanusBlocks.AQUA_FRUIT.get(),
+			ArcanusBlocks.AER_FRUIT.get(),
+			ArcanusBlocks.AETHER_FRUIT.get()
 		);
 
 		BlockEntityRenderers.register(ArcanusBlockEntities.MAGIC_BLOCK.get(), MagicBlockEntityRenderer.factory(ArcanusHelper::getMagicColor));
@@ -181,36 +180,20 @@ public class ArcanusClient implements ClientEntryPoint {
 			event.registerRenderer(LecternSpellScrollRenderer::new, ArcanusItems.SPELL_SCROLL);
 		});
 
-		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> switch(tintIndex) {
-				case 0 -> StaffItem.getPrimaryColorRGB(stack);
-				case 1 -> StaffItem.getSecondaryColorRGB(stack);
-				default -> 0xffffffff;
-			},
-			ArcanusItems.WOODEN_STAFF.get(),
-			ArcanusItems.CRYSTAL_STAFF.get(),
-			ArcanusItems.DIVINATION_STAFF.get(),
-			ArcanusItems.CRESCENT_STAFF.get(),
-			ArcanusItems.ANCIENT_STAFF.get(),
-			ArcanusItems.WAND.get(),
-			ArcanusItems.THAUMATURGES_GAUNTLET.get(),
-			ArcanusItems.MAGIC_TOME.get(),
-			ArcanusItems.MAGE_PISTOL.get()
-		);
-
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? DyedItemColor.getOrDefault(stack, 0xff52392a) : -1,
-			ArcanusItems.WIZARD_HAT.get(),
-			ArcanusItems.WIZARD_ROBES.get(),
-			ArcanusItems.WIZARD_PANTS.get(),
-			ArcanusItems.WIZARD_BOOTS.get(),
+			ArcanusItems.ARCANIST_HAT.get(),
+			ArcanusItems.ARCANIST_ROBES.get(),
+			ArcanusItems.ARCANIST_PANTS.get(),
+			ArcanusItems.ARCANIST_BOOTS.get(),
 			ArcanusItems.SPELL_BOOK.get()
 		);
 
-		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && state.getBlock() instanceof ManaFruitBlock manaFruit ? manaFruit.getManaType().getColor().asIntARGB() : 0xffffffff,
-			ArcanusBlocks.RED_MANA_FRUIT.get(),
-			ArcanusBlocks.GREEN_MANA_FRUIT.get(),
-			ArcanusBlocks.BLUE_MANA_FRUIT.get(),
-			ArcanusBlocks.WHITE_MANA_FRUIT.get(),
-			ArcanusBlocks.BLACK_MANA_FRUIT.get()
+		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && state.getBlock() instanceof ArcanaFruitBlock arcanaFruit ? arcanaFruit.getArcanaType().getColor().asIntARGB() : 0xffffffff,
+			ArcanusBlocks.IGNIS_FRUIT.get(),
+			ArcanusBlocks.TERRA_FRUIT.get(),
+			ArcanusBlocks.AQUA_FRUIT.get(),
+			ArcanusBlocks.AER_FRUIT.get(),
+			ArcanusBlocks.AETHER_FRUIT.get()
 		);
 
 		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && tintGetter.getBlockEntityRenderData(pos) instanceof JarRenderData(Color color) ? color.asIntARGB() : 0xffffffff,
@@ -220,16 +203,6 @@ public class ArcanusClient implements ClientEntryPoint {
 		RegisterItemPropertiesEvent.EVENT.register(event -> {
 			for(Supplier<Item> itemSupplier : ArcanusItems.HOOD_ITEMS)
 				event.register(itemSupplier, Arcanus.id("hood_down"), (stack, level, entity, seed) -> stack.getOrDefault(ArcanusDataComponents.HOOD_DOWN.get(), false) ? 1f : 0f);
-		});
-
-		ArcanusItems.ITEMS.stream().forEach(holder -> {
-			if(holder.get() instanceof StaffItem item) {
-				ResourceLocation id = holder.getId().withPrefix("item/");
-				StaffItemRenderer staffItemRenderer = new StaffItemRenderer(id);
-				ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(staffItemRenderer);
-				BuiltinItemRendererRegistry.INSTANCE.register(item, staffItemRenderer);
-				ModelLoadingPlugin.register(ctx -> ctx.addModels(id.withSuffix("_gui"), id.withSuffix("_in_hand")));
-			}
 		});
 
 		WorldRenderEvents.AFTER_ENTITIES.register(context -> {
@@ -251,7 +224,7 @@ public class ArcanusClient implements ClientEntryPoint {
 			if(client.player != null && !client.player.isSpectator() && !client.options.hideGui) {
 				FirstPersonCastingOverlay.render(gui, tickDelta, client.player);
 				StunOverlay.render(gui, tickDelta, client.player);
-				ManaBarOverlay.render(gui, tickDelta, client.player);
+				ArcanaBarOverlay.render(gui, tickDelta, client.player);
 			}
 		});
 	}

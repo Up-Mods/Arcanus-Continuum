@@ -4,7 +4,6 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -22,7 +21,7 @@ import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 public class ArcanusCreativeTabs {
 	public static final RegistryHandler<CreativeModeTab> CREATIVE_TABS = RegistryHandler.create(Registries.CREATIVE_MODE_TAB, Arcanus.MOD_ID);
 
-	public static final RegistrySupplier<CreativeModeTab> ARCANUS = CREATIVE_TABS.register("arcanus", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_ARCANUS)).icon(() -> new ItemStack(ArcanusItems.WIZARD_HAT.get())).displayItems((params, entries) -> {
+	public static final RegistrySupplier<CreativeModeTab> ARCANUS = CREATIVE_TABS.register("arcanus", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_ARCANUS)).icon(() -> new ItemStack(ArcanusItems.ARCANIST_HAT.get())).displayItems((params, entries) -> {
 		entries.accept(ArcanusItems.SPELL_SCROLL.get());
 		entries.accept(ArcanusItems.SPELL_BOOK.get());
 
@@ -34,7 +33,7 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusBlocks.PEDESTAL.get());
 		entries.accept(ArcanusBlocks.JAR.get());
 
-		entries.accept(ArcanusItems.WIZARD_SPAWN_EGG.get());
+		entries.accept(ArcanusItems.ARCANIST_SPAWN_EGG.get());
 		entries.accept(ArcanusItems.CULTIST_CLERIC_SPAWN_EGG.get());
 		entries.accept(ArcanusItems.CULTIST_KNIGHT_SPAWN_EGG.get());
 		entries.accept(ArcanusItems.OPOSSUM_SPAWN_EGG.get());
@@ -44,25 +43,15 @@ public class ArcanusCreativeTabs {
 		UUID dummyId = UUID.fromString("6147825f-5493-4154-87c5-5c03c6b0a7c2");
 
 		// staves
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.WOODEN_STAFF.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.CRYSTAL_STAFF.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.DIVINATION_STAFF.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.CRESCENT_STAFF.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.ANCIENT_STAFF.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.WAND.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.THAUMATURGES_GAUNTLET.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.MIND_STAFF.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.MAGIC_TOME.get()), dummyId));
-		entries.accept(StaffItem.setCraftedBy(new ItemStack(ArcanusItems.MAGE_PISTOL.get()), dummyId));
 
 		// trinkets
 		entries.accept(ArcanusItems.BOOK_POUCH.get());
 
 		// armor
-		entries.accept(ArcanusItems.WIZARD_HAT.get());
-		entries.accept(ArcanusItems.WIZARD_ROBES.get());
-		entries.accept(ArcanusItems.WIZARD_PANTS.get());
-		entries.accept(ArcanusItems.WIZARD_BOOTS.get());
+		entries.accept(ArcanusItems.ARCANIST_HAT.get());
+		entries.accept(ArcanusItems.ARCANIST_ROBES.get());
+		entries.accept(ArcanusItems.ARCANIST_PANTS.get());
+		entries.accept(ArcanusItems.ARCANIST_BOOTS.get());
 		entries.accept(ArcanusItems.RED_CULT_HOOD.get());
 		entries.accept(ArcanusItems.RED_CULT_ROBES.get());
 		entries.accept(ArcanusItems.RED_CULT_PANTS.get());

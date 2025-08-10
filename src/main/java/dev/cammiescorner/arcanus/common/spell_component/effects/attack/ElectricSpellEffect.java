@@ -2,8 +2,11 @@ package dev.cammiescorner.arcanus.common.spell_component.effects.attack;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
+import dev.cammiescorner.arcanus.api.spell.components.DamageModifyingSpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Creeper;
@@ -16,12 +19,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ElectricSpellEffect extends SpellEffect {
+public class ElectricSpellEffect extends DamageModifyingSpellEffect {
 	public ElectricSpellEffect() {
 		super(
 			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.enabled,
 			() -> SpellType.ATTACK,
-			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.manaCosts(),
+			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.procsOnce
 		);
 	}
@@ -42,5 +45,18 @@ public class ElectricSpellEffect extends SpellEffect {
 					creeper.getEntityData().set(Creeper.DATA_IS_POWERED, true);
 			}
 		}
+	}
+
+	@Override
+	public DamageSource damageSource(DamageSources damageSources) {
+		return damageSources.lightningBolt();
+	}
+
+	@Override
+	public float multiplyDamage(Entity target) {
+		if(target.isFreezing() || target.isFullyFrozen())
+			return ArcanusConfig.AttackEffects.ElectricEffectProperties.frozenEntityDamageMultiplier;
+
+		return super.multiplyDamage(target);
 	}
 }

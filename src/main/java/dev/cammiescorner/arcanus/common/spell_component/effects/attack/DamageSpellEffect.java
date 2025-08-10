@@ -2,10 +2,11 @@ package dev.cammiescorner.arcanus.common.spell_component.effects.attack;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
+import dev.cammiescorner.arcanus.api.spell.components.DamageModifyingSpellEffect;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDamageTypes;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +24,7 @@ public class DamageSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.enabled,
 			() -> SpellType.ATTACK,
-			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.manaCosts(),
+			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.AttackEffects.DamageEffectProperties.procsOnce
 		);
 	}
@@ -39,11 +40,14 @@ public class DamageSpellEffect extends SpellEffect {
 				return;
 
 			if(caster != null && entity instanceof Targetable targetable && targetable.arcanus$canBeTargeted()) {
-				if(entity.isInWaterRainOrBubble() && effects.contains(ArcanusSpellComponents.ELECTRIC.get()))
-					damage *= ArcanusConfig.AttackEffects.ElectricEffectProperties.wetEntityDamageMultiplier;
+				List<DamageModifyingSpellEffect> modifiers = effects.stream().filter(spellEffect -> spellEffect instanceof DamageModifyingSpellEffect).map(spellEffect -> (DamageModifyingSpellEffect) spellEffect).toList();
+				DamageSource damageSource = modifiers.stream().map(spellEffect -> spellEffect.damageSource(level.damageSources())).findAny().orElse(sourceEntity instanceof Projectile projectile ? ArcanusDamageTypes.getMagicProjectileDamage(projectile, caster) : ArcanusDamageTypes.getMagicDamage(caster));
+
+				for(Float value : modifiers.stream().map(spellEffect -> spellEffect.multiplyDamage(entity)).toList())
+					damage *= value;
 
 				entity.invulnerableTime = 0;
-				entity.hurt(sourceEntity instanceof Projectile projectile ? ArcanusDamageTypes.getMagicProjectileDamage(projectile, caster) : ArcanusDamageTypes.getMagicDamage(caster), (float) (damage * potency));
+				entity.hurt(damageSource, (float) (damage * potency));
 			}
 		}
 	}

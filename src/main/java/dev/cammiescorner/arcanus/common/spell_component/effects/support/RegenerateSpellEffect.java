@@ -20,7 +20,7 @@ public class RegenerateSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.SupportEffects.RegenerateEffectProperties.enabled,
 			() -> SpellType.SUPPORT,
-			() -> ArcanusConfig.SupportEffects.RegenerateEffectProperties.manaCosts(),
+			() -> ArcanusConfig.SupportEffects.RegenerateEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.SupportEffects.RegenerateEffectProperties.procsOnce
 		);
 	}

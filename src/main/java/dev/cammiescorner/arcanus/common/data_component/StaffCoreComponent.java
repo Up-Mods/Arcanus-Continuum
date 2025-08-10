@@ -2,66 +2,45 @@ package dev.cammiescorner.arcanus.common.data_component;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.cammiescorner.arcanus.api.mana.ManaType;
-import dev.cammiescorner.arcanus.api.util.ManaModifiers;
-import net.minecraft.Util;
-import net.minecraft.core.Holder;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.util.ArcanaModifiers;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
 
 import java.util.function.Consumer;
 
-public record StaffCoreComponent(ManaModifiers manaModifiers) implements TooltipProvider {
+public record StaffCoreComponent(ArcanaModifiers arcanaModifiers) implements TooltipProvider {
 	public static final Codec<StaffCoreComponent> CODEC = RecordCodecBuilder.create(coreInstance -> coreInstance.group(
-		ManaModifiers.CODEC.optionalFieldOf("mana_modifiers", ManaModifiers.empty()).forGetter(StaffCoreComponent::manaModifiers)
+		ArcanaModifiers.CODEC.optionalFieldOf("arcana_modifiers", ArcanaModifiers.empty()).forGetter(StaffCoreComponent::arcanaModifiers)
 	).apply(coreInstance, StaffCoreComponent::new));
 	public static final StreamCodec<RegistryFriendlyByteBuf, StaffCoreComponent> STREAM_CODEC = StreamCodec.composite(
-		ManaModifiers.STREAM_CODEC,
-		StaffCoreComponent::manaModifiers,
+		ArcanaModifiers.STREAM_CODEC,
+		StaffCoreComponent::arcanaModifiers,
 
 		StaffCoreComponent::new
 	);
 
 	public static StaffCoreComponent of(double red, double green, double blue, double white, double black) {
-		return new StaffCoreComponent(new ManaModifiers(red, green, blue, white, black));
+		return new StaffCoreComponent(new ArcanaModifiers(red, green, blue, white, black));
 	}
 
-	public double modifier(ManaType manaType) {
-		return manaModifiers.modifier(manaType);
+	public double modifier(ArcanaType arcanaType) {
+		return arcanaModifiers.modifier(arcanaType);
 	}
 
 	@Override
 	public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag) {
 		// TODO replace debug text with proper translatable values
-
 		tooltipAdder.accept(Component.literal("[Staff Core]"));
-		for (ManaType manaType : ManaType.values()) {
+
+		for (ArcanaType arcanaType : ArcanaType.values()) {
 			// make sure to keep this bit when making translatable!
-			var modStr = String.format("%.2f", modifier(manaType));
-			tooltipAdder.accept(Component.literal("  %s: x%s".formatted(manaType.name(), modStr)).withColor(manaType.getColor().asIntARGB()));
+			var modStr = String.format("%.2f", modifier(arcanaType));
+			tooltipAdder.accept(Component.literal("  %s: x%s".formatted(arcanaType.name(), modStr)).withColor(arcanaType.getColor().asIntARGB()));
 		}
-
-
-	}
-
-	public static ResourceLocation getItemModelLocation(Holder.Reference<StaffCoreComponent> holder) {
-		return holder.key().location().withPrefix("item/arcanus/staff_core/");
-	}
-
-	public static ResourceLocation getStaffModelLocation(Holder.Reference<StaffCoreComponent> holder) {
-		return holder.key().location().withPrefix("arcanus/staff_part/staff_core/");
-	}
-
-	public static String getDescriptionId(Holder.Reference<StaffCoreComponent> holder) {
-		return Util.makeDescriptionId("item", holder.key().location());
-	}
-
-	public static String getStaffDescriptionId(Holder.Reference<StaffCoreComponent> holder) {
-		return Util.makeDescriptionId("staff", holder.key().location()) + "_staff";
 	}
 }

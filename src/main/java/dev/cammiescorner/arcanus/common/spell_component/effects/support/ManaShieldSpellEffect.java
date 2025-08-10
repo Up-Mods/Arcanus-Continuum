@@ -22,7 +22,7 @@ public class ManaShieldSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.enabled,
 			() -> SpellType.SUPPORT,
-			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.manaCosts(),
+			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.procsOnce
 		);
 	}
@@ -35,12 +35,12 @@ public class ManaShieldSpellEffect extends SpellEffect {
 			for(int i = 0; i < list.size() - 10; i++)
 				list.get(i).kill();
 
-			ManaShield manaShield = ArcanusEntities.MANA_SHIELD.get().create(level);
+			ManaShield arcanaShield = ArcanusEntities.MANA_SHIELD.get().create(level);
 
-			if(manaShield != null) {
-				manaShield.setProperties(caster.getUUID(), target.getLocation().add(0d, -0.7d, 0d), (int) ((ArcanusConfig.SupportEffects.ManaShieldEffectProperties.baseLifeSpan + ArcanusConfig.SupportEffects.ManaShieldEffectProperties.lifeSpanModifier * potency)));
-				ArcanusHelper.copyMagicColor(manaShield, caster);
-				level.addFreshEntity(manaShield);
+			if(arcanaShield != null) {
+				arcanaShield.setProperties(caster.getUUID(), target.getLocation().add(0d, -0.7d, 0d), (int) ((ArcanusConfig.SupportEffects.ManaShieldEffectProperties.baseLifeSpan + ArcanusConfig.SupportEffects.ManaShieldEffectProperties.lifeSpanModifier * potency)));
+				ArcanusHelper.copyMagicColor(arcanaShield, caster);
+				level.addFreshEntity(arcanaShield);
 			}
 		}
 	}

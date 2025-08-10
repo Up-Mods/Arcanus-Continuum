@@ -7,7 +7,7 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.api.mana.ManaType;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
@@ -86,26 +86,26 @@ public class Spell {
 		return Weight.values()[averageWeightIndex];
 	}
 
-	public Map<ManaType, Double> getManaCost() {
-		Map<ManaType, Double> cumulativeManaCost = Arcanus.constructManaMap(0, 0, 0, 0, 0);
+	public Map<ArcanaType, Double> getArcanaCost() {
+		Map<ArcanaType, Double> cumulativeArcanaCost = Arcanus.constructArcanaMap(0, 0, 0, 0, 0);
 
-		for(ManaType manaType : cumulativeManaCost.keySet()) {
+		for(ArcanaType arcanaType : cumulativeArcanaCost.keySet()) {
 			for(SpellGroup group : groups)
-				cumulativeManaCost.put(manaType, cumulativeManaCost.get(manaType) + group.getManaCost().get(manaType));
+				cumulativeArcanaCost.put(arcanaType, cumulativeArcanaCost.get(arcanaType) + group.getArcanaCost().get(arcanaType));
 
-			cumulativeManaCost.put(manaType, cumulativeManaCost.get(manaType) * getManaMultiplier());
+			cumulativeArcanaCost.put(arcanaType, cumulativeArcanaCost.get(arcanaType) * getArcanaMultiplier());
 		}
 
-		return cumulativeManaCost;
+		return cumulativeArcanaCost;
 	}
 
-	public double getManaMultiplier() {
-		double manaMultiplier = 1;
+	public double getArcanaMultiplier() {
+		double arcanaModifier = 1;
 
 		for(SpellGroup group : groups)
-			manaMultiplier += group.shape().getManaModifier();
+			arcanaModifier += group.shape().getArcanaModifier();
 
-		return manaMultiplier;
+		return arcanaModifier;
 	}
 
 	public int getCoolDown() {
@@ -119,8 +119,8 @@ public class Spell {
 		return (int) (coolDown * coolDownModifier);
 	}
 
-	public String getManaCostAsString(ManaType manaType) {
-		return Arcanus.format(getManaCost().get(manaType));
+	public String getArcanaCostAsString(ArcanaType arcanaType) {
+		return Arcanus.format(getArcanaCost().get(arcanaType));
 	}
 
 	public String getCoolDownAsString() {

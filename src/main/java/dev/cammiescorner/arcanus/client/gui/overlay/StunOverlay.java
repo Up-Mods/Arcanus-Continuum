@@ -16,7 +16,7 @@ public class StunOverlay {
 	public static void render(GuiGraphics guiGraphics, DeltaTracker tickDelta, LocalPlayer player) {
 		int stunTimer = ArcanusComponents.getStunTimer(player);
 
-		if(stunTimer > 0) {
+		if(ArcanusComponents.isStunned(player)) {
 			if(stunTimer > 5)
 				StunOverlay.renderOverlay(guiGraphics, Math.min(1f, 0.5f + (stunTimer % 5f) / 10f));
 			else

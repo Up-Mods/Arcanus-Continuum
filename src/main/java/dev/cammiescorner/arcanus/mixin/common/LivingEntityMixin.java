@@ -219,17 +219,17 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 		ArcanusAttributes.registerAll();
 
 		return builder
-			.add(ArcanusAttributes.RED_MANA.holder())
-			.add(ArcanusAttributes.GREEN_MANA.holder())
-			.add(ArcanusAttributes.BLUE_MANA.holder())
-			.add(ArcanusAttributes.WHITE_MANA.holder())
-			.add(ArcanusAttributes.BLACK_MANA.holder())
-			.add(ArcanusAttributes.RED_MANA_REGEN.holder())
-			.add(ArcanusAttributes.GREEN_MANA_REGEN.holder())
-			.add(ArcanusAttributes.BLUE_MANA_REGEN.holder())
-			.add(ArcanusAttributes.WHITE_MANA_REGEN.holder())
-			.add(ArcanusAttributes.BLACK_MANA_REGEN.holder())
-			.add(ArcanusAttributes.MANA_LOCK.holder())
+			.add(ArcanusAttributes.IGNIS_ARCANA.holder())
+			.add(ArcanusAttributes.TERRA_ARCANA.holder())
+			.add(ArcanusAttributes.AQUA_ARCANA.holder())
+			.add(ArcanusAttributes.AER_ARCANA.holder())
+			.add(ArcanusAttributes.AETHER_ARCANA.holder())
+			.add(ArcanusAttributes.IGNIS_ARCANA_REGEN.holder())
+			.add(ArcanusAttributes.TERRA_ARCANA_REGEN.holder())
+			.add(ArcanusAttributes.AQUA_ARCANA_REGEN.holder())
+			.add(ArcanusAttributes.AER_ARCANA_REGEN.holder())
+			.add(ArcanusAttributes.AETHER_ARCANA_REGEN.holder())
+			.add(ArcanusAttributes.ARCANA_LOCK.holder())
 			.add(ArcanusAttributes.SPELL_POTENCY.holder())
 			.add(ArcanusAttributes.MAGIC_RESISTANCE.holder())
 			.add(ArcanusAttributes.MANA_COST.holder())
@@ -251,9 +251,6 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 
 	@Inject(method = "onEffectRemoved", at = @At("HEAD"), cancellable = true)
 	private void attemptToRemoveEffect(MobEffectInstance effectInstance, CallbackInfo info) {
-		if(effectInstance.getEffect() == ArcanusMobEffects.COPPER_CURSE.get())
-			info.cancel();
-
 		if(level() instanceof ServerLevel level && effectInstance.getEffect().value() instanceof ArcanusStatusEffect effect) {
 			if(effect.shouldSync)
 				Network.getNetworkHandler().sendToAllClients(new ClientboundStatusEffectPacket(getId(), effectInstance.getEffect(), true), level.getServer());

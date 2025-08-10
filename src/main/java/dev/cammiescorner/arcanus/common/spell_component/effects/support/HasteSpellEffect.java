@@ -20,7 +20,7 @@ public class HasteSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.enabled,
 			() -> SpellType.SUPPORT,
-			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.manaCosts(),
+			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.SupportEffects.HasteEffectProperties.procsOnce
 		);
 	}

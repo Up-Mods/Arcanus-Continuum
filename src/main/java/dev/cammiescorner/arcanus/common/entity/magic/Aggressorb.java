@@ -50,7 +50,6 @@ public class Aggressorb extends ThrowableProjectile implements Targetable {
 	public Aggressorb(EntityType<? extends ThrowableProjectile> variant, Level world) {
 		super(variant, world);
 		noPhysics = true;
-		setNoGravity(true);
 	}
 
 	@Override
@@ -66,7 +65,7 @@ public class Aggressorb extends ThrowableProjectile implements Targetable {
 
 	@Override
 	public void tick() {
-		if(getCaster() == null || getTarget() == null || distanceToSqr(getTarget()) > (64 * 64)) {
+		if(getCaster() == null || getTarget() == null) {
 			kill();
 			return;
 		}
@@ -77,14 +76,15 @@ public class Aggressorb extends ThrowableProjectile implements Targetable {
 		}
 
 		if(isBoundToTarget()) {
+			// TODO for some reason these are moving down and i dont know why
 			int orbCount = ArcanusComponents.aggressorbCount(getTarget());
 			int orbIndex = ArcanusComponents.aggressorbIndex(getTarget(), this) + 1;
 			double angle = Math.toRadians(360d / orbCount * orbIndex);
 			double cosYaw = Math.cos(Math.toRadians(-getTarget().yBodyRot));
 			double sinYaw = Math.sin(Math.toRadians(-getTarget().yBodyRot));
 			double radius = getTarget().getBbHeight() / 1.5;
-			double rotXZ = Math.sin(getTarget().tickCount * 0.1 + angle) * radius;
-			double rotY = Math.cos(getTarget().tickCount * 0.1 + angle) * radius;
+			double rotXZ = Math.sin(level().getGameTime() * 0.1 + angle) * radius;
+			double rotY = Math.cos(level().getGameTime() * 0.1 + angle) * radius;
 			Vec3 bodyYaw = new Vec3(sinYaw, 1, cosYaw);
 			Vec3 offset = new Vec3(sinYaw, 0, cosYaw).scale(-0.75);
 			Vec3 imInSpainWithoutTheA = bodyYaw.multiply(rotXZ, rotY, rotXZ).yRot((float) Math.toRadians(90));

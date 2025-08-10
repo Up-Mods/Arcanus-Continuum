@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanus.datagen.client;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.common.data.*;
 import dev.cammiescorner.arcanus.common.registry.*;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import dev.upcraft.sparkweave.api.datagen.ContextAwarePackOutput;
 import dev.upcraft.sparkweave.api.datagen.TranslationBuilder;
 import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveLanguageProvider;
@@ -38,20 +39,12 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.creativeTab(ArcanusCreativeTabs.GEAR, "Arcanus - Gear");
 		builder.creativeTab(ArcanusCreativeTabs.SCROLLS, "Arcanus - Spell Components");
 
-		builder.item(ArcanusItems.WOODEN_STAFF, "Wooden Staff");
-		builder.item(ArcanusItems.CRYSTAL_STAFF, "Crystal Staff");
-		builder.item(ArcanusItems.DIVINATION_STAFF, "Divination Staff");
-		builder.item(ArcanusItems.CRESCENT_STAFF, "Crescent Staff");
-		builder.item(ArcanusItems.ANCIENT_STAFF, "Ancient Staff");
-		builder.item(ArcanusItems.WAND, "Wand");
-		builder.item(ArcanusItems.THAUMATURGES_GAUNTLET, "Thaumaturge's Gauntlet");
-		builder.item(ArcanusItems.MIND_STAFF, "Mind Staff");
-		builder.item(ArcanusItems.MAGIC_TOME, "Magic Tome");
-		builder.item(ArcanusItems.MAGE_PISTOL, "Mage Pistol");
-		builder.item(ArcanusItems.WIZARD_HAT, "Wizard Hat");
-		builder.item(ArcanusItems.WIZARD_ROBES, "Wizard Robes");
-		builder.item(ArcanusItems.WIZARD_PANTS, "Wizard Pants");
-		builder.item(ArcanusItems.WIZARD_BOOTS, "Wizard Boots");
+		builder.item(ArcanusItems.ARCANEUM_INGOT, "Arcaneum Ingot");
+		builder.item(ArcanusItems.ARCANEUM_NUGGET, "Arcaneum Nugget");
+		builder.item(ArcanusItems.ARCANIST_HAT, "Arcanist Hat");
+		builder.item(ArcanusItems.ARCANIST_ROBES, "Arcanist Robes");
+		builder.item(ArcanusItems.ARCANIST_PANTS, "Arcanist Pants");
+		builder.item(ArcanusItems.ARCANIST_BOOTS, "Arcanist Boots");
 		builder.item(ArcanusItems.RED_CULT_HOOD, "Red Cultist Hood");
 		builder.item(ArcanusItems.RED_CULT_ROBES, "Red Cultist Robes");
 		builder.item(ArcanusItems.RED_CULT_PANTS, "Red Cultist Pants");
@@ -77,15 +70,18 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.SPELL_SCROLL, "Spell Scroll");
 		builder.add(SPELL_SCROLL_WITH_SPELL, "%s (%s)");
 		builder.item(ArcanusItems.SCROLL_OF_KNOWLEDGE, "Scroll of Knowledge");
-		builder.item(ArcanusItems.WIZARD_SPAWN_EGG, "Wizard Spawn Egg");
+		builder.item(ArcanusItems.ARCANIST_SPAWN_EGG, "Arcanist Spawn Egg");
 		builder.item(ArcanusItems.CULTIST_CLERIC_SPAWN_EGG, "Cultist Cleric Spawn Egg");
 		builder.item(ArcanusItems.CULTIST_KNIGHT_SPAWN_EGG, "Cultist Knight Spawn Egg");
 		builder.item(ArcanusItems.OPOSSUM_SPAWN_EGG, "Opossum Spawn Egg");
 
+		builder.item(ArcanusItems.STAFF, "Staff");
+
 		builder.item(ArcanusItems.IRON_STAFF_CAP, "Iron Staff Cap");
-		builder.item(ArcanusItems.GOLD_STAFF_CAP, "Gold Staff Cap");
+		builder.item(ArcanusItems.GOLDEN_STAFF_CAP, "Golden Staff Cap");
 		builder.item(ArcanusItems.COPPER_STAFF_CAP, "Copper Staff Cap");
 		builder.item(ArcanusItems.NETHERITE_STAFF_CAP, "Netherite Staff Cap");
+		builder.item(ArcanusItems.ARCANEUM_STAFF_CAP, "Arcaneum Staff Cap");
 
 		builder.item(ArcanusItems.WOODEN_STAFF_CORE, "Wooden Staff Core");
 		builder.item(ArcanusItems.CRIMSON_STAFF_CORE, "Crimson Staff Core");
@@ -98,11 +94,11 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.block(ArcanusBlocks.PEDESTAL, "Pedestal");
 		builder.block(ArcanusBlocks.JAR, "Jar");
 		builder.block(ArcanusBlocks.CHALK, "Chalk");
-		builder.block(ArcanusBlocks.RED_MANA_FRUIT, "Red Mana Fruit");
-		builder.block(ArcanusBlocks.GREEN_MANA_FRUIT, "Green Mana Fruit");
-		builder.block(ArcanusBlocks.BLUE_MANA_FRUIT, "Blue Mana Fruit");
-		builder.block(ArcanusBlocks.WHITE_MANA_FRUIT, "White Mana Fruit");
-		builder.block(ArcanusBlocks.BLACK_MANA_FRUIT, "Black Mana Fruit");
+		builder.block(ArcanusBlocks.IGNIS_FRUIT, "Ignis Fruit");
+		builder.block(ArcanusBlocks.TERRA_FRUIT, "Terra Fruit");
+		builder.block(ArcanusBlocks.AQUA_FRUIT, "Aqua Fruit");
+		builder.block(ArcanusBlocks.AER_FRUIT, "Aer Fruit");
+		builder.block(ArcanusBlocks.AETHER_FRUIT, "Aether Fruit");
 		builder.block(ArcanusBlocks.DUMMY_BOOKSHELF, "[DEVELOPER ONLY] Dummy Chiseled Bookshelf");
 		builder.block(ArcanusBlocks.MAGIC_BLOCK, "Magic Block");
 		builder.block(ArcanusBlocks.MAGIC_DOOR, "Magic Door");
@@ -124,13 +120,12 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.entity(ArcanusEntities.PORTAL, "Pocket Dimension Portal");
 		builder.entity(ArcanusEntities.TEMPORAL_DILATION_FIELD, "Temporal Dilation Field");
 		builder.entity(ArcanusEntities.SMITE, "Smite");
-		builder.entity(ArcanusEntities.WIZARD, "Wizard");
+		builder.entity(ArcanusEntities.ARCANIST, "Arcanist");
 		builder.entity(ArcanusEntities.CULTIST_CLERIC, "Cultist Cleric");
 		builder.entity(ArcanusEntities.CULTIST_KNIGHT, "Cultist Knight");
 
 		builder.add(ArcanusMobEffects.ANONYMITY.get().getDescriptionId(), "Anonymity");
 		builder.add(ArcanusMobEffects.BOUNCY.get().getDescriptionId(), "Bouncy");
-		builder.add(ArcanusMobEffects.COPPER_CURSE.get().getDescriptionId(), "Copper Curse");
 		builder.add(ArcanusMobEffects.DANGER_SENSE.get().getDescriptionId(), "Danger Sense");
 		builder.add(ArcanusMobEffects.DISCOMBOBULATE.get().getDescriptionId(), "Discombobulate");
 		builder.add(ArcanusMobEffects.FLOAT.get().getDescriptionId(), "Float");
@@ -142,7 +137,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(ArcanusMobEffects.ENLARGE.get().getDescriptionId(), "Enlarge");
 
 		tag(builder, ArcanusBiomeTags.C_HAS_VILLAGE, "Has Village");
-		tag(builder, ArcanusBiomeTags.HAS_WIZARD_TOWER, "Has Wizard Tower");
+		tag(builder, ArcanusBiomeTags.HAS_WIZARD_TOWER, "Has Arcanist Tower");
 		tag(builder, ArcanusBiomeTags.IS_POCKET_DIMENSION, "Is Pocket Dimension");
 
 		tag(builder, ArcanusBlockTags.WARDING_NOT_ALLOWED, "Warding Not Allowed");
@@ -163,8 +158,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		tag(builder, ArcanusItemTags.SPELL_BOOK, "Spell Books");
 		tag(builder, ArcanusItemTags.COPPER_CURSE_IMMUNE, "Ignored by Copper Curse");
 		tag(builder, ArcanusItemTags.STAVES, "Staves");
-		tag(builder, ArcanusItemTags.STAVES_FOR_WIZARDS, "Staves for Wizards");
-		tag(builder, ArcanusItemTags.WIZARD_ARMOR, "Wizard Armor");
+		tag(builder, ArcanusItemTags.ARCANIST_ARMOR, "Arcanist Armor");
 
 		builder.add(SPELL_BOOK_SLOT, "Spell Book");
 		builder.add(BRACELET_HAND_SLOT, "Bracelet");
@@ -180,8 +174,8 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(USE_SCROLL_ALREADY_KNOW, "You have learned everything you can.");
 		builder.add(USE_SCROLL_DISABLED_COMPONENT, "This spell component doesn't seem possible.");
 
-		builder.add(WIZARD_NO_WIZARD_ARMOR, "Come back to me when you look like a wizard.");
-		builder.add(WIZARD_ARMOR_HINT, "Maybe wearing Wizard Robes will help...");
+		builder.add(ARCANIST_NO_ARCANIST_ARMOR, "Come back to me when you look like a arcanist.");
+		builder.add(ARCANIST_ARMOR_HINT, "Maybe wearing Arcanist Robes will help...");
 
 		builder.add(SET_BONUS, "Full Set Bonus: +40 %s");
 		builder.add(UNKNOWN, "???");
@@ -203,8 +197,8 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(COMMAND_EXPORT_POCKET_DIM_NOT_FOUND, "unable to find %s!");
 		builder.add(COMMAND_EXPORT_POCKET_POCKET_NOT_FOUND, "Pocket dimension for player %s has not been created yet!");
 
-		builder.add(COMMAND_WIZARD_LEVEL_GET_SUCCESS, "%s's wizard level is %s");
-		builder.add(COMMAND_WIZARD_LEVEL_SET_SUCCESS, "Set %s's wizard level to %s");
+		builder.add(COMMAND_WIZARD_LEVEL_GET_SUCCESS, "%s's arcanist level is %s");
+		builder.add(COMMAND_WIZARD_LEVEL_SET_SUCCESS, "Set %s's arcanist level to %s");
 
 		builder.add(COMMAND_SPELL_COMPONENT_LIST_SUCCESS, "%s's known Spell Components:");
 		builder.add(COMMAND_SPELL_COMPONENT_LIST_FAIL, "%s doesn't know any Spell Components");
@@ -216,34 +210,24 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		advancement(builder, ArcanusAdvancements.ARCANE_ROOT, "Arcanus", "[insert witty sales pitch for something you're already playing]");
 		advancement(builder, ArcanusAdvancements.A_MAGICAL_CRYSTAL, "A Magical Crystal", "Find an Amethyst Shard");
 		advancement(builder, ArcanusAdvancements.ARCANE_ARTIFICE, "Arcane Artifice", "Craft an Arcane Workbench");
-		advancement(builder, ArcanusAdvancements.MAGICAL_MEET_AND_GREET, "Magical Meet & Greet", "Find a Wizard Tower and meet the residents");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_1, "First Steps", "Obtain your first Scroll of Knowledge from a Wizard");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_2, "Wizard Level 2", "Use a Scroll of Knowledge to reach level 2");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_3, "Wizard Level 3", "Use a Scroll of Knowledge to reach level 3");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_4, "Wizard Level 4", "Use a Scroll of Knowledge to reach level 4");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_5, "Wizard Level 5", "Use a Scroll of Knowledge to reach level 5");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_6, "Wizard Level 6", "Use a Scroll of Knowledge to reach level 6");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_7, "Wizard Level 7", "Use a Scroll of Knowledge to reach level 7");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_8, "Wizard Level 8", "Use a Scroll of Knowledge to reach level 8");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_9, "Wizard Level 9", "Use a Scroll of Knowledge to reach level 9");
-		advancement(builder, ArcanusAdvancements.WIZARD_LEVEL_10, "Master of The Arcane", "Achieve maximum magical power!");
+		advancement(builder, ArcanusAdvancements.MAGICAL_MEET_AND_GREET, "Magical Meet & Greet", "Find an Arcanist Tower and meet the residents");
 
 		damageType(builder, ArcanusDamageTypes.MAGIC, "%s was killed by %s using magic", null, "%s was killed by %s using magic with %s");
 		damageType(builder, ArcanusDamageTypes.MAGIC_PROJECTILE, "%s was shot by %s using magic", null, "%s was shot by %s using magic with %s");
 
-		builder.add(ArcanusAttributes.RED_MANA.get().getDescriptionId(), "Red Mana");
-		builder.add(ArcanusAttributes.GREEN_MANA.get().getDescriptionId(), "Green Mana");
-		builder.add(ArcanusAttributes.BLUE_MANA.get().getDescriptionId(), "Blue Mana");
-		builder.add(ArcanusAttributes.WHITE_MANA.get().getDescriptionId(), "White Mana");
-		builder.add(ArcanusAttributes.BLACK_MANA.get().getDescriptionId(), "Black Mana");
-		builder.add(ArcanusAttributes.RED_MANA_REGEN.get().getDescriptionId(), "Red Mana Regeneration");
-		builder.add(ArcanusAttributes.GREEN_MANA_REGEN.get().getDescriptionId(), "Green Mana Regeneration");
-		builder.add(ArcanusAttributes.BLUE_MANA_REGEN.get().getDescriptionId(), "Blue Mana Regeneration");
-		builder.add(ArcanusAttributes.WHITE_MANA_REGEN.get().getDescriptionId(), "White Mana Regeneration");
-		builder.add(ArcanusAttributes.BLACK_MANA_REGEN.get().getDescriptionId(), "Black Mana Regeneration");
-		builder.add(ArcanusAttributes.MANA_LOCK.get().getDescriptionId(), "Mana Lock");
+		builder.add(ArcanusAttributes.IGNIS_ARCANA.get().getDescriptionId(), "Ignis Arcana");
+		builder.add(ArcanusAttributes.TERRA_ARCANA.get().getDescriptionId(), "Terra Arcana");
+		builder.add(ArcanusAttributes.AQUA_ARCANA.get().getDescriptionId(), "Aqua Arcana");
+		builder.add(ArcanusAttributes.AER_ARCANA.get().getDescriptionId(), "Aer Arcana");
+		builder.add(ArcanusAttributes.AETHER_ARCANA.get().getDescriptionId(), "Aether Arcana");
+		builder.add(ArcanusAttributes.IGNIS_ARCANA_REGEN.get().getDescriptionId(), "Ignis Arcana Regeneration");
+		builder.add(ArcanusAttributes.TERRA_ARCANA_REGEN.get().getDescriptionId(), "Terra Arcana Regeneration");
+		builder.add(ArcanusAttributes.AQUA_ARCANA_REGEN.get().getDescriptionId(), "Aqua Arcana Regeneration");
+		builder.add(ArcanusAttributes.AER_ARCANA_REGEN.get().getDescriptionId(), "Aer Arcana Regeneration");
+		builder.add(ArcanusAttributes.AETHER_ARCANA_REGEN.get().getDescriptionId(), "Aether Arcana Regeneration");
+		builder.add(ArcanusAttributes.ARCANA_LOCK.get().getDescriptionId(), "Arcana Lock");
 		builder.add(ArcanusAttributes.SPELL_POTENCY.get().getDescriptionId(), "Spell Potency");
-		builder.add(ArcanusAttributes.MANA_COST.get().getDescriptionId(), "Mana Cost");
+		builder.add(ArcanusAttributes.MANA_COST.get().getDescriptionId(), "Arcana Cost");
 		builder.add(ArcanusAttributes.MAGIC_RESISTANCE.get().getDescriptionId(), "Magic Resistance");
 		builder.add(ArcanusAttributes.SPELL_COOL_DOWN.get().getDescriptionId(), "Spell Cooldown");
 
@@ -291,7 +275,6 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		spell(builder, ArcanusSpellComponents.SPEED, "Speed Effect");
 		spell(builder, ArcanusSpellComponents.SHRINK, "Shrink Effect");
 		spell(builder, ArcanusSpellComponents.ENLARGE, "Enlarge Effect");
-		spell(builder, ArcanusSpellComponents.COPPER_CURSE, "Copper Curse Effect");
 		spell(builder, ArcanusSpellComponents.SPATIAL_RIFT, "Spatial Rift Effect");
 		spell(builder, ArcanusSpellComponents.WARDING, "Warding Effect");
 		spell(builder, ArcanusSpellComponents.DISCOMBOBULATE, "Discombobulate Effect");
@@ -328,12 +311,12 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(SPELL_BOOK_WEIGHT_MEDIUM, "Medium");
 		builder.add(SPELL_BOOK_WEIGHT_HEAVY, "Heavy");
 		builder.add(SPELL_BOOK_WEIGHT_VERY_HEAVY, "Very Heavy");
-		builder.add(SPELL_BOOK_RED_MANA, "Red Mana");
-		builder.add(SPELL_BOOK_GREEN_MANA, "Green Mana");
-		builder.add(SPELL_BOOK_BLUE_MANA, "Blue Mana");
-		builder.add(SPELL_BOOK_WHITE_MANA, "White Mana");
-		builder.add(SPELL_BOOK_BLACK_MANA, "Black Mana");
-		builder.add(SPELL_BOOK_MANA_MULTIPLIER, "Mana Multiplier");
+		builder.add(SPELL_BOOK_IGNIS_ARCANA, "Ignis Arcana");
+		builder.add(SPELL_BOOK_TERRA_ARCANA, "Terra Arcana");
+		builder.add(SPELL_BOOK_AQUA_ARCANA, "Aqua Arcana");
+		builder.add(SPELL_BOOK_AER_ARCANA, "Aer Arcana");
+		builder.add(SPELL_BOOK_AETHER_ARCANA, "Aether Arcana");
+		builder.add(SPELL_BOOK_MANA_MULTIPLIER, "Arcana Multiplier");
 		builder.add(SPELL_BOOK_POTENCY_MODIFIER, "Potency Modifier");
 		builder.add(SPELL_BOOK_COOL_DOWN_MODIFIER, "Cool Down Modifier");
 		builder.add(SPELL_BOOK_COOL_DOWN, "Cool Down");
@@ -342,7 +325,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 
 		builder.add(SPELL_TOO_MANY_COMPONENTS, "Too many components!");
 		builder.add(SPELL_UNKNOWN_SPELL_COMPONENTS, "You don't know some of these spell components!");
-		builder.add(SPELL_NOT_ENOUGH_MANA, "Not enough mana!");
+		builder.add(SPELL_NOT_ENOUGH_MANA, "Not enough arcana!");
 
 		builder.add(COMPENDIUM_ARCANUS, "Compendium Arcanus");
 		builder.add(COMPENDIUM_ARCANUS_LANDING, "Arcanus introduces a new magic system to the world of Minecraft. Players can create their own custom spells to suit however they like to play the game!");
@@ -365,25 +348,25 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_MOVEMENT_EFFECTS_CATEGORY, "Movement Effects");
 		builder.add(CONFIG_CASTING_HAS_SPEED_LIMIT, "Use Attack Cool Down for Casting?");
 		builder.add(CONFIG_SIZE_CHANGE_IS_PERMA, "Size Changing Effects are Permanent for Players and Tamed Animals (Requires Pehkui)");
-		builder.add(CONFIG_SCALE_MANA_BARS, "Scale Mana Bars Based on Maximum Mana");
-		builder.add(CONFIG_MANA_BARS_MIN_LENGTH, "Min Length of Scaled Mana Bars");
-		builder.add(CONFIG_MANA_BARS_MAX_LENGTH, "Max Length of Scaled Mana Bars");
+		builder.add(CONFIG_SCALE_MANA_BARS, "Scale Arcana Bars Based on Maximum Arcana");
+		builder.add(CONFIG_ARCANA_BARS_MIN_LENGTH, "Min Length of Scaled Arcana Bars");
+		builder.add(CONFIG_ARCANA_BARS_MAX_LENGTH, "Max Length of Scaled Arcana Bars");
 		builder.add(CONFIG_COOL_DOWN_PER_COMPONENT, "Cool Down in Ticks Added Per Component");
 		builder.add(CONFIG_MINIMUM_COOL_DOWN, "Minimum Spell Cool Down");
-		builder.add(CONFIG_MANA_BARS_ON_TOP, "Move Mana Bars to the Top");
-		builder.add(CONFIG_RIGHT_SIDE_MANA_BARS, "Move Mana Bars to the Right");
-		builder.add(CONFIG_NUMERICAL_MANA_DISPLAY, "Display Exact Mana Amounts by Mana Bars");
+		builder.add(CONFIG_ARCANA_BARS_ON_TOP, "Move Arcana Bars to the Top");
+		builder.add(CONFIG_RIGHT_SIDE_ARCANA_BARS, "Move Arcana Bars to the Right");
+		builder.add(CONFIG_NUMERICAL_ARCANA_DISPLAY, "Display Exact Arcana Amounts by Arcana Bars");
 		builder.add(CONFIG_MAX_ENCHANT_LEVEL, "Max Enchantment Level");
-		builder.add(CONFIG_EXTRA_MANA_PER_LEVEL, "Extra Mana Per Level");
-		builder.add(CONFIG_MANA_MODIFIER_OP, "Mana Modifier Operation");
+		builder.add(CONFIG_ARCANA_MANA_PER_LEVEL, "Extra Arcana Per Level");
+		builder.add(CONFIG_ARCANA_MODIFIER_OP, "Arcana Modifier Operation");
 		builder.add(CONFIG_ENABLED, "Enabled");
 		builder.add(CONFIG_WEIGHT, "Weight");
-		builder.add(CONFIG_RED_MANA_COST, "Red Mana Cost");
-		builder.add(CONFIG_GREEN_MANA_COST, "Green Mana Cost");
-		builder.add(CONFIG_BLUE_MANA_COST, "Blue Mana Cost");
-		builder.add(CONFIG_WHITE_MANA_COST, "White Mana Cost");
-		builder.add(CONFIG_BLACK_MANA_COST, "Black Mana Cost");
-		builder.add(CONFIG_MANA_MODIFIER, "Mana Cost Modifier");
+		builder.add(CONFIG_RED_MANA_COST, "Ignis Arcana Cost");
+		builder.add(CONFIG_GREEN_MANA_COST, "Terra Arcana Cost");
+		builder.add(CONFIG_BLUE_MANA_COST, "Aqua Arcana Cost");
+		builder.add(CONFIG_WHITE_MANA_COST, "Aer Arcana Cost");
+		builder.add(CONFIG_BLACK_MANA_COST, "Aether Arcana Cost");
+		builder.add(CONFIG_MANA_MODIFIER, "Arcana Cost Modifier");
 		builder.add(CONFIG_COOL_DOWN_MODIFIER, "Cool Down Modifier");
 		builder.add(CONFIG_PROCS_ONCE, "Only Procs Once When Chained");
 		builder.add(CONFIG_POTENCY_MODIFIER, "Potency Modifier");
@@ -393,13 +376,15 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_RANGE, "Range");
 		builder.add(CONFIG_DELAY, "Delay");
 		builder.add(CONFIG_BURST_SHAPE_RADIUS, "Burst Radius");
-		builder.add(CONFIG_MAX_MANA_LOCK, "Maximum Mana Lock");
+		builder.add(CONFIG_MAX_MANA_LOCK, "Maximum Arcana Lock");
 		builder.add(CONFIG_MAX_AGGRESSORBS, "Maximum Aggressorbs");
 		builder.add(CONFIG_AGGRESSORBS_PER_CAST, "How Many Aggressorbs Spawn per Cast");
 		builder.add(CONFIG_BASE_DAMAGE, "Base Damage");
 		builder.add(CONFIG_BASE_TIME_ON_FIRE, "Base Time On Fire");
 		builder.add(CONFIG_BASE_STUN_TIME, "Base Stun Time");
-		builder.add(CONFIG_WET_ENTITY_DAMAGE_MULTIPLIER, "Damage Multiplier Against Wet Entities");
+		builder.add(TranslationKeys.CONFIG_STUNNED_ENTITY_DAMAGE_MULTIPLIER, "Damage Multiplier Against Stunned Entities");
+		builder.add(TranslationKeys.CONFIG_FROZEN_ENTITY_DAMAGE_MULTIPLIER, "Damage Multiplier Against Frozen Entities");
+		builder.add(TranslationKeys.CONFIG_BURNING_ENTITY_DAMAGE_MULTIPLIER, "Damage Multiplier Against Burning Entities");
 		builder.add(CONFIG_BASE_FREEZING_TIME, "Base Freezing Time");
 		builder.add(CONFIG_BASE_EFFECT_DURATION, "Base Effect Duration");
 		builder.add(CONFIG_BASE_HEALTH, "Base Health");
@@ -419,7 +404,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_BASE_TELEPORT_DISTANCE, "Base Teleport Distance");
 		builder.add(CONFIG_REMOVED_ON_DAMAGE_TAKEN, "Removed Upon Taking Damage");
 		builder.add(CONFIG_BASE_MOVEMENT_SPEED, "Base Movement Speed");
-		builder.add(CONFIG_BASE_MANA_DRAIN, "Base Mana Drain");
+		builder.add(CONFIG_BASE_MANA_DRAIN, "Base Arcana Drain");
 		builder.add(CONFIG_TIMES_TO_APPLY_EFFECTS, "Number of Times to Apply Spell Effects");
 		builder.add(CONFIG_TIMES_TO_CAST_NEXT_SHAPE, "Number of Times to Cast Next Spell Shape");
 		builder.add(CONFIG_SELF_SHAPE_PROPERTIES, "Self Shape");
@@ -440,10 +425,10 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_ELECTRIC_EFFECT_PROPERTIES, "Electric Effect");
 		builder.add(CONFIG_ICE_EFFECT_PROPERTIES, "Ice Effect");
 		builder.add(CONFIG_VULNERABILITY_EFFECT_PROPERTIES, "Vulnerability Effect");
-		builder.add(CONFIG_MANA_LOCK_EFFECT_PROPERTIES, "Mana Lock Effect");
+		builder.add(CONFIG_MANA_LOCK_EFFECT_PROPERTIES, "Arcana Lock Effect");
 		builder.add(CONFIG_WITHERING_EFFECT_PROPERTIES, "Withering Effect");
 		builder.add(CONFIG_NECROMANCY_EFFECT_PROPERTIES, "Necromancy Effect");
-		builder.add(CONFIG_MANA_SPLIT_EFFECT_PROPERTIES, "Mana Split Effect");
+		builder.add(CONFIG_MANA_SPLIT_EFFECT_PROPERTIES, "Arcana Split Effect");
 		builder.add(CONFIG_COPPER_CURSE_EFFECT_PROPERTIES, "Copper Curse Effect");
 		builder.add(CONFIG_DISCOMBOBULATE_EFFECT_PROPERTIES, "Discombobulate Effect");
 		builder.add(CONFIG_STOCKPILE_EFFECT_PROPERTIES, "Stockpile Effect");

@@ -24,7 +24,7 @@ public class BuildSpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.UtilityEffects.BuildEffectProperties.enabled,
 			() -> SpellType.UTILITY,
-			() -> ArcanusConfig.UtilityEffects.BuildEffectProperties.manaCosts(),
+			() -> ArcanusConfig.UtilityEffects.BuildEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.UtilityEffects.BuildEffectProperties.procsOnce
 		);
 	}

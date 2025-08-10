@@ -1,0 +1,47 @@
+{
+	"parent": "arcanus:arcanus/staff_part/staff_base",
+	"elements": [
+		{
+			"name": "cap",
+			"from": [6.75, 13.5, 6.75],
+			"to": [9.25, 16, 9.25],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [0, 1.5, 1.5, 3], "texture": "#layer0"},
+				"east": {"uv": [1.5, 1.5, 3, 3], "texture": "#layer0"},
+				"south": {"uv": [3, 1.5, 4.5, 3], "texture": "#layer0"},
+				"west": {"uv": [4.5, 1.5, 6, 3], "texture": "#layer0"},
+				"up": {"uv": [1.5, 0, 3, 1.5], "texture": "#layer0"},
+				"down": {"uv": [3, 0, 4.5, 1.5], "texture": "#layer0"}
+			}
+		},
+		{
+			"name": "top_band",
+			"from": [6.875, 11.5, 6.875],
+			"to": [9.125, 12.5, 9.125],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [0, 4.5, 1.5, 5], "texture": "#layer0"},
+				"east": {"uv": [1.5, 4.5, 3, 5], "texture": "#layer0"},
+				"south": {"uv": [3, 4.5, 4.5, 5], "texture": "#layer0"},
+				"west": {"uv": [4.5, 4.5, 6, 5], "texture": "#layer0"},
+				"up": {"uv": [1.5, 3, 3, 4.5], "texture": "#layer0"},
+				"down": {"uv": [3, 3, 4.5, 4.5], "texture": "#layer0"}
+			}
+		},
+		{
+			"name": "lower_band",
+			"from": [6.875, -12.5, 6.875],
+			"to": [9.125, -11.5, 9.125],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [0, 12, 1.5, 13], "texture": "#layer0"},
+				"east": {"uv": [1.5, 12, 3, 13], "texture": "#layer0"},
+				"south": {"uv": [3, 12, 4.5, 13], "texture": "#layer0"},
+				"west": {"uv": [4.5, 12, 6, 13], "texture": "#layer0"},
+				"up": {"uv": [1.5, 10.5, 3, 12], "texture": "#layer0"},
+				"down": {"uv": [3, 10.5, 4.5, 12], "texture": "#layer0"}
+			}
+		}
+	]
+}

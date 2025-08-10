@@ -2,8 +2,11 @@ package dev.cammiescorner.arcanus.common.spell_component.effects.attack;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
+import dev.cammiescorner.arcanus.api.spell.components.DamageModifyingSpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -19,12 +22,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class IceSpellEffect extends SpellEffect {
+public class IceSpellEffect extends DamageModifyingSpellEffect {
 	public IceSpellEffect() {
 		super(
 			() -> ArcanusConfig.AttackEffects.IceEffectProperties.enabled,
 			() -> SpellType.ATTACK,
-			() -> ArcanusConfig.AttackEffects.IceEffectProperties.manaCosts(),
+			() -> ArcanusConfig.AttackEffects.IceEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.AttackEffects.IceEffectProperties.procsOnce
 		);
 	}
@@ -52,5 +55,18 @@ public class IceSpellEffect extends SpellEffect {
 			else if(level.loadedAndEntityCanStandOn(pos.below(), caster) && level.isUnobstructed(Blocks.SNOW.defaultBlockState(), pos, CollisionContext.empty()) && level.getBlockState(pos).canBeReplaced())
 				level.setBlockAndUpdate(pos, Blocks.SNOW.defaultBlockState());
 		}
+	}
+
+	@Override
+	public DamageSource damageSource(DamageSources damageSources) {
+		return damageSources.freeze();
+	}
+
+	@Override
+	public float multiplyDamage(Entity target) {
+		if(target.isOnFire())
+			return ArcanusConfig.AttackEffects.IceEffectProperties.burningEntityDamageMultiplier;
+
+		return super.multiplyDamage(target);
 	}
 }

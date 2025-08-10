@@ -4,7 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.api.mana.ManaType;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -32,24 +32,24 @@ public class SpellComponentWidget extends AbstractButton {
 		this.onPress = onPress;
 
 		List<Component> textList = new ArrayList<>();
-		MutableComponent manaCost = Component.empty();
+		MutableComponent arcanaCost = Component.empty();
 
 		textList.add(component.getName());
 
-		for(ManaType manaType : ManaType.values()) {
-			if(!manaCost.equals(Component.empty()))
-				manaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
+		for(ArcanaType arcanaType : ArcanaType.values()) {
+			if(!arcanaCost.equals(Component.empty()))
+				arcanaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
-			manaCost.append(Component.literal(Arcanus.format(component.getManaCost().get(manaType))).withStyle(manaType.getChatFormatting()));
+			arcanaCost.append(Component.literal(Arcanus.format(component.getArcanaCost().get(arcanaType))).withStyle(arcanaType.getChatFormatting()));
 		}
 
-		textList.add(manaCost);
+		textList.add(arcanaCost);
 
 		if(component instanceof SpellShape shape) {
-			if(shape.getManaModifier() != 0)
+			if(shape.getArcanaModifier() != 0)
 				textList.add(Component.translatable(TWO_ARGUMENT_KEY,
 					Component.translatable(SPELL_BOOK_MANA_MULTIPLIER),
-					Component.literal(shape.getManaMultiplierAsString()).withStyle(ChatFormatting.GRAY)
+					Component.literal(shape.getArcanaMultiplierAsString()).withStyle(ChatFormatting.GRAY)
 				).withStyle(ChatFormatting.LIGHT_PURPLE));
 			if(shape.getPotencyModifier() != 0)
 				textList.add(Component.translatable(TWO_ARGUMENT_KEY,

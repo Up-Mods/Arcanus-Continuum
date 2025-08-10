@@ -57,7 +57,7 @@
       "${mod_id}:pocket_dimension",
       "${mod_id}:warded_blocks",
       "${mod_id}:known_spell_components",
-      "${mod_id}:mana",
+      "${mod_id}:arcana",
       "${mod_id}:burnout",
       "${mod_id}:casting",
       "${mod_id}:casting_pattern",

@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.item;
 
-import dev.cammiescorner.arcanus.api.mana.ManaType;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import dev.cammiescorner.arcanus.common.block.ChalkBlock;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -83,10 +83,10 @@ public class ChalkItem extends BlockItem {
 		BlockState state = level.getBlockState(pos);
 
 		if(state.getBlock() instanceof ChalkBlock) {
-			ManaType manaType = state.getValue(RUNE);
-			int index = manaType.ordinal();
+			ArcanaType arcanaType = state.getValue(RUNE);
+			int index = arcanaType.ordinal();
 
-			level.setBlockAndUpdate(pos, state.setValue(RUNE, ManaType.values()[index < ManaType.values().length - 1 ? index + 1 : 0]));
+			level.setBlockAndUpdate(pos, state.setValue(RUNE, ArcanaType.values()[index < ArcanaType.values().length - 1 ? index + 1 : 0]));
 
 			return InteractionResult.sidedSuccess(level.isClientSide());
 		}

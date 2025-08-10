@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.item;
 
 import dev.cammiescorner.arcanus.api.spell.Spell;
-import dev.cammiescorner.arcanus.api.mana.ManaType;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import dev.cammiescorner.arcanus.common.menu.providers.SpellScrollMenuProvider;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import net.minecraft.ChatFormatting;
@@ -32,19 +32,19 @@ public class SpellScrollItem extends Item {
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
 		Spell spell = getSpell(stack);
-		MutableComponent manaCost = Component.empty();
+		MutableComponent arcanaCost = Component.empty();
 
 		tooltipComponents.add(Component.empty());
 		tooltipComponents.add(Component.literal(spell.getName()).withStyle(ChatFormatting.GOLD));
 
-		for(ManaType manaType : ManaType.values()) {
-			if(!manaCost.equals(Component.empty()))
-				manaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
+		for(ArcanaType arcanaType : ArcanaType.values()) {
+			if(!arcanaCost.equals(Component.empty()))
+				arcanaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
-			manaCost.append(Component.literal(spell.getManaCostAsString(manaType)).withStyle(manaType.getChatFormatting()));
+			arcanaCost.append(Component.literal(spell.getArcanaCostAsString(arcanaType)).withStyle(arcanaType.getChatFormatting()));
 		}
 
-		tooltipComponents.add(manaCost);
+		tooltipComponents.add(arcanaCost);
 
 		tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
 			Component.translatable(SPELL_BOOK_WEIGHT),

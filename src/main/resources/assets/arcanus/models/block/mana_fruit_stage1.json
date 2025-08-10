@@ -2,8 +2,8 @@
   "format_version": "1.9.0",
   "parent": "minecraft:block/block",
   "textures": {
-    "0": "arcanus:block/mana_fruit_stem_1",
-    "particle": "arcanus:block/mana_fruit_stem_1"
+    "0": "arcanus:block/arcana_fruit_stem_1",
+    "particle": "arcanus:block/arcana_fruit_stem_1"
   },
   "elements": [
     {

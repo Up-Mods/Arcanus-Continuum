@@ -3,11 +3,11 @@
  *
  * isEnabled - Gets whether a component is enabled from the config.
  *
- * getManaCost - gets the mana cost
+ * getArcanaCost - gets the arcana cost
  *
  * singleCastOnly - returns if a component can only proc once when spell is cast.
  *
- * getManaCostAsString - makes the mana cost printable in the console. Testing Purposes only.
+ * getArcanaCostAsString - makes the arcana cost printable in the console. Testing Purposes only.
  *
  * getTexture - Gets the texture and returns it as a variable.
  *
@@ -22,7 +22,7 @@ package dev.cammiescorner.arcanus.api.spell.components;
 import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.ArcanusRegistries;
-import dev.cammiescorner.arcanus.api.mana.ManaType;
+import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.upcraft.sparkweave.api.registry.RegistryHelper;
@@ -45,14 +45,14 @@ public class SpellComponent {
 	public static final String DISABLED_TRANSLATION_KEY = Util.makeDescriptionId("arcanus.spell_component", Arcanus.id("disabled"));
 	private static final MutableComponent DISABLED_TRANSLATED_NAME = Component.translatable(DISABLED_TRANSLATION_KEY).withStyle(ChatFormatting.OBFUSCATED);
 	private final Supplier<Boolean> isEnabled;
-	private final Supplier<Map<ManaType, Double>> manaCost;
+	private final Supplier<Map<ArcanaType, Double>> arcanaCost;
 	private final Supplier<Boolean> procsOnce;
 	private String translationKey;
 	private ResourceLocation texture;
 
-	public SpellComponent(Supplier<Boolean> isEnabled, Supplier<Map<ManaType, Double>> manaCost, Supplier<Boolean> procsOnce) {
+	public SpellComponent(Supplier<Boolean> isEnabled, Supplier<Map<ArcanaType, Double>> arcanaCost, Supplier<Boolean> procsOnce) {
 		this.isEnabled = isEnabled;
-		this.manaCost = manaCost;
+		this.arcanaCost = arcanaCost;
 		this.procsOnce = procsOnce;
 	}
 
@@ -60,16 +60,16 @@ public class SpellComponent {
 		return isEnabled.get();
 	}
 
-	public Map<ManaType, Double> getManaCost() {
-		return Map.copyOf(manaCost.get());
+	public Map<ArcanaType, Double> getArcanaCost() {
+		return Map.copyOf(arcanaCost.get());
 	}
 
 	public boolean singleCastOnly() {
 		return procsOnce.get();
 	}
 
-	public String getManaCostAsString(ManaType manaType) {
-		return Arcanus.format(getManaCost().get(manaType));
+	public String getArcanaCostAsString(ArcanaType arcanaType) {
+		return Arcanus.format(getArcanaCost().get(arcanaType));
 	}
 
 	public ResourceLocation getTexture(Player player) {

@@ -44,32 +44,13 @@ public class ArcanusItemTagsProvider extends FabricTagProvider.ItemTagProvider {
 			.add(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
 //			.add(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get())
 			.forceAddTag(ItemTags.DECORATED_POT_SHERDS)
-			.addTag(ArcanusItemTags.WIZARD_ARMOR);
+			.addTag(ArcanusItemTags.ARCANIST_ARMOR);
 
-		getOrCreateTagBuilder(ArcanusItemTags.STAVES)
-			.add(ArcanusItems.WOODEN_STAFF.get())
-			.add(ArcanusItems.CRYSTAL_STAFF.get())
-			.add(ArcanusItems.DIVINATION_STAFF.get())
-			.add(ArcanusItems.CRESCENT_STAFF.get())
-			.add(ArcanusItems.ANCIENT_STAFF.get())
-			.add(ArcanusItems.WAND.get())
-			.add(ArcanusItems.THAUMATURGES_GAUNTLET.get())
-			.add(ArcanusItems.MIND_STAFF.get())
-			.add(ArcanusItems.MAGIC_TOME.get())
-			.add(ArcanusItems.MAGE_PISTOL.get());
-
-		getOrCreateTagBuilder(ArcanusItemTags.STAVES_FOR_WIZARDS)
-			.add(ArcanusItems.WOODEN_STAFF.get())
-			.add(ArcanusItems.CRYSTAL_STAFF.get())
-			.add(ArcanusItems.DIVINATION_STAFF.get())
-			.add(ArcanusItems.CRESCENT_STAFF.get())
-			.add(ArcanusItems.ANCIENT_STAFF.get());
-
-		getOrCreateTagBuilder(ArcanusItemTags.WIZARD_ARMOR)
-			.add(ArcanusItems.WIZARD_HAT.get())
-			.add(ArcanusItems.WIZARD_ROBES.get())
-			.add(ArcanusItems.WIZARD_PANTS.get())
-			.add(ArcanusItems.WIZARD_BOOTS.get())
+		getOrCreateTagBuilder(ArcanusItemTags.ARCANIST_ARMOR)
+			.add(ArcanusItems.ARCANIST_HAT.get())
+			.add(ArcanusItems.ARCANIST_ROBES.get())
+			.add(ArcanusItems.ARCANIST_PANTS.get())
+			.add(ArcanusItems.ARCANIST_BOOTS.get())
 			.add(ArcanusItems.RED_CULT_HOOD.get())
 			.add(ArcanusItems.RED_CULT_ROBES.get())
 			.add(ArcanusItems.RED_CULT_PANTS.get())

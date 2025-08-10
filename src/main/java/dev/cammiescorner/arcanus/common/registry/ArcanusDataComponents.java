@@ -4,10 +4,7 @@ import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.Spell;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
-import dev.cammiescorner.arcanus.common.data_component.BookPouchComponent;
-import dev.cammiescorner.arcanus.common.data_component.SpellBookComponent;
-import dev.cammiescorner.arcanus.common.data_component.StaffCapComponent;
-import dev.cammiescorner.arcanus.common.data_component.StaffCoreComponent;
+import dev.cammiescorner.arcanus.common.data_component.*;
 import dev.cammiescorner.arcanus.common.item.BookPouchItem;
 import dev.cammiescorner.arcanus.common.util.XtraCodecs;
 import dev.upcraft.sparkweave.api.color.Color;
@@ -29,6 +26,12 @@ public class ArcanusDataComponents {
 	public static final RegistrySupplier<DataComponentType<Boolean>> HOOD_DOWN = DATA_COMPONENTS.register("hood_down", () -> DataComponentType.<Boolean>builder()
 		.persistent(Codec.BOOL)
 		.networkSynchronized(ByteBufCodecs.BOOL)
+		.build()
+	);
+
+	public static final RegistrySupplier<DataComponentType<StaffParts>> STAFF_PARTS = DATA_COMPONENTS.register("staff_parts", () -> DataComponentType.<StaffParts>builder()
+		.persistent(StaffParts.CODEC)
+		.networkSynchronized(StaffParts.STREAM_CODEC)
 		.build()
 	);
 

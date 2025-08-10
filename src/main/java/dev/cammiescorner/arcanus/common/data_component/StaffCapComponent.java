@@ -3,13 +3,10 @@ package dev.cammiescorner.arcanus.common.data_component;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
-import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
@@ -47,27 +44,12 @@ public record StaffCapComponent(double potency, boolean isInert) implements Tool
 	public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag) {
 		// TODO replace debug text with proper translatable values
 		tooltipAdder.accept(Component.literal("[Staff Cap]"));
+
 		// make sure to keep this bit when making translatable!
-		var potencyStr = String.format("%.2f", potency());
+		String potencyStr = String.format("%.2f", potency());
 		tooltipAdder.accept(Component.literal("  potency: %s".formatted(potencyStr)));
-		if(isInert()) {
+
+		if(isInert())
 			tooltipAdder.accept(Component.literal("  [INERT]").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
-		}
-	}
-
-	public static ResourceLocation getItemModelLocation(Holder.Reference<StaffCapComponent> holder) {
-		return holder.key().location().withPrefix("item/arcanus/staff_cap/");
-	}
-
-	public static ResourceLocation getStaffModelLocation(Holder.Reference<StaffCapComponent> holder) {
-		return holder.key().location().withPrefix("arcanus/staff_part/staff_core/");
-	}
-
-	public static String getDescriptionId(Holder.Reference<StaffCapComponent> holder) {
-		return Util.makeDescriptionId("item", holder.key().location());
-	}
-
-	public static String getStaffDescriptionId(Holder.Reference<StaffCapComponent> holder) {
-		return Util.makeDescriptionId("staff", holder.key().location()) + "ped";
 	}
 }

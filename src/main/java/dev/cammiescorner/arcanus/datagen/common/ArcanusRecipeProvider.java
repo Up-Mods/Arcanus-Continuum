@@ -54,15 +54,6 @@ public class ArcanusRecipeProvider extends FabricRecipeProvider {
 //			.unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
 //			.save(exporter);
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ArcanusItems.CRYSTAL_STAFF.get())
-			.pattern("  A")
-			.pattern(" # ")
-			.pattern("#  ")
-			.define('A', Items.AMETHYST_SHARD)
-			.define('#', ItemTags.LOGS)
-			.unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
-			.save(exporter);
-
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ArcanusBlocks.MAGIC_DOOR.get())
 			.pattern("##")
 			.pattern("AA")
@@ -72,7 +63,7 @@ public class ArcanusRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
 			.save(exporter);
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ArcanusItems.WIZARD_HAT.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ArcanusItems.ARCANIST_HAT.get())
 			.pattern(" # ")
 			.pattern(" # ")
 			.pattern("G#G")
@@ -81,7 +72,7 @@ public class ArcanusRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy("has_gold_ingot", has(ConventionalItemTags.GOLD_INGOTS))
 			.save(exporter);
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ArcanusItems.WIZARD_ROBES.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ArcanusItems.ARCANIST_ROBES.get())
 			.pattern("# #")
 			.pattern("#G#")
 			.pattern("#G#")
@@ -90,7 +81,7 @@ public class ArcanusRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy("has_gold_ingot", has(ConventionalItemTags.GOLD_INGOTS))
 			.save(exporter);
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ArcanusItems.WIZARD_PANTS.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ArcanusItems.ARCANIST_PANTS.get())
 			.pattern("G#G")
 			.pattern("# #")
 			.pattern("# #")
@@ -99,7 +90,7 @@ public class ArcanusRecipeProvider extends FabricRecipeProvider {
 			.unlockedBy("has_gold_ingot", has(ConventionalItemTags.GOLD_INGOTS))
 			.save(exporter);
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ArcanusItems.WIZARD_BOOTS.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ArcanusItems.ARCANIST_BOOTS.get())
 			.pattern("G G")
 			.pattern("# #")
 			.define('G', ConventionalItemTags.GOLD_INGOTS)

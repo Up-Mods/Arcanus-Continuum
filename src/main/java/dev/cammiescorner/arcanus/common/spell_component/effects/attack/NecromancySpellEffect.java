@@ -26,7 +26,7 @@ public class NecromancySpellEffect extends SpellEffect {
 		super(
 			() -> ArcanusConfig.AttackEffects.NecromancyEffectProperties.enabled,
 			() -> SpellType.ATTACK,
-			() -> ArcanusConfig.AttackEffects.NecromancyEffectProperties.manaCosts(),
+			() -> ArcanusConfig.AttackEffects.NecromancyEffectProperties.arcanaCosts(),
 			() -> ArcanusConfig.AttackEffects.NecromancyEffectProperties.procsOnce
 		);
 	}
@@ -43,7 +43,7 @@ public class NecromancySpellEffect extends SpellEffect {
 				skeleton.setMaxHealth(ArcanusConfig.AttackEffects.NecromancyEffectProperties.baseHealth * potency);
 				skeleton.setOwner(caster);
 				skeleton.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
-				skeleton.setItemSlot(EquipmentSlot.HEAD, new ItemStack(ArcanusItems.WIZARD_HAT.get()));
+				skeleton.setItemSlot(EquipmentSlot.HEAD, new ItemStack(ArcanusItems.ARCANIST_HAT.get()));
 
 				if(damage != null)
 					damage.addPermanentModifier(new AttributeModifier(Arcanus.id("necro_skele_attack_modifier"), 4 * potency, AttributeModifier.Operation.ADD_VALUE));

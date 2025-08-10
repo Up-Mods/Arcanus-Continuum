@@ -20,8 +20,8 @@ public class GuidedShotSpellShape extends SpellShape {
 		super(
 			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.enabled,
 			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.weight,
-			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.manaCosts(),
-			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.manaMultiplier,
+			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.arcanaCosts(),
+			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.arcanaModifier,
 			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.potencyModifier,
 			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.coolDownModifier,
 			() -> ArcanusConfig.SpellShapes.GuidedShotShapeProperties.procsOnce);

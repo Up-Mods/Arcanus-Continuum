@@ -32,7 +32,7 @@ public class ArcanusSpellComponents {
 	/**
 	 * DO NOT DELETE OR DISABLE. WILL BREAK THE ENTIRE MOD.
 	 **/
-	public static final RegistrySupplier<SpellComponent> EMPTY = SPELL_COMPONENTS.register("empty", () -> new SpellShape(() -> true, () -> Weight.NONE, () -> Arcanus.constructManaMap(0, 0, 0, 0, 0), () -> 1d, () -> 1d, () -> 0d, () -> true) {
+	public static final RegistrySupplier<SpellComponent> EMPTY = SPELL_COMPONENTS.register("empty", () -> new SpellShape(() -> true, () -> Weight.NONE, () -> Arcanus.constructArcanaMap(0, 0, 0, 0, 0), () -> 1d, () -> 1d, () -> 0d, () -> true) {
 		@Override
 		public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 			castNext(caster, castFrom, castSource, level, stack, spellGroups, groupIndex, potency);
@@ -60,11 +60,10 @@ public class ArcanusSpellComponents {
 	public static final RegistrySupplier<SpellEffect> ELECTRIC = SPELL_COMPONENTS.register("electric_effect", ElectricSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> ICE = SPELL_COMPONENTS.register("ice_effect", IceSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> VULNERABILITY = SPELL_COMPONENTS.register("vulnerability_effect", VulnerabilitySpellEffect::new);
-	public static final RegistrySupplier<SpellEffect> MANA_LOCK = SPELL_COMPONENTS.register("mana_lock_effect", ManaLockSpellEffect::new);
+	public static final RegistrySupplier<SpellEffect> MANA_LOCK = SPELL_COMPONENTS.register("arcana_lock_effect", ManaLockSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> WITHERING = SPELL_COMPONENTS.register("withering_effect", WitheringSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> NECROMANCY = SPELL_COMPONENTS.register("necromancy_effect", NecromancySpellEffect::new);
-	public static final RegistrySupplier<SpellEffect> MANA_SPLIT = SPELL_COMPONENTS.register("mana_split_effect", ManaSplitSpellEffect::new);
-	public static final RegistrySupplier<SpellEffect> COPPER_CURSE = SPELL_COMPONENTS.register("copper_curse_effect", CopperCurseSpellEffect::new);
+	public static final RegistrySupplier<SpellEffect> MANA_SPLIT = SPELL_COMPONENTS.register("arcana_split_effect", ManaSplitSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> DISCOMBOBULATE = SPELL_COMPONENTS.register("discombobulate_effect", DiscombobulateSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> STOCKPILE = SPELL_COMPONENTS.register("stockpile_effect", StockpileSpellEffect::new);
 

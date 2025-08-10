@@ -8,7 +8,6 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMenus;
 import dev.cammiescorner.arcanus.common.util.WorkbenchMode;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
-import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,7 +15,10 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -47,7 +49,7 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
 		this.player = playerInventory.player;
 		getSlotsForMode(mode);
 		var isSupporter = player.datasync$getEntitlements().keys().contains(WizardData.ID);
-		templates = BuiltInRegistries.ITEM.stream().filter(item -> item instanceof StaffItem).map(StaffItem.class::cast).filter(staffItem -> !staffItem.isDonorOnly || isSupporter).toList();
+		templates = BuiltInRegistries.ITEM.stream().filter(item -> item instanceof StaffItem).map(StaffItem.class::cast).toList();
 	}
 
 	@Override
@@ -250,25 +252,6 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
 
 				if(staffStack.getItem() instanceof StaffItem && handler.getTemplate() instanceof StaffItem) {
 					ItemStack itemStack2 = new ItemStack(handler.getTemplate(), staffStack.getCount());
-//					itemStack2.setTag(staffStack.copy().getTag());
-
-					if(input.getItem(1).getItem() instanceof DyeItem dye) {
-						StaffItem.setPrimaryColor(itemStack2, Color.fromInt(dye.getDyeColor().getFireworkColor(), Color.Ordering.RGB));
-					}
-
-					if(input.getItem(2).getItem() instanceof DyeItem dye) {
-						int color = dye.getDyeColor().getTextColor();
-
-						if(dye.getDyeColor() == DyeColor.BLACK) {
-							color = dye.getDyeColor().getFireworkColor();
-						}
-
-						StaffItem.setSecondaryColor(itemStack2, Color.fromInt(color, Color.Ordering.RGB));
-					}
-
-					if(!ItemStack.isSameItem(itemStack2, staffStack) || !StaffItem.getPrimaryColor(itemStack2).equals(StaffItem.getPrimaryColor(staffStack)) || !StaffItem.getSecondaryColor(itemStack2).equals(StaffItem.getSecondaryColor(staffStack))) {
-						itemStack = itemStack2;
-					}
 				}
 			}
 

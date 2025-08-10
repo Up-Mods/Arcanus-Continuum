@@ -12,7 +12,7 @@ import net.minecraft.world.entity.MobCategory;
 public class ArcanusEntities {
 	public static final RegistryHandler<EntityType<?>> ENTITY_TYPES = RegistryHandler.create(Registries.ENTITY_TYPE, Arcanus.MOD_ID);
 
-	public static final RegistrySupplier<EntityType<Wizard>> WIZARD = ENTITY_TYPES.register("wizard", () -> EntityType.Builder.of(Wizard::new, MobCategory.MISC).sized(0.7f, 1.8f).build());
+	public static final RegistrySupplier<EntityType<Arcanist>> ARCANIST = ENTITY_TYPES.register("arcanist", () -> EntityType.Builder.of(Arcanist::new, MobCategory.MISC).sized(0.7f, 1.8f).build());
 	public static final RegistrySupplier<EntityType<CultistCleric>> CULTIST_CLERIC = ENTITY_TYPES.register("cultist_cleric", () -> EntityType.Builder.of(CultistCleric::new, MobCategory.MONSTER).sized(0.6f, 1.8f).build());
 	public static final RegistrySupplier<EntityType<CultistKnight>> CULTIST_KNIGHT = ENTITY_TYPES.register("cultist_knight", () -> EntityType.Builder.of(CultistKnight::new, MobCategory.MONSTER).sized(0.6f, 1.8f).build());
 	public static final RegistrySupplier<EntityType<Opossum>> OPOSSUM = ENTITY_TYPES.register("opossum", () -> EntityType.Builder.of(Opossum::new, MobCategory.CREATURE).sized(0.6f, 0.7f).build());
