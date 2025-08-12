@@ -60,5 +60,6 @@ public class CultistCleric extends Cultist {
 		setItemSlot(EquipmentSlot.CHEST, chestStack);
 		setItemSlot(EquipmentSlot.LEGS, legsStack);
 		setItemSlot(EquipmentSlot.FEET, bootsStack);
+		setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ArcanusItems.STAFF.get()));
 	}
 }

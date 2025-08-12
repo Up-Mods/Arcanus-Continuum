@@ -50,6 +50,7 @@ public class StockpileOrb extends ThrowableProjectile implements Targetable {
 	public StockpileOrb(EntityType<? extends ThrowableProjectile> variant, Level world) {
 		super(variant, world);
 		noPhysics = true;
+		setNoGravity(true);
 	}
 
 	@Override
@@ -94,6 +95,7 @@ public class StockpileOrb extends ThrowableProjectile implements Targetable {
 		}
 		else {
 			noPhysics = false;
+			setNoGravity(false);
 		}
 
 		super.tick();

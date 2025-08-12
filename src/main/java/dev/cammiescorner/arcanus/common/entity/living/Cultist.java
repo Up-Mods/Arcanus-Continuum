@@ -7,6 +7,7 @@ import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -14,9 +15,11 @@ import net.minecraft.world.level.Level;
 
 public class Cultist extends Mob {
 	@Environment(EnvType.CLIENT) private PlayerInfo playerInfo;
+	public final HumanoidArm mainArm;
 
 	public Cultist(EntityType<? extends Mob> entityType, Level level) {
 		super(entityType, level);
+		this.mainArm = getRandom().nextInt() == 0 ? HumanoidArm.RIGHT : HumanoidArm.LEFT;
 	}
 
 	public static AttributeSupplier.Builder createMobAttributes() {
