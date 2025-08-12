@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.mixin.common;
 
-import dev.cammiescorner.arcanus.common.entity.magic.Aggressorb;
+import dev.cammiescorner.arcanus.common.entity.magic.StockpileOrb;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
@@ -21,6 +21,6 @@ public abstract class ThrowableProjectileMixin extends Projectile {
 		target = "Lnet/minecraft/world/phys/Vec3;scale(D)Lnet/minecraft/world/phys/Vec3;"
 	))
 	private double noWaterDrag(double value) {
-		return ((Object) this) instanceof Aggressorb && this.isInWater() ? 0.99f : value;
+		return ((Object) this) instanceof StockpileOrb && this.isInWater() ? 0.99f : value;
 	}
 }

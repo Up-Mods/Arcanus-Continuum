@@ -5,7 +5,7 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.util.ClientUtils;
-import dev.cammiescorner.arcanus.common.entity.magic.Aggressorb;
+import dev.cammiescorner.arcanus.common.entity.magic.StockpileOrb;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundIsCastingPacket;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundShootOrbsPacket;
@@ -139,7 +139,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 				info.cancel();
 			}
 			else {
-				List<UUID> orbIds = player.getComponent(ArcanusComponents.AGGRESSORB_COMPONENT).getOrbs();
+				List<UUID> orbIds = player.getComponent(ArcanusComponents.STOCKPILE_ORB_COMPONENT).getOrbs();
 
 				if(!orbIds.isEmpty()) {
 					Network.getNetworkHandler().sendToServer(new ServerboundShootOrbsPacket(player.getUUID(), orbIds));
@@ -193,10 +193,10 @@ public abstract class MinecraftMixin implements ClientUtils {
 	@Unique
 	private void shootOrbs(List<UUID> orbIds) {
 		for(Entity entity : level.entitiesForRendering()) {
-			if(entity instanceof Aggressorb orb && orbIds.get(0).equals(entity.getUUID()) && orb.isBoundToTarget()) {
+			if(entity instanceof StockpileOrb orb && orbIds.get(0).equals(entity.getUUID()) && orb.isBoundToTarget()) {
 				orb.setBoundToTarget(false);
 				orb.setPos(orb.getTarget().getEyePosition());
-				orb.shootFromRotation(orb.getTarget(), orb.getTarget().getXRot(), orb.getTarget().getYRot(), 0f, ArcanusConfig.SpellShapes.AggressorbShapeProperties.projectileSpeed, 1f);
+				orb.shootFromRotation(orb.getTarget(), orb.getTarget().getXRot(), orb.getTarget().getYRot(), 0f, ArcanusConfig.SpellShapes.StockpileShapeProperties.projectileSpeed, 1f);
 
 				break;
 			}

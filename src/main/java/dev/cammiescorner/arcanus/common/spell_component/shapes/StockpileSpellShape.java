@@ -4,7 +4,7 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.common.entity.magic.Aggressorb;
+import dev.cammiescorner.arcanus.common.entity.magic.StockpileOrb;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusEntities;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
@@ -20,16 +20,16 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class AggressorbSpellShape extends SpellShape {
-	public AggressorbSpellShape() {
+public class StockpileSpellShape extends SpellShape {
+	public StockpileSpellShape() {
 		super(
-			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.enabled,
-			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.weight,
-			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.arcanaCosts(),
-			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.arcanaModifier,
-			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.potencyModifier,
-			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.coolDownModifier,
-			() -> ArcanusConfig.SpellShapes.AggressorbShapeProperties.procsOnce);
+			() -> ArcanusConfig.SpellShapes.StockpileShapeProperties.enabled,
+			() -> ArcanusConfig.SpellShapes.StockpileShapeProperties.weight,
+			() -> ArcanusConfig.SpellShapes.StockpileShapeProperties.arcanaCosts(),
+			() -> ArcanusConfig.SpellShapes.StockpileShapeProperties.arcanaModifier,
+			() -> ArcanusConfig.SpellShapes.StockpileShapeProperties.potencyModifier,
+			() -> ArcanusConfig.SpellShapes.StockpileShapeProperties.coolDownModifier,
+			() -> ArcanusConfig.SpellShapes.StockpileShapeProperties.procsOnce);
 	}
 
 	@Override
@@ -38,20 +38,20 @@ public class AggressorbSpellShape extends SpellShape {
 		Entity sourceEntity = castSource != null ? castSource : caster;
 
 		if(sourceEntity instanceof LivingEntity target) {
-			for(int i = 0; i < ArcanusConfig.SpellShapes.AggressorbShapeProperties.aggressorbsPerCast; i++) {
-				if(ArcanusComponents.aggressorbCount(target) >= ArcanusConfig.SpellShapes.AggressorbShapeProperties.maximumAggressorbs) {
+			for(int i = 0; i < ArcanusConfig.SpellShapes.StockpileShapeProperties.stockpileOrbsPerCast; i++) {
+				if(ArcanusComponents.stockpileOrbCount(target) >= ArcanusConfig.SpellShapes.StockpileShapeProperties.maximumStockpileOrbs) {
 					if(caster instanceof Player player)
 						player.sendSystemMessage(Component.translatable(TranslationKeys.TOO_MANY_ORBS).withStyle(ChatFormatting.RED));
 
 					break;
 				}
 
-				Aggressorb aggressorb = ArcanusEntities.AGGRESSORB.get().create(level);
+				StockpileOrb stockpileOrb = ArcanusEntities.STOCKPILE_ORB.get().create(level);
 
-				if(aggressorb != null) {
-					aggressorb.setProperties(caster, target, stack, effects, spellGroups, groupIndex, potency);
-					aggressorb.setPos(castFrom);
-					level.addFreshEntity(aggressorb);
+				if(stockpileOrb != null) {
+					stockpileOrb.setProperties(caster, target, stack, effects, spellGroups, groupIndex, potency);
+					stockpileOrb.setPos(castFrom);
+					level.addFreshEntity(stockpileOrb);
 				}
 			}
 		}

@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.common.networking.serverbound;
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.common.entity.magic.Aggressorb;
+import dev.cammiescorner.arcanus.common.entity.magic.StockpileOrb;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -42,12 +42,12 @@ public record ServerboundShootOrbsPacket(UUID ownerId, List<UUID> orbIds) implem
 
 	private static void shootOrb(List<UUID> orbIds, ServerLevel world, LivingEntity owner) {
 		for(UUID orbId : orbIds) {
-			if(world.getEntity(orbId) instanceof Aggressorb orb && owner != null && orb.isBoundToTarget()) {
+			if(world.getEntity(orbId) instanceof StockpileOrb orb && owner != null && orb.isBoundToTarget()) {
 				orb.setBoundToTarget(false);
 				orb.setPos(orb.getTarget().getEyePosition());
-				orb.shootFromRotation(orb.getTarget(), orb.getTarget().getXRot(), orb.getTarget().getYRot(), 0f, ArcanusConfig.SpellShapes.AggressorbShapeProperties.projectileSpeed, 1f);
+				orb.shootFromRotation(orb.getTarget(), orb.getTarget().getXRot(), orb.getTarget().getYRot(), 0f, ArcanusConfig.SpellShapes.StockpileShapeProperties.projectileSpeed, 1f);
 				world.playSeededSound(null, orb.getX(), orb.getY(), orb.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.NEUTRAL, 1f, 1f, 1L);
-				ArcanusComponents.removeAggressorbFromEntity(orb.getTarget(), orbId);
+				ArcanusComponents.removeStockpileOrbFromEntity(orb.getTarget(), orbId);
 
 				break;
 			}

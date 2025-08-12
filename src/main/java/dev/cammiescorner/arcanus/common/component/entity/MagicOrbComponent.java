@@ -14,14 +14,14 @@ import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
 import java.util.UUID;
 
-public class GuardianOrbComponent implements ServerTickingComponent {
-	public static final ResourceLocation uUID = Arcanus.id("guardian_orb_arcana_lock");
+public class MagicOrbComponent implements ServerTickingComponent {
+	public static final ResourceLocation uUID = Arcanus.id("magic_orb_arcana_lock");
 	private final LivingEntity entity;
 	private UUID orbId = Util.NIL_UUID;
 	private int strength = 0;
 	private boolean dirty = false;
 
-	public GuardianOrbComponent(LivingEntity entity) {
+	public MagicOrbComponent(LivingEntity entity) {
 		this.entity = entity;
 	}
 

@@ -52,7 +52,7 @@ public class ArcanusSpellComponents {
 	public static final RegistrySupplier<SpellShape> AOE = SPELL_COMPONENTS.register("aoe_shape", AreaOfEffectSpellShape::new);
 	public static final RegistrySupplier<SpellShape> SMITE = SPELL_COMPONENTS.register("smite_shape", SmiteSpellShape::new);
 	public static final RegistrySupplier<SpellShape> MAGIC_ORB = SPELL_COMPONENTS.register("magic_orb_shape", MagicOrbShape::new);
-	public static final RegistrySupplier<SpellShape> AGGRESSORB = SPELL_COMPONENTS.register("aggressorb_shape", AggressorbSpellShape::new); // TODO replace name with something better. also change the texture file
+	public static final RegistrySupplier<SpellShape> STOCKPILE = SPELL_COMPONENTS.register("stockpile_shape", StockpileSpellShape::new);
 
 	//-----Spell Effects-----//
 	public static final RegistrySupplier<SpellEffect> DAMAGE = SPELL_COMPONENTS.register("damage_effect", DamageSpellEffect::new);
@@ -65,7 +65,6 @@ public class ArcanusSpellComponents {
 	public static final RegistrySupplier<SpellEffect> NECROMANCY = SPELL_COMPONENTS.register("necromancy_effect", NecromancySpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> MANA_SPLIT = SPELL_COMPONENTS.register("arcana_split_effect", ManaSplitSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> DISCOMBOBULATE = SPELL_COMPONENTS.register("discombobulate_effect", DiscombobulateSpellEffect::new);
-	public static final RegistrySupplier<SpellEffect> STOCKPILE = SPELL_COMPONENTS.register("stockpile_effect", StockpileSpellEffect::new);
 
 	public static final RegistrySupplier<SpellEffect> HEAL = SPELL_COMPONENTS.register("heal_effect", HealSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> DISPEL = SPELL_COMPONENTS.register("dispel_effect", DispelSpellEffect::new);

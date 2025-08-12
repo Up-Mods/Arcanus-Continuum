@@ -26,7 +26,7 @@ public class ArcanusEntityTagsProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(ArcanusEntities.SMITE.get());
 
 		getOrCreateTagBuilder(ArcanusEntityTags.DISPELLABLE)
-			.add(ArcanusEntities.AGGRESSORB.get())
+			.add(ArcanusEntities.STOCKPILE_ORB.get())
 			.add(ArcanusEntities.AOE.get())
 			.add(ArcanusEntities.MAGIC_ORB.get())
 			.add(ArcanusEntities.MAGIC_RUNE.get())

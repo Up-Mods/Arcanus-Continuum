@@ -66,7 +66,7 @@ public final class ArcanusConfig {
 		SpellShapes.AOEShapeProperties.class,
 		SpellShapes.SmiteShapeProperties.class,
 		SpellShapes.MagicOrbShapeProperties.class,
-		SpellShapes.AggressorbShapeProperties.class
+		SpellShapes.StockpileShapeProperties.class
 	})
 	public static final class SpellShapes {
 		@Category("Self")
@@ -607,8 +607,8 @@ public final class ArcanusConfig {
 			public static double baseArcanaDrain = 3;
 		}
 
-		@Category("Aggressorb")
-		public static final class AggressorbShapeProperties {
+		@Category("Stockpile")
+		public static final class StockpileShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 
@@ -647,13 +647,13 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
 			public static boolean procsOnce = false;
 
-			@ConfigEntry(id = "maximumAggressorbs", translation = CONFIG_MAX_AGGRESSORBS)
+			@ConfigEntry(id = "maximumStockpileOrbs", translation = CONFIG_MAXIMUM_STOCKPILE_ORBS)
 			@ConfigOption.Range(min = 0, max = 16)
-			public static int maximumAggressorbs = 6;
+			public static int maximumStockpileOrbs = 6;
 
-			@ConfigEntry(id = "aggressorbsPerCast", translation = CONFIG_AGGRESSORBS_PER_CAST)
+			@ConfigEntry(id = "stockpileOrbsPerCast", translation = CONFIG_STOCKPILE_ORBS_PER_CAST)
 			@ConfigOption.Range(min = 0, max = 16)
-			public static int aggressorbsPerCast = 2;
+			public static int stockpileOrbsPerCast = 2;
 
 			@ConfigEntry(id = "projectileSpeed", translation = CONFIG_PROJECTILE_SPEED)
 			public static float projectileSpeed = 3f;
@@ -670,8 +670,7 @@ public final class ArcanusConfig {
 		AttackEffects.WitheringEffectProperties.class,
 		AttackEffects.NecromancyEffectProperties.class,
 		AttackEffects.ManaSplitEffectProperties.class,
-		AttackEffects.DiscombobulateEffectProperties.class,
-		AttackEffects.StockpileEffectProperties.class
+		AttackEffects.DiscombobulateEffectProperties.class
 	})
 	public static final class AttackEffects {
 		@Category("Damage")
@@ -1034,49 +1033,6 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "effectDurationModifier", translation = CONFIG_EFFECT_DURATION_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int effectDurationModifier = 15;
-		}
-
-		@Category("Stockpile")
-		public static final class StockpileEffectProperties {
-			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
-			public static boolean enabled = true;
-
-			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
-			public static Weight weight = Weight.NONE;
-
-			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
-			public static double ignisArcanaCost = 0;
-
-			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double terraArcanaCost = 3;
-
-			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double aquaArcanaCost = 0;
-
-			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double aerArcanaCost = 0;
-
-			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double aetherArcanaCost = 0;
-
-			public static Map<ArcanaType, Double> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
-
-			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int baseEffectDuration = 100;
-
-			@ConfigEntry(id = "effectDurationModifier", translation = CONFIG_EFFECT_DURATION_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int effectDurationModifier = 30;
-
-			@ConfigEntry(id = "damageNeededToIncrease", translation = CONFIG_DAMAGE_TO_INCREASE)
-			@ConfigOption.Range(min = 0, max = 1000)
-			public static float damageNeededToIncrease = 10f;
 		}
 	}
 

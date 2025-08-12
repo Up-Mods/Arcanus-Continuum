@@ -63,7 +63,7 @@ public class MagicOrb extends Entity implements Targetable {
 		LivingEntity caster = getCaster();
 		LivingEntity target = getTarget();
 
-		if(caster == null || (!level().isClientSide && !ArcanusComponents.getGuardianOrbId(caster).equals(getUUID())) || target == null || caster.distanceToSqr(target) > 32 * 32) {
+		if(caster == null || (!level().isClientSide && !ArcanusComponents.getMagicOrbId(caster).equals(getUUID())) || target == null || caster.distanceToSqr(target) > 32 * 32) {
 			kill();
 			return;
 		}
@@ -204,7 +204,7 @@ public class MagicOrb extends Entity implements Targetable {
 			this.casterId = caster.getUUID();
 			this.entityData.set(OWNER_ID, caster.getId());
 
-			ArcanusComponents.setGuardianOrbArcanaLock(caster, getUUID(), effects.size());
+			ArcanusComponents.setMagicOrbArcanaLock(caster, getUUID(), effects.size());
 			ArcanusHelper.copyMagicColor(this, caster);
 		}
 

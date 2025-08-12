@@ -3,14 +3,14 @@ package dev.cammiescorner.arcanus.client.model.entity.magic;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.entity.magic.Aggressorb;
+import dev.cammiescorner.arcanus.common.entity.magic.StockpileOrb;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class AggressorbModel extends EntityModel<Aggressorb> {
+public class AggressorbModel extends EntityModel<StockpileOrb> {
 	public static final ModelLayerLocation MODEL_LAYER = new ModelLayerLocation(Arcanus.id("aggressorb"), "main");
 	public final ModelPart cube1;
 	public final ModelPart cube2;
@@ -34,7 +34,7 @@ public class AggressorbModel extends EntityModel<Aggressorb> {
 	}
 
 	@Override
-	public void setupAnim(Aggressorb entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+	public void setupAnim(StockpileOrb entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 
 	}
 

@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.component.entity;
 
-import dev.cammiescorner.arcanus.common.entity.magic.Aggressorb;
+import dev.cammiescorner.arcanus.common.entity.magic.StockpileOrb;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.core.HolderLookup;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
@@ -16,12 +16,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-public class AggressorbComponent implements AutoSyncedComponent {
+public class StockpileOrbsComponent implements AutoSyncedComponent {
 	private final LivingEntity entity;
 	private final List<UUID> orbs = new ArrayList<>();
 	private final List<UUID> viewOfOrbs = Collections.unmodifiableList(orbs);
 
-	public AggressorbComponent(LivingEntity entity) {
+	public StockpileOrbsComponent(LivingEntity entity) {
 		this.entity = entity;
 	}
 
@@ -53,7 +53,7 @@ public class AggressorbComponent implements AutoSyncedComponent {
 		return orbs.size();
 	}
 
-	public int orbIndex(Aggressorb orb) {
+	public int orbIndex(StockpileOrb orb) {
 		return orbs.indexOf(orb.getUUID());
 	}
 
@@ -62,11 +62,11 @@ public class AggressorbComponent implements AutoSyncedComponent {
 			orbs.removeIf(uuid -> world.getEntity(uuid) == null);
 
 		orbs.add(orbId);
-		entity.syncComponent(ArcanusComponents.AGGRESSORB_COMPONENT);
+		entity.syncComponent(ArcanusComponents.STOCKPILE_ORB_COMPONENT);
 	}
 
 	public void removeOrbFromEntity(UUID orbId) {
 		orbs.remove(orbId);
-		entity.syncComponent(ArcanusComponents.AGGRESSORB_COMPONENT);
+		entity.syncComponent(ArcanusComponents.STOCKPILE_ORB_COMPONENT);
 	}
 }

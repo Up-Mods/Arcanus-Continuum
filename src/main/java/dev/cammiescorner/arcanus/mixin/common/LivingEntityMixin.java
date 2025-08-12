@@ -86,16 +86,6 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 			if(hasEffect(ArcanusMobEffects.FLOAT.holder()) && ArcanusConfig.MovementEffects.FloatEffectProperties.removedUponTakingDamage)
 				removeEffect(ArcanusMobEffects.FLOAT.holder());
 
-			if(hasEffect(ArcanusMobEffects.STOCKPILE.holder()) && amount >= ArcanusConfig.AttackEffects.StockpileEffectProperties.damageNeededToIncrease) {
-				MobEffectInstance stockpile = getEffect(ArcanusMobEffects.STOCKPILE.holder());
-
-				if(stockpile.getAmplifier() < 9) {
-					removeAllEffects();
-
-					addEffect(new MobEffectInstance(stockpile.getEffect(), stockpile.getDuration(), stockpile.getAmplifier() + Mth.floor(Math.round(amount) / 10f)));
-				}
-			}
-
 			if(hasEffect(ArcanusMobEffects.DANGER_SENSE.holder()) && (source.is(DamageTypeTags.IS_PROJECTILE) || source.is(DamageTypeTags.IS_EXPLOSION))) {
 				MobEffectInstance dangerSense = getEffect(ArcanusMobEffects.DANGER_SENSE.holder());
 
@@ -146,10 +136,6 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 			amount /= 1 + (getEffect(ArcanusMobEffects.FORTIFY.holder()).getAmplifier() + 1) * 0.25f;
 		if(hasEffect(ArcanusMobEffects.VULNERABILITY.holder()))
 			amount *= 1 + 0.8f * ((getEffect(ArcanusMobEffects.VULNERABILITY.holder()).getAmplifier() + 1) / 10f);
-		if(source.getEntity() instanceof LivingEntity attacker && attacker.hasEffect(ArcanusMobEffects.STOCKPILE.holder())) {
-			amount *= attacker.getEffect(ArcanusMobEffects.STOCKPILE.holder()).getAmplifier() + 1;
-			attacker.removeEffect(ArcanusMobEffects.STOCKPILE.holder());
-		}
 
 		return amount;
 	}

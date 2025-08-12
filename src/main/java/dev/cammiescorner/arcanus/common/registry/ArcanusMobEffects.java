@@ -20,7 +20,6 @@ public class ArcanusMobEffects {
 	public static final RegistrySupplier<MobEffect> ANONYMITY = MOB_EFFECTS.register("anonymity", () -> new ArcanusStatusEffect(MobEffectCategory.NEUTRAL, 0x555555, true, false));
 	public static final RegistrySupplier<MobEffect> DISCOMBOBULATE = MOB_EFFECTS.register("discombobulate", () -> new ArcanusStatusEffect(MobEffectCategory.HARMFUL, 0x7b1375));
 	public static final RegistrySupplier<MobEffect> FLOAT = MOB_EFFECTS.register("float", () -> new ArcanusStatusEffect(MobEffectCategory.NEUTRAL, 0xceffff));
-	public static final RegistrySupplier<MobEffect> STOCKPILE = MOB_EFFECTS.register("stockpile", () -> new ArcanusStatusEffect(MobEffectCategory.BENEFICIAL, 0x550000));
 	public static final RegistrySupplier<MobEffect> DANGER_SENSE = MOB_EFFECTS.register("danger_sense", () -> new ArcanusStatusEffect(MobEffectCategory.BENEFICIAL, 0xaeeff2));
 	public static final RegistrySupplier<MobEffect> SHRINK = MOB_EFFECTS.register("shrink", () -> new ArcanusStatusEffect(MobEffectCategory.NEUTRAL, 0x00ffc8, false, true)
 		.addAttributeModifier(Attributes.ENTITY_INTERACTION_RANGE, Arcanus.id("shrink_effect"), -0.15, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)

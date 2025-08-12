@@ -35,9 +35,9 @@ import java.util.List;
 import java.util.UUID;
 
 // TODO give hit sound
-public class Aggressorb extends ThrowableProjectile implements Targetable {
-	private static final EntityDataAccessor<Integer> OWNER_ID = SynchedEntityData.defineId(Aggressorb.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Integer> TARGET_ID = SynchedEntityData.defineId(Aggressorb.class, EntityDataSerializers.INT);
+public class StockpileOrb extends ThrowableProjectile implements Targetable {
+	private static final EntityDataAccessor<Integer> OWNER_ID = SynchedEntityData.defineId(StockpileOrb.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> TARGET_ID = SynchedEntityData.defineId(StockpileOrb.class, EntityDataSerializers.INT);
 	private final List<SpellEffect> effects = new ArrayList<>();
 	private final List<SpellGroup> groups = new ArrayList<>();
 	private UUID casterId = Util.NIL_UUID;
@@ -47,7 +47,7 @@ public class Aggressorb extends ThrowableProjectile implements Targetable {
 	private double potency = 1f;
 	private boolean boundToTarget = true;
 
-	public Aggressorb(EntityType<? extends ThrowableProjectile> variant, Level world) {
+	public StockpileOrb(EntityType<? extends ThrowableProjectile> variant, Level world) {
 		super(variant, world);
 		noPhysics = true;
 	}
@@ -77,8 +77,8 @@ public class Aggressorb extends ThrowableProjectile implements Targetable {
 
 		if(isBoundToTarget()) {
 			// TODO for some reason these are moving down and i dont know why
-			int orbCount = ArcanusComponents.aggressorbCount(getTarget());
-			int orbIndex = ArcanusComponents.aggressorbIndex(getTarget(), this) + 1;
+			int orbCount = ArcanusComponents.stockpileOrbCount(getTarget());
+			int orbIndex = ArcanusComponents.stockpileOrbIndex(getTarget(), this) + 1;
 			double angle = Math.toRadians(360d / orbCount * orbIndex);
 			double cosYaw = Math.cos(Math.toRadians(-getTarget().yBodyRot));
 			double sinYaw = Math.sin(Math.toRadians(-getTarget().yBodyRot));
@@ -147,7 +147,7 @@ public class Aggressorb extends ThrowableProjectile implements Targetable {
 
 		setBoundToTarget(false);
 		shootFromRotation(getTarget(), pitch, yaw, 0f, 3f, 1f);
-		ArcanusComponents.removeAggressorbFromEntity(getTarget(), getUUID());
+		ArcanusComponents.removeStockpileOrbFromEntity(getTarget(), getUUID());
 
 		return true;
 	}
@@ -155,7 +155,7 @@ public class Aggressorb extends ThrowableProjectile implements Targetable {
 	@Override
 	public void kill() {
 		if(!level().isClientSide() && getTarget() != null)
-			ArcanusComponents.removeAggressorbFromEntity(getTarget(), getUUID());
+			ArcanusComponents.removeStockpileOrbFromEntity(getTarget(), getUUID());
 
 		super.kill();
 	}
@@ -250,7 +250,7 @@ public class Aggressorb extends ThrowableProjectile implements Targetable {
 			ArcanusHelper.copyMagicColor(this, caster);
 		}
 
-		ArcanusComponents.addAggressorbToEntity(target, getUUID());
+		ArcanusComponents.addStockpileOrbToEntity(target, getUUID());
 		setBoundToTarget(true);
 
 		this.targetId = target.getUUID();

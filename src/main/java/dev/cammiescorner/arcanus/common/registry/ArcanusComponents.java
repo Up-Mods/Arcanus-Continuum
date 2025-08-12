@@ -63,8 +63,8 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 	public static final ComponentKey<BoltTargetComponent> BOLT_TARGET = createComponent("bolt_target", BoltTargetComponent.class);
 	public static final ComponentKey<SpellShapeComponent> SPELL_SHAPE = createComponent("spell_shape", SpellShapeComponent.class);
 	public static final ComponentKey<PocketDimensionPortalComponent> POCKET_DIMENSION_PORTAL_COMPONENT = createComponent("pocket_dimension_portal", PocketDimensionPortalComponent.class);
-	public static final ComponentKey<AggressorbComponent> AGGRESSORB_COMPONENT = createComponent("aggressorb", AggressorbComponent.class);
-	public static final ComponentKey<GuardianOrbComponent> GUARDIAN_ORB_COMPONENT = createComponent("guardian_orb", GuardianOrbComponent.class);
+	public static final ComponentKey<StockpileOrbsComponent> STOCKPILE_ORB_COMPONENT = createComponent("stockpile_orbs", StockpileOrbsComponent.class);
+	public static final ComponentKey<MagicOrbComponent> MAGIC_ORB_COMPONENT = createComponent("magic_orb", MagicOrbComponent.class);
 	public static final ComponentKey<PortalCoolDownComponent> PORTAL_COOL_DOWN_COMPONENT = createComponent("portal_cool_down", PortalCoolDownComponent.class);
 	public static final ComponentKey<CounterComponent> COUNTER_COMPONENT = createComponent("counter", CounterComponent.class);
 
@@ -91,13 +91,13 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		registry.beginRegistration(LivingEntity.class, STUN_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(StunComponent::new);
 		registry.beginRegistration(Player.class, QUEST_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(QuestComponent::new);
 		registry.beginRegistration(LivingEntity.class, BOLT_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BoltTargetComponent::new);
-		registry.beginRegistration(LivingEntity.class, AGGRESSORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(AggressorbComponent::new);
-		registry.beginRegistration(LivingEntity.class, GUARDIAN_ORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(GuardianOrbComponent::new);
+		registry.beginRegistration(LivingEntity.class, STOCKPILE_ORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(StockpileOrbsComponent::new);
+		registry.beginRegistration(LivingEntity.class, MAGIC_ORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(MagicOrbComponent::new);
 		registry.beginRegistration(Player.class, PORTAL_COOL_DOWN_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PortalCoolDownComponent::new);
 		registry.beginRegistration(LivingEntity.class, COUNTER_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(CounterComponent::new);
 
 		List.of(
-			Aggressorb.class,
+			StockpileOrb.class,
 			AreaOfEffect.class,
 			Beam.class,
 			MagicOrb.class,
@@ -303,28 +303,28 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		return POCKET_DIMENSION_PORTAL_COMPONENT.get(player).getPortalPos(level);
 	}
 
-	public static int aggressorbCount(LivingEntity entity) {
-		return entity.getComponent(AGGRESSORB_COMPONENT).orbCount();
+	public static int stockpileOrbCount(LivingEntity entity) {
+		return entity.getComponent(STOCKPILE_ORB_COMPONENT).orbCount();
 	}
 
-	public static int aggressorbIndex(LivingEntity entity, Aggressorb orb) {
-		return entity.getComponent(AGGRESSORB_COMPONENT).orbIndex(orb);
+	public static int stockpileOrbIndex(LivingEntity entity, StockpileOrb orb) {
+		return entity.getComponent(STOCKPILE_ORB_COMPONENT).orbIndex(orb);
 	}
 
-	public static void addAggressorbToEntity(LivingEntity entity, UUID orbId) {
-		entity.getComponent(AGGRESSORB_COMPONENT).addOrbToEntity(orbId);
+	public static void addStockpileOrbToEntity(LivingEntity entity, UUID orbId) {
+		entity.getComponent(STOCKPILE_ORB_COMPONENT).addOrbToEntity(orbId);
 	}
 
-	public static void removeAggressorbFromEntity(LivingEntity entity, UUID orbId) {
-		entity.getComponent(AGGRESSORB_COMPONENT).removeOrbFromEntity(orbId);
+	public static void removeStockpileOrbFromEntity(LivingEntity entity, UUID orbId) {
+		entity.getComponent(STOCKPILE_ORB_COMPONENT).removeOrbFromEntity(orbId);
 	}
 
-	public static UUID getGuardianOrbId(LivingEntity entity) {
-		return entity.getComponent(GUARDIAN_ORB_COMPONENT).getOrbId();
+	public static UUID getMagicOrbId(LivingEntity entity) {
+		return entity.getComponent(MAGIC_ORB_COMPONENT).getOrbId();
 	}
 
-	public static void setGuardianOrbArcanaLock(LivingEntity entity, UUID orbId, int strength) {
-		entity.getComponent(GUARDIAN_ORB_COMPONENT).setArcanaLock(orbId, strength);
+	public static void setMagicOrbArcanaLock(LivingEntity entity, UUID orbId, int strength) {
+		entity.getComponent(MAGIC_ORB_COMPONENT).setArcanaLock(orbId, strength);
 	}
 
 	public static void setPortalCoolDown(Entity entity, int cooldownTicks) {

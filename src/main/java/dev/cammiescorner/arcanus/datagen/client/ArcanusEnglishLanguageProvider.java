@@ -106,7 +106,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.block(ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE, "Spatial Rift Wall");
 		builder.block(ArcanusBlocks.SPATIAL_RIFT_WALL, "Spatial Rift Wall");
 
-		builder.entity(ArcanusEntities.AGGRESSORB, "Aggressorb");
+		builder.entity(ArcanusEntities.STOCKPILE_ORB, "Stockpile Orb");
 		builder.entity(ArcanusEntities.AOE, "Area Of Effect");
 		builder.entity(ArcanusEntities.BEAM, "Beam");
 		builder.entity(ArcanusEntities.MAGIC_ORB, "Magic Orb");
@@ -131,7 +131,6 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(ArcanusMobEffects.FLOAT.get().getDescriptionId(), "Float");
 		builder.add(ArcanusMobEffects.FORTIFY.get().getDescriptionId(), "Fortify");
 		builder.add(ArcanusMobEffects.MANA_LOCK.get().getDescriptionId(), "Mana Lock");
-		builder.add(ArcanusMobEffects.STOCKPILE.get().getDescriptionId(), "Stockpile");
 		builder.add(ArcanusMobEffects.VULNERABILITY.get().getDescriptionId(), "Vulnerability");
 		builder.add(ArcanusMobEffects.SHRINK.get().getDescriptionId(), "Shrink");
 		builder.add(ArcanusMobEffects.ENLARGE.get().getDescriptionId(), "Enlarge");
@@ -168,7 +167,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CANT_WARD_BLOCK, "Cannot ward this block!");
 		builder.add(DISABLED_COMPONENT, "Disabled Spell Component");
 		builder.add(SPELL_HAS_DISABLED_COMPONENT, "This spell contains one or more disabled spell components. Aborting spell.");
-		builder.add(TOO_MANY_ORBS, "That target already has the maximum amount of Aggressorbs!");
+		builder.add(TOO_MANY_ORBS, "That target already has the maximum amount of Stockpile Orbs!");
 
 		builder.add(USE_SCROLL_SUCCESS, "You feel a little smarter...");
 		builder.add(USE_SCROLL_ALREADY_KNOW, "You have learned everything you can.");
@@ -245,7 +244,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		spell(builder, ArcanusSpellComponents.GUIDED_SHOT, "Guided Shot Shape");
 		spell(builder, ArcanusSpellComponents.COUNTER, "Counter Shape");
 		spell(builder, ArcanusSpellComponents.MAGIC_ORB, "Magic Orb Shape");
-		spell(builder, ArcanusSpellComponents.AGGRESSORB, "Aggressorb Shape");
+		spell(builder, ArcanusSpellComponents.STOCKPILE, "Stockpile Shape");
 
 		spell(builder, ArcanusSpellComponents.DAMAGE, "Damage Effect");
 		spell(builder, ArcanusSpellComponents.HEAL, "Heal Effect");
@@ -280,7 +279,6 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		spell(builder, ArcanusSpellComponents.DISCOMBOBULATE, "Discombobulate Effect");
 		spell(builder, ArcanusSpellComponents.HASTE, "Haste Effect");
 		spell(builder, ArcanusSpellComponents.FLOAT, "Float Effect");
-		spell(builder, ArcanusSpellComponents.STOCKPILE, "Stockpile Effect");
 		spell(builder, ArcanusSpellComponents.DANGER_SENSE, "Danger Sense Effect");
 
 		builder.add(SCREEN_SPELL_COMPONENT_COUNT, "Spell Components");
@@ -340,7 +338,6 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_SUPPORTER_SETTINGS_SAVING, "Saving...");
 
 		builder.add(CONFIG_ENCHANTS_CATEGORY, "Enchantments");
-		builder.add(CONFIG_MANA_POOL_PROPERTIES, "Mana Pool");
 		builder.add(CONFIG_SPELL_SHAPES_CATEGORY, "Spell Shapes");
 		builder.add(CONFIG_ATTACK_EFFECTS_CATEGORY, "Attack Effects");
 		builder.add(CONFIG_SUPPORT_EFFECTS_CATEGORY, "Support Effects");
@@ -377,8 +374,8 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_DELAY, "Delay");
 		builder.add(CONFIG_BURST_SHAPE_RADIUS, "Burst Radius");
 		builder.add(CONFIG_MAX_MANA_LOCK, "Maximum Arcana Lock");
-		builder.add(CONFIG_MAX_AGGRESSORBS, "Maximum Aggressorbs");
-		builder.add(CONFIG_AGGRESSORBS_PER_CAST, "How Many Aggressorbs Spawn per Cast");
+		builder.add(CONFIG_MAXIMUM_STOCKPILE_ORBS, "Maximum Stockpile Orbs");
+		builder.add(CONFIG_STOCKPILE_ORBS_PER_CAST, "How Many Stockpile Orbs Spawn per Cast");
 		builder.add(CONFIG_BASE_DAMAGE, "Base Damage");
 		builder.add(CONFIG_BASE_TIME_ON_FIRE, "Base Time On Fire");
 		builder.add(CONFIG_BASE_STUN_TIME, "Base Stun Time");
@@ -407,55 +404,6 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_BASE_MANA_DRAIN, "Base Arcana Drain");
 		builder.add(CONFIG_TIMES_TO_APPLY_EFFECTS, "Number of Times to Apply Spell Effects");
 		builder.add(CONFIG_TIMES_TO_CAST_NEXT_SHAPE, "Number of Times to Cast Next Spell Shape");
-		builder.add(CONFIG_SELF_SHAPE_PROPERTIES, "Self Shape");
-		builder.add(CONFIG_TOUCH_SHAPE_PROPERTIES, "Touch Shape");
-		builder.add(CONFIG_MISSILE_SHAPE_PROPERTIES, "Missile Shape");
-		builder.add(CONFIG_LOB_SHAPE_PROPERTIES, "Lob Shape");
-		builder.add(CONFIG_BOLT_SHAPE_PROPERTIES, "Bolt Shape");
-		builder.add(CONFIG_BEAM_SHAPE_PROPERTIES, "Beam Shape");
-		builder.add(CONFIG_RUNE_SHAPE_PROPERTIES, "Rune Shape");
-		builder.add(CONFIG_BURST_SHAPE_PROPERTIES, "Burst Shape");
-		builder.add(CONFIG_COUNTER_SHAPE_PROPERTIES, "Counter Shape");
-		builder.add(CONFIG_AOE_SHAPE_PROPERTIES, "Area Of Effect Shape");
-		builder.add(CONFIG_SMITE_SHAPE_PROPERTIES, "Smite Shape");
-		builder.add(CONFIG_MAGIC_ORB_SHAPE_PROPERTIES, "Magic Orb Shape");
-		builder.add(CONFIG_AGGRESSORB_SHAPE_PROPERTIES, "Aggressorb Shape");
-		builder.add(CONFIG_DAMAGE_EFFECT_PROPERTIES, "Damage Effect");
-		builder.add(CONFIG_FIRE_EFFECT_PROPERTIES, "Fire Effect");
-		builder.add(CONFIG_ELECTRIC_EFFECT_PROPERTIES, "Electric Effect");
-		builder.add(CONFIG_ICE_EFFECT_PROPERTIES, "Ice Effect");
-		builder.add(CONFIG_VULNERABILITY_EFFECT_PROPERTIES, "Vulnerability Effect");
-		builder.add(CONFIG_MANA_LOCK_EFFECT_PROPERTIES, "Arcana Lock Effect");
-		builder.add(CONFIG_WITHERING_EFFECT_PROPERTIES, "Withering Effect");
-		builder.add(CONFIG_NECROMANCY_EFFECT_PROPERTIES, "Necromancy Effect");
-		builder.add(CONFIG_MANA_SPLIT_EFFECT_PROPERTIES, "Arcana Split Effect");
-		builder.add(CONFIG_COPPER_CURSE_EFFECT_PROPERTIES, "Copper Curse Effect");
-		builder.add(CONFIG_DISCOMBOBULATE_EFFECT_PROPERTIES, "Discombobulate Effect");
-		builder.add(CONFIG_STOCKPILE_EFFECT_PROPERTIES, "Stockpile Effect");
-		builder.add(CONFIG_HEAL_EFFECT_PROPERTIES, "Heal Effect");
-		builder.add(CONFIG_DISPEL_EFFECT_PROPERTIES, "Dispel Effect");
-		builder.add(CONFIG_REGENERATE_EFFECT_PROPERTIES, "Regenerate Effect");
-		builder.add(CONFIG_FORTIFY_EFFECT_PROPERTIES, "Fortify Effect");
-		builder.add(CONFIG_HASTE_EFFECT_PROPERTIES, "Haste Effect");
-		builder.add(CONFIG_MANA_SHIELD_EFFECT_PROPERTIES, "Mana Shield Effect");
-		builder.add(CONFIG_DANGER_SENSE_EFFECT_PROPERTIES, "Danger Sense Effect");
-		builder.add(CONFIG_TEMPORAL_DILATION_EFFECT_PROPERTIES, "Temporal Dilation Effect");
-		builder.add(CONFIG_PUSH_EFFECT_PROPERTIES, "Push Effect");
-		builder.add(CONFIG_PULL_EFFECT_PROPERTIES, "Pull Effect");
-		builder.add(CONFIG_ANONYMITY_EFFECT_PROPERTIES, "Anonymity Effect");
-		builder.add(CONFIG_MINE_EFFECT_PROPERTIES, "Mine Effect");
-		builder.add(CONFIG_GROWTH_EFFECT_PROPERTIES, "Growth Effect");
-		builder.add(CONFIG_SHRINK_EFFECT_PROPERTIES, "Shrink Effect");
-		builder.add(CONFIG_ENLARGE_EFFECT_PROPERTIES, "Enlarge Effect");
-		builder.add(CONFIG_SPATIAL_RIFT_EFFECT_PROPERTIES, "Spatial Rift Effect");
-		builder.add(CONFIG_WARDING_EFFECT_PROPERTIES, "Warding Effect");
-		builder.add(CONFIG_BUILD_EFFECT_PROPERTIES, "Build Effect");
-		builder.add(CONFIG_LEVITATE_EFFECT_PROPERTIES, "Levitate Effect");
-		builder.add(CONFIG_SPEED_EFFECT_PROPERTIES, "Speed Effect");
-		builder.add(CONFIG_TELEPORT_EFFECT_PROPERTIES, "Teleport Effect");
-		builder.add(CONFIG_BOUNCY_EFFECT_PROPERTIES, "Bouncy Effect");
-		builder.add(CONFIG_FEATHER_EFFECT_PROPERTIES, "Feather Effect");
-		builder.add(CONFIG_FLOAT_EFFECT_PROPERTIES, "Float Effect");
 	}
 
 	private void damageType(TranslationBuilder builder, ResourceKey<DamageType> typeKey, String defaultTranslation, @Nullable String killedByTranslation, @Nullable String killedWithItemTranslation) {
