@@ -77,7 +77,6 @@ public class StockpileOrb extends ThrowableProjectile implements Targetable {
 		}
 
 		if(isBoundToTarget()) {
-			// TODO for some reason these are moving down and i dont know why
 			int orbCount = ArcanusComponents.stockpileOrbCount(getTarget());
 			int orbIndex = ArcanusComponents.stockpileOrbIndex(getTarget(), this) + 1;
 			double angle = Math.toRadians(360d / orbCount * orbIndex);
