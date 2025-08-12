@@ -169,7 +169,7 @@ public class TranslationKeys {
 	public static final String CONFIG_COUNTER_SHAPE_PROPERTIES = "config.arcanus.counter_shape_properties";
 	public static final String CONFIG_AOE_SHAPE_PROPERTIES = "config.arcanus.aoe_shape_properties";
 	public static final String CONFIG_SMITE_SHAPE_PROPERTIES = "config.arcanus.smite_shape_properties";
-	public static final String CONFIG_FOLLOWING_ORB_SHAPE_PROPERTIES = "config.arcanus.following_orb_shape_properties";
+	public static final String CONFIG_MAGIC_ORB_SHAPE_PROPERTIES = "config.arcanus.magic_orb_shape_properties";
 	public static final String CONFIG_AGGRESSORB_SHAPE_PROPERTIES = "config.arcanus.aggressorb_shape_properties";
 	public static final String CONFIG_DAMAGE_EFFECT_PROPERTIES = "config.arcanus.damage_effect_properties";
 	public static final String CONFIG_FIRE_EFFECT_PROPERTIES = "config.arcanus.fire_effect_properties";

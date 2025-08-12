@@ -4,7 +4,7 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.common.entity.magic.FollowingOrb;
+import dev.cammiescorner.arcanus.common.entity.magic.MagicOrb;
 import dev.cammiescorner.arcanus.common.registry.ArcanusEntities;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -15,16 +15,16 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class FollowingOrbShape extends SpellShape {
-	public FollowingOrbShape() {
+public class MagicOrbShape extends SpellShape {
+	public MagicOrbShape() {
 		super(
-			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.enabled,
-			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.weight,
-			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.arcanaCosts(),
-			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.arcanaModifier,
-			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.potencyModifier,
-			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.coolDownModifier,
-			() -> ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.procsOnce);
+			() -> ArcanusConfig.SpellShapes.MagicOrbShapeProperties.enabled,
+			() -> ArcanusConfig.SpellShapes.MagicOrbShapeProperties.weight,
+			() -> ArcanusConfig.SpellShapes.MagicOrbShapeProperties.arcanaCosts(),
+			() -> ArcanusConfig.SpellShapes.MagicOrbShapeProperties.arcanaModifier,
+			() -> ArcanusConfig.SpellShapes.MagicOrbShapeProperties.potencyModifier,
+			() -> ArcanusConfig.SpellShapes.MagicOrbShapeProperties.coolDownModifier,
+			() -> ArcanusConfig.SpellShapes.MagicOrbShapeProperties.procsOnce);
 	}
 
 	@Override
@@ -32,13 +32,13 @@ public class FollowingOrbShape extends SpellShape {
 		LivingEntity targetEntity = castSource instanceof LivingEntity livingEntity ? livingEntity : caster;
 
 		if(targetEntity != null) {
-			FollowingOrb orb = ArcanusEntities.FOLLOWING_ORB.get().create(level);
+			MagicOrb orb = ArcanusEntities.MAGIC_ORB.get().create(level);
 			orb.setProperties(caster, targetEntity, stack, effects, spellGroups, groupIndex, potency + getPotencyModifier());
 			orb.setPos(castFrom);
 			level.addFreshEntity(orb);
 
 			if(caster != null) {
-				List<? extends FollowingOrb> oldOrbs = level.getEntities(ArcanusEntities.FOLLOWING_ORB.get(), existingOrb -> existingOrb != orb && existingOrb.getCaster().getUUID().equals(caster.getUUID()));
+				List<? extends MagicOrb> oldOrbs = level.getEntities(ArcanusEntities.MAGIC_ORB.get(), existingOrb -> existingOrb != orb && existingOrb.getCaster().getUUID().equals(caster.getUUID()));
 				oldOrbs.forEach(Entity::discard);
 			}
 		}

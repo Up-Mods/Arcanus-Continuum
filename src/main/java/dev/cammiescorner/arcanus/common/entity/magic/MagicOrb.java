@@ -36,9 +36,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
-public class FollowingOrb extends Entity implements Targetable {
-	private static final EntityDataAccessor<Integer> OWNER_ID = SynchedEntityData.defineId(FollowingOrb.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Integer> TARGET_ID = SynchedEntityData.defineId(FollowingOrb.class, EntityDataSerializers.INT);
+public class MagicOrb extends Entity implements Targetable {
+	private static final EntityDataAccessor<Integer> OWNER_ID = SynchedEntityData.defineId(MagicOrb.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> TARGET_ID = SynchedEntityData.defineId(MagicOrb.class, EntityDataSerializers.INT);
 	private final List<SpellEffect> effects = new ArrayList<>();
 	private final List<SpellGroup> groups = new ArrayList<>();
 	private UUID casterId = Util.NIL_UUID;
@@ -47,7 +47,7 @@ public class FollowingOrb extends Entity implements Targetable {
 	private int groupIndex = 0;
 	private double potency = 1f;
 
-	public FollowingOrb(EntityType<?> variant, Level world) {
+	public MagicOrb(EntityType<?> variant, Level world) {
 		super(variant, world);
 		this.noPhysics = true;
 	}
@@ -88,11 +88,11 @@ public class FollowingOrb extends Entity implements Targetable {
 			level().addParticle(ParticleTypes.END_ROD, getX(), getY() + getBbHeight() / 2, getZ(), vel.x(), vel.y(), vel.z());
 		}
 
-		for(ArcanaType arcanaType : ArcanusSpellComponents.FOLLOWING_ORB.get().getArcanaCost().keySet()) {
-			if(ArcanusSpellComponents.FOLLOWING_ORB.get().getArcanaCost().get(arcanaType) <= 0)
+		for(ArcanaType arcanaType : ArcanusSpellComponents.MAGIC_ORB.get().getArcanaCost().keySet()) {
+			if(ArcanusSpellComponents.MAGIC_ORB.get().getArcanaCost().get(arcanaType) <= 0)
 				continue;
 
-			if(tickCount % 100 == 0 && ArcanusComponents.drainArcana(caster, arcanaType, ArcanusConfig.SpellShapes.FollowingOrbShapeProperties.baseArcanaDrain * effects.size(), false)) {
+			if(tickCount % 100 == 0 && ArcanusComponents.drainArcana(caster, arcanaType, ArcanusConfig.SpellShapes.MagicOrbShapeProperties.baseArcanaDrain * effects.size(), false)) {
 				EntityHitResult hitResult = new EntityHitResult(target);
 
 				for(SpellEffect effect : new HashSet<>(effects))

@@ -65,7 +65,7 @@ public final class ArcanusConfig {
 		SpellShapes.CounterShapeProperties.class,
 		SpellShapes.AOEShapeProperties.class,
 		SpellShapes.SmiteShapeProperties.class,
-		SpellShapes.FollowingOrbShapeProperties.class,
+		SpellShapes.MagicOrbShapeProperties.class,
 		SpellShapes.AggressorbShapeProperties.class
 	})
 	public static final class SpellShapes {
@@ -563,8 +563,8 @@ public final class ArcanusConfig {
 			public static boolean procsOnce = false;
 		}
 
-		@Category("Following Orb")
-		public static final class FollowingOrbShapeProperties {
+		@Category("Magic Orb")
+		public static final class MagicOrbShapeProperties {
 			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
 			public static boolean enabled = true;
 

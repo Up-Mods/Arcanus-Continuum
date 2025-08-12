@@ -135,7 +135,7 @@ public class ArcanusClient implements ClientEntryPoint {
 			event.registerRenderer(ArcanusEntities.MAGIC_RUNE, MagicRuneRenderer::new);
 			event.registerRenderer(ArcanusEntities.GUIDED_SHOT, GuidedShotRenderer::new);
 			event.registerRenderer(ArcanusEntities.BEAM, BeamRenderer::new);
-			event.registerRenderer(ArcanusEntities.FOLLOWING_ORB, EntangledOrbRenderer::new);
+			event.registerRenderer(ArcanusEntities.MAGIC_ORB, EntangledOrbRenderer::new);
 			event.registerRenderer(ArcanusEntities.PORTAL, PocketDimensionPortalRenderer::new);
 			event.registerRenderer(ArcanusEntities.AGGRESSORB, AggressorbRenderer::new);
 			event.registerRenderer(ArcanusEntities.TEMPORAL_DILATION_FIELD, TemporalDilationFieldRenderer::new);
