@@ -52,26 +52,10 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusItems.ARCANIST_ROBES.get());
 		entries.accept(ArcanusItems.ARCANIST_PANTS.get());
 		entries.accept(ArcanusItems.ARCANIST_BOOTS.get());
-		entries.accept(ArcanusItems.RED_CULT_HOOD.get());
-		entries.accept(ArcanusItems.RED_CULT_ROBES.get());
-		entries.accept(ArcanusItems.RED_CULT_PANTS.get());
-		entries.accept(ArcanusItems.RED_CULT_BOOTS.get());
-		entries.accept(ArcanusItems.GREEN_CULT_HOOD.get());
-		entries.accept(ArcanusItems.GREEN_CULT_ROBES.get());
-		entries.accept(ArcanusItems.GREEN_CULT_PANTS.get());
-		entries.accept(ArcanusItems.GREEN_CULT_BOOTS.get());
-		entries.accept(ArcanusItems.BLUE_CULT_HOOD.get());
-		entries.accept(ArcanusItems.BLUE_CULT_ROBES.get());
-		entries.accept(ArcanusItems.BLUE_CULT_PANTS.get());
-		entries.accept(ArcanusItems.BLUE_CULT_BOOTS.get());
-		entries.accept(ArcanusItems.WHITE_CULT_HOOD.get());
-		entries.accept(ArcanusItems.WHITE_CULT_ROBES.get());
-		entries.accept(ArcanusItems.WHITE_CULT_PANTS.get());
-		entries.accept(ArcanusItems.WHITE_CULT_BOOTS.get());
-		entries.accept(ArcanusItems.BLACK_CULT_HOOD.get());
-		entries.accept(ArcanusItems.BLACK_CULT_ROBES.get());
-		entries.accept(ArcanusItems.BLACK_CULT_PANTS.get());
-		entries.accept(ArcanusItems.BLACK_CULT_BOOTS.get());
+		entries.accept(ArcanusItems.CULTIST_HOOD.get());
+		entries.accept(ArcanusItems.CULTIST_ROBES.get());
+		entries.accept(ArcanusItems.CULTIST_PANTS.get());
+		entries.accept(ArcanusItems.CULTIST_BOOTS.get());
 	}).build());
 
 	public static final RegistrySupplier<CreativeModeTab> SCROLLS = CREATIVE_TABS.register("arcanus_scrolls", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_SCROLLS)).icon(() -> new ItemStack(ArcanusItems.SCROLL_OF_KNOWLEDGE.get())).displayItems((params, entries) -> {

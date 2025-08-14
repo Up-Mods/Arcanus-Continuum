@@ -25,26 +25,10 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> ARCANIST_ROBES = ITEMS.register("arcanist_robes", () -> new ArcanistRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.CHESTPLATE));
 	public static final RegistrySupplier<Item> ARCANIST_PANTS = ITEMS.register("arcanist_pants", () -> new ArcanistRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.LEGGINGS));
 	public static final RegistrySupplier<Item> ARCANIST_BOOTS = ITEMS.register("arcanist_boots", () -> new ArcanistRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.BOOTS));
-	public static final RegistrySupplier<Item> RED_CULT_HOOD = ITEMS.register("red_cult_hood", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.HELMET, ArcanaType.IGNIS));
-	public static final RegistrySupplier<Item> RED_CULT_ROBES = ITEMS.register("red_cult_robes", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.CHESTPLATE, ArcanaType.IGNIS));
-	public static final RegistrySupplier<Item> RED_CULT_PANTS = ITEMS.register("red_cult_pants", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.LEGGINGS, ArcanaType.IGNIS));
-	public static final RegistrySupplier<Item> RED_CULT_BOOTS = ITEMS.register("red_cult_boots", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.BOOTS, ArcanaType.IGNIS));
-	public static final RegistrySupplier<Item> GREEN_CULT_HOOD = ITEMS.register("green_cult_hood", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.HELMET, ArcanaType.TERRA));
-	public static final RegistrySupplier<Item> GREEN_CULT_ROBES = ITEMS.register("green_cult_robes", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.CHESTPLATE, ArcanaType.TERRA));
-	public static final RegistrySupplier<Item> GREEN_CULT_PANTS = ITEMS.register("green_cult_pants", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.LEGGINGS, ArcanaType.TERRA));
-	public static final RegistrySupplier<Item> GREEN_CULT_BOOTS = ITEMS.register("green_cult_boots", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.BOOTS, ArcanaType.TERRA));
-	public static final RegistrySupplier<Item> BLUE_CULT_HOOD = ITEMS.register("blue_cult_hood", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.HELMET, ArcanaType.AQUA));
-	public static final RegistrySupplier<Item> BLUE_CULT_ROBES = ITEMS.register("blue_cult_robes", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.CHESTPLATE, ArcanaType.AQUA));
-	public static final RegistrySupplier<Item> BLUE_CULT_PANTS = ITEMS.register("blue_cult_pants", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.LEGGINGS, ArcanaType.AQUA));
-	public static final RegistrySupplier<Item> BLUE_CULT_BOOTS = ITEMS.register("blue_cult_boots", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.BOOTS, ArcanaType.AQUA));
-	public static final RegistrySupplier<Item> WHITE_CULT_HOOD = ITEMS.register("white_cult_hood", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.HELMET, ArcanaType.AER));
-	public static final RegistrySupplier<Item> WHITE_CULT_ROBES = ITEMS.register("white_cult_robes", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.CHESTPLATE, ArcanaType.AER));
-	public static final RegistrySupplier<Item> WHITE_CULT_PANTS = ITEMS.register("white_cult_pants", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.LEGGINGS, ArcanaType.AER));
-	public static final RegistrySupplier<Item> WHITE_CULT_BOOTS = ITEMS.register("white_cult_boots", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.BOOTS, ArcanaType.AER));
-	public static final RegistrySupplier<Item> BLACK_CULT_HOOD = ITEMS.register("black_cult_hood", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.HELMET, ArcanaType.AETHER));
-	public static final RegistrySupplier<Item> BLACK_CULT_ROBES = ITEMS.register("black_cult_robes", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.CHESTPLATE, ArcanaType.AETHER));
-	public static final RegistrySupplier<Item> BLACK_CULT_PANTS = ITEMS.register("black_cult_pants", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.LEGGINGS, ArcanaType.AETHER));
-	public static final RegistrySupplier<Item> BLACK_CULT_BOOTS = ITEMS.register("black_cult_boots", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.BOOTS, ArcanaType.AETHER));
+	public static final RegistrySupplier<Item> CULTIST_HOOD = ITEMS.register("cultist_hood", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.HELMET, ArcanaType.IGNIS));
+	public static final RegistrySupplier<Item> CULTIST_ROBES = ITEMS.register("cultist_robes", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.CHESTPLATE, ArcanaType.AER));
+	public static final RegistrySupplier<Item> CULTIST_PANTS = ITEMS.register("cultist_pants", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.LEGGINGS, ArcanaType.AQUA));
+	public static final RegistrySupplier<Item> CULTIST_BOOTS = ITEMS.register("cultist_boots", () -> new CultRobesItem(ArcanusArmorMaterials.ARCANIST.holder(), ArmorItem.Type.BOOTS, ArcanaType.TERRA));
 
 	public static final RegistrySupplier<Item> BOOK_POUCH = ITEMS.register("book_pouch", BookPouchItem::new);
 	public static final RegistrySupplier<Item> SPELL_BOOK = ITEMS.register("spell_book", SpellBookItem::new);
@@ -68,6 +52,6 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> STAFF = ITEMS.register("staff", StaffItem::new);
 
 	public static final List<Supplier<Item>> HOOD_ITEMS = List.of(
-		RED_CULT_HOOD, GREEN_CULT_HOOD, BLUE_CULT_HOOD, WHITE_CULT_HOOD, BLACK_CULT_HOOD
+		CULTIST_HOOD
 	);
 }

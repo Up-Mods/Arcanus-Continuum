@@ -1,10 +1,9 @@
 package dev.cammiescorner.arcanus.common.entity.living;
 
-import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
@@ -22,6 +21,6 @@ public class CultistKnight extends Cultist {
 
 	@Override
 	protected void populateDefaultEquipmentEnchantments(ServerLevelAccessor level, RandomSource random, DifficultyInstance difficulty) {
-		setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ArcanusItems.STAFF.get()));
+		setItemSlot(EquipmentSlot.MAINHAND, Items.IRON_SWORD.getDefaultInstance());
 	}
 }

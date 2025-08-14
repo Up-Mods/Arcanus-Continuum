@@ -79,11 +79,7 @@ import java.util.function.Supplier;
 @AutoService(ClientEntryPoint.class)
 public class ArcanusClient implements ClientEntryPoint {
 	public static final ResourceLocation WHITE = ResourceLocation.withDefaultNamespace("textures/misc/white.png");
-	private static final ResourceLocation RED_CULT_ROBES = Arcanus.id("textures/entity/armor/red_cult_robes.png");
-	private static final ResourceLocation GREEN_CULT_ROBES = Arcanus.id("textures/entity/armor/green_cult_robes.png");
-	private static final ResourceLocation BLUE_CULT_ROBES = Arcanus.id("textures/entity/armor/blue_cult_robes.png");
-	private static final ResourceLocation WHITE_CULT_ROBES = Arcanus.id("textures/entity/armor/white_cult_robes.png");
-	private static final ResourceLocation BLACK_CULT_ROBES = Arcanus.id("textures/entity/armor/black_cult_robes.png");
+	private static final ResourceLocation CULTIST_ROBES = Arcanus.id("textures/entity/armor/cultist_robes.png");
 	private static final Map<PlayerSkin.Model, EntityRendererProvider<Cultist>> CULTIST_PROVIDERS = Map.of(
 		PlayerSkin.Model.WIDE,
 		context -> new CultistRenderer<>(context, false),
@@ -143,11 +139,7 @@ public class ArcanusClient implements ClientEntryPoint {
 
 		RegisterCustomArmorRenderersEvent.EVENT.register(event -> {
 			event.register(ArcanistRobesRenderer::new, ArcanusItems.ARCANIST_HAT, ArcanusItems.ARCANIST_ROBES, ArcanusItems.ARCANIST_PANTS, ArcanusItems.ARCANIST_BOOTS);
-			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, RED_CULT_ROBES), ArcanusItems.RED_CULT_HOOD, ArcanusItems.RED_CULT_ROBES, ArcanusItems.RED_CULT_PANTS, ArcanusItems.RED_CULT_BOOTS);
-			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, GREEN_CULT_ROBES), ArcanusItems.GREEN_CULT_HOOD, ArcanusItems.GREEN_CULT_ROBES, ArcanusItems.GREEN_CULT_PANTS, ArcanusItems.GREEN_CULT_BOOTS);
-			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, BLUE_CULT_ROBES), ArcanusItems.BLUE_CULT_HOOD, ArcanusItems.BLUE_CULT_ROBES, ArcanusItems.BLUE_CULT_PANTS, ArcanusItems.BLUE_CULT_BOOTS);
-			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, WHITE_CULT_ROBES), ArcanusItems.WHITE_CULT_HOOD, ArcanusItems.WHITE_CULT_ROBES, ArcanusItems.WHITE_CULT_PANTS, ArcanusItems.WHITE_CULT_BOOTS);
-			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, BLACK_CULT_ROBES), ArcanusItems.BLACK_CULT_HOOD, ArcanusItems.BLACK_CULT_ROBES, ArcanusItems.BLACK_CULT_PANTS, ArcanusItems.BLACK_CULT_BOOTS);
+			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, CULTIST_ROBES), ArcanusItems.CULTIST_HOOD, ArcanusItems.CULTIST_ROBES, ArcanusItems.CULTIST_PANTS, ArcanusItems.CULTIST_BOOTS);
 		});
 
 		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE.get(), CollapseParticle.Factory::new);

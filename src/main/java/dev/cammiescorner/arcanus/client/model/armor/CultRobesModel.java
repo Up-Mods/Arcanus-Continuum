@@ -77,8 +77,8 @@ public class CultRobesModel<T extends LivingEntity> extends HumanoidModel<T> {
 
 		PartDefinition rightLegSleeve = rightLeg.addOrReplaceChild("rightLegSleeve", CubeListBuilder.create().texOffs(0, 106).addBox(-2f, -1f, -2f, 4f, 10f, 4f, new CubeDeformation(0.3f)), PartPose.offsetAndRotation(0f, 0f, 0f, 0f, 0f, 0f));
 		PartDefinition leftLegSleeve = leftLeg.addOrReplaceChild("leftLegSleeve", CubeListBuilder.create().texOffs(32, 64).addBox(-2f, -1f, -2f, 4f, 10f, 4f, new CubeDeformation(0.3f)), PartPose.offsetAndRotation(0f, 0f, 0f, 0f, 0f, 0f));
-		PartDefinition rightShoe = rightLeg.addOrReplaceChild("rightShoe", CubeListBuilder.create().texOffs(34, 110).addBox(-2f, 7f, -2f, 4f, 5f, 4f, new CubeDeformation(0.35f)), PartPose.offset(0f, 0f, 0f));
-		PartDefinition leftShoe = leftLeg.addOrReplaceChild("leftShoe", CubeListBuilder.create().texOffs(46, 90).addBox(-2f, 7f, -2f, 4f, 5f, 4f, new CubeDeformation(0.35f)), PartPose.offset(0.2f, 0f, 0f));
+		PartDefinition rightShoe = rightLeg.addOrReplaceChild("rightShoe", CubeListBuilder.create().texOffs(34, 110).addBox(-2f, 7f, -2f, 4f, 5f, 4f, new CubeDeformation(0.45f)), PartPose.offset(0f, 0f, 0f));
+		PartDefinition leftShoe = leftLeg.addOrReplaceChild("leftShoe", CubeListBuilder.create().texOffs(46, 90).addBox(-2f, 7f, -2f, 4f, 5f, 4f, new CubeDeformation(0.45f)), PartPose.offset(0.2f, 0f, 0f));
 
 		return LayerDefinition.create(data, 64, 128);
 	}

@@ -19,7 +19,6 @@ import dev.cammiescorner.arcanus.common.entity.living.Cultist;
 import dev.cammiescorner.arcanus.common.entity.living.NecroSkeleton;
 import dev.cammiescorner.arcanus.common.entity.living.Opossum;
 import dev.cammiescorner.arcanus.common.item.BookPouchItem;
-import dev.cammiescorner.arcanus.common.item.CultRobesItem;
 import dev.cammiescorner.arcanus.common.menu.providers.SpellcraftMenuProvider;
 import dev.cammiescorner.arcanus.common.networking.clientbound.*;
 import dev.cammiescorner.arcanus.common.networking.serverbound.*;
@@ -33,7 +32,6 @@ import dev.upcraft.datasync.api.DataSyncAPI;
 import dev.upcraft.datasync.api.SyncToken;
 import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
-import dev.upcraft.sparkweave.api.event.EntityTickEvents;
 import dev.upcraft.sparkweave.api.event.ItemMenuInteractionEvent;
 import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
@@ -56,11 +54,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeMap;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.ItemStack;
@@ -173,24 +167,6 @@ public class Arcanus implements MainEntryPoint {
 			}
 
 			return false;
-		});
-
-		EntityTickEvents.endTick(LivingEntity.class).register((entity, level) -> {
-			AttributeMap attributeMap = entity.getAttributes();
-
-			for(ArcanaType arcanaType : ArcanaType.values()) {
-				AttributeInstance attributeInstance = attributeMap.getInstance(arcanaType.getArcanaAttribute());
-
-				if(attributeInstance != null && attributeInstance.hasModifier(CultRobesItem.FULL_SET_BONUS))
-					attributeInstance.removeModifier(CultRobesItem.FULL_SET_BONUS);
-			}
-
-			if(entity.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof CultRobesItem item) {
-				AttributeInstance attributeInstance = attributeMap.getInstance(item.getAttribute());
-
-				if(attributeInstance != null && CultRobesItem.isWearingFullSet(entity))
-					attributeInstance.addTransientModifier(new AttributeModifier(CultRobesItem.FULL_SET_BONUS, 40, AttributeModifier.Operation.ADD_VALUE));
-			}
 		});
 
 		EntitySleepEvents.STOP_SLEEPING.register((entity, sleepingPos) -> {

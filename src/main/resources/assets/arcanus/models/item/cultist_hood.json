@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "arcanus:item/cultist_hood_up"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "arcanus:hood_down": 1
+      },
+      "model": "arcanus:item/cultist_hood_down"
+    }
+  ]
+}
