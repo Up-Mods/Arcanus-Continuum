@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.Weight;
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -28,7 +28,7 @@ public abstract class SpellShape extends SpellComponent {
 		return (SpellShape) ArcanusSpellComponents.EMPTY.get();
 	}
 
-	public SpellShape(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Map<ArcanaType, Double>> arcanaCost, Supplier<Double> arcanaModifier, Supplier<Double> potencyModifier, Supplier<Double> coolDownModifier, Supplier<Boolean> procsOnce) {
+	public SpellShape(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Map<PrimalArcana, Double>> arcanaCost, Supplier<Double> arcanaModifier, Supplier<Double> potencyModifier, Supplier<Double> coolDownModifier, Supplier<Boolean> procsOnce) {
 		super(isEnabled, arcanaCost, procsOnce);
 		this.weight = weight;
 		this.arcanaModifier = arcanaModifier;

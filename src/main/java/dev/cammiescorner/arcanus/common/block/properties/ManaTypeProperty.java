@@ -1,30 +1,30 @@
 package dev.cammiescorner.arcanus.common.block.properties;
 
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import net.minecraft.world.level.block.state.properties.Property;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public class ManaTypeProperty extends Property<ArcanaType> {
+public class ManaTypeProperty extends Property<PrimalArcana> {
 	protected ManaTypeProperty(String name) {
-		super(name, ArcanaType.class);
+		super(name, PrimalArcana.class);
 	}
 
 	@Override
-	public Collection<ArcanaType> getPossibleValues() {
-		return List.of(ArcanaType.values());
+	public Collection<PrimalArcana> getPossibleValues() {
+		return List.of(PrimalArcana.values());
 	}
 
 	@Override
-	public String getName(ArcanaType value) {
+	public String getName(PrimalArcana value) {
 		return value.getSerializedName();
 	}
 
 	@Override
-	public Optional<ArcanaType> getValue(String value) {
-		return Optional.of(ArcanaType.getByName(value));
+	public Optional<PrimalArcana> getValue(String value) {
+		return Optional.of(PrimalArcana.getByName(value));
 	}
 
 	public static ManaTypeProperty create(String name) {

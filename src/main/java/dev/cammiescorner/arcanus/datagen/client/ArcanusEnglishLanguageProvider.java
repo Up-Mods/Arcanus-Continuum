@@ -293,11 +293,6 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(SPELL_BOOK_WEIGHT_MEDIUM, "Medium");
 		builder.add(SPELL_BOOK_WEIGHT_HEAVY, "Heavy");
 		builder.add(SPELL_BOOK_WEIGHT_VERY_HEAVY, "Very Heavy");
-		builder.add(SPELL_BOOK_IGNIS_ARCANA, "Ignis Arcana");
-		builder.add(SPELL_BOOK_TERRA_ARCANA, "Terra Arcana");
-		builder.add(SPELL_BOOK_AQUA_ARCANA, "Aqua Arcana");
-		builder.add(SPELL_BOOK_AER_ARCANA, "Aer Arcana");
-		builder.add(SPELL_BOOK_AETHER_ARCANA, "Aether Arcana");
 		builder.add(SPELL_BOOK_MANA_MULTIPLIER, "Arcana Multiplier");
 		builder.add(SPELL_BOOK_POTENCY_MODIFIER, "Potency Modifier");
 		builder.add(SPELL_BOOK_COOL_DOWN_MODIFIER, "Cool Down Modifier");

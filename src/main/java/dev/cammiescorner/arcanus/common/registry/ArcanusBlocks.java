@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.block.*;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
@@ -19,11 +19,11 @@ public class ArcanusBlocks {
 	public static final RegistrySupplier<Block> PEDESTAL = BLOCKS.register("pedestal", () -> new PedestalBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILES).noOcclusion().pushReaction(PushReaction.BLOCK)));
 	public static final RegistrySupplier<Block> JAR = BLOCKS.register("jar", JarBlock::new);
 	public static final RegistrySupplier<Block> CHALK = BLOCKS.register("chalk", ChalkBlock::new);
-	public static final RegistrySupplier<Block> IGNIS_FRUIT = BLOCKS.register("ignis_fruit", () -> new ArcanaFruitBlock(ArcanaType.IGNIS));
-	public static final RegistrySupplier<Block> TERRA_FRUIT = BLOCKS.register("terra_fruit", () -> new ArcanaFruitBlock(ArcanaType.TERRA));
-	public static final RegistrySupplier<Block> AQUA_FRUIT = BLOCKS.register("aqua_fruit", () -> new ArcanaFruitBlock(ArcanaType.AQUA));
-	public static final RegistrySupplier<Block> AER_FRUIT = BLOCKS.register("aer_fruit", () -> new ArcanaFruitBlock(ArcanaType.AER));
-	public static final RegistrySupplier<Block> AETHER_FRUIT = BLOCKS.register("aether_fruit", () -> new ArcanaFruitBlock(ArcanaType.AETHER));
+	public static final RegistrySupplier<Block> IGNIS_FRUIT = BLOCKS.register("ignis_fruit", () -> new ArcanaFruitBlock(PrimalArcana.IGNIS));
+	public static final RegistrySupplier<Block> TERRA_FRUIT = BLOCKS.register("terra_fruit", () -> new ArcanaFruitBlock(PrimalArcana.TERRA));
+	public static final RegistrySupplier<Block> AQUA_FRUIT = BLOCKS.register("aqua_fruit", () -> new ArcanaFruitBlock(PrimalArcana.AQUA));
+	public static final RegistrySupplier<Block> AER_FRUIT = BLOCKS.register("aer_fruit", () -> new ArcanaFruitBlock(PrimalArcana.AER));
+	public static final RegistrySupplier<Block> AETHER_FRUIT = BLOCKS.register("aether_fruit", () -> new ArcanaFruitBlock(PrimalArcana.AETHER));
 	public static final RegistrySupplier<Block> DUMMY_BOOKSHELF = BLOCKS.register("dummy_bookshelf", DummyBookshelfBlock::new);
 	public static final RegistrySupplier<Block> MAGIC_BLOCK = BLOCKS.register("magic_block", MagicBlock::new);
 	public static final RegistrySupplier<Block> MAGIC_DOOR = BLOCKS.register("magic_door", MagicDoorBlock::new);

@@ -7,7 +7,7 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
@@ -86,14 +86,14 @@ public class Spell {
 		return Weight.values()[averageWeightIndex];
 	}
 
-	public Map<ArcanaType, Double> getArcanaCost() {
-		Map<ArcanaType, Double> cumulativeArcanaCost = Arcanus.constructArcanaMap(0, 0, 0, 0, 0);
+	public Map<PrimalArcana, Double> getArcanaCost() {
+		Map<PrimalArcana, Double> cumulativeArcanaCost = Arcanus.constructArcanaMap(0, 0, 0, 0, 0);
 
-		for(ArcanaType arcanaType : cumulativeArcanaCost.keySet()) {
+		for(PrimalArcana primalArcana : cumulativeArcanaCost.keySet()) {
 			for(SpellGroup group : groups)
-				cumulativeArcanaCost.put(arcanaType, cumulativeArcanaCost.get(arcanaType) + group.getArcanaCost().get(arcanaType));
+				cumulativeArcanaCost.put(primalArcana, cumulativeArcanaCost.get(primalArcana) + group.getArcanaCost().get(primalArcana));
 
-			cumulativeArcanaCost.put(arcanaType, cumulativeArcanaCost.get(arcanaType) * getArcanaMultiplier());
+			cumulativeArcanaCost.put(primalArcana, cumulativeArcanaCost.get(primalArcana) * getArcanaMultiplier());
 		}
 
 		return cumulativeArcanaCost;
@@ -119,8 +119,8 @@ public class Spell {
 		return (int) (coolDown * coolDownModifier);
 	}
 
-	public String getArcanaCostAsString(ArcanaType arcanaType) {
-		return Arcanus.format(getArcanaCost().get(arcanaType));
+	public String getArcanaCostAsString(PrimalArcana primalArcana) {
+		return Arcanus.format(getArcanaCost().get(primalArcana));
 	}
 
 	public String getCoolDownAsString() {

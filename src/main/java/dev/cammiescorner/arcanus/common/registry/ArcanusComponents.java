@@ -6,7 +6,7 @@ import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.block.entities.AbstractMagicBlockEntity;
 import dev.cammiescorner.arcanus.common.component.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.component.chunk.WardedBlocksComponent;
@@ -155,32 +155,32 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		return chunk.getComponent(WARDED_BLOCKS_COMPONENT).getWardedBlocks();
 	}
 
-	public static double getMaxArcana(LivingEntity entity, ArcanaType arcanaType) {
-		return arcanaType.getMaxArcana(entity);
+	public static double getMaxArcana(LivingEntity entity, PrimalArcana primalArcana) {
+		return primalArcana.getMaxArcana(entity);
 	}
 
 	public static double getArcanaLock(LivingEntity entity) {
 		return entity.getComponent(ARCANA_COMPONENT).getArcanaLock();
 	}
 
-	public static double getTrueMaxArcana(LivingEntity entity, ArcanaType arcanaType) {
-		return entity.getComponent(ARCANA_COMPONENT).getTrueMaxArcana(arcanaType);
+	public static double getTrueMaxArcana(LivingEntity entity, PrimalArcana primalArcana) {
+		return entity.getComponent(ARCANA_COMPONENT).getTrueMaxArcana(primalArcana);
 	}
 
-	public static double getArcana(LivingEntity entity, ArcanaType arcanaType) {
-		return entity.getComponent(ARCANA_COMPONENT).getArcana(arcanaType);
+	public static double getArcana(LivingEntity entity, PrimalArcana primalArcana) {
+		return entity.getComponent(ARCANA_COMPONENT).getArcana(primalArcana);
 	}
 
-	public static void setArcana(LivingEntity entity, ArcanaType arcanaType, double amount) {
-		entity.getComponent(ARCANA_COMPONENT).setArcana(arcanaType, amount);
+	public static void setArcana(LivingEntity entity, PrimalArcana primalArcana, double amount) {
+		entity.getComponent(ARCANA_COMPONENT).setArcana(primalArcana, amount);
 	}
 
-	public static boolean addArcana(LivingEntity entity, ArcanaType arcanaType, double amount, boolean simulate) {
-		return entity.getComponent(ARCANA_COMPONENT).addArcana(arcanaType, amount, simulate);
+	public static boolean addArcana(LivingEntity entity, PrimalArcana primalArcana, double amount, boolean simulate) {
+		return entity.getComponent(ARCANA_COMPONENT).addArcana(primalArcana, amount, simulate);
 	}
 
-	public static boolean drainArcana(LivingEntity entity, ArcanaType arcanaType, double amount, boolean simulate) {
-		return entity.getComponent(ARCANA_COMPONENT).drainArcana(arcanaType, amount, simulate);
+	public static boolean drainArcana(LivingEntity entity, PrimalArcana primalArcana, double amount, boolean simulate) {
+		return entity.getComponent(ARCANA_COMPONENT).drainArcana(primalArcana, amount, simulate);
 	}
 
 	public static List<SpellComponent> getKnownSpellComponents(Player player) {

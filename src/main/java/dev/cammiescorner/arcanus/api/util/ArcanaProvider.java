@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.api.util;
 
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 
 public interface ArcanaProvider {
-	double getMana(ArcanaType type);
+	double getMana(PrimalArcana type);
 }

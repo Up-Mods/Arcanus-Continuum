@@ -180,7 +180,7 @@ public class ArcanusClient implements ClientEntryPoint {
 			ArcanusItems.SPELL_BOOK.get()
 		);
 
-		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && state.getBlock() instanceof ArcanaFruitBlock arcanaFruit ? arcanaFruit.getArcanaType().getColor().asIntARGB() : 0xffffffff,
+		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && state.getBlock() instanceof ArcanaFruitBlock arcanaFruit ? arcanaFruit.getArcanaType().color().asIntARGB() : 0xffffffff,
 			ArcanusBlocks.IGNIS_FRUIT.get(),
 			ArcanusBlocks.TERRA_FRUIT.get(),
 			ArcanusBlocks.AQUA_FRUIT.get(),

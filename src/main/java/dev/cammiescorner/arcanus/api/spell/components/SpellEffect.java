@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.api.spell.components;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +21,7 @@ public abstract class SpellEffect extends SpellComponent {
 	public static final Codec<SpellEffect> CODEC = ArcanusSpellComponents.REGISTRY.byNameCodec().flatXmap(spellComponent -> spellComponent instanceof SpellEffect effect ? DataResult.success(effect) : DataResult.error(() -> "Not an instance of SpellEffect"), DataResult::success);
 	private final Supplier<SpellType> type;
 
-	public SpellEffect(Supplier<Boolean> isEnabled, Supplier<SpellType> type, Supplier<Map<ArcanaType, Double>> arcanaCost, Supplier<Boolean> procsOnce) {
+	public SpellEffect(Supplier<Boolean> isEnabled, Supplier<SpellType> type, Supplier<Map<PrimalArcana, Double>> arcanaCost, Supplier<Boolean> procsOnce) {
 		super(isEnabled, arcanaCost, procsOnce);
 		this.type = type;
 	}

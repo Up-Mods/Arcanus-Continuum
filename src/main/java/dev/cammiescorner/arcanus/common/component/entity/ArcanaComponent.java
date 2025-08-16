@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.component.entity;
 
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.core.HolderLookup;
@@ -16,7 +16,7 @@ import java.util.Arrays;
 
 public class ArcanaComponent implements AutoSyncedComponent, ServerTickingComponent {
 	private final LivingEntity entity;
-	private final double[] arcana = new double[ArcanaType.values().length];
+	private final double[] arcana = new double[PrimalArcana.values().length];
 
 	public ArcanaComponent(LivingEntity entity) {
 		this.entity = entity;
@@ -26,42 +26,42 @@ public class ArcanaComponent implements AutoSyncedComponent, ServerTickingCompon
 
 	@Override
 	public void serverTick() {
-		for(ArcanaType arcanaType : ArcanaType.values()) {
-			if(entity instanceof Player player && player.isCreative() && getArcana(arcanaType) < arcanaType.getMaxArcana(entity))
-				addArcana(arcanaType, 1, false);
-			else if(getArcana(arcanaType) < arcanaType.getMaxArcana(entity) && entity.getAttributeValue(arcanaType.getRegenAttribute()) > 0)
-				addArcana(arcanaType, entity.getAttributeValue(arcanaType.getRegenAttribute()) / 20, false);
+		for(PrimalArcana primalArcana : PrimalArcana.values()) {
+			if(entity instanceof Player player && player.isCreative() && getArcana(primalArcana) < primalArcana.getMaxArcana(entity))
+				addArcana(primalArcana, 1, false);
+			else if(getArcana(primalArcana) < primalArcana.getMaxArcana(entity) && entity.getAttributeValue(primalArcana.getRegenAttribute()) > 0)
+				addArcana(primalArcana, entity.getAttributeValue(primalArcana.getRegenAttribute()) / 20, false);
 
-			if(getArcana(arcanaType) > arcanaType.getMaxArcana(entity))
-				setArcana(arcanaType, arcanaType.getMaxArcana(entity));
+			if(getArcana(primalArcana) > primalArcana.getMaxArcana(entity))
+				setArcana(primalArcana, primalArcana.getMaxArcana(entity));
 		}
 	}
 
 	@Override
 	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		for (ArcanaType value : ArcanaType.values()) {
+		for (PrimalArcana value : PrimalArcana.values()) {
 			arcana[value.ordinal()] = tag.getDouble(value.getSerializedName());
 		}
 	}
 
 	@Override
 	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		for (ArcanaType value : ArcanaType.values()) {
+		for (PrimalArcana value : PrimalArcana.values()) {
 			tag.putDouble(value.getSerializedName(), arcana[value.ordinal()]);
 		}
 	}
 
-	public double getArcana(ArcanaType arcanaType) {
-		return arcana[arcanaType.ordinal()];
+	public double getArcana(PrimalArcana primalArcana) {
+		return arcana[primalArcana.ordinal()];
 	}
 
-	public void setArcana(ArcanaType arcanaType, double amount) {
-		arcana[arcanaType.ordinal()] = Mth.clamp(amount, 0, arcanaType.getMaxArcana(entity));
+	public void setArcana(PrimalArcana primalArcana, double amount) {
+		arcana[primalArcana.ordinal()] = Mth.clamp(amount, 0, primalArcana.getMaxArcana(entity));
 		ArcanusComponents.ARCANA_COMPONENT.sync(entity);
 	}
 
-	public double getTrueMaxArcana(ArcanaType arcanaType) {
-		return arcanaType.getMaxArcana(entity) - getArcanaLock();
+	public double getTrueMaxArcana(PrimalArcana primalArcana) {
+		return primalArcana.getMaxArcana(entity) - getArcanaLock();
 	}
 
 	public double getArcanaLock() {
@@ -73,10 +73,10 @@ public class ArcanaComponent implements AutoSyncedComponent, ServerTickingCompon
 		return 0;
 	}
 
-	public boolean addArcana(ArcanaType arcanaType, double amount, boolean simulate) {
-		if(getArcana(arcanaType) < getTrueMaxArcana(arcanaType)) {
+	public boolean addArcana(PrimalArcana primalArcana, double amount, boolean simulate) {
+		if(getArcana(primalArcana) < getTrueMaxArcana(primalArcana)) {
 			if(!simulate)
-				setArcana(arcanaType, getArcana(arcanaType) + amount);
+				setArcana(primalArcana, getArcana(primalArcana) + amount);
 
 			return true;
 		}
@@ -84,15 +84,15 @@ public class ArcanaComponent implements AutoSyncedComponent, ServerTickingCompon
 		return false;
 	}
 
-	public boolean drainArcana(ArcanaType arcanaType, double amount, boolean simulate) {
+	public boolean drainArcana(PrimalArcana primalArcana, double amount, boolean simulate) {
 		AttributeInstance instance = entity.getAttribute(ArcanusAttributes.MANA_COST.holder());
 
 		if(instance != null)
 			amount *= instance.getValue();
 
-		if(getArcana(arcanaType) >= 0 && getArcana(arcanaType) >= amount) {
+		if(getArcana(primalArcana) >= 0 && getArcana(primalArcana) >= amount) {
 			if(!simulate)
-				setArcana(arcanaType, Math.max(0, getArcana(arcanaType) - amount));
+				setArcana(primalArcana, Math.max(0, getArcana(primalArcana) - amount));
 
 			return true;
 		}

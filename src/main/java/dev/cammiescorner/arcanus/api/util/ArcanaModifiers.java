@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.api.util;
 
 import com.google.common.base.Preconditions;
 import com.mojang.serialization.Codec;
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import io.netty.buffer.ByteBuf;
 import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
@@ -13,15 +13,15 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class ArcanaModifiers {
-	public static final Codec<ArcanaModifiers> CODEC = Codec.unboundedMap(ArcanaType.CODEC, Codec.DOUBLE).xmap(ArcanaModifiers::of, ArcanaModifiers::asMap);
+	public static final Codec<ArcanaModifiers> CODEC = Codec.unboundedMap(PrimalArcana.CODEC, Codec.DOUBLE).xmap(ArcanaModifiers::of, ArcanaModifiers::asMap);
 	public static final StreamCodec<ByteBuf, ArcanaModifiers> STREAM_CODEC = StreamCodec.ofMember((modifiers, buf) -> {
-		for (ArcanaType value : ArcanaType.values())
+		for (PrimalArcana value : PrimalArcana.values())
 			buf.writeDouble(modifiers.modifier(value));
 	}, buf -> {
-		var modifiers = new double[ArcanaType.values().length];
+		var modifiers = new double[PrimalArcana.values().length];
 
-		for(ArcanaType arcanaType : ArcanaType.values())
-			modifiers[arcanaType.ordinal()] = buf.readDouble();
+		for(PrimalArcana primalArcana : PrimalArcana.values())
+			modifiers[primalArcana.ordinal()] = buf.readDouble();
 
 		return new ArcanaModifiers(modifiers);
 	});
@@ -30,34 +30,34 @@ public class ArcanaModifiers {
 
 	@ApiStatus.Internal
 	public ArcanaModifiers(double... modifiers) {
-		Preconditions.checkArgument(modifiers.length == ArcanaType.values().length, "Array size must be exactly %s", ArcanaType.values().length);
+		Preconditions.checkArgument(modifiers.length == PrimalArcana.values().length, "Array size must be exactly %s", PrimalArcana.values().length);
 		this.modifiers = modifiers;
 	}
 
-	public static ArcanaModifiers of(Map<ArcanaType, Double> map) {
-		var modifiers = new double[ArcanaType.values().length];
-		for(ArcanaType arcanaType : ArcanaType.values())
-			modifiers[arcanaType.ordinal()] = map.getOrDefault(arcanaType, 1.0D);
+	public static ArcanaModifiers of(Map<PrimalArcana, Double> map) {
+		var modifiers = new double[PrimalArcana.values().length];
+		for(PrimalArcana primalArcana : PrimalArcana.values())
+			modifiers[primalArcana.ordinal()] = map.getOrDefault(primalArcana, 1.0D);
 
 		return new ArcanaModifiers(modifiers);
 	}
 
 	public static ArcanaModifiers empty() {
-		var modifiers = new double[ArcanaType.values().length];
+		var modifiers = new double[PrimalArcana.values().length];
 		Arrays.fill(modifiers, 1.0D);
 		return new ArcanaModifiers(modifiers);
 	}
 
-	public Object2DoubleMap<ArcanaType> asMap() {
-		Object2DoubleMap<ArcanaType> map = new Object2DoubleArrayMap<>();
+	public Object2DoubleMap<PrimalArcana> asMap() {
+		Object2DoubleMap<PrimalArcana> map = new Object2DoubleArrayMap<>();
 
-		for(ArcanaType arcanaType : ArcanaType.values())
-			map.put(arcanaType, modifiers[arcanaType.ordinal()]);
+		for(PrimalArcana primalArcana : PrimalArcana.values())
+			map.put(primalArcana, modifiers[primalArcana.ordinal()]);
 
 		return map;
 	}
 
-	public double modifier(ArcanaType arcanaType) {
-		return modifiers[arcanaType.ordinal()];
+	public double modifier(PrimalArcana primalArcana) {
+		return modifiers[primalArcana.ordinal()];
 	}
 }

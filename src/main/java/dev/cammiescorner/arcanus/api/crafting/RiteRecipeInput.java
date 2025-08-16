@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.api.crafting;
 
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.util.ArcanaProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.StackedContents;
@@ -15,7 +15,7 @@ public interface RiteRecipeInput extends RecipeInput, ArcanaProvider {
 	ItemStack getItem(int index);
 
 	@Override
-	double getMana(ArcanaType type);
+	double getMana(PrimalArcana type);
 
 	/**
 	 * @return how many {@linkplain ItemStack} slots this recipe input has, for use in {@linkplain RiteRecipeInput#getItem(int)}

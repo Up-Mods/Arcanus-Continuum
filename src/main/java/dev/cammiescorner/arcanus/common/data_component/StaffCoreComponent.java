@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.common.data_component;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.util.ArcanaModifiers;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -28,8 +28,8 @@ public record StaffCoreComponent(ArcanaModifiers arcanaModifiers) implements Too
 		return new StaffCoreComponent(new ArcanaModifiers(red, green, blue, white, black));
 	}
 
-	public double modifier(ArcanaType arcanaType) {
-		return arcanaModifiers.modifier(arcanaType);
+	public double modifier(PrimalArcana primalArcana) {
+		return arcanaModifiers.modifier(primalArcana);
 	}
 
 	@Override
@@ -37,10 +37,10 @@ public record StaffCoreComponent(ArcanaModifiers arcanaModifiers) implements Too
 		// TODO replace debug text with proper translatable values
 		tooltipAdder.accept(Component.literal("[Staff Core]"));
 
-		for (ArcanaType arcanaType : ArcanaType.values()) {
+		for (PrimalArcana primalArcana : PrimalArcana.values()) {
 			// make sure to keep this bit when making translatable!
-			var modStr = String.format("%.2f", modifier(arcanaType));
-			tooltipAdder.accept(Component.literal("  %s: x%s".formatted(arcanaType.name(), modStr)).withColor(arcanaType.getColor().asIntARGB()));
+			var modStr = String.format("%.2f", modifier(primalArcana));
+			tooltipAdder.accept(Component.literal("  %s: x%s".formatted(primalArcana.name(), modStr)).withColor(primalArcana.color().asIntARGB()));
 		}
 	}
 }

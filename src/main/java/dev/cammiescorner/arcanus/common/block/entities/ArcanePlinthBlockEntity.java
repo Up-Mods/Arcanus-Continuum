@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.block.entities;
 
 import dev.cammiescorner.arcanus.api.crafting.RiteRecipeInput;
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.StackedContents;
@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ArcanePlinthBlockEntity extends AbstractPedestalBlockEntity implements RiteRecipeInput {
-	public final Map<ArcanaType, Double> arcana = new HashMap<>();
+	public final Map<PrimalArcana, Double> arcana = new HashMap<>();
 
 	public ArcanePlinthBlockEntity(BlockPos pos, BlockState blockState) {
 		super(ArcanusBlockEntities.ARCANE_PLINTH.get(), pos, blockState);
@@ -29,11 +29,11 @@ public class ArcanePlinthBlockEntity extends AbstractPedestalBlockEntity impleme
 	}
 
 	@Override
-	public double getMana(ArcanaType type) {
+	public double getMana(PrimalArcana type) {
 		return arcana.getOrDefault(type, 0d);
 	}
 
-	public void setMana(ArcanaType type, double amount) {
+	public void setMana(PrimalArcana type, double amount) {
 		arcana.put(type, amount);
 		markUpdated();
 	}

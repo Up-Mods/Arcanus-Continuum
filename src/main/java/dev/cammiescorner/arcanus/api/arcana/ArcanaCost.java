@@ -39,16 +39,16 @@ public record ArcanaCost(double ignisArcana, double terraArcana, double aquaArca
 		ArcanaCost::new
 	);
 
-	public Map<ArcanaType, Double> arcanaCosts() {
+	public Map<PrimalArcana, Double> arcanaCosts() {
 		return Arcanus.constructArcanaMap(ignisArcana, terraArcana, aquaArcana, aerArcana, aetherArcana);
 	}
 
 	@Override
 	public boolean test(ArcanaProvider arcanaProvider) {
-		return arcanaProvider.getMana(ArcanaType.IGNIS) >= ignisArcana
-			&& arcanaProvider.getMana(ArcanaType.TERRA) >= terraArcana
-			&& arcanaProvider.getMana(ArcanaType.AQUA) >= aquaArcana
-			&& arcanaProvider.getMana(ArcanaType.AER) >= aerArcana
-			&& arcanaProvider.getMana(ArcanaType.AETHER) >= aetherArcana;
+		return arcanaProvider.getMana(PrimalArcana.IGNIS) >= ignisArcana
+			&& arcanaProvider.getMana(PrimalArcana.TERRA) >= terraArcana
+			&& arcanaProvider.getMana(PrimalArcana.AQUA) >= aquaArcana
+			&& arcanaProvider.getMana(PrimalArcana.AER) >= aerArcana
+			&& arcanaProvider.getMana(PrimalArcana.AETHER) >= aetherArcana;
 	}
 }

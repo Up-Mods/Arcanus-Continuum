@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.common.entity.magic;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
@@ -88,11 +88,11 @@ public class MagicOrb extends Entity implements Targetable {
 			level().addParticle(ParticleTypes.END_ROD, getX(), getY() + getBbHeight() / 2, getZ(), vel.x(), vel.y(), vel.z());
 		}
 
-		for(ArcanaType arcanaType : ArcanusSpellComponents.MAGIC_ORB.get().getArcanaCost().keySet()) {
-			if(ArcanusSpellComponents.MAGIC_ORB.get().getArcanaCost().get(arcanaType) <= 0)
+		for(PrimalArcana primalArcana : ArcanusSpellComponents.MAGIC_ORB.get().getArcanaCost().keySet()) {
+			if(ArcanusSpellComponents.MAGIC_ORB.get().getArcanaCost().get(primalArcana) <= 0)
 				continue;
 
-			if(tickCount % 100 == 0 && ArcanusComponents.drainArcana(caster, arcanaType, ArcanusConfig.SpellShapes.MagicOrbShapeProperties.baseArcanaDrain * effects.size(), false)) {
+			if(tickCount % 100 == 0 && ArcanusComponents.drainArcana(caster, primalArcana, ArcanusConfig.SpellShapes.MagicOrbShapeProperties.baseArcanaDrain * effects.size(), false)) {
 				EntityHitResult hitResult = new EntityHitResult(target);
 
 				for(SpellEffect effect : new HashSet<>(effects))

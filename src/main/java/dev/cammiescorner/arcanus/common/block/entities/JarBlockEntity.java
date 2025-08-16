@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.block.entities;
 
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.client.util.JarRenderData;
 import dev.cammiescorner.arcanus.common.block.JarBlock;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity {
-	private ArcanaType arcanaType;
+	private PrimalArcana primalArcana;
 	private double arcana = 0;
 
 	public JarBlockEntity(BlockPos pos, BlockState blockState) {
@@ -41,8 +41,8 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.saveAdditional(tag, registries);
 
-		if(arcanaType != null) {
-			tag.putString("ManaType", arcanaType.getSerializedName());
+		if(primalArcana != null) {
+			tag.putString("ManaType", primalArcana.getSerializedName());
 			tag.putDouble("Mana", arcana);
 		}
 		else {
@@ -55,11 +55,11 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 		super.loadAdditional(tag, registries);
 
 		if(tag.contains("ManaType") && !tag.getString("ManaType").isBlank()) {
-			arcanaType = ArcanaType.getByName(tag.getString("ManaType"));
+			primalArcana = PrimalArcana.getByName(tag.getString("ManaType"));
 			arcana = Math.clamp(tag.getDouble("Mana"), 0, 64);
 		}
 		else {
-			arcanaType = null;
+			primalArcana = null;
 			arcana = 0;
 		}
 
@@ -69,7 +69,7 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 
 	@Override
 	public Object getRenderData() {
-		return new JarRenderData(arcanaType != null ? arcanaType.getColor() : Color.fromARGB(0xffffffff));
+		return new JarRenderData(primalArcana != null ? primalArcana.color() : Color.fromARGB(0xffffffff));
 	}
 
 	protected void markUpdated() {
@@ -78,12 +78,12 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 		getLevel().setBlockAndUpdate(getBlockPos(), newState);
 	}
 
-	public ArcanaType getManaType() {
-		return arcanaType;
+	public PrimalArcana getManaType() {
+		return primalArcana;
 	}
 
-	public void setManaType(ArcanaType arcanaType) {
-		this.arcanaType = arcanaType;
+	public void setManaType(PrimalArcana primalArcana) {
+		this.primalArcana = primalArcana;
 		markUpdated();
 	}
 

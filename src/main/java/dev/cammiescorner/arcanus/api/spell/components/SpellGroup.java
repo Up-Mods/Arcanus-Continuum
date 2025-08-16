@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.api.spell.components;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.api.spell.Weight;
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.util.XtraCodecs;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -87,12 +87,12 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 		return shape.getWeight();
 	}
 
-	public Map<ArcanaType, Double> getArcanaCost() {
-		Map<ArcanaType, Double> cumulativeArcanaCost = new HashMap<>(shape().getArcanaCost());
+	public Map<PrimalArcana, Double> getArcanaCost() {
+		Map<PrimalArcana, Double> cumulativeArcanaCost = new HashMap<>(shape().getArcanaCost());
 
 		for(SpellEffect effect : effects)
-			for(ArcanaType arcanaType : effect.getArcanaCost().keySet())
-				cumulativeArcanaCost.put(arcanaType, effect.getArcanaCost().get(arcanaType) + cumulativeArcanaCost.get(arcanaType));
+			for(PrimalArcana primalArcana : effect.getArcanaCost().keySet())
+				cumulativeArcanaCost.put(primalArcana, effect.getArcanaCost().get(primalArcana) + cumulativeArcanaCost.get(primalArcana));
 
 		return cumulativeArcanaCost;
 	}

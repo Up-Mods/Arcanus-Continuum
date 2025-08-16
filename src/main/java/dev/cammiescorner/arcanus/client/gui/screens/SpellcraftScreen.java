@@ -11,7 +11,7 @@ import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.util.Rectangle;
 import dev.cammiescorner.arcanus.client.gui.util.Action;
 import dev.cammiescorner.arcanus.client.gui.util.UndoRedoStack;
@@ -445,11 +445,11 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		MutableComponent weight = Component.translatable(getWeight().translationKey()).withStyle(ChatFormatting.DARK_GREEN);
 		MutableComponent coolDown = (getCoolDown() > 0 ? Component.literal(Arcanus.format(getCoolDown() / 20d) + "s") : Component.translatable(SPELL_BOOK_INSTANT_COOL_DOWN)).withStyle(ChatFormatting.DARK_RED);
 
-		for(ArcanaType arcanaType : ArcanaType.values()) {
+		for(PrimalArcana primalArcana : PrimalArcana.values()) {
 			if(!arcana.equals(Component.empty()))
 				arcana.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
-			arcana.append(Component.literal(Arcanus.format(getArcanaCost(arcanaType))).withStyle(arcanaType.getChatFormatting()));
+			arcana.append(Component.literal(Arcanus.format(getArcanaCost(primalArcana))).withStyle(primalArcana.formatting()));
 		}
 
 		gui.drawString(font, arcana, 240 - font.width(arcana), 7, 0xffffff, false);
@@ -479,11 +479,11 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 					textList.add(knowsComponent ? component.getName() : Component.literal("???"));
 
-					for(ArcanaType arcanaType : ArcanaType.values()) {
+					for(PrimalArcana primalArcana : PrimalArcana.values()) {
 						if(!arcanaCost.equals(Component.empty()))
 							arcanaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
-						arcanaCost.append(Component.literal(Arcanus.format(getArcanaCost(arcanaType))).withStyle(arcanaType.getChatFormatting()));
+						arcanaCost.append(Component.literal(Arcanus.format(getArcanaCost(primalArcana))).withStyle(primalArcana.formatting()));
 					}
 
 					textList.add(arcanaCost);
@@ -578,8 +578,8 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		return getSpell().getWeight();
 	}
 
-	public double getArcanaCost(ArcanaType arcanaType) {
-		return getSpell().getArcanaCost().get(arcanaType);
+	public double getArcanaCost(PrimalArcana primalArcana) {
+		return getSpell().getArcanaCost().get(primalArcana);
 	}
 
 	public int getCoolDown() {

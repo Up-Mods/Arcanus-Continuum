@@ -10,7 +10,7 @@ import com.google.auto.service.AutoService;
 import com.mojang.authlib.GameProfile;
 import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
 import commonnetwork.api.Network;
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.common.block.MagicDoorBlock;
 import dev.cammiescorner.arcanus.common.block.entities.MagicDoorBlockEntity;
@@ -171,8 +171,8 @@ public class Arcanus implements MainEntryPoint {
 
 		EntitySleepEvents.STOP_SLEEPING.register((entity, sleepingPos) -> {
 			if(!entity.level().isClientSide() && entity.level().getDayTime() == 24000) {
-				for(ArcanaType arcanaType : ArcanaType.values())
-					ArcanusComponents.setArcana(entity, arcanaType, arcanaType.getMaxArcana(entity));
+				for(PrimalArcana primalArcana : PrimalArcana.values())
+					ArcanusComponents.setArcana(entity, primalArcana, primalArcana.getMaxArcana(entity));
 			}
 		});
 
@@ -277,14 +277,14 @@ public class Arcanus implements MainEntryPoint {
 		return ItemStack.EMPTY;
 	}
 
-	public static Map<ArcanaType, Double> constructArcanaMap(double redArcana, double greenArcana, double blueArcana, double aerArcana, double aetherArcana) {
-		Map<ArcanaType, Double> map = new EnumMap<>(ArcanaType.class);
+	public static Map<PrimalArcana, Double> constructArcanaMap(double redArcana, double greenArcana, double blueArcana, double aerArcana, double aetherArcana) {
+		Map<PrimalArcana, Double> map = new EnumMap<>(PrimalArcana.class);
 
-		map.put(ArcanaType.IGNIS, redArcana);
-		map.put(ArcanaType.TERRA, greenArcana);
-		map.put(ArcanaType.AQUA, blueArcana);
-		map.put(ArcanaType.AER, aerArcana);
-		map.put(ArcanaType.AETHER, aetherArcana);
+		map.put(PrimalArcana.IGNIS, redArcana);
+		map.put(PrimalArcana.TERRA, greenArcana);
+		map.put(PrimalArcana.AQUA, blueArcana);
+		map.put(PrimalArcana.AER, aerArcana);
+		map.put(PrimalArcana.AETHER, aetherArcana);
 
 		return map;
 	}

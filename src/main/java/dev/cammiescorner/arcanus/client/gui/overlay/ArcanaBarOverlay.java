@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.api.arcana.ArcanaType;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.upcraft.sparkweave.api.color.Color;
@@ -84,8 +84,8 @@ public class ArcanaBarOverlay {
 			}
 
 			// render arcana bars
-			for(var arcanaType : ArcanaType.values()) {
-				Color color = arcanaType.getColor();
+			for(var arcanaType : PrimalArcana.values()) {
+				Color color = arcanaType.color();
 				double maxArcana = ArcanusComponents.getMaxArcana(player, arcanaType);
 				double arcana = ArcanusComponents.getArcana(player, arcanaType);
 
