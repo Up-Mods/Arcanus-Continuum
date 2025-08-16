@@ -23,17 +23,13 @@ public enum ArcanaType implements StringRepresentable {
 
 	public static final Codec<ArcanaType> CODEC = StringRepresentable.fromEnum(ArcanaType::values);
 	public static final StreamCodec<FriendlyByteBuf, ArcanaType> STREAM_CODEC = StreamCodec.ofMember((type, buf) -> buf.writeEnum(type), buf -> buf.readEnum(ArcanaType.class));
-	final Holder<Attribute> arcanaAttribute;
-	final Holder<Attribute> regenAttribute;
+	final RegistrySupplier<Attribute> arcanaAttribute;
+	final RegistrySupplier<Attribute> regenAttribute;
 	final ChatFormatting formatting;
 	final Color color;
 	final String serializedName;
 
-	ArcanaType(RegistrySupplier<Attribute> attributeSupplier, RegistrySupplier<Attribute> regenAttributeSupplier, ChatFormatting formatting, Color color, String name) {
-		this(attributeSupplier.holder(), regenAttributeSupplier.holder(), formatting, color, name);
-	}
-
-	ArcanaType(Holder<Attribute> arcanaAttribute, Holder<Attribute> regenAttribute, ChatFormatting formatting, Color color, String name) {
+	ArcanaType(RegistrySupplier<Attribute> arcanaAttribute, RegistrySupplier<Attribute> regenAttribute, ChatFormatting formatting, Color color, String name) {
 		this.arcanaAttribute = arcanaAttribute;
 		this.regenAttribute = regenAttribute;
 		this.formatting = formatting;
@@ -47,11 +43,11 @@ public enum ArcanaType implements StringRepresentable {
 	}
 
 	public Holder<Attribute> getArcanaAttribute() {
-		return arcanaAttribute;
+		return arcanaAttribute.holder();
 	}
 
 	public Holder<Attribute> getRegenAttribute() {
-		return regenAttribute;
+		return regenAttribute.holder();
 	}
 
 	public ChatFormatting getChatFormatting() {
@@ -63,7 +59,7 @@ public enum ArcanaType implements StringRepresentable {
 	}
 
 	public double getMaxArcana(LivingEntity entity) {
-		return entity.getAttributeValue(arcanaAttribute);
+		return entity.getAttributeValue(getRegenAttribute());
 	}
 
 	public static ArcanaType getByName(String serializedName) {
