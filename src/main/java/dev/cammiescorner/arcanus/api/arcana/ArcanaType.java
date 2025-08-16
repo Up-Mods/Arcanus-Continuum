@@ -2,7 +2,6 @@ package dev.cammiescorner.arcanus.api.arcana;
 
 import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
-import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.ChatFormatting;
@@ -16,11 +15,11 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import java.util.Arrays;
 
 public enum ArcanaType implements StringRepresentable {
-	IGNIS(ArcanusAttributes.IGNIS_ARCANA, ArcanusAttributes.IGNIS_ARCANA_REGEN, ChatFormatting.RED, Color.fromRGB(184, 28, 14), "ignis_arcana", TranslationKeys.SPELL_BOOK_IGNIS_ARCANA),
-	TERRA(ArcanusAttributes.TERRA_ARCANA, ArcanusAttributes.TERRA_ARCANA_REGEN, ChatFormatting.GREEN, Color.fromRGB(54, 124, 38), "terra_arcana", TranslationKeys.SPELL_BOOK_TERRA_ARCANA),
-	AQUA(ArcanusAttributes.AQUA_ARCANA, ArcanusAttributes.AQUA_ARCANA_REGEN, ChatFormatting.BLUE, Color.fromRGB(6, 51, 141), "aqua_arcana", TranslationKeys.SPELL_BOOK_AQUA_ARCANA),
-	AER(ArcanusAttributes.AER_ARCANA, ArcanusAttributes.AER_ARCANA_REGEN, ChatFormatting.WHITE, Color.fromRGB(255, 251, 213), "aer_arcana", TranslationKeys.SPELL_BOOK_AER_ARCANA),
-	AETHER(ArcanusAttributes.AETHER_ARCANA, ArcanusAttributes.AETHER_ARCANA_REGEN, ChatFormatting.DARK_GRAY, Color.fromRGB(41, 29, 42), "aether_arcana", TranslationKeys.SPELL_BOOK_AETHER_ARCANA);
+	IGNIS(ArcanusAttributes.IGNIS_ARCANA, ArcanusAttributes.IGNIS_ARCANA_REGEN, ChatFormatting.RED, Color.fromRGB(184, 28, 14), "ignis_arcana"),
+	TERRA(ArcanusAttributes.TERRA_ARCANA, ArcanusAttributes.TERRA_ARCANA_REGEN, ChatFormatting.GREEN, Color.fromRGB(54, 124, 38), "terra_arcana"),
+	AQUA(ArcanusAttributes.AQUA_ARCANA, ArcanusAttributes.AQUA_ARCANA_REGEN, ChatFormatting.BLUE, Color.fromRGB(6, 51, 141), "aqua_arcana"),
+	AER(ArcanusAttributes.AER_ARCANA, ArcanusAttributes.AER_ARCANA_REGEN, ChatFormatting.WHITE, Color.fromRGB(255, 251, 213), "aer_arcana"),
+	AETHER(ArcanusAttributes.AETHER_ARCANA, ArcanusAttributes.AETHER_ARCANA_REGEN, ChatFormatting.DARK_GRAY, Color.fromRGB(41, 29, 42), "aether_arcana");
 
 	public static final Codec<ArcanaType> CODEC = StringRepresentable.fromEnum(ArcanaType::values);
 	public static final StreamCodec<FriendlyByteBuf, ArcanaType> STREAM_CODEC = StreamCodec.ofMember((type, buf) -> buf.writeEnum(type), buf -> buf.readEnum(ArcanaType.class));
@@ -29,19 +28,17 @@ public enum ArcanaType implements StringRepresentable {
 	final ChatFormatting formatting;
 	final Color color;
 	final String serializedName;
-	final String translationKey;
 
-	ArcanaType(RegistrySupplier<Attribute> attributeSupplier, RegistrySupplier<Attribute> regenAttributeSupplier, ChatFormatting formatting, Color color, String name, String translationKey) {
-		this(attributeSupplier.holder(), regenAttributeSupplier.holder(), formatting, color, name, translationKey);
+	ArcanaType(RegistrySupplier<Attribute> attributeSupplier, RegistrySupplier<Attribute> regenAttributeSupplier, ChatFormatting formatting, Color color, String name) {
+		this(attributeSupplier.holder(), regenAttributeSupplier.holder(), formatting, color, name);
 	}
 
-	ArcanaType(Holder<Attribute> arcanaAttribute, Holder<Attribute> regenAttribute, ChatFormatting formatting, Color color, String name, String translationKey) {
+	ArcanaType(Holder<Attribute> arcanaAttribute, Holder<Attribute> regenAttribute, ChatFormatting formatting, Color color, String name) {
 		this.arcanaAttribute = arcanaAttribute;
 		this.regenAttribute = regenAttribute;
 		this.formatting = formatting;
 		this.color = color;
 		this.serializedName = name;
-		this.translationKey = translationKey;
 	}
 
 	@Override
@@ -63,10 +60,6 @@ public enum ArcanaType implements StringRepresentable {
 
 	public Color getColor() {
 		return color;
-	}
-
-	public String getTranslationKey() {
-		return translationKey;
 	}
 
 	public double getMaxArcana(LivingEntity entity) {

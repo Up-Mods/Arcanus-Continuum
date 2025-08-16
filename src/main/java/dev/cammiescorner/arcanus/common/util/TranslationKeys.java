@@ -66,11 +66,6 @@ public class TranslationKeys {
 	public static final String SPELL_BOOK_WEIGHT_MEDIUM = "spell_book.arcanus.weight.medium";
 	public static final String SPELL_BOOK_WEIGHT_HEAVY = "spell_book.arcanus.weight.heavy";
 	public static final String SPELL_BOOK_WEIGHT_VERY_HEAVY = "spell_book.arcanus.weight.very_heavy";
-	public static final String SPELL_BOOK_IGNIS_ARCANA = "spell_book.arcanus.ignis_arcana";
-	public static final String SPELL_BOOK_TERRA_ARCANA = "spell_book.arcanus.terra_arcana";
-	public static final String SPELL_BOOK_AQUA_ARCANA = "spell_book.arcanus.aqua_arcana";
-	public static final String SPELL_BOOK_AER_ARCANA = "spell_book.arcanus.aer_arcana";
-	public static final String SPELL_BOOK_AETHER_ARCANA = "spell_book.arcanus.aether_arcana";
 	public static final String SPELL_BOOK_MANA_MULTIPLIER = "spell_book.arcanus.arcana_multiplier";
 	public static final String SPELL_BOOK_POTENCY_MODIFIER = "spell_book.arcanus.potency_modifier";
 	public static final String SPELL_BOOK_COOL_DOWN_MODIFIER = "spell_book.arcanus.cool_down_modifier";
