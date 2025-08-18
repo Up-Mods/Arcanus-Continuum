@@ -14,7 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.List;
-import java.util.UUID;
 
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
@@ -26,6 +25,8 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusItems.SPELL_BOOK.get());
 
 		entries.accept(Blocks.LECTERN);
+		entries.accept(ArcanusItems.ARCANEUM_INGOT.get());
+		entries.accept(ArcanusItems.ARCANEUM_NUGGET.get());
 		entries.accept(ArcanusBlocks.CHALK.get());
 		entries.accept(ArcanusBlocks.MAGIC_DOOR.get());
 		entries.accept(ArcanusBlocks.ARCANE_WORKBENCH.get());
@@ -40,9 +41,8 @@ public class ArcanusCreativeTabs {
 	}).build());
 
 	public static final RegistrySupplier<CreativeModeTab> GEAR = CREATIVE_TABS.register("arcanus_gear", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_GEAR)).icon(() -> new ItemStack(ArcanusItems.SPELL_BOOK.get())).displayItems((params, entries) -> {
-		UUID dummyId = UUID.fromString("6147825f-5493-4154-87c5-5c03c6b0a7c2");
-
 		// staves
+		entries.accept(ArcanusItems.STAFF.get());
 
 		// trinkets
 		entries.accept(ArcanusItems.BOOK_POUCH.get());
@@ -52,6 +52,10 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusItems.ARCANIST_ROBES.get());
 		entries.accept(ArcanusItems.ARCANIST_PANTS.get());
 		entries.accept(ArcanusItems.ARCANIST_BOOTS.get());
+		entries.accept(ArcanusItems.ARTIFICER_HELMET.get());
+		entries.accept(ArcanusItems.ARTIFICER_CHESTPLATE.get());
+		entries.accept(ArcanusItems.ARTIFICER_LEGGINGS.get());
+		entries.accept(ArcanusItems.ARTIFICER_BOOTS.get());
 		entries.accept(ArcanusItems.CULTIST_HOOD.get());
 		entries.accept(ArcanusItems.CULTIST_ROBES.get());
 		entries.accept(ArcanusItems.CULTIST_PANTS.get());
