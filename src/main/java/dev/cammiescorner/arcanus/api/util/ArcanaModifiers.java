@@ -1,63 +1,55 @@
 package dev.cammiescorner.arcanus.api.util;
 
-import com.google.common.base.Preconditions;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
-import io.netty.buffer.ByteBuf;
+import dev.cammiescorner.arcanus.common.util.XtraCodecs;
 import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import org.jetbrains.annotations.ApiStatus;
 
-import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ArcanaModifiers {
-	public static final Codec<ArcanaModifiers> CODEC = Codec.unboundedMap(PrimalArcana.CODEC, Codec.DOUBLE).xmap(ArcanaModifiers::of, ArcanaModifiers::asMap);
-	public static final StreamCodec<ByteBuf, ArcanaModifiers> STREAM_CODEC = StreamCodec.ofMember((modifiers, buf) -> {
-		for (PrimalArcana value : PrimalArcana.values())
-			buf.writeDouble(modifiers.modifier(value));
-	}, buf -> {
-		var modifiers = new double[PrimalArcana.values().length];
+	public static final Codec<ArcanaModifiers> CODEC = Codec.unboundedMap(Arcana.CODEC, Codec.DOUBLE).xmap(map -> {
+		Object2DoubleArrayMap<PrimalArcana> arrayMap = new Object2DoubleArrayMap<>();
 
-		for(PrimalArcana primalArcana : PrimalArcana.values())
-			modifiers[primalArcana.ordinal()] = buf.readDouble();
+		map.forEach((arcana, aDouble) -> arrayMap.put((PrimalArcana) arcana, aDouble));
 
-		return new ArcanaModifiers(modifiers);
-	});
+		return new ArcanaModifiers(arrayMap);
+	}, ArcanaModifiers::asMap);
+	public static final StreamCodec<RegistryFriendlyByteBuf, ArcanaModifiers> STREAM_CODEC = XtraCodecs.STUPID_FUCKING_STREAM_CODEC.apply(ByteBufCodecs.list()).map(pairs -> {
+		Object2DoubleArrayMap<PrimalArcana> map = new Object2DoubleArrayMap<>();
 
-	private final double[] modifiers;
+		for(Pair<Arcana, Double> pair : pairs) {
+			if(pair.getFirst() instanceof PrimalArcana primalArcana)
+				map.put(primalArcana, pair.getSecond());
+		}
+
+		return new ArcanaModifiers(map);
+	}, modifiers -> modifiers.modifiers.object2DoubleEntrySet().stream().map(entry -> new Pair<Arcana, Double>(entry.getKey(), entry.getDoubleValue())).toList());
+
+	private final Object2DoubleArrayMap<PrimalArcana> modifiers;
 
 	@ApiStatus.Internal
-	public ArcanaModifiers(double... modifiers) {
-		Preconditions.checkArgument(modifiers.length == PrimalArcana.values().length, "Array size must be exactly %s", PrimalArcana.values().length);
+	public ArcanaModifiers(Object2DoubleArrayMap<PrimalArcana> modifiers) {
 		this.modifiers = modifiers;
 	}
 
-	public static ArcanaModifiers of(Map<PrimalArcana, Double> map) {
-		var modifiers = new double[PrimalArcana.values().length];
-		for(PrimalArcana primalArcana : PrimalArcana.values())
-			modifiers[primalArcana.ordinal()] = map.getOrDefault(primalArcana, 1.0D);
-
-		return new ArcanaModifiers(modifiers);
-	}
-
 	public static ArcanaModifiers empty() {
-		var modifiers = new double[PrimalArcana.values().length];
-		Arrays.fill(modifiers, 1.0D);
-		return new ArcanaModifiers(modifiers);
+		return new ArcanaModifiers(new Object2DoubleArrayMap<>());
 	}
 
-	public Object2DoubleMap<PrimalArcana> asMap() {
-		Object2DoubleMap<PrimalArcana> map = new Object2DoubleArrayMap<>();
-
-		for(PrimalArcana primalArcana : PrimalArcana.values())
-			map.put(primalArcana, modifiers[primalArcana.ordinal()]);
-
-		return map;
+	public Map<Arcana, Double> asMap() {
+		return modifiers.object2DoubleEntrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, Object2DoubleMap.Entry::getDoubleValue));
 	}
 
 	public double modifier(PrimalArcana primalArcana) {
-		return modifiers[primalArcana.ordinal()];
+		return modifiers.getDouble(primalArcana);
 	}
 }

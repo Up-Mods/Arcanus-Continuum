@@ -36,6 +36,8 @@ import dev.upcraft.sparkweave.api.event.ItemMenuInteractionEvent;
 import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
+import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -66,9 +68,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.DecimalFormat;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 @AutoService(MainEntryPoint.class)
 public class Arcanus implements MainEntryPoint {
@@ -94,6 +94,7 @@ public class Arcanus implements MainEntryPoint {
 		RegistryService registryService = RegistryService.get();
 
 		ArcanusAttributes.registerAll();
+		ArcanusArcana.ARCANA.accept(registryService);
 		ArcanusSpellComponents.SPELL_COMPONENTS.accept(registryService);
 		ArcanusEntities.ENTITY_TYPES.accept(registryService);
 		ArcanusArmorMaterials.MATERIALS.accept(registryService);
@@ -170,10 +171,8 @@ public class Arcanus implements MainEntryPoint {
 		});
 
 		EntitySleepEvents.STOP_SLEEPING.register((entity, sleepingPos) -> {
-			if(!entity.level().isClientSide() && entity.level().getDayTime() == 24000) {
-				for(PrimalArcana primalArcana : PrimalArcana.values())
-					ArcanusComponents.setArcana(entity, primalArcana, primalArcana.getMaxArcana(entity));
-			}
+			if(!entity.level().isClientSide() && entity.level().getDayTime() == 24000)
+				ArcanusArcana.primalArcana().forEach(primalArcana -> ArcanusComponents.setArcana(entity, primalArcana, primalArcana.getMaxArcana(entity)));
 		});
 
 		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
@@ -277,14 +276,14 @@ public class Arcanus implements MainEntryPoint {
 		return ItemStack.EMPTY;
 	}
 
-	public static Map<PrimalArcana, Double> constructArcanaMap(double redArcana, double greenArcana, double blueArcana, double aerArcana, double aetherArcana) {
-		Map<PrimalArcana, Double> map = new EnumMap<>(PrimalArcana.class);
+	public static Object2DoubleArrayMap<PrimalArcana> constructArcanaMap(double ignisArcana, double terraArcana, double aquaArcana, double aerArcana, double aetherArcana) {
+		Object2DoubleArrayMap<PrimalArcana> map = new Object2DoubleArrayMap<>();
 
-		map.put(PrimalArcana.IGNIS, redArcana);
-		map.put(PrimalArcana.TERRA, greenArcana);
-		map.put(PrimalArcana.AQUA, blueArcana);
-		map.put(PrimalArcana.AER, aerArcana);
-		map.put(PrimalArcana.AETHER, aetherArcana);
+		map.put(ArcanusArcana.IGNIS.get(), ignisArcana);
+		map.put(ArcanusArcana.TERRA.get(), terraArcana);
+		map.put(ArcanusArcana.AQUA.get(), aquaArcana);
+		map.put(ArcanusArcana.AER.get(), aerArcana);
+		map.put(ArcanusArcana.AETHER.get(), aetherArcana);
 
 		return map;
 	}

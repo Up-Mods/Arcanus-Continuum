@@ -95,7 +95,7 @@ public class TranslationKeys {
 	public static final String CONFIG_COOL_DOWN_PER_COMPONENT = "config.arcanus.cool_down_per_component";
 	public static final String CONFIG_MINIMUM_COOL_DOWN = "config.arcanus.minimum_cool_down";
 	public static final String CONFIG_SIZE_CHANGE_IS_PERMA = "config.arcanus.size_changing_is_permanent";
-	public static final String CONFIG_SCALE_MANA_BARS = "config.arcanus.scale_arcana_bars";
+	public static final String CONFIG_SCALE_ARCANA_BARS = "config.arcanus.scale_arcana_bars";
 	public static final String CONFIG_ARCANA_BARS_MIN_LENGTH = "config.arcanus.arcana_bars_min_length";
 	public static final String CONFIG_ARCANA_BARS_MAX_LENGTH = "config.arcanus.arcana_bars_max_length";
 	public static final String CONFIG_ARCANA_BARS_ON_TOP = "config.arcanus.arcana_bars_on_top";

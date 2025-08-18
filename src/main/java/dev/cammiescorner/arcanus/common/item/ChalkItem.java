@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.item;
 
-import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcanaEnum;
 import dev.cammiescorner.arcanus.common.block.ChalkBlock;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -83,10 +83,10 @@ public class ChalkItem extends BlockItem {
 		BlockState state = level.getBlockState(pos);
 
 		if(state.getBlock() instanceof ChalkBlock) {
-			PrimalArcana primalArcana = state.getValue(RUNE);
+			PrimalArcanaEnum primalArcana = state.getValue(RUNE);
 			int index = primalArcana.ordinal();
 
-			level.setBlockAndUpdate(pos, state.setValue(RUNE, PrimalArcana.values()[index < PrimalArcana.values().length - 1 ? index + 1 : 0]));
+			level.setBlockAndUpdate(pos, state.setValue(RUNE, PrimalArcanaEnum.values()[index < PrimalArcanaEnum.values().length - 1 ? index + 1 : 0]));
 
 			return InteractionResult.sidedSuccess(level.isClientSide());
 		}

@@ -2,10 +2,11 @@ package dev.cammiescorner.arcanus.api.spell.components;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.cammiescorner.arcanus.api.spell.Weight;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
-import dev.cammiescorner.arcanus.common.util.XtraCodecs;
+import dev.cammiescorner.arcanus.api.spell.Weight;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
+import dev.cammiescorner.arcanus.common.util.XtraCodecs;
+import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -17,9 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.joml.Vector2i;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -87,12 +86,12 @@ public record SpellGroup(SpellShape shape, List<SpellEffect> effects, List<Vecto
 		return shape.getWeight();
 	}
 
-	public Map<PrimalArcana, Double> getArcanaCost() {
-		Map<PrimalArcana, Double> cumulativeArcanaCost = new HashMap<>(shape().getArcanaCost());
+	public Object2DoubleArrayMap<PrimalArcana> getArcanaCost() {
+		Object2DoubleArrayMap<PrimalArcana> cumulativeArcanaCost = new Object2DoubleArrayMap<>(shape().getArcanaCost());
 
 		for(SpellEffect effect : effects)
 			for(PrimalArcana primalArcana : effect.getArcanaCost().keySet())
-				cumulativeArcanaCost.put(primalArcana, effect.getArcanaCost().get(primalArcana) + cumulativeArcanaCost.get(primalArcana));
+				cumulativeArcanaCost.put(primalArcana, effect.getArcanaCost().getDouble(primalArcana) + cumulativeArcanaCost.get(primalArcana));
 
 		return cumulativeArcanaCost;
 	}

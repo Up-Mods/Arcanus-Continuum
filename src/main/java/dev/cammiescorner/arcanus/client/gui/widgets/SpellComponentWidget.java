@@ -4,7 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
+import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -36,12 +36,12 @@ public class SpellComponentWidget extends AbstractButton {
 
 		textList.add(component.getName());
 
-		for(PrimalArcana primalArcana : PrimalArcana.values()) {
+		ArcanusArcana.primalArcana().forEach(primalArcana -> {
 			if(!arcanaCost.equals(Component.empty()))
 				arcanaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
-			arcanaCost.append(Component.literal(Arcanus.format(component.getArcanaCost().get(primalArcana))).withStyle(primalArcana.formatting()));
-		}
+			arcanaCost.append(Component.literal(Arcanus.format(component.getArcanaCost().getDouble(primalArcana))).withStyle(primalArcana.formatting()));
+		});
 
 		textList.add(arcanaCost);
 

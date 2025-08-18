@@ -1,12 +1,11 @@
 package dev.cammiescorner.arcanus;
 
 import com.teamresourceful.resourcefulconfig.api.annotations.*;
-import dev.cammiescorner.arcanus.api.spell.Weight;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
+import dev.cammiescorner.arcanus.api.spell.Weight;
 import dev.cammiescorner.arcanus.common.util.MirrorHudElement;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
-
-import java.util.Map;
+import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
@@ -34,7 +33,7 @@ public final class ArcanusConfig {
 
 	@Category("Client")
 	public static final class ClientStuff {
-		@ConfigEntry(id = "scaleArcanaBarsWithMaxArcana", translation = CONFIG_SCALE_MANA_BARS)
+		@ConfigEntry(id = "scaleArcanaBarsWithMaxArcana", translation = CONFIG_SCALE_ARCANA_BARS)
 		public static boolean scaleArcanaBarsWithMaxArcana = true;
 
 		@ConfigEntry(id = "arcanaBarsMinLength", translation = CONFIG_ARCANA_BARS_MIN_LENGTH)
@@ -92,7 +91,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 5;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -133,7 +132,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -181,7 +180,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -225,7 +224,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -270,7 +269,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -319,7 +318,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -364,7 +363,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -408,7 +407,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -449,7 +448,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 7;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -494,7 +493,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -545,7 +544,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -586,7 +585,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -630,7 +629,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 5;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -696,7 +695,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -731,7 +730,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -770,7 +769,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -809,7 +808,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -848,7 +847,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -883,7 +882,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -918,7 +917,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 3;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -953,7 +952,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 5;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -988,7 +987,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 3;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1019,7 +1018,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1070,7 +1069,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1105,7 +1104,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1136,7 +1135,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1171,7 +1170,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1206,7 +1205,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1241,7 +1240,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1280,7 +1279,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1319,7 +1318,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1362,7 +1361,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1397,7 +1396,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 3;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1432,7 +1431,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1463,7 +1462,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1494,7 +1493,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1533,7 +1532,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1572,7 +1571,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1624,7 +1623,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1670,7 +1669,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1705,7 +1704,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1740,7 +1739,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1775,7 +1774,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1810,7 +1809,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1845,7 +1844,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1880,7 +1879,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 
@@ -1915,7 +1914,7 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Map<PrimalArcana, Double> arcanaCosts() {
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 

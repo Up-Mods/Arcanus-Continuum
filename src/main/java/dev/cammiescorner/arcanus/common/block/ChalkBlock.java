@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.block;
 
-import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcanaEnum;
 import dev.cammiescorner.arcanus.common.item.ChalkItem;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
@@ -21,13 +21,13 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class ChalkBlock extends Block implements BlockItemProvider {
-	public static final EnumProperty<PrimalArcana> RUNE = EnumProperty.create("rune", PrimalArcana.class);
+	public static final EnumProperty<PrimalArcanaEnum> RUNE = EnumProperty.create("rune", PrimalArcanaEnum.class);
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	private static final VoxelShape SHAPE = Shapes.create(0.125, 0, 0.125, 0.875, 0.0625, 0.875);
 
 	public ChalkBlock() {
 		super(Properties.of().noCollission().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY));
-		registerDefaultState(getStateDefinition().any().setValue(RUNE, PrimalArcana.IGNIS).setValue(FACING, Direction.NORTH));
+		registerDefaultState(getStateDefinition().any().setValue(RUNE, PrimalArcanaEnum.IGNIS).setValue(FACING, Direction.NORTH));
 	}
 
 	@Override

@@ -4,11 +4,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.util.ArcanaProvider;
+import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import io.netty.buffer.ByteBuf;
+import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-import java.util.Map;
 import java.util.function.Predicate;
 
 public record ArcanaCost(double ignisArcana, double terraArcana, double aquaArcana, double aerArcana, double aetherArcana) implements Predicate<ArcanaProvider> {
@@ -39,16 +40,16 @@ public record ArcanaCost(double ignisArcana, double terraArcana, double aquaArca
 		ArcanaCost::new
 	);
 
-	public Map<PrimalArcana, Double> arcanaCosts() {
+	public Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 		return Arcanus.constructArcanaMap(ignisArcana, terraArcana, aquaArcana, aerArcana, aetherArcana);
 	}
 
 	@Override
 	public boolean test(ArcanaProvider arcanaProvider) {
-		return arcanaProvider.getMana(PrimalArcana.IGNIS) >= ignisArcana
-			&& arcanaProvider.getMana(PrimalArcana.TERRA) >= terraArcana
-			&& arcanaProvider.getMana(PrimalArcana.AQUA) >= aquaArcana
-			&& arcanaProvider.getMana(PrimalArcana.AER) >= aerArcana
-			&& arcanaProvider.getMana(PrimalArcana.AETHER) >= aetherArcana;
+		return arcanaProvider.getMana(ArcanusArcana.IGNIS) >= ignisArcana
+			&& arcanaProvider.getMana(ArcanusArcana.TERRA) >= terraArcana
+			&& arcanaProvider.getMana(ArcanusArcana.AQUA) >= aquaArcana
+			&& arcanaProvider.getMana(ArcanusArcana.AER) >= aerArcana
+			&& arcanaProvider.getMana(ArcanusArcana.AETHER) >= aetherArcana;
 	}
 }

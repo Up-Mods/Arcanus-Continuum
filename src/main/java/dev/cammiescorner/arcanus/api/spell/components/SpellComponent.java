@@ -26,6 +26,8 @@ import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.upcraft.sparkweave.api.registry.RegistryHelper;
+import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -36,7 +38,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.Map;
 import java.util.function.Supplier;
 
 public class SpellComponent {
@@ -45,12 +46,12 @@ public class SpellComponent {
 	public static final String DISABLED_TRANSLATION_KEY = Util.makeDescriptionId("arcanus.spell_component", Arcanus.id("disabled"));
 	private static final MutableComponent DISABLED_TRANSLATED_NAME = Component.translatable(DISABLED_TRANSLATION_KEY).withStyle(ChatFormatting.OBFUSCATED);
 	private final Supplier<Boolean> isEnabled;
-	private final Supplier<Map<PrimalArcana, Double>> arcanaCost;
+	private final Supplier<Object2DoubleArrayMap<PrimalArcana>> arcanaCost;
 	private final Supplier<Boolean> procsOnce;
 	private String translationKey;
 	private ResourceLocation texture;
 
-	public SpellComponent(Supplier<Boolean> isEnabled, Supplier<Map<PrimalArcana, Double>> arcanaCost, Supplier<Boolean> procsOnce) {
+	public SpellComponent(Supplier<Boolean> isEnabled, Supplier<Object2DoubleArrayMap<PrimalArcana>> arcanaCost, Supplier<Boolean> procsOnce) {
 		this.isEnabled = isEnabled;
 		this.arcanaCost = arcanaCost;
 		this.procsOnce = procsOnce;
@@ -60,8 +61,8 @@ public class SpellComponent {
 		return isEnabled.get();
 	}
 
-	public Map<PrimalArcana, Double> getArcanaCost() {
-		return Map.copyOf(arcanaCost.get());
+	public Object2DoubleMap<PrimalArcana> getArcanaCost() {
+		return arcanaCost.get().clone();
 	}
 
 	public boolean singleCastOnly() {
@@ -69,7 +70,7 @@ public class SpellComponent {
 	}
 
 	public String getArcanaCostAsString(PrimalArcana primalArcana) {
-		return Arcanus.format(getArcanaCost().get(primalArcana));
+		return Arcanus.format(getArcanaCost().getDouble(primalArcana));
 	}
 
 	public ResourceLocation getTexture(Player player) {

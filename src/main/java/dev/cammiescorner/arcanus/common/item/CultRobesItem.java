@@ -19,7 +19,7 @@ import java.util.function.Supplier;
 public class CultRobesItem extends ArmorItem {
 	private final Supplier<ItemAttributeModifiers> defaultModifiers;
 
-	public CultRobesItem(Holder<ArmorMaterial> holder, Type type, PrimalArcana primalArcana) {
+	public CultRobesItem(Holder<ArmorMaterial> holder, Type type, Supplier<PrimalArcana> primalArcana) {
 		super(holder, type, type == Type.HELMET ? new Properties().stacksTo(1).component(ArcanusDataComponents.HOOD_DOWN.get(), false) : new Properties().stacksTo(1));
 
 		this.defaultModifiers = Suppliers.memoize(() -> {
@@ -35,7 +35,7 @@ public class CultRobesItem extends ArmorItem {
 				builder.add(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(resourceLocation, knockbackResist, AttributeModifier.Operation.ADD_VALUE), equipmentSlotGroup);
 
 			builder.add(ArcanusAttributes.AETHER_ARCANA.holder(), new AttributeModifier(resourceLocation, 10, AttributeModifier.Operation.ADD_VALUE), equipmentSlotGroup);
-			builder.add(primalArcana.getArcanaAttribute(), new AttributeModifier(resourceLocation, 10, AttributeModifier.Operation.ADD_VALUE), equipmentSlotGroup);
+			builder.add(primalArcana.get().arcanaAttribute(), new AttributeModifier(resourceLocation, 10, AttributeModifier.Operation.ADD_VALUE), equipmentSlotGroup);
 
 			return builder.build();
 		});

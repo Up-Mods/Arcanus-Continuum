@@ -324,7 +324,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_MOVEMENT_EFFECTS_CATEGORY, "Movement Effects");
 		builder.add(CONFIG_CASTING_HAS_SPEED_LIMIT, "Use Attack Cool Down for Casting?");
 		builder.add(CONFIG_SIZE_CHANGE_IS_PERMA, "Size Changing Effects are Permanent for Players and Tamed Animals (Requires Pehkui)");
-		builder.add(CONFIG_SCALE_MANA_BARS, "Scale Arcana Bars Based on Maximum Arcana");
+		builder.add(CONFIG_SCALE_ARCANA_BARS, "Scale Arcana Bars Based on Maximum Arcana");
 		builder.add(CONFIG_ARCANA_BARS_MIN_LENGTH, "Min Length of Scaled Arcana Bars");
 		builder.add(CONFIG_ARCANA_BARS_MAX_LENGTH, "Max Length of Scaled Arcana Bars");
 		builder.add(CONFIG_COOL_DOWN_PER_COMPONENT, "Cool Down in Ticks Added Per Component");

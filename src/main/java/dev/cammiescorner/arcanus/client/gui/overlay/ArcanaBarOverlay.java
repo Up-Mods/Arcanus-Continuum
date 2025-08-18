@@ -7,6 +7,7 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
+import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.DeltaTracker;
@@ -16,6 +17,8 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.List;
 
 public class ArcanaBarOverlay {
 	private static final ResourceLocation OVERLAY_TEXTURE = Arcanus.id("textures/gui/hud/arcana_bars.png");
@@ -44,22 +47,6 @@ public class ArcanaBarOverlay {
 			if(!ArcanusConfig.ClientStuff.arcanaBarsOnTop)
 				poseStack.translate(0, scaledHeight - 29, 0);
 
-			float angleOffsetDegrees = ArcanusConfig.ClientStuff.rightSideArcanaBars.mirror() ? -27f : 27f;
-			float startingAngleDegrees;
-
-			if(ArcanusConfig.ClientStuff.arcanaBarsOnTop) {
-				if(ArcanusConfig.ClientStuff.rightSideArcanaBars.mirror())
-					startingAngleDegrees = 189;
-				else
-					startingAngleDegrees = -9f;
-			}
-			else {
-				if(ArcanusConfig.ClientStuff.rightSideArcanaBars.mirror())
-					startingAngleDegrees = -81f;
-				else
-					startingAngleDegrees = -99f;
-			}
-
 			// render frame
 			poseStack.pushPose();
 
@@ -84,14 +71,32 @@ public class ArcanaBarOverlay {
 			}
 
 			// render arcana bars
-			for(var arcanaType : PrimalArcana.values()) {
+			List<PrimalArcana> list = ArcanusArcana.primalArcana().toList();
+			float angleOffsetDegrees = ArcanusConfig.ClientStuff.rightSideArcanaBars.mirror() ? -27f : 27f; // TODO base off of size of primal arcana list
+			float startingAngleDegrees;
+
+			if(ArcanusConfig.ClientStuff.arcanaBarsOnTop) {
+				if(ArcanusConfig.ClientStuff.rightSideArcanaBars.mirror())
+					startingAngleDegrees = 189;
+				else
+					startingAngleDegrees = -9f;
+			}
+			else {
+				if(ArcanusConfig.ClientStuff.rightSideArcanaBars.mirror())
+					startingAngleDegrees = -81f;
+				else
+					startingAngleDegrees = -99f;
+			}
+
+			for(int i = 0; i < list.size(); i++) {
+				PrimalArcana arcanaType = list.get(i);
 				Color color = arcanaType.color();
 				double maxArcana = ArcanusComponents.getMaxArcana(player, arcanaType);
 				double arcana = ArcanusComponents.getArcana(player, arcanaType);
 
 				int x = ArcanusConfig.ClientStuff.rightSideArcanaBars.mirror() ? 68 : 60;
 				int y = ArcanusConfig.ClientStuff.arcanaBarsOnTop ? 12 : 20;
-				var angle = (float) Math.toRadians(startingAngleDegrees + angleOffsetDegrees * arcanaType.ordinal());
+				var angle = (float) Math.toRadians(startingAngleDegrees + angleOffsetDegrees * i);
 
 				poseStack.pushPose();
 				poseStack.scale(scale, scale, 1f);

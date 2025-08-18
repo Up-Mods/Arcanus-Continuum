@@ -3,14 +3,15 @@ package dev.cammiescorner.arcanus.client.gui.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.spell.Spell;
 import dev.cammiescorner.arcanus.api.spell.Weight;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.item.SpellScrollItem;
 import dev.cammiescorner.arcanus.common.menu.SpellScrollMenu;
+import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -128,12 +129,12 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 		MutableComponent weight = Component.translatable(getWeight().translationKey()).withStyle(ChatFormatting.DARK_GREEN);
 		MutableComponent coolDown = (getCoolDown() > 0 ? Component.literal(Arcanus.format(getCoolDown() / 20d) + "s") : Component.translatable(SPELL_BOOK_INSTANT_COOL_DOWN)).withStyle(ChatFormatting.DARK_RED);
 
-		for(PrimalArcana primalArcana : PrimalArcana.values()) {
+		ArcanusArcana.primalArcana().forEach(primalArcana -> {
 			if(!arcana.equals(Component.empty()))
 				arcana.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
 			arcana.append(Component.literal(Arcanus.format(getArcanaCost(primalArcana))).withStyle(primalArcana.formatting()));
-		}
+		});
 
 		gui.drawString(font, arcana, 240 - font.width(arcana), 7, 0xffffff, false);
 		gui.drawString(font, weight, 240 - font.width(weight), 17, 0xffffff, false);
@@ -151,12 +152,12 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 
 					textList.add(knowsComponent ? component.getName() : Component.translatable(UNKNOWN));
 
-					for(PrimalArcana primalArcana : PrimalArcana.values()) {
+					ArcanusArcana.primalArcana().forEach(primalArcana -> {
 						if(!arcanaCost.equals(Component.empty()))
 							arcanaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
 						arcanaCost.append(Component.literal(Arcanus.format(getArcanaCost(primalArcana))).withStyle(primalArcana.formatting()));
-					}
+					});
 
 					textList.add(arcanaCost);
 
@@ -213,7 +214,7 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 	}
 
 	public double getArcanaCost(PrimalArcana primalArcana) {
-		return getSpell().getArcanaCost().get(primalArcana);
+		return getSpell().getArcanaCost().getDouble(primalArcana);
 	}
 
 	public int getCoolDown() {

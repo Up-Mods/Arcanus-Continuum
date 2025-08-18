@@ -3,9 +3,10 @@ package dev.cammiescorner.arcanus.api.spell.components;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.spell.Weight;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
+import dev.cammiescorner.arcanus.api.spell.Weight;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
+import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,7 +15,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 
 public abstract class SpellShape extends SpellComponent {
@@ -28,7 +28,7 @@ public abstract class SpellShape extends SpellComponent {
 		return (SpellShape) ArcanusSpellComponents.EMPTY.get();
 	}
 
-	public SpellShape(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Map<PrimalArcana, Double>> arcanaCost, Supplier<Double> arcanaModifier, Supplier<Double> potencyModifier, Supplier<Double> coolDownModifier, Supplier<Boolean> procsOnce) {
+	public SpellShape(Supplier<Boolean> isEnabled, Supplier<Weight> weight, Supplier<Object2DoubleArrayMap<PrimalArcana>> arcanaCost, Supplier<Double> arcanaModifier, Supplier<Double> potencyModifier, Supplier<Double> coolDownModifier, Supplier<Boolean> procsOnce) {
 		super(isEnabled, arcanaCost, procsOnce);
 		this.weight = weight;
 		this.arcanaModifier = arcanaModifier;

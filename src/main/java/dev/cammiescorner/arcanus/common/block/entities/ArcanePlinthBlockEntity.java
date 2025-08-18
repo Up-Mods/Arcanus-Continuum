@@ -1,19 +1,17 @@
 package dev.cammiescorner.arcanus.common.block.entities;
 
-import dev.cammiescorner.arcanus.api.crafting.RiteRecipeInput;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
+import dev.cammiescorner.arcanus.api.crafting.RiteRecipeInput;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
+import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ArcanePlinthBlockEntity extends AbstractPedestalBlockEntity implements RiteRecipeInput {
-	public final Map<PrimalArcana, Double> arcana = new HashMap<>();
+	public final Object2DoubleArrayMap<PrimalArcana> arcanaMap = new Object2DoubleArrayMap<>();
 
 	public ArcanePlinthBlockEntity(BlockPos pos, BlockState blockState) {
 		super(ArcanusBlockEntities.ARCANE_PLINTH.get(), pos, blockState);
@@ -30,11 +28,11 @@ public class ArcanePlinthBlockEntity extends AbstractPedestalBlockEntity impleme
 
 	@Override
 	public double getMana(PrimalArcana type) {
-		return arcana.getOrDefault(type, 0d);
+		return arcanaMap.getOrDefault(type, 0d);
 	}
 
 	public void setMana(PrimalArcana type, double amount) {
-		arcana.put(type, amount);
+		arcanaMap.put(type, amount);
 		markUpdated();
 	}
 

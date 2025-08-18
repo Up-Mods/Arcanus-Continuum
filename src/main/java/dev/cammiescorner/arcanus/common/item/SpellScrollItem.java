@@ -1,8 +1,8 @@
 package dev.cammiescorner.arcanus.common.item;
 
 import dev.cammiescorner.arcanus.api.spell.Spell;
-import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.menu.providers.SpellScrollMenuProvider;
+import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -37,12 +37,12 @@ public class SpellScrollItem extends Item {
 		tooltipComponents.add(Component.empty());
 		tooltipComponents.add(Component.literal(spell.getName()).withStyle(ChatFormatting.GOLD));
 
-		for(PrimalArcana primalArcana : PrimalArcana.values()) {
+		ArcanusArcana.primalArcana().forEach(primalArcana -> {
 			if(!arcanaCost.equals(Component.empty()))
 				arcanaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
 			arcanaCost.append(Component.literal(spell.getArcanaCostAsString(primalArcana)).withStyle(primalArcana.formatting()));
-		}
+		});
 
 		tooltipComponents.add(arcanaCost);
 

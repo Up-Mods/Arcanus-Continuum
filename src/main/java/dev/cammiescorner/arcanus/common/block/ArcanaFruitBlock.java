@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.block;
 
-import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
+import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -20,15 +20,17 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import java.util.function.Supplier;
+
 public class ArcanaFruitBlock extends Block implements BlockItemProvider, BonemealableBlock {
 	private static final int MAX_STAGE = 6;
 	public static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, MAX_STAGE);
 	private static final VoxelShape SHAPE = Block.box(5, 0, 5, 11, 12, 11);
-	private final PrimalArcana primalArcana;
+	private final Supplier<? extends Arcana> arcana;
 
-	public ArcanaFruitBlock(PrimalArcana primalArcana) {
+	public ArcanaFruitBlock(Supplier<? extends Arcana> arcana) {
 		super(Properties.of().sound(SoundType.GRASS).mapColor(MapColor.PLANT).noCollission().noTerrainParticles().offsetType(OffsetType.XYZ).ignitedByLava().pushReaction(PushReaction.DESTROY).randomTicks());
-		this.primalArcana = primalArcana;
+		this.arcana = arcana;
 		registerDefaultState(getStateDefinition().any().setValue(STAGE, 0));
 	}
 
@@ -63,8 +65,8 @@ public class ArcanaFruitBlock extends Block implements BlockItemProvider, Boneme
 		builder.add(STAGE);
 	}
 
-	public PrimalArcana getArcanaType() {
-		return primalArcana;
+	public Arcana getArcanaType() {
+		return arcana.get();
 	}
 
 	@Override

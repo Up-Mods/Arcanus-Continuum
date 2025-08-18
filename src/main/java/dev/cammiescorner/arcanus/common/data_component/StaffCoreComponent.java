@@ -4,6 +4,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.util.ArcanaModifiers;
+import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
+import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
@@ -24,8 +26,16 @@ public record StaffCoreComponent(ArcanaModifiers arcanaModifiers) implements Too
 		StaffCoreComponent::new
 	);
 
-	public static StaffCoreComponent of(double red, double green, double blue, double white, double black) {
-		return new StaffCoreComponent(new ArcanaModifiers(red, green, blue, white, black));
+	public static StaffCoreComponent of(double ignisArcana, double terraArcana, double aquaArcana, double aerArcana, double aetherArcana) {
+		Object2DoubleArrayMap<PrimalArcana> map = new Object2DoubleArrayMap<>();
+
+		map.put(ArcanusArcana.IGNIS.get(), ignisArcana);
+		map.put(ArcanusArcana.TERRA.get(), terraArcana);
+		map.put(ArcanusArcana.AQUA.get(), aquaArcana);
+		map.put(ArcanusArcana.AER.get(), aerArcana);
+		map.put(ArcanusArcana.AETHER.get(), aetherArcana);
+
+		return new StaffCoreComponent(new ArcanaModifiers(map));
 	}
 
 	public double modifier(PrimalArcana primalArcana) {
@@ -37,10 +47,9 @@ public record StaffCoreComponent(ArcanaModifiers arcanaModifiers) implements Too
 		// TODO replace debug text with proper translatable values
 		tooltipAdder.accept(Component.literal("[Staff Core]"));
 
-		for (PrimalArcana primalArcana : PrimalArcana.values()) {
-			// make sure to keep this bit when making translatable!
+		ArcanusArcana.primalArcana().forEach(primalArcana -> {
 			var modStr = String.format("%.2f", modifier(primalArcana));
-			tooltipAdder.accept(Component.literal("  %s: x%s".formatted(primalArcana.name(), modStr)).withColor(primalArcana.color().asIntARGB()));
-		}
+//			tooltipAdder.accept(Component.literal("  %s: x%s".formatted(primalArcana.name(), modStr)).withColor(primalArcana.color().asIntARGB()));
+		});
 	}
 }

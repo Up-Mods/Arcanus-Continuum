@@ -2,10 +2,10 @@ package dev.cammiescorner.arcanus.common.networking.serverbound;
 
 import commonnetwork.networking.data.PacketContext;
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.api.spell.Spell;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
-import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
 import dev.cammiescorner.arcanus.common.data_component.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
@@ -74,7 +74,7 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns, boolean castS
 						}
 
 						for(PrimalArcana primalArcana : spell.getArcanaCost().keySet()) {
-							if(!player.isCreative() && !ArcanusComponents.drainArcana(player, primalArcana, spell.getArcanaCost().get(primalArcana), false)) {
+							if(!player.isCreative() && !ArcanusComponents.drainArcana(player, primalArcana, spell.getArcanaCost().getDouble(primalArcana), false)) {
 								player.displayClientMessage(Component.translatable(SPELL_NOT_ENOUGH_MANA).withStyle(ChatFormatting.RED, ChatFormatting.ITALIC), true);
 								return;
 							}

@@ -4,12 +4,13 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
+import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -20,7 +21,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -86,8 +86,8 @@ public class Spell {
 		return Weight.values()[averageWeightIndex];
 	}
 
-	public Map<PrimalArcana, Double> getArcanaCost() {
-		Map<PrimalArcana, Double> cumulativeArcanaCost = Arcanus.constructArcanaMap(0, 0, 0, 0, 0);
+	public Object2DoubleArrayMap<PrimalArcana> getArcanaCost() {
+		Object2DoubleArrayMap<PrimalArcana> cumulativeArcanaCost = new Object2DoubleArrayMap<>();
 
 		for(PrimalArcana primalArcana : cumulativeArcanaCost.keySet()) {
 			for(SpellGroup group : groups)
@@ -120,7 +120,7 @@ public class Spell {
 	}
 
 	public String getArcanaCostAsString(PrimalArcana primalArcana) {
-		return Arcanus.format(getArcanaCost().get(primalArcana));
+		return Arcanus.format(getArcanaCost().getDouble(primalArcana));
 	}
 
 	public String getCoolDownAsString() {

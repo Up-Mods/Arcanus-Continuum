@@ -5,13 +5,13 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.spell.Spell;
 import dev.cammiescorner.arcanus.api.spell.Weight;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.util.Rectangle;
 import dev.cammiescorner.arcanus.client.gui.util.Action;
 import dev.cammiescorner.arcanus.client.gui.util.UndoRedoStack;
@@ -20,6 +20,7 @@ import dev.cammiescorner.arcanus.client.gui.widgets.UndoRedoButtonWidget;
 import dev.cammiescorner.arcanus.common.item.SpellScrollItem;
 import dev.cammiescorner.arcanus.common.menu.SpellcraftMenu;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundSaveBookDataPacket;
+import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
@@ -445,12 +446,12 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 		MutableComponent weight = Component.translatable(getWeight().translationKey()).withStyle(ChatFormatting.DARK_GREEN);
 		MutableComponent coolDown = (getCoolDown() > 0 ? Component.literal(Arcanus.format(getCoolDown() / 20d) + "s") : Component.translatable(SPELL_BOOK_INSTANT_COOL_DOWN)).withStyle(ChatFormatting.DARK_RED);
 
-		for(PrimalArcana primalArcana : PrimalArcana.values()) {
+		ArcanusArcana.primalArcana().forEach(primalArcana -> {
 			if(!arcana.equals(Component.empty()))
 				arcana.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
 			arcana.append(Component.literal(Arcanus.format(getArcanaCost(primalArcana))).withStyle(primalArcana.formatting()));
-		}
+		});
 
 		gui.drawString(font, arcana, 240 - font.width(arcana), 7, 0xffffff, false);
 		gui.drawString(font, weight, 240 - font.width(weight), 17, 0xffffff, false);
@@ -479,12 +480,12 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 
 					textList.add(knowsComponent ? component.getName() : Component.literal("???"));
 
-					for(PrimalArcana primalArcana : PrimalArcana.values()) {
+					ArcanusArcana.primalArcana().forEach(primalArcana -> {
 						if(!arcanaCost.equals(Component.empty()))
 							arcanaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
 						arcanaCost.append(Component.literal(Arcanus.format(getArcanaCost(primalArcana))).withStyle(primalArcana.formatting()));
-					}
+					});
 
 					textList.add(arcanaCost);
 
