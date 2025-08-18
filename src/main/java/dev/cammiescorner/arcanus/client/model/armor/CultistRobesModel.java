@@ -10,8 +10,8 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.LivingEntity;
 
-public class CultRobesModel<T extends LivingEntity> extends HumanoidModel<T> {
-	public static final ModelLayerLocation MODEL_LAYER = new ModelLayerLocation(Arcanus.id("cult_robes"), "main");
+public class CultistRobesModel<T extends LivingEntity> extends HumanoidModel<T> {
+	public static final ModelLayerLocation MODEL_LAYER = new ModelLayerLocation(Arcanus.id("cultist_robes"), "main");
 	public final ModelPart closedHood;
 	public final ModelPart cloak;
 	public final ModelPart openHood;
@@ -27,7 +27,7 @@ public class CultRobesModel<T extends LivingEntity> extends HumanoidModel<T> {
 	public final ModelPart rightShoe;
 	public final ModelPart leftShoe;
 
-	public CultRobesModel(ModelPart root) {
+	public CultistRobesModel(ModelPart root) {
 		super(root, RenderType::armorCutoutNoCull);
 		closedHood = head.getChild("closedHood");
 		cloak = body.getChild("cloak");

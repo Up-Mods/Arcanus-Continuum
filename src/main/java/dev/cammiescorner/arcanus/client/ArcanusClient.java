@@ -11,7 +11,8 @@ import dev.cammiescorner.arcanus.client.gui.overlay.FirstPersonCastingOverlay;
 import dev.cammiescorner.arcanus.client.gui.overlay.ArcanaBarOverlay;
 import dev.cammiescorner.arcanus.client.gui.overlay.StunOverlay;
 import dev.cammiescorner.arcanus.client.gui.screens.*;
-import dev.cammiescorner.arcanus.client.model.armor.CultRobesModel;
+import dev.cammiescorner.arcanus.client.model.armor.ArtificerArmorModel;
+import dev.cammiescorner.arcanus.client.model.armor.CultistRobesModel;
 import dev.cammiescorner.arcanus.client.model.armor.ArcanistRobesModel;
 import dev.cammiescorner.arcanus.client.model.block.SpellScrollModel;
 import dev.cammiescorner.arcanus.client.model.entity.living.OpossumModel;
@@ -21,6 +22,7 @@ import dev.cammiescorner.arcanus.client.model.feature.HaloModel;
 import dev.cammiescorner.arcanus.client.model.feature.SpellPatternModel;
 import dev.cammiescorner.arcanus.client.particle.CollapseParticle;
 import dev.cammiescorner.arcanus.client.plugin.StaffModelLoadingPlugin;
+import dev.cammiescorner.arcanus.client.renderer.armor.ArtificerArmorRenderer;
 import dev.cammiescorner.arcanus.client.renderer.armor.CultRobesRenderer;
 import dev.cammiescorner.arcanus.client.renderer.armor.ArcanistRobesRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.*;
@@ -103,7 +105,8 @@ public class ArcanusClient implements ClientEntryPoint {
 		MenuScreens.register(ArcanusMenus.ARCANE_WORKBENCH_MENU.get(), ArcaneWorkbenchScreen::new);
 
 		EntityModelLayerRegistry.registerModelLayer(ArcanistRobesModel.MODEL_LAYER, ArcanistRobesModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(CultRobesModel.MODEL_LAYER, CultRobesModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ArtificerArmorModel.MODEL_LAYER, ArtificerArmorModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(CultistRobesModel.MODEL_LAYER, CultistRobesModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(ArcanistModel.MODEL_LAYER, ArcanistModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(OpossumModel.MODEL_LAYER, OpossumModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(MagicLobModel.MODEL_LAYER, MagicLobModel::getTexturedModelData);
@@ -139,6 +142,7 @@ public class ArcanusClient implements ClientEntryPoint {
 
 		RegisterCustomArmorRenderersEvent.EVENT.register(event -> {
 			event.register(ArcanistRobesRenderer::new, ArcanusItems.ARCANIST_HAT, ArcanusItems.ARCANIST_ROBES, ArcanusItems.ARCANIST_PANTS, ArcanusItems.ARCANIST_BOOTS);
+			event.register(ArtificerArmorRenderer::new, ArcanusItems.ARTIFICER_HELMET, ArcanusItems.ARTIFICER_CHESTPLATE, ArcanusItems.ARTIFICER_LEGGINGS, ArcanusItems.ARTIFICER_BOOTS);
 			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, CULTIST_ROBES), ArcanusItems.CULTIST_HOOD, ArcanusItems.CULTIST_ROBES, ArcanusItems.CULTIST_PANTS, ArcanusItems.CULTIST_BOOTS);
 		});
 

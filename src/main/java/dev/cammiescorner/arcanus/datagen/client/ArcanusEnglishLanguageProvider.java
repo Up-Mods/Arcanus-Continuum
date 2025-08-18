@@ -45,6 +45,10 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.ARCANIST_ROBES, "Arcanist Robes");
 		builder.item(ArcanusItems.ARCANIST_PANTS, "Arcanist Pants");
 		builder.item(ArcanusItems.ARCANIST_BOOTS, "Arcanist Boots");
+		builder.item(ArcanusItems.ARTIFICER_HELMET, "Artificer Helmet");
+		builder.item(ArcanusItems.ARTIFICER_CHESTPLATE, "Artificer Chestplate");
+		builder.item(ArcanusItems.ARTIFICER_LEGGINGS, "Artificer Leggings");
+		builder.item(ArcanusItems.ARTIFICER_BOOTS, "Artificer Boots");
 		builder.item(ArcanusItems.CULTIST_HOOD, "Cultist Hood");
 		builder.item(ArcanusItems.CULTIST_ROBES, "Cultist Robes");
 		builder.item(ArcanusItems.CULTIST_PANTS, "Cultist Pants");
