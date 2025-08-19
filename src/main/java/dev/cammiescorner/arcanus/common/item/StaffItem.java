@@ -3,7 +3,6 @@ package dev.cammiescorner.arcanus.common.item;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.data_component.StaffParts;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
-import dev.cammiescorner.arcanus.common.util.StaffType;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -12,8 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 public class StaffItem extends Item {
-	public final StaffType staffType = StaffType.STAFF;
-
 	public StaffItem() {
 		super(new Item.Properties().stacksTo(1).attributes(createAttributes()).component(ArcanusDataComponents.STAFF_PARTS.get(), StaffParts.defaultInstance()));
 	}

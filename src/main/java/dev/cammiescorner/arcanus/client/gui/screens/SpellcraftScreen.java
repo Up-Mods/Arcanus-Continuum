@@ -580,7 +580,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 	}
 
 	public double getArcanaCost(PrimalArcana primalArcana) {
-		return getSpell().getArcanaCost().get(primalArcana);
+		return getSpell().getArcanaCost().getDouble(primalArcana);
 	}
 
 	public int getCoolDown() {

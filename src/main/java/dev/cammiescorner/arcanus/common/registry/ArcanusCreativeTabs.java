@@ -60,6 +60,8 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusItems.CULTIST_ROBES.get());
 		entries.accept(ArcanusItems.CULTIST_PANTS.get());
 		entries.accept(ArcanusItems.CULTIST_BOOTS.get());
+
+		// staff caps & cores
 	}).build());
 
 	public static final RegistrySupplier<CreativeModeTab> SCROLLS = CREATIVE_TABS.register("arcanus_scrolls", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_SCROLLS)).icon(() -> new ItemStack(ArcanusItems.SCROLL_OF_KNOWLEDGE.get())).displayItems((params, entries) -> {

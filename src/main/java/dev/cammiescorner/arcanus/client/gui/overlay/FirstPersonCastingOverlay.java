@@ -54,7 +54,6 @@ public class FirstPersonCastingOverlay {
 
 					poseStack.scale(scale, scale, 0);
 					poseStack.translate(-8.5, -8.5, 0);
-					// TODO inline these draw calls
 					drawTexture(vertex, poseStack, color, 0, 0, i * 34, pattern == Pattern.LEFT ? 0 : 24, 17, 17, 128, 48);
 					poseStack.popPose();
 				}

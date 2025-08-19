@@ -35,12 +35,6 @@ public class ArcanaFruitBlock extends Block implements BlockItemProvider, Boneme
 	}
 
 	@Override
-	protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		// TODO biome checks
-		return super.canSurvive(state, level, pos);
-	}
-
-	@Override
 	protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if(!canSurvive(state, level, pos))
 			destroy(level, pos, state);

@@ -5,12 +5,12 @@
   "texture_size": [32, 32],
 	"display": {
 		"thirdperson_righthand": {
-			"rotation":    [5, 0, 0],
-			"translation": [0, 1, 2]
+			"rotation":    [15, 0, 0],
+			"translation": [0, 0, 2]
 		},
 		"thirdperson_lefthand": {
-			"rotation":    [5, 0, 0],
-			"translation": [0, 1, 2]
+			"rotation":    [15, 0, 0],
+			"translation": [0, 0, 2]
 		},
 		"firstperson_righthand": {
 			"translation": [   3,    3,    0],

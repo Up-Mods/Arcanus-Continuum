@@ -72,7 +72,7 @@ public class ArcanaBarOverlay {
 
 			// render arcana bars
 			List<PrimalArcana> list = ArcanusArcana.primalArcana().toList();
-			float angleOffsetDegrees = ArcanusConfig.ClientStuff.rightSideArcanaBars.mirror() ? -27f : 27f; // TODO base off of size of primal arcana list
+			float angleOffsetDegrees = ArcanusConfig.ClientStuff.rightSideArcanaBars.mirror() ? -(135f / list.size()) : (135f / list.size());
 			float startingAngleDegrees;
 
 			if(ArcanusConfig.ClientStuff.arcanaBarsOnTop) {

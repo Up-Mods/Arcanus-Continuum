@@ -306,8 +306,8 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		return entity.getComponent(MAGIC_ORB_COMPONENT).getOrbId();
 	}
 
-	public static void setMagicOrbArcanaLock(LivingEntity entity, UUID orbId, int strength) {
-		entity.getComponent(MAGIC_ORB_COMPONENT).setArcanaLock(orbId, strength);
+	public static void setMagicOrb(LivingEntity entity, UUID orbId) {
+		entity.getComponent(MAGIC_ORB_COMPONENT).setOrb(orbId);
 	}
 
 	public static void setPortalCoolDown(Entity entity, int cooldownTicks) {

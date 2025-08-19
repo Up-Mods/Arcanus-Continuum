@@ -8,9 +8,8 @@ import dev.cammiescorner.arcanus.client.model.feature.HaloModel;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
-import dev.upcraft.sparkweave.api.color.Color;
-import dev.cammiescorner.arcanus.common.util.StaffType;
 import dev.cammiescorner.arcanus.common.util.supporters.HaloData;
+import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.LightTexture;
@@ -46,7 +45,7 @@ public class HaloLayerRenderer<T extends Player, M extends EntityModel<T>> exten
 
 				poseStack.pushPose();
 
-				if(ArcanusComponents.isCasting(player) && player.getMainHandItem().getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF)
+				if(ArcanusComponents.isCasting(player) && player.getMainHandItem().getItem() instanceof StaffItem)
 					poseStack.mulPose(Axis.YP.rotationDegrees(player.getMainArm() == HumanoidArm.RIGHT ? 65 : -65));
 
 				model.renderToBuffer(poseStack, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());

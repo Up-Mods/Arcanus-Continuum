@@ -204,7 +204,7 @@ public class MagicOrb extends Entity implements Targetable {
 			this.casterId = caster.getUUID();
 			this.entityData.set(OWNER_ID, caster.getId());
 
-			ArcanusComponents.setMagicOrbArcanaLock(caster, getUUID(), effects.size());
+			ArcanusComponents.setMagicOrb(caster, getUUID());
 			ArcanusHelper.copyMagicColor(this, caster);
 		}
 

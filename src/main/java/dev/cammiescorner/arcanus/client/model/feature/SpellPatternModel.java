@@ -6,7 +6,6 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import dev.cammiescorner.arcanus.common.util.StaffType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
@@ -83,7 +82,7 @@ public class SpellPatternModel<T extends Player> extends HumanoidModel<T> {
 		if(player.isCrouching()) {
 			base.y = 4.2f;
 
-			if(ArcanusComponents.isCasting(player) && player.getMainHandItem().getItem() instanceof StaffItem staff && staff.staffType == StaffType.STAFF) {
+			if(ArcanusComponents.isCasting(player) && player.getMainHandItem().getItem() instanceof StaffItem) {
 				base.y = 8;
 				base.x = 4;
 				base.z = 3;

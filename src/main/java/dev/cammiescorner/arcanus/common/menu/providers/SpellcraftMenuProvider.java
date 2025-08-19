@@ -1,13 +1,15 @@
 package dev.cammiescorner.arcanus.common.menu.providers;
 
 import commonnetwork.api.Network;
-import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundUpdateSpellcraftScreenPacket;
 import dev.cammiescorner.arcanus.common.menu.SpellcraftMenu;
+import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundUpdateSpellcraftScreenPacket;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -16,8 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-// FIXME convert to ExtendedScreenHandlerFactory
-public class SpellcraftMenuProvider implements MenuProvider {
+public class SpellcraftMenuProvider implements ExtendedScreenHandlerFactory<SpellcraftMenuProvider.MenuData> {
 	private final Level level;
 	private final ItemStack stack;
 	private final BlockPos pos;
@@ -41,5 +42,14 @@ public class SpellcraftMenuProvider implements MenuProvider {
 			Network.getNetworkHandler().sendToClient(new ClientboundUpdateSpellcraftScreenPacket(stack, pos), serverPlayer);
 
 		return new SpellcraftMenu(i, container, ContainerLevelAccess.create(level, pos));
+	}
+
+	@Override
+	public MenuData getScreenOpeningData(ServerPlayer player) {
+		return new MenuData(stack);
+	}
+
+	public record MenuData(ItemStack stack) {
+		public static final StreamCodec<RegistryFriendlyByteBuf, SpellcraftMenuProvider.MenuData> STREAM_CODEC = ItemStack.STREAM_CODEC.map(SpellcraftMenuProvider.MenuData::new, SpellcraftMenuProvider.MenuData::stack);
 	}
 }

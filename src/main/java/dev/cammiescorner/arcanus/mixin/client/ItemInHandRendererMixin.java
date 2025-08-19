@@ -2,15 +2,12 @@ package dev.cammiescorner.arcanus.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.util.ClientUtils;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
-import dev.cammiescorner.arcanus.common.util.StaffType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
@@ -38,40 +35,13 @@ public abstract class ItemInHandRendererMixin {
 	private void animateStaff(float tickDelta, PoseStack poseStack, MultiBufferSource.BufferSource vertexConsumers, LocalPlayer player, int light, CallbackInfo info) {
 		boolean isCasting = ((ClientUtils) minecraft).isCasting();
 
-		if(minecraft.player != null && isCasting && mainHandItem.getItem() instanceof StaffItem item) {
+		if(minecraft.player != null && isCasting && mainHandItem.getItem() instanceof StaffItem) {
 			double time = minecraft.player.tickCount + tickDelta;
 
-			if(item.staffType == StaffType.STAFF) {
-				poseStack.mulPose(Axis.XP.rotationDegrees(-65f));
-				poseStack.mulPose(Axis.YP.rotationDegrees((float) Math.cos(time * 0.25)));
-				poseStack.mulPose(Axis.ZP.rotationDegrees(20f + (float) Math.sin(time * 0.25)));
-				poseStack.translate(0.1, 1.2, -0.4);
-			}
-			else if(item.staffType == StaffType.BOOK && (!ArcanusClient.FIRST_PERSON_MODEL_ENABLED.getAsBoolean() || ArcanusClient.FIRST_PERSON_SHOW_HANDS.getAsBoolean())) {
-				float swingProgress = player.getAttackAnim(tickDelta);
-				float equipProgress = 1f - Mth.lerp(tickDelta, oMainHandHeight, mainHandHeight);
-
-				poseStack.pushPose();
-				poseStack.mulPose(Axis.YP.rotationDegrees((float) Math.cos(time * 0.25)));
-				poseStack.mulPose(Axis.ZP.rotationDegrees((float) Math.sin(time * 0.25)));
-				renderPlayerArm(poseStack, vertexConsumers, light, equipProgress, swingProgress, player.getMainArm().getOpposite());
-				poseStack.popPose();
-			}
-			else if(item.staffType == StaffType.WAND) {
-				poseStack.mulPose(Axis.XP.rotationDegrees(-65f));
-				poseStack.mulPose(Axis.YP.rotationDegrees((float) Math.cos(time * 0.25)));
-				poseStack.mulPose(Axis.ZP.rotationDegrees(20f + (float) Math.sin(time * 0.25)));
-				poseStack.translate(0.1, 1, -0.4);
-			}
-			else if(item.staffType == StaffType.GAUNTLET) {
-				poseStack.mulPose(Axis.YP.rotationDegrees((float) Math.cos(time * 0.25)));
-				poseStack.mulPose(Axis.ZP.rotationDegrees((float) Math.sin(time * 0.25)));
-			}
-			else if(item.staffType == StaffType.GUN) {
-				poseStack.mulPose(Axis.YP.rotationDegrees((float) Math.cos(time * 0.25)));
-				poseStack.mulPose(Axis.ZP.rotationDegrees((float) Math.sin(time * 0.25)));
-				poseStack.translate(-0.465, 0, 0);
-			}
+			poseStack.mulPose(Axis.XP.rotationDegrees(-65f));
+			poseStack.mulPose(Axis.YP.rotationDegrees((float) Math.cos(time * 0.25)));
+			poseStack.mulPose(Axis.ZP.rotationDegrees(20f + (float) Math.sin(time * 0.25)));
+			poseStack.translate(0.1, 1.2, -0.4);
 		}
 	}
 }

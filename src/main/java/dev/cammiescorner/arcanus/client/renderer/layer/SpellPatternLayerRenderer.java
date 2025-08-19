@@ -9,7 +9,6 @@ import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.color.Color;
-import dev.cammiescorner.arcanus.common.util.StaffType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.LightTexture;
@@ -46,23 +45,9 @@ public class SpellPatternLayerRenderer<T extends Player, M extends EntityModel<T
 		model.setupAnim(player, limbAngle, limbSwingAmount, ageInTicks, headYaw, headPitch);
 		model.showMagicCircles(ArcanusComponents.getPattern(player));
 
-		if(ArcanusComponents.isCasting(player) && stack.getItem() instanceof StaffItem item) {
-			if(item.staffType == StaffType.STAFF) {
-				poseStack.translate(player.getMainArm() == HumanoidArm.RIGHT ? -0.35 : 0.35, 0, 0.05);
-				poseStack.mulPose(Axis.YP.rotationDegrees(player.getMainArm() == HumanoidArm.RIGHT ? 65 : -65));
-			}
-			else if(item.staffType == StaffType.WAND) {
-				poseStack.translate(player.getMainArm() == HumanoidArm.RIGHT ? -0.35 : 0.35, -0.05, -0.1);
-			}
-			else if(item.staffType == StaffType.GAUNTLET) {
-				poseStack.translate(player.getMainArm() == HumanoidArm.RIGHT ? -0.35 : 0.35, -0.05, 0.4);
-			}
-			else if(item.staffType == StaffType.BOOK) {
-				poseStack.translate(player.getMainArm() == HumanoidArm.RIGHT ? 0.35 : -0.35, -0.05, 0.4);
-			}
-			else if(item.staffType == StaffType.GUN) {
-				poseStack.translate(0, -0.15, 0.15);
-			}
+		if(ArcanusComponents.isCasting(player) && stack.getItem() instanceof StaffItem) {
+			poseStack.translate(player.getMainArm() == HumanoidArm.RIGHT ? -0.35 : 0.35, 0, 0.05);
+			poseStack.mulPose(Axis.YP.rotationDegrees(player.getMainArm() == HumanoidArm.RIGHT ? 65 : -65));
 		}
 
 		poseStack.pushPose();
