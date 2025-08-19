@@ -4,7 +4,6 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
-import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
 import dev.cammiescorner.arcanus.common.block.entities.AbstractMagicBlockEntity;
 import dev.cammiescorner.arcanus.common.component.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.component.chunk.WardedBlocksComponent;
@@ -59,7 +58,6 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 	public static final ComponentKey<LastCastTimeComponent> LAST_CAST_TIME_COMPONENT = createComponent("last_cast_time", LastCastTimeComponent.class);
 	public static final ComponentKey<StunComponent> STUN_COMPONENT = createComponent("stun", StunComponent.class);
 	public static final ComponentKey<BoltTargetComponent> BOLT_TARGET = createComponent("bolt_target", BoltTargetComponent.class);
-	public static final ComponentKey<SpellShapeComponent> SPELL_SHAPE = createComponent("spell_shape", SpellShapeComponent.class);
 	public static final ComponentKey<PocketDimensionPortalComponent> POCKET_DIMENSION_PORTAL_COMPONENT = createComponent("pocket_dimension_portal", PocketDimensionPortalComponent.class);
 	public static final ComponentKey<StockpileOrbsComponent> STOCKPILE_ORB_COMPONENT = createComponent("stockpile_orbs", StockpileOrbsComponent.class);
 	public static final ComponentKey<MagicOrbComponent> MAGIC_ORB_COMPONENT = createComponent("magic_orb", MagicOrbComponent.class);
@@ -268,14 +266,6 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 
 	public static void setBoltAge(LivingEntity entity, int timer) {
 		BOLT_TARGET.get(entity).setAge(timer);
-	}
-
-	public static SpellShape getSpellShape(Entity entity) {
-		return SPELL_SHAPE.get(entity).getSpellShape();
-	}
-
-	public static void setSpellShape(Entity entity, SpellShape shape) {
-		SPELL_SHAPE.get(entity).setSpellShape(shape);
 	}
 
 	public static void createPortal(Player player, ServerLevel world, Vec3 pos, double pullStrength) {

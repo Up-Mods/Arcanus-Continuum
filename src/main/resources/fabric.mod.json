@@ -64,7 +64,6 @@
       "${mod_id}:stun",
       "${mod_id}:magic_color",
       "${mod_id}:bolt_target",
-      "${mod_id}:spell_shape",
       "${mod_id}:pocket_dimension_portal",
       "${mod_id}:stockpile_orbs",
       "${mod_id}:magic_orb",
