@@ -27,7 +27,6 @@ public class ArcanusCreativeTabs {
 		entries.accept(Blocks.LECTERN);
 		entries.accept(ArcanusItems.ARCANEUM_INGOT.get());
 		entries.accept(ArcanusItems.ARCANEUM_NUGGET.get());
-		entries.accept(ArcanusBlocks.CHALK.get());
 		entries.accept(ArcanusBlocks.MAGIC_DOOR.get());
 		entries.accept(ArcanusBlocks.ARCANE_WORKBENCH.get());
 		entries.accept(ArcanusBlocks.ARCANE_PLINTH.get());

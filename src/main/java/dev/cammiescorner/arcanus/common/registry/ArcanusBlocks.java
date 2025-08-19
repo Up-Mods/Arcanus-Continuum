@@ -17,7 +17,6 @@ public class ArcanusBlocks {
 	public static final RegistrySupplier<Block> ARCANE_PLINTH = BLOCKS.register("arcane_plinth", () -> new ArcanePlinthBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILES).noOcclusion().pushReaction(PushReaction.BLOCK)));
 	public static final RegistrySupplier<Block> PEDESTAL = BLOCKS.register("pedestal", () -> new PedestalBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILES).noOcclusion().pushReaction(PushReaction.BLOCK)));
 	public static final RegistrySupplier<Block> JAR = BLOCKS.register("jar", JarBlock::new);
-	public static final RegistrySupplier<Block> CHALK = BLOCKS.register("chalk", ChalkBlock::new);
 	public static final RegistrySupplier<Block> IGNIS_FRUIT = BLOCKS.register("ignis_fruit", () -> new ArcanaFruitBlock(ArcanusArcana.IGNIS));
 	public static final RegistrySupplier<Block> TERRA_FRUIT = BLOCKS.register("terra_fruit", () -> new ArcanaFruitBlock(ArcanusArcana.TERRA));
 	public static final RegistrySupplier<Block> AQUA_FRUIT = BLOCKS.register("aqua_fruit", () -> new ArcanaFruitBlock(ArcanusArcana.AQUA));

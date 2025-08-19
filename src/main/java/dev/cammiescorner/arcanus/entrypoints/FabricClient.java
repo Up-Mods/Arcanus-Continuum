@@ -65,8 +65,7 @@ public class FabricClient implements ClientModInitializer {
 
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(),
 			ArcanusBlocks.MAGIC_DOOR.get(),
-			ArcanusBlocks.ARCANE_WORKBENCH.get(),
-			ArcanusBlocks.CHALK.get()
+			ArcanusBlocks.ARCANE_WORKBENCH.get()
 		);
 
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(),

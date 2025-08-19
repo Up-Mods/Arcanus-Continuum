@@ -1,6 +1,0 @@
-{
-  "parent": "arcanus:block/chalk",
-  "textures": {
-    "rune": "arcanus:block/chalk/rune_nature"
-  }
-}
