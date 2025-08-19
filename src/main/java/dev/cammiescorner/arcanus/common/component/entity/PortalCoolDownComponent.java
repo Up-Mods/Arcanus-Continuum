@@ -2,17 +2,17 @@ package dev.cammiescorner.arcanus.common.component.entity;
 
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.Entity;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.player.Player;
 
 public class PortalCoolDownComponent implements AutoSyncedComponent, ServerTickingComponent {
-	private final Player player;
+	private final Entity entity;
 	private int coolDown = 0;
 
-	public PortalCoolDownComponent(Player player) {
-		this.player = player;
+	public PortalCoolDownComponent(Entity entity) {
+		this.entity = entity;
 	}
 
 	@Override
@@ -28,12 +28,12 @@ public class PortalCoolDownComponent implements AutoSyncedComponent, ServerTicki
 	@Override
 	public void serverTick() {
 		if(coolDown > 0 && --coolDown == 0)
-			ArcanusComponents.PORTAL_COOL_DOWN_COMPONENT.sync(player);
+			ArcanusComponents.PORTAL_COOL_DOWN_COMPONENT.sync(entity);
 	}
 
 	public void setCoolDown(int coolDown) {
 		this.coolDown = coolDown;
-		ArcanusComponents.PORTAL_COOL_DOWN_COMPONENT.sync(player);
+		ArcanusComponents.PORTAL_COOL_DOWN_COMPONENT.sync(entity);
 	}
 
 	public boolean hasCoolDown() {

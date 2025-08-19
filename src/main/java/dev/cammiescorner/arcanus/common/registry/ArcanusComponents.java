@@ -87,7 +87,7 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		registry.beginRegistration(LivingEntity.class, BOLT_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BoltTargetComponent::new);
 		registry.beginRegistration(LivingEntity.class, STOCKPILE_ORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(StockpileOrbsComponent::new);
 		registry.beginRegistration(LivingEntity.class, MAGIC_ORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(MagicOrbComponent::new);
-		registry.beginRegistration(Player.class, PORTAL_COOL_DOWN_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PortalCoolDownComponent::new);
+		registry.beginRegistration(Entity.class, PORTAL_COOL_DOWN_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PortalCoolDownComponent::new);
 
 		List.of(
 			StockpileOrb.class,
