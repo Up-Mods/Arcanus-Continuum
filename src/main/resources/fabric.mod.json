@@ -84,6 +84,12 @@
     }
   },
   "entrypoints": {
+    "main": [
+      "dev.cammiescorner.arcanus.entrypoints.FabricMain"
+    ],
+    "client": [
+      "dev.cammiescorner.arcanus.entrypoints.FabricClient"
+    ],
     "cardinal-components": [
       "dev.cammiescorner.arcanus.common.registry.ArcanusComponents"
     ],

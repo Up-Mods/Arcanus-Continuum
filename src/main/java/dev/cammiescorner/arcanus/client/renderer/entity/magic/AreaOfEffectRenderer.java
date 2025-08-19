@@ -26,8 +26,8 @@ public class AreaOfEffectRenderer extends EntityRenderer<AreaOfEffect> {
 	}
 
 	@Override
-	public void render(AreaOfEffect entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
-		super.render(entity, yaw, tickDelta, matrices, vertices, light);
+	public void render(AreaOfEffect entity, float yaw, float tickDelta, PoseStack poseStack, MultiBufferSource vertices, int light) {
+		super.render(entity, yaw, tickDelta, poseStack, vertices, light);
 		Color color = ArcanusHelper.getMagicColor(entity);
 		float alpha = 1 - (Mth.clamp(entity.getTrueAge() - (ArcanusConfig.SpellShapes.AOEShapeProperties.baseLifeSpan * 0.9f), 0f, 10f) / 10f);
 		float r = color.redF() * alpha;
@@ -35,14 +35,14 @@ public class AreaOfEffectRenderer extends EntityRenderer<AreaOfEffect> {
 		float b = color.blueF() * alpha;
 		color = Color.fromFloatsRGB(r, g, b);
 
-		matrices.pushPose();
-		matrices.mulPose(Axis.XP.rotationDegrees(180));
-		matrices.translate(0, -1.51, 0);
+		poseStack.pushPose();
+		poseStack.mulPose(Axis.XP.rotationDegrees(180));
+		poseStack.translate(0, -1.51, 0);
 		model.base.yRot = (entity.tickCount + tickDelta) * 0.015f;
 		model.pillar.yRot = -model.base.yRot;
 		model.walls.yRot = -(entity.tickCount + tickDelta) * 0.035f;
-		model.renderToBuffer(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), light, OverlayTexture.NO_OVERLAY, color.asIntARGB());
-		matrices.popPose();
+		model.renderToBuffer(poseStack, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), light, OverlayTexture.NO_OVERLAY, color.asIntARGB());
+		poseStack.popPose();
 	}
 
 	@Override

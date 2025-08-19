@@ -7,32 +7,15 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.client.gui.overlay.FirstPersonCastingOverlay;
-import dev.cammiescorner.arcanus.client.gui.overlay.ArcanaBarOverlay;
-import dev.cammiescorner.arcanus.client.gui.overlay.StunOverlay;
 import dev.cammiescorner.arcanus.client.gui.screens.*;
-import dev.cammiescorner.arcanus.client.model.armor.ArtificerArmorModel;
-import dev.cammiescorner.arcanus.client.model.armor.CultistRobesModel;
-import dev.cammiescorner.arcanus.client.model.armor.ArcanistRobesModel;
-import dev.cammiescorner.arcanus.client.model.block.SpellScrollModel;
-import dev.cammiescorner.arcanus.client.model.entity.living.OpossumModel;
-import dev.cammiescorner.arcanus.client.model.entity.living.ArcanistModel;
-import dev.cammiescorner.arcanus.client.model.entity.magic.*;
-import dev.cammiescorner.arcanus.client.model.feature.HaloModel;
-import dev.cammiescorner.arcanus.client.model.feature.SpellPatternModel;
-import dev.cammiescorner.arcanus.client.particle.CollapseParticle;
-import dev.cammiescorner.arcanus.client.plugin.StaffModelLoadingPlugin;
+import dev.cammiescorner.arcanus.client.renderer.armor.ArcanistRobesRenderer;
 import dev.cammiescorner.arcanus.client.renderer.armor.ArtificerArmorRenderer;
 import dev.cammiescorner.arcanus.client.renderer.armor.CultRobesRenderer;
-import dev.cammiescorner.arcanus.client.renderer.armor.ArcanistRobesRenderer;
 import dev.cammiescorner.arcanus.client.renderer.block.*;
+import dev.cammiescorner.arcanus.client.renderer.entity.living.ArcanistRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.living.CultistRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.living.OpossumRenderer;
-import dev.cammiescorner.arcanus.client.renderer.entity.living.ArcanistRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.magic.*;
-import dev.cammiescorner.arcanus.client.renderer.world.WardedBlockRenderer;
-import dev.cammiescorner.arcanus.client.util.JarRenderData;
-import dev.cammiescorner.arcanus.common.block.ArcanaFruitBlock;
 import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.common.compat.FirstPersonCompat;
 import dev.cammiescorner.arcanus.common.entity.living.Cultist;
@@ -45,13 +28,8 @@ import dev.upcraft.sparkweave.api.client.event.RegisterLecternItemRendererEvent;
 import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.entrypoint.ClientEntryPoint;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.*;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.Camera;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.LightTexture;
@@ -69,20 +47,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
 import java.util.Map;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-@Environment(EnvType.CLIENT)
 @AutoService(ClientEntryPoint.class)
 public class ArcanusClient implements ClientEntryPoint {
 	public static final ResourceLocation WHITE = ResourceLocation.withDefaultNamespace("textures/misc/white.png");
-	private static final ResourceLocation CULTIST_ROBES = Arcanus.id("textures/entity/armor/cultist_robes.png");
-	private static final Map<PlayerSkin.Model, EntityRendererProvider<Cultist>> CULTIST_PROVIDERS = Map.of(
+	public static final Map<PlayerSkin.Model, EntityRendererProvider<Cultist>> CULTIST_PROVIDERS = Map.of(
 		PlayerSkin.Model.WIDE,
 		context -> new CultistRenderer<>(context, false),
 		PlayerSkin.Model.SLIM,
@@ -91,7 +67,6 @@ public class ArcanusClient implements ClientEntryPoint {
 	public static BooleanSupplier FIRST_PERSON_MODEL_ENABLED = () -> false;
 	public static BooleanSupplier FIRST_PERSON_SHOW_HANDS = () -> true;
 	public static boolean castingSpeedHasCoolDown;
-	private final Minecraft client = Minecraft.getInstance();
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
@@ -103,24 +78,6 @@ public class ArcanusClient implements ClientEntryPoint {
 		MenuScreens.register(ArcanusMenus.SPELL_BOOK_MENU.get(), SpellBookScreen::new);
 		MenuScreens.register(ArcanusMenus.BOOK_POUCH_MENU.get(), BookPouchScreen::new);
 		MenuScreens.register(ArcanusMenus.ARCANE_WORKBENCH_MENU.get(), ArcaneWorkbenchScreen::new);
-
-		EntityModelLayerRegistry.registerModelLayer(ArcanistRobesModel.MODEL_LAYER, ArcanistRobesModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(ArtificerArmorModel.MODEL_LAYER, ArtificerArmorModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(CultistRobesModel.MODEL_LAYER, CultistRobesModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(ArcanistModel.MODEL_LAYER, ArcanistModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(OpossumModel.MODEL_LAYER, OpossumModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(MagicLobModel.MODEL_LAYER, MagicLobModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(MagicProjectileModel.MODEL_LAYER, MagicProjectileModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(MagicRuneModel.MODEL_LAYER, MagicRuneModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(AreaOfEffectModel.MODEL_LAYER, AreaOfEffectModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(SpellPatternModel.MODEL_LAYER, SpellPatternModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(HaloModel.MODEL_LAYER, HaloModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(EntangledOrbModel.MODEL_LAYER, EntangledOrbModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(PocketDimensionPortalModel.MODEL_LAYER, PocketDimensionPortalModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(SpatialRiftSigilModel.MODEL_LAYER, SpatialRiftSigilModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(AggressorbModel.MODEL_LAYER, AggressorbModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(TemporalDilationFieldModel.MODEL_LAYER, TemporalDilationFieldModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(SpellScrollModel.MODEL_LAYER, SpellScrollModel::getTexturedModelData);
 
 		RegisterEntityRenderersEvent.EVENT.register(event -> {
 			event.registerRenderer(ArcanusEntities.ARCANIST, ArcanistRenderer::new);
@@ -143,28 +100,8 @@ public class ArcanusClient implements ClientEntryPoint {
 		RegisterCustomArmorRenderersEvent.EVENT.register(event -> {
 			event.register(ArcanistRobesRenderer::new, ArcanusItems.ARCANIST_HAT, ArcanusItems.ARCANIST_ROBES, ArcanusItems.ARCANIST_PANTS, ArcanusItems.ARCANIST_BOOTS);
 			event.register(ArtificerArmorRenderer::new, ArcanusItems.ARTIFICER_HELMET, ArcanusItems.ARTIFICER_CHESTPLATE, ArcanusItems.ARTIFICER_LEGGINGS, ArcanusItems.ARTIFICER_BOOTS);
-			event.register((livingEntity, context, layerParent) -> new CultRobesRenderer(context, CULTIST_ROBES), ArcanusItems.CULTIST_HOOD, ArcanusItems.CULTIST_ROBES, ArcanusItems.CULTIST_PANTS, ArcanusItems.CULTIST_BOOTS);
+			event.register(CultRobesRenderer::new, ArcanusItems.CULTIST_HOOD, ArcanusItems.CULTIST_ROBES, ArcanusItems.CULTIST_PANTS, ArcanusItems.CULTIST_BOOTS);
 		});
-
-		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE.get(), CollapseParticle.Factory::new);
-
-		ModelLoadingPlugin.register(new StaffModelLoadingPlugin());
-
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(),
-			ArcanusBlocks.MAGIC_DOOR.get(),
-			ArcanusBlocks.ARCANE_WORKBENCH.get(),
-			ArcanusBlocks.CHALK.get()
-		);
-
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(),
-			ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get(),
-			ArcanusBlocks.JAR.get(),
-			ArcanusBlocks.IGNIS_FRUIT.get(),
-			ArcanusBlocks.TERRA_FRUIT.get(),
-			ArcanusBlocks.AQUA_FRUIT.get(),
-			ArcanusBlocks.AER_FRUIT.get(),
-			ArcanusBlocks.AETHER_FRUIT.get()
-		);
 
 		BlockEntityRenderers.register(ArcanusBlockEntities.MAGIC_BLOCK.get(), MagicBlockEntityRenderer.factory(ArcanusHelper::getMagicColor));
 		BlockEntityRenderers.register(ArcanusBlockEntities.SPATIAL_RIFT_EXIT.get(), SpatialRiftExitBlockEntityRenderer::new);
@@ -176,52 +113,9 @@ public class ArcanusClient implements ClientEntryPoint {
 			event.registerRenderer(LecternSpellScrollRenderer::new, ArcanusItems.SPELL_SCROLL);
 		});
 
-		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? DyedItemColor.getOrDefault(stack, 0xff52392a) : -1,
-			ArcanusItems.ARCANIST_HAT.get(),
-			ArcanusItems.ARCANIST_ROBES.get(),
-			ArcanusItems.ARCANIST_PANTS.get(),
-			ArcanusItems.ARCANIST_BOOTS.get(),
-			ArcanusItems.SPELL_BOOK.get()
-		);
-
-		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && state.getBlock() instanceof ArcanaFruitBlock arcanaFruit ? arcanaFruit.getArcanaType().color().asIntARGB() : 0xffffffff,
-			ArcanusBlocks.IGNIS_FRUIT.get(),
-			ArcanusBlocks.TERRA_FRUIT.get(),
-			ArcanusBlocks.AQUA_FRUIT.get(),
-			ArcanusBlocks.AER_FRUIT.get(),
-			ArcanusBlocks.AETHER_FRUIT.get()
-		);
-
-		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && tintGetter.getBlockEntityRenderData(pos) instanceof JarRenderData(Color color) ? color.asIntARGB() : 0xffffffff,
-			ArcanusBlocks.JAR.get()
-		);
-
 		RegisterItemPropertiesEvent.EVENT.register(event -> {
 			for(Supplier<Item> itemSupplier : ArcanusItems.HOOD_ITEMS)
 				event.register(itemSupplier, Arcanus.id("hood_down"), (stack, level, entity, seed) -> stack.getOrDefault(ArcanusDataComponents.HOOD_DOWN.get(), false) ? 1f : 0f);
-		});
-
-		WorldRenderEvents.AFTER_ENTITIES.register(context -> {
-			if(!context.camera().isDetached() && !FIRST_PERSON_MODEL_ENABLED.getAsBoolean())
-				renderFirstPersonBolt(context);
-		});
-
-		WorldRenderEvents.BEFORE_BLOCK_OUTLINE.register((context, outlineContext) -> {
-			LocalPlayer player = client.player;
-			MultiBufferSource bufferSource = context.consumers();
-
-			if(player != null && bufferSource != null)
-				WardedBlockRenderer.render(context.matrixStack(), bufferSource, player, context.camera().getPosition());
-
-			return true;
-		});
-
-		HudRenderCallback.EVENT.register((gui, tickDelta) -> {
-			if(client.player != null && !client.player.isSpectator() && !client.options.hideGui) {
-				FirstPersonCastingOverlay.render(gui, tickDelta, client.player);
-				StunOverlay.render(gui, tickDelta, client.player);
-				ArcanaBarOverlay.render(gui, tickDelta, client.player);
-			}
 		});
 	}
 
@@ -238,7 +132,7 @@ public class ArcanusClient implements ClientEntryPoint {
 		return builder.build();
 	}
 
-	public static void renderBolts(LivingEntity entity, Vec3 startPos, PoseStack matrices, MultiBufferSource vertices) {
+	public static void renderBolts(LivingEntity entity, Vec3 startPos, PoseStack poseStack, MultiBufferSource vertices) {
 		if(ArcanusComponents.shouldRenderBolt(entity)) {
 			VertexConsumer vertex = vertices.getBuffer(getMagicCircles(WHITE));
 			RandomSource random = RandomSource.create((entity.tickCount + entity.getId()) / 2);
@@ -247,14 +141,14 @@ public class ArcanusClient implements ClientEntryPoint {
 			Color color = ArcanusHelper.getMagicColor(entity);
 			int steps = (int) (startPos.distanceTo(endPos) * 5);
 
-			renderBolt(matrices, vertex, random, startPos, endPos, steps, 0, true, color.redF(), color.greenF(), color.blueF(), OverlayTexture.NO_OVERLAY, LightTexture.FULL_BRIGHT);
+			renderBolt(poseStack, vertex, random, startPos, endPos, steps, 0, true, color.redF(), color.greenF(), color.blueF(), OverlayTexture.NO_OVERLAY, LightTexture.FULL_BRIGHT);
 		}
 	}
 
-	private static void renderBolt(PoseStack matrices, VertexConsumer vertex, RandomSource random, Vec3 startPos, Vec3 endPos, int steps, int currentStep, boolean recurse, float r, float g, float b, int overlay, int light) {
+	public static void renderBolt(PoseStack poseStack, VertexConsumer vertex, RandomSource random, Vec3 startPos, Vec3 endPos, int steps, int currentStep, boolean recurse, float r, float g, float b, int overlay, int light) {
 		Vec3 direction = endPos.subtract(startPos);
 		Vec3 lastPos = startPos;
-		Matrix4f modelMatrix = matrices.last().pose();
+		Matrix4f modelMatrix = poseStack.last().pose();
 
 		for(int i = currentStep; i < steps; i++) {
 			Vec3 randomOffset = new Vec3(random.nextGaussian(), random.nextIntBetweenInclusive(-1 / (steps * 2), 1 / (steps * 2)), random.nextGaussian());
@@ -291,34 +185,31 @@ public class ArcanusClient implements ClientEntryPoint {
 				};
 				Vec3 normal = vert2.subtract(vert1).cross(vert3.subtract(vert1));
 
-				vertex.addVertex(modelMatrix, (float) vert2.x(), (float) vert2.y(), (float) vert2.z()).setColor(r, g, b, 0.6f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), (float) normal.x(), (float) normal.y(), (float) normal.z());
-				vertex.addVertex(modelMatrix, (float) vert4.x(), (float) vert4.y(), (float) vert4.z()).setColor(r, g, b, 0.6f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), (float) normal.x(), (float) normal.y(), (float) normal.z());
-				vertex.addVertex(modelMatrix, (float) vert3.x(), (float) vert3.y(), (float) vert3.z()).setColor(r, g, b, 0.6f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), (float) normal.x(), (float) normal.y(), (float) normal.z());
-				vertex.addVertex(modelMatrix, (float) vert1.x(), (float) vert1.y(), (float) vert1.z()).setColor(r, g, b, 0.6f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), (float) normal.x(), (float) normal.y(), (float) normal.z());
+				vertex.addVertex(modelMatrix, (float) vert2.x(), (float) vert2.y(), (float) vert2.z()).setColor(r, g, b, 0.6f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(poseStack.last(), (float) normal.x(), (float) normal.y(), (float) normal.z());
+				vertex.addVertex(modelMatrix, (float) vert4.x(), (float) vert4.y(), (float) vert4.z()).setColor(r, g, b, 0.6f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(poseStack.last(), (float) normal.x(), (float) normal.y(), (float) normal.z());
+				vertex.addVertex(modelMatrix, (float) vert3.x(), (float) vert3.y(), (float) vert3.z()).setColor(r, g, b, 0.6f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(poseStack.last(), (float) normal.x(), (float) normal.y(), (float) normal.z());
+				vertex.addVertex(modelMatrix, (float) vert1.x(), (float) vert1.y(), (float) vert1.z()).setColor(r, g, b, 0.6f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(poseStack.last(), (float) normal.x(), (float) normal.y(), (float) normal.z());
 			}
 
 			while(recurse && random.nextFloat() < 0.2f) {
 				Vec3 randomOffset1 = new Vec3(random.nextGaussian(), random.nextGaussian(), random.nextGaussian());
-				renderBolt(matrices, vertex, random, lastPos, endPos.add(randomOffset1.scale(Math.min(random.nextFloat(), 0.6f))), steps, i + 1, false, r, g, b, overlay, light);
+				renderBolt(poseStack, vertex, random, lastPos, endPos.add(randomOffset1.scale(Math.min(random.nextFloat(), 0.6f))), steps, i + 1, false, r, g, b, overlay, light);
 			}
 
 			lastPos = nextPos;
 		}
 	}
 
-	private static void renderFirstPersonBolt(WorldRenderContext context) {
-		LocalPlayer player = context.gameRenderer().getMinecraft().player;
-
+	public static void renderFirstPersonBolt(@Nullable LocalPlayer player, PoseStack poseStack, Camera camera, DeltaTracker deltaTracker, MultiBufferSource bufferSource) {
 		if(player != null) {
-			PoseStack matrices = context.matrixStack();
-			Vec3 camPos = context.camera().getPosition();
-			float tickDelta = context.tickCounter().getGameTimeDeltaTicks();
+			Vec3 camPos = camera.getPosition();
+			float tickDelta = deltaTracker.getGameTimeDeltaTicks();
 			Vec3 startPos = player.getPosition(tickDelta).add(0, player.getEyeHeight(player.getPose()), 0);
 
-			matrices.pushPose();
-			matrices.translate(-camPos.x(), -camPos.y(), -camPos.z());
-			renderBolts(player, startPos.add(0, -0.1, 0), matrices, context.consumers());
-			matrices.popPose();
+			poseStack.pushPose();
+			poseStack.translate(-camPos.x(), -camPos.y(), -camPos.z());
+			renderBolts(player, startPos.add(0, -0.1, 0), poseStack, bufferSource);
+			poseStack.popPose();
 		}
 	}
 

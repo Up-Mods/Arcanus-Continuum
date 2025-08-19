@@ -23,19 +23,19 @@ public class SpatialRiftExitBlockEntityRenderer implements BlockEntityRenderer<S
 	}
 
 	@Override
-	public void render(SpatialRiftExitBlockEntity entity, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light, int overlay) {
+	public void render(SpatialRiftExitBlockEntity entity, float tickDelta, PoseStack poseStack, MultiBufferSource vertices, int light, int overlay) {
 		Level world = entity.getLevel();
 
 		if(world != null) {
 			Color color = ArcanusHelper.getMagicColor(entity);
 			float ageDelta = world.getGameTime() + tickDelta;
 
-			matrices.pushPose();
-			matrices.translate(1f, 0f, 1f);
-			matrices.scale(0.75f, 0.75f, 0.75f);
+			poseStack.pushPose();
+			poseStack.translate(1f, 0f, 1f);
+			poseStack.scale(0.75f, 0.75f, 0.75f);
 			sigilModel.sigil.yRot = ageDelta * 0.015f;
-			sigilModel.renderToBuffer(matrices, vertices.getBuffer(LAYER), light, OverlayTexture.NO_OVERLAY, color.asIntARGB());
-			matrices.popPose();
+			sigilModel.renderToBuffer(poseStack, vertices.getBuffer(LAYER), light, OverlayTexture.NO_OVERLAY, color.asIntARGB());
+			poseStack.popPose();
 		}
 	}
 }

@@ -33,10 +33,10 @@ public class MagicBlockEntityRenderer<T extends AbstractMagicBlockEntity> implem
 	}
 
 	@Override
-	public void render(T entity, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light, int overlay) {
+	public void render(T entity, float tickDelta, PoseStack poseStack, MultiBufferSource vertices, int light, int overlay) {
 		if(entity.getLevel() != null) {
 			VertexConsumer consumer = vertices.getBuffer(LAYER);
-			Matrix4f matrix4f = matrices.last().pose();
+			Matrix4f matrix4f = poseStack.last().pose();
 			Color color = colorGetter.apply(entity);
 
 			for(Direction direction : Direction.values()) {
@@ -48,17 +48,17 @@ public class MagicBlockEntityRenderer<T extends AbstractMagicBlockEntity> implem
 
 				switch(direction) {
 					case SOUTH ->
-						renderQuad(matrix4f, consumer, 0f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, color, light, overlay, matrices.last(), Direction.SOUTH); // south
+						renderQuad(matrix4f, consumer, 0f, 1f, 0f, 1f, 1f, 1f, 1f, 1f, color, light, overlay, poseStack.last(), Direction.SOUTH); // south
 					case NORTH ->
-						renderQuad(matrix4f, consumer, 0f, 1f, 1f, 0f, 0f, 0f, 0f, 0f, color, light, overlay, matrices.last(), Direction.NORTH); // north
+						renderQuad(matrix4f, consumer, 0f, 1f, 1f, 0f, 0f, 0f, 0f, 0f, color, light, overlay, poseStack.last(), Direction.NORTH); // north
 					case EAST ->
-						renderQuad(matrix4f, consumer, 1f, 1f, 1f, 0f, 0f, 1f, 1f, 0f, color, light, overlay, matrices.last(), Direction.EAST); // east
+						renderQuad(matrix4f, consumer, 1f, 1f, 1f, 0f, 0f, 1f, 1f, 0f, color, light, overlay, poseStack.last(), Direction.EAST); // east
 					case WEST ->
-						renderQuad(matrix4f, consumer, 0f, 0f, 0f, 1f, 0f, 1f, 1f, 0f, color, light, overlay, matrices.last(), Direction.WEST); // west
+						renderQuad(matrix4f, consumer, 0f, 0f, 0f, 1f, 0f, 1f, 1f, 0f, color, light, overlay, poseStack.last(), Direction.WEST); // west
 					case DOWN ->
-						renderQuad(matrix4f, consumer, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 1f, color, light, overlay, matrices.last(), Direction.DOWN); // down
+						renderQuad(matrix4f, consumer, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 1f, color, light, overlay, poseStack.last(), Direction.DOWN); // down
 					case UP ->
-						renderQuad(matrix4f, consumer, 0f, 1f, 1f, 1f, 1f, 1f, 0f, 0f, color, light, overlay, matrices.last(), Direction.UP); // up
+						renderQuad(matrix4f, consumer, 0f, 1f, 1f, 1f, 1f, 1f, 0f, 0f, color, light, overlay, poseStack.last(), Direction.UP); // up
 				}
 			}
 		}

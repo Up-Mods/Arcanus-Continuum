@@ -29,11 +29,11 @@ public class OpossumRenderer extends MobRenderer<Opossum, OpossumModel> {
 	}
 
 	@Override
-	public void render(Opossum opossum, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource verteces, int i) {
+	public void render(Opossum opossum, float yaw, float tickDelta, PoseStack poseStack, MultiBufferSource verteces, int i) {
 		ItemStack hatStack = opossum.getItemBySlot(EquipmentSlot.HEAD);
 		model.hat.visible = !hatStack.isEmpty();
 
-		super.render(opossum, yaw, tickDelta, matrices, verteces, i);
+		super.render(opossum, yaw, tickDelta, poseStack, verteces, i);
 
 		if(hatStack.getItem() instanceof ArcanistRobesItem wizardArmor) {
 			int hexColor = wizardArmor.getColor(hatStack);
@@ -48,13 +48,13 @@ public class OpossumRenderer extends MobRenderer<Opossum, OpossumModel> {
 				hexColor = FastColor.ARGB32.lerp(f, color1, color2);
 			}
 
-			matrices.pushPose();
-			setupRotations(opossum, matrices, 0, Mth.rotLerp(tickDelta, opossum.yBodyRotO, opossum.yBodyRot), tickDelta, 1f);
-			matrices.scale(-1f, -1f, 1f);
-			scale(opossum, matrices, tickDelta);
-			matrices.translate(0.0, -1.5, 0.0);
-			model.renderToBuffer(matrices, verteces.getBuffer(RenderType.entityCutout(HAT_TEXTURE)), i, OverlayTexture.NO_OVERLAY, hexColor);
-			matrices.popPose();
+			poseStack.pushPose();
+			setupRotations(opossum, poseStack, 0, Mth.rotLerp(tickDelta, opossum.yBodyRotO, opossum.yBodyRot), tickDelta, 1f);
+			poseStack.scale(-1f, -1f, 1f);
+			scale(opossum, poseStack, tickDelta);
+			poseStack.translate(0.0, -1.5, 0.0);
+			model.renderToBuffer(poseStack, verteces.getBuffer(RenderType.entityCutout(HAT_TEXTURE)), i, OverlayTexture.NO_OVERLAY, hexColor);
+			poseStack.popPose();
 		}
 	}
 

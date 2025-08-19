@@ -27,8 +27,8 @@ public class ArcanistRenderer extends MobRenderer<Arcanist, ArcanistModel> {
 	}
 
 	@Override
-	public void render(Arcanist arcanist, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
-		super.render(arcanist, yaw, tickDelta, matrices, vertices, light);
+	public void render(Arcanist arcanist, float yaw, float tickDelta, PoseStack poseStack, MultiBufferSource vertices, int light) {
+		super.render(arcanist, yaw, tickDelta, poseStack, vertices, light);
 
 		int hexColor = arcanist.getRobeColor();
 
@@ -42,13 +42,13 @@ public class ArcanistRenderer extends MobRenderer<Arcanist, ArcanistModel> {
 			hexColor = FastColor.ARGB32.lerp(f, color1, color2);
 		}
 
-		matrices.pushPose();
-		setupRotations(arcanist, matrices, 0, Mth.rotLerp(tickDelta, arcanist.yBodyRotO, arcanist.yBodyRot), tickDelta, 1f);
-		matrices.scale(-1f, -1f, 1f);
-		scale(arcanist, matrices, tickDelta);
-		matrices.translate(0.0, -1.5, 0.0);
-		model.renderToBuffer(matrices, vertices.getBuffer(RenderType.entityCutout(ROBES_TEXTURE)), light, OverlayTexture.NO_OVERLAY, hexColor);
-		matrices.popPose();
+		poseStack.pushPose();
+		setupRotations(arcanist, poseStack, 0, Mth.rotLerp(tickDelta, arcanist.yBodyRotO, arcanist.yBodyRot), tickDelta, 1f);
+		poseStack.scale(-1f, -1f, 1f);
+		scale(arcanist, poseStack, tickDelta);
+		poseStack.translate(0.0, -1.5, 0.0);
+		model.renderToBuffer(poseStack, vertices.getBuffer(RenderType.entityCutout(ROBES_TEXTURE)), light, OverlayTexture.NO_OVERLAY, hexColor);
+		poseStack.popPose();
 	}
 
 	@Override

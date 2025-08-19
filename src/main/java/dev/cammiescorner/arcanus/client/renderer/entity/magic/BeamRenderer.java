@@ -30,7 +30,7 @@ public class BeamRenderer extends EntityRenderer<Beam> {
 	}
 
 	@Override
-	public void render(Beam entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
+	public void render(Beam entity, float yaw, float tickDelta, PoseStack poseStack, MultiBufferSource vertices, int light) {
 		LivingEntity caster = entity.getCaster();
 		Vec3 cam = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
 
@@ -42,8 +42,8 @@ public class BeamRenderer extends EntityRenderer<Beam> {
 			Color color = ArcanusHelper.getMagicColor(entity);
 			float distance = entity.distanceTo(caster) / 2f;
 
-			matrices.pushPose();
-			matrices.translate(-entity.getX(), -entity.getY(), -entity.getZ());
+			poseStack.pushPose();
+			poseStack.translate(-entity.getX(), -entity.getY(), -entity.getZ());
 
 			for(int i = 0; i < 2; i++) {
 				Vector3d vec = new Vector3d(cam.x(), cam.y(), cam.z()).sub(startPos.x(), startPos.y(), startPos.z()).cross(axis).normalize().mul(0.2);
@@ -67,13 +67,13 @@ public class BeamRenderer extends EntityRenderer<Beam> {
 					maxV = 1 - maxV;
 				}
 
-				vertex(vertex, matrices, vert4, color, maxU, minV);
-				vertex(vertex, matrices, vert3, color, minU, minV);
-				vertex(vertex, matrices, vert1, color, minU, maxV);
-				vertex(vertex, matrices, vert2, color, maxU, maxV);
+				vertex(vertex, poseStack, vert4, color, maxU, minV);
+				vertex(vertex, poseStack, vert3, color, minU, minV);
+				vertex(vertex, poseStack, vert1, color, minU, maxV);
+				vertex(vertex, poseStack, vert2, color, maxU, maxV);
 			}
 
-			matrices.popPose();
+			poseStack.popPose();
 		}
 	}
 
@@ -82,10 +82,10 @@ public class BeamRenderer extends EntityRenderer<Beam> {
 		return true;
 	}
 
-	private static void vertex(VertexConsumer vertex, PoseStack matrices, Vec3 vert, Color color, float u, float v) {
-		Matrix4f modelMatrix = matrices.last().pose();
+	private static void vertex(VertexConsumer vertex, PoseStack poseStack, Vec3 vert, Color color, float u, float v) {
+		Matrix4f modelMatrix = poseStack.last().pose();
 
-		vertex.addVertex(modelMatrix, (float) vert.x(), (float) vert.y(), (float) vert.z()).setColor(color.asIntARGB()).setUv(u, v).setOverlay(OverlayTexture.NO_OVERLAY).setLight(15728880).setNormal(matrices.last(), 0f, 1f, 0f);
+		vertex.addVertex(modelMatrix, (float) vert.x(), (float) vert.y(), (float) vert.z()).setColor(color.asIntARGB()).setUv(u, v).setOverlay(OverlayTexture.NO_OVERLAY).setLight(15728880).setNormal(poseStack.last(), 0f, 1f, 0f);
 	}
 
 	@Override

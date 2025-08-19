@@ -26,21 +26,21 @@ public class MissileRenderer extends ArrowRenderer<Missile> {
 	}
 
 	@Override
-	public void render(Missile entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
+	public void render(Missile entity, float yaw, float tickDelta, PoseStack poseStack, MultiBufferSource vertices, int light) {
 		VertexConsumer consumer = vertices.getBuffer(ArcanusClient.getMagicCircles(getTextureLocation(entity)));
 		Color color = ArcanusHelper.getMagicColor(entity);
 
-		matrices.pushPose();
+		poseStack.pushPose();
 
-		matrices.mulPose(Axis.YP.rotationDegrees(Mth.lerp(tickDelta, entity.yRotO, entity.getYRot()) - 180f));
-		matrices.mulPose(Axis.XP.rotationDegrees(Mth.lerp(tickDelta, entity.xRotO, entity.getXRot())));
-		matrices.translate(0f, -1f, 0f);
+		poseStack.mulPose(Axis.YP.rotationDegrees(Mth.lerp(tickDelta, entity.yRotO, entity.getYRot()) - 180f));
+		poseStack.mulPose(Axis.XP.rotationDegrees(Mth.lerp(tickDelta, entity.xRotO, entity.getXRot())));
+		poseStack.translate(0f, -1f, 0f);
 		projectileModel.ring1.zRot = (entity.tickCount + tickDelta) * 0.1f;
 		projectileModel.ring2.zRot = -(entity.tickCount + tickDelta) * 0.125f;
 		projectileModel.ring3.zRot = (entity.tickCount + tickDelta) * 0.15f;
-		projectileModel.renderToBuffer(matrices, consumer, light, OverlayTexture.NO_OVERLAY, color.asIntARGB());
+		projectileModel.renderToBuffer(poseStack, consumer, light, OverlayTexture.NO_OVERLAY, color.asIntARGB());
 
-		matrices.popPose();
+		poseStack.popPose();
 	}
 
 	@Override

@@ -24,20 +24,20 @@ public class EntangledOrbRenderer extends EntityRenderer<MagicOrb> {
 	}
 
 	@Override
-	public void render(MagicOrb entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
+	public void render(MagicOrb entity, float yaw, float tickDelta, PoseStack poseStack, MultiBufferSource vertices, int light) {
 		VertexConsumer consumer = vertices.getBuffer(ArcanusClient.getMagicCircles(getTextureLocation(entity)));
 		Color color = ArcanusHelper.getMagicColor(entity);
 
-		matrices.pushPose();
-		matrices.translate(0, 0.2, 0);
+		poseStack.pushPose();
+		poseStack.translate(0, 0.2, 0);
 		model.cube1.xRot = (entity.tickCount + tickDelta) * 0.1f;
 		model.cube1.yRot = (entity.tickCount + tickDelta) * 0.1f;
 		model.cube2.yRot = -(entity.tickCount + tickDelta) * 0.125f;
 		model.cube2.zRot = -(entity.tickCount + tickDelta) * 0.125f;
 		model.cube3.zRot = (entity.tickCount + tickDelta) * 0.15f;
 		model.cube3.xRot = (entity.tickCount + tickDelta) * 0.15f;
-		model.renderToBuffer(matrices, consumer, light, OverlayTexture.NO_OVERLAY, color.asIntARGB());
-		matrices.popPose();
+		model.renderToBuffer(poseStack, consumer, light, OverlayTexture.NO_OVERLAY, color.asIntARGB());
+		poseStack.popPose();
 	}
 
 	@Override

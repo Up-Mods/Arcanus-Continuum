@@ -42,16 +42,16 @@ public class ManaShieldRenderer extends EntityRenderer<ManaShield> {
 	}
 
 	@Override
-	public void render(ManaShield entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
+	public void render(ManaShield entity, float yaw, float tickDelta, PoseStack poseStack, MultiBufferSource vertices, int light) {
 		float alpha = Mth.clamp(((entity.getMaxAge() - entity.getTrueAge()) - tickDelta) / 20f, 0, 1);
 
-		matrices.pushPose();
-		matrices.translate(0, 2, 0);
-		matrices.mulPose(Axis.XN.rotationDegrees(90));
-		matrices.mulPose(Axis.ZP.rotationDegrees((entity.tickCount + tickDelta) * 0.25f));
-		matrices.scale(3 * alpha, 3 * alpha, 3 * alpha);
-		drawIcosahedron(matrices, vertices.getBuffer(LAYER), ArcanusHelper.getMagicColor(entity), alpha, light, OverlayTexture.NO_OVERLAY);
-		matrices.popPose();
+		poseStack.pushPose();
+		poseStack.translate(0, 2, 0);
+		poseStack.mulPose(Axis.XN.rotationDegrees(90));
+		poseStack.mulPose(Axis.ZP.rotationDegrees((entity.tickCount + tickDelta) * 0.25f));
+		poseStack.scale(3 * alpha, 3 * alpha, 3 * alpha);
+		drawIcosahedron(poseStack, vertices.getBuffer(LAYER), ArcanusHelper.getMagicColor(entity), alpha, light, OverlayTexture.NO_OVERLAY);
+		poseStack.popPose();
 	}
 
 	@Override
@@ -59,8 +59,8 @@ public class ManaShieldRenderer extends EntityRenderer<ManaShield> {
 		return TEXTURE;
 	}
 
-	public static void drawIcosahedron(PoseStack matrices, VertexConsumer consumer, Color color, float alpha, int light, int overlay) {
-		Matrix4f matrix4f = matrices.last().pose();
+	public static void drawIcosahedron(PoseStack poseStack, VertexConsumer consumer, Color color, float alpha, int light, int overlay) {
+		Matrix4f matrix4f = poseStack.last().pose();
 		float r = color.redF() * alpha;
 		float g = color.greenF() * alpha;
 		float b = color.blueF() * alpha;
@@ -73,9 +73,9 @@ public class ManaShieldRenderer extends EntityRenderer<ManaShield> {
 			Vector3f v = new Vector3f(vert3.x - vert1.x, vert3.y - vert1.y, vert3.z - vert1.z);
 			Vector3f normal = u.cross(v);
 
-			consumer.addVertex(matrix4f, vert1.x, vert1.y, vert1.z).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), normal.x, normal.y, normal.z);
-			consumer.addVertex(matrix4f, vert2.x, vert2.y, vert2.z).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), normal.x, normal.y, normal.z);
-			consumer.addVertex(matrix4f, vert3.x, vert3.y, vert3.z).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(matrices.last(), normal.x, normal.y, normal.z);
+			consumer.addVertex(matrix4f, vert1.x, vert1.y, vert1.z).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(poseStack.last(), normal.x, normal.y, normal.z);
+			consumer.addVertex(matrix4f, vert2.x, vert2.y, vert2.z).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(poseStack.last(), normal.x, normal.y, normal.z);
+			consumer.addVertex(matrix4f, vert3.x, vert3.y, vert3.z).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(overlay).setLight(light).setNormal(poseStack.last(), normal.x, normal.y, normal.z);
 		}
 	}
 }

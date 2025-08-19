@@ -28,7 +28,7 @@ public class FirstPersonCastingOverlay {
 	public static void render(GuiGraphics guiGraphics, DeltaTracker tickDelta, LocalPlayer player) {
 		Minecraft client = Minecraft.getInstance();
 		if(!client.gameRenderer.getMainCamera().isDetached() && !ArcanusClient.FIRST_PERSON_MODEL_ENABLED.getAsBoolean()) {
-			PoseStack matrices = guiGraphics.pose();
+			PoseStack poseStack = guiGraphics.pose();
 			List<Pattern> list = ArcanusComponents.getPattern(player);
 
 			if(!list.isEmpty()) {
@@ -40,33 +40,33 @@ public class FirstPersonCastingOverlay {
 				float y = client.getWindow().getGuiScaledHeight() / 2f;
 				float scale = 3f;
 
-				matrices.pushPose();
-				matrices.translate(x, y, 0);
+				poseStack.pushPose();
+				poseStack.translate(x, y, 0);
 
 				for(int i = 0; i < list.size(); i++) {
 					Pattern pattern = list.get(i);
-					matrices.pushPose();
+					poseStack.pushPose();
 
 					if(i == 1)
-						matrices.mulPose(Axis.ZP.rotationDegrees((player.tickCount + player.getId() + tickDelta.getGameTimeDeltaTicks()) * (5 + (2.5f * i))));
+						poseStack.mulPose(Axis.ZP.rotationDegrees((player.tickCount + player.getId() + tickDelta.getGameTimeDeltaTicks()) * (5 + (2.5f * i))));
 					else
-						matrices.mulPose(Axis.ZN.rotationDegrees((player.tickCount + player.getId() + tickDelta.getGameTimeDeltaTicks()) * (5 + (2.5f * i))));
+						poseStack.mulPose(Axis.ZN.rotationDegrees((player.tickCount + player.getId() + tickDelta.getGameTimeDeltaTicks()) * (5 + (2.5f * i))));
 
-					matrices.scale(scale, scale, 0);
-					matrices.translate(-8.5, -8.5, 0);
+					poseStack.scale(scale, scale, 0);
+					poseStack.translate(-8.5, -8.5, 0);
 					// TODO inline these draw calls
-					drawTexture(vertex, matrices, color, 0, 0, i * 34, pattern == Pattern.LEFT ? 0 : 24, 17, 17, 128, 48);
-					matrices.popPose();
+					drawTexture(vertex, poseStack, color, 0, 0, i * 34, pattern == Pattern.LEFT ? 0 : 24, 17, 17, 128, 48);
+					poseStack.popPose();
 				}
 
-				matrices.popPose();
+				poseStack.popPose();
 				vertices.endLastBatch();
 			}
 		}
 	}
 
-	private static void drawTexture(VertexConsumer vertex, PoseStack matrices, Color color, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
-		drawTexturedQuad(vertex, matrices.last().pose(), color, x, x + width, y, y + height, u / (float) textureWidth, (u + width) / (float) textureWidth, v / (float) textureHeight, (v + height) / (float) textureHeight);
+	private static void drawTexture(VertexConsumer vertex, PoseStack poseStack, Color color, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
+		drawTexturedQuad(vertex, poseStack.last().pose(), color, x, x + width, y, y + height, u / (float) textureWidth, (u + width) / (float) textureWidth, v / (float) textureHeight, (v + height) / (float) textureHeight);
 	}
 
 	private static void drawTexturedQuad(VertexConsumer vertex, Matrix4f matrix, Color color, int x0, int x1, int y0, int y1, float u0, float u1, float v0, float v1) {

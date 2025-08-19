@@ -35,8 +35,8 @@ public class PocketDimensionPortalRenderer extends EntityRenderer<PocketDimensio
 	}
 
 	@Override
-	public void render(PocketDimensionPortal entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
-		super.render(entity, yaw, tickDelta, matrices, vertices, light);
+	public void render(PocketDimensionPortal entity, float yaw, float tickDelta, PoseStack poseStack, MultiBufferSource vertices, int light) {
+		super.render(entity, yaw, tickDelta, poseStack, vertices, light);
 		StencilBuffer stencilBuffer = ((StencilBuffer) client.getMainRenderTarget());
 		RenderType portalLayer = ArcanusClient.getMagicPortal(PORTAL_TEXTURE);
 		RenderType sigilLayer = ArcanusClient.getMagicCircles(SIGIL_TEXTURE);
@@ -46,17 +46,17 @@ public class PocketDimensionPortalRenderer extends EntityRenderer<PocketDimensio
 		float maxScale = 0.75f;
 		float scale = entity.getTrueAge() <= 100 ? Math.min(maxScale, (ageDelta / 100f) * maxScale) : entity.getTrueAge() > 700 ? Math.max(0, (1 - (ageDelta - 700) / 20f) * maxScale) : maxScale;
 
-		matrices.pushPose();
-		matrices.translate(0, 1.625, 0);
-		matrices.mulPose(Axis.ZP.rotationDegrees(180));
-		matrices.scale(scale, 1, scale);
-		portalModel.skybox.render(matrices, vertices.getBuffer(RenderType.entitySolid(PORTAL_TEXTURE)), light, OverlayTexture.NO_OVERLAY, 0xffffffff);
-		matrices.popPose();
+		poseStack.pushPose();
+		poseStack.translate(0, 1.625, 0);
+		poseStack.mulPose(Axis.ZP.rotationDegrees(180));
+		poseStack.scale(scale, 1, scale);
+		portalModel.skybox.render(poseStack, vertices.getBuffer(RenderType.entitySolid(PORTAL_TEXTURE)), light, OverlayTexture.NO_OVERLAY, 0xffffffff);
+		poseStack.popPose();
 
-		matrices.pushPose();
-		matrices.translate(0, 0.05, 0);
-		matrices.scale(scale, 1, scale);
-		matrices.mulPose(Axis.ZP.rotationDegrees(90));
+		poseStack.pushPose();
+		poseStack.translate(0, 0.05, 0);
+		poseStack.scale(scale, 1, scale);
+		poseStack.mulPose(Axis.ZP.rotationDegrees(90));
 
 		if(!stencilBuffer.arcanus$isStencilBufferEnabled())
 			stencilBuffer.arcanus$enableStencilBufferAndReload(true);
@@ -73,7 +73,7 @@ public class PocketDimensionPortalRenderer extends EntityRenderer<PocketDimensio
 		GameRenderer.getPositionShader().apply();
 		GL31.glColorMask(true, false, false, true);
 		GL31.glDepthFunc(GL31.GL_LEQUAL);
-		drawStencil(matrices, tesselator);
+		drawStencil(poseStack, tesselator);
 		GameRenderer.getPositionShader().clear();
 		RenderType.waterMask().clearRenderState();
 
@@ -81,12 +81,12 @@ public class PocketDimensionPortalRenderer extends EntityRenderer<PocketDimensio
 		GL31.glStencilFunc(GL31.GL_NOTEQUAL, 0, 0xFF);
 		GL31.glStencilMask(0x00);
 
-		matrices.pushPose();
-		matrices.translate(-0.375, 0, 0);
-		matrices.mulPose(Axis.ZP.rotationDegrees(90));
-		matrices.scale(maxScale, maxScale, maxScale);
-		portalModel.renderToBuffer(matrices, vertices.getBuffer(portalLayer), light, OverlayTexture.NO_OVERLAY, pocketDimColor.asIntARGB());
-		matrices.popPose();
+		poseStack.pushPose();
+		poseStack.translate(-0.375, 0, 0);
+		poseStack.mulPose(Axis.ZP.rotationDegrees(90));
+		poseStack.scale(maxScale, maxScale, maxScale);
+		portalModel.renderToBuffer(poseStack, vertices.getBuffer(portalLayer), light, OverlayTexture.NO_OVERLAY, pocketDimColor.asIntARGB());
+		poseStack.popPose();
 
 		if(vertices instanceof MultiBufferSource.BufferSource immediate) {
 			immediate.endBatch();
@@ -101,7 +101,7 @@ public class PocketDimensionPortalRenderer extends EntityRenderer<PocketDimensio
 		RenderType.waterMask().setupRenderState();
 		GameRenderer.getPositionShader().apply();
 		GL31.glDepthFunc(GL31.GL_ALWAYS);
-		drawStencil(matrices, tesselator);
+		drawStencil(poseStack, tesselator);
 		GameRenderer.getPositionShader().clear();
 		RenderType.waterMask().clearRenderState();
 
@@ -112,15 +112,15 @@ public class PocketDimensionPortalRenderer extends EntityRenderer<PocketDimensio
 		GL31.glEnable(GL31.GL_DEPTH_TEST);
 		GL31.glDepthFunc(GL31.GL_LEQUAL);
 
-		matrices.popPose();
+		poseStack.popPose();
 
-		matrices.pushPose();
-		matrices.translate(0d, 1.51d, 0d);
-		matrices.mulPose(Axis.XP.rotationDegrees(180f));
-		matrices.scale(scale / maxScale, 1f, scale / maxScale);
+		poseStack.pushPose();
+		poseStack.translate(0d, 1.51d, 0d);
+		poseStack.mulPose(Axis.XP.rotationDegrees(180f));
+		poseStack.scale(scale / maxScale, 1f, scale / maxScale);
 		sigilModel.sigil.yRot = (entity.tickCount + tickDelta) * 0.015f;
-		sigilModel.renderToBuffer(matrices, vertices.getBuffer(sigilLayer), light, OverlayTexture.NO_OVERLAY, magicColor.asIntARGB());
-		matrices.popPose();
+		sigilModel.renderToBuffer(poseStack, vertices.getBuffer(sigilLayer), light, OverlayTexture.NO_OVERLAY, magicColor.asIntARGB());
+		poseStack.popPose();
 	}
 
 	@Override
@@ -128,12 +128,12 @@ public class PocketDimensionPortalRenderer extends EntityRenderer<PocketDimensio
 		return PORTAL_TEXTURE;
 	}
 
-	public static void drawStencil(PoseStack matrices, Tesselator tessellator) {
+	public static void drawStencil(PoseStack poseStack, Tesselator tessellator) {
 		BufferBuilder builder = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
-		builder.addVertex(matrices.last().pose(), 0, -1, -1);
-		builder.addVertex(matrices.last().pose(), 0, 1, -1);
-		builder.addVertex(matrices.last().pose(), 0, 1, 1);
-		builder.addVertex(matrices.last().pose(), 0, -1, 1);
+		builder.addVertex(poseStack.last().pose(), 0, -1, -1);
+		builder.addVertex(poseStack.last().pose(), 0, 1, -1);
+		builder.addVertex(poseStack.last().pose(), 0, 1, 1);
+		builder.addVertex(poseStack.last().pose(), 0, -1, 1);
 
 		BufferUploader.drawWithShader(builder.build());
 	}

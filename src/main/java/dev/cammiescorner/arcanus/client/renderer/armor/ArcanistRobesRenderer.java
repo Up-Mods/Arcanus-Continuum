@@ -56,7 +56,7 @@ public class ArcanistRobesRenderer extends CustomHumanoidModelArmorRenderer<Livi
 	}
 
 	@Override
-	protected void renderModelPart(PoseStack matrices, MultiBufferSource bufferSource, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, int dyeColor, HumanoidModel<LivingEntity> contextModel, ArcanistRobesModel<LivingEntity> armorModel) {
+	protected void renderModelPart(PoseStack poseStack, MultiBufferSource bufferSource, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, int dyeColor, HumanoidModel<LivingEntity> contextModel, ArcanistRobesModel<LivingEntity> armorModel) {
 		if(stack.getItem() instanceof ArcanistRobesItem wizardArmor) {
 			int hexColor = wizardArmor.getColor(stack);
 
@@ -70,8 +70,8 @@ public class ArcanistRobesRenderer extends CustomHumanoidModelArmorRenderer<Livi
 				hexColor = FastColor.ARGB32.lerp(f, color1, color2);
 			}
 
-			model.renderToBuffer(matrices, ItemRenderer.getArmorFoilBuffer(bufferSource, RenderType.armorCutoutNoCull(mainTexture), false), light, OverlayTexture.NO_OVERLAY, hexColor);
-			model.renderToBuffer(matrices, ItemRenderer.getArmorFoilBuffer(bufferSource, RenderType.armorCutoutNoCull(overlayTexture), false), light, OverlayTexture.NO_OVERLAY, 0xffffffff);
+			model.renderToBuffer(poseStack, ItemRenderer.getArmorFoilBuffer(bufferSource, RenderType.armorCutoutNoCull(mainTexture), false), light, OverlayTexture.NO_OVERLAY, hexColor);
+			model.renderToBuffer(poseStack, ItemRenderer.getArmorFoilBuffer(bufferSource, RenderType.armorCutoutNoCull(overlayTexture), false), light, OverlayTexture.NO_OVERLAY, 0xffffffff);
 		}
 	}
 

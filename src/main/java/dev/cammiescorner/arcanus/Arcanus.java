@@ -1,29 +1,15 @@
-/***
- * Entrypoint
- *
- * Registers mod and its objects when game loads.
- */
-
 package dev.cammiescorner.arcanus;
 
 import com.google.auto.service.AutoService;
-import com.mojang.authlib.GameProfile;
 import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
 import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
-import dev.cammiescorner.arcanus.common.block.MagicDoorBlock;
-import dev.cammiescorner.arcanus.common.block.entities.MagicDoorBlockEntity;
-import dev.cammiescorner.arcanus.common.entity.living.Arcanist;
-import dev.cammiescorner.arcanus.common.entity.living.Cultist;
-import dev.cammiescorner.arcanus.common.entity.living.NecroSkeleton;
-import dev.cammiescorner.arcanus.common.entity.living.Opossum;
 import dev.cammiescorner.arcanus.common.item.BookPouchItem;
 import dev.cammiescorner.arcanus.common.menu.providers.SpellcraftMenuProvider;
 import dev.cammiescorner.arcanus.common.networking.clientbound.*;
 import dev.cammiescorner.arcanus.common.networking.serverbound.*;
 import dev.cammiescorner.arcanus.common.registry.*;
-import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import dev.cammiescorner.arcanus.common.util.supporters.HaloData;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
 import dev.emi.trinkets.api.TrinketComponent;
@@ -37,33 +23,16 @@ import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
-import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.ChatFormatting;
 import net.minecraft.SharedConstants;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.block.state.BlockState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -113,12 +82,6 @@ public class Arcanus implements MainEntryPoint {
 		ArcanusStructureProcessorTypes.STRUCTURE_PROCESSORS.accept(registryService);
 		ArcanusCriteriaTriggers.CRITERIA_TRIGGERS.accept(registryService);
 
-		FabricDefaultAttributeRegistry.register(ArcanusEntities.ARCANIST.get(), Arcanist.createMobAttributes());
-		FabricDefaultAttributeRegistry.register(ArcanusEntities.CULTIST_CLERIC.get(), Cultist.createMobAttributes());
-		FabricDefaultAttributeRegistry.register(ArcanusEntities.CULTIST_KNIGHT.get(), Cultist.createMobAttributes());
-		FabricDefaultAttributeRegistry.register(ArcanusEntities.OPOSSUM.get(), Opossum.createMobAttributes());
-		FabricDefaultAttributeRegistry.register(ArcanusEntities.NECRO_SKELETON.get(), NecroSkeleton.createAttributes());
-
 		Network.registerPacket(ClientboundUpdateSpellcraftScreenPacket.TYPE, ClientboundUpdateSpellcraftScreenPacket.class, ClientboundUpdateSpellcraftScreenPacket.CODEC, ClientboundUpdateSpellcraftScreenPacket::handle);
 		Network.registerPacket(ClientboundEnforceConfigPacket.TYPE, ClientboundEnforceConfigPacket.class, ClientboundEnforceConfigPacket.CODEC, ClientboundEnforceConfigPacket::handle);
 		Network.registerPacket(ClientboundBurstVfxPacket.TYPE, ClientboundBurstVfxPacket.class, ClientboundBurstVfxPacket.CODEC, ClientboundBurstVfxPacket::handle);
@@ -133,24 +96,8 @@ public class Arcanus implements MainEntryPoint {
 		Network.registerPacket(ServerboundOpenCloseHoodPacket.TYPE, ServerboundOpenCloseHoodPacket.class, ServerboundOpenCloseHoodPacket.CODEC, ServerboundOpenCloseHoodPacket::handle);
 		Network.registerPacket(ServerboundCycleBookPouchPacket.TYPE, ServerboundCycleBookPouchPacket.class, ServerboundCycleBookPouchPacket.CODEC, ServerboundCycleBookPouchPacket::handle);
 
-		CommandRegistrationCallback.EVENT.register(ArcanusCommands::init);
-
 		RegisterCustomLecternMenuEvent.EVENT.register(event -> {
 			event.register((level, pos, player, blockEntity, stack) -> new SpellcraftMenuProvider(level, stack, pos, blockEntity.bookAccess), ArcanusItems.SPELL_SCROLL);
-		});
-
-		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-			GameProfile hostProfile = server.getSingleplayerProfile();
-
-			if(hostProfile == null || !hostProfile.getId().equals(handler.player.getGameProfile().getId()))
-				Network.getNetworkHandler().sendToClient(new ClientboundEnforceConfigPacket(ArcanusConfig.castingSpeedHasCoolDown), handler.player);
-
-			Network.getNetworkHandler().sendToClients(new ClientboundStatusEffectPacket(handler.player.getId(), ArcanusMobEffects.ANONYMITY.holder(), handler.player.hasEffect(ArcanusMobEffects.ANONYMITY.holder())), List.copyOf(PlayerLookup.tracking(handler.player)));
-		});
-
-		EntityTrackingEvents.START_TRACKING.register((trackedEntity, player) -> {
-			if(trackedEntity instanceof ServerPlayer playerEntity)
-				Network.getNetworkHandler().sendToClient(new ClientboundStatusEffectPacket(playerEntity.getId(), ArcanusMobEffects.ANONYMITY.holder(), playerEntity.hasEffect(ArcanusMobEffects.ANONYMITY.holder())), player);
 		});
 
 		ItemMenuInteractionEvent.EVENT.register((menu, player, level, clickAction, slot, slotStack, cursorStack) -> {
@@ -168,46 +115,6 @@ public class Arcanus implements MainEntryPoint {
 			}
 
 			return false;
-		});
-
-		EntitySleepEvents.STOP_SLEEPING.register((entity, sleepingPos) -> {
-			if(!entity.level().isClientSide() && entity.level().getDayTime() == 24000)
-				ArcanusArcana.primalArcana().forEach(primalArcana -> ArcanusComponents.setArcana(entity, primalArcana, primalArcana.getMaxArcana(entity)));
-		});
-
-		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
-			ItemStack stack = player.getItemInHand(hand);
-			BlockPos pos = hitResult.getBlockPos();
-			BlockState state = world.getBlockState(pos);
-
-			if(!world.isClientSide() && player.isShiftKeyDown() && stack.is(Items.NAME_TAG) && stack.has(DataComponents.CUSTOM_NAME)) {
-				MagicDoorBlockEntity door = MagicDoorBlock.getBlockEntity(world, state, pos);
-
-				if(door != null && door.getOwner() == player) {
-					door.setPassword(stack.getHoverName().getString());
-
-					if(!player.isCreative())
-						stack.shrink(1);
-
-					return InteractionResult.SUCCESS;
-				}
-			}
-
-			if(ArcanusComponents.isBlockWarded(world, pos) && !ArcanusComponents.isOwnerOfBlock(player, pos)) {
-				UseOnContext ctx = new BlockPlaceContext(world, player, hand, stack, hitResult);
-				InteractionResult result = stack.useOn(ctx);
-
-				if(!result.consumesAction()) {
-					player.displayClientMessage(Component.translatable(TranslationKeys.BLOCK_IS_WARDED).withStyle(ChatFormatting.RED), true);
-					player.swing(hand);
-
-					return InteractionResult.FAIL;
-				}
-
-				return result;
-			}
-
-			return InteractionResult.PASS;
 		});
 	}
 

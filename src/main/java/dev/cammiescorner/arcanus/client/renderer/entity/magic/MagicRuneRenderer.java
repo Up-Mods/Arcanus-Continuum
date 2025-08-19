@@ -40,8 +40,8 @@ public class MagicRuneRenderer extends EntityRenderer<MagicRune> {
 	}
 
 	@Override
-	public void render(MagicRune entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertices, int light) {
-		super.render(entity, yaw, tickDelta, matrices, vertices, light);
+	public void render(MagicRune entity, float yaw, float tickDelta, PoseStack poseStack, MultiBufferSource vertices, int light) {
+		super.render(entity, yaw, tickDelta, poseStack, vertices, light);
 		Color color = ArcanusHelper.getMagicColor(entity);
 		float alpha = keyFrames[entity.tickCount % keyFrames.length] / 16f;
 		float r = color.redF() * alpha;
@@ -49,11 +49,11 @@ public class MagicRuneRenderer extends EntityRenderer<MagicRune> {
 		float b = color.blueF() * alpha;
 		color = Color.fromFloatsRGB(r, g, b);
 
-		matrices.pushPose();
-		matrices.translate(0, Math.sin((entity.tickCount + tickDelta) * 0.125) * 0.05, 0);
-		matrices.mulPose(Axis.YP.rotationDegrees(entity.tickCount + tickDelta));
-		model.renderToBuffer(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
-		matrices.popPose();
+		poseStack.pushPose();
+		poseStack.translate(0, Math.sin((entity.tickCount + tickDelta) * 0.125) * 0.05, 0);
+		poseStack.mulPose(Axis.YP.rotationDegrees(entity.tickCount + tickDelta));
+		model.renderToBuffer(poseStack, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
+		poseStack.popPose();
 	}
 
 	@Override

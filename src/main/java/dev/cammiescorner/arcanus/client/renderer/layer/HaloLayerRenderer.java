@@ -33,7 +33,7 @@ public class HaloLayerRenderer<T extends Player, M extends EntityModel<T>> exten
 	}
 
 	@Override
-	public void render(PoseStack matrices, MultiBufferSource vertices, int light, T player, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
+	public void render(PoseStack poseStack, MultiBufferSource vertices, int light, T player, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
 		if(!player.hasEffect(ArcanusMobEffects.ANONYMITY.holder())) {
 			HaloData data = player.datasync$getOrDefault(Arcanus.HALO_DATA, HaloData.empty());
 
@@ -44,13 +44,13 @@ public class HaloLayerRenderer<T extends Player, M extends EntityModel<T>> exten
 				model.spinny.yRot = (float) Math.toRadians((player.tickCount + player.getId() + tickDelta) * 2);
 				model.spinny.z = -3;
 
-				matrices.pushPose();
+				poseStack.pushPose();
 
 				if(ArcanusComponents.isCasting(player) && player.getMainHandItem().getItem() instanceof StaffItem item && item.staffType == StaffType.STAFF)
-					matrices.mulPose(Axis.YP.rotationDegrees(player.getMainArm() == HumanoidArm.RIGHT ? 65 : -65));
+					poseStack.mulPose(Axis.YP.rotationDegrees(player.getMainArm() == HumanoidArm.RIGHT ? 65 : -65));
 
-				model.renderToBuffer(matrices, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
-				matrices.popPose();
+				model.renderToBuffer(poseStack, vertices.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, color.asIntARGB());
+				poseStack.popPose();
 			}
 		}
 	}

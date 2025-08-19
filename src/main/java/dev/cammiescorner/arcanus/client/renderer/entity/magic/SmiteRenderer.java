@@ -26,12 +26,12 @@ public class SmiteRenderer extends EntityRenderer<Smite> {
 	}
 
 	@Override
-	public void render(Smite entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource provider, int light) {
-		super.render(entity, yaw, tickDelta, matrices, provider, light);
-		renderBeam(entity, matrices, provider, 0, (float) ((entity.level().getHeight() + 2048) - entity.getY()), 0, tickDelta, OverlayTexture.NO_OVERLAY, light);
+	public void render(Smite entity, float yaw, float tickDelta, PoseStack poseStack, MultiBufferSource provider, int light) {
+		super.render(entity, yaw, tickDelta, poseStack, provider, light);
+		renderBeam(entity, poseStack, provider, 0, (float) ((entity.level().getHeight() + 2048) - entity.getY()), 0, tickDelta, OverlayTexture.NO_OVERLAY, light);
 	}
 
-	public void renderBeam(Smite entity, PoseStack matrices, MultiBufferSource provider, float x, float y, float z, float tickDelta, int overlay, int light) {
+	public void renderBeam(Smite entity, PoseStack poseStack, MultiBufferSource provider, float x, float y, float z, float tickDelta, int overlay, int light) {
 		int maxQuads = 16;
 		float radius = 2.25f;
 		Color color = ArcanusHelper.getMagicColor(entity);
@@ -44,12 +44,12 @@ public class SmiteRenderer extends EntityRenderer<Smite> {
 		float g = color.greenF() * alpha;
 		float b = color.blueF() * alpha;
 
-		matrices.pushPose();
-		matrices.mulPose(Axis.XP.rotationDegrees(-90));
-		matrices.scale(scale, scale, 1);
+		poseStack.pushPose();
+		poseStack.mulPose(Axis.XP.rotationDegrees(-90));
+		poseStack.scale(scale, scale, 1);
 
 		VertexConsumer vertexConsumer = provider.getBuffer(ArcanusClient.getMagicCircles(TEXTURE));
-		PoseStack.Pose entry = matrices.last();
+		PoseStack.Pose entry = poseStack.last();
 		Matrix4f matrix4f = entry.pose();
 		float vertX1 = 0f;
 		float vertY1 = radius;
@@ -70,7 +70,7 @@ public class SmiteRenderer extends EntityRenderer<Smite> {
 			vertY1 = vertY2;
 		}
 
-		matrices.popPose();
+		poseStack.popPose();
 	}
 
 	@Override

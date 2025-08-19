@@ -95,11 +95,11 @@ public class ArcanistModel extends EntityModel<Arcanist> implements ArmedModel, 
 	}
 
 	@Override
-	public void translateToHand(HumanoidArm arm, PoseStack matrices) {
+	public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
 		if(arm == HumanoidArm.LEFT)
-			leftArm.translateAndRotate(matrices);
+			leftArm.translateAndRotate(poseStack);
 		else
-			rightArm.translateAndRotate(matrices);
+			rightArm.translateAndRotate(poseStack);
 	}
 
 	@Override

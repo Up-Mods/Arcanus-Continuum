@@ -14,10 +14,10 @@ import org.spongepowered.asm.mixin.injection.At;
 public class GuiMixin {
 	@WrapOperation(method = "renderCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V", ordinal = 0))
 	private void moveCrosshair(GuiGraphics instance, ResourceLocation sprite, int x, int y, int width, int height, Operation<Void> original) {
-		PoseStack matrices = instance.pose();
-		matrices.pushPose();
-		matrices.translate((Minecraft.getInstance().getWindow().getGuiScaledWidth() - 15) / 2f, (Minecraft.getInstance().getWindow().getGuiScaledHeight() - 15) / 2f, 0);
+		PoseStack poseStack = instance.pose();
+		poseStack.pushPose();
+		poseStack.translate((Minecraft.getInstance().getWindow().getGuiScaledWidth() - 15) / 2f, (Minecraft.getInstance().getWindow().getGuiScaledHeight() - 15) / 2f, 0);
 		original.call(instance, sprite, 0, 0, width, height);
-		matrices.popPose();
+		poseStack.popPose();
 	}
 }

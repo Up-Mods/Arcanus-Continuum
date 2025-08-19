@@ -22,19 +22,19 @@ public class ItemInHandLayerMixin {
 		value = "INVOKE",
 		target = "Lnet/minecraft/client/renderer/ItemInHandRenderer;renderItem(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemDisplayContext;ZLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V"
 	))
-	private void adjustItem(LivingEntity entity, ItemStack stack, ItemDisplayContext transformationMode, HumanoidArm arm, PoseStack matrices, MultiBufferSource vertexConsumers, int light, CallbackInfo ci) {
+	private void adjustItem(LivingEntity entity, ItemStack stack, ItemDisplayContext transformationMode, HumanoidArm arm, PoseStack poseStack, MultiBufferSource vertexConsumers, int light, CallbackInfo ci) {
 		if(ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && entity.getMainHandItem().getItem() instanceof StaffItem item && ArcanusComponents.isCasting(entity)) {
 			if(item.staffType == StaffType.STAFF) {
-				matrices.translate(0, 0.1, 0);
-				matrices.mulPose(Axis.XP.rotationDegrees(-15));
+				poseStack.translate(0, 0.1, 0);
+				poseStack.mulPose(Axis.XP.rotationDegrees(-15));
 			}
 			else if(item.staffType == StaffType.GUN) {
-				matrices.mulPose(Axis.YP.rotationDegrees(-45));
-				matrices.translate(0.125, 0, 0);
+				poseStack.mulPose(Axis.YP.rotationDegrees(-45));
+				poseStack.translate(0.125, 0, 0);
 			}
 			else if(item.staffType == StaffType.WAND) {
-				matrices.translate(0, -0.2, 0);
-				matrices.mulPose(Axis.XP.rotationDegrees(-65));
+				poseStack.translate(0, -0.2, 0);
+				poseStack.mulPose(Axis.XP.rotationDegrees(-65));
 			}
 		}
 	}

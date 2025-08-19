@@ -22,7 +22,7 @@ public class CounterLayerRenderer<T extends LivingEntity, M extends EntityModel<
 	}
 
 	@Override
-	public void render(PoseStack matrices, MultiBufferSource verticies, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
+	public void render(PoseStack poseStack, MultiBufferSource verticies, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
 		if(ArcanusComponents.isCounterActive(entity)) {
 			Color color = ArcanusComponents.getCounterColor(entity);
 			long endTime = ArcanusComponents.getCounterEnd(entity);
@@ -32,10 +32,10 @@ public class CounterLayerRenderer<T extends LivingEntity, M extends EntityModel<
 			float g = color.greenF() * alpha;
 			float b = color.blueF() * alpha;
 
-			matrices.pushPose();
-			matrices.scale(1.1f, 1.1f, 1.1f);
-			model.renderToBuffer(matrices, verticies.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), light, OverlayTexture.NO_OVERLAY, Color.fromFloatsRGBA(r, g, b, 1f).asIntARGB());
-			matrices.popPose();
+			poseStack.pushPose();
+			poseStack.scale(1.1f, 1.1f, 1.1f);
+			model.renderToBuffer(poseStack, verticies.getBuffer(ArcanusClient.getMagicCircles(TEXTURE)), light, OverlayTexture.NO_OVERLAY, Color.fromFloatsRGBA(r, g, b, 1f).asIntARGB());
+			poseStack.popPose();
 		}
 	}
 }
