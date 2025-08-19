@@ -61,8 +61,6 @@ public final class ArcanusConfig {
 		SpellShapes.RuneShapeProperties.class,
 		SpellShapes.BurstShapeProperties.class,
 		SpellShapes.GuidedShotShapeProperties.class,
-		SpellShapes.CounterShapeProperties.class,
-		SpellShapes.AOEShapeProperties.class,
 		SpellShapes.SmiteShapeProperties.class,
 		SpellShapes.MagicOrbShapeProperties.class,
 		SpellShapes.StockpileShapeProperties.class
@@ -91,10 +89,6 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 5;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
 			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double arcanaModifier = 0.85;
 
@@ -105,8 +99,12 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Missile")
@@ -132,10 +130,6 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
 			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double arcanaModifier = 1;
 
@@ -146,8 +140,8 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "projectileSpeed", translation = CONFIG_PROJECTILE_SPEED)
 			public static float projectileSpeed = 4f;
@@ -155,6 +149,10 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "baseLifeSpan", translation = CONFIG_BASE_LIFE_SPAN)
 			@ConfigOption.Range(min = 1, max = 24000)
 			public static int baseLifeSpan = 20;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Lob")
@@ -180,10 +178,6 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
 			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double arcanaModifier = 1;
 
@@ -194,11 +188,15 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "projectileSpeed", translation = CONFIG_PROJECTILE_SPEED)
 			public static float projectileSpeed = 2f;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Bolt")
@@ -224,10 +222,6 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
 			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double arcanaModifier = 1;
 
@@ -238,12 +232,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = -0.3;
 
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "range", translation = CONFIG_RANGE)
 			@ConfigOption.Range(min = 0, max = 32)
 			public static double range = 6;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Beam")
@@ -269,10 +267,6 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
 			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double arcanaModifier = 0.1;
 
@@ -283,8 +277,8 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0.1;
 
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "range", translation = CONFIG_RANGE)
 			@ConfigOption.Range(min = 0, max = 32)
@@ -293,6 +287,10 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "delay", translation = CONFIG_DELAY)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int delay = 40;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Rune")
@@ -318,10 +316,6 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
 			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double arcanaModifier = 1;
 
@@ -332,12 +326,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = true;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = true;
 
 			@ConfigEntry(id = "delay", translation = CONFIG_DELAY)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int delay = 60;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Burst")
@@ -363,10 +361,6 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
 			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double arcanaModifier = 1.25;
 
@@ -377,11 +371,15 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = true;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = true;
 
 			@ConfigEntry(id = "radius", translation = CONFIG_BURST_SHAPE_RADIUS)
 			public static float radius = 4f;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Guided Shot")
@@ -407,10 +405,6 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
 			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double arcanaModifier = 1;
 
@@ -421,104 +415,12 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
-		}
-
-		@Category("Counter")
-		public static final class CounterShapeProperties {
-			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
-			public static boolean enabled = true;
-
-			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
-			public static Weight weight = Weight.HEAVY;
-
-			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
-			public static double ignisArcanaCost = 0;
-
-			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double terraArcanaCost = 0;
-
-			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double aquaArcanaCost = 7;
-
-			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double aerArcanaCost = 0;
-
-			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double aetherArcanaCost = 7;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
-
-			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
-			public static double arcanaModifier = 1.2;
-
-			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static double coolDownModifier = 1;
-
-			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
-			public static double potencyModifier = 0;
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
-
-			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int baseEffectDuration = 100;
-		}
-
-		@Category("AOE")
-		public static final class AOEShapeProperties {
-			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
-			public static boolean enabled = true;
-
-			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
-			public static Weight weight = Weight.VERY_HEAVY;
-
-			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
-			public static double ignisArcanaCost = 0;
-
-			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double terraArcanaCost = 0;
-
-			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double aquaArcanaCost = 0;
-
-			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double aerArcanaCost = 0;
-
-			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double aetherArcanaCost = 0;
-
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
-			public static double arcanaModifier = 4;
-
-			@ConfigEntry(id = "coolDownModifier", translation = CONFIG_COOL_DOWN_MODIFIER)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static double coolDownModifier = 1;
-
-			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
-			public static double potencyModifier = 0;
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = true;
-
-			@ConfigEntry(id = "baseLifeSpan", translation = CONFIG_BASE_LIFE_SPAN)
-			@ConfigOption.Range(min = 1, max = 24000)
-			public static int baseLifeSpan = 100;
-
-			@ConfigEntry(id = "timesToApplyEffects", translation = CONFIG_TIMES_TO_APPLY_EFFECTS)
-			public static int timesToApplyEffects = 3;
-
-			@ConfigEntry(id = "timesToCastNextShape", translation = CONFIG_TIMES_TO_CAST_NEXT_SHAPE)
-			public static int timesToCastNextShape = 3;
 		}
 
 		@Category("Smite")
@@ -544,10 +446,6 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
 			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double arcanaModifier = 1.75;
 
@@ -558,8 +456,12 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0.5;
 
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Magic Orb")
@@ -585,10 +487,6 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
 			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double arcanaModifier = 1.5;
 
@@ -599,11 +497,15 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = true;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = true;
 
 			@ConfigEntry(id = "baseArcanaDrain", translation = CONFIG_BASE_MANA_DRAIN)
 			public static double baseArcanaDrain = 3;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Stockpile")
@@ -629,10 +531,6 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 5;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
 			@ConfigEntry(id = "arcanaModifier", translation = CONFIG_MANA_MODIFIER)
 			public static double arcanaModifier = 0.8;
 
@@ -643,8 +541,8 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "potencyModifier", translation = CONFIG_POTENCY_MODIFIER)
 			public static double potencyModifier = 0;
 
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "maximumStockpileOrbs", translation = CONFIG_MAXIMUM_STOCKPILE_ORBS)
 			@ConfigOption.Range(min = 0, max = 16)
@@ -656,6 +554,10 @@ public final class ArcanusConfig {
 
 			@ConfigEntry(id = "projectileSpeed", translation = CONFIG_PROJECTILE_SPEED)
 			public static float projectileSpeed = 3f;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 	}
 
@@ -695,16 +597,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseDamage", translation = CONFIG_BASE_DAMAGE)
 			@ConfigOption.Range(min = 0, max = 1000)
 			public static float baseDamage = 6f;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Fire")
@@ -730,12 +632,8 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseTimeOnFire", translation = CONFIG_BASE_TIME_ON_FIRE)
 			@ConfigOption.Range(min = 0, max = 100)
@@ -744,6 +642,10 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "stunnedEntityDamageMultiplier", translation = CONFIG_STUNNED_ENTITY_DAMAGE_MULTIPLIER)
 			@ConfigOption.Range(min = 1, max = 1000)
 			public static float stunnedEntityDamageMultiplier = 1.5f;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Electric")
@@ -769,12 +671,8 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseStunTime", translation = CONFIG_BASE_STUN_TIME)
 			@ConfigOption.Range(min = 0, max = 100)
@@ -783,6 +681,10 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "frozenEntityDamageMultiplier", translation = TranslationKeys.CONFIG_FROZEN_ENTITY_DAMAGE_MULTIPLIER)
 			@ConfigOption.Range(min = 1, max = 1000)
 			public static float frozenEntityDamageMultiplier = 1.5f;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Ice")
@@ -808,12 +710,8 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseFreezingTime", translation = CONFIG_BASE_FREEZING_TIME)
 			@ConfigOption.Range(min = 0, max = 100)
@@ -822,6 +720,10 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "burningEntityDamageMultiplier", translation = CONFIG_BURNING_ENTITY_DAMAGE_MULTIPLIER)
 			@ConfigOption.Range(min = 1, max = 1000)
 			public static float burningEntityDamageMultiplier = 1.5f;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Vulnerability")
@@ -847,16 +749,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 300;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Mana Lock")
@@ -882,16 +784,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 200;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Withering")
@@ -917,16 +819,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 3;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 60;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Necromancy")
@@ -952,16 +854,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 5;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = true;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = true;
 
 			@ConfigEntry(id = "baseHealth", translation = CONFIG_BASE_HEALTH)
 			@ConfigOption.Range(min = 1, max = 100)
 			public static int baseHealth = 10;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Mana Split")
@@ -987,12 +889,12 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 3;
 
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
+
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
 		}
 
 		@Category("Discombobulate")
@@ -1018,12 +920,8 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -1032,13 +930,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "effectDurationModifier", translation = CONFIG_EFFECT_DURATION_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int effectDurationModifier = 15;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 	}
 
 	@Category(value = "Support Effects", categories = {
 		SupportEffects.HealEffectProperties.class,
 		SupportEffects.DispelEffectProperties.class,
-		SupportEffects.RegenerateEffectProperties.class,
 		SupportEffects.FortifyEffectProperties.class,
 		SupportEffects.HasteEffectProperties.class,
 		SupportEffects.ManaShieldEffectProperties.class,
@@ -1069,16 +970,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseHealAmount", translation = CONFIG_BASE_HEAL_AMOUNT)
 			@ConfigOption.Range(min = 0, max = 1000)
 			public static float baseHealAmount = 3f;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Dispel")
@@ -1104,47 +1005,12 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
-		}
-
-		@Category("Regenerate")
-		public static final class RegenerateEffectProperties {
-			@ConfigEntry(id = "enabled", translation = CONFIG_ENABLED)
-			public static boolean enabled = true;
-
-			@ConfigEntry(id = "weight", translation = CONFIG_WEIGHT)
-			public static Weight weight = Weight.NONE;
-
-			@ConfigEntry(id = "ignisArcanaCost", translation = CONFIG_RED_MANA_COST)
-			public static double ignisArcanaCost = 0;
-
-			@ConfigEntry(id = "terraArcanaCost", translation = CONFIG_GREEN_MANA_COST)
-			public static double terraArcanaCost = 0;
-
-			@ConfigEntry(id = "aquaArcanaCost", translation = CONFIG_BLUE_MANA_COST)
-			public static double aquaArcanaCost = 0;
-
-			@ConfigEntry(id = "aerArcanaCost", translation = CONFIG_WHITE_MANA_COST)
-			public static double aerArcanaCost = 3;
-
-			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
-			public static double aetherArcanaCost = 0;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
-
-			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
-			@ConfigOption.Range(min = 0, max = 24000)
-			public static int baseEffectDuration = 100;
 		}
 
 		@Category("Fortify")
@@ -1170,16 +1036,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 500;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Haste")
@@ -1205,16 +1071,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 200;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Mana Shield")
@@ -1240,12 +1106,8 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = true;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = true;
 
 			@ConfigEntry(id = "baseLifeSpan", translation = CONFIG_BASE_LIFE_SPAN)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -1254,6 +1116,10 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "lifeSpanModifier", translation = CONFIG_LIFE_SPAN_MODIFIER)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int lifeSpanModifier = 40;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Danger Sense")
@@ -1279,12 +1145,8 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
@@ -1293,6 +1155,10 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "baseChanceToActivate", translation = CONFIG_BASE_ACTIVATION_CHANCE)
 			@ConfigOption.Range(min = 0, max = 1)
 			public static double baseChanceToActivate = 0.035;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Temporal Dilation")
@@ -1318,12 +1184,12 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
+
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
 		}
 	}
 
@@ -1361,16 +1227,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseLifeSpan", translation = CONFIG_BASE_LIFE_SPAN)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseLifeSpan = 220;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Anonymity")
@@ -1396,16 +1262,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 3;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 220;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Mine")
@@ -1431,12 +1297,12 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
+
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
 		}
 
 		@Category("Growth")
@@ -1462,12 +1328,12 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
+
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
 				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
 		}
 
 		@Category("Shrink")
@@ -1493,12 +1359,8 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseShrinkAmount", translation = CONFIG_BASE_SHRINK_AMOUNT)
 			@ConfigOption.Range(min = 0, max = 1)
@@ -1507,6 +1369,10 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Enlarge")
@@ -1532,12 +1398,8 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseEnlargeAmount", translation = CONFIG_BASE_ENLARGE_AMOUNT)
 			@ConfigOption.Range(min = 1, max = 2)
@@ -1546,6 +1408,10 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Spatial Rift")
@@ -1571,12 +1437,8 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = true;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = true;
 
 			@ConfigEntry(id = "canSuckEntitiesIn", translation = CONFIG_CAN_SUCK_ENTITIES_IN)
 			public static boolean canSuckEntitiesIn = true;
@@ -1598,6 +1460,10 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "baseLifeSpan", translation = CONFIG_BASE_LIFE_SPAN)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseLifeSpan = 300;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Warding")
@@ -1623,15 +1489,15 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "canBeRemovedByOthers", translation = CONFIG_CAN_BE_REMOVED_BY_OTHERS)
 			public static boolean canBeRemovedByOthers = true;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 	}
 
@@ -1669,16 +1535,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "basePushStrength", translation = CONFIG_BASE_PUSH_STRENGTH)
 			@ConfigOption.Range(min = 0, max = 10)
 			public static double basePushStrength = 0.2;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Pull")
@@ -1704,16 +1570,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "basePullStrength", translation = CONFIG_BASE_PULL_STRENGTH)
 			@ConfigOption.Range(min = 0, max = 10)
 			public static double basePullStrength = 0.2;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Levitate")
@@ -1739,16 +1605,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 60;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Speed")
@@ -1774,16 +1640,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 300;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Teleport")
@@ -1809,16 +1675,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = true;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = true;
 
 			@ConfigEntry(id = "baseTeleportDistance", translation = CONFIG_BASE_TELEPORT_DISTANCE)
 			@ConfigOption.Range(min = 0, max = 32)
 			public static double baseTeleportDistance = 5;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Bouncy")
@@ -1844,16 +1710,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 220;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Feather")
@@ -1879,16 +1745,16 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 100;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 
 		@Category("Float")
@@ -1914,12 +1780,8 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "aetherArcanaCost", translation = CONFIG_BLACK_MANA_COST)
 			public static double aetherArcanaCost = 0;
 
-			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
-			}
-
-			@ConfigEntry(id = "procsOnce", translation = CONFIG_PROCS_ONCE)
-			public static boolean procsOnce = false;
+			@ConfigEntry(id = "activatesOnce", translation = CONFIG_ACTIVATES_ONCE)
+			public static boolean activatesOnce = false;
 
 			@ConfigEntry(id = "removedUponTakingDamage", translation = CONFIG_REMOVED_ON_DAMAGE_TAKEN)
 			public static boolean removedUponTakingDamage = true;
@@ -1927,6 +1789,10 @@ public final class ArcanusConfig {
 			@ConfigEntry(id = "baseEffectDuration", translation = CONFIG_BASE_EFFECT_DURATION)
 			@ConfigOption.Range(min = 0, max = 24000)
 			public static int baseEffectDuration = 1200;
+
+			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
+				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+			}
 		}
 	}
 }

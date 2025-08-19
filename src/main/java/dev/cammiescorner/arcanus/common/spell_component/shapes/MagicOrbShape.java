@@ -24,7 +24,7 @@ public class MagicOrbShape extends SpellShape {
 			() -> ArcanusConfig.SpellShapes.MagicOrbShapeProperties.arcanaModifier,
 			() -> ArcanusConfig.SpellShapes.MagicOrbShapeProperties.potencyModifier,
 			() -> ArcanusConfig.SpellShapes.MagicOrbShapeProperties.coolDownModifier,
-			() -> ArcanusConfig.SpellShapes.MagicOrbShapeProperties.procsOnce);
+			() -> ArcanusConfig.SpellShapes.MagicOrbShapeProperties.activatesOnce);
 	}
 
 	@Override

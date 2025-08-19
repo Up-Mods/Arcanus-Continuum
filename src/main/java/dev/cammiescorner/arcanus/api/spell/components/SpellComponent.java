@@ -47,14 +47,14 @@ public class SpellComponent {
 	private static final MutableComponent DISABLED_TRANSLATED_NAME = Component.translatable(DISABLED_TRANSLATION_KEY).withStyle(ChatFormatting.OBFUSCATED);
 	private final Supplier<Boolean> isEnabled;
 	private final Supplier<Object2DoubleArrayMap<PrimalArcana>> arcanaCost;
-	private final Supplier<Boolean> procsOnce;
+	private final Supplier<Boolean> activatesOnce;
 	private String translationKey;
 	private ResourceLocation texture;
 
-	public SpellComponent(Supplier<Boolean> isEnabled, Supplier<Object2DoubleArrayMap<PrimalArcana>> arcanaCost, Supplier<Boolean> procsOnce) {
+	public SpellComponent(Supplier<Boolean> isEnabled, Supplier<Object2DoubleArrayMap<PrimalArcana>> arcanaCost, Supplier<Boolean> activatesOnce) {
 		this.isEnabled = isEnabled;
 		this.arcanaCost = arcanaCost;
-		this.procsOnce = procsOnce;
+		this.activatesOnce = activatesOnce;
 	}
 
 	public boolean isEnabled() {
@@ -66,7 +66,7 @@ public class SpellComponent {
 	}
 
 	public boolean singleCastOnly() {
-		return procsOnce.get();
+		return activatesOnce.get();
 	}
 
 	public String getArcanaCostAsString(PrimalArcana primalArcana) {

@@ -31,7 +31,7 @@ public class MissileSpellShape extends SpellShape {
 			() -> ArcanusConfig.SpellShapes.MissileShapeProperties.arcanaModifier,
 			() -> ArcanusConfig.SpellShapes.MissileShapeProperties.potencyModifier,
 			() -> ArcanusConfig.SpellShapes.MissileShapeProperties.coolDownModifier,
-			() -> ArcanusConfig.SpellShapes.MissileShapeProperties.procsOnce);
+			() -> ArcanusConfig.SpellShapes.MissileShapeProperties.activatesOnce);
 	}
 
 	@Override

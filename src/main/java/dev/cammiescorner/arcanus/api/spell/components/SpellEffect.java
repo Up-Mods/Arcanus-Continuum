@@ -21,8 +21,8 @@ public abstract class SpellEffect extends SpellComponent {
 	public static final Codec<SpellEffect> CODEC = ArcanusSpellComponents.REGISTRY.byNameCodec().flatXmap(spellComponent -> spellComponent instanceof SpellEffect effect ? DataResult.success(effect) : DataResult.error(() -> "Not an instance of SpellEffect"), DataResult::success);
 	private final Supplier<SpellType> type;
 
-	public SpellEffect(Supplier<Boolean> isEnabled, Supplier<SpellType> type, Supplier<Object2DoubleArrayMap<PrimalArcana>> arcanaCost, Supplier<Boolean> procsOnce) {
-		super(isEnabled, arcanaCost, procsOnce);
+	public SpellEffect(Supplier<Boolean> isEnabled, Supplier<SpellType> type, Supplier<Object2DoubleArrayMap<PrimalArcana>> arcanaCost, Supplier<Boolean> activatesOnce) {
+		super(isEnabled, arcanaCost, activatesOnce);
 		this.type = type;
 	}
 

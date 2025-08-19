@@ -23,7 +23,7 @@ public class ManaShieldSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.enabled,
 			() -> SpellType.SUPPORT,
 			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.arcanaCosts(),
-			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.procsOnce
+			() -> ArcanusConfig.SupportEffects.ManaShieldEffectProperties.activatesOnce
 		);
 	}
 

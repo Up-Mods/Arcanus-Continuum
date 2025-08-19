@@ -3,7 +3,6 @@ package dev.cammiescorner.arcanus.client.renderer.entity.magic;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.model.entity.magic.AreaOfEffectModel;
 import dev.cammiescorner.arcanus.common.entity.magic.AreaOfEffect;
@@ -29,7 +28,7 @@ public class AreaOfEffectRenderer extends EntityRenderer<AreaOfEffect> {
 	public void render(AreaOfEffect entity, float yaw, float tickDelta, PoseStack poseStack, MultiBufferSource vertices, int light) {
 		super.render(entity, yaw, tickDelta, poseStack, vertices, light);
 		Color color = ArcanusHelper.getMagicColor(entity);
-		float alpha = 1 - (Mth.clamp(entity.getTrueAge() - (ArcanusConfig.SpellShapes.AOEShapeProperties.baseLifeSpan * 0.9f), 0f, 10f) / 10f);
+		float alpha = 1 - (Mth.clamp(entity.getTrueAge() - (70 * 0.9f), 0f, 10f) / 10f);
 		float r = color.redF() * alpha;
 		float g = color.greenF() * alpha;
 		float b = color.blueF() * alpha;

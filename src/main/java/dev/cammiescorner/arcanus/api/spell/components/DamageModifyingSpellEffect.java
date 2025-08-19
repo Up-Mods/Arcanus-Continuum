@@ -10,8 +10,8 @@ import net.minecraft.world.entity.Entity;
 import java.util.function.Supplier;
 
 public abstract class DamageModifyingSpellEffect extends SpellEffect {
-	public DamageModifyingSpellEffect(Supplier<Boolean> isEnabled, Supplier<SpellType> type, Supplier<Object2DoubleArrayMap<PrimalArcana>> arcanaCost, Supplier<Boolean> procsOnce) {
-		super(isEnabled, type, arcanaCost, procsOnce);
+	public DamageModifyingSpellEffect(Supplier<Boolean> isEnabled, Supplier<SpellType> type, Supplier<Object2DoubleArrayMap<PrimalArcana>> arcanaCost, Supplier<Boolean> activatesOnce) {
+		super(isEnabled, type, arcanaCost, activatesOnce);
 	}
 
 	public abstract DamageSource damageSource(DamageSources damageSources);

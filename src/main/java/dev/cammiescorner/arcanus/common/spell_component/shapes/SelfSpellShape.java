@@ -25,7 +25,7 @@ public class SelfSpellShape extends SpellShape {
 			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.arcanaModifier,
 			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.potencyModifier,
 			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.coolDownModifier,
-			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.procsOnce);
+			() -> ArcanusConfig.SpellShapes.SelfShapeProperties.activatesOnce);
 	}
 
 	@Override

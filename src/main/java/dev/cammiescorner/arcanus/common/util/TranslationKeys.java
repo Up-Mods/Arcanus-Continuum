@@ -113,7 +113,7 @@ public class TranslationKeys {
 	public static final String CONFIG_BLACK_MANA_COST = "config.arcanus.aether_arcana_cost";
 	public static final String CONFIG_MANA_MODIFIER = "config.arcanus.arcana_modifier";
 	public static final String CONFIG_COOL_DOWN_MODIFIER = "config.arcanus.cool_down_modifier";
-	public static final String CONFIG_PROCS_ONCE = "config.arcanus.procs_once";
+	public static final String CONFIG_ACTIVATES_ONCE = "config.arcanus.activates_once";
 	public static final String CONFIG_POTENCY_MODIFIER = "config.arcanus.potency_modifier";
 	public static final String CONFIG_PROJECTILE_SPEED = "config.arcanus.projectile_speed";
 	public static final String CONFIG_BASE_LIFE_SPAN = "config.arcanus.base_life_span";

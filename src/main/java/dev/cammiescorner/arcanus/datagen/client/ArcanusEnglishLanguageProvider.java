@@ -227,10 +227,8 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		spell(builder, ArcanusSpellComponents.BEAM, "Beam Shape");
 		spell(builder, ArcanusSpellComponents.RUNE, "Rune Shape");
 		spell(builder, ArcanusSpellComponents.SMITE, "Smite Shape");
-		spell(builder, ArcanusSpellComponents.AOE, "Area Of Effect Shape");
 		spell(builder, ArcanusSpellComponents.BURST, "Burst Shape");
 		spell(builder, ArcanusSpellComponents.GUIDED_SHOT, "Guided Shot Shape");
-		spell(builder, ArcanusSpellComponents.COUNTER, "Counter Shape");
 		spell(builder, ArcanusSpellComponents.MAGIC_ORB, "Magic Orb Shape");
 		spell(builder, ArcanusSpellComponents.STOCKPILE, "Stockpile Shape");
 
@@ -245,7 +243,6 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		spell(builder, ArcanusSpellComponents.DISPEL, "Dispel Effect");
 		spell(builder, ArcanusSpellComponents.MANA_LOCK, "Mana Lock Effect");
 		spell(builder, ArcanusSpellComponents.WITHERING, "Withering Effect");
-		spell(builder, ArcanusSpellComponents.REGENERATE, "Regenerate Effect");
 		spell(builder, ArcanusSpellComponents.VULNERABILITY, "Vulnerability Effect");
 		spell(builder, ArcanusSpellComponents.FORTIFY, "Fortify Effect");
 		spell(builder, ArcanusSpellComponents.BOUNCY, "Bouncy Effect");
@@ -348,7 +345,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_BLACK_MANA_COST, "Aether Arcana Cost");
 		builder.add(CONFIG_MANA_MODIFIER, "Arcana Cost Modifier");
 		builder.add(CONFIG_COOL_DOWN_MODIFIER, "Cool Down Modifier");
-		builder.add(CONFIG_PROCS_ONCE, "Only Procs Once When Chained");
+		builder.add(CONFIG_ACTIVATES_ONCE, "Only Activates Once");
 		builder.add(CONFIG_POTENCY_MODIFIER, "Potency Modifier");
 		builder.add(CONFIG_PROJECTILE_SPEED, "Projectile Speed");
 		builder.add(CONFIG_BASE_LIFE_SPAN, "Base Life Span");

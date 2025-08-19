@@ -21,7 +21,7 @@ public class SpeedSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.enabled,
 			() -> SpellType.MOVEMENT,
 			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.arcanaCosts(),
-			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.procsOnce
+			() -> ArcanusConfig.MovementEffects.SpeedEffectProperties.activatesOnce
 		);
 	}
 

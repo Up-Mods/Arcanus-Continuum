@@ -4,7 +4,6 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spell.SpellType;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.common.data.ArcanusEntityTags;
-import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -24,7 +23,7 @@ public class DispelSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.SupportEffects.DispelEffectProperties.enabled,
 			() -> SpellType.SUPPORT,
 			() -> ArcanusConfig.SupportEffects.DispelEffectProperties.arcanaCosts(),
-			() -> ArcanusConfig.SupportEffects.DispelEffectProperties.procsOnce
+			() -> ArcanusConfig.SupportEffects.DispelEffectProperties.activatesOnce
 		);
 	}
 
@@ -38,9 +37,6 @@ public class DispelSpellEffect extends SpellEffect {
 
 				for(int i = 0; i < Math.min(statusEffects.size(), (int) (2 * potency)); i++)
 					livingEntity.removeEffect(statusEffects.get(i));
-
-				if(ArcanusComponents.isCounterActive(livingEntity))
-					ArcanusComponents.removeCounter(livingEntity);
 			}
 
 			if(entityHit.getEntity().getType().is(ArcanusEntityTags.DISPELLABLE))

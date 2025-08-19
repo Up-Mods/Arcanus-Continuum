@@ -1,6 +1,5 @@
 package dev.cammiescorner.arcanus.common.entity.magic;
 
-import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
@@ -71,8 +70,8 @@ public class AreaOfEffect extends Entity implements Targetable {
 		}
 
 		if(!level().isClientSide()) {
-			int baseLifeSpan = ArcanusConfig.SpellShapes.AOEShapeProperties.baseLifeSpan;
-			int timesToApplyEffects = ArcanusConfig.SpellShapes.AOEShapeProperties.timesToApplyEffects;
+			int baseLifeSpan = 70;
+			int timesToApplyEffects = 20;
 			int timesToCastNextShape = timesToCastNextShape();
 			int actualLifeSpan = (int) (baseLifeSpan * 0.9);
 
@@ -206,6 +205,6 @@ public class AreaOfEffect extends Entity implements Targetable {
 		else if(spellGroups.get(groupIndex + 1).shape().singleCastOnly())
 			return 1;
 
-		return ArcanusConfig.SpellShapes.AOEShapeProperties.timesToCastNextShape;
+		return 60;
 	}
 }

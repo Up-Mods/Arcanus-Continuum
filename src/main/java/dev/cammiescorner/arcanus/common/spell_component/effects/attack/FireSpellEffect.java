@@ -31,7 +31,7 @@ public class FireSpellEffect extends DamageModifyingSpellEffect {
 			() -> ArcanusConfig.AttackEffects.FireEffectProperties.enabled,
 			() -> SpellType.ATTACK,
 			() -> ArcanusConfig.AttackEffects.FireEffectProperties.arcanaCosts(),
-			() -> ArcanusConfig.AttackEffects.FireEffectProperties.procsOnce
+			() -> ArcanusConfig.AttackEffects.FireEffectProperties.activatesOnce
 		);
 	}
 

@@ -21,7 +21,7 @@ public class LevitateSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.MovementEffects.LevitateEffectProperties.enabled,
 			() -> SpellType.MOVEMENT,
 			() -> ArcanusConfig.MovementEffects.LevitateEffectProperties.arcanaCosts(),
-			() -> ArcanusConfig.MovementEffects.LevitateEffectProperties.procsOnce
+			() -> ArcanusConfig.MovementEffects.LevitateEffectProperties.activatesOnce
 		);
 	}
 

@@ -28,7 +28,7 @@ public class IceSpellEffect extends DamageModifyingSpellEffect {
 			() -> ArcanusConfig.AttackEffects.IceEffectProperties.enabled,
 			() -> SpellType.ATTACK,
 			() -> ArcanusConfig.AttackEffects.IceEffectProperties.arcanaCosts(),
-			() -> ArcanusConfig.AttackEffects.IceEffectProperties.procsOnce
+			() -> ArcanusConfig.AttackEffects.IceEffectProperties.activatesOnce
 		);
 	}
 

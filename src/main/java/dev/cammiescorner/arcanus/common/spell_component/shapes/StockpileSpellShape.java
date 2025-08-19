@@ -29,7 +29,7 @@ public class StockpileSpellShape extends SpellShape {
 			() -> ArcanusConfig.SpellShapes.StockpileShapeProperties.arcanaModifier,
 			() -> ArcanusConfig.SpellShapes.StockpileShapeProperties.potencyModifier,
 			() -> ArcanusConfig.SpellShapes.StockpileShapeProperties.coolDownModifier,
-			() -> ArcanusConfig.SpellShapes.StockpileShapeProperties.procsOnce);
+			() -> ArcanusConfig.SpellShapes.StockpileShapeProperties.activatesOnce);
 	}
 
 	@Override

@@ -25,7 +25,7 @@ public class ElectricSpellEffect extends DamageModifyingSpellEffect {
 			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.enabled,
 			() -> SpellType.ATTACK,
 			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.arcanaCosts(),
-			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.procsOnce
+			() -> ArcanusConfig.AttackEffects.ElectricEffectProperties.activatesOnce
 		);
 	}
 

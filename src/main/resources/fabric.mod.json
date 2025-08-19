@@ -58,21 +58,17 @@
       "${mod_id}:warded_blocks",
       "${mod_id}:known_spell_components",
       "${mod_id}:arcana",
-      "${mod_id}:burnout",
       "${mod_id}:casting",
       "${mod_id}:casting_pattern",
       "${mod_id}:last_cast_time",
       "${mod_id}:stun",
-      "${mod_id}:quests",
       "${mod_id}:magic_color",
       "${mod_id}:bolt_target",
       "${mod_id}:spell_shape",
-      "${mod_id}:size",
       "${mod_id}:pocket_dimension_portal",
       "${mod_id}:stockpile_orbs",
       "${mod_id}:magic_orb",
-      "${mod_id}:portal_cool_down",
-      "${mod_id}:counter"
+      "${mod_id}:portal_cool_down"
     ],
     "loom:injected_interfaces": {
       "net/minecraft/class_1508": [

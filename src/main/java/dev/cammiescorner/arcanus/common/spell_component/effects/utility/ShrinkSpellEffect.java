@@ -22,7 +22,7 @@ public class ShrinkSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.enabled,
 			() -> SpellType.UTILITY,
 			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.arcanaCosts(),
-			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.procsOnce
+			() -> ArcanusConfig.UtilityEffects.ShrinkEffectProperties.activatesOnce
 		);
 	}
 

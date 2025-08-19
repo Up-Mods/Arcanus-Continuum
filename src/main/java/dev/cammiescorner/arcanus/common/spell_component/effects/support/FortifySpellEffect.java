@@ -21,7 +21,7 @@ public class FortifySpellEffect extends SpellEffect {
 			() -> ArcanusConfig.SupportEffects.FortifyEffectProperties.enabled,
 			() -> SpellType.SUPPORT,
 			() -> ArcanusConfig.SupportEffects.FortifyEffectProperties.arcanaCosts(),
-			() -> ArcanusConfig.SupportEffects.FortifyEffectProperties.procsOnce
+			() -> ArcanusConfig.SupportEffects.FortifyEffectProperties.activatesOnce
 		);
 	}
 

@@ -27,7 +27,7 @@ public class NecromancySpellEffect extends SpellEffect {
 			() -> ArcanusConfig.AttackEffects.NecromancyEffectProperties.enabled,
 			() -> SpellType.ATTACK,
 			() -> ArcanusConfig.AttackEffects.NecromancyEffectProperties.arcanaCosts(),
-			() -> ArcanusConfig.AttackEffects.NecromancyEffectProperties.procsOnce
+			() -> ArcanusConfig.AttackEffects.NecromancyEffectProperties.activatesOnce
 		);
 	}
 

@@ -21,7 +21,7 @@ public class SpatialRiftSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.enabled,
 			() -> SpellType.UTILITY,
 			() -> ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.arcanaCosts(),
-			() -> ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.procsOnce
+			() -> ArcanusConfig.UtilityEffects.SpatialRiftEffectProperties.activatesOnce
 		);
 	}
 

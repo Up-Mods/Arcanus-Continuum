@@ -4,8 +4,6 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
-import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
-import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
 import dev.cammiescorner.arcanus.common.block.entities.AbstractMagicBlockEntity;
 import dev.cammiescorner.arcanus.common.component.MagicColorComponent;
@@ -17,12 +15,10 @@ import dev.cammiescorner.arcanus.common.component.level.PocketDimensionComponent
 import dev.cammiescorner.arcanus.common.entity.magic.*;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.EmptyLevelChunk;
@@ -62,14 +58,12 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 	public static final ComponentKey<PatternComponent> PATTERN_COMPONENT = createComponent("casting_pattern", PatternComponent.class);
 	public static final ComponentKey<LastCastTimeComponent> LAST_CAST_TIME_COMPONENT = createComponent("last_cast_time", LastCastTimeComponent.class);
 	public static final ComponentKey<StunComponent> STUN_COMPONENT = createComponent("stun", StunComponent.class);
-	public static final ComponentKey<QuestComponent> QUEST_COMPONENT = createComponent("quests", QuestComponent.class);
 	public static final ComponentKey<BoltTargetComponent> BOLT_TARGET = createComponent("bolt_target", BoltTargetComponent.class);
 	public static final ComponentKey<SpellShapeComponent> SPELL_SHAPE = createComponent("spell_shape", SpellShapeComponent.class);
 	public static final ComponentKey<PocketDimensionPortalComponent> POCKET_DIMENSION_PORTAL_COMPONENT = createComponent("pocket_dimension_portal", PocketDimensionPortalComponent.class);
 	public static final ComponentKey<StockpileOrbsComponent> STOCKPILE_ORB_COMPONENT = createComponent("stockpile_orbs", StockpileOrbsComponent.class);
 	public static final ComponentKey<MagicOrbComponent> MAGIC_ORB_COMPONENT = createComponent("magic_orb", MagicOrbComponent.class);
 	public static final ComponentKey<PortalCoolDownComponent> PORTAL_COOL_DOWN_COMPONENT = createComponent("portal_cool_down", PortalCoolDownComponent.class);
-	public static final ComponentKey<CounterComponent> COUNTER_COMPONENT = createComponent("counter", CounterComponent.class);
 
 	@Override
 	public void registerBlockComponentFactories(BlockComponentFactoryRegistry registry) {
@@ -92,12 +86,10 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		registry.beginRegistration(Player.class, POCKET_DIMENSION_PORTAL_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PocketDimensionPortalComponent::new);
 		registry.beginRegistration(LivingEntity.class, LAST_CAST_TIME_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(LastCastTimeComponent::new);
 		registry.beginRegistration(LivingEntity.class, STUN_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(StunComponent::new);
-		registry.beginRegistration(Player.class, QUEST_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(QuestComponent::new);
 		registry.beginRegistration(LivingEntity.class, BOLT_TARGET).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(BoltTargetComponent::new);
 		registry.beginRegistration(LivingEntity.class, STOCKPILE_ORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(StockpileOrbsComponent::new);
 		registry.beginRegistration(LivingEntity.class, MAGIC_ORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(MagicOrbComponent::new);
 		registry.beginRegistration(Player.class, PORTAL_COOL_DOWN_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PortalCoolDownComponent::new);
-		registry.beginRegistration(LivingEntity.class, COUNTER_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(CounterComponent::new);
 
 		List.of(
 			StockpileOrb.class,
@@ -254,18 +246,6 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		STUN_COMPONENT.get(entity).setStunTimer(timer);
 	}
 
-	public static List<ResourceLocation> getQuestIds(Player player) {
-		return QUEST_COMPONENT.get(player).getQuestIds();
-	}
-
-	public static long getLastCompletedQuestTime(Player player) {
-		return QUEST_COMPONENT.get(player).getLastCompletedQuestTime();
-	}
-
-	public static void setLastCompletedQuestTime(Player player, long time) {
-		QUEST_COMPONENT.get(player).setLastCompletedQuestTime(time);
-	}
-
 	public static Color getColor(Entity entity) {
 		return MAGIC_COLOR.get(entity).getColor();
 	}
@@ -336,30 +316,6 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 
 	public static boolean hasPortalCoolDown(Entity entity) {
 		return PORTAL_COOL_DOWN_COMPONENT.maybeGet(entity).map(PortalCoolDownComponent::hasCoolDown).orElse(false);
-	}
-
-	public static void setCounterProperties(LivingEntity entity, @Nullable LivingEntity caster, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> groups, int groupIndex, Color color, double potency, long worldTime) {
-		entity.getComponent(COUNTER_COMPONENT).setProperties(caster, stack, effects, groups, groupIndex, color, potency, worldTime);
-	}
-
-	public static void removeCounter(LivingEntity entity) {
-		entity.getComponent(COUNTER_COMPONENT).removeCounter();
-	}
-
-	public static void castCounter(LivingEntity entity, LivingEntity attackingEntity) {
-		entity.getComponent(COUNTER_COMPONENT).castCounter(attackingEntity);
-	}
-
-	public static boolean isCounterActive(LivingEntity entity) {
-		return entity.getComponent(COUNTER_COMPONENT).hasCounterActive(entity.level());
-	}
-
-	public static Color getCounterColor(LivingEntity entity) {
-		return entity.getComponent(COUNTER_COMPONENT).getColor();
-	}
-
-	public static long getCounterEnd(LivingEntity entity) {
-		return entity.getComponent(COUNTER_COMPONENT).getEndTime();
 	}
 
 	@Override

@@ -48,8 +48,6 @@ public class ArcanusSpellComponents {
 	public static final RegistrySupplier<SpellShape> RUNE = SPELL_COMPONENTS.register("rune_shape", RuneSpellShape::new);
 	public static final RegistrySupplier<SpellShape> BURST = SPELL_COMPONENTS.register("burst_shape", BurstSpellShape::new);
 	public static final RegistrySupplier<SpellShape> GUIDED_SHOT = SPELL_COMPONENTS.register("guided_shot_shape", GuidedShotSpellShape::new);
-	public static final RegistrySupplier<SpellShape> COUNTER = SPELL_COMPONENTS.register("counter_shape", CounterSpellShape::new);
-	public static final RegistrySupplier<SpellShape> AOE = SPELL_COMPONENTS.register("aoe_shape", AreaOfEffectSpellShape::new);
 	public static final RegistrySupplier<SpellShape> SMITE = SPELL_COMPONENTS.register("smite_shape", SmiteSpellShape::new);
 	public static final RegistrySupplier<SpellShape> MAGIC_ORB = SPELL_COMPONENTS.register("magic_orb_shape", MagicOrbShape::new);
 	public static final RegistrySupplier<SpellShape> STOCKPILE = SPELL_COMPONENTS.register("stockpile_shape", StockpileSpellShape::new);
@@ -68,7 +66,6 @@ public class ArcanusSpellComponents {
 
 	public static final RegistrySupplier<SpellEffect> HEAL = SPELL_COMPONENTS.register("heal_effect", HealSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> DISPEL = SPELL_COMPONENTS.register("dispel_effect", DispelSpellEffect::new);
-	public static final RegistrySupplier<SpellEffect> REGENERATE = SPELL_COMPONENTS.register("regenerate_effect", RegenerateSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> FORTIFY = SPELL_COMPONENTS.register("fortify_effect", FortifySpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> HASTE = SPELL_COMPONENTS.register("haste_effect", HasteSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> MANA_SHIELD = SPELL_COMPONENTS.register("mana_shield_effect", ManaShieldSpellEffect::new);

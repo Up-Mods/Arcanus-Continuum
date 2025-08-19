@@ -21,7 +21,7 @@ public class AnonymitySpellEffect extends SpellEffect {
 			() -> ArcanusConfig.UtilityEffects.AnonymityEffectProperties.enabled,
 			() -> SpellType.UTILITY,
 			() -> ArcanusConfig.UtilityEffects.AnonymityEffectProperties.arcanaCosts(),
-			() -> ArcanusConfig.UtilityEffects.AnonymityEffectProperties.procsOnce
+			() -> ArcanusConfig.UtilityEffects.AnonymityEffectProperties.activatesOnce
 		);
 	}
 

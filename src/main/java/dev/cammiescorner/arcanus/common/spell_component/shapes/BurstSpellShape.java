@@ -36,7 +36,7 @@ public class BurstSpellShape extends SpellShape {
 			() -> ArcanusConfig.SpellShapes.BurstShapeProperties.arcanaModifier,
 			() -> ArcanusConfig.SpellShapes.BurstShapeProperties.potencyModifier,
 			() -> ArcanusConfig.SpellShapes.BurstShapeProperties.coolDownModifier,
-			() -> ArcanusConfig.SpellShapes.BurstShapeProperties.procsOnce);
+			() -> ArcanusConfig.SpellShapes.BurstShapeProperties.activatesOnce);
 	}
 
 	@Override

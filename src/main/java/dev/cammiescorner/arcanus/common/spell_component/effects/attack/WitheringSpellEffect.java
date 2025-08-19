@@ -22,7 +22,7 @@ public class WitheringSpellEffect extends SpellEffect {
 			() -> ArcanusConfig.AttackEffects.WitheringEffectProperties.enabled,
 			() -> SpellType.ATTACK,
 			() -> ArcanusConfig.AttackEffects.WitheringEffectProperties.arcanaCosts(),
-			() -> ArcanusConfig.AttackEffects.WitheringEffectProperties.procsOnce
+			() -> ArcanusConfig.AttackEffects.WitheringEffectProperties.activatesOnce
 		);
 	}
 
