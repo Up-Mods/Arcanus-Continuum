@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.datagen.client;
 
+import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.common.data.*;
 import dev.cammiescorner.arcanus.common.registry.*;
@@ -265,6 +266,13 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		spell(builder, ArcanusSpellComponents.FLOAT, "Float Effect");
 		spell(builder, ArcanusSpellComponents.DANGER_SENSE, "Danger Sense Effect");
 
+		arcana(builder, ArcanusArcana.NIL, "Nil");
+		arcana(builder, ArcanusArcana.IGNIS, "Ignis");
+		arcana(builder, ArcanusArcana.TERRA, "Terra");
+		arcana(builder, ArcanusArcana.AQUA, "Aqua");
+		arcana(builder, ArcanusArcana.AER, "Aer");
+		arcana(builder, ArcanusArcana.AETHER, "Aether");
+
 		builder.add(SCREEN_SPELL_COMPONENT_COUNT, "Spell Components");
 		builder.add(SCREEN_CHANGE_MODE, "Change Mode");
 		builder.add(SCREEN_CYCLE_UP, "Previous Skin");
@@ -411,7 +419,11 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 	}
 
 	private void spell(TranslationBuilder builder, RegistrySupplier<? extends SpellComponent> component, String translation) {
-		builder.add(component.get().getTranslationKey(), translation);
+		builder.add(component.get().translationKey(), translation);
+	}
+
+	private void arcana(TranslationBuilder builder, RegistrySupplier<? extends Arcana> arcana, String translation) {
+		builder.add(arcana.get().translationKey(), translation);
 	}
 
 	private void tag(TranslationBuilder builder, TagKey<?> tag, String translation) {

@@ -49,7 +49,7 @@ public record StaffCoreComponent(ArcanaModifiers arcanaModifiers) implements Too
 
 		ArcanusArcana.primalArcana().forEach(primalArcana -> {
 			var modStr = String.format("%.2f", modifier(primalArcana));
-			tooltipAdder.accept(Component.literal("  %s: x%s".formatted(primalArcana.translationKey(), modStr)).withStyle(primalArcana.formatting()));
+			tooltipAdder.accept(Component.literal("  %s: x%s".formatted(Component.translatable(primalArcana.translationKey()).getString(), modStr)).withStyle(primalArcana.formatting()));
 		});
 	}
 }

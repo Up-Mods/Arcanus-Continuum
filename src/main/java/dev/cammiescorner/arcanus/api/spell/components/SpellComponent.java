@@ -92,7 +92,7 @@ public class SpellComponent {
 		return texture;
 	}
 
-	public String getTranslationKey() {
+	public String translationKey() {
 		if(translationKey == null)
 			translationKey = Util.makeDescriptionId("arcanus.spell_component", ArcanusSpellComponents.REGISTRY.getKey(this));
 
@@ -103,6 +103,6 @@ public class SpellComponent {
 		if(!isEnabled())
 			return DISABLED_TRANSLATED_NAME;
 
-		return Component.translatable(getTranslationKey());
+		return Component.translatable(translationKey());
 	}
 }

@@ -67,7 +67,7 @@ public class LearnSpellComponentsCommand {
 				if(spellComponent == ArcanusSpellComponents.EMPTY.get())
 					continue;
 
-				text.append(Component.literal("\n - ").append(Component.translatable(spellComponent.getTranslationKey())));
+				text.append(Component.literal("\n - ").append(Component.translatable(spellComponent.translationKey())));
 			}
 
 			return text;
@@ -80,12 +80,12 @@ public class LearnSpellComponentsCommand {
 		Holder.Reference<SpellComponent> spellComponent = getSpellComponent(context, "spell_component");
 
 		if(ArcanusComponents.knowsSpellComponents(player, spellComponent.value())) {
-			context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_LEARN_FAIL, player.getScoreboardName(), Component.translatable(spellComponent.value().getTranslationKey())), false);
+			context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_LEARN_FAIL, player.getScoreboardName(), Component.translatable(spellComponent.value().translationKey())), false);
 			return 0;
 		}
 
 		ArcanusComponents.learnSpellComponents(player, spellComponent.value());
-		context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_LEARN_SUCCESS, player.getScoreboardName(), Component.translatable(spellComponent.value().getTranslationKey())), true);
+		context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_LEARN_SUCCESS, player.getScoreboardName(), Component.translatable(spellComponent.value().translationKey())), true);
 
 		return Command.SINGLE_SUCCESS;
 	}
@@ -94,12 +94,12 @@ public class LearnSpellComponentsCommand {
 		Holder.Reference<SpellComponent> spellComponent = getSpellComponent(context, "spell_component");
 
 		if(!ArcanusComponents.knowsSpellComponents(player, spellComponent.value())) {
-			context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_REVOKE_FAIL, player.getScoreboardName(), Component.translatable(spellComponent.value().getTranslationKey())), false);
+			context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_REVOKE_FAIL, player.getScoreboardName(), Component.translatable(spellComponent.value().translationKey())), false);
 			return 0;
 		}
 
 		ArcanusComponents.forgetSpellComponents(player, spellComponent.value());
-		context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_REVOKE_SUCCESS, player.getScoreboardName(), Component.translatable(spellComponent.value().getTranslationKey())), true);
+		context.getSource().sendSuccess(() -> Component.translatable(TranslationKeys.COMMAND_SPELL_COMPONENT_REVOKE_SUCCESS, player.getScoreboardName(), Component.translatable(spellComponent.value().translationKey())), true);
 
 		return Command.SINGLE_SUCCESS;
 	}
