@@ -15,4 +15,8 @@ public interface Arcana {
 
 	ChatFormatting formatting();
 	Color color();
+
+	default String translationKey() {
+		return "arcana." + ArcanusArcana.REGISTRY.getKey(this).toLanguageKey();
+	}
 }

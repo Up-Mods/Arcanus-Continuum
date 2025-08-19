@@ -18,7 +18,9 @@ import dev.cammiescorner.arcanus.client.renderer.entity.living.OpossumRenderer;
 import dev.cammiescorner.arcanus.client.renderer.entity.magic.*;
 import dev.cammiescorner.arcanus.common.compat.ArcanusCompat;
 import dev.cammiescorner.arcanus.common.compat.FirstPersonCompat;
+import dev.cammiescorner.arcanus.common.data_component.StaffCapComponent;
 import dev.cammiescorner.arcanus.common.entity.living.Cultist;
+import dev.cammiescorner.arcanus.common.item.StaffCapItem;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.client.event.RegisterCustomArmorRenderersEvent;
@@ -43,6 +45,7 @@ import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -116,6 +119,10 @@ public class ArcanusClient implements ClientEntryPoint {
 		RegisterItemPropertiesEvent.EVENT.register(event -> {
 			for(Supplier<Item> itemSupplier : ArcanusItems.HOOD_ITEMS)
 				event.register(itemSupplier, Arcanus.id("hood_down"), (stack, level, entity, seed) -> stack.getOrDefault(ArcanusDataComponents.HOOD_DOWN.get(), false) ? 1f : 0f);
+
+			BuiltInRegistries.ITEM.stream().filter(item -> item instanceof StaffCapItem).forEach(item ->
+				event.register(item, Arcanus.id("inert"), (stack, clientLevel, livingEntity, i) -> stack.getOrDefault(ArcanusDataComponents.STAFF_CAP.get(), new StaffCapComponent(0)).isInert() ? 1f : 0f)
+			);
 		});
 	}
 

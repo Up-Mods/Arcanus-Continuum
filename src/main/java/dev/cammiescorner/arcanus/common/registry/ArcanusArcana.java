@@ -37,7 +37,7 @@ public class ArcanusArcana {
 	public static final RegistrySupplier<PrimalArcana> TERRA = ARCANA.register("terra", () -> new PrimalArcana(ArcanusAttributes.TERRA_ARCANA.holder(), ArcanusAttributes.TERRA_ARCANA_REGEN.holder(), ChatFormatting.GREEN, Color.fromRGB(54, 124, 38)));
 	public static final RegistrySupplier<PrimalArcana> AQUA = ARCANA.register("aqua", () -> new PrimalArcana(ArcanusAttributes.AQUA_ARCANA.holder(), ArcanusAttributes.AQUA_ARCANA_REGEN.holder(), ChatFormatting.BLUE, Color.fromRGB(6, 51, 141)));
 	public static final RegistrySupplier<PrimalArcana> AER = ARCANA.register("aer", () -> new PrimalArcana(ArcanusAttributes.AER_ARCANA.holder(), ArcanusAttributes.AER_ARCANA_REGEN.holder(), ChatFormatting.WHITE, Color.fromRGB(255, 251, 213)));
-	public static final RegistrySupplier<PrimalArcana> AETHER = ARCANA.register("aether", () -> new PrimalArcana(ArcanusAttributes.AETHER_ARCANA.holder(), ArcanusAttributes.AETHER_ARCANA_REGEN.holder(), ChatFormatting.DARK_GRAY, Color.fromRGB(114, 37, 118)));
+	public static final RegistrySupplier<PrimalArcana> AETHER = ARCANA.register("aether", () -> new PrimalArcana(ArcanusAttributes.AETHER_ARCANA.holder(), ArcanusAttributes.AETHER_ARCANA_REGEN.holder(), ChatFormatting.DARK_PURPLE, Color.fromRGB(114, 37, 118)));
 
 	// Compound Arcana
 	public static final RegistrySupplier<CompoundArcana> TEST = ARCANA.register("test", () -> new CompoundArcana(IGNIS, AQUA, ChatFormatting.GRAY, Color.fromRGB(128, 128, 128)));

@@ -4,9 +4,13 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
+import dev.cammiescorner.arcanus.common.data_component.StaffCapComponent;
+import dev.cammiescorner.arcanus.common.item.StaffCapItem;
+import dev.cammiescorner.arcanus.common.item.StaffCoreItem;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -60,7 +64,20 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusItems.CULTIST_PANTS.get());
 		entries.accept(ArcanusItems.CULTIST_BOOTS.get());
 
-		// staff caps & cores
+		// staff caps
+		BuiltInRegistries.ITEM.stream().filter(item -> item instanceof StaffCapItem).forEach(item -> {
+			ItemStack stack = item.getDefaultInstance();
+			StaffCapComponent component = stack.get(ArcanusDataComponents.STAFF_CAP.get());
+			entries.accept(item);
+
+			if(stack.has(ArcanusDataComponents.STAFF_CAP.get()) && component.isInert()) {
+				stack.set(ArcanusDataComponents.STAFF_CAP.get(), new StaffCapComponent(component.potency()));
+				entries.accept(stack);
+			}
+		});
+
+		// staff cores
+		BuiltInRegistries.ITEM.stream().filter(item -> item instanceof StaffCoreItem).forEach(entries::accept);
 	}).build());
 
 	public static final RegistrySupplier<CreativeModeTab> SCROLLS = CREATIVE_TABS.register("arcanus_scrolls", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_SCROLLS)).icon(() -> new ItemStack(ArcanusItems.SCROLL_OF_KNOWLEDGE.get())).displayItems((params, entries) -> {
