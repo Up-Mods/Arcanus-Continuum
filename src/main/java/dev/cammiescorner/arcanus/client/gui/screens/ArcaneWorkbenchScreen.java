@@ -1,7 +1,6 @@
 package dev.cammiescorner.arcanus.client.gui.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.cammiescorner.arcanus.client.gui.widgets.ChangeModeButtonWidget;
 import dev.cammiescorner.arcanus.client.gui.widgets.CycleTemplatesButtonWidget;
 import dev.cammiescorner.arcanus.common.menu.ArcaneWorkbenchMenu;
 import dev.cammiescorner.arcanus.common.util.WorkbenchMode;
@@ -34,11 +33,6 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
 	private void cycleTemplate(CycleTemplatesButtonWidget widget) {
 		if(minecraft != null && minecraft.gameMode != null)
 			minecraft.gameMode.handleInventoryButtonClick(menu.containerId, widget.isUp ? 1 : 2);
-	}
-
-	private void changeMode(ChangeModeButtonWidget widget) {
-		if(minecraft != null && minecraft.gameMode != null)
-			minecraft.gameMode.handleInventoryButtonClick(menu.containerId, 0);
 	}
 
 	@Override

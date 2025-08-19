@@ -274,7 +274,6 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		arcana(builder, ArcanusArcana.AETHER, "Aether");
 
 		builder.add(SCREEN_SPELL_COMPONENT_COUNT, "Spell Components");
-		builder.add(SCREEN_CHANGE_MODE, "Change Mode");
 		builder.add(SCREEN_CYCLE_UP, "Previous Skin");
 		builder.add(SCREEN_CYCLE_DOWN, "Next Skin");
 

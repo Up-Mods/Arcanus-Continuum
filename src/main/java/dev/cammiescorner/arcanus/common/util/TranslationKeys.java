@@ -43,7 +43,6 @@ public class TranslationKeys {
 	public static final String COMMAND_SPELL_COMPONENT_REVOKE_SUCCESS = "command.arcanus.spell_component.revoke.success";
 	public static final String COMMAND_SPELL_COMPONENT_REVOKE_FAIL = "command.arcanus.spell_component.revoke.fail";
 	public static final String SCREEN_SPELL_COMPONENT_COUNT = "screen.arcanus.tooltip.component_count";
-	public static final String SCREEN_CHANGE_MODE = "screen.arcanus.tooltip.change_screens";
 	public static final String SCREEN_CYCLE_UP = "screen.arcanus.tooltip.cycle_up";
 	public static final String SCREEN_CYCLE_DOWN = "screen.arcanus.tooltip.cycle_down";
 	public static final String SCREEN_UNDO = "screen.arcanus.tooltip.undo";
