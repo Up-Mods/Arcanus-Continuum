@@ -42,7 +42,7 @@ public record StaffCapComponent(double potency, boolean isInert) implements Tool
 	@Override
 	public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag) {
 		// TODO replace debug text with proper translatable values
-		String potencyStr = String.format("%.2f", potency());
+		String potencyStr = String.format("%.0f", (1 + potency()) * 100) + "%";
 		tooltipAdder.accept(Component.literal("Potency: %s".formatted(potencyStr)));
 	}
 }
