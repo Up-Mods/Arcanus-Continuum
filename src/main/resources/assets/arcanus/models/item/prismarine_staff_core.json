@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "arcanus:item/bamboo_staff_core"
+    "layer0": "arcanus:item/prismarine_staff_core"
   }
 }

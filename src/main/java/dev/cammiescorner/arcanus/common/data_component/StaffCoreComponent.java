@@ -6,8 +6,10 @@ import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.util.ArcanaModifiers;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
@@ -44,12 +46,17 @@ public record StaffCoreComponent(ArcanaModifiers arcanaModifiers) implements Too
 
 	@Override
 	public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag) {
-		// TODO replace debug text with proper translatable values
-		tooltipAdder.accept(Component.literal("[Staff Core]"));
+		MutableComponent component = Component.empty();
 
 		ArcanusArcana.primalArcana().forEach(primalArcana -> {
 			var modStr = String.format("%.2f", modifier(primalArcana));
-			tooltipAdder.accept(Component.literal("  %s: x%s".formatted(Component.translatable(primalArcana.translationKey()).getString(), modStr)).withStyle(primalArcana.formatting()));
+
+			if(!component.equals(Component.empty()))
+				component.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
+
+			component.append(Component.literal("x" + modStr).withStyle(primalArcana.formatting()));
 		});
+
+		tooltipAdder.accept(component);
 	}
 }

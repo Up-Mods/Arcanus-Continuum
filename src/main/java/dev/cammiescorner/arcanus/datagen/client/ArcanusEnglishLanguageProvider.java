@@ -75,7 +75,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.WOODEN_STAFF_CORE, "Wooden Staff Core");
 		builder.item(ArcanusItems.BONE_STAFF_CORE, "Bone Staff Core");
 		builder.item(ArcanusItems.BAMBOO_STAFF_CORE, "Bamboo Staff Core");
-		builder.item(ArcanusItems.CRYING_OBSIDIAN_STAFF_CORE, "Crying Obsidian Staff Core");
+		builder.item(ArcanusItems.PRISMARINE_STAFF_CORE, "Prismarine Staff Core");
 		builder.item(ArcanusItems.BLAZING_STAFF_CORE, "Blazing Staff Core");
 		builder.item(ArcanusItems.HELLISH_STAFF_CORE, "Hellish Staff Core");
 

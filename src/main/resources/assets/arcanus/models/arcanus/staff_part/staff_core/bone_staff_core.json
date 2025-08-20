@@ -1,0 +1,6 @@
+{
+  "parent": "arcanus:arcanus/staff_part/staff_core_base",
+  "textures": {
+    "layer0": "arcanus:item/staff_part/staff_core/bone_staff_core"
+  }
+}
