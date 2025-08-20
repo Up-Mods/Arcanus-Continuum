@@ -50,6 +50,9 @@ public final class ArcanusConfig {
 
 		@ConfigEntry(id = "numericalArcanaDisplay", translation = CONFIG_NUMERICAL_ARCANA_DISPLAY)
 		public static boolean numericalArcanaDisplay = false;
+
+		@ConfigEntry(id = "classicStaffCarryAnimation", translation = CONFIG_CLASSIC_STAFF_CARRY)
+		public static boolean classicStaffCarryAnimation = false;
 	}
 
 	@Category(value = "Spell Shapes", categories = {

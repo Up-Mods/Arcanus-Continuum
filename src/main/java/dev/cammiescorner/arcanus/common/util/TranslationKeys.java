@@ -100,6 +100,7 @@ public class TranslationKeys {
 	public static final String CONFIG_ARCANA_BARS_ON_TOP = "config.arcanus.arcana_bars_on_top";
 	public static final String CONFIG_RIGHT_SIDE_ARCANA_BARS = "config.arcanus.right_side_arcana_bars";
 	public static final String CONFIG_NUMERICAL_ARCANA_DISPLAY = "config.arcanus.numerical_arcana_display";
+	public static final String CONFIG_CLASSIC_STAFF_CARRY = "config.arcanus.classic_staff_carry";
 	public static final String CONFIG_MAX_ENCHANT_LEVEL = "config.arcanus.max_enchantment_level";
 	public static final String CONFIG_ARCANA_MANA_PER_LEVEL = "config.arcanus.arcana_per_level";
 	public static final String CONFIG_ARCANA_MODIFIER_OP = "config.arcanus.arcana_modifier_operation";

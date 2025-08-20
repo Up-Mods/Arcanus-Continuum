@@ -73,6 +73,10 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.ARCANEUM_STAFF_CAP, "Arcaneum Staff Cap");
 
 		builder.item(ArcanusItems.WOODEN_STAFF_CORE, "Wooden Staff Core");
+		builder.item(ArcanusItems.BONE_STAFF_CORE, "Bone Staff Core");
+		builder.item(ArcanusItems.BAMBOO_STAFF_CORE, "Bamboo Staff Core");
+		builder.item(ArcanusItems.CRYING_OBSIDIAN_STAFF_CORE, "Crying Obsidian Staff Core");
+		builder.item(ArcanusItems.BLAZING_STAFF_CORE, "Blazing Staff Core");
 		builder.item(ArcanusItems.HELLISH_STAFF_CORE, "Hellish Staff Core");
 
 		biome(builder, ArcanusBiomes.POCKET_DIMENSION, "Pocket Dimension");
@@ -340,6 +344,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_ARCANA_BARS_ON_TOP, "Move Arcana Bars to the Top");
 		builder.add(CONFIG_RIGHT_SIDE_ARCANA_BARS, "Move Arcana Bars to the Right");
 		builder.add(CONFIG_NUMERICAL_ARCANA_DISPLAY, "Display Exact Arcana Amounts by Arcana Bars");
+		builder.add(CONFIG_CLASSIC_STAFF_CARRY, "Use the Classic Staff Carrying Animation");
 		builder.add(CONFIG_MAX_ENCHANT_LEVEL, "Max Enchantment Level");
 		builder.add(CONFIG_ARCANA_MANA_PER_LEVEL, "Extra Arcana Per Level");
 		builder.add(CONFIG_ARCANA_MODIFIER_OP, "Arcana Modifier Operation");

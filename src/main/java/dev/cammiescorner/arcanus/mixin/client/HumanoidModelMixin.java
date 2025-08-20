@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.mixin.client;
 
+import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.client.Minecraft;
@@ -35,16 +36,25 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
 			ItemStack rightStack = client.options.mainHand().get() == HumanoidArm.RIGHT ? livingEntity.getMainHandItem() : livingEntity.getOffhandItem();
 			ItemStack leftStack = client.options.mainHand().get() == HumanoidArm.RIGHT ? livingEntity.getOffhandItem() : livingEntity.getMainHandItem();
 
-			if(rightStack.getItem() instanceof StaffItem)
+			if(rightStack.getItem() instanceof StaffItem) {
 				rightArm.xRot *= 0.5f;
-			if(leftStack.getItem() instanceof StaffItem)
+
+				if(ArcanusConfig.ClientStuff.classicStaffCarryAnimation || livingEntity.isSprinting())
+					leftArm.xRot *= 0.5f;
+			}
+
+			if(leftStack.getItem() instanceof StaffItem) {
 				leftArm.xRot *= 0.5f;
+
+				if(ArcanusConfig.ClientStuff.classicStaffCarryAnimation || livingEntity.isSprinting())
+					rightArm.xRot *= 0.5f;
+			}
 		}
 	}
 
 	@Inject(method = "setupAnim(Lnet/minecraft/world/entity/LivingEntity;FFFFF)V", at = @At("TAIL"))
 	private void staffRunningAnim(T entity, float f, float g, float h, float i, float j, CallbackInfo info) {
-		if(entity.isSprinting() && ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && !ArcanusComponents.isCasting(entity) && !entity.isSwimming() && !entity.isFallFlying()) {
+		if(ArcanusConfig.ClientStuff.classicStaffCarryAnimation && entity.isSprinting() && ArcanusComponents.CASTING_COMPONENT.isProvidedBy(entity) && !ArcanusComponents.isCasting(entity) && !entity.isSwimming() && !entity.isFallFlying()) {
 			Minecraft client = Minecraft.getInstance();
 			ItemStack rightStack = client.options.mainHand().get() == HumanoidArm.RIGHT ? entity.getMainHandItem() : entity.getOffhandItem();
 			ItemStack leftStack = client.options.mainHand().get() == HumanoidArm.RIGHT ? entity.getOffhandItem() : entity.getMainHandItem();
@@ -82,8 +92,17 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
 				leftArm.yRot = -0.610865f;
 			}
 			else {
-				rightArm.xRot = rightArm.xRot * 0.5f - 1.047198f;
-				rightArm.yRot = 0f;
+				if(ArcanusConfig.ClientStuff.classicStaffCarryAnimation) {
+					rightArm.xRot = rightArm.xRot * 0.5f - 1.047198f;
+					rightArm.yRot = 0f;
+				}
+				else {
+					rightArm.zRot = rightArm.zRot * 0.5f - 1.047198f;
+					rightArm.xRot = rightArm.xRot * 0.25f - 0.8726646f;
+
+					leftArm.zRot = -leftArm.zRot * 0.5f - 0.261799f;
+					leftArm.xRot = -leftArm.xRot * 0.25f - 0.3490659f;
+				}
 			}
 
 			info.cancel();
@@ -105,8 +124,17 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
 				rightArm.yRot = 0.610865f;
 			}
 			else {
-				leftArm.xRot = leftArm.xRot * 0.5f - 1.047198f;
-				leftArm.yRot = 0f;
+				if(ArcanusConfig.ClientStuff.classicStaffCarryAnimation) {
+					leftArm.xRot = leftArm.xRot * 0.5f - 1.047198f;
+					leftArm.yRot = 0f;
+				}
+				else {
+					leftArm.zRot = leftArm.zRot * 0.5f - 1.047198f;
+					leftArm.xRot = leftArm.xRot * 0.25f - 0.8726646f;
+
+					rightArm.zRot = -rightArm.zRot * 0.5f - 0.261799f;
+					rightArm.xRot = -rightArm.xRot * 0.25f - 0.3490659f;
+				}
 			}
 
 			info.cancel();

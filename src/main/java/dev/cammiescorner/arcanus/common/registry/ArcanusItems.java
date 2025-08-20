@@ -49,7 +49,11 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> ARCANEUM_STAFF_CAP = ITEMS.register("arcaneum_staff_cap", () -> new StaffCapItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CAP.get(), new StaffCapComponent(0.25d, true))));
 
 	public static final RegistrySupplier<Item> WOODEN_STAFF_CORE = ITEMS.register("wooden_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(1.1d, 1.1d, 1.1d, 1.1d, 1.1d))));
-	public static final RegistrySupplier<Item> HELLISH_STAFF_CORE = ITEMS.register("hellish_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.8d, 1.2d, 0.8d, 1.2d, 0.8d))));
+	public static final RegistrySupplier<Item> BONE_STAFF_CORE = ITEMS.register("bone_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.8d, 0.8d, 1.2d, 0.8d, 1.2d))));
+	public static final RegistrySupplier<Item> BAMBOO_STAFF_CORE = ITEMS.register("bamboo_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(1.2d, 0.8d, 0.8d, 0.8d, 1.2d))));
+	public static final RegistrySupplier<Item> CRYING_OBSIDIAN_STAFF_CORE = ITEMS.register("crying_obsidian_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.8d, 0.8d, 0.8d, 1.2d, 1.2d))));
+	public static final RegistrySupplier<Item> BLAZING_STAFF_CORE = ITEMS.register("blazing_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.8d, 1.2d, 1.2d, 0.8d, 0.8d))));
+	public static final RegistrySupplier<Item> HELLISH_STAFF_CORE = ITEMS.register("hellish_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.8d, 0.8d, 1.2d, 1.2d, 0.8d))));
 
 	public static final RegistrySupplier<Item> STAFF = ITEMS.register("staff", StaffItem::new);
 
