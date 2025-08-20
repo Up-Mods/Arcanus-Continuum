@@ -9,8 +9,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
 public class ArcanusItemTags {
-	public static final TagKey<Item> COPPER_CURSE_IMMUNE = TagKey.create(Registries.ITEM, Arcanus.id("copper_curse_immune"));
 	public static final TagKey<Item> STAVES = TagKey.create(Registries.ITEM, Arcanus.id("staves"));
+	public static final TagKey<Item> STAFF_CAPS = TagKey.create(Registries.ITEM, Arcanus.id("staff_caps"));
+	public static final TagKey<Item> STAFF_CORES = TagKey.create(Registries.ITEM, Arcanus.id("staff_cores"));
 	public static final TagKey<Item> ARCANIST_ARMOR = TagKey.create(Registries.ITEM, Arcanus.id("arcanist_armor"));
 
 	public static final TagKey<Item> C_FEATHERS = ConventionsHelper.tag(Registries.ITEM, "feathers");

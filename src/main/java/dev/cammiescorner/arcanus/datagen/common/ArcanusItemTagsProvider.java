@@ -31,21 +31,6 @@ public class ArcanusItemTagsProvider extends FabricTagProvider.ItemTagProvider {
 		getOrCreateTagBuilder(ConventionalItemTags.TOOLS)
 			.addTag(ArcanusItemTags.STAVES);
 
-		getOrCreateTagBuilder(ArcanusItemTags.COPPER_CURSE_IMMUNE)
-			.forceAddTag(ConventionalItemTags.TOOLS)
-			.add(Items.FISHING_ROD)
-			.forceAddTag(ConventionalItemTags.BOW_TOOLS)
-			.forceAddTag(ConventionalItemTags.SHIELD_TOOLS)
-			.forceAddTag(ConventionalItemTags.SPEAR_TOOLS)
-			.forceAddTag(ConventionalItemTags.SHEAR_TOOLS)
-			.forceAddTag(ItemTags.TRIMMABLE_ARMOR)
-			.add(Items.ELYTRA)
-			.forceAddTag(ItemTags.TRIM_TEMPLATES)
-			.add(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
-//			.add(ArcanusItems.BATTLE_MAGE_UPGRADE_SMITHING_TEMPLATE.get())
-			.forceAddTag(ItemTags.DECORATED_POT_SHERDS)
-			.addTag(ArcanusItemTags.ARCANIST_ARMOR);
-
 		getOrCreateTagBuilder(ArcanusItemTags.ARCANIST_ARMOR)
 			.add(ArcanusItems.ARCANIST_HAT.get())
 			.add(ArcanusItems.ARCANIST_ROBES.get())

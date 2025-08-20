@@ -65,19 +65,19 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusItems.CULTIST_BOOTS.get());
 
 		// staff caps
-		BuiltInRegistries.ITEM.stream().filter(item -> item instanceof StaffCapItem).forEach(item -> {
+		BuiltInRegistries.ITEM.stream().filter(item -> item instanceof StaffCapItem && BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(Arcanus.MOD_ID)).forEach(item -> {
 			ItemStack stack = item.getDefaultInstance();
 			StaffCapComponent component = stack.get(ArcanusDataComponents.STAFF_CAP.get());
 			entries.accept(item);
 
-			if(stack.has(ArcanusDataComponents.STAFF_CAP.get()) && component.isInert()) {
+			if(stack.has(ArcanusDataComponents.STAFF_CAP.get()) && component.isInert() && !stack.is(ArcanusItems.NETHERITE_STAFF_CAP.get())) {
 				stack.set(ArcanusDataComponents.STAFF_CAP.get(), new StaffCapComponent(component.potency()));
 				entries.accept(stack);
 			}
 		});
 
 		// staff cores
-		BuiltInRegistries.ITEM.stream().filter(item -> item instanceof StaffCoreItem).forEach(entries::accept);
+		BuiltInRegistries.ITEM.stream().filter(item -> item instanceof StaffCoreItem && BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(Arcanus.MOD_ID)).forEach(entries::accept);
 	}).build());
 
 	public static final RegistrySupplier<CreativeModeTab> SCROLLS = CREATIVE_TABS.register("arcanus_scrolls", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_SCROLLS)).icon(() -> new ItemStack(ArcanusItems.SCROLL_OF_KNOWLEDGE.get())).displayItems((params, entries) -> {

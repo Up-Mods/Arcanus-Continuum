@@ -73,8 +73,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.ARCANEUM_STAFF_CAP, "Arcaneum Staff Cap");
 
 		builder.item(ArcanusItems.WOODEN_STAFF_CORE, "Wooden Staff Core");
-		builder.item(ArcanusItems.CRIMSON_STAFF_CORE, "Crimson Staff Core");
-		builder.item(ArcanusItems.WARPED_STAFF_CORE, "Warped Staff Core");
+		builder.item(ArcanusItems.HELLISH_STAFF_CORE, "Hellish Staff Core");
 
 		biome(builder, ArcanusBiomes.POCKET_DIMENSION, "Pocket Dimension");
 
@@ -143,7 +142,6 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		tag(builder, ArcanusItemTags.BRACELET_HAND, "Bracelets");
 		tag(builder, ArcanusItemTags.BRACELET_OFFHAND, "Bracelets");
 		tag(builder, ArcanusItemTags.SPELL_BOOK, "Spell Books");
-		tag(builder, ArcanusItemTags.COPPER_CURSE_IMMUNE, "Ignored by Copper Curse");
 		tag(builder, ArcanusItemTags.STAVES, "Staves");
 		tag(builder, ArcanusItemTags.ARCANIST_ARMOR, "Arcanist Armor");
 

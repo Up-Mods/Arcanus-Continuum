@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "arcanus:aggressorb",
+    "arcanus:stockpile_orb",
     "arcanus:area_of_effect",
-    "arcanus:following_orb",
+    "arcanus:magic_orb",
     "arcanus:magic_rune",
     "arcanus:mana_shield",
     "arcanus:necro_skeleton",

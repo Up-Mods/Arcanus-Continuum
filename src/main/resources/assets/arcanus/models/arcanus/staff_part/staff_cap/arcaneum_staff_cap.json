@@ -1,6 +1,6 @@
 {
   "parent": "arcanus:arcanus/staff_part/staff_cap_base",
   "textures": {
-    "layer0": "arcanus:item/staff_part/staff_cap/golden_staff_cap"
+    "layer0": "arcanus:item/staff_part/staff_cap/arcaneum_staff_cap"
   }
 }

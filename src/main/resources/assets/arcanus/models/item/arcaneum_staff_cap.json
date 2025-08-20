@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "arcanus:item/arcaneum_staff_cap"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "arcanus:inert": 1
+      },
+      "model": "arcanus:item/inert_arcaneum_staff_cap"
+    }
+  ]
+}
