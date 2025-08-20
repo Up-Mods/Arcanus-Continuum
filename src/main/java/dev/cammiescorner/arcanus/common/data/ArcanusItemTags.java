@@ -13,6 +13,7 @@ public class ArcanusItemTags {
 	public static final TagKey<Item> STAFF_CAPS = TagKey.create(Registries.ITEM, Arcanus.id("staff_caps"));
 	public static final TagKey<Item> STAFF_CORES = TagKey.create(Registries.ITEM, Arcanus.id("staff_cores"));
 	public static final TagKey<Item> ARCANIST_ARMOR = TagKey.create(Registries.ITEM, Arcanus.id("arcanist_armor"));
+	public static final TagKey<Item> ARTIFICER_ARMOR = TagKey.create(Registries.ITEM, Arcanus.id("artificer_armor"));
 
 	public static final TagKey<Item> C_FEATHERS = ConventionsHelper.tag(Registries.ITEM, "feathers");
 

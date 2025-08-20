@@ -142,8 +142,11 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		tag(builder, ArcanusItemTags.BRACELET_HAND, "Bracelets");
 		tag(builder, ArcanusItemTags.BRACELET_OFFHAND, "Bracelets");
 		tag(builder, ArcanusItemTags.SPELL_BOOK, "Spell Books");
+		tag(builder, ArcanusItemTags.STAFF_CAPS, "Staff Caps");
+		tag(builder, ArcanusItemTags.STAFF_CORES, "Staff Cores");
 		tag(builder, ArcanusItemTags.STAVES, "Staves");
 		tag(builder, ArcanusItemTags.ARCANIST_ARMOR, "Arcanist Armor");
+		tag(builder, ArcanusItemTags.ARTIFICER_ARMOR, "Artificer Armor");
 
 		builder.add(SPELL_BOOK_SLOT, "Spell Book");
 		builder.add(BRACELET_HAND_SLOT, "Bracelet");
