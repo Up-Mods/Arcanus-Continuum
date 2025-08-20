@@ -10,6 +10,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.storage.WritableLevelData;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,6 +29,6 @@ public abstract class ClientLevelMixin extends Level {
 		target = "Lnet/minecraft/client/renderer/LevelRenderer;levelEvent(ILnet/minecraft/core/BlockPos;I)V"
 	))
 	private boolean noBreakingSoundsOrParticles(LevelRenderer target, int eventId, BlockPos pos, int data) {
-		return eventId != 2001 || !ArcanusComponents.isBlockWarded(this, pos);
+		return eventId != LevelEvent.PARTICLES_DESTROY_BLOCK || !ArcanusComponents.isBlockWarded(this, pos);
 	}
 }
