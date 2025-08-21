@@ -42,6 +42,8 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 
 		builder.item(ArcanusItems.ARCANEUM_INGOT, "Arcaneum Ingot");
 		builder.item(ArcanusItems.ARCANEUM_NUGGET, "Arcaneum Nugget");
+		builder.item(ArcanusItems.VOID_INGOT, "Void Ingot");
+		builder.item(ArcanusItems.VOID_NUGGET, "Void Nugget");
 		builder.item(ArcanusItems.ARCANIST_HAT, "Arcanist Hat");
 		builder.item(ArcanusItems.ARCANIST_ROBES, "Arcanist Robes");
 		builder.item(ArcanusItems.ARCANIST_PANTS, "Arcanist Pants");
@@ -67,19 +69,26 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.STAFF, "Staff");
 
 		ItemStack copperCap = new ItemStack(ArcanusItems.COPPER_STAFF_CAP.get());
+		ItemStack netheriteCap = new ItemStack(ArcanusItems.NETHERITE_STAFF_CAP.get());
 		ItemStack arcaneumCap = new ItemStack(ArcanusItems.ARCANEUM_STAFF_CAP.get());
+		ItemStack voidCap = new ItemStack(ArcanusItems.VOID_STAFF_CAP.get());
 
 		copperCap.set(ArcanusDataComponents.STAFF_CAP.get(), copperCap.get(ArcanusDataComponents.STAFF_CAP.get()).withInert(true));
+		netheriteCap.set(ArcanusDataComponents.STAFF_CAP.get(), netheriteCap.get(ArcanusDataComponents.STAFF_CAP.get()).withInert(true));
 		arcaneumCap.set(ArcanusDataComponents.STAFF_CAP.get(), arcaneumCap.get(ArcanusDataComponents.STAFF_CAP.get()).withInert(true));
+		voidCap.set(ArcanusDataComponents.STAFF_CAP.get(), voidCap.get(ArcanusDataComponents.STAFF_CAP.get()).withInert(true));
 
 		itemStack(builder, copperCap, "Inert Copper Staff Cap");
+		itemStack(builder, netheriteCap, "Inert Netherite Staff Cap");
 		itemStack(builder, arcaneumCap, "Inert Arcaneum Staff Cap");
+		itemStack(builder, voidCap, "Inert Void Staff Cap");
 
 		builder.item(ArcanusItems.IRON_STAFF_CAP, "Iron Staff Cap");
 		builder.item(ArcanusItems.GOLDEN_STAFF_CAP, "Golden Staff Cap");
 		builder.item(ArcanusItems.COPPER_STAFF_CAP, "Copper Staff Cap");
 		builder.item(ArcanusItems.NETHERITE_STAFF_CAP, "Netherite Staff Cap");
 		builder.item(ArcanusItems.ARCANEUM_STAFF_CAP, "Arcaneum Staff Cap");
+		builder.item(ArcanusItems.VOID_STAFF_CAP, "Void Staff Cap");
 
 		builder.item(ArcanusItems.WOODEN_STAFF_CORE, "Wooden Staff Core");
 		builder.item(ArcanusItems.BONE_STAFF_CORE, "Bone Staff Core");
