@@ -12,6 +12,7 @@ import dev.cammiescorner.arcanus.client.model.entity.living.ArcanistModel;
 import dev.cammiescorner.arcanus.client.model.entity.living.OpossumModel;
 import dev.cammiescorner.arcanus.client.model.entity.magic.*;
 import dev.cammiescorner.arcanus.client.model.feature.HaloModel;
+import dev.cammiescorner.arcanus.client.model.feature.SpellBookModel;
 import dev.cammiescorner.arcanus.client.model.feature.SpellPatternModel;
 import dev.cammiescorner.arcanus.client.particle.CollapseParticle;
 import dev.cammiescorner.arcanus.client.plugin.StaffModelLoadingPlugin;
@@ -58,6 +59,7 @@ public class FabricClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(AggressorbModel.MODEL_LAYER, AggressorbModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(TemporalDilationFieldModel.MODEL_LAYER, TemporalDilationFieldModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(SpellScrollModel.MODEL_LAYER, SpellScrollModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(SpellBookModel.MODEL_LAYER, SpellBookModel::getTexturedModelData);
 
 		ParticleFactoryRegistry.getInstance().register(ArcanusParticles.COLLAPSE.get(), CollapseParticle.Factory::new);
 

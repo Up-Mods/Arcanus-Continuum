@@ -43,7 +43,7 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusItems.OPOSSUM_SPAWN_EGG.get());
 	}).build());
 
-	public static final RegistrySupplier<CreativeModeTab> GEAR = CREATIVE_TABS.register("arcanus_gear", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_GEAR)).icon(() -> new ItemStack(ArcanusItems.SPELL_BOOK.get())).displayItems((params, entries) -> {
+	public static final RegistrySupplier<CreativeModeTab> GEAR = CREATIVE_TABS.register("arcanus_gear", () -> FabricItemGroup.builder().title(Component.translatable(CREATIVE_TAB_GEAR)).icon(() -> new ItemStack(ArcanusItems.STAFF.get())).displayItems((params, entries) -> {
 		// staves
 		entries.accept(ArcanusItems.STAFF.get());
 
