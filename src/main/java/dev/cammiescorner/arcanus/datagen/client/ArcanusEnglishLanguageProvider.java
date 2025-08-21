@@ -66,6 +66,15 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 
 		builder.item(ArcanusItems.STAFF, "Staff");
 
+		ItemStack copperCap = new ItemStack(ArcanusItems.COPPER_STAFF_CAP.get());
+		ItemStack arcaneumCap = new ItemStack(ArcanusItems.ARCANEUM_STAFF_CAP.get());
+
+		copperCap.set(ArcanusDataComponents.STAFF_CAP.get(), copperCap.get(ArcanusDataComponents.STAFF_CAP.get()).withInert(true));
+		arcaneumCap.set(ArcanusDataComponents.STAFF_CAP.get(), arcaneumCap.get(ArcanusDataComponents.STAFF_CAP.get()).withInert(true));
+
+		itemStack(builder, copperCap, "Inert Copper Staff Cap");
+		itemStack(builder, arcaneumCap, "Inert Arcaneum Staff Cap");
+
 		builder.item(ArcanusItems.IRON_STAFF_CAP, "Iron Staff Cap");
 		builder.item(ArcanusItems.GOLDEN_STAFF_CAP, "Golden Staff Cap");
 		builder.item(ArcanusItems.COPPER_STAFF_CAP, "Copper Staff Cap");
@@ -168,9 +177,10 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 
 		builder.add(ARCANIST_NO_ARCANIST_ARMOR, "Come back to me when you look like a arcanist.");
 		builder.add(ARCANIST_ARMOR_HINT, "Maybe wearing Arcanist Robes will help...");
-
-		builder.add(SET_BONUS, "Full Set Bonus: +40 %s");
 		builder.add(UNKNOWN, "???");
+
+		builder.add(TOOLTIP_SET_BONUS, "Full Set Bonus: +40 %s");
+		builder.add(TOOLTIP_STAFF_CAP_POTENCY, "Potency: %s");
 
 		builder.add(MAGIC_DOOR_ACCESS_GRANTED, "Access Granted...");
 		builder.add(MAGIC_DOOR_NOT_OWNER, "You do not own this door");

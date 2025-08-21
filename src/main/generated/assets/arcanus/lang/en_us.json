@@ -242,6 +242,8 @@
   "item.arcanus.cultist_robes": "Cultist Robes",
   "item.arcanus.golden_staff_cap": "Golden Staff Cap",
   "item.arcanus.hellish_staff_core": "Hellish Staff Core",
+  "item.arcanus.inert_arcaneum_staff_cap": "Inert Arcaneum Staff Cap",
+  "item.arcanus.inert_copper_staff_cap": "Inert Copper Staff Cap",
   "item.arcanus.iron_staff_cap": "Iron Staff Cap",
   "item.arcanus.netherite_staff_cap": "Netherite Staff Cap",
   "item.arcanus.opossum_spawn_egg": "Opossum Spawn Egg",
@@ -321,9 +323,10 @@
   "text.arcanus.use_item.scroll_of_knowledge.already_knows_spell_component": "You have learned everything you can.",
   "text.arcanus.use_item.scroll_of_knowledge.disabled_spell_component": "This spell component doesn't seem possible.",
   "text.arcanus.wizard_dialogue.no_wizard_armor": "Come back to me when you look like a arcanist.",
+  "text.arcanus.wizard_dialogue.no_wizard_armor_hint": "Maybe wearing Arcanist Robes will help...",
   "tooltip.arcanus.set_bonus": "Full Set Bonus: +40 %s",
   "tooltip.arcanus.spell_book.spell_pattern": "%s (%s)",
-  "tooltip.arcanus.wizard_dialogue.no_wizard_armor": "Maybe wearing Arcanist Robes will help...",
+  "tooltip.arcanus.staff_cap.potency": "Potency: %s",
   "trinkets.slot.hand.bracelet": "Bracelet",
   "trinkets.slot.legs.spell_book": "Spell Book"
 }

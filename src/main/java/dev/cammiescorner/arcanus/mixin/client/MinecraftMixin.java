@@ -125,7 +125,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 		if(player != null && !player.isSpectator() && level != null) {
 			if(player.getMainHandItem().getItem() instanceof StaffItem staff) {
 				if(player.getAttackStrengthScale(getFrameTimeNs()) >= ((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) ? 1f : 0.15f) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && !isCasting) {
-					timer = 20;
+					timer = 30;
 					patterns.add(Pattern.LEFT);
 					Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns, false));
 					player.swing(InteractionHand.MAIN_HAND);
@@ -135,8 +135,6 @@ public abstract class MinecraftMixin implements ClientUtils {
 					if(patterns.size() >= 3)
 						lastMouseDown = options.keyAttack;
 				}
-
-				info.cancel();
 			}
 			else {
 				List<UUID> orbIds = player.getComponent(ArcanusComponents.STOCKPILE_ORB_COMPONENT).getOrbs();
@@ -160,7 +158,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 
 		if(player != null && !player.isSpectator() && level != null && player.getMainHandItem().getItem() instanceof StaffItem staff) {
 			if(player.getAttackStrengthScale(getFrameTimeNs()) >= ((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) ? 1 : 0.15f) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && !isCasting) {
-				timer = 20;
+				timer = 30;
 				patterns.add(Pattern.RIGHT);
 				Network.getNetworkHandler().sendToServer(new ServerboundSyncPatternPacket(patterns, false));
 				player.swing(InteractionHand.MAIN_HAND);

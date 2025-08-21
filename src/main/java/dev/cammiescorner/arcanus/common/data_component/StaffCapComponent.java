@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanus.common.data_component;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -41,8 +42,7 @@ public record StaffCapComponent(double potency, boolean isInert) implements Tool
 
 	@Override
 	public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag) {
-		// TODO replace debug text with proper translatable values
 		String potencyStr = String.format("%.0f", (1 + potency()) * 100) + "%";
-		tooltipAdder.accept(Component.literal("Potency: %s".formatted(potencyStr)));
+		tooltipAdder.accept(Component.translatable(TranslationKeys.TOOLTIP_STAFF_CAP_POTENCY, potencyStr));
 	}
 }
