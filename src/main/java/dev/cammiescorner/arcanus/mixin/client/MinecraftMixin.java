@@ -135,6 +135,9 @@ public abstract class MinecraftMixin implements ClientUtils {
 
 		if(player != null && !player.isSpectator() && level != null) {
 			if(player.getMainHandItem().getItem() instanceof StaffItem staff) {
+				if(crosshairPickEntity != null && crosshairPickEntity.isAttackable())
+					return;
+
 				if(player.getAttackStrengthScale(getFrameTimeNs()) >= ((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) ? 1f : 0.15f) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && !isCasting) {
 					timer = 30;
 					patterns.add(Pattern.LEFT);
@@ -146,9 +149,6 @@ public abstract class MinecraftMixin implements ClientUtils {
 					if(patterns.size() >= 3)
 						lastMouseDown = options.keyAttack;
 				}
-
-				if(crosshairPickEntity != null && crosshairPickEntity.isAttackable())
-					info.cancel();
 			}
 			else {
 				List<UUID> orbIds = player.getComponent(ArcanusComponents.STOCKPILE_ORB_COMPONENT).getOrbs();
@@ -175,9 +175,9 @@ public abstract class MinecraftMixin implements ClientUtils {
 				InteractionResult interactionResult = null;
 
 				if(hitResult instanceof BlockHitResult blockHitResult)
-					interactionResult = gameMode.useItemOn(this.player, InteractionHand.MAIN_HAND, blockHitResult);
+					interactionResult = gameMode.useItemOn(player, InteractionHand.MAIN_HAND, blockHitResult);
 				if(hitResult instanceof EntityHitResult entityHitResult)
-					interactionResult = gameMode.interactAt(this.player, entityHitResult.getEntity(), entityHitResult, InteractionHand.MAIN_HAND);
+					interactionResult = gameMode.interactAt(player, entityHitResult.getEntity(), entityHitResult, InteractionHand.MAIN_HAND);
 
 				if(interactionResult != null && interactionResult.consumesAction())
 					return;
