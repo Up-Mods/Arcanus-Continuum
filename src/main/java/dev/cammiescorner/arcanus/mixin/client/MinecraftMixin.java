@@ -15,12 +15,17 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -48,6 +53,12 @@ public abstract class MinecraftMixin implements ClientUtils {
 
 	@Shadow public abstract boolean isLocalServer();
 	@Shadow public abstract long getFrameTimeNs();
+
+	@Shadow @Nullable public Entity crosshairPickEntity;
+
+	@Shadow @Nullable public HitResult hitResult;
+
+	@Shadow @Nullable public MultiPlayerGameMode gameMode;
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void tick(CallbackInfo info) {
@@ -135,6 +146,9 @@ public abstract class MinecraftMixin implements ClientUtils {
 					if(patterns.size() >= 3)
 						lastMouseDown = options.keyAttack;
 				}
+
+				if(crosshairPickEntity != null && crosshairPickEntity.isAttackable())
+					info.cancel();
 			}
 			else {
 				List<UUID> orbIds = player.getComponent(ArcanusComponents.STOCKPILE_ORB_COMPONENT).getOrbs();
@@ -157,6 +171,18 @@ public abstract class MinecraftMixin implements ClientUtils {
 			info.cancel();
 
 		if(player != null && !player.isSpectator() && level != null && player.getMainHandItem().getItem() instanceof StaffItem staff) {
+			if(hitResult != null && hitResult.getType() != HitResult.Type.MISS) {
+				InteractionResult interactionResult = null;
+
+				if(hitResult instanceof BlockHitResult blockHitResult)
+					interactionResult = gameMode.useItemOn(this.player, InteractionHand.MAIN_HAND, blockHitResult);
+				if(hitResult instanceof EntityHitResult entityHitResult)
+					interactionResult = gameMode.interactAt(this.player, entityHitResult.getEntity(), entityHitResult, InteractionHand.MAIN_HAND);
+
+				if(interactionResult != null && interactionResult.consumesAction())
+					return;
+			}
+
 			if(player.getAttackStrengthScale(getFrameTimeNs()) >= ((isLocalServer() ? ArcanusConfig.castingSpeedHasCoolDown : ArcanusClient.castingSpeedHasCoolDown) ? 1 : 0.15f) && player.getCooldowns().getCooldownPercent(staff, getFrameTimeNs()) == 0 && !isCasting) {
 				timer = 30;
 				patterns.add(Pattern.RIGHT);
@@ -168,8 +194,6 @@ public abstract class MinecraftMixin implements ClientUtils {
 				if(patterns.size() >= 3)
 					lastMouseDown = options.keyUse;
 			}
-
-			info.cancel();
 		}
 	}
 
