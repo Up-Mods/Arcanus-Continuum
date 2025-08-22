@@ -150,7 +150,7 @@ public class SpellScrollScreen extends AbstractContainerScreen<SpellScrollMenu> 
 					MutableComponent arcanaCost = Component.empty();
 					boolean knowsComponent = ArcanusComponents.knowsSpellComponents(minecraft.player, component);
 
-					textList.add(knowsComponent ? component.getName() : Component.translatable(UNKNOWN));
+					textList.add(knowsComponent ? component.getName() : Component.literal("???"));
 
 					ArcanusArcana.primalArcana().forEach(primalArcana -> {
 						if(!arcanaCost.equals(Component.empty()))

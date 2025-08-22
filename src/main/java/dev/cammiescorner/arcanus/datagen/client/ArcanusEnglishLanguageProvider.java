@@ -186,7 +186,6 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 
 		builder.add(ARCANIST_NO_ARCANIST_ARMOR, "Come back to me when you look like a arcanist.");
 		builder.add(ARCANIST_ARMOR_HINT, "Maybe wearing Arcanist Robes will help...");
-		builder.add(UNKNOWN, "???");
 
 		builder.add(TOOLTIP_SET_BONUS, "Full Set Bonus: +40 %s");
 		builder.add(TOOLTIP_STAFF_CAP_POTENCY, "Potency: %s");
