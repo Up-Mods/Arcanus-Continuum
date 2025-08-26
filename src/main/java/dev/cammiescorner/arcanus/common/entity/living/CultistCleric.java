@@ -21,10 +21,10 @@ public class CultistCleric extends Cultist {
 
 	@Override
 	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
-		setItemSlot(EquipmentSlot.HEAD, ArcanusItems.CULTIST_HOOD.get().getDefaultInstance());
-		setItemSlot(EquipmentSlot.CHEST, ArcanusItems.CULTIST_ROBES.get().getDefaultInstance());
-		setItemSlot(EquipmentSlot.LEGS, ArcanusItems.CULTIST_PANTS.get().getDefaultInstance());
-		setItemSlot(EquipmentSlot.FEET, ArcanusItems.CULTIST_BOOTS.get().getDefaultInstance());
+		setItemSlot(EquipmentSlot.HEAD, ArcanusItems.CULTIST_CLERIC_HOOD.get().getDefaultInstance());
+		setItemSlot(EquipmentSlot.CHEST, ArcanusItems.CULTIST_CLERIC_ROBES.get().getDefaultInstance());
+		setItemSlot(EquipmentSlot.LEGS, ArcanusItems.CULTIST_CLERIC_PANTS.get().getDefaultInstance());
+		setItemSlot(EquipmentSlot.FEET, ArcanusItems.CULTIST_CLERIC_BOOTS.get().getDefaultInstance());
 		setItemSlot(EquipmentSlot.MAINHAND, ArcanusItems.STAFF.get().getDefaultInstance());
 	}
 }

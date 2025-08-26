@@ -103,7 +103,7 @@ public class ArcanusClient implements ClientEntryPoint {
 		RegisterCustomArmorRenderersEvent.EVENT.register(event -> {
 			event.register(ArcanistRobesRenderer::new, ArcanusItems.ARCANIST_HAT, ArcanusItems.ARCANIST_ROBES, ArcanusItems.ARCANIST_PANTS, ArcanusItems.ARCANIST_BOOTS);
 			event.register(ArtificerArmorRenderer::new, ArcanusItems.ARTIFICER_HELMET, ArcanusItems.ARTIFICER_CHESTPLATE, ArcanusItems.ARTIFICER_LEGGINGS, ArcanusItems.ARTIFICER_BOOTS);
-			event.register(CultRobesRenderer::new, ArcanusItems.CULTIST_HOOD, ArcanusItems.CULTIST_ROBES, ArcanusItems.CULTIST_PANTS, ArcanusItems.CULTIST_BOOTS);
+			event.register(CultRobesRenderer::new, ArcanusItems.CULTIST_CLERIC_HOOD, ArcanusItems.CULTIST_CLERIC_ROBES, ArcanusItems.CULTIST_CLERIC_PANTS, ArcanusItems.CULTIST_CLERIC_BOOTS);
 		});
 
 		BlockEntityRenderers.register(ArcanusBlockEntities.MAGIC_BLOCK.get(), MagicBlockEntityRenderer.factory(ArcanusHelper::getMagicColor));

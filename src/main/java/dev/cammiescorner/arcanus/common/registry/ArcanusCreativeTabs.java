@@ -61,10 +61,18 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusItems.ARTIFICER_CHESTPLATE.get());
 		entries.accept(ArcanusItems.ARTIFICER_LEGGINGS.get());
 		entries.accept(ArcanusItems.ARTIFICER_BOOTS.get());
-		entries.accept(ArcanusItems.CULTIST_HOOD.get());
-		entries.accept(ArcanusItems.CULTIST_ROBES.get());
-		entries.accept(ArcanusItems.CULTIST_PANTS.get());
-		entries.accept(ArcanusItems.CULTIST_BOOTS.get());
+		entries.accept(ArcanusItems.ALCHEMIST_GOGGLES.get());
+		entries.accept(ArcanusItems.ALCHEMIST_ROBES.get());
+		entries.accept(ArcanusItems.ALCHEMIST_PANTS.get());
+		entries.accept(ArcanusItems.ALCHEMIST_BOOTS.get());
+		entries.accept(ArcanusItems.CULTIST_CLERIC_HOOD.get());
+		entries.accept(ArcanusItems.CULTIST_CLERIC_ROBES.get());
+		entries.accept(ArcanusItems.CULTIST_CLERIC_PANTS.get());
+		entries.accept(ArcanusItems.CULTIST_CLERIC_BOOTS.get());
+		entries.accept(ArcanusItems.CULTIST_KNIGHT_HELMET.get());
+		entries.accept(ArcanusItems.CULTIST_KNIGHT_CHESTPLATE.get());
+		entries.accept(ArcanusItems.CULTIST_KNIGHT_LEGGINGS.get());
+		entries.accept(ArcanusItems.CULTIST_KNIGHT_BOOTS.get());
 
 		// staff caps
 		BuiltInRegistries.ITEM.stream().filter(item -> item instanceof StaffCapItem && BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(Arcanus.MOD_ID)).forEach(item -> {

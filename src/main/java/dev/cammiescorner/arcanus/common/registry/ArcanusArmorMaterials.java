@@ -17,7 +17,7 @@ import java.util.List;
 public class ArcanusArmorMaterials {
 	public static final RegistryHandler<ArmorMaterial> MATERIALS = RegistryHandler.create(Registries.ARMOR_MATERIAL, Arcanus.MOD_ID);
 
-	public static final RegistrySupplier<ArmorMaterial> ARCANIST = MATERIALS.register("wizard", () -> new ArmorMaterial(
+	public static final RegistrySupplier<ArmorMaterial> ARCANIST = MATERIALS.register("arcanist", () -> new ArmorMaterial(
 		Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
 			map.put(ArmorItem.Type.BOOTS, 1);
 			map.put(ArmorItem.Type.LEGGINGS, 4);
@@ -32,17 +32,62 @@ public class ArcanusArmorMaterials {
 		0f,
 		0f
 	));
-	public static final RegistrySupplier<ArmorMaterial> BATTLE_MAGE = MATERIALS.register("battle_mage", () -> new ArmorMaterial(
+	public static final RegistrySupplier<ArmorMaterial> ARTIFICER = MATERIALS.register("artificer", () -> new ArmorMaterial(
 		Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
 			map.put(ArmorItem.Type.BOOTS, 2);
-			map.put(ArmorItem.Type.LEGGINGS, 7);
-			map.put(ArmorItem.Type.CHESTPLATE, 8);
+			map.put(ArmorItem.Type.LEGGINGS, 5);
+			map.put(ArmorItem.Type.CHESTPLATE, 6);
 			map.put(ArmorItem.Type.HELMET, 3);
-			map.put(ArmorItem.Type.BODY, 8);
+			map.put(ArmorItem.Type.BODY, 6);
+		}),
+		25,
+		SoundEvents.ARMOR_EQUIP_LEATHER,
+		() -> Ingredient.of(ArcanusItems.ARCANEUM_INGOT.get()),
+		List.of(),
+		0f,
+		0f
+	));
+	public static final RegistrySupplier<ArmorMaterial> ALCHEMIST = MATERIALS.register("alchemist", () -> new ArmorMaterial(
+		Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
+			map.put(ArmorItem.Type.BOOTS, 1);
+			map.put(ArmorItem.Type.LEGGINGS, 4);
+			map.put(ArmorItem.Type.CHESTPLATE, 5);
+			map.put(ArmorItem.Type.HELMET, 2);
+			map.put(ArmorItem.Type.BODY, 5);
+		}),
+		25,
+		SoundEvents.ARMOR_EQUIP_LEATHER,
+		() -> Ingredient.of(Items.LEATHER),
+		List.of(),
+		0f,
+		0f
+	));
+	public static final RegistrySupplier<ArmorMaterial> CULTIST_CLERIC = MATERIALS.register("cultist_cleric", () -> new ArmorMaterial(
+		Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
+			map.put(ArmorItem.Type.BOOTS, 1);
+			map.put(ArmorItem.Type.LEGGINGS, 4);
+			map.put(ArmorItem.Type.CHESTPLATE, 5);
+			map.put(ArmorItem.Type.HELMET, 2);
+			map.put(ArmorItem.Type.BODY, 5);
+		}),
+		25,
+		SoundEvents.ARMOR_EQUIP_LEATHER,
+		() -> Ingredient.of(Items.LEATHER),
+		List.of(),
+		0f,
+		0f
+	));
+	public static final RegistrySupplier<ArmorMaterial> CULTIST_KNIGHT = MATERIALS.register("cultist_knight", () -> new ArmorMaterial(
+		Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
+			map.put(ArmorItem.Type.BOOTS, 2);
+			map.put(ArmorItem.Type.LEGGINGS, 5);
+			map.put(ArmorItem.Type.CHESTPLATE, 7);
+			map.put(ArmorItem.Type.HELMET, 3);
+			map.put(ArmorItem.Type.BODY, 7);
 		}),
 		25,
 		SoundEvents.ARMOR_EQUIP_IRON,
-		() -> Ingredient.of(Items.AMETHYST_SHARD),
+		() -> Ingredient.of(Items.IRON_INGOT),
 		List.of(),
 		0f,
 		0f

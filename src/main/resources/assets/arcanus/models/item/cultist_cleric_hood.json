@@ -8,7 +8,7 @@
       "predicate": {
         "arcanus:hood_down": 1
       },
-      "model": "arcanus:item/cultist_hood_down"
+      "model": "arcanus:item/cultist_cleric_hood_down"
     }
   ]
 }

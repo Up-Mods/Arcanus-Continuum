@@ -36,10 +36,10 @@ public class ArcanusItemTagsProvider extends FabricTagProvider.ItemTagProvider {
 			.add(ArcanusItems.ARCANIST_ROBES.get())
 			.add(ArcanusItems.ARCANIST_PANTS.get())
 			.add(ArcanusItems.ARCANIST_BOOTS.get())
-			.add(ArcanusItems.CULTIST_HOOD.get())
-			.add(ArcanusItems.CULTIST_ROBES.get())
-			.add(ArcanusItems.CULTIST_PANTS.get())
-			.add(ArcanusItems.CULTIST_BOOTS.get());
+			.add(ArcanusItems.CULTIST_CLERIC_HOOD.get())
+			.add(ArcanusItems.CULTIST_CLERIC_ROBES.get())
+			.add(ArcanusItems.CULTIST_CLERIC_PANTS.get())
+			.add(ArcanusItems.CULTIST_CLERIC_BOOTS.get());
 //			.add(ArcanusItems.BATTLE_MAGE_HELMET.get())
 //			.add(ArcanusItems.BATTLE_MAGE_CHESTPLATE.get())
 //			.add(ArcanusItems.BATTLE_MAGE_LEGGINGS.get())
