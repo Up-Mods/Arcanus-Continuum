@@ -41,7 +41,7 @@ public class SpellScrollItem extends Item {
 			if(!arcanaCost.equals(Component.empty()))
 				arcanaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
-			arcanaCost.append(Component.literal(spell.getArcanaCostAsString(primalArcana)).withStyle(primalArcana.formatting()));
+			arcanaCost.append(Component.literal(spell.getArcanaCostAsString(primalArcana)).withColor(primalArcana.color().asIntARGB()));
 		});
 
 		tooltipComponents.add(arcanaCost);

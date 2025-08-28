@@ -450,7 +450,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 			if(!arcana.equals(Component.empty()))
 				arcana.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
-			arcana.append(Component.literal(Arcanus.format(getArcanaCost(primalArcana))).withStyle(primalArcana.formatting()));
+			arcana.append(Component.literal(Arcanus.format(getArcanaCost(primalArcana))).withColor(primalArcana.color().asIntARGB()));
 		});
 
 		gui.drawString(font, arcana, 240 - font.width(arcana), 7, 0xffffff, false);
@@ -484,7 +484,7 @@ public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 						if(!arcanaCost.equals(Component.empty()))
 							arcanaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
-						arcanaCost.append(Component.literal(Arcanus.format(getArcanaCost(primalArcana))).withStyle(primalArcana.formatting()));
+						arcanaCost.append(Component.literal(Arcanus.format(getArcanaCost(primalArcana))).withColor(primalArcana.color().asIntARGB()));
 					});
 
 					textList.add(arcanaCost);

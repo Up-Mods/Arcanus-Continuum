@@ -40,7 +40,7 @@ public class SpellComponentWidget extends AbstractButton {
 			if(!arcanaCost.equals(Component.empty()))
 				arcanaCost.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
-			arcanaCost.append(Component.literal(Arcanus.format(component.getArcanaCost().getDouble(primalArcana))).withStyle(primalArcana.formatting()));
+			arcanaCost.append(Component.literal(Arcanus.format(component.getArcanaCost().getDouble(primalArcana))).withColor(primalArcana.color().asIntARGB()));
 		});
 
 		textList.add(arcanaCost);

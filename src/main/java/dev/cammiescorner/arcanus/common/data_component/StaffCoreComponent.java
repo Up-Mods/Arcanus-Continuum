@@ -54,7 +54,7 @@ public record StaffCoreComponent(ArcanaModifiers arcanaModifiers) implements Too
 			if(!component.equals(Component.empty()))
 				component.append(Component.literal(" | ").withStyle(ChatFormatting.GRAY));
 
-			component.append(Component.literal("x" + modStr).withStyle(primalArcana.formatting()));
+			component.append(Component.literal("x" + modStr).withColor(primalArcana.color().asIntARGB()));
 		});
 
 		tooltipAdder.accept(component);
