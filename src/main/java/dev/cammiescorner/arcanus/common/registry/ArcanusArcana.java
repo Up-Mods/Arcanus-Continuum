@@ -40,7 +40,17 @@ public class ArcanusArcana {
 	public static final RegistrySupplier<PrimalArcana> AETHER = ARCANA.register("aether", () -> new PrimalArcana(ArcanusAttributes.AETHER_ARCANA.holder(), ArcanusAttributes.AETHER_ARCANA_REGEN.holder(), ChatFormatting.DARK_PURPLE, Color.fromRGB(114, 37, 118)));
 
 	// Compound Arcana
-	public static final RegistrySupplier<CompoundArcana> TEST = ARCANA.register("test", () -> new CompoundArcana(IGNIS, AQUA, ChatFormatting.GRAY, Color.fromRGB(128, 128, 128)));
+	// TODO do the colors for the compound arcana nerd
+	public static final RegistrySupplier<CompoundArcana> METALLUM = ARCANA.register("metallum", () -> new CompoundArcana(IGNIS, TERRA, ChatFormatting.GRAY, Color.fromRGB(128, 128, 128)));
+	public static final RegistrySupplier<CompoundArcana> ANIMA = ARCANA.register("anima", () -> new CompoundArcana(IGNIS, AQUA, ChatFormatting.GRAY, Color.fromRGB(128, 128, 128)));
+	public static final RegistrySupplier<CompoundArcana> LUX = ARCANA.register("lux", () -> new CompoundArcana(IGNIS, AER, ChatFormatting.GRAY, Color.fromRGB(128, 128, 128)));
+	public static final RegistrySupplier<CompoundArcana> RUINA = ARCANA.register("ruina", () -> new CompoundArcana(IGNIS, AETHER, ChatFormatting.GRAY, Color.fromRGB(128, 128, 128)));
+	public static final RegistrySupplier<CompoundArcana> HERBA = ARCANA.register("herba", () -> new CompoundArcana(TERRA, AQUA, ChatFormatting.GRAY, Color.fromRGB(128, 128, 128)));
+	public static final RegistrySupplier<CompoundArcana> CRYSTALLUM = ARCANA.register("crystallum", () -> new CompoundArcana(TERRA, AER, ChatFormatting.GRAY, Color.fromRGB(128, 128, 128)));
+	public static final RegistrySupplier<CompoundArcana> VIS = ARCANA.register("vis", () -> new CompoundArcana(TERRA, AETHER, ChatFormatting.GRAY, Color.fromRGB(128, 128, 128)));
+	public static final RegistrySupplier<CompoundArcana> TBD = ARCANA.register("tbd", () -> new CompoundArcana(AQUA, AER, ChatFormatting.GRAY, Color.fromRGB(128, 128, 128)));
+	public static final RegistrySupplier<CompoundArcana> AEVUM = ARCANA.register("aevum", () -> new CompoundArcana(AQUA, AETHER, ChatFormatting.GRAY, Color.fromRGB(128, 128, 128)));
+	public static final RegistrySupplier<CompoundArcana> SPATIUM = ARCANA.register("spatium", () -> new CompoundArcana(AER, AETHER, ChatFormatting.GRAY, Color.fromRGB(128, 128, 128)));
 
 	public static Stream<PrimalArcana> primalArcana() {
 		return REGISTRY.stream().filter(arcana -> arcana instanceof PrimalArcana).map(arcana -> (PrimalArcana) arcana);
