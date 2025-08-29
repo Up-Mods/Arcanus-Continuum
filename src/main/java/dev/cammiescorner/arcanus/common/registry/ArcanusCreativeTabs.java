@@ -4,6 +4,7 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
+import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
 import dev.cammiescorner.arcanus.common.data_component.StaffCapComponent;
 import dev.cammiescorner.arcanus.common.item.StaffCapItem;
 import dev.cammiescorner.arcanus.common.item.StaffCoreItem;
@@ -34,10 +35,24 @@ public class ArcanusCreativeTabs {
 		entries.accept(ArcanusItems.ARCANEUM_INGOT.get());
 		entries.accept(ArcanusItems.VOID_INGOT.get());
 		entries.accept(ArcanusBlocks.MAGIC_DOOR.get());
+		entries.accept(ArcanusBlocks.EMYRWOOD_LOG.get());
+		entries.accept(ArcanusBlocks.EMYRWOOD_WOOD.get());
+		entries.accept(ArcanusBlocks.STRIPPED_EMYRWOOD_LOG.get());
+		entries.accept(ArcanusBlocks.STRIPPED_EMYRWOOD_WOOD.get());
+		entries.accept(ArcanusBlocks.EMYRWOOD_PLANKS.get());
+		entries.accept(ArcanusBlocks.EMYRWOOD_STAIRS.get());
+		entries.accept(ArcanusBlocks.EMYRWOOD_SLAB.get());
 		entries.accept(ArcanusBlocks.ARCANE_WORKBENCH.get());
 		entries.accept(ArcanusBlocks.ARCANE_PLINTH.get());
 		entries.accept(ArcanusBlocks.PEDESTAL.get());
 		entries.accept(ArcanusBlocks.JAR.get());
+
+		ArcanusArcana.REGISTRY.stream().filter(arcana -> arcana != ArcanusArcana.NIL.get()).forEach(arcana -> {
+			ItemStack stack = new ItemStack(ArcanusBlocks.JAR.get());
+
+			stack.set(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(arcana, 64));
+			entries.accept(stack);
+		});
 
 		entries.accept(ArcanusItems.ARCANIST_SPAWN_EGG.get());
 		entries.accept(ArcanusItems.CULTIST_CLERIC_SPAWN_EGG.get());

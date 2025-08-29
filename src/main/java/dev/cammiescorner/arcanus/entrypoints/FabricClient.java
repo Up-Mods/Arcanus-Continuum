@@ -19,9 +19,8 @@ import dev.cammiescorner.arcanus.client.plugin.StaffModelLoadingPlugin;
 import dev.cammiescorner.arcanus.client.renderer.world.WardedBlockRenderer;
 import dev.cammiescorner.arcanus.client.util.JarRenderData;
 import dev.cammiescorner.arcanus.common.block.ArcanaFruitBlock;
-import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
-import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
-import dev.cammiescorner.arcanus.common.registry.ArcanusParticles;
+import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
+import dev.cammiescorner.arcanus.common.registry.*;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -86,6 +85,10 @@ public class FabricClient implements ClientModInitializer {
 			ArcanusItems.ARCANIST_PANTS.get(),
 			ArcanusItems.ARCANIST_BOOTS.get(),
 			ArcanusItems.SPELL_BOOK.get()
+		);
+
+		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 1 ? stack.getOrDefault(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(ArcanusArcana.NIL.get(), 0)).arcana().color().asIntARGB() : 0xffffffff,
+			ArcanusBlocks.JAR.get()
 		);
 
 		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && state.getBlock() instanceof ArcanaFruitBlock arcanaFruit ? arcanaFruit.getArcanaType().color().asIntARGB() : 0xffffffff,

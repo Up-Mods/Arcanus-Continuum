@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "arcanus:block/emyrwood_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "arcanus:block/emyrwood_wood"
+    },
+    "axis=z": {
+      "model": "arcanus:block/emyrwood_wood",
+      "x": 90
+    }
+  }
+}

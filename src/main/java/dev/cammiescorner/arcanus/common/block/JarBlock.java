@@ -1,14 +1,24 @@
 package dev.cammiescorner.arcanus.common.block;
 
+import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.common.block.entities.JarBlockEntity;
+import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
+import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
+import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
+import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -24,6 +34,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class JarBlock extends Block implements BlockItemProvider, EntityBlock {
 	private static final VoxelShape SHAPE = Shapes.or(
@@ -61,6 +73,48 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock {
 		}
 
 		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+	}
+
+	@Override
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+		super.setPlacedBy(level, pos, state, placer, stack);
+
+		if(!level.isClientSide() && level.getBlockEntity(pos) instanceof JarBlockEntity jar) {
+			ArcanaStorage storage = stack.getOrDefault(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(ArcanusArcana.NIL.get(), 0));
+
+			jar.setArcana(storage.arcana());
+			jar.setArcanaAmount(storage.amount());
+		}
+	}
+
+	@Override
+	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+		if(!level.isClientSide() && level.getBlockEntity(pos) instanceof JarBlockEntity jar && jar.getArcanaAmount() > 0 && jar.getArcana() != ArcanusArcana.NIL.get()) {
+			ItemStack stack = new ItemStack(ArcanusBlocks.JAR.get());
+
+			stack.applyComponents(jar.collectComponents());
+
+			ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
+
+			itemEntity.setDefaultPickUpDelay();
+			level.addFreshEntity(itemEntity);
+		}
+
+		return super.playerWillDestroy(level, pos, state, player);
+	}
+
+	@Override
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+		ArcanaStorage data = stack.get(ArcanusDataComponents.ARCANA_STORAGE.get());
+
+		if(data != null) {
+			Arcana arcana = data.arcana();
+
+			if(arcana != null && arcana != ArcanusArcana.NIL.get())
+				tooltipComponents.add(Component.translatable(arcana.translationKey()).withColor(arcana.color().asIntARGB()));
+		}
+
+		super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
 	}
 
 	@Override

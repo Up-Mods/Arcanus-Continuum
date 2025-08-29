@@ -5,14 +5,22 @@ import dev.cammiescorner.arcanus.common.block.*;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
 public class ArcanusBlocks {
 	public static final RegistryHandler<Block> BLOCKS = RegistryHandler.create(Registries.BLOCK, Arcanus.MOD_ID);
 
+	public static final RegistrySupplier<Block> EMYRWOOD_LOG = BLOCKS.register("emyrwood_log", () -> Blocks.log(MapColor.TERRACOTTA_GREEN, MapColor.COLOR_GREEN));
+	public static final RegistrySupplier<Block> EMYRWOOD_WOOD = BLOCKS.register("emyrwood_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(2f).sound(SoundType.WOOD).ignitedByLava()));
+	public static final RegistrySupplier<Block> STRIPPED_EMYRWOOD_LOG = BLOCKS.register("stripped_emyrwood_log", () -> Blocks.log(MapColor.TERRACOTTA_GREEN, MapColor.COLOR_GREEN));
+	public static final RegistrySupplier<Block> STRIPPED_EMYRWOOD_WOOD = BLOCKS.register("stripped_emyrwood_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(2f).sound(SoundType.WOOD).ignitedByLava()));
+	public static final RegistrySupplier<Block> EMYRWOOD_PLANKS = BLOCKS.register("emyrwood_planks", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PLANKS).mapColor(MapColor.COLOR_GREEN)));
+	public static final RegistrySupplier<Block> EMYRWOOD_STAIRS = BLOCKS.register("emyrwood_stairs", () -> Blocks.stair(EMYRWOOD_PLANKS.get()));
+	public static final RegistrySupplier<Block> EMYRWOOD_SLAB = BLOCKS.register("emyrwood_slab", () -> new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(2f, 3f).sound(SoundType.WOOD).ignitedByLava()));
 	public static final RegistrySupplier<Block> ARCANE_WORKBENCH = BLOCKS.register("arcane_workbench", ArcaneWorkbenchBlock::new);
 	public static final RegistrySupplier<Block> ARCANE_PLINTH = BLOCKS.register("arcane_plinth", () -> new ArcanePlinthBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILES).noOcclusion().pushReaction(PushReaction.BLOCK)));
 	public static final RegistrySupplier<Block> PEDESTAL = BLOCKS.register("pedestal", () -> new PedestalBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILES).noOcclusion().pushReaction(PushReaction.BLOCK)));

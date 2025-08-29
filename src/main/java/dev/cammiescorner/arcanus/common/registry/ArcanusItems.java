@@ -8,6 +8,7 @@ import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 
@@ -17,6 +18,13 @@ import java.util.function.Supplier;
 public class ArcanusItems {
 	public static final RegistryHandler<Item> ITEMS = RegistryHandler.create(Registries.ITEM, Arcanus.MOD_ID);
 
+	public static final RegistrySupplier<Item> EMYRWOOD_LOG = ITEMS.register("emyrwood_log", () -> new BlockItem(ArcanusBlocks.EMYRWOOD_LOG.get(), new Item.Properties()));
+	public static final RegistrySupplier<Item> EMYRWOOD_WOOD = ITEMS.register("emyrwood_wood", () -> new BlockItem(ArcanusBlocks.EMYRWOOD_WOOD.get(), new Item.Properties()));
+	public static final RegistrySupplier<Item> STRIPPED_EMYRWOOD_LOG = ITEMS.register("stripped_emyrwood_log", () -> new BlockItem(ArcanusBlocks.STRIPPED_EMYRWOOD_LOG.get(), new Item.Properties()));
+	public static final RegistrySupplier<Item> STRIPPED_EMYRWOOD_WOOD = ITEMS.register("stripped_emyrwood_wood", () -> new BlockItem(ArcanusBlocks.STRIPPED_EMYRWOOD_WOOD.get(), new Item.Properties()));
+	public static final RegistrySupplier<Item> EMYRWOOD_PLANKS = ITEMS.register("emyrwood_planks", () -> new BlockItem(ArcanusBlocks.EMYRWOOD_PLANKS.get(), new Item.Properties()));
+	public static final RegistrySupplier<Item> EMYRWOOD_STAIRS = ITEMS.register("emyrwood_stairs", () -> new BlockItem(ArcanusBlocks.EMYRWOOD_STAIRS.get(), new Item.Properties()));
+	public static final RegistrySupplier<Item> EMYRWOOD_SLAB = ITEMS.register("emyrwood_slab", () -> new BlockItem(ArcanusBlocks.EMYRWOOD_SLAB.get(), new Item.Properties()));
 	public static final RegistrySupplier<Item> ARCANEUM_INGOT = ITEMS.register("arcaneum_ingot", () -> new Item(new Item.Properties()));
 	public static final RegistrySupplier<Item> ARCANEUM_NUGGET = ITEMS.register("arcaneum_nugget", () -> new Item(new Item.Properties()));
 	public static final RegistrySupplier<Item> VOID_INGOT = ITEMS.register("void_ingot", () -> new Item(new Item.Properties()));

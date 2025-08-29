@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanus.client.plugin;
 
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.client.model.item.CompositeJarModel;
 import dev.cammiescorner.arcanus.client.model.item.CompositeStaffModel;
 import dev.cammiescorner.arcanus.common.item.StaffCapItem;
 import dev.cammiescorner.arcanus.common.item.StaffCoreItem;
@@ -12,11 +13,14 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StaffModelLoadingPlugin implements ModelLoadingPlugin {
 	public static final ModelResourceLocation STAFF_RESOURCE_LOCATION = ModelResourceLocation.inventory(Arcanus.id("staff"));
+	public static final ModelResourceLocation JAR_RESOURCE_LOCATION = ModelResourceLocation.inventory(Arcanus.id("jar"));
 
 	@Override
 	public void onInitializeModelLoader(Context pluginContext) {
@@ -46,6 +50,16 @@ public class StaffModelLoadingPlugin implements ModelLoadingPlugin {
 				}
 
 				return new CompositeStaffModel(coreModels, capModels);
+			}
+
+			if(JAR_RESOURCE_LOCATION.equals(context.topLevelId())) {
+				List<UnbakedModel> unbakedModels = new ArrayList<>();
+				UnbakedModel unbakedJarModel = context.getOrLoadModel(Arcanus.id("block/jar"));
+
+				for(int i = 1; i < 9; i++)
+					unbakedModels.add(context.getOrLoadModel(Arcanus.id("block/jar/jar_fluid_" + i)));
+
+				return new CompositeJarModel(unbakedJarModel, unbakedModels);
 			}
 
 			return model;

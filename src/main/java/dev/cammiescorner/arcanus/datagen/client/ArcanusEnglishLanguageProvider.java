@@ -107,6 +107,13 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 
 		biome(builder, ArcanusBiomes.POCKET_DIMENSION, "Pocket Dimension");
 
+		builder.block(ArcanusBlocks.EMYRWOOD_LOG, "Emyrwood Log");
+		builder.block(ArcanusBlocks.EMYRWOOD_WOOD, "Emyrwood Wood");
+		builder.block(ArcanusBlocks.STRIPPED_EMYRWOOD_LOG, "Stripped Emyrwood Log");
+		builder.block(ArcanusBlocks.STRIPPED_EMYRWOOD_WOOD, "Stripped Emyrwood Wood");
+		builder.block(ArcanusBlocks.EMYRWOOD_PLANKS, "Emyrwood Planks");
+		builder.block(ArcanusBlocks.EMYRWOOD_STAIRS, "Emyrwood Stairs");
+		builder.block(ArcanusBlocks.EMYRWOOD_SLAB, "Emyrwood Slab");
 		builder.block(ArcanusBlocks.ARCANE_WORKBENCH, "Arcane Workbench");
 		builder.block(ArcanusBlocks.ARCANE_PLINTH, "Arcane Plinth");
 		builder.block(ArcanusBlocks.PEDESTAL, "Pedestal");
@@ -303,6 +310,16 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		arcana(builder, ArcanusArcana.AQUA, "Aqua");
 		arcana(builder, ArcanusArcana.AER, "Aer");
 		arcana(builder, ArcanusArcana.AETHER, "Aether");
+		arcana(builder, ArcanusArcana.METALLUM, "Metallum");
+		arcana(builder, ArcanusArcana.ANIMA, "Anima");
+		arcana(builder, ArcanusArcana.LUX, "Lux");
+		arcana(builder, ArcanusArcana.RUINA, "Ruina");
+		arcana(builder, ArcanusArcana.HERBA, "Herba");
+		arcana(builder, ArcanusArcana.CRYSTALLUM, "Crystallum");
+		arcana(builder, ArcanusArcana.VIS, "Vis");
+		arcana(builder, ArcanusArcana.IMUM, "Imum");
+		arcana(builder, ArcanusArcana.AEVUM, "Aevum");
+		arcana(builder, ArcanusArcana.SPATIUM, "Spatium");
 
 		builder.add(SCREEN_SPELL_COMPONENT_COUNT, "Spell Components");
 		builder.add(SCREEN_CYCLE_UP, "Previous Skin");

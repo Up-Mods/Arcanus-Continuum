@@ -3,12 +3,15 @@ package dev.cammiescorner.arcanus.common.block.entities;
 import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.client.util.JarRenderData;
 import dev.cammiescorner.arcanus.common.block.JarBlock;
+import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
+import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.fabricmc.fabric.api.blockview.v2.RenderDataBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
@@ -70,6 +73,22 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 		return new JarRenderData(arcana != null ? arcana.color() : Color.fromARGB(0xffffffff));
 	}
 
+	@Override
+	protected void applyImplicitComponents(DataComponentInput componentInput) {
+		super.applyImplicitComponents(componentInput);
+		ArcanaStorage storage = componentInput.getOrDefault(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(ArcanusArcana.NIL.get(), 0));
+
+		arcana = storage.arcana();
+		arcanaAmount = storage.amount();
+	}
+
+	@Override
+	protected void collectImplicitComponents(DataComponentMap.Builder components) {
+		super.collectImplicitComponents(components);
+
+		components.set(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(arcana, arcanaAmount));
+	}
+
 	protected void markUpdated() {
 		BlockState newState = getBlockState().setValue(JarBlock.LEVEL, (int) Math.ceil(getArcanaAmount() / 8f));
 		setChanged();
@@ -77,6 +96,9 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 	}
 
 	public Arcana getArcana() {
+		if(arcanaAmount <= 0 && arcana != ArcanusArcana.NIL.get())
+			setArcana(ArcanusArcana.NIL.get());
+
 		return arcana;
 	}
 
@@ -86,6 +108,9 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 	}
 
 	public double getArcanaAmount() {
+		if(getArcana() == ArcanusArcana.NIL.get() && arcanaAmount > 0)
+			setArcanaAmount(0);
+
 		return arcanaAmount;
 	}
 

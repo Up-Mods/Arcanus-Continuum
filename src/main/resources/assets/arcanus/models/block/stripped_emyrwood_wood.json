@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "arcanus:block/stripped_emyrwood_log",
+    "side": "arcanus:block/stripped_emyrwood_log"
+  }
+}

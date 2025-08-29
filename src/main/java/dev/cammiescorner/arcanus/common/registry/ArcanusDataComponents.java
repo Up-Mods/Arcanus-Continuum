@@ -23,6 +23,12 @@ import java.util.UUID;
 public class ArcanusDataComponents {
 	public static final RegistryHandler<DataComponentType<?>> DATA_COMPONENTS = RegistryHandler.create(Registries.DATA_COMPONENT_TYPE, Arcanus.MOD_ID);
 
+	public static final RegistrySupplier<DataComponentType<ArcanaStorage>> ARCANA_STORAGE = DATA_COMPONENTS.register("arcana_storage", () -> DataComponentType.<ArcanaStorage>builder()
+		.persistent(ArcanaStorage.CODEC)
+		.networkSynchronized(ArcanaStorage.STREAM_CODEC)
+		.build()
+	);
+
 	public static final RegistrySupplier<DataComponentType<Boolean>> HOOD_DOWN = DATA_COMPONENTS.register("hood_down", () -> DataComponentType.<Boolean>builder()
 		.persistent(Codec.BOOL)
 		.networkSynchronized(ByteBufCodecs.BOOL)
