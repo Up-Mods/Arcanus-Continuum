@@ -27,14 +27,15 @@ import org.jetbrains.annotations.Nullable;
 
 public class JarBlock extends Block implements BlockItemProvider, EntityBlock {
 	private static final VoxelShape SHAPE = Shapes.or(
-		Shapes.box(0.25,    0,      0.25,    0.75,    0.0625, 0.75),   // bottom
-		Shapes.box(0.25,    0.0625, 0.25,    0.75,    0.625,  0.3125), // front
-		Shapes.box(0.25,    0.0625, 0.25,    0.3125,  0.625,  0.75),   // right side
-		Shapes.box(0.6875,  0.0625, 0.25,    0.75,    0.625,  0.75),   // left side
-		Shapes.box(0.25,    0.0625, 0.6875,  0.75,    0.625,  0.75),   // back
-		Shapes.box(0.28125, 0.625,  0.28125, 0.71875, 0.75,   0.71875) // lid
+		Shapes.box(0.1875,  0,      0.1875,  0.8125,  0.0625, 0.8125), // bottom
+		Shapes.box(0.1875,  0.0625, 0.1875,  0.8125,  0.8125, 0.25),   // front
+		Shapes.box(0.1875,  0.0625, 0.1875,  0.25,    0.8125, 0.8125), // right side
+		Shapes.box(0.75,    0.0625, 0.1875,  0.8125,  0.8125, 0.8125), // left side
+		Shapes.box(0.1875,  0.0625, 0.75,    0.8125,  0.8125, 0.8125), // back
+		Shapes.box(0.1875,  0.8125, 0.1875,  0.8125,  0.875,  0.8125), // top
+		Shapes.box(0.28125, 0.875,  0.28125, 0.71875, 1,      0.71875) // lid
 	);
-	private static final VoxelShape INSIDE = Shapes.box(0.3125, 0.0625, 0.3125, 0.6875, 0.625, 0.6875);
+	private static final VoxelShape INSIDE = Shapes.box(0.25, 0.0625, 0.25, 0.75, 0.8125, 0.75);
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final IntegerProperty LEVEL = IntegerProperty.create("level", 0, 8);
 
