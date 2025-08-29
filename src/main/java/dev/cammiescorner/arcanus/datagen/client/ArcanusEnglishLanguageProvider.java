@@ -37,8 +37,9 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 	@Override
 	public void generateTranslations(HolderLookup.Provider registerLookup, TranslationBuilder builder) {
 		builder.creativeTab(ArcanusCreativeTabs.ARCANUS, "Arcanus");
-		builder.creativeTab(ArcanusCreativeTabs.GEAR, "Arcanus - Gear");
-		builder.creativeTab(ArcanusCreativeTabs.SCROLLS, "Arcanus - Spell Components");
+		builder.creativeTab(ArcanusCreativeTabs.ARTIFICE, "Artifice");
+		builder.creativeTab(ArcanusCreativeTabs.ALCHEMY, "Alchemy");
+		builder.creativeTab(ArcanusCreativeTabs.OCCULTISM, "Occultism");
 
 		builder.item(ArcanusItems.ARCANEUM_INGOT, "Arcaneum Ingot");
 		builder.item(ArcanusItems.ARCANEUM_NUGGET, "Arcaneum Nugget");
