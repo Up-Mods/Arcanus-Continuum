@@ -1,6 +1,5 @@
 {
 	"format_version": "1.9.0",
-	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
 		"0": "arcanus:block/jar_fluid",
@@ -9,12 +8,12 @@
 	"elements": [
 		{
 			"from": [4, 1, 4],
-			"to": [12, 2.5, 12],
+			"to": [12, 2.25, 12],
 			"faces": {
-				"north": {"uv": [4, 4, 8, 4.75], "texture": "#0", "tintindex": 1},
-				"east": {"uv": [0, 4, 4, 4.75], "texture": "#0", "tintindex": 1},
-				"south": {"uv": [12, 4, 16, 4.75], "texture": "#0", "tintindex": 1},
-				"west": {"uv": [8, 4, 12, 4.75], "texture": "#0", "tintindex": 1},
+				"north": {"uv": [4, 4, 8, 4.625], "texture": "#0", "tintindex": 1},
+				"east": {"uv": [0, 4, 4, 4.625], "texture": "#0", "tintindex": 1},
+				"south": {"uv": [12, 4, 16, 4.625], "texture": "#0", "tintindex": 1},
+				"west": {"uv": [8, 4, 12, 4.625], "texture": "#0", "tintindex": 1},
 				"up": {"uv": [4, 0, 8, 4], "texture": "#0", "tintindex": 1},
 				"down": {"uv": [8, 0, 12, 4], "texture": "#0", "tintindex": 1}
 			}
