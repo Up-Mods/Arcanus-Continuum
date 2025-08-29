@@ -37,7 +37,7 @@ public class ArcanusArcana {
 	public static final RegistrySupplier<CompoundArcana> HERBA = ARCANA.register("herba", () -> new CompoundArcana(TERRA, AQUA, Color.fromRGB(128, 128, 128)));
 	public static final RegistrySupplier<CompoundArcana> CRYSTALLUM = ARCANA.register("crystallum", () -> new CompoundArcana(TERRA, AER, Color.fromRGB(128, 128, 128)));
 	public static final RegistrySupplier<CompoundArcana> VIS = ARCANA.register("vis", () -> new CompoundArcana(TERRA, AETHER, Color.fromRGB(128, 128, 128)));
-	public static final RegistrySupplier<CompoundArcana> TBD = ARCANA.register("tbd", () -> new CompoundArcana(AQUA, AER, Color.fromRGB(128, 128, 128)));
+	public static final RegistrySupplier<CompoundArcana> IMUM = ARCANA.register("imum", () -> new CompoundArcana(AQUA, AER, Color.fromRGB(128, 128, 128)));
 	public static final RegistrySupplier<CompoundArcana> AEVUM = ARCANA.register("aevum", () -> new CompoundArcana(AQUA, AETHER, Color.fromRGB(128, 128, 128)));
 	public static final RegistrySupplier<CompoundArcana> SPATIUM = ARCANA.register("spatium", () -> new CompoundArcana(AER, AETHER, Color.fromRGB(128, 128, 128)));
 
