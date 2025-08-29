@@ -2,6 +2,11 @@
   "replace": false,
   "values": [
     "arcanus:wooden_staff_core",
+    "arcanus:emyrwood_staff_core",
+    "arcanus:blazing_staff_core",
+    "arcanus:bamboo_staff_core",
+    "arcanus:prismarine_staff_core",
+    "arcanus:bone_staff_core",
     "arcanus:hellish_staff_core"
   ]
 }
