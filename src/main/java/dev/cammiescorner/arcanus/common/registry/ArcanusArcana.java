@@ -32,13 +32,13 @@ public class ArcanusArcana {
 	public static final RegistrySupplier<CompoundArcana> METALLUM = ARCANA.register("metallum", () -> new CompoundArcana(IGNIS, TERRA, Color.fromARGB(0xffb5b5b5)));
 	public static final RegistrySupplier<CompoundArcana> ANIMA = ARCANA.register("anima", () -> new CompoundArcana(IGNIS, AQUA, Color.fromARGB(0xff7a5b30)));
 	public static final RegistrySupplier<CompoundArcana> LUX = ARCANA.register("lux", () -> new CompoundArcana(IGNIS, AER, Color.fromARGB(0xffffff6a)));
-	public static final RegistrySupplier<CompoundArcana> RUINA = ARCANA.register("ruina", () -> new CompoundArcana(IGNIS, AETHER, Color.fromARGB(0xff631414)));
+	public static final RegistrySupplier<CompoundArcana> RUINA = ARCANA.register("ruina", () -> new CompoundArcana(IGNIS, AETHER, Color.fromARGB(0xff690d0d)));
 	public static final RegistrySupplier<CompoundArcana> HERBA = ARCANA.register("herba", () -> new CompoundArcana(TERRA, AQUA, Color.fromARGB(0xff2ac500)));
 	public static final RegistrySupplier<CompoundArcana> CRYSTALLUM = ARCANA.register("crystallum", () -> new CompoundArcana(TERRA, AER, Color.fromARGB(0xff27e7e1)));
 	public static final RegistrySupplier<CompoundArcana> VIS = ARCANA.register("vis", () -> new CompoundArcana(TERRA, AETHER, Color.fromARGB(0xffc60098)));
-	public static final RegistrySupplier<CompoundArcana> IMUM = ARCANA.register("imum", () -> new CompoundArcana(AQUA, AER, Color.fromARGB(0xff002955)));
-	public static final RegistrySupplier<CompoundArcana> AEVUM = ARCANA.register("aevum", () -> new CompoundArcana(AQUA, AETHER, Color.fromARGB(0xff526090)));
-	public static final RegistrySupplier<CompoundArcana> SPATIUM = ARCANA.register("spatium", () -> new CompoundArcana(AER, AETHER, Color.fromARGB(0xff6e5290)));
+	public static final RegistrySupplier<CompoundArcana> IMUM = ARCANA.register("imum", () -> new CompoundArcana(AQUA, AER, Color.fromARGB(0xff111431)));
+	public static final RegistrySupplier<CompoundArcana> AEVUM = ARCANA.register("aevum", () -> new CompoundArcana(AQUA, AETHER, Color.fromARGB(0xffe6e6e6)));
+	public static final RegistrySupplier<CompoundArcana> SPATIUM = ARCANA.register("spatium", () -> new CompoundArcana(AER, AETHER, Color.fromARGB(0xff0a0a0a)));
 
 	public static Stream<PrimalArcana> primalArcana() {
 		return REGISTRY.stream().filter(arcana -> arcana instanceof PrimalArcana).map(arcana -> (PrimalArcana) arcana);

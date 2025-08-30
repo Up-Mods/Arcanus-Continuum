@@ -30,7 +30,14 @@ public class AlchemyCreativeTab {
 			output.accept(ArcanusBlocks.ARCANA_PIPE.get());
 			output.accept(ArcanusBlocks.JAR.get());
 
-			ArcanusArcana.REGISTRY.stream().filter(arcana -> arcana != ArcanusArcana.NIL.get()).forEach(arcana -> {
+			ArcanusArcana.primalArcana().forEach(arcana -> {
+				ItemStack stack = new ItemStack(ArcanusBlocks.JAR.get());
+
+				stack.set(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(arcana, 64));
+				output.accept(stack);
+			});
+
+			ArcanusArcana.compoundArcana().forEach(arcana -> {
 				ItemStack stack = new ItemStack(ArcanusBlocks.JAR.get());
 
 				stack.set(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(arcana, 64));
