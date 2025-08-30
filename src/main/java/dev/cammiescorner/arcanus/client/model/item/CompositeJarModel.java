@@ -1,7 +1,10 @@
 package dev.cammiescorner.arcanus.client.model.item;
 
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
+import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
+import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -10,6 +13,7 @@ import net.minecraft.client.resources.model.*;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class CompositeJarModel implements FabricBakedModel, BakedModel, UnbakedModel {
 	private final List<BakedModel> bakedModels = new ArrayList<>();
@@ -27,6 +32,22 @@ public class CompositeJarModel implements FabricBakedModel, BakedModel, UnbakedM
 	public CompositeJarModel(UnbakedModel unbakedJarModel, List<UnbakedModel> unbakedModels) {
 		this.unbakedJarModel = unbakedJarModel;
 		this.unbakedModels = unbakedModels;
+	}
+
+	@Override
+	public void emitItemQuads(ItemStack stack, Supplier<RandomSource> randomSupplier, RenderContext context) {
+		ArcanaStorage storage = stack.get(ArcanusDataComponents.ARCANA_STORAGE.get());
+
+		bakedJarModel.emitItemQuads(stack, randomSupplier, context);
+
+		if(storage != null) {
+			for(int i = 0; i < bakedModels.size(); i++) {
+				double level = Math.floor(storage.amount() / 8);
+
+				if(level >= 0 && level - 1 == i)
+					bakedModels.get(i).emitItemQuads(stack, randomSupplier, context);
+			}
+		}
 	}
 
 	@Override
@@ -51,7 +72,7 @@ public class CompositeJarModel implements FabricBakedModel, BakedModel, UnbakedM
 
 	@Override
 	public boolean isVanillaAdapter() {
-		return bakedJarModel.isVanillaAdapter();
+		return false;
 	}
 
 	@Override

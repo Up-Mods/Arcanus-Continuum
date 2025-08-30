@@ -10,6 +10,7 @@ import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -112,10 +113,16 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock {
 		ArcanaStorage data = stack.get(ArcanusDataComponents.ARCANA_STORAGE.get());
 
 		if(data != null) {
+			MutableComponent component = Component.empty();
 			Arcana arcana = data.arcana();
 
-			if(arcana != null && arcana != ArcanusArcana.NIL.get())
-				tooltipComponents.add(Component.translatable(arcana.translationKey()).withColor(arcana.color().asIntARGB()));
+			if(arcana != null && arcana != ArcanusArcana.NIL.get()) {
+				component.append(String.format("%.0f", data.amount()));
+				component.append(" ");
+				component.append(Component.translatable(arcana.translationKey()));
+
+				tooltipComponents.add(component.withColor(arcana.color().asIntARGB()));
+			}
 		}
 
 		super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
