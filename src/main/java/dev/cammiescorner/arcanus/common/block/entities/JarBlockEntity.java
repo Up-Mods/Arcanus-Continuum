@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.block.entities;
 
 import dev.cammiescorner.arcanus.api.arcana.Arcana;
-import dev.cammiescorner.arcanus.client.util.JarRenderData;
+import dev.cammiescorner.arcanus.client.util.ColorRenderData;
 import dev.cammiescorner.arcanus.common.block.JarBlock;
 import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
@@ -72,7 +72,7 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 
 	@Override
 	public Object getRenderData() {
-		return new JarRenderData(arcana != null ? arcana.color() : Color.fromARGB(0xffffffff));
+		return new ColorRenderData(arcana != null ? arcana.color() : Color.fromARGB(0xffffffff));
 	}
 
 	@Override

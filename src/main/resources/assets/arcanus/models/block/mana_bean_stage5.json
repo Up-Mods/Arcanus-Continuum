@@ -1,0 +1,54 @@
+{
+	"format_version": "1.9.0",
+  "textures": {
+    "0": "arcanus:block/mana_bean_stem3",
+    "1": "arcanus:block/mana_bean_pod1",
+    "particle": "arcanus:block/mana_bean_pod1"
+  },
+	"elements": [
+		{
+			"name": "stem1",
+			"from": [8, 8, 0],
+			"to": [8, 16, 16],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 0, 8]},
+			"color": 9,
+			"faces": {
+				"north": {"uv": [0, 0, 0, 8], "texture": "#0", "tintindex": 0},
+				"east": {"uv": [0, 0, 16, 8], "texture": "#0", "tintindex": 0},
+				"south": {"uv": [0, 0, 0, 8], "texture": "#0", "tintindex": 0},
+				"west": {"uv": [16, 0, 0, 8], "texture": "#0", "tintindex": 0},
+				"up": {"uv": [0, 0, 0, 16], "texture": "#0", "tintindex": 0},
+				"down": {"uv": [0, 0, 0, 16], "texture": "#0", "tintindex": 0}
+			}
+		},
+		{
+			"name": "stem2",
+			"from": [8, 8, 0],
+			"to": [8, 16, 16],
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 0, 8]},
+			"color": 9,
+			"faces": {
+				"north": {"uv": [0, 0, 0, 8], "texture": "#0", "tintindex": 0},
+				"east": {"uv": [0, 0, 16, 8], "texture": "#0", "tintindex": 0},
+				"south": {"uv": [0, 0, 0, 8], "texture": "#0", "tintindex": 0},
+				"west": {"uv": [16, 0, 0, 8], "texture": "#0", "tintindex": 0},
+				"up": {"uv": [0, 0, 0, 16], "texture": "#0", "tintindex": 0},
+				"down": {"uv": [0, 0, 0, 16], "texture": "#0", "tintindex": 0}
+			}
+		},
+		{
+			"name": "bean",
+			"from": [6.5, 10, 6.5],
+			"to": [9.5, 14, 9.5],
+			"color": 2,
+			"faces": {
+				"north": {"uv": [0, 3, 3, 7], "texture": "#1", "tintindex": 1},
+				"east": {"uv": [0, 3, 3, 7], "texture": "#1", "tintindex": 1},
+				"south": {"uv": [0, 3, 3, 7], "texture": "#1", "tintindex": 1},
+				"west": {"uv": [0, 3, 3, 7], "texture": "#1", "tintindex": 1},
+				"up": {"uv": [0, 0, 3, 3], "texture": "#1", "tintindex": 1},
+				"down": {"uv": [0, 0, 3, 3], "texture": "#1", "tintindex": 1}
+			}
+		}
+	]
+}

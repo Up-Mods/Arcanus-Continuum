@@ -1,0 +1,39 @@
+{
+	"format_version": "1.9.0",
+  "textures": {
+    "0": "arcanus:block/mana_bean_stem0",
+    "particle": "arcanus:block/mana_bean_stem0"
+  },
+	"elements": [
+		{
+			"name": "stem1",
+			"from": [8, 8, 0],
+			"to": [8, 16, 16],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 0, 8]},
+			"color": 9,
+			"faces": {
+				"north": {"uv": [0, 0, 0, 8], "texture": "#0", "tintindex": 0},
+				"east": {"uv": [0, 0, 16, 8], "texture": "#0", "tintindex": 0},
+				"south": {"uv": [0, 0, 0, 8], "texture": "#0", "tintindex": 0},
+				"west": {"uv": [16, 0, 0, 8], "texture": "#0", "tintindex": 0},
+				"up": {"uv": [0, 0, 0, 16], "texture": "#0", "tintindex": 0},
+				"down": {"uv": [0, 0, 0, 16], "texture": "#0", "tintindex": 0}
+			}
+		},
+		{
+			"name": "stem2",
+			"from": [8, 8, 0],
+			"to": [8, 16, 16],
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 0, 8]},
+			"color": 9,
+			"faces": {
+				"north": {"uv": [0, 0, 0, 8], "texture": "#0", "tintindex": 0},
+				"east": {"uv": [0, 0, 16, 8], "texture": "#0", "tintindex": 0},
+				"south": {"uv": [0, 0, 0, 8], "texture": "#0", "tintindex": 0},
+				"west": {"uv": [16, 0, 0, 8], "texture": "#0", "tintindex": 0},
+				"up": {"uv": [0, 0, 0, 16], "texture": "#0", "tintindex": 0},
+				"down": {"uv": [0, 0, 0, 16], "texture": "#0", "tintindex": 0}
+			}
+		}
+	]
+}

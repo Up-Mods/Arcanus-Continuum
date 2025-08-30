@@ -26,11 +26,7 @@ public class ArcanusBlocks {
 	public static final RegistrySupplier<Block> PEDESTAL = BLOCKS.register("pedestal", () -> new PedestalBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILES).noOcclusion().pushReaction(PushReaction.BLOCK)));
 	public static final RegistrySupplier<Block> ARCANA_PIPE = BLOCKS.register("arcana_pipe", ArcanaPipeBlock::new);
 	public static final RegistrySupplier<Block> JAR = BLOCKS.register("jar", JarBlock::new);
-	public static final RegistrySupplier<Block> IGNIS_BEAN = BLOCKS.register("ignis_bean", () -> new ManaBeanBlock(ArcanusArcana.IGNIS));
-	public static final RegistrySupplier<Block> TERRA_BEAN = BLOCKS.register("terra_bean", () -> new ManaBeanBlock(ArcanusArcana.TERRA));
-	public static final RegistrySupplier<Block> AQUA_BEAN = BLOCKS.register("aqua_bean", () -> new ManaBeanBlock(ArcanusArcana.AQUA));
-	public static final RegistrySupplier<Block> AER_BEAN = BLOCKS.register("aer_bean", () -> new ManaBeanBlock(ArcanusArcana.AER));
-	public static final RegistrySupplier<Block> AETHER_BEAN = BLOCKS.register("aether_bean", () -> new ManaBeanBlock(ArcanusArcana.AETHER));
+	public static final RegistrySupplier<Block> MANA_BEAN = BLOCKS.register("mana_bean", ManaBeanBlock::new);
 	public static final RegistrySupplier<Block> DUMMY_BOOKSHELF = BLOCKS.register("dummy_bookshelf", DummyBookshelfBlock::new);
 	public static final RegistrySupplier<Block> MAGIC_BLOCK = BLOCKS.register("magic_block", MagicBlock::new);
 	public static final RegistrySupplier<Block> MAGIC_DOOR = BLOCKS.register("magic_door", MagicDoorBlock::new);
