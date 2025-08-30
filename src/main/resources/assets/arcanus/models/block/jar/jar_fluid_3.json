@@ -3,6 +3,7 @@
 	"texture_size": [32, 32],
 	"textures": {
 		"0": "arcanus:block/jar_fluid",
+    "1": "arcanus:block/jar_fluid_transparent",
 		"particle": "arcanus:block/jar_fluid"
 	},
 	"elements": [
@@ -17,6 +18,18 @@
 				"up": {"uv": [4, 0, 8, 4], "texture": "#0", "tintindex": 1},
 				"down": {"uv": [8, 0, 12, 4], "texture": "#0", "tintindex": 1}
 			}
-		}
+		},
+    {
+      "from": [4, 4.75, 4],
+      "to": [12, 1, 12],
+      "faces": {
+        "north": {"uv": [4, 4, 8, 5.875], "texture": "#1", "tintindex": 1},
+        "east": {"uv": [0, 4, 4, 5.875], "texture": "#1", "tintindex": 1},
+        "south": {"uv": [12, 4, 16, 5.875], "texture": "#1", "tintindex": 1},
+        "west": {"uv": [8, 4, 12, 5.875], "texture": "#1", "tintindex": 1},
+        "up": {"uv": [4, 0, 8, 4], "texture": "#1", "tintindex": 1},
+        "down": {"uv": [8, 0, 12, 4], "texture": "#1", "tintindex": 1}
+      }
+    }
 	]
 }
