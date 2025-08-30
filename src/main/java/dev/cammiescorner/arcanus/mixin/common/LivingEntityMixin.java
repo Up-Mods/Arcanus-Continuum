@@ -9,14 +9,12 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.api.spell.Spell;
+import dev.cammiescorner.arcanus.common.block.JarBlock;
 import dev.cammiescorner.arcanus.common.data_component.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.effect.ArcanusStatusEffect;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundStatusEffectPacket;
-import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
-import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
-import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
+import dev.cammiescorner.arcanus.common.registry.*;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.core.Holder;
@@ -25,6 +23,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -41,6 +40,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -64,7 +65,6 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 
 	@Shadow public abstract ItemStack getMainHandItem();
 	@Shadow public abstract boolean isDamageSourceBlocked(DamageSource source);
-	@Shadow public abstract boolean removeAllEffects();
 	@Shadow public abstract boolean addEffect(MobEffectInstance effect);
 	@Shadow public abstract float getSpeed();
 	@Shadow public abstract boolean randomTeleport(double x, double y, double z, boolean particleEffects);
@@ -217,6 +217,17 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 			.add(ArcanusAttributes.MAGIC_RESISTANCE.holder())
 			.add(ArcanusAttributes.MANA_COST.holder())
 			.add(ArcanusAttributes.SPELL_COOL_DOWN.holder());
+	}
+
+	@WrapOperation(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;isEyeInFluid(Lnet/minecraft/tags/TagKey;)Z"))
+	private boolean drownInAJar(LivingEntity instance, TagKey<Fluid> tagKey, Operation<Boolean> original) {
+		BlockState state = level().getBlockState(blockPosition());
+		AABB insideJar = JarBlock.INSIDE.bounds().inflate(0.001).move(blockPosition());
+
+		if(state.is(ArcanusBlocks.JAR.get()) && insideJar.contains(position()) && insideJar.contains(getEyePosition()))
+			return getBlockY() + (0.078125 * state.getValue(JarBlock.LEVEL)) + 0.0625 >= getEyeY();
+
+		return original.call(instance, tagKey);
 	}
 
 	@WrapOperation(method = "handleRelativeFrictionAndCalculateMovement", at = @At(

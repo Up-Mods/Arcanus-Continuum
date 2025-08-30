@@ -50,8 +50,8 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock {
 		Shapes.box(0.1875,  0.6875, 0.1875,  0.8125,  0.75,   0.8125), // top
 		Shapes.box(0.28125, 0.75,   0.28125, 0.71875, 0.875,  0.71875) // lid
 	);
-	private static final VoxelShape INSIDE = Shapes.box(0.25, 0.0625, 0.25, 0.75, 0.6875, 0.75);
 	private static final VoxelShape PIPE = Shapes.box(0.4375, 0.5, 0.4375, 0.5625, 1, 0.5625);
+	public static final VoxelShape INSIDE = Shapes.box(0.25, 0.0625, 0.25, 0.75, 0.6875, 0.75);
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final BooleanProperty CONNECTED_TO_PIPE = BooleanProperty.create("connected_to_pipe");
 	public static final IntegerProperty LEVEL = IntegerProperty.create("level", 0, 8);
