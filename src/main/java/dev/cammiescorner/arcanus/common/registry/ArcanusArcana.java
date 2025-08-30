@@ -25,11 +25,11 @@ public class ArcanusArcana {
 	public static final RegistrySupplier<PrimalArcana> IGNIS = ARCANA.register("ignis", () -> new PrimalArcana(ArcanusAttributes.IGNIS_ARCANA.holder(), ArcanusAttributes.IGNIS_ARCANA_REGEN.holder(), Color.fromARGB(0xffb81c0e)));
 	public static final RegistrySupplier<PrimalArcana> TERRA = ARCANA.register("terra", () -> new PrimalArcana(ArcanusAttributes.TERRA_ARCANA.holder(), ArcanusAttributes.TERRA_ARCANA_REGEN.holder(), Color.fromARGB(0xff367c26)));
 	public static final RegistrySupplier<PrimalArcana> AQUA = ARCANA.register("aqua", () -> new PrimalArcana(ArcanusAttributes.AQUA_ARCANA.holder(), ArcanusAttributes.AQUA_ARCANA_REGEN.holder(), Color.fromARGB(0xff06338d)));
-	public static final RegistrySupplier<PrimalArcana> AER = ARCANA.register("aer", () -> new PrimalArcana(ArcanusAttributes.AER_ARCANA.holder(), ArcanusAttributes.AER_ARCANA_REGEN.holder(), Color.fromARGB(0xfffffbd5)));
+	public static final RegistrySupplier<PrimalArcana> AER = ARCANA.register("aer", () -> new PrimalArcana(ArcanusAttributes.AER_ARCANA.holder(), ArcanusAttributes.AER_ARCANA_REGEN.holder(), Color.fromARGB(0xfffff9bf)));
 	public static final RegistrySupplier<PrimalArcana> AETHER = ARCANA.register("aether", () -> new PrimalArcana(ArcanusAttributes.AETHER_ARCANA.holder(), ArcanusAttributes.AETHER_ARCANA_REGEN.holder(), Color.fromARGB(0xff722576)));
 
 	// Compound Arcana
-	public static final RegistrySupplier<CompoundArcana> METALLUM = ARCANA.register("metallum", () -> new CompoundArcana(IGNIS, TERRA, Color.fromARGB(0xffb5b5b5)));
+	public static final RegistrySupplier<CompoundArcana> METALLUM = ARCANA.register("metallum", () -> new CompoundArcana(IGNIS, TERRA, Color.fromARGB(0xff6b6b7f)));
 	public static final RegistrySupplier<CompoundArcana> ANIMA = ARCANA.register("anima", () -> new CompoundArcana(IGNIS, AQUA, Color.fromARGB(0xff7a5b30)));
 	public static final RegistrySupplier<CompoundArcana> LUX = ARCANA.register("lux", () -> new CompoundArcana(IGNIS, AER, Color.fromARGB(0xffffff6a)));
 	public static final RegistrySupplier<CompoundArcana> RUINA = ARCANA.register("ruina", () -> new CompoundArcana(IGNIS, AETHER, Color.fromARGB(0xff690d0d)));
