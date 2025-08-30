@@ -28,9 +28,13 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -40,7 +44,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class JarBlock extends Block implements BlockItemProvider, EntityBlock {
+public class JarBlock extends Block implements BlockItemProvider, EntityBlock, SimpleWaterloggedBlock {
 	private static final VoxelShape SHAPE = Shapes.or(
 		Shapes.box(0.1875,  0,      0.1875,  0.8125,  0.0625, 0.8125), // bottom
 		Shapes.box(0.1875,  0.0625, 0.1875,  0.8125,  0.6875, 0.25),   // front
@@ -54,11 +58,12 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock {
 	public static final VoxelShape INSIDE = Shapes.box(0.25, 0.0625, 0.25, 0.75, 0.6875, 0.75);
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final BooleanProperty CONNECTED_TO_PIPE = BooleanProperty.create("connected_to_pipe");
+	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final IntegerProperty LEVEL = IntegerProperty.create("level", 0, 8);
 
 	public JarBlock() {
 		super(Properties.of().noOcclusion());
-		registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(LEVEL, 0).setValue(CONNECTED_TO_PIPE, false));
+		registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(CONNECTED_TO_PIPE, false).setValue(WATERLOGGED, false).setValue(LEVEL, 0));
 	}
 
 	@Override
@@ -130,15 +135,36 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock {
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(CONNECTED_TO_PIPE, context.getLevel().getBlockState(context.getClickedPos().above()).getBlock() instanceof ArcanaPipeBlock);
+		return defaultBlockState()
+			.setValue(FACING, context.getHorizontalDirection().getOpposite())
+			.setValue(CONNECTED_TO_PIPE, context.getLevel().getBlockState(context.getClickedPos().above()).getBlock() instanceof ArcanaPipeBlock)
+			.setValue(WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER);
 	}
 
 	@Override
 	protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+		if(state.getValue(WATERLOGGED))
+			level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+
 		if(direction == Direction.UP)
 			return state.setValue(CONNECTED_TO_PIPE, level.getBlockState(neighborPos).getBlock() instanceof ArcanaPipeBlock);
 
 		return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+	}
+
+	@Override
+	protected boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+		return !state.getValue(WATERLOGGED);
+	}
+
+	@Override
+	protected FluidState getFluidState(BlockState state) {
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+	}
+
+	@Override
+	protected boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
+		return false;
 	}
 
 	@Override
@@ -158,7 +184,7 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(FACING, LEVEL, CONNECTED_TO_PIPE);
+		builder.add(FACING, LEVEL, CONNECTED_TO_PIPE, WATERLOGGED);
 	}
 
 	@Override
