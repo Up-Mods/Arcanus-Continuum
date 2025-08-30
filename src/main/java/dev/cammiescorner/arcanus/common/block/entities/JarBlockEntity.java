@@ -102,6 +102,7 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 		getLevel().setBlockAndUpdate(getBlockPos(), newState);
 	}
 
+	@Override
 	public Arcana getArcana() {
 		if(arcanaAmount <= 0 && arcana != ArcanusArcana.NIL.get())
 			setArcana(ArcanusArcana.NIL.get());
@@ -109,11 +110,13 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 		return arcana;
 	}
 
+	@Override
 	public void setArcana(Arcana arcana) {
 		this.arcana = arcana;
 		markUpdated();
 	}
 
+	@Override
 	public double getArcanaAmount() {
 		if(getArcana() == ArcanusArcana.NIL.get() && arcanaAmount > 0)
 			setArcanaAmount(0);
@@ -121,6 +124,7 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 		return arcanaAmount;
 	}
 
+	@Override
 	public void setArcanaAmount(double arcana) {
 		this.arcanaAmount = Math.clamp(arcana, 0, 64);
 		markUpdated();
