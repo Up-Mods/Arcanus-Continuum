@@ -1,0 +1,62 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "arcanus:block/arcana_pipe"
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/arcana_pipe_extension",
+        "x": -90
+      },
+      "when": {
+        "up": true
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/arcana_pipe_extension",
+        "x": 90
+      },
+      "when": {
+        "down": true
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/arcana_pipe_extension"
+      },
+      "when": {
+        "north": true
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/arcana_pipe_extension",
+        "y": 90
+      },
+      "when": {
+        "east": true
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/arcana_pipe_extension",
+        "y": 180
+      },
+      "when": {
+        "south": true
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/arcana_pipe_extension",
+        "y": 270
+      },
+      "when": {
+        "west": true
+      }
+    }
+  ]
+}

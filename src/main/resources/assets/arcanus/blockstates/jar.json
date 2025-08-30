@@ -7,6 +7,15 @@
     },
     {
       "apply": {
+        "model": "arcanus:block/arcana_pipe_extension",
+        "x": -90
+      },
+      "when": {
+        "connected_to_pipe": true
+      }
+    },
+    {
+      "apply": {
         "model": "arcanus:block/jar/jar_fluid_1"
       },
       "when": {

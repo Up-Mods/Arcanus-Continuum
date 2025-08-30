@@ -22,10 +22,12 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
@@ -48,12 +50,14 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock {
 		Shapes.box(0.28125, 0.75,   0.28125, 0.71875, 0.875,  0.71875) // lid
 	);
 	private static final VoxelShape INSIDE = Shapes.box(0.25, 0.0625, 0.25, 0.75, 0.6875, 0.75);
+	private static final VoxelShape PIPE = Shapes.box(0.4375, 0.5, 0.4375, 0.5625, 1, 0.5625);
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+	public static final BooleanProperty CONNECTED_TO_PIPE = BooleanProperty.create("connected_to_pipe");
 	public static final IntegerProperty LEVEL = IntegerProperty.create("level", 0, 8);
 
 	public JarBlock() {
 		super(Properties.of().noOcclusion());
-		registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(LEVEL, 0));
+		registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(LEVEL, 0).setValue(CONNECTED_TO_PIPE, false));
 	}
 
 	@Override
@@ -119,7 +123,15 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock {
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+		return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(CONNECTED_TO_PIPE, context.getLevel().getBlockState(context.getClickedPos().above()).getBlock() instanceof ArcanaPipeBlock);
+	}
+
+	@Override
+	protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+		if(direction == Direction.UP)
+			return state.setValue(CONNECTED_TO_PIPE, level.getBlockState(neighborPos).getBlock() instanceof ArcanaPipeBlock);
+
+		return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
 	}
 
 	@Override
@@ -134,12 +146,12 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock {
 
 	@Override
 	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return SHAPE;
+		return state.getValue(CONNECTED_TO_PIPE) ? Shapes.or(SHAPE, PIPE) : SHAPE;
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(FACING, LEVEL);
+		builder.add(FACING, LEVEL, CONNECTED_TO_PIPE);
 	}
 
 	@Override

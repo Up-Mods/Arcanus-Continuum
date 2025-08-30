@@ -6,13 +6,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -22,16 +20,16 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.function.Supplier;
 
-public class ArcanaFruitBlock extends Block implements BlockItemProvider, BonemealableBlock {
-	private static final int MAX_STAGE = 6;
-	public static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, MAX_STAGE);
+public class ManaBeanBlock extends Block implements BlockItemProvider {
+	private static final int MAX_AGE = 7;
+	public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
 	private static final VoxelShape SHAPE = Block.box(5, 0, 5, 11, 12, 11);
 	private final Supplier<? extends Arcana> arcana;
 
-	public ArcanaFruitBlock(Supplier<? extends Arcana> arcana) {
+	public ManaBeanBlock(Supplier<? extends Arcana> arcana) {
 		super(Properties.of().sound(SoundType.GRASS).mapColor(MapColor.PLANT).noCollission().noTerrainParticles().offsetType(OffsetType.XYZ).ignitedByLava().pushReaction(PushReaction.DESTROY).randomTicks());
 		this.arcana = arcana;
-		registerDefaultState(getStateDefinition().any().setValue(STAGE, 0));
+		registerDefaultState(getStateDefinition().any().setValue(AGE, 0));
 	}
 
 	@Override
@@ -42,10 +40,10 @@ public class ArcanaFruitBlock extends Block implements BlockItemProvider, Boneme
 
 	@Override
 	protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		int currentStage = state.getValue(STAGE);
+		int currentStage = state.getValue(AGE);
 
-		if(currentStage < MAX_STAGE && random.nextDouble() > 0.5)
-			state.setValue(STAGE, Math.min(currentStage + random.nextInt(), MAX_STAGE));
+		if(currentStage < MAX_AGE && random.nextDouble() > 0.5)
+			state.setValue(AGE, Math.min(currentStage + random.nextInt(), MAX_AGE));
 	}
 
 	@Override
@@ -56,25 +54,10 @@ public class ArcanaFruitBlock extends Block implements BlockItemProvider, Boneme
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(STAGE);
+		builder.add(AGE);
 	}
 
 	public Arcana getArcanaType() {
 		return arcana.get();
-	}
-
-	@Override
-	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-		return state.getValue(STAGE) < MAX_STAGE;
-	}
-
-	@Override
-	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
-		return random.nextDouble() > 0.9 && state.getValue(STAGE) < MAX_STAGE;
-	}
-
-	@Override
-	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-		level.setBlockAndUpdate(pos, state.setValue(STAGE, Math.min(state.getValue(STAGE) + random.nextInt(1, 3), MAX_STAGE)));
 	}
 }

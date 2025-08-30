@@ -18,7 +18,7 @@ import dev.cammiescorner.arcanus.client.particle.CollapseParticle;
 import dev.cammiescorner.arcanus.client.plugin.StaffModelLoadingPlugin;
 import dev.cammiescorner.arcanus.client.renderer.world.WardedBlockRenderer;
 import dev.cammiescorner.arcanus.client.util.JarRenderData;
-import dev.cammiescorner.arcanus.common.block.ArcanaFruitBlock;
+import dev.cammiescorner.arcanus.common.block.ManaBeanBlock;
 import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.upcraft.sparkweave.api.color.Color;
@@ -72,11 +72,11 @@ public class FabricClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(),
 			ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get(),
 			ArcanusBlocks.JAR.get(),
-			ArcanusBlocks.IGNIS_FRUIT.get(),
-			ArcanusBlocks.TERRA_FRUIT.get(),
-			ArcanusBlocks.AQUA_FRUIT.get(),
-			ArcanusBlocks.AER_FRUIT.get(),
-			ArcanusBlocks.AETHER_FRUIT.get()
+			ArcanusBlocks.IGNIS_BEAN.get(),
+			ArcanusBlocks.TERRA_BEAN.get(),
+			ArcanusBlocks.AQUA_BEAN.get(),
+			ArcanusBlocks.AER_BEAN.get(),
+			ArcanusBlocks.AETHER_BEAN.get()
 		);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? DyedItemColor.getOrDefault(stack, 0xff52392a) : -1,
@@ -91,12 +91,12 @@ public class FabricClient implements ClientModInitializer {
 			ArcanusBlocks.JAR.get()
 		);
 
-		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && state.getBlock() instanceof ArcanaFruitBlock arcanaFruit ? arcanaFruit.getArcanaType().color().asIntARGB() : 0xffffffff,
-			ArcanusBlocks.IGNIS_FRUIT.get(),
-			ArcanusBlocks.TERRA_FRUIT.get(),
-			ArcanusBlocks.AQUA_FRUIT.get(),
-			ArcanusBlocks.AER_FRUIT.get(),
-			ArcanusBlocks.AETHER_FRUIT.get()
+		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && state.getBlock() instanceof ManaBeanBlock arcanaFruit ? arcanaFruit.getArcanaType().color().asIntARGB() : 0xffffffff,
+			ArcanusBlocks.IGNIS_BEAN.get(),
+			ArcanusBlocks.TERRA_BEAN.get(),
+			ArcanusBlocks.AQUA_BEAN.get(),
+			ArcanusBlocks.AER_BEAN.get(),
+			ArcanusBlocks.AETHER_BEAN.get()
 		);
 
 		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 && tintGetter.getBlockEntityRenderData(pos) instanceof JarRenderData(

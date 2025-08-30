@@ -27,7 +27,7 @@ public class ArcanePlinthBlockEntity extends AbstractPedestalBlockEntity impleme
 	}
 
 	@Override
-	public double getMana(PrimalArcana type) {
+	public double getArcana(PrimalArcana type) {
 		return arcanaMap.getOrDefault(type, 0d);
 	}
 

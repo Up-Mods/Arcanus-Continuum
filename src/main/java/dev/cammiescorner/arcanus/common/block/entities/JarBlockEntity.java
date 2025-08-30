@@ -7,9 +7,11 @@ import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
+import dev.cammiescorner.arcanus.common.util.ArcanaMachine;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.fabricmc.fabric.api.blockview.v2.RenderDataBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
@@ -22,7 +24,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity {
+public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity, ArcanaMachine {
 	private Arcana arcana = ArcanusArcana.NIL.get();
 	private double arcanaAmount = 0;
 
@@ -87,6 +89,11 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 		super.collectImplicitComponents(components);
 
 		components.set(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(arcana, arcanaAmount));
+	}
+
+	@Override
+	public boolean connectsToDirection(Direction direction) {
+		return direction == Direction.UP;
 	}
 
 	protected void markUpdated() {
