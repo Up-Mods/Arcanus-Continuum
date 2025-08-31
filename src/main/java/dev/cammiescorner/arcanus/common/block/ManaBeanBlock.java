@@ -1,12 +1,16 @@
 package dev.cammiescorner.arcanus.common.block;
 
 import dev.cammiescorner.arcanus.common.block.entities.ManaBeanBlockEntity;
+import dev.cammiescorner.arcanus.common.item.ManaBeanItem;
+import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
+import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -35,7 +39,7 @@ public class ManaBeanBlock extends Block implements EntityBlock, BlockItemProvid
 	private static final VoxelShape BEAN_POD_3 = Shapes.box(0.28125, 0.3125, 0.28125, 0.71875, 0.875, 0.71875);
 
 	public ManaBeanBlock() {
-		super(Properties.of().sound(SoundType.GRASS).mapColor(MapColor.PLANT).offsetType(OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY).randomTicks());
+		super(Properties.of().sound(SoundType.GRASS).mapColor(MapColor.PLANT).dynamicShape().offsetType(OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY).randomTicks());
 		registerDefaultState(getStateDefinition().any().setValue(AGE, 0));
 	}
 
@@ -86,5 +90,10 @@ public class ManaBeanBlock extends Block implements EntityBlock, BlockItemProvid
 	@Override
 	public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new ManaBeanBlockEntity(pos, state);
+	}
+
+	@Override
+	public Item createItem() {
+		return new ManaBeanItem(this, new Item.Properties().component(ArcanusDataComponents.ARCANA.get(), ArcanusArcana.NIL.get()));
 	}
 }

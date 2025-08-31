@@ -67,4 +67,13 @@ public class ManaBeanBlockEntity extends BlockEntity implements RenderDataBlockE
 		setChanged();
 		getLevel().setBlockAndUpdate(getBlockPos(), getBlockState());
 	}
+
+	public Arcana getArcana() {
+		return arcana;
+	}
+
+	public void setArcana(Arcana arcana) {
+		this.arcana = arcana;
+		markUpdated();
+	}
 }

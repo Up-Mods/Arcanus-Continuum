@@ -2,6 +2,7 @@ package dev.cammiescorner.arcanus.common.registry;
 
 import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.api.spell.Spell;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.common.data_component.*;
@@ -22,6 +23,12 @@ import java.util.UUID;
 
 public class ArcanusDataComponents {
 	public static final RegistryHandler<DataComponentType<?>> DATA_COMPONENTS = RegistryHandler.create(Registries.DATA_COMPONENT_TYPE, Arcanus.MOD_ID);
+
+	public static final RegistrySupplier<DataComponentType<Arcana>> ARCANA = DATA_COMPONENTS.register("arcana", () -> DataComponentType.<Arcana>builder()
+		.persistent(Arcana.CODEC)
+		.networkSynchronized(Arcana.STREAM_CODEC)
+		.build()
+	);
 
 	public static final RegistrySupplier<DataComponentType<ArcanaStorage>> ARCANA_STORAGE = DATA_COMPONENTS.register("arcana_storage", () -> DataComponentType.<ArcanaStorage>builder()
 		.persistent(ArcanaStorage.CODEC)

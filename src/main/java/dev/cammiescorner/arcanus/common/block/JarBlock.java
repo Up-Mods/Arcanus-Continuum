@@ -129,8 +129,6 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock, S
 				tooltipComponents.add(component.withColor(arcana.color().asIntARGB()));
 			}
 		}
-
-		super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
 	}
 
 	@Override

@@ -43,6 +43,13 @@ public class AlchemyCreativeTab {
 				stack.set(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(arcana, 64));
 				output.accept(stack);
 			});
+
+			ArcanusArcana.primalArcana().forEach(arcana -> {
+				ItemStack stack = new ItemStack(ArcanusBlocks.MANA_BEAN.get());
+
+				stack.set(ArcanusDataComponents.ARCANA.get(), arcana);
+				output.accept(stack);
+			});
 		}).build();
 	}
 }

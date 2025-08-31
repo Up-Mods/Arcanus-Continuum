@@ -86,6 +86,10 @@ public class FabricClient implements ClientModInitializer {
 			ArcanusBlocks.JAR.get()
 		);
 
+		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? stack.getOrDefault(ArcanusDataComponents.ARCANA.get(), ArcanusArcana.NIL.get()).color().asIntARGB() : 0xffffffff,
+			ArcanusBlocks.MANA_BEAN.get()
+		);
+
 		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 &&
 				tintGetter.getBlockEntityRenderData(pos) instanceof ColorRenderData(Color color) ? color.asIntARGB() : 0xffffffff,
 			ArcanusBlocks.JAR.get(),

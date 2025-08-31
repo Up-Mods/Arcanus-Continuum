@@ -304,7 +304,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		spell(builder, ArcanusSpellComponents.FLOAT, "Float Effect");
 		spell(builder, ArcanusSpellComponents.DANGER_SENSE, "Danger Sense Effect");
 
-		arcana(builder, ArcanusArcana.NIL, "Nil");
+		arcana(builder, ArcanusArcana.NIL, "Nil (Report This Please)");
 		arcana(builder, ArcanusArcana.IGNIS, "Ignis");
 		arcana(builder, ArcanusArcana.TERRA, "Terra");
 		arcana(builder, ArcanusArcana.AQUA, "Aqua");
