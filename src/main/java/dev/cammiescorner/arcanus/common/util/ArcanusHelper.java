@@ -26,7 +26,7 @@ import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -49,7 +49,9 @@ public class ArcanusHelper {
 		while(!newPipes.isEmpty()) {
 			List.copyOf(newPipes).forEach(blockPos -> {
 				for(Direction direction : Direction.values()) {
-					if(level.getBlockEntity(blockPos) instanceof ArcanaContainer container && !container.outputDirections().contains(direction))
+					BlockState state = level.getBlockState(pos);
+
+					if((state.getBlock() instanceof ArcanaPipeBlock && state.getValue(ArcanaPipeBlock.PROPERTY_BY_DIRECTION.get(direction))) || (level.getBlockEntity(blockPos) instanceof ArcanaContainer container && !container.outputDirections().contains(direction)))
 						continue;
 
 					BlockPos currentPos = blockPos.offset(direction.getNormal());
@@ -57,9 +59,7 @@ public class ArcanusHelper {
 					if(alreadyChecked.contains(currentPos))
 						continue;
 
-					BlockEntity neighborEntity = level.getBlockEntity(currentPos);
-
-					if(neighborEntity instanceof ArcanaContainer container && container.getArcanaAmount() < container.getMaxArcanaAmount() && container.inputDirections().contains(direction.getOpposite())) {
+					if(!blockPos.equals(pos) && level.getBlockEntity(currentPos) instanceof ArcanaContainer container && container.getArcanaAmount() < container.getMaxArcanaAmount() && container.inputDirections().contains(direction.getOpposite())) {
 						finalBlockPos.set(currentPos);
 						newPipes.clear();
 						break;
