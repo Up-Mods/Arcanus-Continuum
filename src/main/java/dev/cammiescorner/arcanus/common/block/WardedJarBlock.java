@@ -28,6 +28,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -117,6 +118,16 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 		}
 
 		return super.playerWillDestroy(level, pos, state, player);
+	}
+
+	@Override
+	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+		ItemStack stack = new ItemStack(ArcanusBlocks.WARDED_JAR.get());
+
+		if(level.getBlockEntity(pos) instanceof WardedJarBlockEntity wardedJar)
+			stack.set(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(wardedJar.getArcana(), wardedJar.getArcanaAmount()));
+
+		return stack;
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanus.common.block;
 import dev.cammiescorner.arcanus.common.block.entities.ManaBeanBlockEntity;
 import dev.cammiescorner.arcanus.common.item.ManaBeanItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
+import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
@@ -10,10 +11,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -23,7 +28,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -39,7 +43,7 @@ public class ManaBeanBlock extends Block implements EntityBlock, BlockItemProvid
 	private static final VoxelShape BEAN_POD_3 = Shapes.box(0.28125, 0.3125, 0.28125, 0.71875, 0.875, 0.71875);
 
 	public ManaBeanBlock() {
-		super(Properties.of().sound(SoundType.GRASS).mapColor(MapColor.PLANT).dynamicShape().offsetType(OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY).randomTicks());
+		super(Properties.of().sound(SoundType.GRASS).mapColor(MapColor.PLANT).dynamicShape().pushReaction(PushReaction.DESTROY).randomTicks().isRedstoneConductor(Blocks::never));
 		registerDefaultState(getStateDefinition().any().setValue(AGE, 0));
 	}
 
@@ -52,9 +56,9 @@ public class ManaBeanBlock extends Block implements EntityBlock, BlockItemProvid
 	}
 
 	@Override
-	protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		if(!canSurvive(state, level, pos))
-			destroy(level, pos, state);
+	protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+		if(!state.canSurvive(level, pos))
+			level.destroyBlock(pos, true);
 	}
 
 	@Override
@@ -62,24 +66,31 @@ public class ManaBeanBlock extends Block implements EntityBlock, BlockItemProvid
 		double chance = random.nextDouble();
 		int currentAge = state.getValue(AGE);
 
-		if(currentAge < MAX_AGE && chance > 0.75)
+		if(currentAge < MAX_AGE && chance > 0.85)
 			level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(currentAge + 1, MAX_AGE)));
 	}
 
 	@Override
+	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+		ItemStack stack = new ItemStack(ArcanusBlocks.MANA_BEAN.get());
+
+		if(level.getBlockEntity(pos) instanceof ManaBeanBlockEntity manaBean)
+			stack.set(ArcanusDataComponents.ARCANA.get(), manaBean.getArcana());
+
+		return stack;
+	}
+
+	@Override
 	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		Vec3 vec3 = state.getOffset(level, pos);
 		int age = state.getValue(AGE);
 
-		VoxelShape shape = switch(age) {
+		return switch(age) {
 			case 4 -> Shapes.or(SHAPE, BEAN_POD_0);
 			case 5 -> Shapes.or(SHAPE, BEAN_POD_1);
 			case 6 -> Shapes.or(SHAPE, BEAN_POD_2);
 			case 7 -> Shapes.or(SHAPE, BEAN_POD_3);
 			default -> SHAPE;
 		};
-
-		return shape.move(vec3.x, vec3.y, vec3.z);
 	}
 
 	@Override
@@ -94,6 +105,6 @@ public class ManaBeanBlock extends Block implements EntityBlock, BlockItemProvid
 
 	@Override
 	public Item createItem() {
-		return new ManaBeanItem(this, new Item.Properties().component(ArcanusDataComponents.ARCANA.get(), ArcanusArcana.NIL.get()));
+		return new ManaBeanItem(this, new Item.Properties().food(new FoodProperties.Builder().nutrition(1).fast().alwaysEdible().build()).component(ArcanusDataComponents.ARCANA.get(), ArcanusArcana.NIL.get()));
 	}
 }
