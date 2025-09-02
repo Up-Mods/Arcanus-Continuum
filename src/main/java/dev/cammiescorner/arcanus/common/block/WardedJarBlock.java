@@ -206,7 +206,7 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		return (level1, blockPos, blockState, blockEntity) -> {
 			if(level.getGameTime() % 20 == 0 && blockEntity instanceof WardedJarBlockEntity wardedJar && wardedJar.getArcana() != ArcanusArcana.NIL.get()) {
-				BlockPos pos = ArcanusHelper.findFirstArcanaContainer(level, blockPos);
+				BlockPos pos = ArcanusHelper.findValidArcanaContainer(level, blockPos, wardedJar.getArcana());
 
 				if(pos != null && level.getBlockEntity(pos) instanceof ArcanaContainer container)
 					ArcanusHelper.transferArcana(wardedJar, container, 1);

@@ -38,7 +38,10 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ArcanusHelper {
-	public static @Nullable BlockPos findFirstArcanaContainer(LevelAccessor level, BlockPos pos) {
+	public static @Nullable BlockPos findValidArcanaContainer(LevelAccessor level, BlockPos pos, Arcana arcana) {
+		if(arcana == ArcanusArcana.NIL.get())
+			return null;
+
 		List<BlockPos> alreadyChecked = new ArrayList<>();
 		List<BlockPos> newPipes = new ArrayList<>();
 		AtomicReference<BlockPos> finalBlockPos = new AtomicReference<>();
@@ -59,7 +62,7 @@ public class ArcanusHelper {
 					if(alreadyChecked.contains(currentPos))
 						continue;
 
-					if(!blockPos.equals(pos) && level.getBlockEntity(currentPos) instanceof ArcanaContainer container && container.getArcanaAmount() < container.getMaxArcanaAmount() && container.inputDirections().contains(direction.getOpposite())) {
+					if(!blockPos.equals(pos) && level.getBlockEntity(currentPos) instanceof ArcanaContainer container && (container.getArcana() == arcana || container.getArcana() == ArcanusArcana.NIL.get()) && container.getArcanaAmount() < container.getMaxArcanaAmount() && container.inputDirections().contains(direction.getOpposite())) {
 						finalBlockPos.set(currentPos);
 						newPipes.clear();
 						break;
