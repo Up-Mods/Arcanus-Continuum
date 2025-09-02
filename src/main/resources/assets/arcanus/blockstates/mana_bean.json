@@ -34,6 +34,38 @@
     },
     {
       "apply": {
+        "model": "arcanus:block/mana_bean_stage3"
+      },
+      "when": {
+        "age": 4
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/mana_bean_stage3"
+      },
+      "when": {
+        "age": 5
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/mana_bean_stage3"
+      },
+      "when": {
+        "age": 6
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/mana_bean_stage3.5"
+      },
+      "when": {
+        "age": 7
+      }
+    },
+    {
+      "apply": {
         "model": "arcanus:block/mana_bean_stage4"
       },
       "when": {
