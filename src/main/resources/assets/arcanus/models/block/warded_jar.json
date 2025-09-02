@@ -3,8 +3,8 @@
 	"parent": "minecraft:block/block",
 	"texture_size": [48, 48],
 	"textures": {
-		"0": "arcanus:block/jar",
-		"particle": "arcanus:block/jar"
+		"0": "arcanus:block/warded_jar",
+		"particle": "arcanus:block/warded_jar"
 	},
 	"elements": [
 		{

@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.authlib.GameProfile;
-import dev.cammiescorner.arcanus.common.block.JarBlock;
+import dev.cammiescorner.arcanus.common.block.WardedJarBlock;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -19,10 +19,10 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
 	@ModifyReturnValue(method = "isUnderWater", at = @At("RETURN"))
 	private boolean drownInAJar(boolean original) {
 		BlockState state = level().getBlockState(blockPosition());
-		AABB insideJar = JarBlock.INSIDE.bounds().inflate(0.001).move(blockPosition());
+		AABB insideJar = WardedJarBlock.INSIDE.bounds().inflate(0.001).move(blockPosition());
 
-		if(state.is(ArcanusBlocks.JAR.get()) && insideJar.contains(position()) && insideJar.contains(getEyePosition()))
-			return getBlockY() + (0.078125 * state.getValue(JarBlock.LEVEL)) + 0.0625 >= getEyeY();
+		if(state.is(ArcanusBlocks.WARDED_JAR.get()) && insideJar.contains(position()) && insideJar.contains(getEyePosition()))
+			return getBlockY() + (0.078125 * state.getValue(WardedJarBlock.LEVEL)) + 0.0625 >= getEyeY();
 
 		return original;
 	}

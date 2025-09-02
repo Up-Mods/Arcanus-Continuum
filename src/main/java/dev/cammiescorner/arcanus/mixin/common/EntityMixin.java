@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.mixin.common;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import dev.cammiescorner.arcanus.common.block.JarBlock;
+import dev.cammiescorner.arcanus.common.block.WardedJarBlock;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import net.minecraft.core.BlockPos;
@@ -53,9 +53,9 @@ public abstract class EntityMixin {
 	@ModifyReturnValue(method = "isInWater", at = @At("RETURN"))
 	private boolean getWetInAJar(boolean original) {
 		BlockState state = level().getBlockState(blockPosition());
-		AABB insideJar = JarBlock.INSIDE.bounds().inflate(0.001).move(blockPosition());
+		AABB insideJar = WardedJarBlock.INSIDE.bounds().inflate(0.001).move(blockPosition());
 
-		if(state.is(ArcanusBlocks.JAR.get()) && insideJar.contains(position()) && insideJar.contains(getEyePosition()))
+		if(state.is(ArcanusBlocks.WARDED_JAR.get()) && insideJar.contains(position()) && insideJar.contains(getEyePosition()))
 			return true;
 
 		return original;
@@ -64,10 +64,10 @@ public abstract class EntityMixin {
 	@ModifyReturnValue(method = "isUnderWater", at = @At("RETURN"))
 	private boolean drownInAJar(boolean original) {
 		BlockState state = level().getBlockState(blockPosition());
-		AABB insideJar = JarBlock.INSIDE.bounds().inflate(0.001).move(blockPosition());
+		AABB insideJar = WardedJarBlock.INSIDE.bounds().inflate(0.001).move(blockPosition());
 
-		if(state.is(ArcanusBlocks.JAR.get()) && insideJar.contains(position()) && insideJar.contains(getEyePosition()))
-			return getBlockY() + (0.078125 * state.getValue(JarBlock.LEVEL)) + 0.0625 >= getEyeY();
+		if(state.is(ArcanusBlocks.WARDED_JAR.get()) && insideJar.contains(position()) && insideJar.contains(getEyePosition()))
+			return getBlockY() + (0.078125 * state.getValue(WardedJarBlock.LEVEL)) + 0.0625 >= getEyeY();
 
 		return original;
 	}
@@ -75,10 +75,10 @@ public abstract class EntityMixin {
 	@WrapOperation(method = "updateSwimming", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/material/FluidState;is(Lnet/minecraft/tags/TagKey;)Z"))
 	private boolean swimInAJar(FluidState instance, TagKey<Fluid> tag, Operation<Boolean> original) {
 		BlockState state = level().getBlockState(blockPosition());
-		AABB insideJar = JarBlock.INSIDE.bounds().inflate(0.001).move(blockPosition());
+		AABB insideJar = WardedJarBlock.INSIDE.bounds().inflate(0.001).move(blockPosition());
 
-		if(state.is(ArcanusBlocks.JAR.get()) && insideJar.contains(position()) && insideJar.contains(getEyePosition()))
-			return getBlockY() + (0.078125 * state.getValue(JarBlock.LEVEL)) + 0.0625 >= getEyeY();
+		if(state.is(ArcanusBlocks.WARDED_JAR.get()) && insideJar.contains(position()) && insideJar.contains(getEyePosition()))
+			return getBlockY() + (0.078125 * state.getValue(WardedJarBlock.LEVEL)) + 0.0625 >= getEyeY();
 
 		return original.call(instance, tag);
 	}

@@ -1,11 +1,13 @@
 package dev.cammiescorner.arcanus.common.block;
 
 import dev.cammiescorner.arcanus.api.arcana.Arcana;
-import dev.cammiescorner.arcanus.common.block.entities.JarBlockEntity;
+import dev.cammiescorner.arcanus.common.block.entities.WardedJarBlockEntity;
 import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
+import dev.cammiescorner.arcanus.common.util.ArcanaContainer;
+import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,6 +28,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -44,7 +48,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class JarBlock extends Block implements BlockItemProvider, EntityBlock, SimpleWaterloggedBlock {
+public class WardedJarBlock extends Block implements BlockItemProvider, EntityBlock, SimpleWaterloggedBlock {
 	private static final VoxelShape SHAPE = Shapes.or(
 		Shapes.box(0.1875,  0,      0.1875,  0.8125,  0.0625, 0.8125), // bottom
 		Shapes.box(0.1875,  0.0625, 0.1875,  0.8125,  0.6875, 0.25),   // front
@@ -61,7 +65,7 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock, S
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final IntegerProperty LEVEL = IntegerProperty.create("level", 0, 8);
 
-	public JarBlock() {
+	public WardedJarBlock() {
 		super(Properties.of().noOcclusion());
 		registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(CONNECTED_TO_PIPE, false).setValue(WATERLOGGED, false).setValue(LEVEL, 0));
 	}
@@ -89,7 +93,7 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock, S
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		super.setPlacedBy(level, pos, state, placer, stack);
 
-		if(!level.isClientSide() && level.getBlockEntity(pos) instanceof JarBlockEntity jar) {
+		if(!level.isClientSide() && level.getBlockEntity(pos) instanceof WardedJarBlockEntity jar) {
 			ArcanaStorage storage = stack.getOrDefault(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(ArcanusArcana.NIL.get(), 0));
 
 			jar.setArcana(storage.arcana());
@@ -99,8 +103,8 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock, S
 
 	@Override
 	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-		if(!level.isClientSide() && level.getBlockEntity(pos) instanceof JarBlockEntity jar && jar.getArcanaAmount() > 0 && jar.getArcana() != ArcanusArcana.NIL.get()) {
-			ItemStack stack = new ItemStack(ArcanusBlocks.JAR.get());
+		if(!level.isClientSide() && level.getBlockEntity(pos) instanceof WardedJarBlockEntity jar && jar.getArcanaAmount() > 0 && jar.getArcana() != ArcanusArcana.NIL.get()) {
+			ItemStack stack = new ItemStack(ArcanusBlocks.WARDED_JAR.get());
 
 			stack.applyComponents(jar.collectComponents());
 
@@ -187,6 +191,18 @@ public class JarBlock extends Block implements BlockItemProvider, EntityBlock, S
 
 	@Override
 	public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new JarBlockEntity(pos, state);
+		return new WardedJarBlockEntity(pos, state);
+	}
+
+	@Override
+	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+		return (level1, blockPos, blockState, blockEntity) -> {
+			if(level.getGameTime() % 20 == 0 && blockEntity instanceof WardedJarBlockEntity wardedJar && wardedJar.getArcana() != ArcanusArcana.NIL.get()) {
+				BlockPos pos = ArcanusHelper.findFirstArcanaContainer(level, blockPos);
+
+				if(pos != null && level.getBlockEntity(pos) instanceof ArcanaContainer container)
+					ArcanusHelper.transferArcana(wardedJar, container, 1);
+			}
+		};
 	}
 }

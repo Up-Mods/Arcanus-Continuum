@@ -70,7 +70,7 @@ public class FabricClient implements ClientModInitializer {
 
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(),
 			ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get(),
-			ArcanusBlocks.JAR.get(),
+			ArcanusBlocks.WARDED_JAR.get(),
 			ArcanusBlocks.MANA_BEAN.get()
 		);
 
@@ -83,7 +83,7 @@ public class FabricClient implements ClientModInitializer {
 		);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 1 ? stack.getOrDefault(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(ArcanusArcana.NIL.get(), 0)).arcana().color().asIntARGB() : 0xffffffff,
-			ArcanusBlocks.JAR.get()
+			ArcanusBlocks.WARDED_JAR.get()
 		);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 0 ? stack.getOrDefault(ArcanusDataComponents.ARCANA.get(), ArcanusArcana.NIL.get()).color().asIntARGB() : 0xffffffff,
@@ -92,7 +92,7 @@ public class FabricClient implements ClientModInitializer {
 
 		ColorProviderRegistry.BLOCK.register((state, tintGetter, pos, tintIndex) -> tintIndex == 1 &&
 				tintGetter.getBlockEntityRenderData(pos) instanceof ColorRenderData(Color color) ? color.asIntARGB() : 0xffffffff,
-			ArcanusBlocks.JAR.get(),
+			ArcanusBlocks.WARDED_JAR.get(),
 			ArcanusBlocks.MANA_BEAN.get()
 		);
 

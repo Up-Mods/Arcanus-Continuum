@@ -2,12 +2,12 @@ package dev.cammiescorner.arcanus.common.block.entities;
 
 import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.client.util.ColorRenderData;
-import dev.cammiescorner.arcanus.common.block.JarBlock;
+import dev.cammiescorner.arcanus.common.block.WardedJarBlock;
 import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
-import dev.cammiescorner.arcanus.common.util.ArcanaMachine;
+import dev.cammiescorner.arcanus.common.util.ArcanaContainer;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.fabricmc.fabric.api.blockview.v2.RenderDataBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -24,11 +24,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity, ArcanaMachine {
+import java.util.List;
+
+public class WardedJarBlockEntity extends BlockEntity implements RenderDataBlockEntity, ArcanaContainer {
 	private Arcana arcana = ArcanusArcana.NIL.get();
 	private double arcanaAmount = 0;
 
-	public JarBlockEntity(BlockPos pos, BlockState blockState) {
+	public WardedJarBlockEntity(BlockPos pos, BlockState blockState) {
 		super(ArcanusBlockEntities.JAR.get(), pos, blockState);
 	}
 
@@ -91,22 +93,14 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 		components.set(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(arcana, arcanaAmount));
 	}
 
-	@Override
-	public boolean connectsToDirection(Direction direction) {
-		return direction == Direction.UP;
-	}
-
 	protected void markUpdated() {
-		BlockState newState = getBlockState().setValue(JarBlock.LEVEL, (int) Math.ceil(getArcanaAmount() / 8f));
+		BlockState newState = getBlockState().setValue(WardedJarBlock.LEVEL, (int) Math.ceil(getArcanaAmount() / 8f));
 		setChanged();
 		getLevel().setBlockAndUpdate(getBlockPos(), newState);
 	}
 
 	@Override
 	public Arcana getArcana() {
-		if(arcanaAmount <= 0 && arcana != ArcanusArcana.NIL.get())
-			setArcana(ArcanusArcana.NIL.get());
-
 		return arcana;
 	}
 
@@ -118,15 +112,22 @@ public class JarBlockEntity extends BlockEntity implements RenderDataBlockEntity
 
 	@Override
 	public double getArcanaAmount() {
-		if(getArcana() == ArcanusArcana.NIL.get() && arcanaAmount > 0)
-			setArcanaAmount(0);
-
 		return arcanaAmount;
 	}
 
 	@Override
-	public void setArcanaAmount(double arcana) {
-		this.arcanaAmount = Math.clamp(arcana, 0, 64);
+	public void setArcanaAmount(double arcanaAmount) {
+		this.arcanaAmount = Math.clamp(arcanaAmount, 0, 64);
 		markUpdated();
+	}
+
+	@Override
+	public List<Direction> inputDirections() {
+		return List.of(Direction.UP);
+	}
+
+	@Override
+	public List<Direction> outputDirections() {
+		return List.of(Direction.DOWN);
 	}
 }

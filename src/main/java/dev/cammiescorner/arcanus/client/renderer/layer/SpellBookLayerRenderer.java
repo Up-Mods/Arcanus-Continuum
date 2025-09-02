@@ -25,6 +25,7 @@ public class SpellBookLayerRenderer<T extends LivingEntity, M extends EntityMode
 
 	public SpellBookLayerRenderer(RenderLayerParent<T, M> renderer) {
 		super(renderer);
+		renderer.getModel();
 		model = new SpellBookModel<>(client.getEntityModels().bakeLayer(SpellBookModel.MODEL_LAYER));
 	}
 
@@ -35,8 +36,9 @@ public class SpellBookLayerRenderer<T extends LivingEntity, M extends EntityMode
 		if(!stack.isEmpty()) {
 			poseStack.pushPose();
 			poseStack.translate(client.options.mainHand().get() == HumanoidArm.RIGHT ? 0.25 : -0.25, -0.915, 0);
-			poseStack.scale(2, 2, 2);
 
+			getParentModel().copyPropertiesTo(model);
+			model.setupAnim(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 			model.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutoutNoCull(MAIN_TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY, stack.getOrDefault(DataComponents.DYED_COLOR, new DyedItemColor(0xff52392a, false)).rgb());
 			model.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutout(OVERLAY_TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY, 0xffffffff);
 

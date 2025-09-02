@@ -1,14 +1,19 @@
 package dev.cammiescorner.arcanus.common.util;
 
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
+import dev.cammiescorner.arcanus.common.block.ArcanaPipeBlock;
 import dev.cammiescorner.arcanus.common.component.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.data.ArcanusEntityTags;
 import dev.cammiescorner.arcanus.common.entity.magic.TemporalDilationField;
+import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -20,72 +25,134 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ArcanusHelper {
+	public static @Nullable BlockPos findFirstArcanaContainer(LevelAccessor level, BlockPos pos) {
+		List<BlockPos> alreadyChecked = new ArrayList<>();
+		List<BlockPos> newPipes = new ArrayList<>();
+		AtomicReference<BlockPos> finalBlockPos = new AtomicReference<>();
+
+		alreadyChecked.add(pos);
+		newPipes.add(pos);
+
+		while(!newPipes.isEmpty()) {
+			List.copyOf(newPipes).forEach(blockPos -> {
+				for(Direction direction : Direction.values()) {
+					if(level.getBlockEntity(blockPos) instanceof ArcanaContainer container && !container.outputDirections().contains(direction))
+						continue;
+
+					BlockPos currentPos = blockPos.offset(direction.getNormal());
+
+					if(alreadyChecked.contains(currentPos))
+						continue;
+
+					BlockEntity neighborEntity = level.getBlockEntity(currentPos);
+
+					if(neighborEntity instanceof ArcanaContainer container && container.getArcanaAmount() < container.getMaxArcanaAmount() && container.inputDirections().contains(direction.getOpposite())) {
+						finalBlockPos.set(currentPos);
+						newPipes.clear();
+						break;
+					}
+
+					if(level.getBlockState(currentPos).getBlock() instanceof ArcanaPipeBlock)
+						newPipes.add(currentPos);
+
+					alreadyChecked.add(currentPos);
+				}
+
+				newPipes.remove(blockPos);
+			});
+		}
+
+		return finalBlockPos.get();
+	}
+
+	public static void transferArcana(ArcanaContainer start, ArcanaContainer end, double amount) {
+		Arcana startArcana = start.getArcana();
+
+		if(startArcana == ArcanusArcana.NIL.get())
+			return;
+
+		Arcana endArcana = end.getArcana();
+		double startArcanaAmount = start.getArcanaAmount();
+		double endArcanaAmount = end.getArcanaAmount();
+
+		if(endArcana == ArcanusArcana.NIL.get())
+			end.setArcana(startArcana);
+		if(startArcana != endArcana || startArcanaAmount <= 0 || endArcanaAmount >= end.getMaxArcanaAmount())
+			return;
+
+		double maxDrain = Math.clamp(amount, 0, end.getMaxArcanaAmount() - endArcanaAmount);
+
+		end.setArcanaAmount(endArcanaAmount + maxDrain);
+		start.setArcanaAmount(startArcanaAmount - maxDrain);
+	}
+
 	public static boolean shouldTimeDilate(Entity target, Level level) {
 		return !target.getType().is(ArcanusEntityTags.TEMPORAL_DILATION_IMMUNE) && !level.getEntities(target, target.getBoundingBox(), entity -> entity instanceof TemporalDilationField && entity.position().add(0, 4.5, 0).distanceTo(target.position()) <= entity.getBbWidth() / 2).isEmpty();
 	}
 
 	public static Color getMagicColor(@Nullable Object provider) {
-		if(provider == null) {
+		if(provider == null)
 			return Arcanus.DEFAULT_MAGIC_COLOR;
-		}
 
-		var component = ArcanusComponents.MAGIC_COLOR.getNullable(provider);
-		if(component != null) {
+		MagicColorComponent component = ArcanusComponents.MAGIC_COLOR.getNullable(provider);
+
+		if(component != null)
 			return component.getColor();
-		}
 
 		// if Entity
 		if(provider instanceof TraceableEntity ownable) {
-			var owner = ownable.getOwner();
-			if(owner != null) {
+			Entity owner = ownable.getOwner();
+
+			if(owner != null)
 				return getMagicColor(owner);
-			}
 		}
 
 		return Arcanus.DEFAULT_MAGIC_COLOR;
 	}
 
 	public static Color getPocketDimensionColor(@Nullable Object provider) {
-		if(provider == null) {
+		if(provider == null)
 			return Arcanus.DEFAULT_MAGIC_COLOR;
-		}
 
-		var component = ArcanusComponents.MAGIC_COLOR.getNullable(provider);
-		if(component != null) {
+		MagicColorComponent component = ArcanusComponents.MAGIC_COLOR.getNullable(provider);
+
+		if(component != null)
 			return component.getPocketDimensionColor();
-		}
 
 		// if Entity
 		if(provider instanceof TraceableEntity ownable) {
-			var owner = ownable.getOwner();
-			if(owner != null) {
+			Entity owner = ownable.getOwner();
+
+			if(owner != null)
 				return getPocketDimensionColor(owner);
-			}
 		}
 
 		return Arcanus.DEFAULT_MAGIC_COLOR;
 	}
 
 	public static Color getMagicColor(@Nullable UUID playerId) {
-		if(playerId == null || Util.NIL_UUID.equals(playerId)) {
+		if(playerId == null || Util.NIL_UUID.equals(playerId))
 			return Arcanus.DEFAULT_MAGIC_COLOR;
-		}
 
 		return WizardData.getOrEmpty(playerId).magicColor();
 	}
 
 	public static Color getPocketDimensionColor(@Nullable UUID playerId) {
-		if(playerId == null || Util.NIL_UUID.equals(playerId)) {
+		if(playerId == null || Util.NIL_UUID.equals(playerId))
 			return Arcanus.DEFAULT_MAGIC_COLOR;
-		}
 
 		return WizardData.getOrEmpty(playerId).pocketDimensionColor();
 	}

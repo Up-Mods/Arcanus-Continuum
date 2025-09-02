@@ -42,7 +42,7 @@ public class CompositeJarModel implements FabricBakedModel, BakedModel, UnbakedM
 
 		if(storage != null) {
 			for(int i = 0; i < bakedModels.size(); i++) {
-				double level = Math.floor(storage.amount() / 8);
+				double level = Math.ceil(storage.amount() / 8);
 
 				if(level >= 0 && level - 1 == i)
 					bakedModels.get(i).emitItemQuads(stack, randomSupplier, context);
@@ -52,7 +52,7 @@ public class CompositeJarModel implements FabricBakedModel, BakedModel, UnbakedM
 
 	@Override
 	public @Nullable BakedModel bake(ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter, ModelState state) {
-		bakedJarModel = baker.bake(Arcanus.id("block/jar"), state);
+		bakedJarModel = baker.bake(Arcanus.id("block/warded_jar"), state);
 
 		for(int i = 1; i < unbakedModels.size() + 1; i++)
 			bakedModels.add(baker.bake(Arcanus.id("block/jar/jar_fluid_" + i), state));

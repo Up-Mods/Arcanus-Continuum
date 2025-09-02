@@ -15,7 +15,7 @@ public class ArcanusPointsOfInterest {
 	public static void register() {
 		PointOfInterestHelper.register(MAGIC_DOOR.location(), 0, 1, ArcanusBlocks.MAGIC_DOOR.get());
 		PointOfInterestHelper.register(PEDESTAL.location(), 0, 1, ArcanusBlocks.PEDESTAL.get());
-		PointOfInterestHelper.register(JAR.location(), 0, 1, ArcanusBlocks.JAR.get());
+		PointOfInterestHelper.register(JAR.location(), 0, 1, ArcanusBlocks.WARDED_JAR.get());
 	}
 
 	public static ResourceKey<PoiType> create(String id) {

@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.mixin.common;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import dev.cammiescorner.arcanus.common.block.JarBlock;
+import dev.cammiescorner.arcanus.common.block.WardedJarBlock;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
 import net.minecraft.ChatFormatting;
@@ -30,9 +30,9 @@ public abstract class PlayerMixin extends LivingEntity {
 	@WrapOperation(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/material/FluidState;isEmpty()Z"))
 	private boolean swimInAJar(FluidState instance, Operation<Boolean> original) {
 		BlockState state = level().getBlockState(blockPosition());
-		AABB insideJar = JarBlock.INSIDE.bounds().inflate(0.001).move(blockPosition());
+		AABB insideJar = WardedJarBlock.INSIDE.bounds().inflate(0.001).move(blockPosition());
 
-		if(state.is(ArcanusBlocks.JAR.get()) && insideJar.contains(position()))
+		if(state.is(ArcanusBlocks.WARDED_JAR.get()) && insideJar.contains(position()))
 			return false;
 
 		return original.call(instance);

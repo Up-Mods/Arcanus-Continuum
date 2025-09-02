@@ -9,7 +9,7 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.api.spell.Spell;
-import dev.cammiescorner.arcanus.common.block.JarBlock;
+import dev.cammiescorner.arcanus.common.block.WardedJarBlock;
 import dev.cammiescorner.arcanus.common.data_component.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.effect.ArcanusStatusEffect;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
@@ -222,10 +222,10 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 	@WrapOperation(method = "baseTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;isEyeInFluid(Lnet/minecraft/tags/TagKey;)Z"))
 	private boolean drownInAJar(LivingEntity instance, TagKey<Fluid> tagKey, Operation<Boolean> original) {
 		BlockState state = level().getBlockState(blockPosition());
-		AABB insideJar = JarBlock.INSIDE.bounds().inflate(0.001).move(blockPosition());
+		AABB insideJar = WardedJarBlock.INSIDE.bounds().inflate(0.001).move(blockPosition());
 
-		if(state.is(ArcanusBlocks.JAR.get()) && insideJar.contains(position()) && insideJar.contains(getEyePosition()))
-			return getBlockY() + (0.078125 * state.getValue(JarBlock.LEVEL)) + 0.0625 >= getEyeY();
+		if(state.is(ArcanusBlocks.WARDED_JAR.get()) && insideJar.contains(position()) && insideJar.contains(getEyePosition()))
+			return getBlockY() + (0.078125 * state.getValue(WardedJarBlock.LEVEL)) + 0.0625 >= getEyeY();
 
 		return original.call(instance, tagKey);
 	}

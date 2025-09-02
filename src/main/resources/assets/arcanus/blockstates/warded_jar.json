@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "arcanus:block/jar"
+        "model": "arcanus:block/warded_jar"
       }
     },
     {

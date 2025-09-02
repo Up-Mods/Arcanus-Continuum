@@ -28,17 +28,17 @@ public class AlchemyCreativeTab {
 			output.accept(ArcanusItems.VOID_NUGGET.get());
 
 			output.accept(ArcanusBlocks.ARCANA_PIPE.get());
-			output.accept(ArcanusBlocks.JAR.get());
+			output.accept(ArcanusBlocks.WARDED_JAR.get());
 
 			ArcanusArcana.primalArcana().forEach(arcana -> {
-				ItemStack stack = new ItemStack(ArcanusBlocks.JAR.get());
+				ItemStack stack = new ItemStack(ArcanusBlocks.WARDED_JAR.get());
 
 				stack.set(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(arcana, 64));
 				output.accept(stack);
 			});
 
 			ArcanusArcana.compoundArcana().forEach(arcana -> {
-				ItemStack stack = new ItemStack(ArcanusBlocks.JAR.get());
+				ItemStack stack = new ItemStack(ArcanusBlocks.WARDED_JAR.get());
 
 				stack.set(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(arcana, 64));
 				output.accept(stack);

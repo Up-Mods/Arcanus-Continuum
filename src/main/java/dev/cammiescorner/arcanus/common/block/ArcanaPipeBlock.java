@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.block;
 
 import com.google.common.collect.ImmutableMap;
-import dev.cammiescorner.arcanus.common.util.ArcanaMachine;
+import dev.cammiescorner.arcanus.common.util.ArcanaContainer;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -123,6 +123,6 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 	public boolean shouldConnect(LevelAccessor level, Direction direction, BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
 
-		return state.getBlock() instanceof ArcanaPipeBlock || (level.getBlockEntity(pos) instanceof ArcanaMachine machine && machine.connectsToDirection(direction.getOpposite()));
+		return state.getBlock() instanceof ArcanaPipeBlock || (level.getBlockEntity(pos) instanceof ArcanaContainer machine && machine.connectsToDirection(direction.getOpposite()));
 	}
 }

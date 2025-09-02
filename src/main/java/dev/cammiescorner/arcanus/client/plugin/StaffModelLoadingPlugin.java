@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class StaffModelLoadingPlugin implements ModelLoadingPlugin {
 	public static final ModelResourceLocation STAFF_RESOURCE_LOCATION = ModelResourceLocation.inventory(Arcanus.id("staff"));
-	public static final ModelResourceLocation JAR_RESOURCE_LOCATION = ModelResourceLocation.inventory(Arcanus.id("jar"));
+	public static final ModelResourceLocation JAR_RESOURCE_LOCATION = ModelResourceLocation.inventory(Arcanus.id("warded_jar"));
 
 	@Override
 	public void onInitializeModelLoader(Context pluginContext) {
@@ -54,7 +54,7 @@ public class StaffModelLoadingPlugin implements ModelLoadingPlugin {
 
 			if(JAR_RESOURCE_LOCATION.equals(context.topLevelId())) {
 				List<UnbakedModel> unbakedModels = new ArrayList<>();
-				UnbakedModel unbakedJarModel = context.getOrLoadModel(Arcanus.id("block/jar"));
+				UnbakedModel unbakedJarModel = context.getOrLoadModel(Arcanus.id("block/warded_jar"));
 
 				for(int i = 1; i < 9; i++)
 					unbakedModels.add(context.getOrLoadModel(Arcanus.id("block/jar/jar_fluid_" + i)));
