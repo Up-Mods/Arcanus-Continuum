@@ -1,28 +1,92 @@
 {
-  "variants": {
-    "age=0": {
-      "model": "arcanus:block/mana_bean_stage0"
+  "multipart": [
+    {
+      "apply": {
+        "model": "arcanus:block/mana_bean_stage0"
+      },
+      "when": {
+        "age": 0
+      }
     },
-    "age=1": {
-      "model": "arcanus:block/mana_bean_stage1"
+    {
+      "apply": {
+        "model": "arcanus:block/mana_bean_stage1"
+      },
+      "when": {
+        "age": 1
+      }
     },
-    "age=2": {
-      "model": "arcanus:block/mana_bean_stage2"
+    {
+      "apply": {
+        "model": "arcanus:block/mana_bean_stage2"
+      },
+      "when": {
+        "age": 2
+      }
     },
-    "age=3": {
-      "model": "arcanus:block/mana_bean_stage3"
+    {
+      "apply": {
+        "model": "arcanus:block/mana_bean_stage3"
+      },
+      "when": {
+        "age": 3
+      }
     },
-    "age=4": {
-      "model": "arcanus:block/mana_bean_stage4"
+    {
+      "apply": {
+        "model": "arcanus:block/mana_bean_stage4"
+      },
+      "when": {
+        "age": 4
+      }
     },
-    "age=5": {
-      "model": "arcanus:block/mana_bean_stage5"
+    {
+      "apply": {
+        "model": "arcanus:block/mana_bean_stage4"
+      },
+      "when": {
+        "age": 5
+      }
     },
-    "age=6": {
-      "model": "arcanus:block/mana_bean_stage6"
+    {
+      "apply": {
+        "model": "arcanus:block/mana_bean_stage5"
+      },
+      "when": {
+        "age": 5
+      }
     },
-    "age=7": {
-      "model": "arcanus:block/mana_bean_stage7"
+    {
+      "apply": {
+        "model": "arcanus:block/mana_bean_stage4"
+      },
+      "when": {
+        "age": 6
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/mana_bean_stage6"
+      },
+      "when": {
+        "age": 6
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/mana_bean_stage5"
+      },
+      "when": {
+        "age": 7
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/mana_bean_stage7"
+      },
+      "when": {
+        "age": 7
+      }
     }
-  }
+  ]
 }
