@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.block;
 
+import com.teamresourceful.resourcefulconfig.client.components.options.types.color.HsbColor;
 import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.common.block.entities.WardedJarBlockEntity;
 import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
@@ -8,6 +9,7 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanaContainer;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
+import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -130,7 +132,13 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 				component.append(" ");
 				component.append(Component.translatable(arcana.translationKey()));
 
-				tooltipComponents.add(component.withColor(arcana.color().asIntARGB()));
+				Color color = arcana.color();
+				HsbColor hsb = HsbColor.fromRgb(color.asIntARGB());
+
+				if(hsb.brightness() < 0.4f)
+					hsb = HsbColor.of(hsb.hue(), hsb.saturation(), 0.4f, hsb.alpha());
+
+				tooltipComponents.add(component.withColor(hsb.toRgba()));
 			}
 		}
 	}
