@@ -2,7 +2,8 @@
 	"format_version": "1.9.0",
 	"parent": "minecraft:block/block",
   "textures": {
-    "0": "arcanus:block/arcana_pipe"
+    "0": "arcanus:block/arcana_pipe",
+    "particle": "arcanus:block/arcana_pipe"
   },
 	"elements": [
 		{
