@@ -57,6 +57,59 @@
       "when": {
         "west": true
       }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/arcana_pipe_nub",
+        "x": -90
+      },
+      "when": {
+        "connects_up": false
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/arcana_pipe_nub",
+        "x": 90
+      },
+      "when": {
+        "connects_down": false
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/arcana_pipe_nub"
+      },
+      "when": {
+        "connects_north": false
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/arcana_pipe_nub",
+        "y": 90
+      },
+      "when": {
+        "connects_east": false
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/arcana_pipe_nub",
+        "y": 180
+      },
+      "when": {
+        "connects_south": false
+      }
+    },
+    {
+      "apply": {
+        "model": "arcanus:block/arcana_pipe_nub",
+        "y": 270
+      },
+      "when": {
+        "connects_west": false
+      }
     }
   ]
 }

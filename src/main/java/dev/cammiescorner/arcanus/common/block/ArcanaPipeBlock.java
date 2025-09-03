@@ -23,6 +23,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -69,6 +70,14 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 		Direction.SOUTH, Shapes.box(0.4375, 0.4375, 0.595, 0.5625, 0.5625, 1),
 		Direction.WEST, Shapes.box(0, 0.4375, 0.4375, 0.405, 0.5625, 0.5625)
 	);
+	public static final Map<Direction, VoxelShape> CONNECTION_SHAPES = ImmutableMap.of(
+		Direction.UP, Shapes.box(0.4375, 0.595, 0.4375, 0.5625, 0.6575, 0.5625),
+		Direction.DOWN, Shapes.box(0.4375, 0.3425, 0.4375, 0.5625, 0.405, 0.5625),
+		Direction.NORTH, Shapes.box(0.4375, 0.4375, 0.3425, 0.5625, 0.5625, 0.405),
+		Direction.EAST, Shapes.box(0.595, 0.4375, 0.4375, 0.6575, 0.5625, 0.5625),
+		Direction.SOUTH, Shapes.box(0.4375, 0.4375, 0.595, 0.5625, 0.5625, 0.6575),
+		Direction.WEST, Shapes.box(0.3425, 0.4375, 0.4375, 0.405, 0.5625, 0.5625)
+	);
 
 	public ArcanaPipeBlock() {
 		super(Properties.of().noOcclusion().isSuffocating((blockState, blockGetter, blockPos) -> false).dynamicShape());
@@ -94,16 +103,38 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 	@Override
 	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if(!level.isClientSide() && hand == InteractionHand.MAIN_HAND && player.isCrouching() && stack.isEmpty()) {
-			for(Direction direction : Direction.values()) {
-				// TODO half the faces dont intersect with the hit result, but inflating the aabb by any amount
-				//  results in the thing affecting the opposite extension on half of the middle's faces...
-				if(EXTENSION_SHAPES.get(direction).bounds().move(pos).contains(hitResult.getLocation())) {
-					BooleanProperty connectionProperty = CONNECTION_BY_DIRECTION.get(direction);
+			Direction hitFace = hitResult.getDirection();
+			Vec3 hitPoint = hitResult.getLocation();
+			Vec3 multiplyBy = new Vec3(0.001, 0.001, 0.001);
 
-					level.setBlockAndUpdate(pos, state.setValue(connectionProperty, !state.getValue(connectionProperty)));
+			for(Direction direction : Direction.values()) {
+				if(EXTENSION_SHAPES.get(direction).bounds().move(pos).expandTowards(Vec3.atCenterOf(hitFace.getNormal()).multiply(multiplyBy)).contains(hitPoint)) {
+					BlockPos neighborPos = pos.relative(direction);
+					BlockState neighborState = level.getBlockState(neighborPos);
+					BooleanProperty connectionProperty = CONNECTION_BY_DIRECTION.get(direction);
+					BooleanProperty neighborProperty = CONNECTION_BY_DIRECTION.get(direction.getOpposite());
+
+					if(state.getValue(connectionProperty))
+						level.setBlockAndUpdate(pos, state.setValue(connectionProperty, false));
+					if(neighborState.getBlock() instanceof ArcanaPipeBlock && neighborState.getValue(neighborProperty))
+						level.setBlockAndUpdate(neighborPos, neighborState.setValue(neighborProperty, false));
 
 					return ItemInteractionResult.SUCCESS;
 				}
+			}
+
+			if(SHAPE.bounds().move(pos).expandTowards(Vec3.atCenterOf(hitFace.getNormal()).multiply(multiplyBy)).contains(hitPoint)) {
+				BlockPos neighborPos = pos.relative(hitFace);
+				BlockState neighborState = level.getBlockState(neighborPos);
+				BooleanProperty connectionProperty = CONNECTION_BY_DIRECTION.get(hitFace);
+				BooleanProperty neighborProperty = CONNECTION_BY_DIRECTION.get(hitFace.getOpposite());
+
+				if(!state.getValue(connectionProperty))
+					level.setBlockAndUpdate(pos, state.setValue(connectionProperty, true));
+				if(neighborState.getBlock() instanceof ArcanaPipeBlock && !neighborState.getValue(neighborProperty))
+					level.setBlockAndUpdate(neighborPos, neighborState.setValue(neighborProperty, true));
+
+				return ItemInteractionResult.SUCCESS;
 			}
 		}
 
@@ -114,18 +145,10 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		VoxelShape shape = SHAPE;
 
-		Map<Direction, VoxelShape> EXTENSION_SHAPES = ImmutableMap.of(
-			Direction.UP, Shapes.box(0.4375, 0.595, 0.4375, 0.5625, 1, 0.5625),
-			Direction.DOWN, Shapes.box(0.4375, 0, 0.4375, 0.5625, 0.405, 0.5625),
-			Direction.NORTH, Shapes.box(0.4375, 0.4375, 0, 0.5625, 0.5625, 0.405),
-			Direction.EAST, Shapes.box(0.595, 0.4375, 0.4375, 1, 0.5625, 0.5625),
-			Direction.SOUTH, Shapes.box(0.4375, 0.4375, 0.595, 0.5625, 0.5625, 1),
-			Direction.WEST, Shapes.box(0, 0.4375, 0.4375, 0.405, 0.5625, 0.5625)
-		);
-
-		for(Direction value : Direction.values())
-			if(state.getValue(EXTENSION_BY_DIRECTION.get(value)))
+		for(Direction value : Direction.values()) {
+			if(state.getValue(EXTENSION_BY_DIRECTION.get(value)) && state.getValue(CONNECTION_BY_DIRECTION.get(value)))
 				shape = Shapes.or(shape, EXTENSION_SHAPES.get(value));
+		}
 
 		return shape;
 	}
@@ -183,7 +206,8 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 		BlockState state = level.getBlockState(pos);
 		BlockState neighborState = level.getBlockState(neighborPos);
 
-		return (neighborState.getBlock() instanceof ArcanaPipeBlock && neighborState.getValue(CONNECTION_BY_DIRECTION.get(direction.getOpposite())) == state.getValue(CONNECTION_BY_DIRECTION.get(direction))) ||
-			(level.getBlockEntity(neighborPos) instanceof ArcanaContainer machine && machine.connectsToDirection(direction.getOpposite()));
+		// TODO figure out why sometimes the connection property and extension properties stop being equivalent when they should be
+		return ((neighborState.getBlock() instanceof ArcanaPipeBlock && state.getValue(CONNECTION_BY_DIRECTION.get(direction)) && neighborState.getValue(CONNECTION_BY_DIRECTION.get(direction.getOpposite())))) ||
+			(level.getBlockEntity(neighborPos) instanceof ArcanaContainer machine && state.getValue(CONNECTION_BY_DIRECTION.get(direction)) && machine.connectsToDirection(direction.getOpposite()));
 	}
 }

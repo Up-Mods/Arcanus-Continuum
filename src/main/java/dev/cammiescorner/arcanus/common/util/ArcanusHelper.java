@@ -54,7 +54,7 @@ public class ArcanusHelper {
 				for(Direction direction : Direction.values()) {
 					BlockState state = level.getBlockState(pos);
 
-					if((state.getBlock() instanceof ArcanaPipeBlock && state.getValue(ArcanaPipeBlock.EXTENSION_BY_DIRECTION.get(direction))) || (level.getBlockEntity(blockPos) instanceof ArcanaContainer container && !container.outputDirections().contains(direction)))
+					if((state.getBlock() instanceof ArcanaPipeBlock && state.getValue(ArcanaPipeBlock.CONNECTION_BY_DIRECTION.get(direction))) || (level.getBlockEntity(blockPos) instanceof ArcanaContainer container && !container.outputDirections().contains(direction)))
 						continue;
 
 					BlockPos currentPos = blockPos.offset(direction.getNormal());
