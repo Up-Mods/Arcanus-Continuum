@@ -70,14 +70,6 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 		Direction.SOUTH, Shapes.box(0.4375, 0.4375, 0.595, 0.5625, 0.5625, 1),
 		Direction.WEST, Shapes.box(0, 0.4375, 0.4375, 0.405, 0.5625, 0.5625)
 	);
-	public static final Map<Direction, VoxelShape> CONNECTION_SHAPES = ImmutableMap.of(
-		Direction.UP, Shapes.box(0.4375, 0.595, 0.4375, 0.5625, 0.6575, 0.5625),
-		Direction.DOWN, Shapes.box(0.4375, 0.3425, 0.4375, 0.5625, 0.405, 0.5625),
-		Direction.NORTH, Shapes.box(0.4375, 0.4375, 0.3425, 0.5625, 0.5625, 0.405),
-		Direction.EAST, Shapes.box(0.595, 0.4375, 0.4375, 0.6575, 0.5625, 0.5625),
-		Direction.SOUTH, Shapes.box(0.4375, 0.4375, 0.595, 0.5625, 0.5625, 0.6575),
-		Direction.WEST, Shapes.box(0.3425, 0.4375, 0.4375, 0.405, 0.5625, 0.5625)
-	);
 
 	public ArcanaPipeBlock() {
 		super(Properties.of().noOcclusion().isSuffocating((blockState, blockGetter, blockPos) -> false).dynamicShape());
@@ -115,9 +107,9 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 					BooleanProperty neighborProperty = CONNECTION_BY_DIRECTION.get(direction.getOpposite());
 
 					if(state.getValue(connectionProperty))
-						level.setBlockAndUpdate(pos, state.setValue(connectionProperty, false));
+						level.setBlockAndUpdate(pos, state.setValue(connectionProperty, false).setValue(EXTENSION_BY_DIRECTION.get(direction), false));
 					if(neighborState.getBlock() instanceof ArcanaPipeBlock && neighborState.getValue(neighborProperty))
-						level.setBlockAndUpdate(neighborPos, neighborState.setValue(neighborProperty, false));
+						level.setBlockAndUpdate(neighborPos, neighborState.setValue(neighborProperty, false).setValue(EXTENSION_BY_DIRECTION.get(direction.getOpposite()), false));
 
 					return ItemInteractionResult.SUCCESS;
 				}
@@ -130,9 +122,9 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 				BooleanProperty neighborProperty = CONNECTION_BY_DIRECTION.get(hitFace.getOpposite());
 
 				if(!state.getValue(connectionProperty))
-					level.setBlockAndUpdate(pos, state.setValue(connectionProperty, true));
+					level.setBlockAndUpdate(pos, state.setValue(connectionProperty, true).setValue(EXTENSION_BY_DIRECTION.get(hitFace), true));
 				if(neighborState.getBlock() instanceof ArcanaPipeBlock && !neighborState.getValue(neighborProperty))
-					level.setBlockAndUpdate(neighborPos, neighborState.setValue(neighborProperty, true));
+					level.setBlockAndUpdate(neighborPos, neighborState.setValue(neighborProperty, true).setValue(EXTENSION_BY_DIRECTION.get(hitFace.getOpposite()), true));
 
 				return ItemInteractionResult.SUCCESS;
 			}
@@ -206,7 +198,6 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 		BlockState state = level.getBlockState(pos);
 		BlockState neighborState = level.getBlockState(neighborPos);
 
-		// TODO figure out why sometimes the connection property and extension properties stop being equivalent when they should be
 		return ((neighborState.getBlock() instanceof ArcanaPipeBlock && state.getValue(CONNECTION_BY_DIRECTION.get(direction)) && neighborState.getValue(CONNECTION_BY_DIRECTION.get(direction.getOpposite())))) ||
 			(level.getBlockEntity(neighborPos) instanceof ArcanaContainer machine && state.getValue(CONNECTION_BY_DIRECTION.get(direction)) && machine.connectsToDirection(direction.getOpposite()));
 	}

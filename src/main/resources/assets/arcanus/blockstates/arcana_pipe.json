@@ -11,7 +11,8 @@
         "x": -90
       },
       "when": {
-        "up": true
+        "up": true,
+        "connects_up": true
       }
     },
     {
@@ -20,7 +21,8 @@
         "x": 90
       },
       "when": {
-        "down": true
+        "down": true,
+        "connects_down": true
       }
     },
     {
@@ -28,7 +30,8 @@
         "model": "arcanus:block/arcana_pipe_extension"
       },
       "when": {
-        "north": true
+        "north": true,
+        "connects_north": true
       }
     },
     {
@@ -37,7 +40,8 @@
         "y": 90
       },
       "when": {
-        "east": true
+        "east": true,
+        "connects_east": true
       }
     },
     {
@@ -46,7 +50,8 @@
         "y": 180
       },
       "when": {
-        "south": true
+        "south": true,
+        "connects_south": true
       }
     },
     {
@@ -55,7 +60,8 @@
         "y": 270
       },
       "when": {
-        "west": true
+        "west": true,
+        "connects_west": true
       }
     },
     {
@@ -64,6 +70,7 @@
         "x": -90
       },
       "when": {
+        "up": false,
         "connects_up": false
       }
     },
@@ -73,6 +80,7 @@
         "x": 90
       },
       "when": {
+        "down": false,
         "connects_down": false
       }
     },
@@ -81,6 +89,7 @@
         "model": "arcanus:block/arcana_pipe_nub"
       },
       "when": {
+        "north": false,
         "connects_north": false
       }
     },
@@ -90,6 +99,7 @@
         "y": 90
       },
       "when": {
+        "east": false,
         "connects_east": false
       }
     },
@@ -99,6 +109,7 @@
         "y": 180
       },
       "when": {
+        "south": false,
         "connects_south": false
       }
     },
@@ -108,6 +119,7 @@
         "y": 270
       },
       "when": {
+        "west": false,
         "connects_west": false
       }
     }
