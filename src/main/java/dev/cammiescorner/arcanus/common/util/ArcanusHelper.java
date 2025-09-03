@@ -38,7 +38,6 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ArcanusHelper {
-	// TODO is apparently "wirelessly" finding the block it needs despite a pipe being interrupted
 	public static @Nullable BlockPos findValidArcanaContainer(LevelAccessor level, BlockPos pos, Arcana arcana) {
 		if(arcana == ArcanusArcana.NIL.get())
 			return null;
@@ -53,9 +52,9 @@ public class ArcanusHelper {
 		while(!newPipes.isEmpty()) {
 			List.copyOf(newPipes).forEach(blockPos -> {
 				for(Direction direction : Direction.values()) {
-					BlockState state = level.getBlockState(pos);
+					BlockState state = level.getBlockState(blockPos);
 
-					if((state.getBlock() instanceof ArcanaPipeBlock && state.getValue(ArcanaPipeBlock.CONNECTION_BY_DIRECTION.get(direction))) || (level.getBlockEntity(blockPos) instanceof ArcanaContainer container && !container.outputDirections().contains(direction)))
+					if((state.getBlock() instanceof ArcanaPipeBlock && !state.getValue(ArcanaPipeBlock.CONNECTION_BY_DIRECTION.get(direction))) || (level.getBlockEntity(blockPos) instanceof ArcanaContainer container && !container.outputDirections().contains(direction)))
 						continue;
 
 					BlockPos currentPos = blockPos.offset(direction.getNormal());
