@@ -38,6 +38,7 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ArcanusHelper {
+	// TODO is apparently "wirelessly" finding the block it needs despite a pipe being interrupted
 	public static @Nullable BlockPos findValidArcanaContainer(LevelAccessor level, BlockPos pos, Arcana arcana) {
 		if(arcana == ArcanusArcana.NIL.get())
 			return null;
