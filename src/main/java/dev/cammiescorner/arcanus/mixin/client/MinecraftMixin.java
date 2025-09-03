@@ -5,6 +5,7 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.util.ClientUtils;
+import dev.cammiescorner.arcanus.common.block.ArcanaPipeBlock;
 import dev.cammiescorner.arcanus.common.entity.magic.StockpileOrb;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundIsCastingPacket;
@@ -50,15 +51,12 @@ public abstract class MinecraftMixin implements ClientUtils {
 	@Shadow @Nullable public LocalPlayer player;
 	@Shadow @Final public Options options;
 	@Shadow @Nullable public ClientLevel level;
+	@Shadow @Nullable public Entity crosshairPickEntity;
+	@Shadow @Nullable public HitResult hitResult;
+	@Shadow @Nullable public MultiPlayerGameMode gameMode;
 
 	@Shadow public abstract boolean isLocalServer();
 	@Shadow public abstract long getFrameTimeNs();
-
-	@Shadow @Nullable public Entity crosshairPickEntity;
-
-	@Shadow @Nullable public HitResult hitResult;
-
-	@Shadow @Nullable public MultiPlayerGameMode gameMode;
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void tick(CallbackInfo info) {
@@ -174,7 +172,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 			if(hitResult != null && hitResult.getType() != HitResult.Type.MISS) {
 				InteractionResult interactionResult = null;
 
-				if(hitResult instanceof BlockHitResult blockHitResult)
+				if(hitResult instanceof BlockHitResult blockHitResult && (!player.isCrouching() || (player.isCrouching() && level.getBlockState(blockHitResult.getBlockPos()).getBlock() instanceof ArcanaPipeBlock)))
 					interactionResult = gameMode.useItemOn(player, InteractionHand.MAIN_HAND, blockHitResult);
 				if(hitResult instanceof EntityHitResult entityHitResult)
 					interactionResult = gameMode.interactAt(player, entityHitResult.getEntity(), entityHitResult, InteractionHand.MAIN_HAND);
