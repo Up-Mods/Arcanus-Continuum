@@ -44,7 +44,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ArcanusHelper {
 	public static void findAndTransferArcana(LevelAccessor level, BlockPos pos, Arcana arcana, double amount) {
-		if(arcana == ArcanusArcana.NIL.get())
+		if(arcana == ArcanusArcana.NIL.get() || level.isClientSide())
 			return;
 
 		List<BlockPos> alreadyChecked = new ArrayList<>();
@@ -59,14 +59,12 @@ public class ArcanusHelper {
 		while(!newPipes.isEmpty()) {
 			List.copyOf(newPipes).forEach(blockPos -> {
 				for(Direction direction : Direction.values()) {
-					if(level.isClientSide())
-						continue;
-
 					BlockState state = level.getBlockState(blockPos);
 
 					if((state.is(ArcanusBlocks.ARCANA_PIPE.get()) && !state.getValue(ArcanaPipeBlock.CONNECTION_BY_DIRECTION.get(direction.getOpposite())))
 						|| (state.is(ArcanusBlocks.ARCANA_PUMP.get()) && !state.getValue(ArcanaPumpBlock.AXIS).test(direction))
-						|| (level.getBlockEntity(blockPos.relative(direction)) instanceof ArcanaContainer container && !container.outputDirections().contains(direction)))
+						|| (level.getBlockEntity(blockPos.relative(direction)) instanceof ArcanaContainer container
+						&& (!container.outputDirections().contains(direction) || (container.getArcana() != ArcanusArcana.NIL.get() && container.getArcana() != arcana))))
 						continue;
 
 					BlockPos currentPos = blockPos.relative(direction);
@@ -108,10 +106,10 @@ public class ArcanusHelper {
 		}
 
 		if(finalBlockPos.get() != null && level.getBlockEntity(pos) instanceof ArcanaContainer start && start.getArcana() != ArcanusArcana.NIL.get() && level.getBlockEntity(finalBlockPos.get()) instanceof ArcanaContainer end)
-			transferArcana(start, end, arcana, amount * arcanaReduction.get());
+			transferArcana(start, end, arcana, amount, arcanaReduction.get());
 	}
 
-	public static void transferArcana(ArcanaContainer start, ArcanaContainer end, Arcana arcana, double amount) {
+	public static void transferArcana(ArcanaContainer start, ArcanaContainer end, Arcana arcana, double amount, double ratio) {
 		if(arcana == ArcanusArcana.NIL.get())
 			return;
 
@@ -126,7 +124,7 @@ public class ArcanusHelper {
 
 		double maxDrain = Math.clamp(amount, 0, end.getMaxArcanaAmount() - endArcanaAmount);
 
-		end.setArcanaAmount(endArcanaAmount + maxDrain);
+		end.setArcanaAmount(endArcanaAmount + (maxDrain * ratio));
 		start.setArcanaAmount(startArcanaAmount - maxDrain);
 	}
 

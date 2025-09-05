@@ -215,7 +215,7 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 	@Override
 	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		return (level1, blockPos, blockState, blockEntity) -> {
-			if(level.getGameTime() % 20 == 0 && blockEntity instanceof WardedJarBlockEntity wardedJar && wardedJar.getArcana() != ArcanusArcana.NIL.get()) {
+			if(level.getGameTime() % 10 == 0 && blockEntity instanceof WardedJarBlockEntity wardedJar && wardedJar.getArcana() != ArcanusArcana.NIL.get()) {
 				ArcanusHelper.findAndTransferArcana(level, blockPos, wardedJar.getArcana(), 1);
 			}
 		};
