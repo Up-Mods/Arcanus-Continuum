@@ -199,6 +199,6 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 		BlockState neighborState = level.getBlockState(neighborPos);
 
 		return ((neighborState.getBlock() instanceof ArcanaPipeBlock && state.getValue(CONNECTION_BY_DIRECTION.get(direction)) && neighborState.getValue(CONNECTION_BY_DIRECTION.get(direction.getOpposite())))) ||
-			(level.getBlockEntity(neighborPos) instanceof ArcanaContainer machine && state.getValue(CONNECTION_BY_DIRECTION.get(direction)) && machine.connectsToDirection(direction.getOpposite()));
+			(level.getBlockEntity(neighborPos) instanceof ArcanaContainer container && state.getValue(CONNECTION_BY_DIRECTION.get(direction)) && container.connectsToDirection(direction.getOpposite()));
 	}
 }
