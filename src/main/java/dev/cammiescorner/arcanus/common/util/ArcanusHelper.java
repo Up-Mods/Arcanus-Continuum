@@ -85,7 +85,7 @@ public class ArcanusHelper {
 
 					if(currentState.is(ArcanusBlocks.ARCANA_PUMP.get()) && currentState.getValue(ArcanaPumpBlock.AXIS).test(direction)) {
 						addVertical.getAndAdd(10);
-						arcanaReduction.set(Math.max(arcanaReduction.get() - 0.1f, -1f));
+						arcanaReduction.set(Math.max(arcanaReduction.get() - 0.1f, 0f));
 					}
 
 					if(currentState.getBlock() instanceof AbstractPipeBlock) {
@@ -109,7 +109,7 @@ public class ArcanusHelper {
 			transferArcana(start, end, arcana, amount, arcanaReduction.get());
 	}
 
-	public static void transferArcana(ArcanaContainer start, ArcanaContainer end, Arcana arcana, double amount, double ratio) {
+	public static void transferArcana(ArcanaContainer start, ArcanaContainer end, Arcana arcana, double amount, double lossPercentage) {
 		if(arcana == ArcanusArcana.NIL.get())
 			return;
 
@@ -124,7 +124,7 @@ public class ArcanusHelper {
 
 		double maxDrain = Math.clamp(amount, 0, end.getMaxArcanaAmount() - endArcanaAmount);
 
-		end.setArcanaAmount(endArcanaAmount + (maxDrain * ratio));
+		end.setArcanaAmount(endArcanaAmount + (maxDrain * lossPercentage));
 		start.setArcanaAmount(startArcanaAmount - maxDrain);
 	}
 
