@@ -7,7 +7,6 @@ import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
-import dev.cammiescorner.arcanus.common.util.ArcanaContainer;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
@@ -139,7 +138,7 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 			Arcana arcana = data.arcana();
 
 			if(arcana != null && arcana != ArcanusArcana.NIL.get()) {
-				component.append(String.format("%.0f", data.amount()));
+				component.append(String.format(data.amount() % 1 == 0 ? "%.0f" : "%.1f", data.amount()));
 				component.append(" ");
 				component.append(Component.translatable(arcana.translationKey()));
 
@@ -217,10 +216,7 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		return (level1, blockPos, blockState, blockEntity) -> {
 			if(level.getGameTime() % 20 == 0 && blockEntity instanceof WardedJarBlockEntity wardedJar && wardedJar.getArcana() != ArcanusArcana.NIL.get()) {
-				BlockPos pos = ArcanusHelper.findValidArcanaContainer(level, blockPos, wardedJar.getArcana());
-
-				if(pos != null && level.getBlockEntity(pos) instanceof ArcanaContainer container)
-					ArcanusHelper.transferArcana(wardedJar, container, 1);
+				ArcanusHelper.findAndTransferArcana(level, blockPos, wardedJar.getArcana(), 1);
 			}
 		};
 	}

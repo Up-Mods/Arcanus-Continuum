@@ -26,6 +26,7 @@ import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -35,16 +36,19 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ArcanusHelper {
-	public static @Nullable BlockPos findValidArcanaContainer(LevelAccessor level, BlockPos pos, Arcana arcana) {
+	public static void findAndTransferArcana(LevelAccessor level, BlockPos pos, Arcana arcana, double amount) {
 		if(arcana == ArcanusArcana.NIL.get())
-			return null;
+			return;
 
 		List<BlockPos> alreadyChecked = new ArrayList<>();
 		List<BlockPos> newPipes = new ArrayList<>();
 		AtomicReference<BlockPos> finalBlockPos = new AtomicReference<>();
+		AtomicReference<Float> arcanaReduction = new AtomicReference<>(1f);
+		AtomicInteger addVertical = new AtomicInteger(0);
 
 		alreadyChecked.add(pos);
 		newPipes.add(pos);
@@ -52,24 +56,44 @@ public class ArcanusHelper {
 		while(!newPipes.isEmpty()) {
 			List.copyOf(newPipes).forEach(blockPos -> {
 				for(Direction direction : Direction.values()) {
-					BlockState state = level.getBlockState(blockPos);
-
-					if((state.getBlock() instanceof ArcanaPipeBlock && !state.getValue(ArcanaPipeBlock.CONNECTION_BY_DIRECTION.get(direction))) || (level.getBlockEntity(blockPos.relative(direction)) instanceof ArcanaContainer container && !container.outputDirections().contains(direction)))
+					if(level.isClientSide())
 						continue;
 
-					BlockPos currentPos = blockPos.offset(direction.getNormal());
+					BlockState state = level.getBlockState(blockPos);
+
+					if((state.getBlock() instanceof ArcanaPipeBlock && !state.getValue(ArcanaPipeBlock.CONNECTION_BY_DIRECTION.get(direction.getOpposite())))
+						|| (level.getBlockEntity(blockPos.relative(direction)) instanceof ArcanaContainer container && !container.outputDirections().contains(direction)))
+						continue;
+
+					BlockPos currentPos = blockPos.relative(direction);
+					BlockState currentState = level.getBlockState(currentPos);
 
 					if(alreadyChecked.contains(currentPos))
 						continue;
 
-					if(!blockPos.equals(pos) && level.getBlockEntity(currentPos) instanceof ArcanaContainer container && (container.getArcana() == arcana || container.getArcana() == ArcanusArcana.NIL.get()) && container.getArcanaAmount() < container.getMaxArcanaAmount() && container.inputDirections().contains(direction.getOpposite())) {
+					if(!blockPos.equals(pos) && level.getBlockEntity(currentPos) instanceof ArcanaContainer container
+						&& (container.getArcana() == arcana || container.getArcana() == ArcanusArcana.NIL.get())
+						&& container.getArcanaAmount() < container.getMaxArcanaAmount()
+						&& container.inputDirections().contains(direction.getOpposite())
+					) {
 						finalBlockPos.set(currentPos);
 						newPipes.clear();
 						break;
 					}
 
-					if(level.getBlockState(currentPos).getBlock() instanceof ArcanaPipeBlock)
+					// TODO make it a proper pump with its reductions and height additions
+					if(currentState.is(Blocks.REDSTONE_BLOCK)) {
+						addVertical.getAndAdd(1);
+						arcanaReduction.set(Math.max(arcanaReduction.get() - 0.1f, -1f));
+					}
+
+					if(currentState.getBlock() instanceof ArcanaPipeBlock) {
+						if(!alreadyChecked.contains(currentPos) && currentState.getValue(ArcanaPipeBlock.EXTENSION_BY_DIRECTION.get(direction.getOpposite()))
+							&& direction == Direction.UP && currentPos.getY() > pos.getY() + addVertical.get())
+							continue;
+
 						newPipes.add(currentPos);
+					}
 
 					alreadyChecked.add(currentPos);
 				}
@@ -78,13 +102,12 @@ public class ArcanusHelper {
 			});
 		}
 
-		return finalBlockPos.get();
+		if(finalBlockPos.get() != null && level.getBlockEntity(pos) instanceof ArcanaContainer start && start.getArcana() != ArcanusArcana.NIL.get() && level.getBlockEntity(finalBlockPos.get()) instanceof ArcanaContainer end)
+			transferArcana(start, end, arcana, amount * arcanaReduction.get());
 	}
 
-	public static void transferArcana(ArcanaContainer start, ArcanaContainer end, double amount) {
-		Arcana startArcana = start.getArcana();
-
-		if(startArcana == ArcanusArcana.NIL.get())
+	public static void transferArcana(ArcanaContainer start, ArcanaContainer end, Arcana arcana, double amount) {
+		if(arcana == ArcanusArcana.NIL.get())
 			return;
 
 		Arcana endArcana = end.getArcana();
@@ -92,8 +115,8 @@ public class ArcanusHelper {
 		double endArcanaAmount = end.getArcanaAmount();
 
 		if(endArcana == ArcanusArcana.NIL.get())
-			end.setArcana(startArcana);
-		if(startArcana != endArcana || startArcanaAmount <= 0 || endArcanaAmount >= end.getMaxArcanaAmount())
+			end.setArcana(arcana);
+		if(arcana != endArcana || startArcanaAmount <= 0 || endArcanaAmount >= end.getMaxArcanaAmount())
 			return;
 
 		double maxDrain = Math.clamp(amount, 0, end.getMaxArcanaAmount() - endArcanaAmount);
