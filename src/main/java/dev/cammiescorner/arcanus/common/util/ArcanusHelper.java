@@ -83,7 +83,7 @@ public class ArcanusHelper {
 
 					// TODO make it a proper pump with its reductions and height additions
 					if(currentState.is(Blocks.REDSTONE_BLOCK)) {
-						addVertical.getAndAdd(1);
+						addVertical.getAndAdd(10);
 						arcanaReduction.set(Math.max(arcanaReduction.get() - 0.1f, -1f));
 					}
 
