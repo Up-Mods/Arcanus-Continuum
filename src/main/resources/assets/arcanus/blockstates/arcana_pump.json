@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "arcanus:block/arcana_pump",
+      "y": 90
+    },
+    "axis=y": {
+      "model": "arcanus:block/arcana_pump",
+      "x": 90,
+      "y": 90
+    },
+    "axis=z": {
+      "model": "arcanus:block/arcana_pump"
+    }
+  }
+}

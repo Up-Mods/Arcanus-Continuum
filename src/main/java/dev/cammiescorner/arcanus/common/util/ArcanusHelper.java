@@ -3,11 +3,14 @@ package dev.cammiescorner.arcanus.common.util;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
+import dev.cammiescorner.arcanus.common.block.AbstractPipeBlock;
 import dev.cammiescorner.arcanus.common.block.ArcanaPipeBlock;
+import dev.cammiescorner.arcanus.common.block.ArcanaPumpBlock;
 import dev.cammiescorner.arcanus.common.component.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.data.ArcanusEntityTags;
 import dev.cammiescorner.arcanus.common.entity.magic.TemporalDilationField;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
+import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
 import dev.upcraft.sparkweave.api.color.Color;
@@ -26,8 +29,8 @@ import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -61,7 +64,8 @@ public class ArcanusHelper {
 
 					BlockState state = level.getBlockState(blockPos);
 
-					if((state.getBlock() instanceof ArcanaPipeBlock && !state.getValue(ArcanaPipeBlock.CONNECTION_BY_DIRECTION.get(direction.getOpposite())))
+					if((state.is(ArcanusBlocks.ARCANA_PIPE.get()) && !state.getValue(ArcanaPipeBlock.CONNECTION_BY_DIRECTION.get(direction.getOpposite())))
+						|| (state.is(ArcanusBlocks.ARCANA_PUMP.get()) && !state.getValue(ArcanaPumpBlock.AXIS).test(direction))
 						|| (level.getBlockEntity(blockPos.relative(direction)) instanceof ArcanaContainer container && !container.outputDirections().contains(direction)))
 						continue;
 
@@ -81,14 +85,15 @@ public class ArcanusHelper {
 						break;
 					}
 
-					// TODO make it a proper pump with its reductions and height additions
-					if(currentState.is(Blocks.REDSTONE_BLOCK)) {
+					if(currentState.is(ArcanusBlocks.ARCANA_PUMP.get()) && currentState.getValue(ArcanaPumpBlock.AXIS).test(direction)) {
 						addVertical.getAndAdd(10);
 						arcanaReduction.set(Math.max(arcanaReduction.get() - 0.1f, -1f));
 					}
 
-					if(currentState.getBlock() instanceof ArcanaPipeBlock) {
-						if(!alreadyChecked.contains(currentPos) && currentState.getValue(ArcanaPipeBlock.EXTENSION_BY_DIRECTION.get(direction.getOpposite()))
+					if(currentState.getBlock() instanceof AbstractPipeBlock) {
+						BooleanProperty property = ArcanaPipeBlock.EXTENSION_BY_DIRECTION.get(direction.getOpposite());
+
+						if(!alreadyChecked.contains(currentPos) && currentState.hasProperty(property) && currentState.getValue(property)
 							&& direction == Direction.UP && currentPos.getY() > pos.getY() + addVertical.get())
 							continue;
 

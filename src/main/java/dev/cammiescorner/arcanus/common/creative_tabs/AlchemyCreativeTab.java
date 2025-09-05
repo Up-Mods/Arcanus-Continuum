@@ -28,6 +28,7 @@ public class AlchemyCreativeTab {
 			output.accept(ArcanusItems.VOID_NUGGET.get());
 
 			output.accept(ArcanusBlocks.ARCANA_PIPE.get());
+			output.accept(ArcanusBlocks.ARCANA_PUMP.get());
 			output.accept(ArcanusBlocks.WARDED_JAR.get());
 
 			ArcanusArcana.primalArcana().forEach(arcana -> {

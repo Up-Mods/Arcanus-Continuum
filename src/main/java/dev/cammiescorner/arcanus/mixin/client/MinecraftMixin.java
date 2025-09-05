@@ -5,12 +5,12 @@ import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
 import dev.cammiescorner.arcanus.client.util.ClientUtils;
-import dev.cammiescorner.arcanus.common.block.ArcanaPipeBlock;
 import dev.cammiescorner.arcanus.common.entity.magic.StockpileOrb;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundIsCastingPacket;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundShootOrbsPacket;
 import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundSyncPatternPacket;
+import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -172,7 +172,7 @@ public abstract class MinecraftMixin implements ClientUtils {
 			if(hitResult != null && hitResult.getType() != HitResult.Type.MISS) {
 				InteractionResult interactionResult = null;
 
-				if(hitResult instanceof BlockHitResult blockHitResult && (!player.isCrouching() || (player.isCrouching() && level.getBlockState(blockHitResult.getBlockPos()).getBlock() instanceof ArcanaPipeBlock)))
+				if(hitResult instanceof BlockHitResult blockHitResult && (!player.isCrouching() || (player.isCrouching() && level.getBlockState(blockHitResult.getBlockPos()).is(ArcanusBlocks.ARCANA_PIPE.get()))))
 					interactionResult = gameMode.useItemOn(player, InteractionHand.MAIN_HAND, blockHitResult);
 				if(hitResult instanceof EntityHitResult entityHitResult)
 					interactionResult = gameMode.interactAt(player, entityHitResult.getEntity(), entityHitResult, InteractionHand.MAIN_HAND);

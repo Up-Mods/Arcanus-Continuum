@@ -1,8 +1,8 @@
 package dev.cammiescorner.arcanus.common.block;
 
 import com.google.common.collect.ImmutableMap;
+import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.util.ArcanaContainer;
-import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -14,24 +14,19 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleWaterloggedBlock {
+public class ArcanaPipeBlock extends AbstractPipeBlock {
 	public static final BooleanProperty UP = BlockStateProperties.UP;
 	public static final BooleanProperty DOWN = BlockStateProperties.DOWN;
 	public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
@@ -44,7 +39,6 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 	public static final BooleanProperty CONNECTS_EAST = BooleanProperty.create("connects_east");
 	public static final BooleanProperty CONNECTS_SOUTH = BooleanProperty.create("connects_south");
 	public static final BooleanProperty CONNECTS_WEST = BooleanProperty.create("connects_west");
-	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final Map<Direction, BooleanProperty> EXTENSION_BY_DIRECTION = ImmutableMap.of(
 		Direction.UP, UP,
 		Direction.DOWN, DOWN,
@@ -72,9 +66,9 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 	);
 
 	public ArcanaPipeBlock() {
-		super(Properties.of().noOcclusion().isSuffocating((blockState, blockGetter, blockPos) -> false).dynamicShape());
-		this.registerDefaultState(
-			this.stateDefinition
+		super();
+		registerDefaultState(
+			stateDefinition
 				.any()
 				.setValue(UP, false)
 				.setValue(DOWN, false)
@@ -108,7 +102,7 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 
 					if(state.getValue(connectionProperty))
 						level.setBlockAndUpdate(pos, state.setValue(connectionProperty, false).setValue(EXTENSION_BY_DIRECTION.get(direction), false));
-					if(neighborState.getBlock() instanceof ArcanaPipeBlock && neighborState.getValue(neighborProperty))
+					if(neighborState.is(ArcanusBlocks.ARCANA_PIPE.get()) && neighborState.getValue(neighborProperty))
 						level.setBlockAndUpdate(neighborPos, neighborState.setValue(neighborProperty, false).setValue(EXTENSION_BY_DIRECTION.get(direction.getOpposite()), false));
 
 					return ItemInteractionResult.SUCCESS;
@@ -123,7 +117,7 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 
 				if(!state.getValue(connectionProperty))
 					level.setBlockAndUpdate(pos, state.setValue(connectionProperty, true).setValue(EXTENSION_BY_DIRECTION.get(hitFace), true));
-				if(neighborState.getBlock() instanceof ArcanaPipeBlock && !neighborState.getValue(neighborProperty))
+				if(neighborState.is(ArcanusBlocks.ARCANA_PIPE.get()) && !neighborState.getValue(neighborProperty))
 					level.setBlockAndUpdate(neighborPos, neighborState.setValue(neighborProperty, true).setValue(EXTENSION_BY_DIRECTION.get(hitFace.getOpposite()), true));
 
 				return ItemInteractionResult.SUCCESS;
@@ -146,11 +140,8 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 	}
 
 	@Override
-	public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
-		Level level = context.getLevel();
-		BlockPos pos = context.getClickedPos();
-
-		return defaultBlockState()
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return super.getStateForPlacement(context)
 			.setValue(UP, false)
 			.setValue(DOWN, false)
 			.setValue(NORTH, false)
@@ -162,43 +153,27 @@ public class ArcanaPipeBlock extends Block implements BlockItemProvider, SimpleW
 			.setValue(CONNECTS_NORTH, true)
 			.setValue(CONNECTS_EAST, true)
 			.setValue(CONNECTS_SOUTH, true)
-			.setValue(CONNECTS_WEST, true)
-			.setValue(WATERLOGGED, level.getFluidState(pos).getType() == Fluids.WATER);
+			.setValue(CONNECTS_WEST, true);
 	}
 
 	@Override
 	protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-		if(state.getValue(WATERLOGGED))
-			level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-
-		return state.setValue(EXTENSION_BY_DIRECTION.get(direction), shouldConnect(level, direction, pos, neighborPos));
-	}
-
-	@Override
-	protected boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
-		return !state.getValue(WATERLOGGED);
-	}
-
-	@Override
-	protected FluidState getFluidState(BlockState state) {
-		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
-	}
-
-	@Override
-	protected boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
-		return false;
+		return super.updateShape(state, direction, neighborState, level, pos, neighborPos).setValue(EXTENSION_BY_DIRECTION.get(direction), shouldConnect(level, direction, pos, neighborPos));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(UP, DOWN, NORTH, EAST, SOUTH, WEST, CONNECTS_UP, CONNECTS_DOWN, CONNECTS_NORTH, CONNECTS_EAST, CONNECTS_SOUTH, CONNECTS_WEST, WATERLOGGED);
+		super.createBlockStateDefinition(builder);
+		builder.add(UP, DOWN, NORTH, EAST, SOUTH, WEST, CONNECTS_UP, CONNECTS_DOWN, CONNECTS_NORTH, CONNECTS_EAST, CONNECTS_SOUTH, CONNECTS_WEST);
 	}
 
 	public boolean shouldConnect(LevelAccessor level, Direction direction, BlockPos pos, BlockPos neighborPos) {
 		BlockState state = level.getBlockState(pos);
 		BlockState neighborState = level.getBlockState(neighborPos);
+		boolean connects = state.getValue(CONNECTION_BY_DIRECTION.get(direction));
 
-		return ((neighborState.getBlock() instanceof ArcanaPipeBlock && state.getValue(CONNECTION_BY_DIRECTION.get(direction)) && neighborState.getValue(CONNECTION_BY_DIRECTION.get(direction.getOpposite())))) ||
-			(level.getBlockEntity(neighborPos) instanceof ArcanaContainer container && state.getValue(CONNECTION_BY_DIRECTION.get(direction)) && container.connectsToDirection(direction.getOpposite()));
+		return connects && (level.getBlockEntity(neighborPos) instanceof ArcanaContainer container && container.connectsToDirection(direction.getOpposite())
+			|| ((neighborState.is(ArcanusBlocks.ARCANA_PIPE.get()) && neighborState.getValue(CONNECTION_BY_DIRECTION.get(direction.getOpposite()))))
+			|| neighborState.is(ArcanusBlocks.ARCANA_PUMP.get()) && neighborState.getValue(ArcanaPumpBlock.AXIS).test(direction));
 	}
 }
