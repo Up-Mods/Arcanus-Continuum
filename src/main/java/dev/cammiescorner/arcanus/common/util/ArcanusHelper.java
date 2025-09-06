@@ -59,20 +59,19 @@ public class ArcanusHelper {
 			List.copyOf(newPipes).forEach(blockPos -> {
 				for(Direction direction : Direction.values()) {
 					BlockState state = level.getBlockState(blockPos);
+					BlockPos sidePos = blockPos.relative(direction);
+					BlockState sideState = level.getBlockState(sidePos);
+
+					if(alreadyChecked.contains(sidePos))
+						continue;
 
 					if((state.is(ArcanusBlocks.ARCANA_PIPE.get()) && !state.getValue(ArcanaPipeBlock.CONNECTION_BY_DIRECTION.get(direction.getOpposite())))
 						|| (state.is(ArcanusBlocks.ARCANA_PUMP.get()) && !state.getValue(ArcanaPumpBlock.AXIS).test(direction))
-						|| (level.getBlockEntity(blockPos.relative(direction)) instanceof ArcanaContainer container
+						|| (level.getBlockEntity(sidePos) instanceof ArcanaContainer container
 						&& (!container.outputDirections().contains(direction) || (container.getArcana() != ArcanusArcana.NIL.get() && container.getArcana() != arcana))))
 						continue;
 
-					BlockPos currentPos = blockPos.relative(direction);
-					BlockState currentState = level.getBlockState(currentPos);
-
-					if(alreadyChecked.contains(currentPos))
-						continue;
-
-					if(!blockPos.equals(pos) && level.getBlockEntity(pos) instanceof ArcanaContainer start && level.getBlockEntity(currentPos) instanceof ArcanaContainer end
+					if(!blockPos.equals(pos) && level.getBlockEntity(pos) instanceof ArcanaContainer start && level.getBlockEntity(sidePos) instanceof ArcanaContainer end
 						&& (end.getArcana() == arcana || end.getArcana() == ArcanusArcana.NIL.get()) && end.getArcanaAmount() < end.getMaxArcanaAmount()
 						&& end.inputDirections().contains(direction.getOpposite())
 					) {
@@ -81,22 +80,22 @@ public class ArcanusHelper {
 						break;
 					}
 
-					if(currentState.is(ArcanusBlocks.ARCANA_PUMP.get()) && currentState.getValue(ArcanaPumpBlock.AXIS).test(direction)) {
+					if(sideState.is(ArcanusBlocks.ARCANA_PUMP.get()) && sideState.getValue(ArcanaPumpBlock.AXIS).test(direction)) {
 						addVertical.getAndAdd(10);
 						arcanaReduction.set(Math.max(arcanaReduction.get() - 0.1f, 0f));
 					}
 
-					if(currentState.getBlock() instanceof AbstractPipeBlock) {
+					if(sideState.getBlock() instanceof AbstractPipeBlock) {
 						BooleanProperty property = ArcanaPipeBlock.EXTENSION_BY_DIRECTION.get(direction.getOpposite());
 
-						if(!alreadyChecked.contains(currentPos) && currentState.hasProperty(property) && currentState.getValue(property)
-							&& direction == Direction.UP && currentPos.getY() > pos.getY() + addVertical.get())
+						if(!alreadyChecked.contains(sidePos) && sideState.hasProperty(property) && sideState.getValue(property)
+							&& direction == Direction.UP && sidePos.getY() > pos.getY() + addVertical.get())
 							continue;
 
-						newPipes.add(currentPos);
+						newPipes.add(sidePos);
 					}
 
-					alreadyChecked.add(currentPos);
+					alreadyChecked.add(sidePos);
 				}
 
 				newPipes.remove(blockPos);
