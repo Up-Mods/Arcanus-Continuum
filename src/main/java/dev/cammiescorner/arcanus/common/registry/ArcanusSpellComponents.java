@@ -12,6 +12,7 @@ import dev.cammiescorner.arcanus.common.spell_component.effects.movement.*;
 import dev.cammiescorner.arcanus.common.spell_component.effects.support.*;
 import dev.cammiescorner.arcanus.common.spell_component.effects.utility.*;
 import dev.cammiescorner.arcanus.common.spell_component.shapes.*;
+import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.core.Registry;
@@ -32,7 +33,7 @@ public class ArcanusSpellComponents {
 	/**
 	 * DO NOT DELETE OR DISABLE. WILL BREAK THE ENTIRE MOD.
 	 **/
-	public static final RegistrySupplier<SpellComponent> EMPTY = SPELL_COMPONENTS.register("empty", () -> new SpellShape(() -> true, () -> Weight.NONE, () -> Arcanus.constructArcanaMap(0, 0, 0, 0, 0), () -> 1d, () -> 1d, () -> 0d, () -> true) {
+	public static final RegistrySupplier<SpellComponent> EMPTY = SPELL_COMPONENTS.register("empty", () -> new SpellShape(() -> true, () -> Weight.NONE, () -> ArcanusHelper.constructArcanaMap(0, 0, 0, 0, 0), () -> 1d, () -> 1d, () -> 0d, () -> true) {
 		@Override
 		public void cast(@Nullable LivingEntity caster, Vec3 castFrom, @Nullable Entity castSource, ServerLevel level, ItemStack stack, List<SpellEffect> effects, List<SpellGroup> spellGroups, int groupIndex, double potency) {
 			castNext(caster, castFrom, castSource, level, stack, spellGroups, groupIndex, potency);

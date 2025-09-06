@@ -2,9 +2,9 @@ package dev.cammiescorner.arcanus.api.arcana;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.util.PrimalArcanaProvider;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
+import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import io.netty.buffer.ByteBuf;
 import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -41,7 +41,7 @@ public record ArcanaCost(double ignisArcana, double terraArcana, double aquaArca
 	);
 
 	public Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-		return Arcanus.constructArcanaMap(ignisArcana, terraArcana, aquaArcana, aerArcana, aetherArcana);
+		return ArcanusHelper.constructArcanaMap(ignisArcana, terraArcana, aquaArcana, aerArcana, aetherArcana);
 	}
 
 	@Override

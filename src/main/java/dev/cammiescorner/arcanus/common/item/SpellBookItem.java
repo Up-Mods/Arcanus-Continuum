@@ -1,10 +1,10 @@
 package dev.cammiescorner.arcanus.common.item;
 
-import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.spell.Spell;
 import dev.cammiescorner.arcanus.common.data_component.SpellBookComponent;
 import dev.cammiescorner.arcanus.common.menu.providers.SpellBookMenuProvider;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
+import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import dev.emi.trinkets.api.TrinketItem;
 import net.minecraft.ChatFormatting;
@@ -51,7 +51,7 @@ public class SpellBookItem extends TrinketItem {
 				}
 
 				var spellName = Component.literal(spell.getName()).withStyle(spell.isEmpty() ? ChatFormatting.GRAY : ChatFormatting.GREEN);
-				var spellPattern = Arcanus.getSpellPatternAsText(i).withStyle(ChatFormatting.GRAY);
+				var spellPattern = ArcanusHelper.getSpellPatternAsText(i).withStyle(ChatFormatting.GRAY);
 				tooltip.add(Component.translatable(TranslationKeys.SPELL_BOOK_SPELL_WITH_PATTERN_TOOLTIP, spellName, spellPattern).withStyle(ChatFormatting.DARK_GRAY));
 			}
 		}

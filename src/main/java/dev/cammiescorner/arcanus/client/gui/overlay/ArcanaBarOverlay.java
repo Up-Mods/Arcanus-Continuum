@@ -9,6 +9,7 @@ import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -57,7 +58,7 @@ public class ArcanaBarOverlay {
 			poseStack.popPose();
 
 			// render pouch
-			ItemStack spellBook = Arcanus.getActiveSpellBook(player);
+			ItemStack spellBook = ArcanusHelper.getActiveSpellBook(player);
 
 			if(!spellBook.isEmpty()) {
 				poseStack.pushPose();

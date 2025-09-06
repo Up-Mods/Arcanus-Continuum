@@ -15,6 +15,7 @@ import dev.cammiescorner.arcanus.common.effect.ArcanusStatusEffect;
 import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundStatusEffectPacket;
 import dev.cammiescorner.arcanus.common.registry.*;
+import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.core.Holder;
@@ -177,9 +178,9 @@ public abstract class LivingEntityMixin extends Entity implements Targetable {
 					Optional<TrinketComponent> optional = TrinketsApi.getTrinketComponent(self);
 
 					if(optional.isPresent()) {
-						ItemStack spellBook = Arcanus.getActiveSpellBook(self);
+						ItemStack spellBook = ArcanusHelper.getActiveSpellBook(self);
 						SpellBookComponent spellBookComponent = spellBook.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
-						int index = Arcanus.getSpellIndex(pattern);
+						int index = ArcanusHelper.getSpellIndex(pattern);
 
 						if(spellBookComponent.hasSpell(index)) {
 							Spell spell = spellBookComponent.getSpell(index);

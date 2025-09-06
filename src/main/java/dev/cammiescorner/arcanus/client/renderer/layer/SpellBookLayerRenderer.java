@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanus.client.renderer.layer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.model.feature.SpellBookModel;
+import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -31,7 +32,7 @@ public class SpellBookLayerRenderer<T extends LivingEntity, M extends EntityMode
 
 	@Override
 	public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, T livingEntity, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
-		ItemStack stack = Arcanus.getActiveSpellBook(livingEntity);
+		ItemStack stack = ArcanusHelper.getActiveSpellBook(livingEntity);
 
 		if(!stack.isEmpty()) {
 			poseStack.pushPose();

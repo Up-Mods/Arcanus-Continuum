@@ -12,6 +12,7 @@ import dev.cammiescorner.arcanus.common.item.StaffItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
+import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.ChatFormatting;
@@ -56,9 +57,9 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns, boolean castS
 				Optional<TrinketComponent> optional = TrinketsApi.getTrinketComponent(player);
 
 				if(optional.isPresent()) {
-					ItemStack spellBook = Arcanus.getActiveSpellBook(player);
+					ItemStack spellBook = ArcanusHelper.getActiveSpellBook(player);
 					SpellBookComponent spells = spellBook.getOrDefault(ArcanusDataComponents.SPELL_BOOK.get(), SpellBookComponent.empty());
-					int index = Arcanus.getSpellIndex(pattern);
+					int index = ArcanusHelper.getSpellIndex(pattern);
 
 					if(player.getCooldowns().getCooldownPercent(staff, 1f) == 0) {
 						Spell spell = spells.getSpell(index);
@@ -80,7 +81,7 @@ public record ServerboundSyncPatternPacket(List<Pattern> patterns, boolean castS
 							}
 						}
 
-						ArcanusComponents.setPattern(player, Arcanus.getSpellPattern(index));
+						ArcanusComponents.setPattern(player, ArcanusHelper.getSpellPattern(index));
 						ArcanusComponents.setLastCastTime(player, player.level().getGameTime());
 						spell.cast(player, player.serverLevel(), stack);
 						player.displayClientMessage(Component.translatable(spell.getName()).withStyle(ChatFormatting.GREEN), true);

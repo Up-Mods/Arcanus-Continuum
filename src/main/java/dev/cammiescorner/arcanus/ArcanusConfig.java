@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanus;
 import com.teamresourceful.resourcefulconfig.api.annotations.*;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.spell.Weight;
+import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.cammiescorner.arcanus.common.util.MirrorHudElement;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
@@ -106,7 +107,7 @@ public final class ArcanusConfig {
 			public static boolean activatesOnce = false;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -154,7 +155,7 @@ public final class ArcanusConfig {
 			public static int baseLifeSpan = 20;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -198,7 +199,7 @@ public final class ArcanusConfig {
 			public static float projectileSpeed = 2f;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -243,7 +244,7 @@ public final class ArcanusConfig {
 			public static double range = 6;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -292,7 +293,7 @@ public final class ArcanusConfig {
 			public static int delay = 40;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -337,7 +338,7 @@ public final class ArcanusConfig {
 			public static int delay = 60;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -381,7 +382,7 @@ public final class ArcanusConfig {
 			public static float radius = 4f;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -422,7 +423,7 @@ public final class ArcanusConfig {
 			public static boolean activatesOnce = false;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -463,7 +464,7 @@ public final class ArcanusConfig {
 			public static boolean activatesOnce = false;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -507,7 +508,7 @@ public final class ArcanusConfig {
 			public static double baseArcanaDrain = 3;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -559,7 +560,7 @@ public final class ArcanusConfig {
 			public static float projectileSpeed = 3f;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 	}
@@ -608,7 +609,7 @@ public final class ArcanusConfig {
 			public static float baseDamage = 6f;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -647,7 +648,7 @@ public final class ArcanusConfig {
 			public static float stunnedEntityDamageMultiplier = 1.5f;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -686,7 +687,7 @@ public final class ArcanusConfig {
 			public static float frozenEntityDamageMultiplier = 1.5f;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -725,7 +726,7 @@ public final class ArcanusConfig {
 			public static float burningEntityDamageMultiplier = 1.5f;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -760,7 +761,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 300;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -795,7 +796,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 200;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -830,7 +831,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 60;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -865,7 +866,7 @@ public final class ArcanusConfig {
 			public static int baseHealth = 10;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -896,7 +897,7 @@ public final class ArcanusConfig {
 			public static boolean activatesOnce = false;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -935,7 +936,7 @@ public final class ArcanusConfig {
 			public static int effectDurationModifier = 15;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 	}
@@ -981,7 +982,7 @@ public final class ArcanusConfig {
 			public static float baseHealAmount = 3f;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1012,7 +1013,7 @@ public final class ArcanusConfig {
 			public static boolean activatesOnce = false;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1047,7 +1048,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 500;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1082,7 +1083,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 200;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1121,7 +1122,7 @@ public final class ArcanusConfig {
 			public static int lifeSpanModifier = 40;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1160,7 +1161,7 @@ public final class ArcanusConfig {
 			public static double baseChanceToActivate = 0.035;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1191,7 +1192,7 @@ public final class ArcanusConfig {
 			public static boolean activatesOnce = false;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 	}
@@ -1238,7 +1239,7 @@ public final class ArcanusConfig {
 			public static int baseLifeSpan = 220;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1273,7 +1274,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 220;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1304,7 +1305,7 @@ public final class ArcanusConfig {
 			public static boolean activatesOnce = false;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1335,7 +1336,7 @@ public final class ArcanusConfig {
 			public static boolean activatesOnce = false;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1374,7 +1375,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 100;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1413,7 +1414,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 100;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1465,7 +1466,7 @@ public final class ArcanusConfig {
 			public static int baseLifeSpan = 300;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1499,7 +1500,7 @@ public final class ArcanusConfig {
 			public static boolean canBeRemovedByOthers = true;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 	}
@@ -1546,7 +1547,7 @@ public final class ArcanusConfig {
 			public static double basePushStrength = 0.2;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1581,7 +1582,7 @@ public final class ArcanusConfig {
 			public static double basePullStrength = 0.2;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1616,7 +1617,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 60;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1651,7 +1652,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 300;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1686,7 +1687,7 @@ public final class ArcanusConfig {
 			public static double baseTeleportDistance = 5;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1721,7 +1722,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 220;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1756,7 +1757,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 100;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 
@@ -1794,7 +1795,7 @@ public final class ArcanusConfig {
 			public static int baseEffectDuration = 1200;
 
 			public static Object2DoubleArrayMap<PrimalArcana> arcanaCosts() {
-				return Arcanus.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
+				return ArcanusHelper.constructArcanaMap(ignisArcanaCost, terraArcanaCost, aquaArcanaCost, aerArcanaCost, aetherArcanaCost);
 			}
 		}
 	}

@@ -2,18 +2,25 @@ package dev.cammiescorner.arcanus.common.util;
 
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.api.arcana.Arcana;
+import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
+import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.common.block.AbstractPipeBlock;
 import dev.cammiescorner.arcanus.common.block.ArcanaPipeBlock;
 import dev.cammiescorner.arcanus.common.block.ArcanaPumpBlock;
 import dev.cammiescorner.arcanus.common.component.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.data.ArcanusEntityTags;
 import dev.cammiescorner.arcanus.common.entity.magic.TemporalDilationField;
+import dev.cammiescorner.arcanus.common.item.BookPouchItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
+import dev.emi.trinkets.api.TrinketComponent;
+import dev.emi.trinkets.api.TrinketsApi;
 import dev.upcraft.sparkweave.api.color.Color;
+import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,6 +28,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -241,5 +249,74 @@ public class ArcanusHelper {
 
 	public static MutableComponent formatColorRGB(int color) {
 		return  Component.literal(String.format("#%06X", color & 0x00FFFFFF));
+	}
+
+	public static int getSpellIndex(List<Pattern> patternList) {
+		String pattern = patternList.get(0).getLetter() + patternList.get(1).getLetter() + patternList.get(2).getLetter();
+
+		return switch(pattern) {
+			case "LLL" -> 0;
+			case "LLR" -> 1;
+			case "LRL" -> 2;
+			case "LRR" -> 3;
+			case "RRR" -> 4;
+			case "RRL" -> 5;
+			case "RLR" -> 6;
+			case "RLL" -> 7;
+			default -> 0;
+		};
+	}
+
+	public static List<Pattern> getSpellPattern(int index) {
+		return switch(index) {
+			case 1 -> List.of(Pattern.LEFT, Pattern.LEFT, Pattern.RIGHT);
+			case 2 -> List.of(Pattern.LEFT, Pattern.RIGHT, Pattern.LEFT);
+			case 3 -> List.of(Pattern.LEFT, Pattern.RIGHT, Pattern.RIGHT);
+			case 4 -> List.of(Pattern.RIGHT, Pattern.RIGHT, Pattern.RIGHT);
+			case 5 -> List.of(Pattern.RIGHT, Pattern.RIGHT, Pattern.LEFT);
+			case 6 -> List.of(Pattern.RIGHT, Pattern.LEFT, Pattern.RIGHT);
+			case 7 -> List.of(Pattern.RIGHT, Pattern.LEFT, Pattern.LEFT);
+			default -> List.of(Pattern.LEFT, Pattern.LEFT, Pattern.LEFT);
+		};
+	}
+
+	public static MutableComponent getSpellPatternAsText(int index) {
+		String string = switch(index) {
+			case 0 -> Pattern.LEFT.getSymbol() + "-" + Pattern.LEFT.getSymbol() + "-" + Pattern.LEFT.getSymbol();
+			case 1 -> Pattern.LEFT.getSymbol() + "-" + Pattern.LEFT.getSymbol() + "-" + Pattern.RIGHT.getSymbol();
+			case 2 -> Pattern.LEFT.getSymbol() + "-" + Pattern.RIGHT.getSymbol() + "-" + Pattern.LEFT.getSymbol();
+			case 3 -> Pattern.LEFT.getSymbol() + "-" + Pattern.RIGHT.getSymbol() + "-" + Pattern.RIGHT.getSymbol();
+			case 4 -> Pattern.RIGHT.getSymbol() + "-" + Pattern.RIGHT.getSymbol() + "-" + Pattern.RIGHT.getSymbol();
+			case 5 -> Pattern.RIGHT.getSymbol() + "-" + Pattern.RIGHT.getSymbol() + "-" + Pattern.LEFT.getSymbol();
+			case 6 -> Pattern.RIGHT.getSymbol() + "-" + Pattern.LEFT.getSymbol() + "-" + Pattern.RIGHT.getSymbol();
+			case 7 -> Pattern.RIGHT.getSymbol() + "-" + Pattern.LEFT.getSymbol() + "-" + Pattern.LEFT.getSymbol();
+			default -> "ERROR";
+		};
+
+		return Component.literal(string).withStyle(style -> style.withFont(Arcanus.MAGIC_SYMBOLS_FONT_ID));
+	}
+
+	public static ItemStack getActiveSpellBook(LivingEntity entity) {
+		if(TrinketsApi.getTrinketComponent(entity).get() instanceof TrinketComponent component) {
+			if(component.isEquipped(ArcanusItems.SPELL_BOOK.get()))
+				return component.getEquipped(ArcanusItems.SPELL_BOOK.get()).getFirst().getB();
+
+			if(component.isEquipped(ArcanusItems.BOOK_POUCH.get()))
+				return BookPouchItem.getActiveSpellBook(component.getEquipped(ArcanusItems.BOOK_POUCH.get()).getFirst().getB());
+		}
+
+		return ItemStack.EMPTY;
+	}
+
+	public static Object2DoubleArrayMap<PrimalArcana> constructArcanaMap(double ignisArcana, double terraArcana, double aquaArcana, double aerArcana, double aetherArcana) {
+		Object2DoubleArrayMap<PrimalArcana> map = new Object2DoubleArrayMap<>();
+
+		map.put(ArcanusArcana.IGNIS.get(), ignisArcana);
+		map.put(ArcanusArcana.TERRA.get(), terraArcana);
+		map.put(ArcanusArcana.AQUA.get(), aquaArcana);
+		map.put(ArcanusArcana.AER.get(), aerArcana);
+		map.put(ArcanusArcana.AETHER.get(), aetherArcana);
+
+		return map;
 	}
 }

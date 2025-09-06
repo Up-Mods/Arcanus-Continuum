@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.gui.widgets.TexturedButtonWidget;
 import dev.cammiescorner.arcanus.common.menu.SpellBookMenu;
+import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -49,7 +50,7 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
 				poseStack.pushPose();
 				poseStack.translate(x, y, 0);
 				poseStack.scale(0.4f, 0.4f, 1f);
-				guiGraphics.drawCenteredString(font, Arcanus.getSpellPatternAsText(i), 0, 0, 0xaaaaaa);
+				guiGraphics.drawCenteredString(font, ArcanusHelper.getSpellPatternAsText(i), 0, 0, 0xaaaaaa);
 				poseStack.popPose();
 			}
 		}
