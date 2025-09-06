@@ -49,7 +49,6 @@ public class ArcanusHelper {
 
 		List<BlockPos> alreadyChecked = new ArrayList<>();
 		List<BlockPos> newPipes = new ArrayList<>();
-		AtomicReference<BlockPos> finalBlockPos = new AtomicReference<>();
 		AtomicReference<Float> arcanaReduction = new AtomicReference<>(1f);
 		AtomicInteger addVertical = new AtomicInteger(0);
 
@@ -73,12 +72,11 @@ public class ArcanusHelper {
 					if(alreadyChecked.contains(currentPos))
 						continue;
 
-					if(!blockPos.equals(pos) && level.getBlockEntity(currentPos) instanceof ArcanaContainer container
-						&& (container.getArcana() == arcana || container.getArcana() == ArcanusArcana.NIL.get())
-						&& container.getArcanaAmount() < container.getMaxArcanaAmount()
-						&& container.inputDirections().contains(direction.getOpposite())
+					if(!blockPos.equals(pos) && level.getBlockEntity(pos) instanceof ArcanaContainer start && level.getBlockEntity(currentPos) instanceof ArcanaContainer end
+						&& (end.getArcana() == arcana || end.getArcana() == ArcanusArcana.NIL.get()) && end.getArcanaAmount() < end.getMaxArcanaAmount()
+						&& end.inputDirections().contains(direction.getOpposite())
 					) {
-						finalBlockPos.set(currentPos);
+						transferArcana(start, end, arcana, amount, arcanaReduction.get());
 						newPipes.clear();
 						break;
 					}
@@ -104,9 +102,6 @@ public class ArcanusHelper {
 				newPipes.remove(blockPos);
 			});
 		}
-
-		if(finalBlockPos.get() != null && level.getBlockEntity(pos) instanceof ArcanaContainer start && start.getArcana() != ArcanusArcana.NIL.get() && level.getBlockEntity(finalBlockPos.get()) instanceof ArcanaContainer end)
-			transferArcana(start, end, arcana, amount, arcanaReduction.get());
 	}
 
 	public static void transferArcana(ArcanaContainer start, ArcanaContainer end, Arcana arcana, double amount, double lossPercentage) {
