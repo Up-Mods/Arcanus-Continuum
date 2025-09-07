@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.common.block;
 import com.teamresourceful.resourcefulconfig.client.components.options.types.color.HsbColor;
 import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.common.block.entities.WardedJarBlockEntity;
-import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
+import dev.cammiescorner.arcanus.common.data_component.ArcanaStack;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
@@ -96,16 +96,15 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 		super.setPlacedBy(level, pos, state, placer, stack);
 
 		if(!level.isClientSide() && level.getBlockEntity(pos) instanceof WardedJarBlockEntity jar) {
-			ArcanaStorage storage = stack.getOrDefault(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(ArcanusArcana.NIL.get(), 0));
+			ArcanaStack arcanaStack = stack.getOrDefault(ArcanusDataComponents.ARCANA_STACK.get(), ArcanaStack.EMPTY);
 
-			jar.setArcana(storage.arcana());
-			jar.setArcanaAmount(storage.amount());
+			jar.addArcanaStack(arcanaStack);
 		}
 	}
 
 	@Override
 	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-		if(!level.isClientSide() && level.getBlockEntity(pos) instanceof WardedJarBlockEntity jar && jar.getArcanaAmount() > 0 && jar.getArcana() != ArcanusArcana.NIL.get()) {
+		if(!level.isClientSide() && level.getBlockEntity(pos) instanceof WardedJarBlockEntity jar && jar.getArcanaStack(0).amount() > 0 && jar.getArcanaStack(0).arcana() != ArcanusArcana.NIL.get()) {
 			ItemStack stack = new ItemStack(ArcanusBlocks.WARDED_JAR.get());
 
 			stack.applyComponents(jar.collectComponents());
@@ -124,14 +123,14 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 		ItemStack stack = new ItemStack(ArcanusBlocks.WARDED_JAR.get());
 
 		if(level.getBlockEntity(pos) instanceof WardedJarBlockEntity wardedJar)
-			stack.set(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(wardedJar.getArcana(), wardedJar.getArcanaAmount()));
+			stack.set(ArcanusDataComponents.ARCANA_STACK.get(), wardedJar.getArcanaStack(0));
 
 		return stack;
 	}
 
 	@Override
 	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-		ArcanaStorage data = stack.get(ArcanusDataComponents.ARCANA_STORAGE.get());
+		ArcanaStack data = stack.get(ArcanusDataComponents.ARCANA_STACK.get());
 
 		if(data != null) {
 			MutableComponent component = Component.empty();
@@ -215,9 +214,8 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 	@Override
 	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		return (level1, blockPos, blockState, blockEntity) -> {
-			if(level.getGameTime() % 10 == 0 && blockEntity instanceof WardedJarBlockEntity wardedJar && wardedJar.getArcana() != ArcanusArcana.NIL.get()) {
-				ArcanusHelper.findAndTransferArcana(level, blockPos, wardedJar.getArcana(), 1);
-			}
+			if(level.getGameTime() % 10 == 0 && blockEntity instanceof WardedJarBlockEntity wardedJar && wardedJar.getArcanaStack(0).arcana() != ArcanusArcana.NIL.get())
+				ArcanusHelper.findAndTransferArcana(level, blockPos, wardedJar.getArcanaStack(0).arcana(), 1);
 		};
 	}
 }

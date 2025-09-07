@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.creative_tabs;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
+import dev.cammiescorner.arcanus.common.data_component.ArcanaStack;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
@@ -37,14 +37,14 @@ public class AlchemyCreativeTab {
 			ArcanusArcana.primalArcana().forEach(arcana -> {
 				ItemStack stack = new ItemStack(ArcanusBlocks.WARDED_JAR.get());
 
-				stack.set(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(arcana, 64));
+				stack.set(ArcanusDataComponents.ARCANA_STACK.get(), new ArcanaStack(arcana, 64));
 				output.accept(stack);
 			});
 
 			ArcanusArcana.compoundArcana().forEach(arcana -> {
 				ItemStack stack = new ItemStack(ArcanusBlocks.WARDED_JAR.get());
 
-				stack.set(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(arcana, 64));
+				stack.set(ArcanusDataComponents.ARCANA_STACK.get(), new ArcanaStack(arcana, 64));
 				output.accept(stack);
 			});
 

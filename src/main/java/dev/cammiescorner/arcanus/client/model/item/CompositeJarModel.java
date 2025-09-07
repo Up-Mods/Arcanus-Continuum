@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.client.model.item;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
+import dev.cammiescorner.arcanus.common.data_component.ArcanaStack;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
@@ -36,13 +36,13 @@ public class CompositeJarModel implements FabricBakedModel, BakedModel, UnbakedM
 
 	@Override
 	public void emitItemQuads(ItemStack stack, Supplier<RandomSource> randomSupplier, RenderContext context) {
-		ArcanaStorage storage = stack.get(ArcanusDataComponents.ARCANA_STORAGE.get());
+		ArcanaStack arcanaStack = stack.get(ArcanusDataComponents.ARCANA_STACK.get());
 
 		bakedJarModel.emitItemQuads(stack, randomSupplier, context);
 
-		if(storage != null) {
+		if(arcanaStack != null) {
 			for(int i = 0; i < bakedModels.size(); i++) {
-				double level = Math.ceil(storage.amount() / 8);
+				double level = Math.ceil(arcanaStack.amount() / 8);
 
 				if(level >= 0 && level - 1 == i)
 					bakedModels.get(i).emitItemQuads(stack, randomSupplier, context);

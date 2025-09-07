@@ -19,6 +19,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.block.WeatheringCopper;
 
+import java.util.List;
 import java.util.UUID;
 
 public class ArcanusDataComponents {
@@ -30,9 +31,15 @@ public class ArcanusDataComponents {
 		.build()
 	);
 
-	public static final RegistrySupplier<DataComponentType<ArcanaStorage>> ARCANA_STORAGE = DATA_COMPONENTS.register("arcana_storage", () -> DataComponentType.<ArcanaStorage>builder()
-		.persistent(ArcanaStorage.CODEC)
-		.networkSynchronized(ArcanaStorage.STREAM_CODEC)
+	public static final RegistrySupplier<DataComponentType<ArcanaStack>> ARCANA_STACK = DATA_COMPONENTS.register("arcana_stack", () -> DataComponentType.<ArcanaStack>builder()
+		.persistent(ArcanaStack.CODEC)
+		.networkSynchronized(ArcanaStack.STREAM_CODEC)
+		.build()
+	);
+
+	public static final RegistrySupplier<DataComponentType<List<ArcanaStack>>> ARCANA_INVENTORY = DATA_COMPONENTS.register("arcana_inventory", () -> DataComponentType.<List<ArcanaStack>>builder()
+		.persistent(ArcanaStack.CODEC.listOf())
+		.networkSynchronized(ArcanaStack.STREAM_CODEC.apply(ByteBufCodecs.list()))
 		.build()
 	);
 

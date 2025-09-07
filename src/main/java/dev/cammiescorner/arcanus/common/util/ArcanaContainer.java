@@ -1,23 +1,20 @@
 package dev.cammiescorner.arcanus.common.util;
 
-import dev.cammiescorner.arcanus.api.arcana.Arcana;
+import dev.cammiescorner.arcanus.common.data_component.ArcanaStack;
 import net.minecraft.core.Direction;
 
 import java.util.List;
 
-// TODO this shtuff should support lists of arcana but im too lazy to do it now
 public interface ArcanaContainer {
-	Arcana getArcana();
+	ArcanaStack getArcanaStack(int index);
 
-	void setArcana(Arcana arcana);
+	void setArcanaStack(ArcanaStack arcanaStack, int index);
 
-	double getArcanaAmount();
+	void addArcanaStack(ArcanaStack arcanaStack);
 
-	void setArcanaAmount(double amount);
+	int size();
 
-	default double getMaxArcanaAmount() {
-		return 64;
-	}
+	boolean isEmpty();
 
 	default List<Direction> inputDirections() {
 		return List.of(Direction.values());

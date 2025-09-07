@@ -18,7 +18,7 @@ import dev.cammiescorner.arcanus.client.particle.CollapseParticle;
 import dev.cammiescorner.arcanus.client.plugin.StaffModelLoadingPlugin;
 import dev.cammiescorner.arcanus.client.renderer.world.WardedBlockRenderer;
 import dev.cammiescorner.arcanus.client.util.ColorRenderData;
-import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
+import dev.cammiescorner.arcanus.common.data_component.ArcanaStack;
 import dev.cammiescorner.arcanus.common.registry.*;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.fabricmc.api.ClientModInitializer;
@@ -82,7 +82,7 @@ public class FabricClient implements ClientModInitializer {
 			ArcanusItems.SPELL_BOOK.get()
 		);
 
-		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 1 ? stack.getOrDefault(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(ArcanusArcana.NIL.get(), 0)).arcana().color().asIntARGB() : 0xffffffff,
+		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 1 ? stack.getOrDefault(ArcanusDataComponents.ARCANA_STACK.get(), ArcanaStack.EMPTY).arcana().color().asIntARGB() : 0xffffffff,
 			ArcanusBlocks.WARDED_JAR.get()
 		);
 

@@ -1,10 +1,8 @@
 package dev.cammiescorner.arcanus.common.block.entities;
 
-import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.client.util.ColorRenderData;
 import dev.cammiescorner.arcanus.common.block.WardedJarBlock;
-import dev.cammiescorner.arcanus.common.data_component.ArcanaStorage;
-import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
+import dev.cammiescorner.arcanus.common.data_component.ArcanaStack;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanaContainer;
@@ -15,11 +13,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -27,8 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class WardedJarBlockEntity extends BlockEntity implements RenderDataBlockEntity, ArcanaContainer {
-	private Arcana arcana = ArcanusArcana.NIL.get();
-	private double arcanaAmount = 0;
+	private ArcanaStack arcanaStack = ArcanaStack.EMPTY;
 
 	public WardedJarBlockEntity(BlockPos pos, BlockState blockState) {
 		super(ArcanusBlockEntities.WARDED_JAR.get(), pos, blockState);
@@ -51,22 +48,17 @@ public class WardedJarBlockEntity extends BlockEntity implements RenderDataBlock
 	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.saveAdditional(tag, registries);
 
-		tag.putString("Arcana", ArcanusArcana.REGISTRY.getKey(arcana).toString());
-		tag.putDouble("Amount", arcanaAmount);
+		tag.put("Arcana", ArcanaStack.CODEC.encodeStart(NbtOps.INSTANCE, arcanaStack).result().orElseThrow());
 	}
 
 	@Override
 	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.loadAdditional(tag, registries);
 
-		if(tag.contains("Arcana", Tag.TAG_STRING)) {
-			arcana = ArcanusArcana.REGISTRY.get(ResourceLocation.parse(tag.getString("Arcana")));
-			arcanaAmount = Math.clamp(tag.getDouble("Amount"), 0, 64);
-		}
-		else {
-			arcana = ArcanusArcana.NIL.get();
-			arcanaAmount = 0;
-		}
+		if(tag.contains("Arcana", Tag.TAG_COMPOUND))
+			arcanaStack = ArcanaStack.CODEC.parse(NbtOps.INSTANCE, tag.get("Arcana")).result().orElseThrow();
+		else
+			arcanaStack = ArcanaStack.EMPTY;
 
 		if(hasLevel())
 			markUpdated();
@@ -74,51 +66,47 @@ public class WardedJarBlockEntity extends BlockEntity implements RenderDataBlock
 
 	@Override
 	public Object getRenderData() {
-		return new ColorRenderData(arcana != null ? arcana.color() : Color.fromARGB(0xffffffff));
+		return new ColorRenderData(arcanaStack != null ? arcanaStack.arcana().color() : Color.fromARGB(0xffffffff));
 	}
 
 	@Override
 	protected void applyImplicitComponents(DataComponentInput componentInput) {
 		super.applyImplicitComponents(componentInput);
-		ArcanaStorage storage = componentInput.getOrDefault(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(ArcanusArcana.NIL.get(), 0));
 
-		arcana = storage.arcana();
-		arcanaAmount = storage.amount();
+		arcanaStack = componentInput.getOrDefault(ArcanusDataComponents.ARCANA_STACK.get(), ArcanaStack.EMPTY);
 	}
 
 	@Override
 	protected void collectImplicitComponents(DataComponentMap.Builder components) {
 		super.collectImplicitComponents(components);
 
-		components.set(ArcanusDataComponents.ARCANA_STORAGE.get(), new ArcanaStorage(arcana, arcanaAmount));
-	}
-
-	protected void markUpdated() {
-		BlockState newState = getBlockState().setValue(WardedJarBlock.LEVEL, (int) Math.ceil(getArcanaAmount() / 8f));
-		setChanged();
-		getLevel().setBlockAndUpdate(getBlockPos(), newState);
+		components.set(ArcanusDataComponents.ARCANA_STACK.get(), arcanaStack);
 	}
 
 	@Override
-	public Arcana getArcana() {
-		return arcana;
+	public ArcanaStack getArcanaStack(int index) {
+		return arcanaStack;
 	}
 
 	@Override
-	public void setArcana(Arcana arcana) {
-		this.arcana = arcana;
+	public void setArcanaStack(ArcanaStack arcanaStack, int index) {
+		this.arcanaStack = arcanaStack;
 		markUpdated();
 	}
 
 	@Override
-	public double getArcanaAmount() {
-		return arcanaAmount;
+	public void addArcanaStack(ArcanaStack arcanaStack) {
+		setArcanaStack(arcanaStack, 0);
 	}
 
 	@Override
-	public void setArcanaAmount(double arcanaAmount) {
-		this.arcanaAmount = Math.clamp(arcanaAmount, 0, 64);
-		markUpdated();
+	public int size() {
+		return 1;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return arcanaStack == ArcanaStack.EMPTY;
 	}
 
 	@Override
@@ -129,5 +117,11 @@ public class WardedJarBlockEntity extends BlockEntity implements RenderDataBlock
 	@Override
 	public List<Direction> outputDirections() {
 		return List.of(Direction.DOWN);
+	}
+
+	protected void markUpdated() {
+		BlockState newState = getBlockState().setValue(WardedJarBlock.LEVEL, (int) Math.ceil(arcanaStack.amount() / 8f));
+		setChanged();
+		getLevel().setBlockAndUpdate(getBlockPos(), newState);
 	}
 }

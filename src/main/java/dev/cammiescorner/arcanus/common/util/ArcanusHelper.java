@@ -10,6 +10,7 @@ import dev.cammiescorner.arcanus.common.block.ArcanaPipeBlock;
 import dev.cammiescorner.arcanus.common.block.ArcanaPumpBlock;
 import dev.cammiescorner.arcanus.common.component.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.data.ArcanusEntityTags;
+import dev.cammiescorner.arcanus.common.data_component.ArcanaStack;
 import dev.cammiescorner.arcanus.common.entity.magic.TemporalDilationField;
 import dev.cammiescorner.arcanus.common.item.BookPouchItem;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
@@ -76,14 +77,17 @@ public class ArcanusHelper {
 					if((state.is(ArcanusBlocks.ARCANA_PIPE.get()) && !state.getValue(ArcanaPipeBlock.CONNECTION_BY_DIRECTION.get(direction.getOpposite())))
 						|| (state.is(ArcanusBlocks.ARCANA_PUMP.get()) && !state.getValue(ArcanaPumpBlock.AXIS).test(direction))
 						|| (level.getBlockEntity(sidePos) instanceof ArcanaContainer container
-						&& (!container.outputDirections().contains(direction) || (container.getArcana() != ArcanusArcana.NIL.get() && container.getArcana() != arcana))))
+						&& (!container.outputDirections().contains(direction) || (container.getArcanaStack(0).arcana() != ArcanusArcana.NIL.get() && container.getArcanaStack(0).arcana() != arcana))))
 						continue;
 
-					if(!blockPos.equals(pos) && level.getBlockEntity(pos) instanceof ArcanaContainer start && level.getBlockEntity(sidePos) instanceof ArcanaContainer end
-						&& (end.getArcana() == arcana || end.getArcana() == ArcanusArcana.NIL.get()) && end.getArcanaAmount() < end.getMaxArcanaAmount()
-						&& end.inputDirections().contains(direction.getOpposite())
-					) {
-						transferArcana(start, end, arcana, amount, arcanaReduction.get());
+					if(!blockPos.equals(pos) && level.getBlockEntity(pos) instanceof ArcanaContainer start && level.getBlockEntity(sidePos) instanceof ArcanaContainer end && end.inputDirections().contains(direction.getOpposite())) {
+						for(int i = 0; i < end.size(); i++) {
+							ArcanaStack endStack = end.getArcanaStack(i);
+
+							if((endStack.arcana() == arcana || endStack.arcana() == ArcanusArcana.NIL.get()) && endStack.amount() < endStack.maxAmount())
+								transferArcana(start, end, arcana, amount, arcanaReduction.get());
+						}
+
 						newPipes.clear();
 						break;
 					}
@@ -111,23 +115,26 @@ public class ArcanusHelper {
 		}
 	}
 
+	// TODO figure this shit out later, might need more methods in ArcanaContainer
 	public static void transferArcana(ArcanaContainer start, ArcanaContainer end, Arcana arcana, double amount, double lossPercentage) {
 		if(arcana == ArcanusArcana.NIL.get())
 			return;
 
-		Arcana endArcana = end.getArcana();
-		double startArcanaAmount = start.getArcanaAmount();
-		double endArcanaAmount = end.getArcanaAmount();
+		int temp = 0;
+		ArcanaStack endStack = end.getArcanaStack(temp);
+		Arcana endArcana = endStack.arcana();
+		double startArcanaAmount = start.getArcanaStack(temp).amount();
+		double endArcanaAmount = endStack.amount();
 
 		if(endArcana == ArcanusArcana.NIL.get())
-			end.setArcana(arcana);
-		if(arcana != endArcana || startArcanaAmount <= 0 || endArcanaAmount >= end.getMaxArcanaAmount())
+			end.addArcanaStack(new ArcanaStack(arcana, 0));
+		if(arcana != endArcana || startArcanaAmount <= 0 || endArcanaAmount >= endStack.maxAmount())
 			return;
 
-		double maxDrain = Math.clamp(amount, 0, end.getMaxArcanaAmount() - endArcanaAmount);
+		double maxDrain = Math.clamp(amount, 0, endStack.maxAmount() - endArcanaAmount);
 
-		end.setArcanaAmount(endArcanaAmount + (maxDrain * lossPercentage));
-		start.setArcanaAmount(startArcanaAmount - maxDrain);
+		end.setArcanaStack(new ArcanaStack(arcana, endArcanaAmount + (maxDrain * lossPercentage)), temp);
+		start.setArcanaStack(new ArcanaStack(arcana, startArcanaAmount - maxDrain), temp);
 	}
 
 	public static boolean shouldTimeDilate(Entity target, Level level) {
