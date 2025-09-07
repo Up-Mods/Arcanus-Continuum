@@ -120,6 +120,9 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.block(ArcanusBlocks.ARCANE_WORKBENCH, "Arcane Workbench");
 		builder.block(ArcanusBlocks.ARCANE_PLINTH, "Arcane Plinth");
 		builder.block(ArcanusBlocks.PEDESTAL, "Pedestal");
+		builder.block(ArcanusBlocks.CRUCIBLE, "Crucible");
+		builder.block(ArcanusBlocks.ATHANOR, "Athanor");
+		builder.block(ArcanusBlocks.ALEMBIC, "Alembic");
 		builder.block(ArcanusBlocks.ARCANA_PIPE, "Arcana Pipe");
 		builder.block(ArcanusBlocks.ARCANA_PUMP, "Arcana Pump");
 		builder.block(ArcanusBlocks.WARDED_JAR, "Warded Jar");

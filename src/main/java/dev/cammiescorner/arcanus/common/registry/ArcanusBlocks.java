@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.common.AlembicBlock;
 import dev.cammiescorner.arcanus.common.block.*;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
@@ -24,6 +25,9 @@ public class ArcanusBlocks {
 	public static final RegistrySupplier<Block> ARCANE_WORKBENCH = BLOCKS.register("arcane_workbench", ArcaneWorkbenchBlock::new);
 	public static final RegistrySupplier<Block> ARCANE_PLINTH = BLOCKS.register("arcane_plinth", () -> new ArcanePlinthBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILES).noOcclusion().pushReaction(PushReaction.BLOCK)));
 	public static final RegistrySupplier<Block> PEDESTAL = BLOCKS.register("pedestal", () -> new PedestalBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILES).noOcclusion().pushReaction(PushReaction.BLOCK)));
+	public static final RegistrySupplier<Block> CRUCIBLE = BLOCKS.register("crucible", CrucibleBlock::new);
+	public static final RegistrySupplier<Block> ATHANOR = BLOCKS.register("athanor", AthanorBlock::new);
+	public static final RegistrySupplier<Block> ALEMBIC = BLOCKS.register("alembic", AlembicBlock::new);
 	public static final RegistrySupplier<Block> ARCANA_PIPE = BLOCKS.register("arcana_pipe", ArcanaPipeBlock::new);
 	public static final RegistrySupplier<Block> ARCANA_PUMP = BLOCKS.register("arcana_pump", ArcanaPumpBlock::new);
 	public static final RegistrySupplier<Block> WARDED_JAR = BLOCKS.register("warded_jar", WardedJarBlock::new);

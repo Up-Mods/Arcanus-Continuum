@@ -27,6 +27,9 @@ public class AlchemyCreativeTab {
 			output.accept(ArcanusItems.VOID_INGOT.get());
 			output.accept(ArcanusItems.VOID_NUGGET.get());
 
+			output.accept(ArcanusBlocks.CRUCIBLE.get());
+			output.accept(ArcanusBlocks.ATHANOR.get());
+			output.accept(ArcanusBlocks.ALEMBIC.get());
 			output.accept(ArcanusBlocks.ARCANA_PIPE.get());
 			output.accept(ArcanusBlocks.ARCANA_PUMP.get());
 			output.accept(ArcanusBlocks.WARDED_JAR.get());
