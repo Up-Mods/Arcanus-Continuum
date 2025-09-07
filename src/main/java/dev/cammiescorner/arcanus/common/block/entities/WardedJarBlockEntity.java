@@ -31,7 +31,7 @@ public class WardedJarBlockEntity extends BlockEntity implements RenderDataBlock
 	private double arcanaAmount = 0;
 
 	public WardedJarBlockEntity(BlockPos pos, BlockState blockState) {
-		super(ArcanusBlockEntities.JAR.get(), pos, blockState);
+		super(ArcanusBlockEntities.WARDED_JAR.get(), pos, blockState);
 	}
 
 	@Override
