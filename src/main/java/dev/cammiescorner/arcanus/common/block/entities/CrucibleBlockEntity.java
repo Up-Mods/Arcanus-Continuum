@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.block.entities;
 
+import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.common.data_component.ArcanaStack;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
@@ -101,6 +102,11 @@ public class CrucibleBlockEntity extends BlockEntity implements ArcanaContainer 
 	}
 
 	@Override
+	public int indexOf(ArcanaStack arcanaStack) {
+		return inventory.indexOf(arcanaStack);
+	}
+
+	@Override
 	public int size() {
 		return inventory.size();
 	}
@@ -108,6 +114,11 @@ public class CrucibleBlockEntity extends BlockEntity implements ArcanaContainer 
 	@Override
 	public boolean isEmpty() {
 		return inventory.isEmpty();
+	}
+
+	@Override
+	public boolean contains(Arcana arcana) {
+		return inventory.stream().anyMatch(arcanaStack -> arcanaStack.arcana() == arcana);
 	}
 
 	@Override

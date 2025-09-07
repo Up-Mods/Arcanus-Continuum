@@ -30,4 +30,8 @@ public record ArcanaStack(Arcana arcana, double amount, double maxAmount) {
 	public double amount() {
 		return Math.clamp(amount, 0, maxAmount);
 	}
+
+	public boolean isEmpty() {
+		return this == EMPTY;
+	}
 }

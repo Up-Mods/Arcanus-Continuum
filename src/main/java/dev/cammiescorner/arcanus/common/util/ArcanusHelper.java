@@ -1,7 +1,6 @@
 package dev.cammiescorner.arcanus.common.util;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
@@ -52,8 +51,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ArcanusHelper {
-	public static void findAndTransferArcana(LevelAccessor level, BlockPos pos, Arcana arcana, double amount) {
-		if(arcana == ArcanusArcana.NIL.get() || level.isClientSide())
+	public static void findAndTransferArcana(LevelAccessor level, BlockPos pos, ArcanaStack arcanaStack, double amount) {
+		if(arcanaStack.isEmpty() || level.isClientSide())
 			return;
 
 		List<BlockPos> alreadyChecked = new ArrayList<>();
@@ -77,15 +76,15 @@ public class ArcanusHelper {
 					if((state.is(ArcanusBlocks.ARCANA_PIPE.get()) && !state.getValue(ArcanaPipeBlock.CONNECTION_BY_DIRECTION.get(direction.getOpposite())))
 						|| (state.is(ArcanusBlocks.ARCANA_PUMP.get()) && !state.getValue(ArcanaPumpBlock.AXIS).test(direction))
 						|| (level.getBlockEntity(sidePos) instanceof ArcanaContainer container
-						&& (!container.outputDirections().contains(direction) || (container.getArcanaStack(0).arcana() != ArcanusArcana.NIL.get() && container.getArcanaStack(0).arcana() != arcana))))
+						&& (!container.outputDirections().contains(direction) || (container.getArcanaStack(0).arcana() != ArcanusArcana.NIL.get() && container.getArcanaStack(0).arcana() != arcanaStack.arcana()))))
 						continue;
 
 					if(!blockPos.equals(pos) && level.getBlockEntity(pos) instanceof ArcanaContainer start && level.getBlockEntity(sidePos) instanceof ArcanaContainer end && end.inputDirections().contains(direction.getOpposite())) {
 						for(int i = 0; i < end.size(); i++) {
 							ArcanaStack endStack = end.getArcanaStack(i);
 
-							if((endStack.arcana() == arcana || endStack.arcana() == ArcanusArcana.NIL.get()) && endStack.amount() < endStack.maxAmount())
-								transferArcana(start, end, arcana, amount, arcanaReduction.get());
+							if((endStack.arcana() == arcanaStack.arcana() || endStack.arcana() == ArcanusArcana.NIL.get()) && endStack.amount() < endStack.maxAmount())
+								transferArcana(start, end, arcanaStack, amount, arcanaReduction.get());
 						}
 
 						newPipes.clear();
@@ -115,26 +114,25 @@ public class ArcanusHelper {
 		}
 	}
 
-	// TODO figure this shit out later, might need more methods in ArcanaContainer
-	public static void transferArcana(ArcanaContainer start, ArcanaContainer end, Arcana arcana, double amount, double lossPercentage) {
-		if(arcana == ArcanusArcana.NIL.get())
+	public static void transferArcana(ArcanaContainer start, ArcanaContainer end, ArcanaStack startStack, double amount, double lossPercentage) {
+		if(startStack.isEmpty())
 			return;
 
-		int temp = 0;
-		ArcanaStack endStack = end.getArcanaStack(temp);
-		Arcana endArcana = endStack.arcana();
-		double startArcanaAmount = start.getArcanaStack(temp).amount();
+		if(end.isEmpty() || !end.contains(startStack.arcana()))
+			end.addArcanaStack(new ArcanaStack(startStack.arcana(), 0));
+
+		int index = 0; // TODO figure out a good way to get the index of the stack later
+		ArcanaStack endStack = end.getArcanaStack(index);
+		double startArcanaAmount = startStack.amount();
 		double endArcanaAmount = endStack.amount();
 
-		if(endArcana == ArcanusArcana.NIL.get())
-			end.addArcanaStack(new ArcanaStack(arcana, 0));
-		if(arcana != endArcana || startArcanaAmount <= 0 || endArcanaAmount >= endStack.maxAmount())
+		if(startStack.arcana() != endStack.arcana() || startArcanaAmount <= 0 || endArcanaAmount >= endStack.maxAmount())
 			return;
 
 		double maxDrain = Math.clamp(amount, 0, endStack.maxAmount() - endArcanaAmount);
 
-		end.setArcanaStack(new ArcanaStack(arcana, endArcanaAmount + (maxDrain * lossPercentage)), temp);
-		start.setArcanaStack(new ArcanaStack(arcana, startArcanaAmount - maxDrain), temp);
+		end.setArcanaStack(new ArcanaStack(startStack.arcana(), endArcanaAmount + (maxDrain * lossPercentage)), index);
+		start.setArcanaStack(new ArcanaStack(startStack.arcana(), startArcanaAmount - maxDrain), index);
 	}
 
 	public static boolean shouldTimeDilate(Entity target, Level level) {

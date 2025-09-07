@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.util;
 
+import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.common.data_component.ArcanaStack;
 import net.minecraft.core.Direction;
 
@@ -12,9 +13,13 @@ public interface ArcanaContainer {
 
 	void addArcanaStack(ArcanaStack arcanaStack);
 
+	int indexOf(ArcanaStack arcanaStack);
+
 	int size();
 
 	boolean isEmpty();
+
+	boolean contains(Arcana arcana);
 
 	default List<Direction> inputDirections() {
 		return List.of(Direction.values());

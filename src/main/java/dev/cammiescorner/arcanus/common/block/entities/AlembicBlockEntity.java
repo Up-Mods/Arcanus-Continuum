@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.block.entities;
 
+import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.common.data_component.ArcanaStack;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
@@ -88,6 +89,11 @@ public class AlembicBlockEntity extends BlockEntity implements ArcanaContainer {
 	}
 
 	@Override
+	public int indexOf(ArcanaStack arcanaStack) {
+		return 0;
+	}
+
+	@Override
 	public int size() {
 		return 1;
 	}
@@ -95,6 +101,11 @@ public class AlembicBlockEntity extends BlockEntity implements ArcanaContainer {
 	@Override
 	public boolean isEmpty() {
 		return arcanaStack == ArcanaStack.EMPTY;
+	}
+
+	@Override
+	public boolean contains(Arcana arcana) {
+		return this.arcanaStack.arcana() == arcana;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.block.entities;
 
+import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.client.util.ColorRenderData;
 import dev.cammiescorner.arcanus.common.block.WardedJarBlock;
 import dev.cammiescorner.arcanus.common.data_component.ArcanaStack;
@@ -100,6 +101,11 @@ public class WardedJarBlockEntity extends BlockEntity implements RenderDataBlock
 	}
 
 	@Override
+	public int indexOf(ArcanaStack arcanaStack) {
+		return 0;
+	}
+
+	@Override
 	public int size() {
 		return 1;
 	}
@@ -107,6 +113,11 @@ public class WardedJarBlockEntity extends BlockEntity implements RenderDataBlock
 	@Override
 	public boolean isEmpty() {
 		return arcanaStack == ArcanaStack.EMPTY;
+	}
+
+	@Override
+	public boolean contains(Arcana arcana) {
+		return this.arcanaStack.arcana() == arcana;
 	}
 
 	@Override
