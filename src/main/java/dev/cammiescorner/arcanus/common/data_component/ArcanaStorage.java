@@ -10,8 +10,8 @@ import net.minecraft.network.codec.StreamCodec;
 
 public record ArcanaStorage(Arcana arcana, double amount) {
 	public static final Codec<ArcanaStorage> CODEC = RecordCodecBuilder.create(arcanaStorage -> arcanaStorage.group(
-			Arcana.CODEC.optionalFieldOf("arcana", ArcanusArcana.NIL.get()).forGetter(ArcanaStorage::arcana),
-			Codec.DOUBLE.optionalFieldOf("arcana_mount", 0d).forGetter(ArcanaStorage::amount)
+		Arcana.CODEC.optionalFieldOf("arcana", ArcanusArcana.NIL.get()).forGetter(ArcanaStorage::arcana),
+		Codec.DOUBLE.optionalFieldOf("arcana_mount", 0d).forGetter(ArcanaStorage::amount)
 	).apply(arcanaStorage, ArcanaStorage::new));
 	public static final StreamCodec<RegistryFriendlyByteBuf, ArcanaStorage> STREAM_CODEC = StreamCodec.composite(
 		Arcana.STREAM_CODEC, ArcanaStorage::arcana,
