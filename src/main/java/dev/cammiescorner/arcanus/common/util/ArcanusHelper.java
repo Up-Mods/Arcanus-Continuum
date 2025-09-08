@@ -75,18 +75,11 @@ public class ArcanusHelper {
 
 					if((state.is(ArcanusBlocks.ARCANA_PIPE.get()) && !state.getValue(ArcanaPipeBlock.CONNECTION_BY_DIRECTION.get(direction.getOpposite())))
 						|| (state.is(ArcanusBlocks.ARCANA_PUMP.get()) && !state.getValue(ArcanaPumpBlock.AXIS).test(direction))
-						|| (level.getBlockEntity(sidePos) instanceof ArcanaContainer container
-						&& (!container.outputDirections().contains(direction) || (container.getArcanaStack(0).arcana() != ArcanusArcana.NIL.get() && container.getArcanaStack(0).arcana() != arcanaStack.arcana()))))
+						|| (level.getBlockEntity(sidePos) instanceof ArcanaContainer container && (!container.outputDirections().contains(direction) || container.isFull())))
 						continue;
 
 					if(!blockPos.equals(pos) && level.getBlockEntity(pos) instanceof ArcanaContainer start && level.getBlockEntity(sidePos) instanceof ArcanaContainer end && end.inputDirections().contains(direction.getOpposite())) {
-						for(int i = 0; i < end.size(); i++) {
-							ArcanaStack endStack = end.getArcanaStack(i);
-
-							if((endStack.arcana() == arcanaStack.arcana() || endStack.arcana() == ArcanusArcana.NIL.get()) && endStack.amount() < endStack.maxAmount())
-								transferArcana(start, end, arcanaStack, amount, arcanaReduction.get());
-						}
-
+						transferArcana(start, end, arcanaStack, amount, arcanaReduction.get());
 						newPipes.clear();
 						break;
 					}
@@ -115,21 +108,21 @@ public class ArcanusHelper {
 	}
 
 	public static void transferArcana(ArcanaContainer start, ArcanaContainer end, ArcanaStack startStack, double amount, double lossPercentage) {
-		if(startStack.isEmpty())
+		if(startStack.isEmpty() || end.isFull())
 			return;
 
-		if(end.isEmpty() || !end.contains(startStack.arcana()))
+		if(!end.contains(startStack.arcana()))
 			end.addArcanaStack(new ArcanaStack(startStack.arcana(), 0));
 
-		int index = 0; // TODO figure out a good way to get the index of the stack later
+		int index = end.indexOf(new ArcanaStack(startStack.arcana(), 0));
 		ArcanaStack endStack = end.getArcanaStack(index);
 		double startArcanaAmount = startStack.amount();
 		double endArcanaAmount = endStack.amount();
 
-		if(startStack.arcana() != endStack.arcana() || startArcanaAmount <= 0 || endArcanaAmount >= endStack.maxAmount())
+		if(startStack.arcana() != endStack.arcana() || startArcanaAmount <= 0 || endArcanaAmount >= end.maximumArcana())
 			return;
 
-		double maxDrain = Math.clamp(amount, 0, endStack.maxAmount() - endArcanaAmount);
+		double maxDrain = Math.clamp(amount, 0, end.maximumArcana() - endArcanaAmount);
 
 		end.setArcanaStack(new ArcanaStack(startStack.arcana(), endArcanaAmount + (maxDrain * lossPercentage)), index);
 		start.setArcanaStack(new ArcanaStack(startStack.arcana(), startArcanaAmount - maxDrain), index);

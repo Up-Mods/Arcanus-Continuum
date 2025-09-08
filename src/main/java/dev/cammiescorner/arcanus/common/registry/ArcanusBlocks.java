@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.AlembicBlock;
+import dev.cammiescorner.arcanus.common.block.AlembicBlock;
 import dev.cammiescorner.arcanus.common.block.*;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;

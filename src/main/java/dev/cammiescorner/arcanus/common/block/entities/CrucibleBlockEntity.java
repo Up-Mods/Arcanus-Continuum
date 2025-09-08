@@ -48,6 +48,8 @@ public class CrucibleBlockEntity extends BlockEntity implements ArcanaContainer 
 		super.saveAdditional(tag, registries);
 		ListTag listTag = new ListTag();
 
+		inventory.removeIf(ArcanaStack::isEmpty);
+
 		for(ArcanaStack arcanaStack : inventory)
 			listTag.add(ArcanaStack.CODEC.encodeStart(NbtOps.INSTANCE, arcanaStack).result().orElseThrow());
 
@@ -63,7 +65,7 @@ public class CrucibleBlockEntity extends BlockEntity implements ArcanaContainer 
 
 		for(int i = 0; i < listTag.size(); i++) {
 			CompoundTag compoundTag = listTag.getCompound(i);
-			ArcanaStack arcanaStack = ArcanaStack.CODEC.parse(NbtOps.INSTANCE, compoundTag).result().orElseThrow();
+			ArcanaStack arcanaStack = ArcanaStack.CODEC.parse(NbtOps.INSTANCE, compoundTag).result().orElse(ArcanaStack.EMPTY);
 
 			inventory.add(arcanaStack);
 		}
@@ -112,8 +114,24 @@ public class CrucibleBlockEntity extends BlockEntity implements ArcanaContainer 
 	}
 
 	@Override
+	public double maximumArcana() {
+		return 32;
+	}
+
+	@Override
 	public boolean isEmpty() {
 		return inventory.isEmpty();
+	}
+
+	@Override
+	public boolean isFull() {
+		double totalArcana = 0;
+
+		for(ArcanaStack stack : inventory) {
+			totalArcana += stack.amount();
+		}
+
+		return totalArcana >= maximumArcana();
 	}
 
 	@Override

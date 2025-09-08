@@ -17,7 +17,11 @@ public interface ArcanaContainer {
 
 	int size();
 
+	double maximumArcana();
+
 	boolean isEmpty();
+
+	boolean isFull();
 
 	boolean contains(Arcana arcana);
 

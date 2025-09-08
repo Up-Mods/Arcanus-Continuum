@@ -97,7 +97,8 @@ public class WardedJarBlockEntity extends BlockEntity implements RenderDataBlock
 
 	@Override
 	public void addArcanaStack(ArcanaStack arcanaStack) {
-		setArcanaStack(arcanaStack, 0);
+		if(this.arcanaStack.isEmpty())
+			setArcanaStack(arcanaStack, 0);
 	}
 
 	@Override
@@ -111,8 +112,18 @@ public class WardedJarBlockEntity extends BlockEntity implements RenderDataBlock
 	}
 
 	@Override
+	public double maximumArcana() {
+		return 64;
+	}
+
+	@Override
 	public boolean isEmpty() {
-		return arcanaStack == ArcanaStack.EMPTY;
+		return arcanaStack.isEmpty();
+	}
+
+	@Override
+	public boolean isFull() {
+		return arcanaStack.amount() >= maximumArcana();
 	}
 
 	@Override

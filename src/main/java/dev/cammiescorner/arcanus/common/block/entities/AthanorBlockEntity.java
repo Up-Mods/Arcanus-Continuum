@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class AthanorBlockEntity extends BlockEntity implements ArcanaContainer {
-	private final NonNullList<ArcanaStack> inventory = NonNullList.of(ArcanaStack.EMPTY);
+	private final NonNullList<ArcanaStack> inventory = NonNullList.create();
 
 	public AthanorBlockEntity(BlockPos pos, BlockState blockState) {
 		super(ArcanusBlockEntities.ATHANOR.get(), pos, blockState);
@@ -47,6 +47,8 @@ public class AthanorBlockEntity extends BlockEntity implements ArcanaContainer {
 	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.saveAdditional(tag, registries);
 		ListTag listTag = new ListTag();
+
+		inventory.removeIf(ArcanaStack::isEmpty);
 
 		for(ArcanaStack arcanaStack : inventory)
 			listTag.add(ArcanaStack.CODEC.encodeStart(NbtOps.INSTANCE, arcanaStack).result().orElseThrow());
@@ -112,8 +114,24 @@ public class AthanorBlockEntity extends BlockEntity implements ArcanaContainer {
 	}
 
 	@Override
+	public double maximumArcana() {
+		return 128;
+	}
+
+	@Override
 	public boolean isEmpty() {
 		return inventory.isEmpty();
+	}
+
+	@Override
+	public boolean isFull() {
+		double totalArcana = 0;
+
+		for(ArcanaStack stack : inventory) {
+			totalArcana += stack.amount();
+		}
+
+		return totalArcana >= maximumArcana();
 	}
 
 	@Override
@@ -123,7 +141,7 @@ public class AthanorBlockEntity extends BlockEntity implements ArcanaContainer {
 
 	@Override
 	public List<Direction> inputDirections() {
-		return List.of();
+		return List.of(Direction.DOWN);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.block;
 
+import dev.cammiescorner.arcanus.common.block.entities.AthanorBlockEntity;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
@@ -16,6 +17,6 @@ public class AthanorBlock extends Block implements EntityBlock, BlockItemProvide
 
 	@Override
 	public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return null;
+		return new AthanorBlockEntity(pos, state);
 	}
 }
