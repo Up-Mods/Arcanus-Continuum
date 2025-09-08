@@ -9,7 +9,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
 public record ArcanaStack(Arcana arcana, double amount) {
-	public static final ArcanaStack EMPTY = new ArcanaStack(ArcanusArcana.NIL.get(), 0);
+	public static final ArcanaStack EMPTY = new ArcanaStack(ArcanusArcana.NIL.get());
 	public static final Codec<ArcanaStack> CODEC = RecordCodecBuilder.create(arcanaStorage -> arcanaStorage.group(
 		Arcana.CODEC.optionalFieldOf("arcana", ArcanusArcana.NIL.get()).forGetter(ArcanaStack::arcana),
 		Codec.DOUBLE.optionalFieldOf("arcana_amount", 0d).forGetter(ArcanaStack::amount)
@@ -19,6 +19,10 @@ public record ArcanaStack(Arcana arcana, double amount) {
 		ByteBufCodecs.DOUBLE, ArcanaStack::amount,
 		ArcanaStack::new
 	);
+
+	public ArcanaStack(Arcana arcana) {
+		this(arcana, 0);
+	}
 
 	@Override
 	public boolean equals(Object obj) {

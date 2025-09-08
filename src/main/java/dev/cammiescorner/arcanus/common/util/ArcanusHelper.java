@@ -112,9 +112,9 @@ public class ArcanusHelper {
 			return;
 
 		if(!end.contains(startStack.arcana()))
-			end.addArcanaStack(new ArcanaStack(startStack.arcana(), 0));
+			end.addArcanaStack(new ArcanaStack(startStack.arcana()));
 
-		int index = end.indexOf(new ArcanaStack(startStack.arcana(), 0));
+		int index = end.indexOf(new ArcanaStack(startStack.arcana()));
 		ArcanaStack endStack = end.getArcanaStack(index);
 		double startArcanaAmount = startStack.amount();
 		double endArcanaAmount = endStack.amount();
