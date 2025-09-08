@@ -148,11 +148,11 @@ public class CrucibleBlockEntity extends BlockEntity implements ArcanaContainer 
 
 	@Override
 	public List<Direction> inputDirections() {
-		return List.of(Direction.UP);
+		return List.of();
 	}
 
 	@Override
 	public List<Direction> outputDirections() {
-		return List.of(Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
+		return List.of();
 	}
 }
