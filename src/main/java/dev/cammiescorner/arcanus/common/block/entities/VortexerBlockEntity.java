@@ -8,10 +8,10 @@ import dev.cammiescorner.arcanus.common.util.ArcanaContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -21,11 +21,13 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class AlembicBlockEntity extends BlockEntity implements ArcanaContainer {
-	private ArcanaStack arcanaStack = ArcanaStack.EMPTY;
+public class VortexerBlockEntity extends BlockEntity implements ArcanaContainer {
+	private ArcanaStack input1 = ArcanaStack.EMPTY;
+	private ArcanaStack input2 = ArcanaStack.EMPTY;
+	private ArcanaStack output = ArcanaStack.EMPTY;
 
-	public AlembicBlockEntity(BlockPos pos, BlockState blockState) {
-		super(ArcanusBlockEntities.ALEMBIC.get(), pos, blockState);
+	public VortexerBlockEntity(BlockPos pos, BlockState blockState) {
+		super(ArcanusBlockEntities.VORTEXER.get(), pos, blockState);
 	}
 
 	@Override
@@ -45,58 +47,83 @@ public class AlembicBlockEntity extends BlockEntity implements ArcanaContainer {
 	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.saveAdditional(tag, registries);
 
-		tag.put("Arcana", ArcanaStack.CODEC.encodeStart(NbtOps.INSTANCE, arcanaStack).result().orElseThrow());
+		tag.put("ArcanaInput1", ArcanaStack.CODEC.encodeStart(NbtOps.INSTANCE, input1).result().orElseThrow());
+		tag.put("ArcanaInput2", ArcanaStack.CODEC.encodeStart(NbtOps.INSTANCE, input2).result().orElseThrow());
+		tag.put("ArcanaOutput", ArcanaStack.CODEC.encodeStart(NbtOps.INSTANCE, output).result().orElseThrow());
 	}
 
 	@Override
 	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.loadAdditional(tag, registries);
 
-		if(tag.contains("Arcana", Tag.TAG_COMPOUND))
-			arcanaStack = ArcanaStack.CODEC.parse(NbtOps.INSTANCE, tag.getCompound("Arcana")).result().orElseThrow();
-		else
-			arcanaStack = ArcanaStack.EMPTY;
+		input1 = ArcanaStack.CODEC.parse(NbtOps.INSTANCE, tag.getCompound("ArcanaInput1")).result().orElseThrow();
+		input2 = ArcanaStack.CODEC.parse(NbtOps.INSTANCE, tag.getCompound("ArcanaInput2")).result().orElseThrow();
+		output = ArcanaStack.CODEC.parse(NbtOps.INSTANCE, tag.getCompound("ArcanaOutput")).result().orElseThrow();
 	}
 
 	@Override
 	protected void applyImplicitComponents(DataComponentInput componentInput) {
 		super.applyImplicitComponents(componentInput);
 
-		arcanaStack = componentInput.getOrDefault(ArcanusDataComponents.ARCANA_STACK.get(), ArcanaStack.EMPTY);
+		List<ArcanaStack> stacks = componentInput.getOrDefault(ArcanusDataComponents.ARCANA_INVENTORY.get(), NonNullList.withSize(3, ArcanaStack.EMPTY));
+
+		input1 = stacks.get(0);
+		input2 = stacks.get(1);
+		output = stacks.get(2);
 	}
 
 	@Override
 	protected void collectImplicitComponents(DataComponentMap.Builder components) {
 		super.collectImplicitComponents(components);
 
-		components.set(ArcanusDataComponents.ARCANA_STACK.get(), arcanaStack);
+		components.set(ArcanusDataComponents.ARCANA_INVENTORY.get(), List.of(input1, input2, output));
 	}
 
 	@Override
 	public ArcanaStack getArcanaStack(int index) {
-		return arcanaStack;
+		if(index == 0)
+			return input1;
+		if(index == 1)
+			return input2;
+
+		return output;
 	}
 
 	@Override
 	public void setArcanaStack(ArcanaStack arcanaStack, int index) {
-		this.arcanaStack = arcanaStack;
+		if(index == 0)
+			this.input1 = arcanaStack;
+		else if(index == 1)
+			this.input2 = arcanaStack;
+		else
+			this.output = arcanaStack;
+
 		setChanged();
 	}
 
 	@Override
 	public void addArcanaStack(ArcanaStack arcanaStack) {
-		if(this.arcanaStack.isEmpty())
+		if(this.input1.isEmpty())
 			setArcanaStack(arcanaStack, 0);
+		else if(this.input2.isEmpty())
+			setArcanaStack(arcanaStack, 1);
 	}
 
 	@Override
 	public int indexOf(ArcanaStack arcanaStack) {
-		return 0;
+		if(input1.sameArcana(arcanaStack))
+			return 0;
+		if(input2.sameArcana(arcanaStack))
+			return 1;
+		if(output.sameArcana(arcanaStack))
+			return 2;
+
+		return -1;
 	}
 
 	@Override
 	public int size() {
-		return 1;
+		return 3;
 	}
 
 	@Override
@@ -106,26 +133,26 @@ public class AlembicBlockEntity extends BlockEntity implements ArcanaContainer {
 
 	@Override
 	public boolean isEmpty() {
-		return arcanaStack.isEmpty();
+		return input1.isEmpty() && input2.isEmpty() && output.isEmpty();
 	}
 
 	@Override
 	public boolean isFull() {
-		return arcanaStack.amount() >= maximumArcana();
+		return input1.amount() + input2.amount() + output.amount() >= maximumArcana();
 	}
 
 	@Override
 	public boolean contains(Arcana arcana) {
-		return this.arcanaStack.arcana() == arcana;
+		return input1.arcana() == arcana || input2.arcana() == arcana || output.arcana() == arcana;
 	}
 
 	@Override
 	public List<Direction> inputDirections() {
-		return List.of(Direction.EAST, Direction.WEST, Direction.DOWN);
+		return List.of(Direction.UP);
 	}
 
 	@Override
 	public List<Direction> outputDirections() {
-		return List.of(Direction.UP);
+		return List.of(Direction.EAST, Direction.WEST);
 	}
 }

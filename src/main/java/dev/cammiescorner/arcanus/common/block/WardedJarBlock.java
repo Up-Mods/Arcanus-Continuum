@@ -93,12 +93,11 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-		super.setPlacedBy(level, pos, state, placer, stack);
-
 		if(!level.isClientSide() && level.getBlockEntity(pos) instanceof WardedJarBlockEntity jar) {
 			ArcanaStack arcanaStack = stack.getOrDefault(ArcanusDataComponents.ARCANA_STACK.get(), ArcanaStack.EMPTY);
 
-			jar.addArcanaStack(arcanaStack);
+			jar.setArcanaStack(arcanaStack, 0);
+//			level.setBlockAndUpdate(pos, state.setValue(LEVEL, (int) Math.ceil(arcanaStack.amount() / 8f)));
 		}
 	}
 

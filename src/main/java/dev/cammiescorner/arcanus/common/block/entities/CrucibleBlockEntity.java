@@ -105,7 +105,14 @@ public class CrucibleBlockEntity extends BlockEntity implements ArcanaContainer 
 
 	@Override
 	public int indexOf(ArcanaStack arcanaStack) {
-		return inventory.indexOf(arcanaStack);
+		for(int i = 0; i < inventory.size(); i++) {
+			ArcanaStack stack = inventory.get(i);
+
+			if(stack.sameArcana(arcanaStack))
+				return i;
+		}
+
+		return -1;
 	}
 
 	@Override

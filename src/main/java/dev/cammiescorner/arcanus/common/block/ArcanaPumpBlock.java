@@ -51,7 +51,7 @@ public class ArcanaPumpBlock extends AbstractPipeBlock {
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return super.getStateForPlacement(context)
-			.setValue(AXIS, context.getNearestLookingDirection().getAxis());
+			.setValue(AXIS, context.getClickedFace().getAxis());
 	}
 
 	@Override

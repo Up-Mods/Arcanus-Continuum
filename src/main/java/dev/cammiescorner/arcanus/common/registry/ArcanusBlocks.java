@@ -28,6 +28,8 @@ public class ArcanusBlocks {
 	public static final RegistrySupplier<Block> CRUCIBLE = BLOCKS.register("crucible", CrucibleBlock::new);
 	public static final RegistrySupplier<Block> ATHANOR = BLOCKS.register("athanor", AthanorBlock::new);
 	public static final RegistrySupplier<Block> ALEMBIC = BLOCKS.register("alembic", AlembicBlock::new);
+	public static final RegistrySupplier<Block> CENTRIFUGE = BLOCKS.register("centrifuge", CentifugeBlock::new);
+	public static final RegistrySupplier<Block> VORTEXER = BLOCKS.register("vortexer", VortexerBlock::new);
 	public static final RegistrySupplier<Block> ARCANA_PIPE = BLOCKS.register("arcana_pipe", ArcanaPipeBlock::new);
 	public static final RegistrySupplier<Block> ARCANA_PUMP = BLOCKS.register("arcana_pump", ArcanaPumpBlock::new);
 	public static final RegistrySupplier<Block> WARDED_JAR = BLOCKS.register("warded_jar", WardedJarBlock::new);

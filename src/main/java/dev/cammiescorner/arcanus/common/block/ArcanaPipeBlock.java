@@ -141,13 +141,15 @@ public class ArcanaPipeBlock extends AbstractPipeBlock {
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		return super.getStateForPlacement(context)
-			.setValue(UP, false)
-			.setValue(DOWN, false)
-			.setValue(NORTH, false)
-			.setValue(EAST, false)
-			.setValue(SOUTH, false)
-			.setValue(WEST, false)
+		BlockState state = super.getStateForPlacement(context);
+
+		return state
+			.setValue(UP, shouldConnect(context.getLevel(), Direction.UP, state, context.getClickedPos().relative(Direction.UP)))
+			.setValue(DOWN, shouldConnect(context.getLevel(), Direction.DOWN, state, context.getClickedPos().relative(Direction.DOWN)))
+			.setValue(NORTH, shouldConnect(context.getLevel(), Direction.NORTH, state, context.getClickedPos().relative(Direction.NORTH)))
+			.setValue(EAST, shouldConnect(context.getLevel(), Direction.EAST, state, context.getClickedPos().relative(Direction.EAST)))
+			.setValue(SOUTH, shouldConnect(context.getLevel(), Direction.SOUTH, state, context.getClickedPos().relative(Direction.SOUTH)))
+			.setValue(WEST, shouldConnect(context.getLevel(), Direction.WEST, state, context.getClickedPos().relative(Direction.WEST)))
 			.setValue(CONNECTS_UP, true)
 			.setValue(CONNECTS_DOWN, true)
 			.setValue(CONNECTS_NORTH, true)
@@ -158,7 +160,7 @@ public class ArcanaPipeBlock extends AbstractPipeBlock {
 
 	@Override
 	protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-		return super.updateShape(state, direction, neighborState, level, pos, neighborPos).setValue(EXTENSION_BY_DIRECTION.get(direction), shouldConnect(level, direction, pos, neighborPos));
+		return super.updateShape(state, direction, neighborState, level, pos, neighborPos).setValue(EXTENSION_BY_DIRECTION.get(direction), shouldConnect(level, direction, state, neighborPos));
 	}
 
 	@Override
@@ -167,8 +169,7 @@ public class ArcanaPipeBlock extends AbstractPipeBlock {
 		builder.add(UP, DOWN, NORTH, EAST, SOUTH, WEST, CONNECTS_UP, CONNECTS_DOWN, CONNECTS_NORTH, CONNECTS_EAST, CONNECTS_SOUTH, CONNECTS_WEST);
 	}
 
-	public boolean shouldConnect(LevelAccessor level, Direction direction, BlockPos pos, BlockPos neighborPos) {
-		BlockState state = level.getBlockState(pos);
+	public boolean shouldConnect(LevelAccessor level, Direction direction, BlockState state, BlockPos neighborPos) {
 		BlockState neighborState = level.getBlockState(neighborPos);
 		boolean connects = state.getValue(CONNECTION_BY_DIRECTION.get(direction));
 

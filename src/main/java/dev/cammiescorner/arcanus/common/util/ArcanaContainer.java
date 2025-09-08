@@ -25,6 +25,7 @@ public interface ArcanaContainer {
 
 	boolean contains(Arcana arcana);
 
+	// TODO add a way to differentiate between input ArcanaStacks and output Arcana Stacks
 	default List<Direction> inputDirections() {
 		return List.of(Direction.values());
 	}

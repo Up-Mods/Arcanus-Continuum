@@ -119,7 +119,7 @@ public class ArcanusHelper {
 		double startArcanaAmount = startStack.amount();
 		double endArcanaAmount = endStack.amount();
 
-		if(startStack.arcana() != endStack.arcana() || startArcanaAmount <= 0 || endArcanaAmount >= end.maximumArcana())
+		if(!startStack.sameArcana(endStack) || startArcanaAmount <= 0 || endArcanaAmount >= end.maximumArcana())
 			return;
 
 		double maxDrain = Math.clamp(amount, 0, end.maximumArcana() - endArcanaAmount);

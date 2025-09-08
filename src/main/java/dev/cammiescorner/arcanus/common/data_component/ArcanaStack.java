@@ -24,16 +24,11 @@ public record ArcanaStack(Arcana arcana, double amount) {
 		this(arcana, 0);
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		return obj instanceof ArcanaStack otherStack && otherStack.arcana() == arcana();
-	}
-
 	public boolean isEmpty() {
-		return this.equals(EMPTY) || amount() <= 0;
+		return sameArcana(EMPTY) || amount() <= 0;
 	}
 
-	public boolean exactMatch(ArcanaStack otherStack) {
-		return arcana() == otherStack.arcana() && amount() == otherStack.amount();
+	public boolean sameArcana(ArcanaStack otherStack) {
+		return arcana() == otherStack.arcana();
 	}
 }
