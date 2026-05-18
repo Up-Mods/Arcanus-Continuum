@@ -17,10 +17,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
@@ -47,10 +44,12 @@ public class BurstSpellShape extends SpellShape {
 		AABB boundingBox = new AABB(castFrom.add(-radius, -radius, -radius), castFrom.add(radius, radius, radius));
 		potency += getPotencyModifier();
 
-		for(BlockPos blockPos : BlockPos.betweenClosedStream(boundingBox).toList()) {
+		// need to map to immutable, else they all end up as the same pos
+		// https://github.com/CammiesCorner/Arcanus/issues/56
+		for(BlockPos blockPos : BlockPos.betweenClosedStream(boundingBox).map(BlockPos::immutable).toList()) {
 			Vec3 pos = Vec3.atCenterOf(blockPos);
 
-			if(pos.distanceTo(castFrom) > radius)
+			if(pos.distanceToSqr(castFrom) > radius * radius)
 				continue;
 
 			for(SpellEffect effect : new HashSet<>(effects))
@@ -58,7 +57,7 @@ public class BurstSpellShape extends SpellShape {
 		}
 
 		for(SpellEffect effect : new HashSet<>(effects)) {
-			if(effect.singleCastOnly()) {
+			if(effect.singleCastOnly() && sourceEntity != null) {
 				effect.effect(caster, sourceEntity, level, new EntityHitResult(sourceEntity), effects, stack, potency);
 				continue;
 			}
