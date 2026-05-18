@@ -49,7 +49,7 @@ public class BurstSpellShape extends SpellShape {
 		for(BlockPos blockPos : BlockPos.betweenClosedStream(boundingBox).toList()) {
 			Vec3 pos = Vec3.atCenterOf(blockPos);
 
-			if(pos.distanceTo(castFrom) <= radius)
+			if(pos.distanceTo(castFrom) > radius)
 				continue;
 
 			for(SpellEffect effect : new HashSet<>(effects))
