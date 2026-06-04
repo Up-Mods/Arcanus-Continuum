@@ -16,8 +16,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ManaLockSpellEffect extends SpellEffect {
-	public ManaLockSpellEffect() {
+public class ArcanaLockSpellEffect extends SpellEffect {
+	public ArcanaLockSpellEffect() {
 		super(
 			() -> ArcanusConfig.AttackEffects.ManaLockEffectProperties.enabled,
 			() -> SpellType.ATTACK,

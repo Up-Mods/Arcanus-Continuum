@@ -16,8 +16,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ManaSplitSpellEffect extends SpellEffect {
-	public ManaSplitSpellEffect() {
+public class ArcanaSplitSpellEffect extends SpellEffect {
+	public ArcanaSplitSpellEffect() {
 		super(
 			() -> ArcanusConfig.AttackEffects.ManaSplitEffectProperties.enabled,
 			() -> SpellType.ATTACK,

@@ -59,10 +59,10 @@ public class ArcanusSpellComponents {
 	public static final RegistrySupplier<SpellEffect> ELECTRIC = SPELL_COMPONENTS.register("electric_effect", ElectricSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> ICE = SPELL_COMPONENTS.register("ice_effect", IceSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> VULNERABILITY = SPELL_COMPONENTS.register("vulnerability_effect", VulnerabilitySpellEffect::new);
-	public static final RegistrySupplier<SpellEffect> MANA_LOCK = SPELL_COMPONENTS.register("arcana_lock_effect", ManaLockSpellEffect::new);
+	public static final RegistrySupplier<SpellEffect> ARCANA_LOCK = SPELL_COMPONENTS.register("arcana_lock_effect", ArcanaLockSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> WITHERING = SPELL_COMPONENTS.register("withering_effect", WitheringSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> NECROMANCY = SPELL_COMPONENTS.register("necromancy_effect", NecromancySpellEffect::new);
-	public static final RegistrySupplier<SpellEffect> MANA_SPLIT = SPELL_COMPONENTS.register("arcana_split_effect", ManaSplitSpellEffect::new);
+	public static final RegistrySupplier<SpellEffect> ARCANA_SPLIT = SPELL_COMPONENTS.register("arcana_split_effect", ArcanaSplitSpellEffect::new);
 	public static final RegistrySupplier<SpellEffect> DISCOMBOBULATE = SPELL_COMPONENTS.register("discombobulate_effect", DiscombobulateSpellEffect::new);
 
 	public static final RegistrySupplier<SpellEffect> HEAL = SPELL_COMPONENTS.register("heal_effect", HealSpellEffect::new);

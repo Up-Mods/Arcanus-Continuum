@@ -285,14 +285,14 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		spell(builder, ArcanusSpellComponents.PULL, "Pull Effect");
 		spell(builder, ArcanusSpellComponents.TELEPORT, "Teleport Effect");
 		spell(builder, ArcanusSpellComponents.DISPEL, "Dispel Effect");
-		spell(builder, ArcanusSpellComponents.MANA_LOCK, "Mana Lock Effect");
+		spell(builder, ArcanusSpellComponents.ARCANA_LOCK, "Arcana Lock Effect");
 		spell(builder, ArcanusSpellComponents.WITHERING, "Withering Effect");
 		spell(builder, ArcanusSpellComponents.VULNERABILITY, "Vulnerability Effect");
 		spell(builder, ArcanusSpellComponents.FORTIFY, "Fortify Effect");
 		spell(builder, ArcanusSpellComponents.BOUNCY, "Bouncy Effect");
 		spell(builder, ArcanusSpellComponents.FEATHER, "Feather Effect");
 		spell(builder, ArcanusSpellComponents.NECROMANCY, "Necromancy Effect");
-		spell(builder, ArcanusSpellComponents.MANA_SPLIT, "Mana Split Effect");
+		spell(builder, ArcanusSpellComponents.ARCANA_SPLIT, "Arcana Split Effect");
 		spell(builder, ArcanusSpellComponents.ANONYMITY, "Anonymity Effect");
 		spell(builder, ArcanusSpellComponents.MINE, "Mine Effect");
 		spell(builder, ArcanusSpellComponents.BUILD, "Build Effect");
