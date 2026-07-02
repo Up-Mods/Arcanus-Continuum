@@ -53,6 +53,7 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 	// ----- Entity Components ----- \\
 	public static final ComponentKey<KnownSpellComponentsComponent> KNOWN_SPELL_COMPONENTS_COMPONENT = createComponent("known_spell_components", KnownSpellComponentsComponent.class);
 	public static final ComponentKey<ArcanaComponent> ARCANA_COMPONENT = createComponent("arcana", ArcanaComponent.class);
+	public static final ComponentKey<SpellCoolDownComponent> SPELL_COOL_DOWN_COMPONENT = createComponent("spell_cool_down", SpellCoolDownComponent.class);
 	public static final ComponentKey<CastingComponent> CASTING_COMPONENT = createComponent("casting", CastingComponent.class);
 	public static final ComponentKey<PatternComponent> PATTERN_COMPONENT = createComponent("casting_pattern", PatternComponent.class);
 	public static final ComponentKey<LastCastTimeComponent> LAST_CAST_TIME_COMPONENT = createComponent("last_cast_time", LastCastTimeComponent.class);
@@ -79,6 +80,7 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
 		registry.beginRegistration(Player.class, KNOWN_SPELL_COMPONENTS_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(KnownSpellComponentsComponent::new);
 		registry.beginRegistration(LivingEntity.class, ARCANA_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(ArcanaComponent::new);
+		registry.beginRegistration(LivingEntity.class, SPELL_COOL_DOWN_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(SpellCoolDownComponent::new);
 		registry.beginRegistration(Player.class, CASTING_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(CastingComponent::new);
 		registry.beginRegistration(Player.class, PATTERN_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(PatternComponent::new);
 		registry.beginRegistration(Player.class, POCKET_DIMENSION_PORTAL_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PocketDimensionPortalComponent::new);
