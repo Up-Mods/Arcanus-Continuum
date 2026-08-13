@@ -18,13 +18,15 @@ import java.util.function.Supplier;
 public class ArcanusItems {
 	public static final RegistryHandler<Item> ITEMS = RegistryHandler.create(Registries.ITEM, Arcanus.MOD_ID);
 
-	public static final RegistrySupplier<Item> EMYRWOOD_LOG = ITEMS.register("emyrwood_log", () -> new BlockItem(ArcanusBlocks.EMYRWOOD_LOG.get(), new Item.Properties()));
-	public static final RegistrySupplier<Item> EMYRWOOD_WOOD = ITEMS.register("emyrwood_wood", () -> new BlockItem(ArcanusBlocks.EMYRWOOD_WOOD.get(), new Item.Properties()));
-	public static final RegistrySupplier<Item> STRIPPED_EMYRWOOD_LOG = ITEMS.register("stripped_emyrwood_log", () -> new BlockItem(ArcanusBlocks.STRIPPED_EMYRWOOD_LOG.get(), new Item.Properties()));
-	public static final RegistrySupplier<Item> STRIPPED_EMYRWOOD_WOOD = ITEMS.register("stripped_emyrwood_wood", () -> new BlockItem(ArcanusBlocks.STRIPPED_EMYRWOOD_WOOD.get(), new Item.Properties()));
-	public static final RegistrySupplier<Item> EMYRWOOD_PLANKS = ITEMS.register("emyrwood_planks", () -> new BlockItem(ArcanusBlocks.EMYRWOOD_PLANKS.get(), new Item.Properties()));
-	public static final RegistrySupplier<Item> EMYRWOOD_STAIRS = ITEMS.register("emyrwood_stairs", () -> new BlockItem(ArcanusBlocks.EMYRWOOD_STAIRS.get(), new Item.Properties()));
-	public static final RegistrySupplier<Item> EMYRWOOD_SLAB = ITEMS.register("emyrwood_slab", () -> new BlockItem(ArcanusBlocks.EMYRWOOD_SLAB.get(), new Item.Properties()));
+	public static final RegistrySupplier<Item> EBONY_LOG = ITEMS.register("ebony_log", () -> new BlockItem(ArcanusBlocks.EBONY_LOG.get(), new Item.Properties()));
+	public static final RegistrySupplier<Item> EBONY_WOOD = ITEMS.register("ebony_wood", () -> new BlockItem(ArcanusBlocks.EBONY_WOOD.get(), new Item.Properties()));
+	public static final RegistrySupplier<Item> EBONY_LEAVES = ITEMS.register("ebony_leaves", () -> new BlockItem(ArcanusBlocks.EBONY_LEAVES.get(), new Item.Properties()));
+	public static final RegistrySupplier<Item> EBONY_SAPLING = ITEMS.register("ebony_sapling", () -> new BlockItem(ArcanusBlocks.EBONY_SAPLING.get(), new Item.Properties()));
+	public static final RegistrySupplier<Item> STRIPPED_EBONY_LOG = ITEMS.register("stripped_ebony_log", () -> new BlockItem(ArcanusBlocks.STRIPPED_EBONY_LOG.get(), new Item.Properties()));
+	public static final RegistrySupplier<Item> STRIPPED_EBONY_WOOD = ITEMS.register("stripped_ebony_wood", () -> new BlockItem(ArcanusBlocks.STRIPPED_EBONY_WOOD.get(), new Item.Properties()));
+	public static final RegistrySupplier<Item> EBONY_PLANKS = ITEMS.register("ebony_planks", () -> new BlockItem(ArcanusBlocks.EBONY_PLANKS.get(), new Item.Properties()));
+	public static final RegistrySupplier<Item> EBONY_STAIRS = ITEMS.register("ebony_stairs", () -> new BlockItem(ArcanusBlocks.EBONY_STAIRS.get(), new Item.Properties()));
+	public static final RegistrySupplier<Item> EBONY_SLAB = ITEMS.register("ebony_slab", () -> new BlockItem(ArcanusBlocks.EBONY_SLAB.get(), new Item.Properties()));
 	public static final RegistrySupplier<Item> ARCANEUM_INGOT = ITEMS.register("arcaneum_ingot", () -> new Item(new Item.Properties()));
 	public static final RegistrySupplier<Item> ARCANEUM_NUGGET = ITEMS.register("arcaneum_nugget", () -> new Item(new Item.Properties()));
 	public static final RegistrySupplier<Item> VOID_INGOT = ITEMS.register("void_ingot", () -> new Item(new Item.Properties()));
@@ -70,11 +72,11 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> WOODEN_STAFF_CORE = ITEMS.register("wooden_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(1.1d, 1.1d, 1.1d, 1.1d, 1.1d))));
 	public static final RegistrySupplier<Item> EMYRWOOD_STAFF_CORE = ITEMS.register("emyrwood_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.9d, 0.9d, 0.9d, 0.9d, 0.9d))));
 	public static final RegistrySupplier<Item> TBD_STAFF_CORE = ITEMS.register("tbd_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.7d, 0.7d, 0.7d, 0.7d, 0.7d))));
-	public static final RegistrySupplier<Item> BLAZING_STAFF_CORE = ITEMS.register("blazing_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.5d, 1d, 1d, 1d, 1d))));
-	public static final RegistrySupplier<Item> BAMBOO_STAFF_CORE = ITEMS.register("bamboo_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(1d, 0.5d, 1d, 1d, 1d))));
-	public static final RegistrySupplier<Item> PRISMARINE_STAFF_CORE = ITEMS.register("prismarine_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(1d, 1d, 0.5d, 1d, 1d))));
-	public static final RegistrySupplier<Item> BONE_STAFF_CORE = ITEMS.register("bone_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(1d, 1d, 1d, 0.5d, 1d))));
-	public static final RegistrySupplier<Item> HELLISH_STAFF_CORE = ITEMS.register("hellish_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(1d, 1d, 1d, 1d, 0.5d))));
+	public static final RegistrySupplier<Item> BLAZING_STAFF_CORE = ITEMS.register("blazing_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.5d, 0.9d, 0.9d, 0.9d, 0.9d))));
+	public static final RegistrySupplier<Item> BAMBOO_STAFF_CORE = ITEMS.register("bamboo_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.9d, 0.5d, 0.9d, 0.9d, 0.9d))));
+	public static final RegistrySupplier<Item> PRISMARINE_STAFF_CORE = ITEMS.register("prismarine_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.9d, 0.9d, 0.5d, 0.9d, 0.9d))));
+	public static final RegistrySupplier<Item> BONE_STAFF_CORE = ITEMS.register("bone_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.9d, 0.9d, 0.9d, 0.5d, 0.9d))));
+	public static final RegistrySupplier<Item> HELLISH_STAFF_CORE = ITEMS.register("hellish_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.9d, 0.9d, 0.9d, 0.9d, 0.5d))));
 
 	public static final RegistrySupplier<Item> STAFF = ITEMS.register("staff", StaffItem::new);
 

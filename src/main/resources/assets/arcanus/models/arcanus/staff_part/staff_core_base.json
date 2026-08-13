@@ -1,19 +1,21 @@
 {
-  "parent": "arcanus:arcanus/staff_part/staff_base",
-  "elements": [
-    {
-      "name":      "staff_core",
-      "from":      [7, -14, 7],
-      "to":        [9,  14, 9],
-      "rotation":  {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
-      "faces": {
-        "north": {"uv": [0, 1, 1, 15], "texture": "#layer0"},
-        "east":  {"uv": [1, 1, 2, 15], "texture": "#layer0"},
-        "south": {"uv": [2, 1, 3, 15], "texture": "#layer0"},
-        "west":  {"uv": [3, 1, 4, 15], "texture": "#layer0"},
-        "up":    {"uv": [1, 0, 2,  1], "texture": "#layer0"},
-        "down":  {"uv": [2, 0, 3,  1], "texture": "#layer0"}
-      }
-    }
-  ]
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"parent": "arcanus:arcanus/staff_part/staff_base",
+	"elements": [
+		{
+			"name": "staff_core",
+			"from": [7, -14, 7],
+			"to": [9, 14, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [0, 1, 1, 15], "texture": "#layer0"},
+				"east": {"uv": [1, 1, 2, 15], "texture": "#layer0"},
+				"south": {"uv": [2, 1, 3, 15], "texture": "#layer0"},
+				"west": {"uv": [3, 1, 4, 15], "texture": "#layer0"},
+				"up": {"uv": [1, 0, 2, 1], "texture": "#layer0"},
+				"down": {"uv": [2, 0, 3, 1], "texture": "#layer0"}
+			}
+		}
+	]
 }

@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "arcanus:emyrwood_log",
-    "arcanus:emyrwood_wood",
-    "arcanus:stripped_emyrwood_log",
-    "arcanus:stripped_emyrwood_wood"
+    "arcanus:ebony_log",
+    "arcanus:ebony_wood",
+    "arcanus:stripped_ebony_log",
+    "arcanus:stripped_ebony_wood"
   ]
 }

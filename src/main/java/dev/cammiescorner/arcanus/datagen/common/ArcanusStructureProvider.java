@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.datagen.common;
 import com.mojang.datafixers.util.Pair;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.data.*;
-import dev.cammiescorner.arcanus.common.structure.WizardTowerProcessor;
+import dev.cammiescorner.arcanus.common.world.structure.WizardTowerProcessor;
 import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;

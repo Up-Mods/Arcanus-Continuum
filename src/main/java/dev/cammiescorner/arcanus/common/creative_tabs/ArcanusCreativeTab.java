@@ -32,13 +32,15 @@ public class ArcanusCreativeTab {
 			output.accept(ArcanusItems.SPELL_BOOK.get());
 
 			output.accept(Blocks.LECTERN);
-			output.accept(ArcanusItems.EMYRWOOD_LOG.get());
-			output.accept(ArcanusItems.EMYRWOOD_WOOD.get());
-			output.accept(ArcanusItems.STRIPPED_EMYRWOOD_LOG.get());
-			output.accept(ArcanusItems.STRIPPED_EMYRWOOD_WOOD.get());
-			output.accept(ArcanusItems.EMYRWOOD_PLANKS.get());
-			output.accept(ArcanusItems.EMYRWOOD_STAIRS.get());
-			output.accept(ArcanusItems.EMYRWOOD_SLAB.get());
+			output.accept(ArcanusItems.EBONY_LOG.get());
+			output.accept(ArcanusItems.EBONY_WOOD.get());
+			output.accept(ArcanusItems.EBONY_LEAVES.get());
+			output.accept(ArcanusItems.EBONY_SAPLING.get());
+			output.accept(ArcanusItems.STRIPPED_EBONY_LOG.get());
+			output.accept(ArcanusItems.STRIPPED_EBONY_WOOD.get());
+			output.accept(ArcanusItems.EBONY_PLANKS.get());
+			output.accept(ArcanusItems.EBONY_STAIRS.get());
+			output.accept(ArcanusItems.EBONY_SLAB.get());
 			output.accept(ArcanusBlocks.ARCANE_WORKBENCH.get());
 			output.accept(ArcanusBlocks.PEDESTAL.get());
 			output.accept(ArcanusBlocks.ARCANE_PLINTH.get());

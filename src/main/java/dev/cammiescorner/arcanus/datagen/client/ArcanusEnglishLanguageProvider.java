@@ -110,13 +110,15 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 
 		biome(builder, ArcanusBiomes.POCKET_DIMENSION, "Pocket Dimension");
 
-		builder.block(ArcanusBlocks.EMYRWOOD_LOG, "Emyrwood Log");
-		builder.block(ArcanusBlocks.EMYRWOOD_WOOD, "Emyrwood Wood");
-		builder.block(ArcanusBlocks.STRIPPED_EMYRWOOD_LOG, "Stripped Emyrwood Log");
-		builder.block(ArcanusBlocks.STRIPPED_EMYRWOOD_WOOD, "Stripped Emyrwood Wood");
-		builder.block(ArcanusBlocks.EMYRWOOD_PLANKS, "Emyrwood Planks");
-		builder.block(ArcanusBlocks.EMYRWOOD_STAIRS, "Emyrwood Stairs");
-		builder.block(ArcanusBlocks.EMYRWOOD_SLAB, "Emyrwood Slab");
+		builder.block(ArcanusBlocks.EBONY_LOG, "Ebony Log");
+		builder.block(ArcanusBlocks.EBONY_WOOD, "Ebony Wood");
+		builder.block(ArcanusBlocks.EBONY_LEAVES, "Ebony Leaves");
+		builder.block(ArcanusBlocks.EBONY_SAPLING, "Ebony Sapling");
+		builder.block(ArcanusBlocks.STRIPPED_EBONY_LOG, "Stripped Ebony Log");
+		builder.block(ArcanusBlocks.STRIPPED_EBONY_WOOD, "Stripped Ebony Wood");
+		builder.block(ArcanusBlocks.EBONY_PLANKS, "Ebony Planks");
+		builder.block(ArcanusBlocks.EBONY_STAIRS, "Ebony Stairs");
+		builder.block(ArcanusBlocks.EBONY_SLAB, "Ebony Slab");
 		builder.block(ArcanusBlocks.ARCANE_WORKBENCH, "Arcane Workbench");
 		builder.block(ArcanusBlocks.ARCANE_PLINTH, "Arcane Plinth");
 		builder.block(ArcanusBlocks.PEDESTAL, "Pedestal");

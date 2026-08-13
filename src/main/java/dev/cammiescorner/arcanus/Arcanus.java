@@ -17,6 +17,8 @@ import dev.upcraft.sparkweave.api.event.ItemMenuInteractionEvent;
 import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
@@ -63,6 +65,7 @@ public class Arcanus implements MainEntryPoint {
 		ArcanusBlockEntities.BLOCK_ENTITIES.accept(registryService);
 		ArcanusParticles.PARTICLE_TYPES.accept(registryService);
 		ArcanusPointsOfInterest.register();
+		ArcanusConfiguredFeatures.FEATURES.accept(registryService);
 		ArcanusRecipes.RECIPE_TYPES.accept(registryService);
 		ArcanusRecipes.RECIPE_SERIALIZERS.accept(registryService);
 		ArcanusRiteResultTypes.RITE_RESULTS.accept(registryService);
@@ -105,6 +108,18 @@ public class Arcanus implements MainEntryPoint {
 
 			return false;
 		});
+
+		StrippableBlockRegistry.register(ArcanusBlocks.EBONY_LOG.get(), ArcanusBlocks.STRIPPED_EBONY_LOG.get());
+		StrippableBlockRegistry.register(ArcanusBlocks.EBONY_WOOD.get(), ArcanusBlocks.STRIPPED_EBONY_WOOD.get());
+
+		FlammableBlockRegistry.getDefaultInstance().add(ArcanusBlocks.EBONY_LEAVES.get(), 30, 60);
+		FlammableBlockRegistry.getDefaultInstance().add(ArcanusBlocks.EBONY_LOG.get(), 5, 5);
+		FlammableBlockRegistry.getDefaultInstance().add(ArcanusBlocks.EBONY_WOOD.get(), 5, 5);
+		FlammableBlockRegistry.getDefaultInstance().add(ArcanusBlocks.STRIPPED_EBONY_LOG.get(), 5, 5);
+		FlammableBlockRegistry.getDefaultInstance().add(ArcanusBlocks.STRIPPED_EBONY_WOOD.get(), 5, 5);
+		FlammableBlockRegistry.getDefaultInstance().add(ArcanusBlocks.EBONY_PLANKS.get(), 5, 20);
+		FlammableBlockRegistry.getDefaultInstance().add(ArcanusBlocks.EBONY_SLAB.get(), 5, 20);
+		FlammableBlockRegistry.getDefaultInstance().add(ArcanusBlocks.EBONY_STAIRS.get(), 5, 20);
 	}
 
 	public static ResourceLocation id(String name) {
