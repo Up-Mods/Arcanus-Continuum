@@ -3,6 +3,7 @@ package dev.cammiescorner.arcanus;
 import com.google.auto.service.AutoService;
 import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
 import commonnetwork.api.Network;
+import dev.cammiescorner.arcanus.common.data.ArcanusBiomeTags;
 import dev.cammiescorner.arcanus.common.menu.providers.SpellcraftMenuProvider;
 import dev.cammiescorner.arcanus.common.networking.clientbound.*;
 import dev.cammiescorner.arcanus.common.networking.serverbound.*;
@@ -17,6 +18,8 @@ import dev.upcraft.sparkweave.api.event.ItemMenuInteractionEvent;
 import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.SharedConstants;
@@ -25,6 +28,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.item.Equipable;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,7 +69,6 @@ public class Arcanus implements MainEntryPoint {
 		ArcanusBlockEntities.BLOCK_ENTITIES.accept(registryService);
 		ArcanusParticles.PARTICLE_TYPES.accept(registryService);
 		ArcanusPointsOfInterest.register();
-		ArcanusConfiguredFeatures.FEATURES.accept(registryService);
 		ArcanusRecipes.RECIPE_TYPES.accept(registryService);
 		ArcanusRecipes.RECIPE_SERIALIZERS.accept(registryService);
 		ArcanusRiteResultTypes.RITE_RESULTS.accept(registryService);
@@ -108,6 +111,8 @@ public class Arcanus implements MainEntryPoint {
 
 			return false;
 		});
+
+		BiomeModifications.addFeature(BiomeSelectors.tag(ArcanusBiomeTags.SUITABLE_FOR_EBONY), GenerationStep.Decoration.VEGETAL_DECORATION, ArcanusFeatures.PLACED_EBONY_TREE);
 
 		StrippableBlockRegistry.register(ArcanusBlocks.EBONY_LOG.get(), ArcanusBlocks.STRIPPED_EBONY_LOG.get());
 		StrippableBlockRegistry.register(ArcanusBlocks.EBONY_WOOD.get(), ArcanusBlocks.STRIPPED_EBONY_WOOD.get());

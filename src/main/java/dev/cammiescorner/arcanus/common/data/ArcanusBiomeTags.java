@@ -2,11 +2,8 @@ package dev.cammiescorner.arcanus.common.data;
 
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.util.ConventionsHelper;
-import dev.emi.trinkets.TrinketsMain;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 
 public class ArcanusBiomeTags {
@@ -19,4 +16,6 @@ public class ArcanusBiomeTags {
 	public static final TagKey<Biome> CAN_SPAWN_BLACK_BEANZ = TagKey.create(Registries.BIOME, Arcanus.id("can_spawn_black_beanz"));
 	public static final TagKey<Biome> CAN_SPAWN_WHITE_BEANZ = TagKey.create(Registries.BIOME, Arcanus.id("can_spawn_white_beanz"));
 	public static final TagKey<Biome> CAN_SPAWN_GREEN_BEANZ = TagKey.create(Registries.BIOME, Arcanus.id("can_spawn_green_beanz"));
+
+	public static final TagKey<Biome> SUITABLE_FOR_EBONY = TagKey.create(Registries.BIOME, Arcanus.id("suitable_for_ebony"));
 }

@@ -73,5 +73,9 @@ public class ArcanusBiomeTagsProvider extends FabricTagProvider<Biome> {
 
 		getOrCreateTagBuilder(ArcanusBiomeTags.CAN_SPAWN_GREEN_BEANZ)
 			.add(Biomes.LUSH_CAVES);
+
+		getOrCreateTagBuilder(ArcanusBiomeTags.SUITABLE_FOR_EBONY)
+			.addTag(BiomeTags.IS_SAVANNA)
+			.add(Biomes.SPARSE_JUNGLE);
 	}
 }
