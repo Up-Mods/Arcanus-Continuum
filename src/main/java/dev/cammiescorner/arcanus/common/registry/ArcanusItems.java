@@ -70,7 +70,7 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> VOID_STAFF_CAP = ITEMS.register("void_staff_cap", () -> new StaffCapItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CAP.get(), new StaffCapComponent(0.3d, true))));
 
 	public static final RegistrySupplier<Item> WOODEN_STAFF_CORE = ITEMS.register("wooden_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(1.1d, 1.1d, 1.1d, 1.1d, 1.1d))));
-	public static final RegistrySupplier<Item> EMYRWOOD_STAFF_CORE = ITEMS.register("emyrwood_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.9d, 0.9d, 0.9d, 0.9d, 0.9d))));
+	public static final RegistrySupplier<Item> EBONY_STAFF_CORE = ITEMS.register("ebony_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.9d, 0.9d, 0.9d, 0.9d, 0.9d))));
 	public static final RegistrySupplier<Item> TBD_STAFF_CORE = ITEMS.register("tbd_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.7d, 0.7d, 0.7d, 0.7d, 0.7d))));
 	public static final RegistrySupplier<Item> BLAZING_STAFF_CORE = ITEMS.register("blazing_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.5d, 0.9d, 0.9d, 0.9d, 0.9d))));
 	public static final RegistrySupplier<Item> BAMBOO_STAFF_CORE = ITEMS.register("bamboo_staff_core", () -> new StaffCoreItem(new Item.Properties().component(ArcanusDataComponents.STAFF_CORE.get(), StaffCoreComponent.of(0.9d, 0.5d, 0.9d, 0.9d, 0.9d))));

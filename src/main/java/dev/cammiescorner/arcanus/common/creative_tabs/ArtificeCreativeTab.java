@@ -19,10 +19,10 @@ public class ArtificeCreativeTab {
 
 	public static CreativeModeTab buildTab() {
 		return CreativeTabHelper.newBuilder(RESOURCE_KEY).icon(ArcanusItems.ARTIFICER_HELMET.get()::getDefaultInstance).displayItems((params, output) -> {
-			ItemStack emyrwoodStaff = new ItemStack(ArcanusItems.STAFF.get());
+			ItemStack ebonyStaff = new ItemStack(ArcanusItems.STAFF.get());
 			ItemStack tbdStaff = new ItemStack(ArcanusItems.STAFF.get());
 
-			emyrwoodStaff.set(ArcanusDataComponents.STAFF_PARTS.get(), new StaffParts(ArcanusItems.EMYRWOOD_STAFF_CORE.get().getDefaultInstance(), ArcanusItems.GOLDEN_STAFF_CAP.get().getDefaultInstance()));
+			ebonyStaff.set(ArcanusDataComponents.STAFF_PARTS.get(), new StaffParts(ArcanusItems.EBONY_STAFF_CORE.get().getDefaultInstance(), ArcanusItems.GOLDEN_STAFF_CAP.get().getDefaultInstance()));
 			tbdStaff.set(ArcanusDataComponents.STAFF_PARTS.get(), new StaffParts(ArcanusItems.TBD_STAFF_CORE.get().getDefaultInstance(), ArcanusItems.ARCANEUM_STAFF_CAP.get().getDefaultInstance()));
 
 			output.accept(ArcanusItems.ARTIFICER_HELMET.get());
@@ -33,7 +33,7 @@ public class ArtificeCreativeTab {
 			output.accept(ArcanusItems.BOOK_POUCH.get());
 
 			output.accept(ArcanusItems.STAFF.get());
-			output.accept(emyrwoodStaff);
+			output.accept(ebonyStaff);
 
 			BuiltInRegistries.ITEM.stream().filter(item -> item instanceof StaffCapItem && BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(Arcanus.MOD_ID)).forEach(item -> {
 				ItemStack stack = item.getDefaultInstance();
