@@ -41,7 +41,7 @@ jobs:
                     BUILD_TIME: ${{ steps.current-time.outputs.formattedTime }}
                 run: ./gradlew publish
             -   name: Publish (GitHub Releases)
-                uses: Kira-NT/mc-publish@995edadc13559a8b28d0b7e6571229f067ec7659
+                uses: Kira-NT/mc-publish@52307b03863581dec6b652b83e597aec02ebb075
                 with:
                     github-token: ${{ github.token }}
                     files: |
@@ -49,7 +49,7 @@ jobs:
                         build/libs/*-@(sources|javadoc).jar
             -   name: Publish (Fabric)
                 id: publish_fabric
-                uses: Kira-NT/mc-publish@995edadc13559a8b28d0b7e6571229f067ec7659
+                uses: Kira-NT/mc-publish@52307b03863581dec6b652b83e597aec02ebb075
                 with:
                     modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
                     curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
