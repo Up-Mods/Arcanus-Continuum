@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.world.level.block.Blocks;
 
 public class ArcanusBlockLootProvider extends FabricBlockLootTableProvider {
-
 	public ArcanusBlockLootProvider(FabricDataOutput dataOutput) {
 		super(dataOutput);
 	}

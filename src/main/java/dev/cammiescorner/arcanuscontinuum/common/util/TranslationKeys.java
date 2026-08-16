@@ -77,6 +77,8 @@ public class TranslationKeys {
 	public static final String CONFIG_MOVEMENT_EFFECTS_CATEGORY = "config.arcanuscontinuum.movementEffectsCategory";
 	public static final String CONFIG_CASTING_HAS_SPEED_LIMIT = "config.arcanuscontinuum.casting_has_speed_limit";
 	public static final String CONFIG_SIZE_CHANGE_IS_PERMA = "config.arcanuscontinuum.sizeChangingIsPermanent";
+	public static final String CONFIG_MAX_BASE_SPELL_COMPONENTS = "config.arcanuscontinuum.minimumSpellComponents";
+	public static final String CONFIG_EXTRA_SPELL_COMPONENTS_PER_LEVEL = "config.arcanuscontinuum.extraSpellComponentsPerLevel";
 	public static final String CONFIG_MAX_ENCHANT_LEVEL = "config.arcanuscontinuum.max_enchantment_level";
 	public static final String CONFIG_EXTRA_MANA_PER_LEVEL = "config.arcanuscontinuum.mana_per_level";
 	public static final String CONFIG_MANA_MODIFIER_OP = "config.arcanuscontinuum.mana_modifier_operation";

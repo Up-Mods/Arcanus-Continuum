@@ -114,10 +114,6 @@ dependencies {
 	modCompileOnly libs.patchouli
 	modLocalRuntime libs.patchouli
 
-	modImplementation (libs.modonomicon) {
-		transitive = false
-	}
-
 	modImplementation libs.trinkets
 
 	modImplementation libs.resourceful.config

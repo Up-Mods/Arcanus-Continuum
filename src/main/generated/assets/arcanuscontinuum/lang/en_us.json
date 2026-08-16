@@ -152,6 +152,8 @@
   "config.arcanuscontinuum.enlargeEffectProperties": "Enlarge Effect",
   "config.arcanuscontinuum.entangledOrbShapeProperties": "Entangled Orb Shape",
   "config.arcanuscontinuum.featherEffectProperties": "Feather Effect",
+  "config.arcanuscontinuum.minimumSpellComponents": "Minimum Spell Components at level 1",
+  "config.arcanuscontinuum.extraSpellComponentsPerLevel": "Additional Spell Components per Wizard Level",
   "config.arcanuscontinuum.fireEffectProperties": "Fire Effect",
   "config.arcanuscontinuum.floatEffectProperties": "Float Effect",
   "config.arcanuscontinuum.fortifyEffectProperties": "Fortify Effect",

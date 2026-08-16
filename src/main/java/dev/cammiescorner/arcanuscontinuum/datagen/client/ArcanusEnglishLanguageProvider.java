@@ -331,6 +331,8 @@ public class ArcanusEnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add(CONFIG_MOVEMENT_EFFECTS_CATEGORY, "Movement Effects");
 		builder.add(CONFIG_CASTING_HAS_SPEED_LIMIT, "Use Attack Cool Down for Casting?");
 		builder.add(CONFIG_SIZE_CHANGE_IS_PERMA, "Size Changing Effects are Permanent for Players and Tamed Animals (Requires Pehkui)");
+		builder.add(CONFIG_MAX_BASE_SPELL_COMPONENTS, "Minimum Spell Components at level 1");
+		builder.add(CONFIG_EXTRA_SPELL_COMPONENTS_PER_LEVEL, "Additional Spell Components per Wizard Level");
 		builder.add(CONFIG_MAX_ENCHANT_LEVEL, "Max Enchantment Level");
 		builder.add(CONFIG_EXTRA_MANA_PER_LEVEL, "Extra Mana Per Level");
 		builder.add(CONFIG_MANA_MODIFIER_OP, "Mana Modifier Operation");

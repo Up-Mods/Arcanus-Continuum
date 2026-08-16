@@ -15,6 +15,12 @@ public final class ArcanusConfig {
 	@ConfigEntry(id = "sizeChangingIsPermanent", type = EntryType.BOOLEAN, translation = CONFIG_SIZE_CHANGE_IS_PERMA)
 	public static boolean sizeChangingIsPermanent = false;
 
+	@ConfigEntry(id = "minimumSpellComponents", type = EntryType.INTEGER, translation = CONFIG_MAX_BASE_SPELL_COMPONENTS)
+	public static int maxBaseSpellComponents = 2;
+
+	@ConfigEntry(id = "extraSpellComponentsPerLevel", type = EntryType.INTEGER, translation = CONFIG_EXTRA_SPELL_COMPONENTS_PER_LEVEL)
+	public static int extraSpellComponentsPerLevel = 1;
+
 	@Category(id = "enchantments", translation = CONFIG_ENCHANTS_CATEGORY, sortOrder = -1)
 	public static final class Enchantments {
 		@Category(id = "manaPool", translation = CONFIG_MANA_POOL_PROPERTIES, sortOrder = 0)

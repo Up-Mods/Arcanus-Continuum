@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanuscontinuum.common.registry;
 
 import dev.cammiescorner.arcanuscontinuum.Arcanus;
+import dev.cammiescorner.arcanuscontinuum.ArcanusConfig;
 import dev.cammiescorner.arcanuscontinuum.api.spells.Pattern;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellEffect;
 import dev.cammiescorner.arcanuscontinuum.api.spells.SpellGroup;
@@ -219,7 +220,7 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 
 	public static int maxSpellSize(LivingEntity entity) {
 		int level = getWizardLevel(entity);
-		return level > 0 ? level == 1 ? 2 : 2 + level : 0;
+		return level > 0 ? level == 1 ? ArcanusConfig.maxBaseSpellComponents : ArcanusConfig.maxBaseSpellComponents + (ArcanusConfig.extraSpellComponentsPerLevel * (level - 1)) : 0;
 	}
 
 	public static void increaseWizardLevel(LivingEntity entity, int amount) {
