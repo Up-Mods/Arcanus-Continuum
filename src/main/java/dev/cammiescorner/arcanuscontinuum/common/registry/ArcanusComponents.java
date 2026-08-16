@@ -308,11 +308,11 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 	}
 
 	public static void setScale(Entity entity, SpellEffect effect, double strength) {
-		SIZE.get(entity).setScale(effect, strength);
+		SIZE.maybeGet(entity).ifPresent(size -> size.setScale(effect, strength));
 	}
 
 	public static void resetScale(Entity entity) {
-		entity.getComponent(SIZE).resetScale();
+		SIZE.maybeGet(entity).ifPresent(SizeComponent::resetScale);
 	}
 
 	public static void createPortal(Player player, ServerLevel world, Vec3 pos, double pullStrength) {
