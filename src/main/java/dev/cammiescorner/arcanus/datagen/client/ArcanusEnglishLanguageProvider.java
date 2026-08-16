@@ -392,6 +392,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_ARCANA_BARS_MAX_LENGTH, "Max Length of Scaled Arcana Bars");
 		builder.add(CONFIG_COOL_DOWN_PER_COMPONENT, "Cool Down in Ticks Added Per Component");
 		builder.add(CONFIG_MINIMUM_COOL_DOWN, "Minimum Spell Cool Down");
+		builder.add(CONFIG_MAX_COMPONENTS_PER_SPELL, "Maximum Components per Spell");
 		builder.add(CONFIG_ARCANA_BARS_ON_TOP, "Move Arcana Bars to the Top");
 		builder.add(CONFIG_RIGHT_SIDE_ARCANA_BARS, "Move Arcana Bars to the Right");
 		builder.add(CONFIG_NUMERICAL_ARCANA_DISPLAY, "Display Exact Arcana Amounts by Arcana Bars");

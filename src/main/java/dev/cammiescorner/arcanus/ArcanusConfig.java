@@ -32,6 +32,9 @@ public final class ArcanusConfig {
 	@ConfigEntry(id = "minimumCoolDown", translation = CONFIG_MINIMUM_COOL_DOWN)
 	public static int minimumCoolDown = 10;
 
+	@ConfigEntry(id = "maxComponentsPerSpell", translation = CONFIG_MAX_COMPONENTS_PER_SPELL)
+	public static int maxComponentsPerSpell = 8;
+
 	@Category("Client")
 	public static final class ClientStuff {
 		@ConfigEntry(id = "scaleArcanaBarsWithMaxArcana", translation = CONFIG_SCALE_ARCANA_BARS)

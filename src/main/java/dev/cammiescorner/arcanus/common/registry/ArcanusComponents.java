@@ -1,6 +1,7 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
@@ -203,7 +204,7 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 	}
 
 	public static int maxSpellSize() {
-		return 8;
+		return ArcanusConfig.maxComponentsPerSpell;
 	}
 
 	public static boolean isCasting(LivingEntity entity) {

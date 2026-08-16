@@ -93,6 +93,7 @@ public class TranslationKeys {
 	public static final String CONFIG_CASTING_HAS_SPEED_LIMIT = "config.arcanus.casting_has_speed_limit";
 	public static final String CONFIG_COOL_DOWN_PER_COMPONENT = "config.arcanus.cool_down_per_component";
 	public static final String CONFIG_MINIMUM_COOL_DOWN = "config.arcanus.minimum_cool_down";
+	public static final String CONFIG_MAX_COMPONENTS_PER_SPELL = "config.arcanus.max_components_per_spell";
 	public static final String CONFIG_SIZE_CHANGE_IS_PERMA = "config.arcanus.size_changing_is_permanent";
 	public static final String CONFIG_SCALE_ARCANA_BARS = "config.arcanus.scale_arcana_bars";
 	public static final String CONFIG_ARCANA_BARS_MIN_LENGTH = "config.arcanus.arcana_bars_min_length";
