@@ -1,4 +1,4 @@
-accessWidener v2 named
+classTweaker v2 official
 accessible class net/minecraft/client/renderer/RenderType$CompositeState
 accessible class net/minecraft/client/renderer/RenderStateShard$TextureStateShard
 accessible class net/minecraft/client/renderer/RenderStateShard$OffsetTexturingStateShard
@@ -16,3 +16,6 @@ accessible method net/minecraft/world/item/SmithingTemplateItem createTrimmableA
 accessible method net/minecraft/world/item/BlockItem updateBlockStateFromTag (Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/state/BlockState;
 accessible method net/minecraft/world/item/BlockItem updateBlockEntityComponents (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;)V
 accessible method net/minecraft/world/level/block/Blocks stair (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block;
+
+inject-interface net/minecraft/world/entity/boss/EnderDragonPart dev/cammiescorner/arcanus/api/entity/Targetable
+inject-interface net/minecraft/world/entity/LivingEntity dev/cammiescorner/arcanus/api/entity/Targetable

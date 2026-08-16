@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.SharedConstants;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
@@ -50,7 +51,7 @@ public class Arcanus implements MainEntryPoint {
 	public void onInitialize(ModContainer mod) {
 		SharedConstants.IS_RUNNING_IN_IDE = true;
 		configurator.register(ArcanusConfig.class);
-
+		RenderType
 		// FIXME sparkweave bug: need to delay the actual registering on fabric
 		//  first block entities, then blocks, then items,
 		//  then remaining vanilla registries in alphabetical order,

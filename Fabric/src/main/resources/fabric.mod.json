@@ -24,8 +24,8 @@
   "environment": "*",
   "custom": {
     "mc-publish": {
-      "curseforge": "905345",
-      "modrinth": "UnnRjucf",
+      "curseforge": "${curseforge_id}",
+      "modrinth": "${modrinth_id}",
       "dependencies": [
         "fabric-api(required){curseforge:306612}{modrinth:P7dR8mSH}",
         "patchouli(required){modrinth:nU0bVIaL}{curseforge:393236}",
@@ -99,7 +99,7 @@
   "mixins": [
     "${mod_id}.mixins.json"
   ],
-  "accessWidener": "${mod_id}.accesswidener",
+  "accessWidener": "${mod_id}.classtweaker",
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
     "minecraft": "=${minecraft_version}",

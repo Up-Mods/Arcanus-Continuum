@@ -19,7 +19,7 @@ In order to cast a spell you have to combine mouse inputs that correspond to one
 
 ---
 
-The mod is fully documented in the in-game book, the Compedium Arcanus. I highly recommend reading through it to understand everything there is to know about the mod! It's also fully configurable, including allowing pack makers to disable specific spell shapes or spell effects completely.
+The mod is fully documented in the in-game book, the Compendium Arcanus. I highly recommend reading through it to understand everything there is to know about the mod! It's also fully configurable, including allowing pack makers to disable specific spell shapes or spell effects completely.
 
 ## For Developers:
 
