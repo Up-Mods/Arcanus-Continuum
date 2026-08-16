@@ -1,38 +1,31 @@
 [versions]
-fabric_loom = "1.12.0-alpha.6"
+fabric_loom = "1.17.19"
 
-minecraft = "1.21.1"
-fabric_loader = "0.16.14"
-
-# https://parchmentmc.org/docs/getting-started
-parchment_minecraft = "1.21.1"
-parchment_mappings = "2024.11.17"
+minecraft = "26.1.2"
+fabric_loader = "0.19.3"
 
 # environment stuff
 jetbrains_annotations = "26.0.1"
 autoservice = "1.1.1"
 
 # misc
-yeetus_experimentus_fabric = "b7C4gGUr" # [FABRIC][1.21] YeetusExperimentus 87.0.0
-yeetus_experimentus_neoforge = "HaaH232J" # [NEOFORGE][1.21] YeetusExperimentus 87.0.0
+yeetus_experimentus_fabric = "Zp3lJWyj" # [FABRIC][26.1.2] YeetusExperimentus 99.0.0
 
 # required dependencies
-fabric_api = "0.116.4+1.21.1"
-cca = "6.1.2"
-sparkweave = "0.510.0"
-resourceful_config = "3.0.11"
-common_network = "1.0.18-1.21.1"
+fabric_api = "0.155.2+26.1.2"
+cca = "8.0.1"
+sparkweave = "0.600.0-alpha.12"
+resourceful_config = "4.0.1"
+common_network = "1.0.23-26.1.2"
 datasync = "0.10.0"
-trinkets = "3.10.0"
 
 # added compat
-modmenu = "11.0.3"
-emi = "1.1.22+1.21.1"
-firstperson = "5nFUshwm" # 2.4.9
-lambdynamiclights = "4.1.3+1.21.1"
-explosive_enhancement = "1.3.2-1.21-1.21.1"
-sodium = "mc1.21.1-0.6.13-fabric"
-iris = "1.8.8+1.21.1-fabric"
+modmenu = "18.0.0"
+firstperson = "PBg45FeB" # 2.7.2
+lambdynamiclights = "4.11.1+26.1.2"
+explosive_enhancement = "1.4.2-26.1.1"
+sodium = "mc26.1.2-0.9.2-alpha.4-fabric"
+iris = "1.11.3+26.1-fabric"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -51,10 +44,8 @@ sparkweave = { module = "dev.upcraft.sparkweave:Sparkweave-Fabric", version.ref 
 datasync_fabric = { module = "dev.upcraft.datasync:datasync-minecraft-1.21.1-fabric", version.ref = "datasync" }
 resourceful_config = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.21", version.ref = "resourceful_config" }
 common_network_fabric = { module = "mysticdrew:common-networking-fabric", version.ref = "common_network" }
-trinkets = { module = "dev.emi:trinkets", version.ref = "trinkets" }
 
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
-emi = { module = "dev.emi:emi-fabric", version.ref = "emi" }
 firstperson = { module = "maven.modrinth:first-person-model", version.ref = "firstperson" }
 lambdynamiclights = { module = "dev.lambdaurora.lambdynamiclights:lambdynamiclights-api", version.ref = "lambdynamiclights" }
 explosive_enhancement = { module = "maven.modrinth:explosive-enhancement", version.ref = "explosive_enhancement" }
@@ -62,7 +53,6 @@ sodium = { module = "maven.modrinth:sodium", version.ref = "sodium" }
 iris = { module = "maven.modrinth:iris", version.ref = "iris" }
 
 yeetus_experimentus_fabric = { module = "maven.modrinth:yeetus-experimentus", version.ref = "yeetus_experimentus_fabric" }
-yeetus_experimentus_neoforge = { module = "maven.modrinth:yeetus-experimentus", version.ref = "yeetus_experimentus_neoforge" }
 
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]

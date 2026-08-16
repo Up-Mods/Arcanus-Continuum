@@ -95,8 +95,6 @@ dependencies {
 
 	modImplementation libs.bundles.cca
 
-	modImplementation libs.trinkets
-
 	modImplementation libs.resourceful.config
 
 	modImplementation libs.common.network.fabric
@@ -128,10 +126,6 @@ dependencies {
 	// modmenu
 	modCompileOnly libs.modmenu
 	modLocalRuntime libs.modmenu
-
-	// emi
-	modCompileOnly variantOf(libs.emi) { classifier 'api' }
-	modLocalRuntime libs.emi
 
 	modLocalRuntime libs.yeetus.experimentus.fabric
 }
