@@ -25,6 +25,7 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.inventory.ClickAction;
@@ -44,14 +45,14 @@ public class Arcanus implements MainEntryPoint {
 	public static final Color DEFAULT_MAGIC_COLOR = Color.fromInt(0x68e1ff, Color.Ordering.RGB);
 	public static final SyncToken<WizardData> WIZARD_DATA = DataSyncAPI.register(WizardData.class, WizardData.ID, WizardData.CODEC);
 	public static final SyncToken<HaloData> HALO_DATA = DataSyncAPI.register(HaloData.class, HaloData.ID, HaloData.CODEC);
-	public static final ResourceLocation SPELL_SPEED_MODIFIER_ID = Arcanus.id("speed_effect_modifier");
-	public static final ResourceLocation MAGIC_SYMBOLS_FONT_ID = Arcanus.id("magic_symbols");
+	public static final Identifier SPELL_SPEED_MODIFIER_ID = Arcanus.id("speed_effect_modifier");
+	public static final Identifier MAGIC_SYMBOLS_FONT_ID = Arcanus.id("magic_symbols");
 
 	@Override
 	public void onInitialize(ModContainer mod) {
 		SharedConstants.IS_RUNNING_IN_IDE = true;
 		configurator.register(ArcanusConfig.class);
-		RenderType
+		
 		// FIXME sparkweave bug: need to delay the actual registering on fabric
 		//  first block entities, then blocks, then items,
 		//  then remaining vanilla registries in alphabetical order,
@@ -128,8 +129,8 @@ public class Arcanus implements MainEntryPoint {
 		FlammableBlockRegistry.getDefaultInstance().add(ArcanusBlocks.EBONY_STAIRS.get(), 5, 20);
 	}
 
-	public static ResourceLocation id(String name) {
-		return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
+	public static Identifier id(String name) {
+		return Identifier.fromNamespaceAndPath(MOD_ID, name);
 	}
 
 	public static String format(double d) {
