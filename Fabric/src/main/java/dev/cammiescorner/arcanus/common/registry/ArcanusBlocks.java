@@ -16,14 +16,14 @@ import net.minecraft.world.level.material.PushReaction;
 public class ArcanusBlocks {
 	public static final RegistryHandler<Block> BLOCKS = RegistryHandler.create(Registries.BLOCK, Arcanus.MOD_ID);
 
-	public static final RegistrySupplier<Block> EBONY_LOG = BLOCKS.register("ebony_log", () -> Blocks.log(MapColor.TERRACOTTA_BLACK, MapColor.COLOR_BLACK));
-	public static final RegistrySupplier<Block> EBONY_WOOD = BLOCKS.register("ebony_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASS).strength(2f).sound(SoundType.WOOD).ignitedByLava()));
-	public static final RegistrySupplier<Block> EBONY_LEAVES = BLOCKS.register("ebony_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+	public static final RegistrySupplier<Block> EBONY_LOG = BLOCKS.register("ebony_log", () -> new RotatedPillarBlock(Blocks.logProperties(MapColor.TERRACOTTA_BLACK, MapColor.COLOR_BLACK, SoundType.WOOD)));
+	public static final RegistrySupplier<Block> EBONY_WOOD = BLOCKS.register("ebony_wood", () -> new RotatedPillarBlock(Blocks.logProperties(MapColor.TERRACOTTA_BLACK, MapColor.COLOR_BLACK, SoundType.WOOD)));
+	public static final RegistrySupplier<Block> EBONY_LEAVES = BLOCKS.register("ebony_leaves", () -> new TintedParticleLeavesBlock(0.01f, Blocks.leavesProperties(SoundType.GRASS)));
 	public static final RegistrySupplier<Block> EBONY_SAPLING = BLOCKS.register("ebony_sapling", () -> new SaplingBlock(ArcanusTreeGrower.EBONY_TREE_GROWER, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
-	public static final RegistrySupplier<Block> STRIPPED_EBONY_LOG = BLOCKS.register("stripped_ebony_log", () -> Blocks.log(MapColor.TERRACOTTA_BLACK, MapColor.COLOR_BLACK));
+	public static final RegistrySupplier<Block> STRIPPED_EBONY_LOG = BLOCKS.register("stripped_ebony_log", () -> new RotatedPillarBlock(Blocks.logProperties(MapColor.TERRACOTTA_BLACK, MapColor.COLOR_BLACK, SoundType.WOOD)));
 	public static final RegistrySupplier<Block> STRIPPED_EBONY_WOOD = BLOCKS.register("stripped_ebony_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASS).strength(2f).sound(SoundType.WOOD).ignitedByLava()));
 	public static final RegistrySupplier<Block> EBONY_PLANKS = BLOCKS.register("ebony_planks", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_BLACK)));
-	public static final RegistrySupplier<Block> EBONY_STAIRS = BLOCKS.register("ebony_stairs", () -> Blocks.stair(EBONY_PLANKS.get()));
+	public static final RegistrySupplier<Block> EBONY_STAIRS = BLOCKS.register("ebony_stairs", () -> new StairBlock(EBONY_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get())));
 	public static final RegistrySupplier<Block> EBONY_SLAB = BLOCKS.register("ebony_slab", () -> new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASS).strength(2f, 3f).sound(SoundType.WOOD).ignitedByLava()));
 	public static final RegistrySupplier<Block> ARCANE_WORKBENCH = BLOCKS.register("arcane_workbench", ArcaneWorkbenchBlock::new);
 	public static final RegistrySupplier<Block> ARCANE_PLINTH = BLOCKS.register("arcane_plinth", () -> new ArcanePlinthBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILES).noOcclusion().pushReaction(PushReaction.BLOCK)));

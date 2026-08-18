@@ -23,13 +23,10 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.SharedConstants;
-import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.inventory.ClickAction;
-import net.minecraft.world.item.Equipable;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +49,7 @@ public class Arcanus implements MainEntryPoint {
 	public void onInitialize(ModContainer mod) {
 		SharedConstants.IS_RUNNING_IN_IDE = true;
 		configurator.register(ArcanusConfig.class);
-		
+
 		// FIXME sparkweave bug: need to delay the actual registering on fabric
 		//  first block entities, then blocks, then items,
 		//  then remaining vanilla registries in alphabetical order,
@@ -94,7 +91,7 @@ public class Arcanus implements MainEntryPoint {
 		Network.registerPacket(ServerboundCycleBookPouchPacket.TYPE, ServerboundCycleBookPouchPacket.class, ServerboundCycleBookPouchPacket.CODEC, ServerboundCycleBookPouchPacket::handle);
 
 		RegisterCustomLecternMenuEvent.EVENT.register(event -> {
-			event.register((level, pos, player, blockEntity, stack) -> new SpellcraftMenuProvider(level, stack, pos, blockEntity.bookAccess), ArcanusItems.SPELL_SCROLL);
+			event.register(ArcanusItems.SPELL_SCROLL, (level, pos, player, blockEntity, stack) -> new SpellcraftMenuProvider(level, stack, pos, blockEntity.bookAccess));
 		});
 
 		ItemMenuInteractionEvent.EVENT.register((menu, player, level, clickAction, slot, slotStack, cursorStack) -> {
@@ -105,8 +102,8 @@ public class Arcanus implements MainEntryPoint {
 				slotStack.set(hoodData, value);
 				Network.getNetworkHandler().sendToServer(new ServerboundOpenCloseHoodPacket(slot.getContainerSlot(), value));
 
-				if(slotStack.getItem() instanceof Equipable equipable)
-					level.playSeededSound(player, player.getX(), player.getY(), player.getZ(), equipable.getEquipSound().value(), SoundSource.NEUTRAL, 1f, 1f, player.getRandom().nextLong());
+				// TODO figure out how to play the equip sound
+				level.playSeededSound(player, player.getX(), player.getY(), player.getZ(), equipable.getEquipSound().value(), SoundSource.NEUTRAL, 1f, 1f, player.getRandom().nextLong());
 
 				return true;
 			}

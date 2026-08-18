@@ -30,6 +30,35 @@ repositories {
     maven("https://maven.gnomecraft.net/releases") {
         name = "TerraformersMC"
     }
+	maven("https://maven.ladysnake.org/releases") {
+		name = "Ladysnake"
+	}
+	maven("https://maven.uuid.gg/releases") {
+		name = "Lopa"
+	}
+	maven("https://maven.caffeinemc.net/releases") {
+		name = "CaffeineMC"
+	}
+	// This doesn't work for some reason
+//	exclusiveContent {
+//		forRepository {
+//			maven("https://api.modrinth.com/maven") {
+//				name = "Modrinth"
+//			}
+//		}
+//		filter {
+//			includeGroup("maven.modrinth")
+//		}
+//	}
+	maven("https://api.modrinth.com/maven") {
+		name = "Modrinth"
+	}
+	maven("https://maven.gegy.dev") {
+		name = "Gegy"
+	}
+	maven("https://maven.nucleoid.xyz/releases") {
+		name = "Nucleoid"
+	}
 }
 
 dependencies {
@@ -41,18 +70,44 @@ dependencies {
     compileOnly(libs.jei.fabric.api)
     localRuntime(libs.jei.fabric)
 
-    compileOnly(libs.modmenu.fabric) {
-        isTransitive = false
-    }
-    localRuntime(libs.modmenu.fabric) {
-        isTransitive = false
-    }
+	compileOnly(libs.jetbrains.annotations)
+	compileOnly(libs.autoservice.annotations)
+
+	annotationProcessor(libs.autoservice)
 
 	implementation(libs.resourcefulconfig.fabric) {
         isTransitive = false
 	}
 
     implementation(libs.sparkweave.fabric)
+
+	implementation(libs.bundles.cca)
+
+	implementation(libs.common.network.fabric)
+
+	implementation(libs.datasync.fabric)
+	include(libs.datasync.fabric)
+
+	compileOnly(libs.modmenu.fabric) {
+		isTransitive = false
+	}
+	localRuntime(libs.modmenu.fabric) {
+		isTransitive = false
+	}
+
+	compileOnly(libs.lambdynamiclights)
+
+	compileOnly(libs.sodium)
+	localRuntime(libs.sodium)
+
+	compileOnly(libs.iris)
+	localRuntime(libs.iris)
+
+	compileOnly(libs.firstperson)
+
+	compileOnly(libs.explosive.enhancement)
+
+	localRuntime(libs.yeetus.experimentus.fabric)
 }
 
 loom {

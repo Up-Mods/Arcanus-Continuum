@@ -1,21 +1,20 @@
 classTweaker v2 official
-accessible class net/minecraft/client/renderer/RenderType$CompositeState
-accessible class net/minecraft/client/renderer/RenderStateShard$TextureStateShard
-accessible class net/minecraft/client/renderer/RenderStateShard$OffsetTexturingStateShard
+#accessible class net/minecraft/client/renderer/RenderType$CompositeState
+#accessible class net/minecraft/client/renderer/RenderStateShard$TextureStateShard
+#accessible class net/minecraft/client/renderer/RenderStateShard$OffsetTexturingStateShard
 accessible class net/minecraft/client/multiplayer/ClientChunkCache$Storage
 
 accessible field net/minecraft/world/level/block/entity/LecternBlockEntity bookAccess Lnet/minecraft/world/Container;
 accessible field net/minecraft/world/entity/monster/Creeper DATA_IS_POWERED Lnet/minecraft/network/syncher/EntityDataAccessor;
-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_AMETHYST_SHARD Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_AMETHYST_SHARD Lnet/minecraft/resources/Identifier;
 accessible field net/minecraft/client/multiplayer/ClientChunkCache storage Lnet/minecraft/client/multiplayer/ClientChunkCache$Storage;
 accessible field net/minecraft/client/multiplayer/ClientChunkCache$Storage chunks Ljava/util/concurrent/atomic/AtomicReferenceArray;
-accessible field net/minecraft/client/model/PlayerModel slim Z
+accessible field net/minecraft/client/model/player/PlayerModel slim Z
 
-extendable method net/minecraft/world/entity/monster/AbstractSkeleton getStepSound ()Lnet/minecraft/sounds/SoundEvent;
+extendable method net/minecraft/world/entity/monster/skeleton/AbstractSkeleton getStepSound ()Lnet/minecraft/sounds/SoundEvent;
 accessible method net/minecraft/world/item/SmithingTemplateItem createTrimmableArmorIconList ()Ljava/util/List;
 accessible method net/minecraft/world/item/BlockItem updateBlockStateFromTag (Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/state/BlockState;
 accessible method net/minecraft/world/item/BlockItem updateBlockEntityComponents (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/ItemStack;)V
-accessible method net/minecraft/world/level/block/Blocks stair (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block;
 
-inject-interface net/minecraft/world/entity/boss/EnderDragonPart dev/cammiescorner/arcanus/api/entity/Targetable
+inject-interface net/minecraft/world/entity/boss/enderdragon/EnderDragonPart dev/cammiescorner/arcanus/api/entity/Targetable
 inject-interface net/minecraft/world/entity/LivingEntity dev/cammiescorner/arcanus/api/entity/Targetable

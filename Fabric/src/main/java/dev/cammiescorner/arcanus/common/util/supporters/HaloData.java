@@ -4,12 +4,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.upcraft.sparkweave.api.color.Color;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.UUID;
 
 public record HaloData(Color color, boolean shouldShow) {
-	public static final ResourceLocation ID = Arcanus.id("halo");
+	public static final Identifier ID = Arcanus.id("halo");
 	private static final HaloData EMPTY = new HaloData(Color.fromInt(0xf2dd50, Color.Ordering.RGB), false);
 	public static final Codec<HaloData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		Color.CODEC.fieldOf("color").forGetter(HaloData::color),

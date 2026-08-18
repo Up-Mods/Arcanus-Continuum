@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.common.menu.providers;
 import commonnetwork.api.Network;
 import dev.cammiescorner.arcanus.common.menu.SpellcraftMenu;
 import dev.cammiescorner.arcanus.common.networking.clientbound.ClientboundUpdateSpellcraftScreenPacket;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-public class SpellcraftMenuProvider implements ExtendedScreenHandlerFactory<SpellcraftMenuProvider.MenuData> {
+public class SpellcraftMenuProvider implements ExtendedMenuProvider<SpellcraftMenuProvider.MenuData> {
 	private final Level level;
 	private final ItemStack stack;
 	private final BlockPos pos;

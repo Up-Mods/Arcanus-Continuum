@@ -51,17 +51,17 @@ public class SupporterScreen extends Screen {
 		this.userEntitlements = userEntitlements;
 
 		if(userEntitlements.keys().contains(WizardData.ID)) {
-			this.wizardData = Arcanus.WIZARD_DATA.getOrDefault(clientProfile.getId(), WizardData.empty());
+			this.wizardData = Arcanus.WIZARD_DATA.getOrDefault(clientProfile.id(), WizardData.empty());
 		}
 		if(userEntitlements.keys().contains(HaloData.ID)) {
-			this.haloData = Arcanus.HALO_DATA.getOrDefault(clientProfile.getId(), HaloData.empty());
+			this.haloData = Arcanus.HALO_DATA.getOrDefault(clientProfile.id(), HaloData.empty());
 			this.haloEnabled = this.haloData.shouldShow();
 		}
 	}
 
 	public static void open(@Nullable Screen parent) {
 		var clientProfile = GameProfileHelper.getClientProfile();
-		var entitlements = Entitlements.getOrEmpty(clientProfile.getId());
+		var entitlements = Entitlements.getOrEmpty(clientProfile.id());
 		var isSupporter = entitlements.keys().contains(WizardData.ID) || entitlements.keys().contains(HaloData.ID);
 		Minecraft.getInstance().setScreen(isSupporter ? new SupporterScreen(parent, clientProfile, entitlements) : new NotSupporterScreen(parent, clientProfile));
 	}

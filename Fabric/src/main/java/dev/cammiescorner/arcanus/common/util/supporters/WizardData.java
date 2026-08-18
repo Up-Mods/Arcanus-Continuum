@@ -5,12 +5,12 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.upcraft.datasync.api.util.Entitlements;
 import dev.upcraft.sparkweave.api.color.Color;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.UUID;
 
 public record WizardData(Color magicColor, Color pocketDimensionColor) {
-	public static final ResourceLocation ID = Arcanus.id("wizard_data");
+	public static final Identifier ID = Arcanus.id("wizard_data");
 	private static final WizardData EMPTY = new WizardData(Arcanus.DEFAULT_MAGIC_COLOR, Arcanus.DEFAULT_MAGIC_COLOR);
 
 	public static final Codec<WizardData> CODEC = RecordCodecBuilder.create(instance -> instance.group(

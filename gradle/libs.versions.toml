@@ -17,20 +17,44 @@ fabric_loom = "1.17.17" # https://maven.fabricmc.net/net/fabricmc/fabric-loom/ne
 fabric_loader = "0.19.3"
 fabric_api = "0.155.2+26.1.2"
 
+# Environment stuff
+jetbrains_annotations = "26.0.1"
+autoservice = "1.1.1"
+
+# Misc
+yeetus_experimentus_fabric = "Zp3lJWyj" # [FABRIC][26.1] YeetusExperimentus 99.0.0
+yeetus_experimentus_neoforge = "Vw0Mo4mX" # [NEOFORGE][26.1] YeetusExperimentus 99.0.0
+
 # Mods
-# https://maven.blamejared.com/mezz/jei/jei-26.1.2-common/
-jei = "29.21.0.66"
-# https://modrinth.com/mod/modmenu/versions
-modmenu = "18.0.0"
 # https://beehive.sh/mod/resourcefulconfig/versions
 resourcefulconfig = "4.0.1"
 # https://www.curseforge.com/minecraft/mc-mods/sparkweave/files/all
 sparkweave = "0.600.0-alpha.12"
+cca = "8.0.1"
+common_network = "1.0.23-26.1.2"
+datasync = "0.11.0"
+# https://modrinth.com/mod/trinkets-updated/versions
+trinkets = "9wSHV6li"
+
+# Compat
+# https://maven.blamejared.com/mezz/jei/jei-26.1.2-common/
+jei = "29.21.0.66"
+# https://modrinth.com/mod/modmenu/versions
+modmenu = "18.0.0"
+# https://modrinth.com/mod/first-person-model/versions
+firstperson = "PBg45FeB"
+lambdynamiclights = "4.11.1+26.1.2"
+explosive_enhancement = "IFzOg4ts"
+sodium = "0.8.10+mc26.1.2"
+iris = "5H9TsVy4"
 
 [libraries]
 # Fabric
 fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_loader" }
 fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api" }
+jetbrains_annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains_annotations" }
+autoservice = { module = "com.google.auto.service:auto-service", version.ref = "autoservice" }
+autoservice_annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "autoservice" }
 
 # Minecraft Dependencies
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -51,6 +75,30 @@ resourcefulconfig_neoforge = { module = "com.teamresourceful.resourcefulconfig:r
 sparkweave = { module = "dev.upcraft.sparkweave:Sparkweave-Common", version.ref = "sparkweave" }
 sparkweave_fabric = { module = "dev.upcraft.sparkweave:Sparkweave-Fabric", version.ref = "sparkweave" }
 sparkweave_neoforge = { module = "dev.upcraft.sparkweave:Sparkweave-NeoForge", version.ref = "sparkweave" }
+
+cca_base = { module = "org.ladysnake.cardinal-components-api:cardinal-components-base", version.ref = "cca" }
+cca_block = { module = "org.ladysnake.cardinal-components-api:cardinal-components-block", version.ref = "cca" }
+cca_chunk = { module = "org.ladysnake.cardinal-components-api:cardinal-components-chunk", version.ref = "cca" }
+cca_entity = { module = "org.ladysnake.cardinal-components-api:cardinal-components-entity", version.ref = "cca" }
+cca_scoreboard = { module = "org.ladysnake.cardinal-components-api:cardinal-components-scoreboard", version.ref = "cca" }
+
+datasync_fabric = { module = "dev.upcraft.datasync:datasync-minecraft-26.1-fabric", version.ref = "datasync" }
+datasync_neoforge = { module = "dev.upcraft.datasync:datasync-minecraft-26.1-neoforge", version.ref = "datasync" }
+
+common_network_fabric = { module = "mysticdrew:common-networking-fabric", version.ref = "common_network" }
+trinkets = { module = "deu.pb4:trinkets", version.ref = "trinkets" }
+
+firstperson = { module = "maven.modrinth:first-person-model", version.ref = "firstperson" }
+lambdynamiclights = { module = "dev.lambdaurora.lambdynamiclights:lambdynamiclights-api", version.ref = "lambdynamiclights" }
+explosive_enhancement = { module = "maven.modrinth:explosive-enhancement", version.ref = "explosive_enhancement" }
+sodium = { module = "net.caffeinemc:sodium-fabric", version.ref = "sodium" }
+iris = { module = "maven.modrinth:iris", version.ref = "iris" }
+
+yeetus_experimentus_fabric = { module = "maven.modrinth:yeetus-experimentus", version.ref = "yeetus_experimentus_fabric" }
+yeetus_experimentus_neoforge = { module = "maven.modrinth:yeetus-experimentus", version.ref = "yeetus_experimentus_neoforge" }
+
+[bundles]
+cca = ["cca_base", "cca_block", "cca_chunk", "cca_entity", "cca_scoreboard"]
 
 [plugins]
 moddevgradle = { id = "net.neoforged.moddev", version.ref = "moddevgradle" }
