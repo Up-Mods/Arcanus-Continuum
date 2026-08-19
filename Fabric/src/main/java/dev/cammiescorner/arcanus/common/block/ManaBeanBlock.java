@@ -8,6 +8,8 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -105,7 +107,7 @@ public class ManaBeanBlock extends Block implements EntityBlock, BlockItemProvid
 	}
 
 	@Override
-	public Item createItem() {
-		return new ManaBeanItem(this, new Item.Properties().food(new FoodProperties.Builder().nutrition(1).alwaysEdible().build()).component(ArcanusDataComponents.ARCANA.get(), ArcanusArcana.NIL.get()));
+	public Item createItem(ResourceKey<Block> blockId) {
+		return new ManaBeanItem(this, new Item.Properties().setId(ResourceKey.create(Registries.ITEM, blockId.identifier())).useBlockDescriptionPrefix().food(new FoodProperties.Builder().nutrition(1).alwaysEdible().build()).component(ArcanusDataComponents.ARCANA.get(), ArcanusArcana.NIL.get()));
 	}
 }
