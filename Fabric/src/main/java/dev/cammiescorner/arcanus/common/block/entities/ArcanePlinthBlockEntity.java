@@ -42,10 +42,10 @@ public class ArcanePlinthBlockEntity extends AbstractPedestalBlockEntity impleme
 	}
 
 	@Override
-	public StackedContents getStackedContents() {
-		var stackedContents = new StackedContents();
+	public StackedContents<ItemStack> getStackedContents() {
+		var stackedContents = new StackedContents<ItemStack>();
 
-		stackedContents.accountStack(this.getItem(), 1);
+		stackedContents.account(this.getItem(), 1);
 
 		// TODO add all pedestals etc
 

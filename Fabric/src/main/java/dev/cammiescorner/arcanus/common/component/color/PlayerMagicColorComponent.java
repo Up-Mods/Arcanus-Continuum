@@ -3,9 +3,9 @@ package dev.cammiescorner.arcanus.common.component.color;
 import dev.cammiescorner.arcanus.common.component.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.color.Color;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.UUID;
 
@@ -18,17 +18,17 @@ public class PlayerMagicColorComponent implements MagicColorComponent {
 
 	@Override
 	public Color getColor() {
-		return ArcanusHelper.getMagicColor(player.getGameProfile().getId());
+		return ArcanusHelper.getMagicColor(player.getGameProfile().id());
 	}
 
 	@Override
 	public Color getPocketDimensionColor() {
-		return ArcanusHelper.getPocketDimensionColor(player.getGameProfile().getId());
+		return ArcanusHelper.getPocketDimensionColor(player.getGameProfile().id());
 	}
 
 	@Override
 	public UUID getSourceId() {
-		return player.getGameProfile().getId();
+		return player.getGameProfile().id();
 	}
 
 	@Override
@@ -37,12 +37,12 @@ public class PlayerMagicColorComponent implements MagicColorComponent {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+	public void readData(ValueInput readView) {
 		// NO-OP
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+	public void writeData(ValueOutput writeView) {
 		// NO-OP
 	}
 }

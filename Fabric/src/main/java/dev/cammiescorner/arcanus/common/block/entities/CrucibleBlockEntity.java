@@ -9,16 +9,18 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -38,14 +40,6 @@ public class CrucibleBlockEntity extends BlockEntity implements ArcanaContainer 
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		CompoundTag tag = super.getUpdateTag(registries);
-		saveAdditional(tag, registries);
-
-		return tag;
-	}
-
-	@Override
-	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.saveAdditional(tag, registries);
 		ListTag listTag = new ListTag();
 
 		inventory.removeIf(ArcanaStack::isEmpty);
@@ -54,29 +48,32 @@ public class CrucibleBlockEntity extends BlockEntity implements ArcanaContainer 
 			listTag.add(ArcanaStack.CODEC.encodeStart(NbtOps.INSTANCE, arcanaStack).result().orElseThrow());
 
 		tag.put("Arcana", listTag);
+
+		return tag;
 	}
 
 	@Override
-	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.loadAdditional(tag, registries);
-		ListTag listTag = tag.getList("Arcana", Tag.TAG_COMPOUND);
+	protected void saveAdditional(ValueOutput output) {
+		super.saveAdditional(output);
 
-		inventory.clear();
-
-		for(int i = 0; i < listTag.size(); i++) {
-			CompoundTag compoundTag = listTag.getCompound(i);
-			ArcanaStack arcanaStack = ArcanaStack.CODEC.parse(NbtOps.INSTANCE, compoundTag).result().orElse(ArcanaStack.EMPTY);
-
-			inventory.add(arcanaStack);
-		}
+		inventory.removeIf(ArcanaStack::isEmpty);
+		output.store("Arcana", ArcanaStack.CODEC.listOf(), inventory);
 	}
 
 	@Override
-	protected void applyImplicitComponents(DataComponentInput componentInput) {
-		super.applyImplicitComponents(componentInput);
+	protected void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
 
 		inventory.clear();
-		inventory.addAll(componentInput.getOrDefault(ArcanusDataComponents.ARCANA_INVENTORY.get(), NonNullList.of(ArcanaStack.EMPTY)));
+		inventory.addAll(input.read("Arcana", ArcanaStack.CODEC.listOf()).orElse(List.of()));
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentGetter components) {
+		super.applyImplicitComponents(components);
+
+		inventory.clear();
+		inventory.addAll(components.getOrDefault(ArcanusDataComponents.ARCANA_INVENTORY.get(), NonNullList.of(ArcanaStack.EMPTY)));
 	}
 
 	@Override

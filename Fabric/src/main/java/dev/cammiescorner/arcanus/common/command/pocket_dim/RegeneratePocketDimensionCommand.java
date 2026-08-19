@@ -18,11 +18,11 @@ public class RegeneratePocketDimensionCommand {
 
 	public static void register(RequiredArgumentBuilder<CommandSourceStack, EntitySelector> builder) {
 		builder.then(Commands.literal("regenerate")
-			.requires(serverCommandSource -> serverCommandSource.hasPermission(Commands.LEVEL_ADMINS))
+			.requires(serverCommandSource -> Commands.LEVEL_ADMINS.check(serverCommandSource.permissions()))
 			.executes(context -> RegeneratePocketDimensionCommand.regeneratePocket(context, PocketDimensionCommand.getPlayerProfile(context), PocketDimensionComponent.RegenerateType.FULL))
 		);
 		builder.then(Commands.literal("repair_walls")
-			.requires(serverCommandSource -> serverCommandSource.hasPermission(Commands.LEVEL_ADMINS))
+			.requires(serverCommandSource -> Commands.LEVEL_ADMINS.check(serverCommandSource.permissions()))
 			.executes(context -> RegeneratePocketDimensionCommand.regeneratePocket(context, PocketDimensionCommand.getPlayerProfile(context), PocketDimensionComponent.RegenerateType.WALLS_ONLY))
 		);
 	}
@@ -32,16 +32,16 @@ public class RegeneratePocketDimensionCommand {
 		var pocketDimension = server.getLevel(ArcanusDimensions.POCKET_DIMENSION);
 		var component = PocketDimensionComponent.get(server);
 
-		if(!component.replacePlotSpace(target.getId(), pocketDimension, regenerateType)) {
-			context.getSource().sendFailure(Component.literal("Pocket dimension location not found for player %s (%s)".formatted(target.getName(), target.getId())));
+		if(!component.replacePlotSpace(target.id(), pocketDimension, regenerateType)) {
+			context.getSource().sendFailure(Component.literal("Pocket dimension location not found for player %s (%s)".formatted(target.name(), target.id())));
 			return 0;
 		}
 
 		context.getSource().sendSuccess(() -> switch(regenerateType) {
 			case WALLS_ONLY ->
-				Component.translatable(TranslationKeys.COMMAND_REGEN_POCKET_WALLS_ONLY, target.getName());
+				Component.translatable(TranslationKeys.COMMAND_REGEN_POCKET_WALLS_ONLY, target.name());
 			case FULL ->
-				Component.translatable(TranslationKeys.COMMAND_REGEN_POCKET_SUCCESS, target.getName());
+				Component.translatable(TranslationKeys.COMMAND_REGEN_POCKET_SUCCESS, target.name());
 			default -> throw new UnsupportedOperationException();
 		}, true);
 		return Command.SINGLE_SUCCESS;

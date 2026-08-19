@@ -1,33 +1,24 @@
 package dev.cammiescorner.arcanus.common.block;
 
-import com.teamresourceful.resourcefulconfig.client.components.options.types.color.HsbColor;
-import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.common.block.entities.WardedJarBlockEntity;
 import dev.cammiescorner.arcanus.common.data_component.ArcanaStack;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
-import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
+import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -36,7 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -47,8 +38,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class WardedJarBlock extends Block implements BlockItemProvider, EntityBlock, SimpleWaterloggedBlock {
 	private static final VoxelShape SHAPE = Shapes.or(
@@ -62,7 +51,7 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 	);
 	private static final VoxelShape PIPE = Shapes.box(0.4375, 0.5, 0.4375, 0.5625, 1, 0.5625);
 	public static final VoxelShape INSIDE = Shapes.box(0.25, 0.0625, 0.25, 0.75, 0.6875, 0.75);
-	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+	public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 	public static final BooleanProperty CONNECTED_TO_PIPE = BooleanProperty.create("connected_to_pipe");
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final IntegerProperty LEVEL = IntegerProperty.create("level", 0, 8);
@@ -73,18 +62,18 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if(player.getAttributeValue(Attributes.SCALE) <= 0.25 && player.getItemInHand(hand).isEmpty()) {
 			Vec3 vec3 = pos.getBottomCenter();
 
 			if(INSIDE.bounds().inflate(0.001).move(pos).contains(hitResult.getLocation())) {
 				player.teleportTo(vec3.x, vec3.y + 1, vec3.z);
-				return ItemInteractionResult.sidedSuccess(level.isClientSide());
+				return InteractionResult.SUCCESS_SERVER;
 			}
 
 			if(player.isCrouching()) {
 				player.teleportTo(vec3.x, vec3.y + 0.0625, vec3.z);
-				return ItemInteractionResult.sidedSuccess(level.isClientSide());
+				return InteractionResult.SUCCESS_SERVER;
 			}
 		}
 
@@ -104,7 +93,7 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 	@Override
 	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
 		if(!level.isClientSide() && level.getBlockEntity(pos) instanceof WardedJarBlockEntity jar && jar.getArcanaStack(0).amount() > 0 && jar.getArcanaStack(0).arcana() != ArcanusArcana.NIL.get()) {
-			ItemStack stack = new ItemStack(ArcanusBlocks.WARDED_JAR.get());
+			ItemStack stack = new ItemStack(ArcanusItems.WARDED_JAR.get());
 
 			stack.applyComponents(jar.collectComponents());
 
@@ -118,37 +107,13 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
-		ItemStack stack = new ItemStack(ArcanusBlocks.WARDED_JAR.get());
+	protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
+		ItemStack stack = new ItemStack(ArcanusItems.WARDED_JAR.get());
 
 		if(level.getBlockEntity(pos) instanceof WardedJarBlockEntity wardedJar)
 			stack.set(ArcanusDataComponents.ARCANA_STACK.get(), wardedJar.getArcanaStack(0));
 
 		return stack;
-	}
-
-	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-		ArcanaStack data = stack.get(ArcanusDataComponents.ARCANA_STACK.get());
-
-		if(data != null) {
-			MutableComponent component = Component.empty();
-			Arcana arcana = data.arcana();
-
-			if(arcana != null && arcana != ArcanusArcana.NIL.get()) {
-				component.append(String.format(data.amount() % 1 == 0 ? "%.0f" : "%.1f", data.amount()));
-				component.append(" ");
-				component.append(Component.translatable(arcana.translationKey()));
-
-				Color color = arcana.color();
-				HsbColor hsb = HsbColor.fromRgb(color.asIntARGB());
-
-				if(hsb.brightness() < 0.4f)
-					hsb = HsbColor.of(hsb.hue(), hsb.saturation(), 0.4f, hsb.alpha());
-
-				tooltipComponents.add(component.withColor(hsb.toRgba()));
-			}
-		}
 	}
 
 	@Override
@@ -160,18 +125,23 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 	}
 
 	@Override
-	protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+	protected void updateIndirectNeighbourShapes(BlockState state, LevelAccessor level, BlockPos pos, @UpdateFlags int updateFlags, int updateLimit) {
 		if(state.getValue(WATERLOGGED))
 			level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 
-		if(direction == Direction.UP)
-			return state.setValue(CONNECTED_TO_PIPE, level.getBlockState(neighborPos).getBlock() instanceof ArcanaPipeBlock);
-
-		return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+		super.updateIndirectNeighbourShapes(state, level, pos, updateFlags, updateLimit);
 	}
 
 	@Override
-	protected boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+	protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos, Direction directionToNeighbour, BlockPos neighbourPos, BlockState neighbourState, RandomSource random) {
+		if(directionToNeighbour == Direction.UP)
+			return state.setValue(CONNECTED_TO_PIPE, level.getBlockState(neighbourPos).getBlock() instanceof ArcanaPipeBlock);
+
+		return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
+	}
+
+	@Override
+	protected boolean propagatesSkylightDown(BlockState state) {
 		return !state.getValue(WATERLOGGED);
 	}
 

@@ -11,7 +11,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -49,7 +49,7 @@ public class ArcanaComponent implements AutoSyncedComponent, ServerTickingCompon
 
 		for(int i = 0; i < list.size(); i++) {
 			CompoundTag compoundTag = list.getCompound(i);
-			Arcana arcana = ArcanusArcana.REGISTRY.get(ResourceLocation.parse(compoundTag.getString("PrimalArcana")));
+			Arcana arcana = ArcanusArcana.REGISTRY.get(Identifier.parse(compoundTag.getString("PrimalArcana")));
 
 			if(arcana instanceof PrimalArcana primalArcana)
 				arcanaMap.put(primalArcana, compoundTag.getDouble("Value"));

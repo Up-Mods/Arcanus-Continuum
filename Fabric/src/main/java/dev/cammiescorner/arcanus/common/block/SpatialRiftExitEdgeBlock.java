@@ -5,7 +5,6 @@ import dev.cammiescorner.arcanus.common.block.entities.SpatialRiftWallBlockEntit
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -32,7 +31,7 @@ public class SpatialRiftExitEdgeBlock extends HorizontalDirectionalBlock impleme
 	}
 
 	@Override
-	public boolean propagatesSkylightDown(BlockState state, BlockGetter world, BlockPos pos) {
+	public boolean propagatesSkylightDown(BlockState state) {
 		return true;
 	}
 

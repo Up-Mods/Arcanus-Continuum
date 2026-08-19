@@ -2,12 +2,9 @@ package dev.cammiescorner.arcanus.common.block.entities;
 
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -17,6 +14,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -48,26 +47,26 @@ public class DummyBookshelfBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.saveAdditional(tag, registries);
+	protected void saveAdditional(ValueOutput output) {
+		super.saveAdditional(output);
 
 		if(lootTableId != null) {
-			tag.putString("LootTable", lootTableId.location().toString());
+			output.putString("LootTable", lootTableId.identifier().toString());
 
-			if (lootTableSeed != 0L)
-				tag.putLong("Seed", lootTableSeed);
+			if(lootTableSeed != 0L)
+				output.putLong("Seed", lootTableSeed);
 		}
 	}
 
 	@Override
-	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.loadAdditional(tag, registries);
+	protected void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
 
-		if(tag.contains("LootTable", Tag.TAG_STRING)) {
-			lootTableId = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse(tag.getString("LootTable")));
+		if(input.contains("LootTable")) {
+			lootTableId = ResourceKey.create(Registries.LOOT_TABLE, Identifier.parse(input.getString("LootTable").orElseThrow()));
 
-			if (tag.contains("Seed", Tag.TAG_LONG))
-				lootTableSeed = tag.getLong("Seed");
+			if(input.contains("Seed"))
+				lootTableSeed = input.getLong("Seed").orElse(0L);
 		}
 	}
 

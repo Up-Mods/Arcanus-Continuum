@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -17,6 +18,8 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -38,34 +41,37 @@ public class CentrifugeBlockEntity extends BlockEntity implements ArcanaContaine
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		CompoundTag tag = super.getUpdateTag(registries);
-		saveAdditional(tag, registries);
+
+		tag.put("ArcanaInput", ArcanaStack.CODEC.encodeStart(NbtOps.INSTANCE, input).result().orElseThrow());
+		tag.put("ArcanaOutput1", ArcanaStack.CODEC.encodeStart(NbtOps.INSTANCE, output1).result().orElseThrow());
+		tag.put("ArcanaOutput2", ArcanaStack.CODEC.encodeStart(NbtOps.INSTANCE, output2).result().orElseThrow());
 
 		return tag;
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.saveAdditional(tag, registries);
+	protected void saveAdditional(ValueOutput output) {
+		super.saveAdditional(output);
 
-		tag.put("ArcanaInput", ArcanaStack.CODEC.encodeStart(NbtOps.INSTANCE, input).result().orElseThrow());
-		tag.put("ArcanaOutput1", ArcanaStack.CODEC.encodeStart(NbtOps.INSTANCE, output1).result().orElseThrow());
-		tag.put("ArcanaOutput2", ArcanaStack.CODEC.encodeStart(NbtOps.INSTANCE, output2).result().orElseThrow());
+		output.store("ArcanaInput", ArcanaStack.CODEC, input);
+		output.store("ArcanaOutput1", ArcanaStack.CODEC, output1);
+		output.store("ArcanaOutput2", ArcanaStack.CODEC, output2);
 	}
 
 	@Override
-	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.loadAdditional(tag, registries);
+	protected void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
 
-		input = ArcanaStack.CODEC.parse(NbtOps.INSTANCE, tag.getCompound("ArcanaInput")).result().orElseThrow();
-		output1 = ArcanaStack.CODEC.parse(NbtOps.INSTANCE, tag.getCompound("ArcanaOutput1")).result().orElseThrow();
-		output2 = ArcanaStack.CODEC.parse(NbtOps.INSTANCE, tag.getCompound("ArcanaOutput2")).result().orElseThrow();
+		this.input = input.read("ArcanaInput", ArcanaStack.CODEC).orElse(ArcanaStack.EMPTY);
+		this.output1 = input.read("ArcanaOutput1", ArcanaStack.CODEC).orElse(ArcanaStack.EMPTY);
+		this.output2 = input.read("ArcanaOutput2", ArcanaStack.CODEC).orElse(ArcanaStack.EMPTY);
 	}
 
 	@Override
-	protected void applyImplicitComponents(DataComponentInput componentInput) {
-		super.applyImplicitComponents(componentInput);
+	protected void applyImplicitComponents(DataComponentGetter components) {
+		super.applyImplicitComponents(components);
 
-		List<ArcanaStack> stacks = componentInput.getOrDefault(ArcanusDataComponents.ARCANA_INVENTORY.get(), NonNullList.withSize(3, ArcanaStack.EMPTY));
+		List<ArcanaStack> stacks = components.getOrDefault(ArcanusDataComponents.ARCANA_INVENTORY.get(), NonNullList.withSize(3, ArcanaStack.EMPTY));
 
 		input = stacks.get(0);
 		output1 = stacks.get(1);

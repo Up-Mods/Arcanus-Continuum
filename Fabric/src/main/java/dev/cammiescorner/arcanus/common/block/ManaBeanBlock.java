@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -56,7 +57,7 @@ public class ManaBeanBlock extends Block implements EntityBlock, BlockItemProvid
 	}
 
 	@Override
-	protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+	protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, @org.jspecify.annotations.Nullable Orientation orientation, boolean movedByPiston) {
 		if(!state.canSurvive(level, pos))
 			level.destroyBlock(pos, true);
 	}
@@ -71,7 +72,7 @@ public class ManaBeanBlock extends Block implements EntityBlock, BlockItemProvid
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+	protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
 		ItemStack stack = new ItemStack(ArcanusBlocks.MANA_BEAN.get());
 
 		if(level.getBlockEntity(pos) instanceof ManaBeanBlockEntity manaBean)
@@ -105,6 +106,6 @@ public class ManaBeanBlock extends Block implements EntityBlock, BlockItemProvid
 
 	@Override
 	public Item createItem() {
-		return new ManaBeanItem(this, new Item.Properties().food(new FoodProperties.Builder().nutrition(1).fast().alwaysEdible().build()).component(ArcanusDataComponents.ARCANA.get(), ArcanusArcana.NIL.get()));
+		return new ManaBeanItem(this, new Item.Properties().food(new FoodProperties.Builder().nutrition(1).alwaysEdible().build()).component(ArcanusDataComponents.ARCANA.get(), ArcanusArcana.NIL.get()));
 	}
 }

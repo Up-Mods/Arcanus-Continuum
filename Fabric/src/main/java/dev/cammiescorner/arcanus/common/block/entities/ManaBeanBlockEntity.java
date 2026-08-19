@@ -5,17 +5,18 @@ import dev.cammiescorner.arcanus.client.util.ColorRenderData;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
 import dev.upcraft.sparkweave.api.color.Color;
-import net.fabricmc.fabric.api.blockview.v2.RenderDataBlockEntity;
+import net.fabricmc.fabric.api.blockgetter.v2.RenderDataBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 public class ManaBeanBlockEntity extends BlockEntity implements RenderDataBlockEntity {
@@ -33,24 +34,26 @@ public class ManaBeanBlockEntity extends BlockEntity implements RenderDataBlockE
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		CompoundTag tag = super.getUpdateTag(registries);
-		saveAdditional(tag, registries);
+		tag.putString("Arcana", ArcanusArcana.REGISTRY.getKey(arcana).toString());
 
 		return tag;
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.saveAdditional(tag, registries);
+	protected void saveAdditional(ValueOutput output) {
+		super.saveAdditional(output);
 
-		tag.putString("Arcana", ArcanusArcana.REGISTRY.getKey(arcana).toString());
+		output.putString("Arcana", ArcanusArcana.REGISTRY.getKey(arcana).toString());
 	}
 
 	@Override
-	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.loadAdditional(tag, registries);
+	protected void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
 
-		if(tag.contains("Arcana", Tag.TAG_STRING))
-			arcana = ArcanusArcana.REGISTRY.get(ResourceLocation.parse(tag.getString("Arcana")));
+		var optional = input.getString("Arcana");
+
+		if(optional.isPresent())
+			arcana = ArcanusArcana.REGISTRY.getValue(Identifier.parse(optional.get()));
 		else
 			arcana = ArcanusArcana.NIL.get();
 

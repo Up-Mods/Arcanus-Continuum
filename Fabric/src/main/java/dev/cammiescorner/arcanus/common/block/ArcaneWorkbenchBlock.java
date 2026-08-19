@@ -47,7 +47,7 @@ public class ArcaneWorkbenchBlock extends HorizontalDirectionalBlock implements 
 
 	@Override
 	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-		if(!level.isClientSide && level.getBlockEntity(pos) instanceof ArcaneWorkbenchBlockEntity arcaneWorkbench)
+		if(!level.isClientSide() && level.getBlockEntity(pos) instanceof ArcaneWorkbenchBlockEntity arcaneWorkbench)
 			player.openMenu(arcaneWorkbench);
 
 		return InteractionResult.SUCCESS;

@@ -35,7 +35,7 @@ public class SpatialRiftExitBlock extends Block implements EntityBlock {
 			Tasks.scheduleEphemeral(() -> PocketDimensionComponent.get(level).teleportOutOfPocketDimension(player), 0L);
 		}
 
-		return InteractionResult.sidedSuccess(level.isClientSide());
+		return InteractionResult.SUCCESS_SERVER;
 	}
 
 	@Override

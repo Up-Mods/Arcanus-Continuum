@@ -5,13 +5,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -19,6 +22,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,15 +35,15 @@ public abstract class AbstractPedestalBlockEntity extends BlockEntity implements
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.saveAdditional(tag, registries);
-		ContainerHelper.saveAllItems(tag, inventory, registries);
+	protected void saveAdditional(ValueOutput output) {
+		super.saveAdditional(output);
+		ContainerHelper.saveAllItems(output, inventory, true);
 	}
 
 	@Override
-	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.loadAdditional(tag, registries);
-		ContainerHelper.loadAllItems(tag, inventory, registries);
+	protected void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
+		ContainerHelper.loadAllItems(input, inventory);
 	}
 
 	@Override
@@ -49,7 +54,11 @@ public abstract class AbstractPedestalBlockEntity extends BlockEntity implements
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		CompoundTag tag = super.getUpdateTag(registries);
-		saveAdditional(tag, registries);
+
+		if(!this.inventory.isEmpty()) {
+			RegistryOps<Tag> ops = registries.createSerializationContext(NbtOps.INSTANCE);
+			tag.store("Inventory", ItemStack.CODEC.listOf(), ops, this.inventory);
+		}
 
 		return tag;
 	}
@@ -121,22 +130,22 @@ public abstract class AbstractPedestalBlockEntity extends BlockEntity implements
 		getLevel().sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
 	}
 
-	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	public InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		ItemStack itemStack = player.isCreative() ? stack.copyWithCount(1) : stack.split(1);
 
-		if (this.isEmpty() && !itemStack.isEmpty()) {
+		if(this.isEmpty() && !itemStack.isEmpty()) {
 			this.setItem(itemStack);
 
-			return ItemInteractionResult.sidedSuccess(level.isClientSide());
+			return InteractionResult.SUCCESS_SERVER;
 		}
 
-		if (!this.isEmpty()) {
+		if(!this.isEmpty()) {
 			ItemStack removed = this.removeItem();
 			ArcanusHelper.giveOrDrop(player, removed);
 
-			return ItemInteractionResult.sidedSuccess(level.isClientSide());
+			return InteractionResult.SUCCESS_SERVER;
 		}
 
-		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		return InteractionResult.PASS;
 	}
 }

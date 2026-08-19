@@ -10,7 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,9 +53,9 @@ public class MagicDoorBlock extends DoorBlock implements EntityBlock, BlockItemP
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		if(level.isClientSide)
-			return ItemInteractionResult.SUCCESS;
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if(level.isClientSide())
+			return InteractionResult.SUCCESS;
 
 		MagicDoorBlockEntity door = getBlockEntity(level, state, pos);
 		LivingEntity owner = door.getOwner();
@@ -64,14 +65,15 @@ public class MagicDoorBlock extends DoorBlock implements EntityBlock, BlockItemP
 				String password = stack.getHoverName().getString();
 
 				door.setPassword(password);
-				player.displayClientMessage(Component.translatable(MAGIC_DOOR_SET_PASSWORD, password)
-					.withStyle(ChatFormatting.GOLD, ChatFormatting.ITALIC), true);
+				player.sendOverlayMessage(Component.translatable(MAGIC_DOOR_SET_PASSWORD, password)
+					.withStyle(ChatFormatting.GOLD, ChatFormatting.ITALIC));
 			}
 			else
-				player.displayClientMessage(Component.translatable(MAGIC_DOOR_NOT_OWNER).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
+				player.sendOverlayMessage(Component.translatable(MAGIC_DOOR_NOT_OWNER).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
 		else
-			player.displayClientMessage(Component.translatable(MAGIC_DOOR_SAY_MAGIC_WORD).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
-		return ItemInteractionResult.SUCCESS;
+			player.sendOverlayMessage(Component.translatable(MAGIC_DOOR_SAY_MAGIC_WORD).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override
@@ -88,7 +90,7 @@ public class MagicDoorBlock extends DoorBlock implements EntityBlock, BlockItemP
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
+	protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, @org.jspecify.annotations.Nullable Orientation orientation, boolean movedByPiston) {
 
 	}
 

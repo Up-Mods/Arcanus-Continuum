@@ -5,14 +5,16 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.util.ArcanaContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -87,14 +89,14 @@ public class ArcanaPipeBlock extends AbstractPipeBlock {
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if(!level.isClientSide() && hand == InteractionHand.MAIN_HAND && player.isCrouching() && stack.isEmpty()) {
 			Direction hitFace = hitResult.getDirection();
 			Vec3 hitPoint = hitResult.getLocation();
 			Vec3 multiplyBy = new Vec3(0.001, 0.001, 0.001);
 
 			for(Direction direction : Direction.values()) {
-				if(EXTENSION_SHAPES.get(direction).bounds().move(pos).expandTowards(Vec3.atCenterOf(hitFace.getNormal()).multiply(multiplyBy)).contains(hitPoint)) {
+				if(EXTENSION_SHAPES.get(direction).bounds().move(pos).expandTowards(Vec3.atCenterOf(hitFace.getUnitVec3i()).multiply(multiplyBy)).contains(hitPoint)) {
 					BlockPos neighborPos = pos.relative(direction);
 					BlockState neighborState = level.getBlockState(neighborPos);
 					BooleanProperty connectionProperty = CONNECTION_BY_DIRECTION.get(direction);
@@ -105,11 +107,11 @@ public class ArcanaPipeBlock extends AbstractPipeBlock {
 					if(neighborState.is(ArcanusBlocks.ARCANA_PIPE.get()) && neighborState.getValue(neighborProperty))
 						level.setBlockAndUpdate(neighborPos, neighborState.setValue(neighborProperty, false).setValue(EXTENSION_BY_DIRECTION.get(direction.getOpposite()), false));
 
-					return ItemInteractionResult.SUCCESS;
+					return InteractionResult.SUCCESS;
 				}
 			}
 
-			if(SHAPE.bounds().move(pos).expandTowards(Vec3.atCenterOf(hitFace.getNormal()).multiply(multiplyBy)).contains(hitPoint)) {
+			if(SHAPE.bounds().move(pos).expandTowards(Vec3.atCenterOf(hitFace.getUnitVec3i()).multiply(multiplyBy)).contains(hitPoint)) {
 				BlockPos neighborPos = pos.relative(hitFace);
 				BlockState neighborState = level.getBlockState(neighborPos);
 				BooleanProperty connectionProperty = CONNECTION_BY_DIRECTION.get(hitFace);
@@ -120,7 +122,7 @@ public class ArcanaPipeBlock extends AbstractPipeBlock {
 				if(neighborState.is(ArcanusBlocks.ARCANA_PIPE.get()) && !neighborState.getValue(neighborProperty))
 					level.setBlockAndUpdate(neighborPos, neighborState.setValue(neighborProperty, true).setValue(EXTENSION_BY_DIRECTION.get(hitFace.getOpposite()), true));
 
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 		}
 
@@ -159,8 +161,8 @@ public class ArcanaPipeBlock extends AbstractPipeBlock {
 	}
 
 	@Override
-	protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-		return super.updateShape(state, direction, neighborState, level, pos, neighborPos).setValue(EXTENSION_BY_DIRECTION.get(direction), shouldConnect(level, direction, state, neighborPos));
+	protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos, Direction directionToNeighbour, BlockPos neighbourPos, BlockState neighbourState, RandomSource random) {
+		return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random).setValue(EXTENSION_BY_DIRECTION.get(directionToNeighbour), shouldConnect(level, directionToNeighbour, state, neighbourPos));
 	}
 
 	@Override
@@ -169,7 +171,7 @@ public class ArcanaPipeBlock extends AbstractPipeBlock {
 		builder.add(UP, DOWN, NORTH, EAST, SOUTH, WEST, CONNECTS_UP, CONNECTS_DOWN, CONNECTS_NORTH, CONNECTS_EAST, CONNECTS_SOUTH, CONNECTS_WEST);
 	}
 
-	public boolean shouldConnect(LevelAccessor level, Direction direction, BlockState state, BlockPos neighborPos) {
+	public boolean shouldConnect(LevelReader level, Direction direction, BlockState state, BlockPos neighborPos) {
 		BlockState neighborState = level.getBlockState(neighborPos);
 		boolean connects = state.getValue(CONNECTION_BY_DIRECTION.get(direction));
 

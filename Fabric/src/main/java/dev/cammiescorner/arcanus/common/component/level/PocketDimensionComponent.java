@@ -20,7 +20,6 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -36,6 +35,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Scoreboard;
@@ -69,49 +70,60 @@ public class PocketDimensionComponent implements org.ladysnake.cca.api.v3.compon
 		throw new IllegalStateException("World is not a ServerWorld!");
 	}
 
+	// TODO new read/write data system
 	@Override
-	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		ListTag plotNbtList = tag.getList("PlotMap", Tag.TAG_COMPOUND);
-		ListTag exitNbtList = tag.getList("ExitSpots", Tag.TAG_COMPOUND);
+	public void readData(ValueInput readView) {
 
-		existingPlots.clear();
-		exitSpot.clear();
-
-		for(int i = 0; i < plotNbtList.size(); i++) {
-			var entry = PocketDimensionPlot.fromNbt(plotNbtList.getCompound(i));
-			if(entry != null) {
-				existingPlots.put(entry.ownerId(), entry);
-			}
-		}
-
-		for(int i = 0; i < exitNbtList.size(); i++) {
-			CompoundTag entry = exitNbtList.getCompound(i);
-			exitSpot.put(entry.getUUID("EntityId"), new Tuple<>(ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(entry.getString("WorldKey"))), new Vec3(entry.getDouble("X"), entry.getDouble("Y"), entry.getDouble("Z"))));
-		}
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		ListTag plotNbtList = new ListTag();
-		ListTag exitNbtList = new ListTag();
+	public void writeData(ValueOutput writeView) {
 
-		existingPlots.forEach((uuid, plot) -> {
-			plotNbtList.add(plot.toNbt());
-		});
-
-		exitSpot.forEach((uuid, pair) -> {
-			CompoundTag entry = new CompoundTag();
-			entry.putUUID("EntityId", uuid);
-			entry.putString("WorldKey", pair.getA().location().toString());
-			entry.putDouble("X", pair.getB().x());
-			entry.putDouble("Y", pair.getB().y());
-			entry.putDouble("Z", pair.getB().z());
-			exitNbtList.add(entry);
-		});
-
-		tag.put("PlotMap", plotNbtList);
-		tag.put("ExitSpots", exitNbtList);
 	}
+
+//	@Override
+//	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+//		ListTag plotNbtList = tag.getList("PlotMap", Tag.TAG_COMPOUND);
+//		ListTag exitNbtList = tag.getList("ExitSpots", Tag.TAG_COMPOUND);
+//
+//		existingPlots.clear();
+//		exitSpot.clear();
+//
+//		for(int i = 0; i < plotNbtList.size(); i++) {
+//			var entry = PocketDimensionPlot.fromNbt(plotNbtList.getCompound(i));
+//			if(entry != null) {
+//				existingPlots.put(entry.ownerId(), entry);
+//			}
+//		}
+//
+//		for(int i = 0; i < exitNbtList.size(); i++) {
+//			CompoundTag entry = exitNbtList.getCompound(i);
+//			exitSpot.put(entry.getUUID("EntityId"), new Tuple<>(ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(entry.getString("WorldKey"))), new Vec3(entry.getDouble("X"), entry.getDouble("Y"), entry.getDouble("Z"))));
+//		}
+//	}
+//
+//	@Override
+//	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+//		ListTag plotNbtList = new ListTag();
+//		ListTag exitNbtList = new ListTag();
+//
+//		existingPlots.forEach((uuid, plot) -> {
+//			plotNbtList.add(plot.toNbt());
+//		});
+//
+//		exitSpot.forEach((uuid, pair) -> {
+//			CompoundTag entry = new CompoundTag();
+//			entry.putUUID("EntityId", uuid);
+//			entry.putString("WorldKey", pair.getA().location().toString());
+//			entry.putDouble("X", pair.getB().x());
+//			entry.putDouble("Y", pair.getB().y());
+//			entry.putDouble("Z", pair.getB().z());
+//			exitNbtList.add(entry);
+//		});
+//
+//		tag.put("PlotMap", plotNbtList);
+//		tag.put("ExitSpots", exitNbtList);
+//	}
 
 	// FIXME this check is too eager sometimes.
 	//  not too bad for the moment but should be looked into.
@@ -127,19 +139,19 @@ public class PocketDimensionComponent implements org.ladysnake.cca.api.v3.compon
 			ArcanusComponents.setPortalCoolDown(entity, 200);
 
 			if(pocketDim != null) {
-				var plot = getAssignedPlotSpace(pocketOwner.getId());
+				var plot = getAssignedPlotSpace(pocketOwner.id());
 
 				if(plot == null) {
 					plot = assignNewPlot(pocketDim, pocketOwner, entity.level().getRandom());
-					replacePlotSpace(pocketOwner.getId(), pocketDim, RegenerateType.FULL);
+					replacePlotSpace(pocketOwner.id(), pocketDim, RegenerateType.FULL);
 				}
 				else if(!chunksExist(plot, pocketDim)) {
-					Arcanus.LOGGER.warn("Pocket dimension plot for player {} ({}) failed integrity check! regenerating boundary...", pocketOwner.getName(), pocketOwner.getId());
-					replacePlotSpace(pocketOwner.getId(), pocketDim, RegenerateType.WALLS_ONLY);
+					Arcanus.LOGGER.warn("Pocket dimension plot for player {} ({}) failed integrity check! regenerating boundary...", pocketOwner.name(), pocketOwner.id());
+					replacePlotSpace(pocketOwner.id(), pocketDim, RegenerateType.WALLS_ONLY);
 				}
 
 				var bottomCenterPos = Vec3.atBottomCenterOf(plot.getBounds().getCenter().atY(plot.min().getY() + 1));
-				entity.teleportTo(pocketDim, bottomCenterPos.x(), bottomCenterPos.y(), bottomCenterPos.z(), Set.of(), entity.getYRot(), entity.getXRot());
+				entity.teleportTo(pocketDim, bottomCenterPos.x(), bottomCenterPos.y(), bottomCenterPos.z(), Set.of(), entity.getYRot(), entity.getXRot(), true);
 			}
 		}
 	}
@@ -159,32 +171,33 @@ public class PocketDimensionComponent implements org.ladysnake.cca.api.v3.compon
 				Vec3 targetPos = pair.getB();
 
 				if(targetWorld == null) {
-					Arcanus.LOGGER.error("Unable to find dimension {}, defaulting to overworld", pair.getA().location());
+					Arcanus.LOGGER.error("Unable to find dimension {}, defaulting to overworld", pair.getA().identifier());
 					targetWorld = server.overworld();
-					targetPos = Vec3.atBottomCenterOf(targetWorld.getSharedSpawnPos());
+					targetPos = Vec3.atBottomCenterOf(targetWorld.getRespawnData().pos());
 				}
 
-				entity.teleportTo(targetWorld, targetPos.x(), targetPos.y(), targetPos.z(), Set.of(), entity.getYRot(), entity.getXRot());
+				entity.teleportTo(targetWorld, targetPos.x(), targetPos.y(), targetPos.z(), Set.of(), entity.getYRot(), entity.getXRot(), true);
 				return true;
 			}
 		}
 
 		if(entity instanceof ServerPlayer player) {
 			var profile = player.getGameProfile();
-			Arcanus.LOGGER.warn("Failed to determine pocket dimension exit spot for player {} ({}), sending them to their spawn position!", profile.getName(), profile.getId());
+			Arcanus.LOGGER.warn("Failed to determine pocket dimension exit spot for player {} ({}), sending them to their spawn position!", profile.name(), profile.id());
 
-			var spawnPos = player.getRespawnPosition();
-			var angle = player.getRespawnAngle();
-			var world = server.getLevel(player.getRespawnDimension());
+			var respawnData = player.getRespawnConfig().respawnData();
+			var spawnPos = respawnData.pos();
+			var angle = respawnData.yaw();
+			var world = server.getLevel(respawnData.dimension());
 
-			if(!player.isRespawnForced() || world == null || spawnPos == null) {
+			if(!player.getRespawnConfig().forced() || world == null || spawnPos == null) {
 				world = server.overworld();
-				spawnPos = world.getSharedSpawnPos();
+				spawnPos = world.getRespawnData().pos();
 				angle = entity.getYRot();
 			}
 
 			Vec3 targetPos = Vec3.atBottomCenterOf(spawnPos);
-			entity.teleportTo(world, targetPos.x(), targetPos.y(), targetPos.z(), Set.of(), angle, entity.getXRot());
+			entity.teleportTo(world, targetPos.x(), targetPos.y(), targetPos.z(), Set.of(), angle, entity.getXRot(), true);
 		}
 
 		Arcanus.LOGGER.warn("Unable to teleport entity out of pocket dimension: {} ({})", entity.getScoreboardName(), entity.getUUID());
@@ -203,20 +216,20 @@ public class PocketDimensionComponent implements org.ladysnake.cca.api.v3.compon
 		var worldBorder = pocketDimension.getWorldBorder();
 
 		if(worldBorder.getAbsoluteMaxSize() - worldBorder.getWarningBlocks() - DIMENSION_PADDING_XZ < halfWidth) {
-			Arcanus.LOGGER.error("Pocket dimension plot for player {} ({}) failed integrity check! world border too small!", target.getName(), target.getId());
-			return PocketDimensionPlot.of(target.getId(), originalBox);
+			Arcanus.LOGGER.error("Pocket dimension plot for player {} ({}) failed integrity check! world border too small!", target.name(), target.id());
+			return PocketDimensionPlot.of(target.id(), originalBox);
 		}
 
 		int maxOffsetXZ = worldBorder.getAbsoluteMaxSize() - worldBorder.getWarningBlocks() - halfWidth - DIMENSION_PADDING_XZ;
-		var minY = pocketDimension.getMinBuildHeight() + DIMENSION_PADDING_Y;
-		var maxY = pocketDimension.getMaxBuildHeight() - DIMENSION_PADDING_Y - pocketHeight;
+		var minY = pocketDimension.getMinY() + DIMENSION_PADDING_Y;
+		var maxY = pocketDimension.getMaxY() - DIMENSION_PADDING_Y - pocketHeight;
 		var existingPlotsWithSpacing = existingPlots.values().stream().map(existing -> existing.getBounds().inflatedBy(POCKET_MARGIN)).toList();
 
 		// TODO better algorithm for finding plot spaces that does not rely on random
 		BoundingBox box = originalBox;
 		for(int attempts = 0; attempts < 100; attempts++) {
 			if(isValidBounds(pocketDimension, box, worldBorder) && existingPlotsWithSpacing.stream().noneMatch(box::intersects)) {
-				var plot = PocketDimensionPlot.of(target.getId(), box);
+				var plot = PocketDimensionPlot.of(target.id(), box);
 				existingPlots.put(plot.ownerId(), plot);
 				return plot;
 			}
@@ -228,15 +241,15 @@ public class PocketDimensionComponent implements org.ladysnake.cca.api.v3.compon
 			box = originalBox.moved(dX, dY, dZ);
 		}
 
-		Arcanus.LOGGER.error("Unable to assign pocket dimension plot for player {} ({}) after 100 attempts, defaulting to center pos!", target.getName(), target.getId());
-		return PocketDimensionPlot.of(target.getId(), originalBox);
+		Arcanus.LOGGER.error("Unable to assign pocket dimension plot for player {} ({}) after 100 attempts, defaulting to center pos!", target.name(), target.id());
+		return PocketDimensionPlot.of(target.id(), originalBox);
 	}
 
 	private boolean isValidBounds(ServerLevel world, BoundingBox box, WorldBorder worldBorder) {
-		var bottomY = world.getMinBuildHeight() + DIMENSION_PADDING_Y;
+		var bottomY = world.getMinY() + DIMENSION_PADDING_Y;
 		// need to use logical height because mojank;
 		// else we can get weirdness with chorus fruits etc
-		var topY = world.getMinBuildHeight() + world.getLogicalHeight() - DIMENSION_PADDING_Y;
+		var topY = world.getMinY() + world.getLogicalHeight() - DIMENSION_PADDING_Y;
 
 		return box.minY() >= bottomY && box.maxY() <= topY && worldBorder.isWithinBounds(AABB.of(box));
 	}
@@ -280,9 +293,9 @@ public class PocketDimensionComponent implements org.ladysnake.cca.api.v3.compon
 				}
 
 				ServerLevel overworld = server.overworld();
-				Vec3 targetPos = Vec3.atBottomCenterOf(overworld.getSharedSpawnPos());
+				Vec3 targetPos = Vec3.atBottomCenterOf(overworld.getRespawnData().pos());
 
-				entity.teleportTo(overworld, targetPos.x(), targetPos.y(), targetPos.z(), Set.of(), overworld.getSharedSpawnAngle(), 0f);
+				entity.teleportTo(overworld, targetPos.x(), targetPos.y(), targetPos.z(), Set.of(), overworld.getRespawnData().yaw(), 0f, true);
 				player.sendSystemMessage(Component.translatable(TranslationKeys.COMMAND_REGEN_POCKET_TELEPORT));
 			});
 		}
@@ -292,7 +305,9 @@ public class PocketDimensionComponent implements org.ladysnake.cca.api.v3.compon
 
 			if(isNotWall) {
 				if(regenerateType.clearInterior()) {
-					Clearable.tryClear(pocketDim.getBlockEntity(pos));
+					if(pocketDim.getBlockEntity(pos) instanceof Clearable clearable)
+						clearable.clearContent();
+
 					pocketDim.setBlock(pos, Blocks.AIR.defaultBlockState(), REPLACE_FLAGS);
 				}
 

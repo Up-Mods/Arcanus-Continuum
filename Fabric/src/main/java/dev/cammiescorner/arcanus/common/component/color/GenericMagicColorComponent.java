@@ -6,11 +6,11 @@ import dev.cammiescorner.arcanus.common.component.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.color.Color;
-import net.minecraft.core.HolderLookup;
-import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
-import net.minecraft.Util;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Util;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
+import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 
 import java.util.UUID;
 
@@ -23,15 +23,25 @@ public class GenericMagicColorComponent implements MagicColorComponent, AutoSync
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		sourceId = tag.getUUID(SOURCE_ID_KEY);
-		updateStoredColor();
+	public void readData(ValueInput readView) {
+
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		tag.putUUID(SOURCE_ID_KEY, sourceId);
+	public void writeData(ValueOutput writeView) {
+
 	}
+
+//	@Override
+//	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+//		sourceId = tag.getUUID(SOURCE_ID_KEY);
+//		updateStoredColor();
+//	}
+//
+//	@Override
+//	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+//		tag.putUUID(SOURCE_ID_KEY, sourceId);
+//	}
 
 	public Color getColor() {
 		return ArcanusHelper.getMagicColor(sourceId);

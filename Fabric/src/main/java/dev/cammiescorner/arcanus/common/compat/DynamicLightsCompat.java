@@ -1,14 +1,13 @@
 package dev.cammiescorner.arcanus.common.compat;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.compat.lambdynamiclights.MagicEntityLuminance;
 import dev.cammiescorner.arcanus.common.compat.lambdynamiclights.BoltEntityLuminance;
+import dev.cammiescorner.arcanus.common.compat.lambdynamiclights.MagicEntityLuminance;
 import dev.cammiescorner.arcanus.common.compat.lambdynamiclights.SmiteEntityLuminance;
 import dev.cammiescorner.arcanus.common.registry.ArcanusEntities;
 import dev.lambdaurora.lambdynlights.api.DynamicLightsContext;
 import dev.lambdaurora.lambdynlights.api.DynamicLightsInitializer;
 import dev.lambdaurora.lambdynlights.api.entity.luminance.EntityLuminance;
-import dev.lambdaurora.lambdynlights.api.item.ItemLightSourceManager;
 import net.minecraft.world.entity.EntityType;
 
 public class DynamicLightsCompat implements DynamicLightsInitializer {
@@ -31,8 +30,4 @@ public class DynamicLightsCompat implements DynamicLightsInitializer {
 			ctx.register(EntityType.PLAYER, new BoltEntityLuminance());
 		});
 	}
-
-	@SuppressWarnings({"UnstableApiUsage", "removal"})
-	@Override
-	public void onInitializeDynamicLights(ItemLightSourceManager itemLightSourceManager) { }
 }

@@ -1,14 +1,15 @@
 package dev.cammiescorner.arcanus.common.block.entities;
 
 import dev.cammiescorner.arcanus.common.registry.ArcanusBlockEntities;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.Locale;
 import java.util.UUID;
@@ -22,18 +23,19 @@ public class MagicDoorBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.saveAdditional(tag, registries);
+	protected void saveAdditional(ValueOutput output) {
+		super.saveAdditional(output);
 
-		tag.putUUID("OwnerId", ownerId);
-		tag.putString("Password", password);
+		output.store("OwnerId", UUIDUtil.CODEC, ownerId);
+		output.putString("Password", password);
 	}
 
 	@Override
-	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.loadAdditional(tag, registries);
-		ownerId = tag.getUUID("OwnerId");
-		password = tag.getString("Password");
+	protected void loadAdditional(ValueInput input) {
+		super.loadAdditional(input);
+
+		ownerId = input.read("OwnerId", UUIDUtil.CODEC).orElse(Util.NIL_UUID);
+		password = input.getString("Password").orElse("Please");
 	}
 
 	public LivingEntity getOwner() {
