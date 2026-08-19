@@ -8,14 +8,15 @@ import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class ScrollOfKnowledgeItem extends Item {
 	public ScrollOfKnowledgeItem() {
@@ -23,7 +24,7 @@ public class ScrollOfKnowledgeItem extends Item {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
+	public InteractionResult use(Level level, Player user, InteractionHand hand) {
 		// TODO this is temporary to make it easy to learn spell components, until rites are implemented
 		//  then we just display a screen with a button for creative users to auto learn the component
 
@@ -31,31 +32,31 @@ public class ScrollOfKnowledgeItem extends Item {
 		SpellComponent spellComponent = stack.getOrDefault(ArcanusDataComponents.SPELL_COMPONENT.get(), ArcanusSpellComponents.EMPTY.get());
 
 		if(ArcanusComponents.knowsSpellComponents(user, spellComponent)) {
-			user.displayClientMessage(Component.translatable(TranslationKeys.USE_SCROLL_ALREADY_KNOW).withStyle(ChatFormatting.RED), true);
+			user.sendOverlayMessage(Component.translatable(TranslationKeys.USE_SCROLL_ALREADY_KNOW).withStyle(ChatFormatting.RED));
 
-			return InteractionResultHolder.fail(stack);
+			return InteractionResult.FAIL;
 		}
 
 		if(!spellComponent.isEnabled()) {
-			user.displayClientMessage(Component.translatable(TranslationKeys.USE_SCROLL_DISABLED_COMPONENT).withStyle(ChatFormatting.RED), true);
+			user.sendOverlayMessage(Component.translatable(TranslationKeys.USE_SCROLL_DISABLED_COMPONENT).withStyle(ChatFormatting.RED));
 
-			return InteractionResultHolder.fail(stack);
+			return InteractionResult.FAIL;
 		}
 
 		ArcanusComponents.learnSpellComponents(user, spellComponent);
 
-		user.displayClientMessage(Component.translatable(TranslationKeys.USE_SCROLL_SUCCESS).withStyle(ChatFormatting.LIGHT_PURPLE), true);
+		user.sendOverlayMessage(Component.translatable(TranslationKeys.USE_SCROLL_SUCCESS).withStyle(ChatFormatting.LIGHT_PURPLE));
 
-		return InteractionResultHolder.success(stack);
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-		SpellComponent component = stack.getOrDefault(ArcanusDataComponents.SPELL_COMPONENT.get(), ArcanusSpellComponents.EMPTY.get());
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+		SpellComponent component = itemStack.getOrDefault(ArcanusDataComponents.SPELL_COMPONENT.get(), ArcanusSpellComponents.EMPTY.get());
 
 		if(component.isEnabled())
-			tooltipComponents.add(component.getName().withStyle(ChatFormatting.GOLD));
+			builder.accept(component.getName().withStyle(ChatFormatting.GOLD));
 		else
-			tooltipComponents.add(Component.translatable(TranslationKeys.DISABLED_COMPONENT).withStyle(ChatFormatting.RED));
+			builder.accept(Component.translatable(TranslationKeys.DISABLED_COMPONENT).withStyle(ChatFormatting.RED));
 	}
 }

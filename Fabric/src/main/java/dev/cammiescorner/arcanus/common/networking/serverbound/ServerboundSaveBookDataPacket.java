@@ -33,7 +33,7 @@ public record ServerboundSaveBookDataPacket(BlockPos pos, Spell spell) implement
 		BlockPos pos = context.message().pos();
 		Spell spell = context.message().spell();
 		ServerPlayer player = context.sender();
-		ServerLevel level = player.serverLevel();
+		ServerLevel level = player.level();
 
 		if(level.getBlockEntity(pos) instanceof LecternBlockEntity lectern && lectern.getBook().getItem() instanceof SpellScrollItem) {
 			ItemStack stack = lectern.getBook();

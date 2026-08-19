@@ -1,7 +1,6 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
@@ -13,9 +12,9 @@ public class ArcanusPointsOfInterest {
 	public static final ResourceKey<PoiType> JAR = create("jar");
 
 	public static void register() {
-		PointOfInterestHelper.register(MAGIC_DOOR.location(), 0, 1, ArcanusBlocks.MAGIC_DOOR.get());
-		PointOfInterestHelper.register(PEDESTAL.location(), 0, 1, ArcanusBlocks.PEDESTAL.get());
-		PointOfInterestHelper.register(JAR.location(), 0, 1, ArcanusBlocks.WARDED_JAR.get());
+		PointOfInterestHelper.register(MAGIC_DOOR.identifier(), 0, 1, ArcanusBlocks.MAGIC_DOOR.get());
+		PointOfInterestHelper.register(PEDESTAL.identifier(), 0, 1, ArcanusBlocks.PEDESTAL.get());
+		PointOfInterestHelper.register(JAR.identifier(), 0, 1, ArcanusBlocks.WARDED_JAR.get());
 	}
 
 	public static ResourceKey<PoiType> create(String id) {

@@ -3,14 +3,14 @@ package dev.cammiescorner.arcanus.common.registry;
 import dev.cammiescorner.arcanus.Arcanus;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 
 import java.util.LinkedHashMap;
 
 public class ArcanusSoundEvents {
 	//-----Sound Map-----//
-	public static final LinkedHashMap<SoundEvent, ResourceLocation> SOUNDS = new LinkedHashMap<>();
+	public static final LinkedHashMap<SoundEvent, Identifier> SOUNDS = new LinkedHashMap<>();
 
 	//-----Sound Events-----//
 	public static final SoundEvent SMITE = create("smite");

@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.common.menu.providers;
 import dev.cammiescorner.arcanus.common.menu.ScrollOfKnowledgeMenu;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
@@ -14,7 +14,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-public class ScrollOfKnowledgeMenuProvider implements ExtendedScreenHandlerFactory<ScrollOfKnowledgeMenuProvider.MenuData> {
+public class ScrollOfKnowledgeMenuProvider implements ExtendedMenuProvider<ScrollOfKnowledgeMenuProvider.MenuData> {
 	private final ItemStack stack;
 
 	public ScrollOfKnowledgeMenuProvider(ItemStack stack) {

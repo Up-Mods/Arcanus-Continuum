@@ -12,16 +12,16 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
-public record ClientboundBurstVfxPacket(Vec3 pos, float strength, boolean didDestroyBlocks) implements CustomPacketPayload {
+public record ClientboundBurstVfxPacket(Vector3f pos, float strength, boolean didDestroyBlocks) implements CustomPacketPayload {
 	public static final CustomPacketPayload.Type<ClientboundBurstVfxPacket> TYPE = new CustomPacketPayload.Type<>(Arcanus.id("burst_vfx"));
 	public static final StreamCodec<? extends FriendlyByteBuf, ClientboundBurstVfxPacket> CODEC = StreamCodec.of((buffer, packet) -> {
-		buffer.writeVec3(packet.pos);
+		buffer.writeVector3f(packet.pos);
 		buffer.writeFloat(packet.strength);
 		buffer.writeBoolean(packet.didDestroyBlocks);
 	}, buffer -> {
-		Vec3 pos = buffer.readVec3();
+		Vector3f pos = buffer.readVector3f();
 		float strength = buffer.readFloat();
 		boolean destroyedBlocks = buffer.readBoolean();
 

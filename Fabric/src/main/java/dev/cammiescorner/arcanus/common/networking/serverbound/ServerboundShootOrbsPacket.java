@@ -33,7 +33,7 @@ public record ServerboundShootOrbsPacket(UUID ownerId, List<UUID> orbIds) implem
 	public static void handle(PacketContext<ServerboundShootOrbsPacket> context) {
 		UUID ownerId = context.message().ownerId();
 		List<UUID> orbIds = context.message().orbIds();
-		ServerLevel world = context.sender().serverLevel();
+		ServerLevel world = context.sender().level();
 		Entity owner = world.getEntity(ownerId);
 
 		if(owner instanceof LivingEntity livingEntity)

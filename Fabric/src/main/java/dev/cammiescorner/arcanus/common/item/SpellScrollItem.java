@@ -8,14 +8,15 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
@@ -30,12 +31,12 @@ public class SpellScrollItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-		Spell spell = getSpell(stack);
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+		Spell spell = getSpell(itemStack);
 		MutableComponent arcanaCost = Component.empty();
 
-		tooltipComponents.add(Component.empty());
-		tooltipComponents.add(Component.literal(spell.getName()).withStyle(ChatFormatting.GOLD));
+		builder.accept(Component.empty());
+		builder.accept(Component.literal(spell.getName()).withStyle(ChatFormatting.GOLD));
 
 		ArcanusArcana.primalArcana().forEach(primalArcana -> {
 			if(!arcanaCost.equals(Component.empty()))
@@ -44,40 +45,40 @@ public class SpellScrollItem extends Item {
 			arcanaCost.append(Component.literal(spell.getArcanaCostAsString(primalArcana)).withColor(primalArcana.color().asIntARGB()));
 		});
 
-		tooltipComponents.add(arcanaCost);
+		builder.accept(arcanaCost);
 
-		tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
+		builder.accept(Component.translatable(TWO_ARGUMENT_KEY,
 			Component.translatable(SPELL_BOOK_WEIGHT),
 			Component.translatable(spell.getWeight().translationKey()).withStyle(ChatFormatting.GRAY)
 		).withStyle(ChatFormatting.DARK_GREEN));
 
 		if(spell.getCoolDown() > 0) {
-			tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
+			builder.accept(Component.translatable(TWO_ARGUMENT_KEY,
 				Component.translatable(SPELL_BOOK_COOL_DOWN),
 				Component.literal(spell.getCoolDownAsString()).withStyle(ChatFormatting.GRAY)
 			).withStyle(ChatFormatting.DARK_RED));
 		}
 		else {
-			tooltipComponents.add(Component.translatable(TWO_ARGUMENT_KEY,
+			builder.accept(Component.translatable(TWO_ARGUMENT_KEY,
 				Component.translatable(SPELL_BOOK_COOL_DOWN),
 				Component.translatable(SPELL_BOOK_INSTANT_COOL_DOWN).withStyle(ChatFormatting.GRAY)
 			).withStyle(ChatFormatting.DARK_RED));
 		}
 
-		super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+		super.appendHoverText(itemStack, context, display, builder, tooltipFlag);
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		Spell spell = getSpell(stack);
 
 		if(spell.isEmpty())
-			return InteractionResultHolder.pass(stack);
+			return InteractionResult.PASS;
 
 		player.openMenu(new SpellScrollMenuProvider(stack));
 
-		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+		return InteractionResult.SUCCESS_SERVER;
 	}
 
 	public static Spell getSpell(ItemStack stack) {

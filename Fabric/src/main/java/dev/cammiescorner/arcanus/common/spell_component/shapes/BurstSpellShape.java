@@ -67,10 +67,10 @@ public class BurstSpellShape extends SpellShape {
 
 		// TODO add vfx & sfx for burst
 		level.gameEvent(caster, GameEvent.EXPLODE, new Vec3(castFrom.x(), castFrom.y(), castFrom.z()));
-		level.playSeededSound(null, castFrom.x(), castFrom.y(), castFrom.z(), SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4f, (1f + (level.random.nextFloat() - level.random.nextFloat()) * 0.2f) * 0.7f, 1);
+		level.playSeededSound(null, castFrom.x(), castFrom.y(), castFrom.z(), SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4f, (1f + (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2f) * 0.7f, 1);
 
 		for(ServerPlayer player : PlayerLookup.tracking(level, BlockPos.containing(castFrom.x(), castFrom.y(), castFrom.z())))
-			Network.getNetworkHandler().sendToClient(new ClientboundBurstVfxPacket(castFrom, 4f, effects.contains(ArcanusSpellComponents.MINE.get())), player);
+			Network.getNetworkHandler().sendToClient(new ClientboundBurstVfxPacket(castFrom.toVector3f(), 4f, effects.contains(ArcanusSpellComponents.MINE.get())), player);
 
 		castNext(caster, castFrom, castSource, level, stack, spellGroups, groupIndex, potency);
 	}

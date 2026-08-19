@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.common.item;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 public class StaffCoreItem extends Item {
@@ -8,7 +8,7 @@ public class StaffCoreItem extends Item {
 		super(properties);
 	}
 
-	public static ResourceLocation getStaffModelLocation(ResourceLocation location) {
-		return location.withPrefix("arcanus/staff_part/staff_core/");
+	public static Identifier getStaffModelLocation(Identifier identifier) {
+		return identifier.withPrefix("arcanus/staff_part/staff_core/");
 	}
 }

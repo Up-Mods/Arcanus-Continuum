@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.menu.providers;
 
 import dev.cammiescorner.arcanus.common.menu.SpellScrollMenu;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
@@ -12,7 +12,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-public class SpellScrollMenuProvider implements ExtendedScreenHandlerFactory<SpellScrollMenuProvider.MenuData> {
+public class SpellScrollMenuProvider implements ExtendedMenuProvider<SpellScrollMenuProvider.MenuData> {
 	private final ItemStack stack;
 
 	public SpellScrollMenuProvider(ItemStack stack) {

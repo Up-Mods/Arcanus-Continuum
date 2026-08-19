@@ -13,11 +13,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class ManaBeanItem extends BlockItem {
 	public ManaBeanItem(Block block, Properties properties) {
@@ -52,10 +53,10 @@ public class ManaBeanItem extends BlockItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-		Arcana arcana = stack.getOrDefault(ArcanusDataComponents.ARCANA.get(), ArcanusArcana.NIL.get());
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+		Arcana arcana = itemStack.getOrDefault(ArcanusDataComponents.ARCANA.get(), ArcanusArcana.NIL.get());
 
 		// TODO make this translated better
-		tooltipComponents.add(Component.literal("1 ").append(Component.translatable(arcana.translationKey())).withColor(arcana.color().asIntARGB()));
+		builder.accept(Component.literal("1 ").append(Component.translatable(arcana.translationKey())).withColor(arcana.color().asIntARGB()));
 	}
 }

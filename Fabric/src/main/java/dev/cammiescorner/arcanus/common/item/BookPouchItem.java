@@ -5,15 +5,13 @@ import dev.cammiescorner.arcanus.common.menu.providers.BookPouchMenuProvider;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
-
-import java.util.List;
 
 public class BookPouchItem extends Item {
 	public static final int SLOT_COUNT = 8;
@@ -23,12 +21,12 @@ public class BookPouchItem extends Item {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 
 		player.openMenu(new BookPouchMenuProvider(stack));
 
-		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+		return InteractionResult.SUCCESS_SERVER;
 	}
 
 	@Override
@@ -37,7 +35,7 @@ public class BookPouchItem extends Item {
 
 		if(spellBooks != null) {
 			itemEntity.getItem().set(ArcanusDataComponents.BOOK_POUCH.get(), BookPouchComponent.EMPTY);
-			ItemUtils.onContainerDestroyed(itemEntity, List.copyOf(spellBooks.spellBooks()));
+			ItemUtils.onContainerDestroyed(itemEntity, spellBooks.spellBooks().stream());
 		}
 	}
 

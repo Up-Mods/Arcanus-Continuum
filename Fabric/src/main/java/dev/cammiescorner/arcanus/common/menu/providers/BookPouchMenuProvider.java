@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.common.menu.providers;
 
 import dev.cammiescorner.arcanus.common.menu.BookPouchMenu;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
@@ -12,7 +12,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-public class BookPouchMenuProvider implements ExtendedScreenHandlerFactory<BookPouchMenuProvider.MenuData> {
+public class BookPouchMenuProvider implements ExtendedMenuProvider<BookPouchMenuProvider.MenuData> {
 	private final ItemStack pouch;
 
 	public BookPouchMenuProvider(ItemStack pouch) {

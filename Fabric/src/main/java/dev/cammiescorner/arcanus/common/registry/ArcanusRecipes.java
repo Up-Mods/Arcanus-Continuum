@@ -5,7 +5,7 @@ import dev.cammiescorner.arcanus.api.crafting.RiteRecipe;
 import dev.cammiescorner.arcanus.common.crafting.ArcanusStaffRecipe;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.*;
 
@@ -19,7 +19,7 @@ public class ArcanusRecipes {
 
 	private static <T extends Recipe<? extends RecipeInput>> RegistrySupplier<RecipeType<T>> recipeType(String name) {
 		return RECIPE_TYPES.register(name, () -> new RecipeType<>() {
-			private final String id = Util.makeDescriptionId(Registries.RECIPE_TYPE.location().toShortLanguageKey(), Arcanus.id(name));
+			private final String id = Util.makeDescriptionId(Registries.RECIPE_TYPE.identifier().toShortLanguageKey(), Arcanus.id(name));
 
 			@Override
 			public String toString() {

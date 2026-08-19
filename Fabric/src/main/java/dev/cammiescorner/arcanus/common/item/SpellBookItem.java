@@ -6,7 +6,6 @@ import dev.cammiescorner.arcanus.common.menu.providers.SpellBookMenuProvider;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
-import dev.emi.trinkets.api.TrinketItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
