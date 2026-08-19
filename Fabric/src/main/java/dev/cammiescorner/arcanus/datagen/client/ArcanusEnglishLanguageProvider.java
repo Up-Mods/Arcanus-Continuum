@@ -7,15 +7,15 @@ import dev.cammiescorner.arcanus.common.registry.*;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import dev.upcraft.sparkweave.api.datagen.ContextAwarePackOutput;
 import dev.upcraft.sparkweave.api.datagen.TranslationBuilder;
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveLanguageProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.client.SparkweaveLanguageProvider;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
-import net.minecraft.Util;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.locale.Language;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Util;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DeathMessageType;
 import net.minecraft.world.item.ItemStack;
@@ -467,10 +467,10 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 	}
 
 	private void itemStack(TranslationBuilder builder, ItemStack stack, String translationValue) {
-		builder.add(stack.getDescriptionId(), translationValue);
+		builder.add(stack.getItem().getDescriptionId(), translationValue);
 	}
 
-	private void advancement(TranslationBuilder builder, ResourceLocation advancementId, String title, String description) {
+	private void advancement(TranslationBuilder builder, Identifier advancementId, String title, String description) {
 		builder.add(Util.makeDescriptionId("advancements", advancementId.withSuffix(".title")), title);
 		builder.add(Util.makeDescriptionId("advancements", advancementId.withSuffix(".description")), description);
 	}
@@ -484,12 +484,12 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 	}
 
 	private void tag(TranslationBuilder builder, TagKey<?> tag, String translation) {
-		var registryName = tag.registry().location().toShortLanguageKey().replace('/', '.');
+		var registryName = tag.registry().identifier().toShortLanguageKey().replace('/', '.');
 		var tagName = Util.makeDescriptionId("tag." + registryName, tag.location());
 		builder.add(tagName, translation);
 	}
 
 	private void biome(TranslationBuilder builder, ResourceKey<Biome> biome, String translation) {
-		builder.add(Util.makeDescriptionId("biome", biome.location()), translation);
+		builder.add(Util.makeDescriptionId("biome", biome.identifier()), translation);
 	}
 }

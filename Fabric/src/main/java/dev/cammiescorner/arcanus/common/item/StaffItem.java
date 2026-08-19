@@ -15,10 +15,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class StaffItem extends Item {
 	public StaffItem() {
@@ -26,30 +27,20 @@ public class StaffItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-		if(stack.has(ArcanusDataComponents.STAFF_PARTS.get())) {
-			var staffParts = stack.get(ArcanusDataComponents.STAFF_PARTS.get());
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+		if(itemStack.has(ArcanusDataComponents.STAFF_PARTS.get())) {
+			var staffParts = itemStack.get(ArcanusDataComponents.STAFF_PARTS.get());
 			var staffCore = staffParts.staffCore().get(ArcanusDataComponents.STAFF_CORE.get());
 			var staffCap = staffParts.staffCap().get(ArcanusDataComponents.STAFF_CAP.get());
 
-			staffCore.addToTooltip(context, tooltipComponents::add, tooltipFlag);
-			staffCap.addToTooltip(context, tooltipComponents::add, tooltipFlag);
+			staffCore.addToTooltip(context, builder, tooltipFlag, components());
+			staffCap.addToTooltip(context, builder, tooltipFlag, components());
 		}
 	}
 
 	@Override
-	public boolean isEnchantable(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public boolean canAttackBlock(BlockState state, Level level, BlockPos pos, Player player) {
-		return !player.isCreative() && !ArcanusComponents.isCasting(player);
-	}
-
-	@Override
-	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		return true;
+	public boolean canDestroyBlock(ItemStack itemStack, BlockState state, Level level, BlockPos pos, LivingEntity user) {
+		return user instanceof Player player && !player.isCreative() && !ArcanusComponents.isCasting(player);
 	}
 
 	public static ItemAttributeModifiers createAttributes() {

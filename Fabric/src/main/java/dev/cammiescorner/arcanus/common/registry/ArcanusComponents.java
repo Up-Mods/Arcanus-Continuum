@@ -12,7 +12,7 @@ import dev.cammiescorner.arcanus.common.component.color.GenericMagicColorCompone
 import dev.cammiescorner.arcanus.common.component.color.PlayerMagicColorComponent;
 import dev.cammiescorner.arcanus.common.component.entity.*;
 import dev.cammiescorner.arcanus.common.component.level.PocketDimensionComponent;
-import dev.cammiescorner.arcanus.common.entity.magic.*;
+import dev.cammiescorner.arcanus.common.entity.magic.StockpileOrb;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -28,7 +28,6 @@ import org.ladysnake.cca.api.v3.block.BlockComponentFactoryRegistry;
 import org.ladysnake.cca.api.v3.block.BlockComponentInitializer;
 import org.ladysnake.cca.api.v3.chunk.ChunkComponentFactoryRegistry;
 import org.ladysnake.cca.api.v3.chunk.ChunkComponentInitializer;
-import org.ladysnake.cca.api.v3.component.Component;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
@@ -36,6 +35,7 @@ import org.ladysnake.cca.api.v3.entity.EntityComponentInitializer;
 import org.ladysnake.cca.api.v3.entity.RespawnCopyStrategy;
 import org.ladysnake.cca.api.v3.scoreboard.ScoreboardComponentFactoryRegistry;
 import org.ladysnake.cca.api.v3.scoreboard.ScoreboardComponentInitializer;
+import org.ladysnake.cca.api.v8.component.CardinalComponent;
 
 import java.util.Arrays;
 import java.util.List;
@@ -92,26 +92,25 @@ public class ArcanusComponents implements BlockComponentInitializer, ChunkCompon
 		registry.beginRegistration(LivingEntity.class, MAGIC_ORB_COMPONENT).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(MagicOrbComponent::new);
 		registry.beginRegistration(Entity.class, PORTAL_COOL_DOWN_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PortalCoolDownComponent::new);
 
-		List.of(
-			StockpileOrb.class,
-			AreaOfEffect.class,
-			Beam.class,
-			MagicOrb.class,
-			Missile.class,
-			MagicRune.class,
-			ManaShield.class,
-			PocketDimensionPortal.class,
-			Smite.class,
-			TemporalDilationField.class
-		).forEach(type ->
-			registry.beginRegistration(type, MAGIC_COLOR)
-				.impl(GenericMagicColorComponent.class)
-				.end(GenericMagicColorComponent::new)
-		);
+		// TODO figure out why this isn't capturing entity
+//		List.of(
+//			StockpileOrb.class,
+//			AreaOfEffect.class,
+//			Beam.class,
+//			MagicOrb.class,
+//			Missile.class,
+//			MagicRune.class,
+//			ManaShield.class,
+//			PocketDimensionPortal.class,
+//			Smite.class,
+//			TemporalDilationField.class
+//		).forEach(type ->
+//			registry.beginRegistration(type, MAGIC_COLOR).impl(GenericMagicColorComponent.class).end(GenericMagicColorComponent::new)
+//		);
 		registry.registerForPlayers(MAGIC_COLOR, PlayerMagicColorComponent::new, RespawnCopyStrategy.NEVER_COPY);
 	}
 
-	private static <T extends Component> ComponentKey<T> createComponent(String name, Class<T> component) {
+	private static <T extends CardinalComponent> ComponentKey<T> createComponent(String name, Class<T> component) {
 		return ComponentRegistry.getOrCreate(Arcanus.id(name), component);
 	}
 

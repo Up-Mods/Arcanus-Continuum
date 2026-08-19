@@ -1,12 +1,12 @@
 package dev.cammiescorner.arcanus.common.component.entity;
 
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import net.minecraft.core.HolderLookup;
-import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
-import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
+import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
 public class StunComponent implements AutoSyncedComponent, ServerTickingComponent {
 	private final LivingEntity entity;
@@ -27,13 +27,13 @@ public class StunComponent implements AutoSyncedComponent, ServerTickingComponen
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		stunTimer = tag.getInt("StunTimer");
+	public void readData(ValueInput readView) {
+		stunTimer = readView.getIntOr("StunTimer", 0);
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		tag.putInt("StunTimer", stunTimer);
+	public void writeData(ValueOutput writeView) {
+		writeView.putInt("StunTimer", stunTimer);
 	}
 
 	public int getStunTimer() {

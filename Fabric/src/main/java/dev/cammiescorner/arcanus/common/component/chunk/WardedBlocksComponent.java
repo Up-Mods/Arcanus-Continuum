@@ -1,8 +1,13 @@
 package dev.cammiescorner.arcanus.common.component.chunk;
 
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
+import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import dev.upcraft.sparkweave.api.SparkweaveApi;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.chunk.ChunkAccess;
@@ -10,10 +15,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class WardedBlocksComponent implements AutoSyncedComponent {
 	private final Map<BlockPos, UUID> wardedBlocks = new HashMap<>();
@@ -23,53 +25,27 @@ public class WardedBlocksComponent implements AutoSyncedComponent {
 		this.chunk = chunk;
 	}
 
-	// TODO new read/write data system
 	@Override
 	public void readData(ValueInput readView) {
+		wardedBlocks.clear();
 
+		for(Pair<BlockPos, UUID> pair : readView.read("WardedBlocksMap", Codec.pair(BlockPos.CODEC, UUIDUtil.CODEC).listOf()).orElse(List.of())) {
+			// make sure we have the data cached when we need it
+			if(SparkweaveApi.CLIENTSIDE_ENVIRONMENT)
+				Arcanus.WIZARD_DATA.get(pair.getSecond());
+
+			wardedBlocks.put(pair.getFirst(), pair.getSecond());
+		}
 	}
 
 	@Override
 	public void writeData(ValueOutput writeView) {
+		List<Pair<BlockPos, UUID>> pairs = new ArrayList<>();
 
+		wardedBlocks.forEach((blockPos, uuid) -> pairs.add(new Pair<>(blockPos, uuid)));
+
+		writeView.store("WardedBlocksMap", Codec.pair(BlockPos.CODEC, UUIDUtil.CODEC).listOf(), pairs);
 	}
-
-//	@Override
-//	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-//		ListTag nbtList = tag.getList("WardedBlocksMap", Tag.TAG_COMPOUND);
-//		wardedBlocks.clear();
-//
-//		for(int i = 0; i < nbtList.size(); i++) {
-//			CompoundTag compound = nbtList.getCompound(i);
-//			ListTag blockPosList = compound.getList("BlockPosList", Tag.TAG_COMPOUND);
-//			UUID ownerUuid = compound.getUUID("OwnerUuid");
-//
-//			// make sure we have the data cached when we need it
-//			if(SparkweaveApi.CLIENTSIDE_ENVIRONMENT)
-//				Arcanus.WIZARD_DATA.get(ownerUuid);
-//
-//			for(int j = 0; j < blockPosList.size(); j++)
-//				wardedBlocks.put(NbtUtils.readBlockPos(blockPosList.getCompound(j), "Pos" + j).get(), ownerUuid);
-//		}
-//	}
-//
-//	@Override
-//	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-//		ListTag nbtList = new ListTag();
-//		Map<UUID, ListTag> map = new HashMap<>();
-//
-//		wardedBlocks.forEach((blockPos, uuid) -> map.computeIfAbsent(uuid, uuid1 -> new ListTag()).add(NbtUtils.writeBlockPos(blockPos)));
-//
-//		map.forEach((uuid, nbt) -> {
-//			CompoundTag compound = new CompoundTag();
-//			compound.putUUID("OwnerUuid", uuid);
-//			compound.put("BlockPosList", nbt);
-//
-//			nbtList.add(compound);
-//		});
-//
-//		tag.put("WardedBlocksMap", nbtList);
-//	}
 
 	public void addWardedBlock(Player player, BlockPos pos) {
 		if(!isBlockWarded(pos)) {

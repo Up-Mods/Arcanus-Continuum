@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
@@ -123,7 +124,7 @@ public class FollowCasterGoal<T extends Mob & Summon> extends Goal {
 			return false;
 		}
 		else {
-			summon.moveTo((double) x + 0.5, y, (double) z + 0.5, summon.getYRot(), summon.getXRot());
+			summon.moveOrInterpolateTo(new Vec3((double) x + 0.5, y, (double) z + 0.5), summon.getYRot(), summon.getXRot());
 			navigation.stop();
 			return true;
 		}

@@ -5,7 +5,9 @@ import dev.cammiescorner.arcanus.common.data_component.StaffParts;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import dev.cammiescorner.arcanus.common.registry.ArcanusRecipes;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -16,16 +18,16 @@ import java.util.Map;
 public class ArcanusStaffRecipe extends CustomRecipe {
 	private static final ShapedRecipePattern PATTERN = ShapedRecipePattern.of(
 		Map.of(
-			'I', Ingredient.of(ArcanusItemTags.STAFF_CORES),
-			'C', Ingredient.of(ArcanusItemTags.STAFF_CAPS)
+			'I', Ingredient.of(BuiltInRegistries.ITEM.get(ArcanusItemTags.STAFF_CORES).orElseGet(() -> (HolderSet.Named<Item>) HolderSet.<Item>empty())),
+			'C', Ingredient.of(BuiltInRegistries.ITEM.get(ArcanusItemTags.STAFF_CAPS).orElseGet(() -> (HolderSet.Named<Item>) HolderSet.<Item>empty()))
 		),
 		"  C",
 		" I ",
 		"C  "
 	);
 
-	public ArcanusStaffRecipe(CraftingBookCategory category) {
-		super(category);
+	public ArcanusStaffRecipe() {
+		super();
 	}
 
 	@Override
@@ -39,7 +41,7 @@ public class ArcanusStaffRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput input) {
 		ItemStack result = new ItemStack(ArcanusItems.STAFF.get());
 		ItemStack core = input.items().stream().filter(stack -> stack.is(ArcanusItemTags.STAFF_CORES)).findFirst().get().copy();
 		ItemStack cap = input.items().stream().filter(stack -> stack.is(ArcanusItemTags.STAFF_CAPS)).findFirst().get().copy();
@@ -50,12 +52,7 @@ public class ArcanusStaffRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean canCraftInDimensions(int width, int height) {
-		return width >= PATTERN.width() && height >= PATTERN.height();
-	}
-
-	@Override
-	public RecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<? extends CustomRecipe> getSerializer() {
 		return ArcanusRecipes.STAFF_SERIALIZER.get();
 	}
 }

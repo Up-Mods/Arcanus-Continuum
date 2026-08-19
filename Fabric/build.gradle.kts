@@ -85,6 +85,8 @@ dependencies {
 
 	implementation(libs.common.network.fabric)
 
+	implementation(libs.trinkets)
+
 	implementation(libs.datasync.fabric)
 	include(libs.datasync.fabric)
 

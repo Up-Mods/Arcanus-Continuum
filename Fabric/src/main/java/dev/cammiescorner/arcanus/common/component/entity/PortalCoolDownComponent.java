@@ -1,9 +1,9 @@
 package dev.cammiescorner.arcanus.common.component.entity;
 
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
@@ -16,13 +16,13 @@ public class PortalCoolDownComponent implements AutoSyncedComponent, ServerTicki
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		coolDown = tag.getInt("CoolDown");
+	public void readData(ValueInput readView) {
+		coolDown = readView.getIntOr("CoolDown", 0);
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		tag.putInt("CoolDown", coolDown);
+	public void writeData(ValueOutput writeView) {
+		writeView.putInt("CoolDown", coolDown);
 	}
 
 	@Override

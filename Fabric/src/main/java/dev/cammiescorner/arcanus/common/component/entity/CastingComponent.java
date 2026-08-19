@@ -1,10 +1,10 @@
 package dev.cammiescorner.arcanus.common.component.entity;
 
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import net.minecraft.core.HolderLookup;
-import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 
 public class CastingComponent implements AutoSyncedComponent {
 	private final LivingEntity entity;
@@ -15,13 +15,13 @@ public class CastingComponent implements AutoSyncedComponent {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		casting = tag.getBoolean("IsCasting");
+	public void readData(ValueInput readView) {
+		casting = readView.getBooleanOr("IsCasting", false);
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		tag.putBoolean("IsCasting", casting);
+	public void writeData(ValueOutput writeView) {
+		writeView.putBoolean("IsCasting", casting);
 	}
 
 	public boolean isCasting() {

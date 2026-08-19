@@ -1,14 +1,15 @@
 package dev.cammiescorner.arcanus.common.component.entity;
 
-import net.minecraft.Util;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.UUIDUtil;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.LivingEntity;
-import org.ladysnake.cca.api.v3.component.Component;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.ladysnake.cca.api.v8.component.CardinalComponent;
 
 import java.util.UUID;
 
-public class MagicOrbComponent implements Component {
+public class MagicOrbComponent implements CardinalComponent {
 	private final LivingEntity entity;
 	private UUID orbId = Util.NIL_UUID;
 
@@ -17,13 +18,13 @@ public class MagicOrbComponent implements Component {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		orbId = tag.getUUID("OrbId");
+	public void readData(ValueInput readView) {
+		orbId = readView.read("OrbId", UUIDUtil.CODEC).orElse(Util.NIL_UUID);
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		tag.putUUID("OrbId", orbId);
+	public void writeData(ValueOutput writeView) {
+		writeView.store("OrbId", UUIDUtil.CODEC, orbId);
 	}
 
 	public UUID getOrbId() {

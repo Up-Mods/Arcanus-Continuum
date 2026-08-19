@@ -5,10 +5,7 @@ import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -19,13 +16,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.UUID;
-
 public class Opossum extends TamableAnimal {
 	public Opossum(EntityType<? extends TamableAnimal> entityType, Level world) {
 		super(entityType, world);
-		Arrays.fill(armorDropChances, 1f);
+//		Arrays.fill(armorDropChances, 1f);
 	}
 
 	public static AttributeSupplier.Builder createMobAttributes() {
@@ -83,7 +77,7 @@ public class Opossum extends TamableAnimal {
 			}
 		}
 		else if(handStack.is(Items.CARROT)) {
-			if(!level().isClientSide) {
+			if(!level().isClientSide()) {
 				if(!player.isCreative())
 					handStack.shrink(1);
 
@@ -111,11 +105,11 @@ public class Opossum extends TamableAnimal {
 	@Nullable
 	@Override
 	public Opossum getBreedOffspring(ServerLevel world, AgeableMob entity) {
-		Opossum opossum = ArcanusEntities.OPOSSUM.get().create(world);
-		UUID uUID = getOwnerUUID();
+		Opossum opossum = ArcanusEntities.OPOSSUM.get().create(world, EntitySpawnReason.BREEDING);
+		var reference = getOwnerReference();
 
-		if(uUID != null && opossum != null) {
-			opossum.setOwnerUUID(uUID);
+		if(reference != null && opossum != null) {
+			opossum.setOwnerReference(reference);
 			opossum.setTame(true, false);
 		}
 

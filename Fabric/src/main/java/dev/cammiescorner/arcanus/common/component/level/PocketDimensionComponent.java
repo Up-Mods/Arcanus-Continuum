@@ -13,11 +13,6 @@ import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
@@ -41,10 +36,11 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Scoreboard;
 import org.jetbrains.annotations.Nullable;
+import org.ladysnake.cca.api.v8.component.CardinalComponent;
 
 import java.util.*;
 
-public class PocketDimensionComponent implements org.ladysnake.cca.api.v3.component.Component {
+public class PocketDimensionComponent implements CardinalComponent {
 	private static final int REPLACE_FLAGS = Block.UPDATE_CLIENTS | Block.UPDATE_SUPPRESS_DROPS;
 	private static final int DIMENSION_PADDING_Y = 8;
 	private static final int DIMENSION_PADDING_XZ = 24;
@@ -130,7 +126,7 @@ public class PocketDimensionComponent implements org.ladysnake.cca.api.v3.compon
 	private static boolean chunksExist(PocketDimensionPlot plot, ServerLevel pocketDim) {
 		var chunkManager = pocketDim.getChunkSource();
 
-		return BlockPos.betweenClosedStream(plot.min(), plot.max()).map(ChunkPos::new).distinct().map(cPos -> chunkManager.getChunk(cPos.x, cPos.z, false)).noneMatch(Objects::isNull);
+		return BlockPos.betweenClosedStream(plot.min(), plot.max()).map(ChunkPos::containing).distinct().map(cPos -> chunkManager.getChunk(cPos.x(), cPos.z(), false)).noneMatch(Objects::isNull);
 	}
 
 	public void teleportToPocketDimension(GameProfile pocketOwner, Entity entity) {
@@ -369,7 +365,8 @@ public class PocketDimensionComponent implements org.ladysnake.cca.api.v3.compon
 
 		BlockPos.betweenClosedStream(plot.min(), plot.max()).forEach(toUpdate -> {
 			var block = pocketDim.getBlockState(toUpdate).getBlock();
-			pocketDim.blockUpdated(toUpdate, block);
+			// TODO make sure this is right
+			pocketDim.updateNeighborsAt(toUpdate, block);
 		});
 
 		return true;

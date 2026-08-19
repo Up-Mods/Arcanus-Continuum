@@ -10,23 +10,19 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
 
 public record RiteRecipe(List<Ingredient> itemIngredients, ArcanaCost arcanaCost, List<RiteResult> results) implements Recipe<RiteRecipeInput> {
-
 	@Override
 	public boolean matches(RiteRecipeInput input, Level level) {
 		return arcanaCost.test(input) && (itemIngredients.isEmpty() || input.getStackedContents().canCraft(this, null));
 	}
 
 	@Override
-	public ItemStack assemble(RiteRecipeInput input, HolderLookup.Provider registries) {
+	public ItemStack assemble(RiteRecipeInput input) {
 		// TODO consume items and arcana etc.
 
 		// TODO make an RiteResult#apply() method
@@ -34,15 +30,10 @@ public record RiteRecipe(List<Ingredient> itemIngredients, ArcanaCost arcanaCost
 		return ItemStack.EMPTY;
 	}
 
-	@Override
-	public boolean canCraftInDimensions(int width, int height) {
-		return width * height >= itemIngredients.size();
-	}
-
-	@Override
-	public ItemStack getResultItem(HolderLookup.Provider registries) {
-		return ItemStack.EMPTY;
-	}
+//	@Override
+//	public boolean canCraftInDimensions(int width, int height) {
+//		return width * height >= itemIngredients.size();
+//	}
 
 	@Override
 	public boolean isSpecial() {
@@ -51,19 +42,18 @@ public record RiteRecipe(List<Ingredient> itemIngredients, ArcanaCost arcanaCost
 	}
 
 	@Override
-	public RecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<? extends Recipe<RiteRecipeInput>> getSerializer() {
 		return ArcanusRecipes.RITE_RECIPE_SERIALIZER.get();
 	}
 
 	@Override
-	public RecipeType<?> getType() {
+	public RecipeType<? extends Recipe<RiteRecipeInput>> getType() {
 		return ArcanusRecipes.RITE_RECIPE_TYPE.get();
 	}
 
 	public static class Serializer implements RecipeSerializer<RiteRecipe> {
-
 		public static final MapCodec<RiteRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-			Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").forGetter(RiteRecipe::itemIngredients),
+			Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(RiteRecipe::itemIngredients),
 			ArcanaCost.CODEC.fieldOf("arcanaCost").forGetter(RiteRecipe::arcanaCost),
 
 			XtraCodecs.singleElementOrList(RiteResult.CODEC).fieldOf("result").forGetter(RiteRecipe::results)

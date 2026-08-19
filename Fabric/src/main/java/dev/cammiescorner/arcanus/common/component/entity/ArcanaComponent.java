@@ -1,23 +1,24 @@
 package dev.cammiescorner.arcanus.common.component.entity;
 
-import dev.cammiescorner.arcanus.api.arcana.Arcana;
+import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import dev.cammiescorner.arcanus.common.registry.ArcanusAttributes;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ArcanaComponent implements AutoSyncedComponent, ServerTickingComponent {
 	private final LivingEntity entity;
@@ -43,33 +44,24 @@ public class ArcanaComponent implements AutoSyncedComponent, ServerTickingCompon
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		ListTag list = tag.getList("ArcanaValues", Tag.TAG_COMPOUND);
+	public void readData(ValueInput readView) {
 		resetArcana();
 
-		for(int i = 0; i < list.size(); i++) {
-			CompoundTag compoundTag = list.getCompound(i);
-			Arcana arcana = ArcanusArcana.REGISTRY.get(Identifier.parse(compoundTag.getString("PrimalArcana")));
+		var map = readView.read("ArcanaValues", Codec.unboundedMap(Codec.STRING, Codec.DOUBLE)).orElse(Map.of());
 
-			if(arcana instanceof PrimalArcana primalArcana)
-				arcanaMap.put(primalArcana, compoundTag.getDouble("Value"));
-		}
+		map.forEach((s, aDouble) -> {
+			if(ArcanusArcana.REGISTRY.getValue(Identifier.parse(s)) instanceof PrimalArcana primalArcana)
+				arcanaMap.put(primalArcana, (double) aDouble);
+		});
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		ListTag list = new ListTag();
+	public void writeData(ValueOutput writeView) {
+		Map<String, Double> map = new HashMap<>();
 
-		arcanaMap.forEach((primalArcana, aDouble) -> {
-			CompoundTag compoundTag = new CompoundTag();
+		arcanaMap.forEach((primalArcana, aDouble) -> map.put(ArcanusArcana.REGISTRY.getKey(primalArcana).toString(), aDouble));
 
-			compoundTag.putString("PrimalArcana", ArcanusArcana.REGISTRY.getKey(primalArcana).toString());
-			compoundTag.putDouble("Value", aDouble);
-
-			list.add(compoundTag);
-		});
-
-		tag.put("ArcanaValues", list);
+		writeView.store("ArcanaValues", Codec.unboundedMap(Codec.STRING, Codec.DOUBLE), map);
 	}
 
 	public double getArcana(PrimalArcana primalArcana) {

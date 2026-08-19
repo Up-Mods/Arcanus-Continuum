@@ -2,9 +2,9 @@ package dev.cammiescorner.arcanus.common.data;
 
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.util.ConventionsHelper;
-import dev.emi.trinkets.TrinketsMain;
+import eu.pb4.trinkets.impl.TrinketsMain;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
@@ -17,7 +17,7 @@ public class ArcanusItemTags {
 
 	public static final TagKey<Item> C_FEATHERS = ConventionsHelper.tag(Registries.ITEM, "feathers");
 
-	public static final TagKey<Item> BRACELET_HAND = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(TrinketsMain.MOD_ID, "hand/bracelet"));
-	public static final TagKey<Item> BRACELET_OFFHAND = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(TrinketsMain.MOD_ID, "offhand/bracelet"));
-	public static final TagKey<Item> SPELL_BOOK = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(TrinketsMain.MOD_ID, "legs/spell_book"));
+	public static final TagKey<Item> BRACELET_HAND = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(TrinketsMain.NAMESPACE, "hand/bracelet"));
+	public static final TagKey<Item> BRACELET_OFFHAND = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(TrinketsMain.NAMESPACE, "offhand/bracelet"));
+	public static final TagKey<Item> SPELL_BOOK = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(TrinketsMain.NAMESPACE, "legs/spell_book"));
 }

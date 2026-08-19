@@ -1,35 +1,36 @@
 package dev.cammiescorner.arcanus.common.component.entity;
 
 import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.common.component.level.PocketDimensionComponent;
 import dev.cammiescorner.arcanus.common.entity.magic.PocketDimensionPortal;
 import dev.cammiescorner.arcanus.common.registry.ArcanusEntities;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import net.minecraft.core.HolderLookup;
-import org.ladysnake.cca.api.v3.component.Component;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.TicketType;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
+import org.ladysnake.cca.api.v8.component.CardinalComponent;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class PocketDimensionPortalComponent implements Component {
+public class PocketDimensionPortalComponent implements CardinalComponent {
 	public static final ResourceKey<Level> POCKET_DIMENSION_WORLD_KEY = ResourceKey.create(Registries.DIMENSION, Arcanus.id("pocket_dimension"));
 	private final Player player;
 	private final Map<ResourceKey<Level>, Pair<UUID, Vec3>> portalIds = new HashMap<>();
@@ -39,33 +40,23 @@ public class PocketDimensionPortalComponent implements Component {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		ListTag list = tag.getList("PortalIds", Tag.TAG_COMPOUND);
+	public void readData(ValueInput readView) {
 		portalIds.clear();
 
-		for(int i = 0; i < list.size(); i++) {
-			CompoundTag nbt = list.getCompound(i);
-			portalIds.put(ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(nbt.getString("WorldKey"))), new Pair<>(nbt.getUUID("PortalId"), new Vec3(tag.getInt("PortalPosX"), tag.getInt("PortalPosY"), tag.getInt("PortalPosZ"))));
-		}
+		readView.read("PortalIds", Codec.unboundedMap(Codec.STRING, Codec.pair(UUIDUtil.CODEC, Vec3.CODEC))).orElse(Map.of()).forEach((s, pair) -> {
+			portalIds.put(ResourceKey.create(Registries.DIMENSION, Identifier.parse(s)), pair);
+		});
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		ListTag list = new ListTag();
+	public void writeData(ValueOutput writeView) {
+		Map<String, Pair<UUID, Vec3>> map = new HashMap<>();
 
-		for(ResourceKey<Level> levelKey : portalIds.keySet()) {
-			CompoundTag nbt = new CompoundTag();
-			Pair<UUID, Vec3> pair = portalIds.get(levelKey);
+		portalIds.forEach((resourceKey, pair) -> {
+			map.put(resourceKey.identifier().toString(), pair);
+		});
 
-			nbt.putString("WorldKey", levelKey.location().toString());
-			nbt.putUUID("PortalId", pair.getFirst());
-			tag.putDouble("PortalPosX", pair.getSecond().x());
-			tag.putDouble("PortalPosY", pair.getSecond().y());
-			tag.putDouble("PortalPosZ", pair.getSecond().z());
-			list.add(nbt);
-		}
-
-		tag.put("PortalIds", list);
+		writeView.store("PortalIds", Codec.unboundedMap(Codec.STRING, Codec.pair(UUIDUtil.CODEC, Vec3.CODEC)), map);
 	}
 
 	public void createPortal(ServerLevel level, Vec3 pos, double pullStrength) {
@@ -81,7 +72,7 @@ public class PocketDimensionPortalComponent implements Component {
 				if(otherWorld != null) {
 					BlockPos blockPos = BlockPos.containing(pair.getSecond());
 
-					otherWorld.getChunkSource().addRegionTicket(TicketType.PORTAL, SectionPos.of(blockPos).chunk(), 1, blockPos);
+					otherWorld.getChunkSource().addTicketWithRadius(TicketType.PORTAL, SectionPos.of(blockPos).chunk(), 1);
 
 					Entity oldPortal = otherWorld.getEntity(portalId);
 
@@ -91,13 +82,13 @@ public class PocketDimensionPortalComponent implements Component {
 			}
 		}
 
-		PocketDimensionPortal portal = ArcanusEntities.PORTAL.get().create(level);
+		PocketDimensionPortal portal = ArcanusEntities.PORTAL.get().create(level, EntitySpawnReason.SPAWN_ITEM_USE);
 
 		if(portal != null) {
 			portalIds.put(level.dimension(), new Pair<>(portal.getUUID(), pos));
 
 			if(level.dimension() != POCKET_DIMENSION_WORLD_KEY)
-				PocketDimensionComponent.get(level).setExit(player.getGameProfile().getId(), level, pos);
+				PocketDimensionComponent.get(level).setExit(player.getGameProfile().id(), level, pos);
 
 			portal.setProperties(player.getUUID(), pos, pullStrength);
 			ArcanusHelper.copyMagicColor(portal, player);

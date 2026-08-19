@@ -4,22 +4,19 @@ import dev.cammiescorner.arcanus.api.entity.Targetable;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
-import net.minecraft.Util;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Util;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -44,15 +41,15 @@ public class AreaOfEffect extends Entity implements Targetable {
 
 	@Override
 	public void tick() {
-		if(!level().isClientSide() && (getCaster() == null || !getCaster().isAlive())) {
-			kill();
+		if(level() instanceof ServerLevel serverLevel && (getCaster() == null || !getCaster().isAlive())) {
+			kill(serverLevel);
 			return;
 		}
 
 		List<AreaOfEffect> list = level().getEntitiesOfClass(AreaOfEffect.class, getBoundingBox(), EntitySelector.ENTITY_STILL_ALIVE);
 
-		if(!list.isEmpty()) {
-			int i = level().getGameRules().getInt(GameRules.RULE_MAX_ENTITY_CRAMMING);
+		if(!list.isEmpty() && level() instanceof ServerLevel serverLevel) {
+			int i = serverLevel.getGameRules().get(GameRules.MAX_ENTITY_CRAMMING);
 
 			if(i > 0 && list.size() > i - 1) {
 				int j = 0;
@@ -61,7 +58,7 @@ public class AreaOfEffect extends Entity implements Targetable {
 					++j;
 
 				if(j > i - 1) {
-					kill();
+					kill(serverLevel);
 					return;
 				}
 			}
@@ -101,8 +98,8 @@ public class AreaOfEffect extends Entity implements Targetable {
 				}
 			}
 
-			if(trueAge >= baseLifeSpan)
-				kill();
+			if(trueAge >= baseLifeSpan && level() instanceof ServerLevel serverLevel)
+				kill(serverLevel);
 		}
 
 		super.tick();
@@ -120,49 +117,59 @@ public class AreaOfEffect extends Entity implements Targetable {
 	}
 
 	@Override
-	public boolean canChangeDimensions(Level oldLevel, Level newLevel) {
-		return false;
+	protected void readAdditionalSaveData(ValueInput input) {
+
 	}
 
 	@Override
-	protected void readAdditionalSaveData(CompoundTag tag) {
-		effects.clear();
-		spellGroups.clear();
+	protected void addAdditionalSaveData(ValueOutput output) {
 
-		casterId = tag.getUUID("CasterId");
-		stack = ItemStack.parseOptional(registryAccess(), tag.getCompound("ItemStack"));
-		groupIndex = tag.getInt("GroupIndex");
-		potency = tag.getDouble("Potency");
-		trueAge = tag.getInt("TrueAge");
-
-		ListTag effectList = tag.getList("Effects", Tag.TAG_STRING);
-		ListTag groupsList = tag.getList("SpellGroups", Tag.TAG_COMPOUND);
-
-		for(int i = 0; i < effectList.size(); i++)
-			effects.add((SpellEffect) ArcanusSpellComponents.REGISTRY.get(ResourceLocation.parse(effectList.getString(i))));
-		for(int i = 0; i < groupsList.size(); i++)
-			spellGroups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
 	}
 
 	@Override
-	protected void addAdditionalSaveData(CompoundTag tag) {
-		ListTag effectList = new ListTag();
-		ListTag groupsList = new ListTag();
-
-		tag.putUUID("CasterId", casterId);
-		tag.put("ItemStack", stack.save(registryAccess()));
-		tag.putInt("GroupIndex", groupIndex);
-		tag.putDouble("Potency", potency);
-		tag.putInt("TrueAge", trueAge);
-
-		for(SpellEffect effect : effects)
-			effectList.add(StringTag.valueOf(ArcanusSpellComponents.REGISTRY.getKey(effect).toString()));
-		for(SpellGroup group : spellGroups)
-			groupsList.add(group.toNbt());
-
-		tag.put("Effects", effectList);
-		tag.put("SpellGroups", groupsList);
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		return true;
 	}
+
+//	@Override
+//	protected void readAdditionalSaveData(CompoundTag tag) {
+//		effects.clear();
+//		spellGroups.clear();
+//
+//		casterId = tag.getUUID("CasterId");
+//		stack = ItemStack.parseOptional(registryAccess(), tag.getCompound("ItemStack"));
+//		groupIndex = tag.getInt("GroupIndex");
+//		potency = tag.getDouble("Potency");
+//		trueAge = tag.getInt("TrueAge");
+//
+//		ListTag effectList = tag.getList("Effects", Tag.TAG_STRING);
+//		ListTag groupsList = tag.getList("SpellGroups", Tag.TAG_COMPOUND);
+//
+//		for(int i = 0; i < effectList.size(); i++)
+//			effects.add((SpellEffect) ArcanusSpellComponents.REGISTRY.get(ResourceLocation.parse(effectList.getString(i))));
+//		for(int i = 0; i < groupsList.size(); i++)
+//			spellGroups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
+//	}
+//
+//	@Override
+//	protected void addAdditionalSaveData(CompoundTag tag) {
+//		ListTag effectList = new ListTag();
+//		ListTag groupsList = new ListTag();
+//
+//		tag.putUUID("CasterId", casterId);
+//		tag.put("ItemStack", stack.save(registryAccess()));
+//		tag.putInt("GroupIndex", groupIndex);
+//		tag.putDouble("Potency", potency);
+//		tag.putInt("TrueAge", trueAge);
+//
+//		for(SpellEffect effect : effects)
+//			effectList.add(StringTag.valueOf(ArcanusSpellComponents.REGISTRY.getKey(effect).toString()));
+//		for(SpellGroup group : spellGroups)
+//			groupsList.add(group.toNbt());
+//
+//		tag.put("Effects", effectList);
+//		tag.put("SpellGroups", groupsList);
+//	}
 
 	public UUID getCasterId() {
 		return casterId;

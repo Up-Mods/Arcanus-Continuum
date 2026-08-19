@@ -2,14 +2,12 @@ package dev.cammiescorner.arcanus.common.component.entity;
 
 import dev.cammiescorner.arcanus.common.entity.magic.StockpileOrb;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import net.minecraft.core.HolderLookup;
-import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtUtils;
-import net.minecraft.nbt.Tag;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,23 +24,14 @@ public class StockpileOrbsComponent implements AutoSyncedComponent {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+	public void readData(ValueInput readView) {
 		orbs.clear();
-
-		ListTag nbtList = tag.getList("Orbs", Tag.TAG_INT_ARRAY);
-
-		for(Tag nbtElement : nbtList)
-			orbs.add(NbtUtils.loadUUID(nbtElement));
+		orbs.addAll(readView.read("Orbs", UUIDUtil.CODEC.listOf()).orElse(List.of()));
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		ListTag nbtList = new ListTag();
-
-		for(UUID uuid : orbs)
-			nbtList.add(NbtUtils.createUUID(uuid));
-
-		tag.put("Orbs", nbtList);
+	public void writeData(ValueOutput writeView) {
+		writeView.store("Orbs", UUIDUtil.CODEC.listOf(), orbs);
 	}
 
 	public List<UUID> getOrbs() {

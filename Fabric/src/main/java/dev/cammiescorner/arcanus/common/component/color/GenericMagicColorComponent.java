@@ -6,6 +6,7 @@ import dev.cammiescorner.arcanus.common.component.MagicColorComponent;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.upcraft.sparkweave.api.color.Color;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.util.Util;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -24,24 +25,14 @@ public class GenericMagicColorComponent implements MagicColorComponent, AutoSync
 
 	@Override
 	public void readData(ValueInput readView) {
-
+		sourceId = readView.read(SOURCE_ID_KEY, UUIDUtil.CODEC).orElse(Util.NIL_UUID);
+		updateStoredColor();
 	}
 
 	@Override
 	public void writeData(ValueOutput writeView) {
-
+		writeView.store(SOURCE_ID_KEY, UUIDUtil.CODEC, sourceId);
 	}
-
-//	@Override
-//	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-//		sourceId = tag.getUUID(SOURCE_ID_KEY);
-//		updateStoredColor();
-//	}
-//
-//	@Override
-//	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-//		tag.putUUID(SOURCE_ID_KEY, sourceId);
-//	}
 
 	public Color getColor() {
 		return ArcanusHelper.getMagicColor(sourceId);

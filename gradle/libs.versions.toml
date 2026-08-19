@@ -33,8 +33,7 @@ sparkweave = "0.600.0-alpha.12"
 cca = "8.0.1"
 common_network = "1.0.23-26.1.2"
 datasync = "0.11.0"
-# https://modrinth.com/mod/trinkets-updated/versions
-trinkets = "9wSHV6li"
+trinkets = "4.0.0-rc.1+26.1"
 
 # Compat
 # https://maven.blamejared.com/mezz/jei/jei-26.1.2-common/
@@ -86,7 +85,7 @@ datasync_fabric = { module = "dev.upcraft.datasync:datasync-minecraft-26.1-fabri
 datasync_neoforge = { module = "dev.upcraft.datasync:datasync-minecraft-26.1-neoforge", version.ref = "datasync" }
 
 common_network_fabric = { module = "mysticdrew:common-networking-fabric", version.ref = "common_network" }
-trinkets = { module = "deu.pb4:trinkets", version.ref = "trinkets" }
+trinkets = { module = "eu.pb4:trinkets", version.ref = "trinkets" }
 
 firstperson = { module = "maven.modrinth:first-person-model", version.ref = "firstperson" }
 lambdynamiclights = { module = "dev.lambdaurora.lambdynamiclights:lambdynamiclights-api", version.ref = "lambdynamiclights" }

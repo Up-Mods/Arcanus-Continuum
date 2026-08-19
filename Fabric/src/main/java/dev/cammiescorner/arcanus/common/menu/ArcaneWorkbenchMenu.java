@@ -104,7 +104,7 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
 			itemStack = itemStack2.copy();
 
 			if(fromIndex == 0) {
-				context.execute((world, pos) -> itemStack2.getItem().onCraftedBy(itemStack2, world, player));
+				context.execute((world, pos) -> itemStack2.getItem().onCraftedBy(itemStack2, player));
 
 				if(!moveItemStackTo(itemStack2, maxSlots, maxSlots + 36, true))
 					return ItemStack.EMPTY;
@@ -239,8 +239,8 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
 				if(optional.isPresent()) {
 					RecipeHolder<CraftingRecipe> craftingRecipe = optional.get();
 
-					if(result.setRecipeUsed(world, serverPlayer, craftingRecipe)) {
-						ItemStack itemStack2 = craftingRecipe.value().assemble(input.asCraftInput(), world.registryAccess());
+					if(result.setRecipeUsed(serverPlayer, craftingRecipe)) {
+						ItemStack itemStack2 = craftingRecipe.value().assemble(input.asCraftInput());
 
 						if(itemStack2.isItemEnabled(world.enabledFeatures()))
 							itemStack = itemStack2;

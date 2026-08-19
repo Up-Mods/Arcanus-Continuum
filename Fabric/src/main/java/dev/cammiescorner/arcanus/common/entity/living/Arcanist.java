@@ -3,13 +3,10 @@ package dev.cammiescorner.arcanus.common.entity.living;
 import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
-import dev.cammiescorner.arcanus.common.registry.ArcanusTradeOffers;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
 import dev.cammiescorner.arcanus.common.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -25,28 +22,32 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.npc.AbstractVillager;
-import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.monster.Vex;
+import net.minecraft.world.entity.monster.Zoglin;
+import net.minecraft.world.entity.monster.illager.Evoker;
+import net.minecraft.world.entity.monster.illager.Illusioner;
+import net.minecraft.world.entity.monster.illager.Pillager;
+import net.minecraft.world.entity.monster.illager.Vindicator;
+import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.npc.villager.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 public class Arcanist extends AbstractVillager implements NeutralMob {
 	private static final EntityDataAccessor<Integer> ROBE_COLOR = SynchedEntityData.defineId(Arcanist.class, EntityDataSerializers.INT);
 
 	public Arcanist(EntityType<? extends AbstractVillager> entityType, Level world) {
 		super(entityType, world);
-		Arrays.fill(armorDropChances, 0.1f);
-		Arrays.fill(handDropChances, 0.05f);
+//		Arrays.fill(armorDropChances, 0.1f);
+//		Arrays.fill(handDropChances, 0.05f);
 	}
 
 	@Override
@@ -68,9 +69,9 @@ public class Arcanist extends AbstractVillager implements NeutralMob {
 	}
 
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+	public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @org.jspecify.annotations.Nullable SpawnGroupData groupData) {
 		populateDefaultEquipmentSlots(level.getRandom(), difficulty);
-		return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, groupData);
 	}
 
 	@Override
@@ -105,21 +106,22 @@ public class Arcanist extends AbstractVillager implements NeutralMob {
 	}
 
 	@Override
-	protected void updateTrades() {
-		VillagerTrades.ItemListing[] factories = ArcanusTradeOffers.WIZARD_TRADES.get(1);
-		VillagerTrades.ItemListing[] factories1 = ArcanusTradeOffers.WIZARD_TRADES.get(2);
-
-		if(factories != null && factories1 != null) {
-			MerchantOffers tradeOfferList = getOffers();
-			addOffersFromItemListings(tradeOfferList, factories, 6);
-
-			int i = random.nextInt(factories1.length);
-			VillagerTrades.ItemListing factory = factories1[i];
-			MerchantOffer tradeOffer = factory.getOffer(this, random);
-
-			if(tradeOffer != null)
-				tradeOfferList.add(tradeOffer);
-		}
+	protected void updateTrades(ServerLevel level) {
+		// TODO figure this shit out
+//		VillagerTrades.ItemListing[] factories = ArcanusTradeOffers.WIZARD_TRADES.get(1);
+//		VillagerTrades.ItemListing[] factories1 = ArcanusTradeOffers.WIZARD_TRADES.get(2);
+//
+//		if(factories != null && factories1 != null) {
+//			MerchantOffers tradeOfferList = getOffers();
+//			addOffersFromItemListings(tradeOfferList, factories, 6);
+//
+//			int i = random.nextInt(factories1.length);
+//			VillagerTrades.ItemListing factory = factories1[i];
+//			MerchantOffer tradeOffer = factory.getOffer(this, random);
+//
+//			if(tradeOffer != null)
+//				tradeOfferList.add(tradeOffer);
+//		}
 	}
 
 	@Override
@@ -141,7 +143,7 @@ public class Arcanist extends AbstractVillager implements NeutralMob {
 				}
 			}
 			else {
-				player.displayClientMessage(Component.translatable(TranslationKeys.ARCANIST_NO_ARCANIST_ARMOR).withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC).withStyle(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable(TranslationKeys.ARCANIST_NO_ARCANIST_ARMOR).withStyle(ChatFormatting.AQUA, ChatFormatting.ITALIC)))), false);
+				player.sendSystemMessage(Component.translatable(TranslationKeys.ARCANIST_NO_ARCANIST_ARMOR).withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC).withStyle(style -> style.withHoverEvent(new HoverEvent.ShowText(Component.translatable(TranslationKeys.ARCANIST_NO_ARCANIST_ARMOR).withStyle(ChatFormatting.AQUA, ChatFormatting.ITALIC)))));
 			}
 		}
 
@@ -149,18 +151,15 @@ public class Arcanist extends AbstractVillager implements NeutralMob {
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag nbt) {
-		super.readAdditionalSaveData(nbt);
-
-		if(nbt.contains("RobeColor", Tag.TAG_ANY_NUMERIC)) {
-			entityData.set(ROBE_COLOR, nbt.getInt("RobeColor"));
-		}
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
+		entityData.set(ROBE_COLOR, input.getIntOr("RobeColor", 0xFF52392A));
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag nbt) {
-		super.addAdditionalSaveData(nbt);
-		nbt.putInt("RobesColor", getRobeColor());
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putInt("RobeColor", entityData.get(ROBE_COLOR));
 	}
 
 	@Override
@@ -217,23 +216,22 @@ public class Arcanist extends AbstractVillager implements NeutralMob {
 	}
 
 	@Override
-	public int getRemainingPersistentAngerTime() {
+	public long getPersistentAngerEndTime() {
 		return 0;
 	}
 
 	@Override
-	public void setRemainingPersistentAngerTime(int ticks) {
+	public void setPersistentAngerEndTime(long endTime) {
 
 	}
 
-	@Nullable
 	@Override
-	public UUID getPersistentAngerTarget() {
+	public @Nullable EntityReference<LivingEntity> getPersistentAngerTarget() {
 		return null;
 	}
 
 	@Override
-	public void setPersistentAngerTarget(@Nullable UUID uuid) {
+	public void setPersistentAngerTarget(@Nullable EntityReference<LivingEntity> persistentAngerTarget) {
 
 	}
 

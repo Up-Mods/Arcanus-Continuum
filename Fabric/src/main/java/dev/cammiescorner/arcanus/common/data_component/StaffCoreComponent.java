@@ -7,6 +7,7 @@ import dev.cammiescorner.arcanus.api.util.ArcanaModifiers;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
 import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -45,7 +46,7 @@ public record StaffCoreComponent(ArcanaModifiers arcanaModifiers) implements Too
 	}
 
 	@Override
-	public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag) {
+	public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag, DataComponentGetter components) {
 		MutableComponent component = Component.empty();
 
 		ArcanusArcana.primalArcana().forEach(primalArcana -> {

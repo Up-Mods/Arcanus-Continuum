@@ -2,14 +2,11 @@ package dev.cammiescorner.arcanus.common.component.entity;
 
 import dev.cammiescorner.arcanus.api.spell.Pattern;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import net.minecraft.core.HolderLookup;
-import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.IntTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,22 +20,14 @@ public class PatternComponent implements AutoSyncedComponent {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+	public void readData(ValueInput readView) {
 		list.clear();
-		ListTag nbtList = tag.getList("Pattern", Tag.TAG_INT);
-
-		for(int i = 0; i < nbtList.size(); i++)
-			list.add(Pattern.values()[nbtList.getInt(i)]);
+		list.addAll(readView.read("Pattern", Pattern.CODEC.listOf()).orElse(List.of()));
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		ListTag nbtList = new ListTag();
-
-		for(Pattern pattern : list)
-			nbtList.add(IntTag.valueOf(pattern.ordinal()));
-
-		tag.put("Pattern", nbtList);
+	public void writeData(ValueOutput writeView) {
+		writeView.store("Pattern", Pattern.CODEC.listOf(), list);
 	}
 
 	public List<Pattern> getPattern() {

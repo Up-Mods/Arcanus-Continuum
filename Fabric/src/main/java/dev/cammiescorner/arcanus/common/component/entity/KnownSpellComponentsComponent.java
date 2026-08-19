@@ -4,10 +4,9 @@ import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 
 import java.util.ArrayList;
@@ -24,14 +23,14 @@ public class KnownSpellComponentsComponent implements AutoSyncedComponent {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+	public void readData(ValueInput readView) {
 		knownComponents.clear();
-		knownComponents.addAll(CODEC.parse(registryLookup.createSerializationContext(NbtOps.INSTANCE), tag.get("KnownSpellComponents")).getOrThrow());
+		knownComponents.addAll(readView.read("KnownSpellComponents", CODEC).orElse(List.of()));
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
-		tag.put("KnownSpellComponents", CODEC.encodeStart(registryLookup.createSerializationContext(NbtOps.INSTANCE), knownComponents).getOrThrow());
+	public void writeData(ValueOutput writeView) {
+		writeView.store("KnownSpellComponents", CODEC, knownComponents);
 	}
 
 	public List<SpellComponent> getKnownComponents() {

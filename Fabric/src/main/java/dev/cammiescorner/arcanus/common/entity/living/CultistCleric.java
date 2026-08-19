@@ -14,9 +14,9 @@ public class CultistCleric extends Cultist {
 	}
 
 	@Override
-	public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+	public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @org.jspecify.annotations.Nullable SpawnGroupData groupData) {
 		populateDefaultEquipmentSlots(level.getRandom(), difficulty);
-		return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+		return super.finalizeSpawn(level, difficulty, spawnReason, groupData);
 	}
 
 	@Override
