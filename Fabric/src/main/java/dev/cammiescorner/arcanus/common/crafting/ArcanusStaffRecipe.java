@@ -5,9 +5,7 @@ import dev.cammiescorner.arcanus.common.data_component.StaffParts;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import dev.cammiescorner.arcanus.common.registry.ArcanusRecipes;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -18,8 +16,8 @@ import java.util.Map;
 public class ArcanusStaffRecipe extends CustomRecipe {
 	private static final ShapedRecipePattern PATTERN = ShapedRecipePattern.of(
 		Map.of(
-			'I', Ingredient.of(BuiltInRegistries.ITEM.get(ArcanusItemTags.STAFF_CORES).orElseGet(() -> (HolderSet.Named<Item>) HolderSet.<Item>empty())),
-			'C', Ingredient.of(BuiltInRegistries.ITEM.get(ArcanusItemTags.STAFF_CAPS).orElseGet(() -> (HolderSet.Named<Item>) HolderSet.<Item>empty()))
+			'I', Ingredient.of(BuiltInRegistries.ITEM.get(ArcanusItemTags.STAFF_CORES).orElseThrow()),
+			'C', Ingredient.of(BuiltInRegistries.ITEM.get(ArcanusItemTags.STAFF_CAPS).orElseThrow())
 		),
 		"  C",
 		" I ",
