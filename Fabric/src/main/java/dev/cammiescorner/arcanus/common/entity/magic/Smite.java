@@ -1,24 +1,28 @@
 package dev.cammiescorner.arcanus.common.entity.magic;
 
+import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSoundEvents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.*;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Util;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -41,12 +45,12 @@ public class Smite extends Entity implements Targetable {
 
 	@Override
 	public void tick() {
-		if(!level().isClientSide() && (getCaster() == null || !getCaster().isAlive())) {
-			kill();
-			return;
-		}
+		if(level() instanceof ServerLevel serverLevel) {
+			if((getCaster() == null || !getCaster().isAlive())) {
+				kill(serverLevel);
+				return;
+			}
 
-		if(!level().isClientSide()) {
 			if(tickCount <= 9) {
 				AABB box = new AABB(getX() - 4, getY() - 1, getZ() - 4, getX() + 4, (level().getHeight() + 2048) - getY(), getZ() + 4);
 
@@ -67,7 +71,7 @@ public class Smite extends Entity implements Targetable {
 			}
 
 			if(tickCount > 23) {
-				kill();
+				kill(serverLevel);
 			}
 		}
 		else {
@@ -95,48 +99,40 @@ public class Smite extends Entity implements Targetable {
 	}
 
 	@Override
-	public boolean canChangeDimensions(Level oldLevel, Level newLevel) {
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
 		return false;
 	}
 
 	@Override
-	protected void readAdditionalSaveData(CompoundTag tag) {
+	protected void readAdditionalSaveData(ValueInput input) {
 		effects.clear();
 		hasHit.clear();
 
-		casterId = tag.getUUID("CasterId");
-		stack = ItemStack.parseOptional(registryAccess(), tag.getCompound("ItemStack"));
-		potency = tag.getDouble("Potency");
+		casterId = input.read("CasterId", UUIDUtil.CODEC).orElse(Util.NIL_UUID);
+		stack = input.read("ItemStack", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+		potency = input.getDoubleOr("Potency", 0);
 
-		ListTag effectList = tag.getList("Effects", Tag.TAG_STRING);
-		ListTag entityList = tag.getList("HasHit", Tag.TAG_INT_ARRAY);
+		for(String s : input.read("Effects", Codec.STRING.listOf()).orElse(List.of())) {
+			if(ArcanusSpellComponents.REGISTRY.getValue(Identifier.parse(s)) instanceof SpellEffect spellEffect)
+				effects.add(spellEffect);
+		}
 
-		for(int i = 0; i < effectList.size(); i++) {
-			effects.add((SpellEffect) ArcanusSpellComponents.REGISTRY.get(ResourceLocation.parse(effectList.getString(i))));
-		}
-		for(Tag nbtElement : entityList) {
-			hasHit.add(NbtUtils.loadUUID(nbtElement));
-		}
+		hasHit.addAll(input.read("HasHit", UUIDUtil.CODEC.listOf()).orElse(List.of()));
 	}
 
 	@Override
-	protected void addAdditionalSaveData(CompoundTag tag) {
-		ListTag effectList = new ListTag();
-		ListTag entityList = new ListTag();
+	protected void addAdditionalSaveData(ValueOutput output) {
+		List<String> stringEffects = new ArrayList<>();
 
-		tag.putUUID("CasterId", casterId);
-		tag.put("ItemStack", stack.save(registryAccess()));
-		tag.putDouble("Potency", potency);
+		output.store("CasterId", UUIDUtil.CODEC, casterId);
+		output.store("ItemStack", ItemStack.CODEC, stack);
+		output.putDouble("Potency", potency);
 
-		for(SpellEffect effect : effects) {
-			effectList.add(StringTag.valueOf(ArcanusSpellComponents.REGISTRY.getKey(effect).toString()));
-		}
-		for(UUID uuid1 : hasHit) {
-			entityList.add(NbtUtils.createUUID(uuid1));
-		}
+		for(SpellEffect effect : effects)
+			stringEffects.add(ArcanusSpellComponents.REGISTRY.getKey(effect).toString());
 
-		tag.put("Effects", effectList);
-		tag.put("HasHit", entityList);
+		output.store("Effects", Codec.STRING.listOf(), stringEffects);
+		output.store("HasHit", UUIDUtil.CODEC.listOf(), hasHit);
 	}
 
 	public UUID getCasterId() {

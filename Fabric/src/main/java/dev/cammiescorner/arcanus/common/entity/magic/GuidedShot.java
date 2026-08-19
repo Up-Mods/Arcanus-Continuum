@@ -1,21 +1,19 @@
 package dev.cammiescorner.arcanus.common.entity.magic;
 
+import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import net.minecraft.util.Util;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
@@ -23,6 +21,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -56,8 +56,8 @@ public class GuidedShot extends ThrowableItemProjectile implements Targetable {
 
 	@Override
 	public void tick() {
-		if(getCaster() == null) {
-			kill();
+		if(getCaster() == null && level() instanceof ServerLevel serverLevel) {
+			kill(serverLevel);
 			return;
 		}
 
@@ -71,65 +71,61 @@ public class GuidedShot extends ThrowableItemProjectile implements Targetable {
 
 	@Override
 	protected void onHitEntity(EntityHitResult result) {
-		if(!level().isClientSide()) {
+		if(level() instanceof ServerLevel serverLevel) {
 			for(SpellEffect effect : new HashSet<>(effects))
 				effect.effect(getCaster(), this, level(), result, effects, stack, potency);
 
 			SpellShape.castNext(getCaster(), position(), result.getEntity(), (ServerLevel) level(), stack, spellGroups, groupIndex, potency);
 
-			kill();
+			kill(serverLevel);
 		}
 	}
 
 	@Override
 	protected void onHitBlock(BlockHitResult result) {
-		if(!level().isClientSide()) {
+		if(level() instanceof ServerLevel serverLevel) {
 			for(SpellEffect effect : new HashSet<>(effects))
 				effect.effect(getCaster(), this, level(), result, effects, stack, potency);
 
 			SpellShape.castNext(getCaster(), position(), this, (ServerLevel) level(), stack, spellGroups, groupIndex, potency);
 
 			super.onHitBlock(result);
-			kill();
+			kill(serverLevel);
 		}
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
+	protected void readAdditionalSaveData(ValueInput input) {
 		effects.clear();
 		spellGroups.clear();
 
-		casterId = tag.getUUID("CasterId");
-		stack = ItemStack.parseOptional(registryAccess(), tag.getCompound("ItemStack"));
-		groupIndex = tag.getInt("GroupIndex");
-		potency = tag.getDouble("Potency");
+		casterId = input.read("CasterId", UUIDUtil.CODEC).orElse(Util.NIL_UUID);
+		stack = input.read("ItemStack", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+		groupIndex = input.getIntOr("GroupIndex", 0);
+		potency = input.getDoubleOr("Potency", 0);
 
-		ListTag effectList = tag.getList("Effects", Tag.TAG_STRING);
-		ListTag groupsList = tag.getList("SpellGroups", Tag.TAG_COMPOUND);
+		for(String s : input.read("Effects", Codec.STRING.listOf()).orElse(List.of())) {
+			if(ArcanusSpellComponents.REGISTRY.getValue(Identifier.parse(s)) instanceof SpellEffect spellEffect)
+				effects.add(spellEffect);
+		}
 
-		for(int i = 0; i < effectList.size(); i++)
-			effects.add((SpellEffect) ArcanusSpellComponents.REGISTRY.get(ResourceLocation.parse(effectList.getString(i))));
-		for(int i = 0; i < groupsList.size(); i++)
-			spellGroups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
+		spellGroups.addAll(input.read("SpellGroups", SpellGroup.CODEC.listOf()).orElse(List.of()));
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		ListTag effectList = new ListTag();
-		ListTag groupsList = new ListTag();
+	protected void addAdditionalSaveData(ValueOutput output) {
+		List<String> stringEffects = new ArrayList<>();
 
-		tag.putUUID("CasterId", casterId);
-		tag.put("ItemStack", stack.save(registryAccess()));
-		tag.putInt("GroupIndex", groupIndex);
-		tag.putDouble("Potency", potency);
+		output.store("CasterId", UUIDUtil.CODEC, casterId);
+		output.store("ItemStack", ItemStack.CODEC, stack);
+		output.putInt("GroupIndex", groupIndex);
+		output.putDouble("Potency", potency);
 
 		for(SpellEffect effect : effects)
-			effectList.add(StringTag.valueOf(ArcanusSpellComponents.REGISTRY.getKey(effect).toString()));
-		for(SpellGroup group : spellGroups)
-			groupsList.add(group.toNbt());
+			stringEffects.add(ArcanusSpellComponents.REGISTRY.getKey(effect).toString());
 
-		tag.put("Effects", effectList);
-		tag.put("SpellGroups", groupsList);
+		output.store("Effects", Codec.STRING.listOf(), stringEffects);
+		output.store("SpellGroups", SpellGroup.CODEC.listOf(), spellGroups);
 	}
 
 	@Override

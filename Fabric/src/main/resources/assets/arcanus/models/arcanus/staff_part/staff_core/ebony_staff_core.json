@@ -1,6 +1,6 @@
 {
   "parent": "arcanus:arcanus/staff_part/staff_core_base",
   "textures": {
-    "layer0": "arcanus:item/staff_part/staff_core/emyrwood_staff_core"
+    "layer0": "arcanus:item/staff_part/staff_core/ebony_staff_core"
   }
 }

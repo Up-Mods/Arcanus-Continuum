@@ -1,14 +1,21 @@
 package dev.cammiescorner.arcanus.common.block;
 
+import com.teamresourceful.resourcefulconfig.client.components.options.types.color.HsbColor;
+import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.common.block.entities.WardedJarBlockEntity;
 import dev.cammiescorner.arcanus.common.data_component.ArcanaStack;
 import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
+import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
 import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
-import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
+import dev.upcraft.sparkweave.api.color.Color;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -16,7 +23,11 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -38,6 +49,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Consumer;
 
 public class WardedJarBlock extends Block implements BlockItemProvider, EntityBlock, SimpleWaterloggedBlock {
 	private static final VoxelShape SHAPE = Shapes.or(
@@ -93,7 +106,7 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 	@Override
 	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
 		if(!level.isClientSide() && level.getBlockEntity(pos) instanceof WardedJarBlockEntity jar && jar.getArcanaStack(0).amount() > 0 && jar.getArcanaStack(0).arcana() != ArcanusArcana.NIL.get()) {
-			ItemStack stack = new ItemStack(ArcanusItems.WARDED_JAR.get());
+			ItemStack stack = new ItemStack(ArcanusBlocks.WARDED_JAR.get());
 
 			stack.applyComponents(jar.collectComponents());
 
@@ -108,7 +121,7 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 
 	@Override
 	protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
-		ItemStack stack = new ItemStack(ArcanusItems.WARDED_JAR.get());
+		ItemStack stack = new ItemStack(ArcanusBlocks.WARDED_JAR.get());
 
 		if(level.getBlockEntity(pos) instanceof WardedJarBlockEntity wardedJar)
 			stack.set(ArcanusDataComponents.ARCANA_STACK.get(), wardedJar.getArcanaStack(0));
@@ -185,6 +198,35 @@ public class WardedJarBlock extends Block implements BlockItemProvider, EntityBl
 		return (level1, blockPos, blockState, blockEntity) -> {
 			if(level.getGameTime() % 10 == 0 && blockEntity instanceof WardedJarBlockEntity wardedJar && !wardedJar.getArcanaStack(0).isEmpty())
 				ArcanusHelper.findAndTransferArcana(level, blockPos, wardedJar.getArcanaStack(0), 1);
+		};
+	}
+
+	@Override
+	public Item createItem(ResourceKey<Block> blockId) {
+		return new BlockItem(this, new Item.Properties().setId(ResourceKey.create(Registries.ITEM, blockId.identifier())).useBlockDescriptionPrefix()) {
+			@Override
+			public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+				ArcanaStack data = itemStack.get(ArcanusDataComponents.ARCANA_STACK.get());
+
+				if(data != null) {
+					MutableComponent component = Component.empty();
+					Arcana arcana = data.arcana();
+
+					if(arcana != null && arcana != ArcanusArcana.NIL.get()) {
+						component.append(String.format(data.amount() % 1 == 0 ? "%.0f" : "%.1f", data.amount()));
+						component.append(" ");
+						component.append(Component.translatable(arcana.translationKey()));
+
+						Color color = arcana.color();
+						HsbColor hsb = HsbColor.fromRgb(color.asIntARGB());
+
+						if(hsb.brightness() < 0.4f)
+							hsb = HsbColor.of(hsb.hue(), hsb.saturation(), 0.4f, hsb.alpha());
+
+						builder.accept(component.withColor(hsb.toRgba()));
+					}
+				}
+			}
 		};
 	}
 }

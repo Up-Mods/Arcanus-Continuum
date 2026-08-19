@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.entity.magic;
 
+import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
@@ -7,11 +8,7 @@ import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -22,6 +19,8 @@ import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
@@ -52,7 +51,7 @@ public class Lob extends AbstractArrow implements Targetable {
 			if(getOwner() instanceof LivingEntity caster)
 				SpellShape.castNext(caster, target.getLocation(), null, server, stack, spellGroups, groupIndex, potency);
 
-			kill();
+			kill(server);
 			return;
 		}
 
@@ -66,16 +65,17 @@ public class Lob extends AbstractArrow implements Targetable {
 
 	@Override
 	protected void onHitEntity(EntityHitResult target) {
+		playSound(getHitGroundSoundEvent(), 1f, 1.2f / (random.nextFloat() * 0.2f + 0.9f));
+
 		if(level() instanceof ServerLevel server) {
 			for(SpellEffect effect : new HashSet<>(effects))
 				effect.effect((LivingEntity) getOwner(), this, level(), target, effects, stack, potency);
 
 			if(getOwner() instanceof LivingEntity caster)
 				SpellShape.castNext(caster, target.getLocation(), target.getEntity(), server, stack, spellGroups, groupIndex, potency);
-		}
 
-		playSound(getHitGroundSoundEvent(), 1f, 1.2f / (random.nextFloat() * 0.2f + 0.9f));
-		kill();
+			kill(server);
+		}
 	}
 
 	@Override
@@ -85,49 +85,43 @@ public class Lob extends AbstractArrow implements Targetable {
 				effect.effect(caster, this, level(), target, effects, stack, potency);
 
 			SpellShape.castNext(caster, target.getLocation(), this, server, stack, spellGroups, groupIndex, potency);
+
+			kill(server);
 		}
 
 		super.onHitBlock(target);
-		kill();
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
-		super.readAdditionalSaveData(tag);
+	protected void readAdditionalSaveData(ValueInput input) {
 		effects.clear();
 		spellGroups.clear();
 
-		stack = ItemStack.parseOptional(registryAccess(), tag.getCompound("ItemStack"));
-		potency = tag.getDouble("Potency");
-		groupIndex = tag.getInt("GroupIndex");
+		stack = input.read("ItemStack", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+		groupIndex = input.getIntOr("GroupIndex", 0);
+		potency = input.getDoubleOr("Potency", 0);
 
-		ListTag effectList = tag.getList("Effects", Tag.TAG_STRING);
-		ListTag groupsList = tag.getList("SpellGroups", Tag.TAG_COMPOUND);
+		for(String s : input.read("Effects", Codec.STRING.listOf()).orElse(List.of())) {
+			if(ArcanusSpellComponents.REGISTRY.getValue(Identifier.parse(s)) instanceof SpellEffect spellEffect)
+				effects.add(spellEffect);
+		}
 
-		for(int i = 0; i < effectList.size(); i++)
-			effects.add((SpellEffect) ArcanusSpellComponents.REGISTRY.get(ResourceLocation.parse(effectList.getString(i))));
-		for(int i = 0; i < groupsList.size(); i++)
-			spellGroups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
+		spellGroups.addAll(input.read("SpellGroups", SpellGroup.CODEC.listOf()).orElse(List.of()));
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		super.addAdditionalSaveData(tag);
-		ListTag effectList = new ListTag();
-		ListTag groupsList = new ListTag();
+	protected void addAdditionalSaveData(ValueOutput output) {
+		List<String> stringEffects = new ArrayList<>();
 
-		if(!stack.isEmpty())
-			tag.put("ItemStack", stack.save(registryAccess()));
-		tag.putDouble("Potency", potency);
-		tag.putInt("GroupIndex", groupIndex);
+		output.store("ItemStack", ItemStack.CODEC, stack);
+		output.putInt("GroupIndex", groupIndex);
+		output.putDouble("Potency", potency);
 
 		for(SpellEffect effect : effects)
-			effectList.add(StringTag.valueOf(ArcanusSpellComponents.REGISTRY.getKey(effect).toString()));
-		for(SpellGroup group : spellGroups)
-			groupsList.add(group.toNbt());
+			stringEffects.add(ArcanusSpellComponents.REGISTRY.getKey(effect).toString());
 
-		tag.put("Effects", effectList);
-		tag.put("SpellGroups", groupsList);
+		output.store("Effects", Codec.STRING.listOf(), stringEffects);
+		output.store("SpellGroups", SpellGroup.CODEC.listOf(), spellGroups);
 	}
 
 	@Override

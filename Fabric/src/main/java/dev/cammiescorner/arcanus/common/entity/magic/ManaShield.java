@@ -1,19 +1,23 @@
 package dev.cammiescorner.arcanus.common.entity.magic;
 
 import dev.cammiescorner.arcanus.api.entity.Targetable;
-import net.minecraft.Util;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Util;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Comparator;
 import java.util.List;
@@ -31,36 +35,38 @@ public class ManaShield extends Entity implements Targetable {
 
 	@Override
 	public void tick() {
-		if(!level().isClientSide() && (getCaster() == null || !getCaster().isAlive())) {
-			kill();
-			return;
-		}
+		if(level() instanceof ServerLevel serverLevel) {
+			if((getCaster() == null || !getCaster().isAlive())) {
+				kill(serverLevel);
+				return;
+			}
 
-		List<ManaShield> list = level().getEntitiesOfClass(ManaShield.class, getBoundingBox(), EntitySelector.ENTITY_STILL_ALIVE);
+			List<ManaShield> list = level().getEntitiesOfClass(ManaShield.class, getBoundingBox(), EntitySelector.ENTITY_STILL_ALIVE);
 
-		if(!list.isEmpty()) {
-			list.sort(Comparator.comparingInt(ManaShield::getTrueAge).reversed());
-			int i = level().getGameRules().getInt(GameRules.RULE_MAX_ENTITY_CRAMMING);
+			if(!list.isEmpty()) {
+				list.sort(Comparator.comparingInt(ManaShield::getTrueAge).reversed());
+				int i = serverLevel.getGameRules().get(GameRules.MAX_ENTITY_CRAMMING);
 
-			if(i > 0 && list.size() > i - 1) {
-				int j = 0;
+				if(i > 0 && list.size() > i - 1) {
+					int j = 0;
 
-				for(ManaShield ignored : list)
-					++j;
+					for(ManaShield ignored : list)
+						++j;
 
-				if(j > i - 1) {
-					kill();
-					return;
+					if(j > i - 1) {
+						kill(serverLevel);
+						return;
+					}
 				}
 			}
-		}
 
-		if(level().getEntities(this, getBoundingBox(), entity -> entity instanceof LivingEntity && entity.isAlive()).isEmpty() && getTrueAge() + 20 < getMaxAge())
-			entityData.set(MAX_AGE, getTrueAge() + 20);
+			if(level().getEntities(this, getBoundingBox(), entity -> entity instanceof LivingEntity && entity.isAlive()).isEmpty() && getTrueAge() + 20 < getMaxAge())
+				entityData.set(MAX_AGE, getTrueAge() + 20);
 
-		if(getTrueAge() >= getMaxAge()) {
-			kill();
-			return;
+			if(getTrueAge() >= getMaxAge()) {
+				kill(serverLevel);
+				return;
+			}
 		}
 
 		super.tick();
@@ -79,26 +85,26 @@ public class ManaShield extends Entity implements Targetable {
 	}
 
 	@Override
-	public boolean canChangeDimensions(Level oldLevel, Level newLevel) {
+	protected void readAdditionalSaveData(ValueInput input) {
+		entityData.set(MAX_AGE, input.getIntOr("MaxAge", 0));
+		entityData.set(TRUE_AGE, input.getIntOr("TrueAge", 0));
+		ownerId = input.read("OwnerId", UUIDUtil.CODEC).orElse(Util.NIL_UUID);
+	}
+
+	@Override
+	protected void addAdditionalSaveData(ValueOutput output) {
+		output.putInt("MaxAge", entityData.get(MAX_AGE));
+		output.putInt("TrueAge", entityData.get(TRUE_AGE));
+		output.store("OwnerId", UUIDUtil.CODEC, ownerId);
+	}
+
+	@Override
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
 		return false;
 	}
 
 	@Override
-	protected void readAdditionalSaveData(CompoundTag tag) {
-		entityData.set(MAX_AGE, tag.getInt("MaxAge"));
-		entityData.set(TRUE_AGE, tag.getInt("TrueAge"));
-		ownerId = tag.getUUID("OwnerId");
-	}
-
-	@Override
-	protected void addAdditionalSaveData(CompoundTag tag) {
-		tag.putInt("MaxAge", getMaxAge());
-		tag.putInt("TrueAge", getTrueAge());
-		tag.putUUID("OwnerId", ownerId);
-	}
-
-	@Override
-	public boolean canBeCollidedWith() {
+	public boolean canBeCollidedWith(@Nullable Entity other) {
 		if(COLLIDING_ENTITY.get() == null)
 			return true;
 

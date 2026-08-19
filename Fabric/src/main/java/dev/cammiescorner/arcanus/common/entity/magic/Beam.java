@@ -1,27 +1,28 @@
 package dev.cammiescorner.arcanus.common.entity.magic;
 
+import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import net.minecraft.Util;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Util;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -58,8 +59,8 @@ public class Beam extends Entity implements Targetable {
 	@Override
 	public void tick() {
 		if(tickCount >= entityData.get(MAX_AGE) || (getCaster() == null || distanceToSqr(getCaster()) > 273 || !getCaster().isAlive()) || (entityData.get(IS_ON_ENTITY) ? getVehicle() == null : level().isEmptyBlock(blockPosition()))) {
-			if(!level().isClientSide())
-				kill();
+			if(level() instanceof ServerLevel serverLevel)
+				kill(serverLevel);
 
 			return;
 		}
@@ -71,7 +72,12 @@ public class Beam extends Entity implements Targetable {
 	}
 
 	@Override
-	public void kill() {
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		return false;
+	}
+
+	@Override
+	public void kill(final ServerLevel serverLevel) {
 		if(!level().isClientSide() && getCaster() != null) {
 			if(distanceToSqr(getCaster()) <= 273) {
 				HitResult target = entityData.get(IS_ON_ENTITY) && getVehicle() != null ? new EntityHitResult(getVehicle()) : new BlockHitResult(position(), Direction.UP, blockPosition(), true);
@@ -86,7 +92,7 @@ public class Beam extends Entity implements Targetable {
 			}
 		}
 
-		super.kill();
+		super.kill(serverLevel);
 	}
 
 	@Override
@@ -95,52 +101,43 @@ public class Beam extends Entity implements Targetable {
 	}
 
 	@Override
-	public boolean canChangeDimensions(Level oldLevel, Level newLevel) {
-		return false;
-	}
-
-	@Override
-	protected void readAdditionalSaveData(CompoundTag tag) {
+	protected void readAdditionalSaveData(ValueInput input) {
 		effects.clear();
 		groups.clear();
 
-		entityData.set(OWNER_ID, tag.getInt("OwnerId"));
-		entityData.set(MAX_AGE, tag.getInt("MaxAge"));
-		entityData.set(IS_ON_ENTITY, tag.getBoolean("IsOnBoolean"));
-		casterId = tag.getUUID("CasterId");
-		stack = ItemStack.parseOptional(registryAccess(), tag.getCompound("ItemStack"));
-		groupIndex = tag.getInt("GroupIndex");
-		potency = tag.getDouble("Potency");
+		entityData.set(OWNER_ID, input.getIntOr("OwnerId", 0));
+		entityData.set(MAX_AGE, input.getIntOr("MaxAge", 0));
+		entityData.set(IS_ON_ENTITY, input.getBooleanOr("IsOnBoolean", false));
+		casterId = input.read("CasterId", UUIDUtil.CODEC).orElse(Util.NIL_UUID);
+		stack = input.read("ItemStack", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+		groupIndex = input.getIntOr("GroupIndex", 0);
+		potency = input.getDoubleOr("Potency", 0);
 
-		ListTag effectList = tag.getList("Effects", Tag.TAG_STRING);
-		ListTag groupsList = tag.getList("SpellGroups", Tag.TAG_COMPOUND);
+		for(String s : input.read("Effects", Codec.STRING.listOf()).orElse(List.of())) {
+			if(ArcanusSpellComponents.REGISTRY.getValue(Identifier.parse(s)) instanceof SpellEffect spellEffect)
+				effects.add(spellEffect);
+		}
 
-		for(int i = 0; i < effectList.size(); i++)
-			effects.add((SpellEffect) ArcanusSpellComponents.REGISTRY.get(ResourceLocation.parse(effectList.getString(i))));
-		for(int i = 0; i < groupsList.size(); i++)
-			groups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
+		groups.addAll(input.read("SpellGroups", SpellGroup.CODEC.listOf()).orElse(List.of()));
 	}
 
 	@Override
-	protected void addAdditionalSaveData(CompoundTag tag) {
-		ListTag effectList = new ListTag();
-		ListTag groupsList = new ListTag();
+	protected void addAdditionalSaveData(ValueOutput output) {
+		List<String> stringEffects = new ArrayList<>();
 
-		tag.putInt("OwnerId", entityData.get(OWNER_ID));
-		tag.putInt("MaxAge", entityData.get(MAX_AGE));
-		tag.putBoolean("IsOnBoolean", entityData.get(IS_ON_ENTITY));
-		tag.putUUID("CasterId", casterId);
-		tag.put("ItemStack", stack.save(registryAccess()));
-		tag.putInt("GroupIndex", groupIndex);
-		tag.putDouble("Potency", potency);
+		output.putInt("OwnerId", entityData.get(OWNER_ID));
+		output.putInt("MaxAge", entityData.get(MAX_AGE));
+		output.putBoolean("IsOnBoolean", entityData.get(IS_ON_ENTITY));
+		output.store("CasterId", UUIDUtil.CODEC, casterId);
+		output.store("ItemStack", ItemStack.CODEC, stack);
+		output.putInt("GroupIndex", groupIndex);
+		output.putDouble("Potency", potency);
 
 		for(SpellEffect effect : effects)
-			effectList.add(StringTag.valueOf(ArcanusSpellComponents.REGISTRY.getKey(effect).toString()));
-		for(SpellGroup group : groups)
-			groupsList.add(group.toNbt());
+			stringEffects.add(ArcanusSpellComponents.REGISTRY.getKey(effect).toString());
 
-		tag.put("Effects", effectList);
-		tag.put("SpellGroups", groupsList);
+		output.store("Effects", Codec.STRING.listOf(), stringEffects);
+		output.store("SpellGroups", SpellGroup.CODEC.listOf(), groups);
 	}
 
 	@Override

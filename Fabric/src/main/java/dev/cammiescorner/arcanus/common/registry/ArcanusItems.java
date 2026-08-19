@@ -27,7 +27,6 @@ public class ArcanusItems {
 	public static final RegistrySupplier<Item> EBONY_PLANKS = ITEMS.register("ebony_planks", () -> new BlockItem(ArcanusBlocks.EBONY_PLANKS.get(), new Item.Properties()));
 	public static final RegistrySupplier<Item> EBONY_STAIRS = ITEMS.register("ebony_stairs", () -> new BlockItem(ArcanusBlocks.EBONY_STAIRS.get(), new Item.Properties()));
 	public static final RegistrySupplier<Item> EBONY_SLAB = ITEMS.register("ebony_slab", () -> new BlockItem(ArcanusBlocks.EBONY_SLAB.get(), new Item.Properties()));
-	public static final RegistrySupplier<Item> WARDED_JAR = ITEMS.register("warded_jar", () -> new WardedJarItem(ArcanusBlocks.WARDED_JAR.get(), new Item.Properties()));
 	public static final RegistrySupplier<Item> ARCANEUM_INGOT = ITEMS.register("arcaneum_ingot", () -> new Item(new Item.Properties()));
 	public static final RegistrySupplier<Item> ARCANEUM_NUGGET = ITEMS.register("arcaneum_nugget", () -> new Item(new Item.Properties()));
 	public static final RegistrySupplier<Item> VOID_INGOT = ITEMS.register("void_ingot", () -> new Item(new Item.Properties()));

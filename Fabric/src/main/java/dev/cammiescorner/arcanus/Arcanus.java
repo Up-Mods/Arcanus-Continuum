@@ -24,7 +24,9 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.slf4j.Logger;
@@ -101,8 +103,10 @@ public class Arcanus implements MainEntryPoint {
 				slotStack.set(hoodData, value);
 				Network.getNetworkHandler().sendToServer(new ServerboundOpenCloseHoodPacket(slot.getContainerSlot(), value));
 
-				// TODO figure out how to play the equip sound
-//				level.playSeededSound(player, player.getX(), player.getY(), player.getZ(), equipable.getEquipSound().value(), SoundSource.NEUTRAL, 1f, 1f, player.getRandom().nextLong());
+				var equippable = slotStack.get(DataComponents.EQUIPPABLE);
+
+				if(equippable != null)
+					level.playSeededSound(player, player.getX(), player.getY(), player.getZ(), equippable.equipSound().value(), SoundSource.NEUTRAL, 1f, 1f, player.getRandom().nextLong());
 
 				return true;
 			}

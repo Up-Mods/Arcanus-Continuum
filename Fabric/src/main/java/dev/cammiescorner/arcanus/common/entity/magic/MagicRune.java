@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.entity.magic;
 
+import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.ArcanusConfig;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
@@ -7,20 +8,20 @@ import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
 import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
 import dev.cammiescorner.arcanus.common.data.ArcanusEntityTags;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
-import net.minecraft.Util;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Util;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -44,20 +45,20 @@ public class MagicRune extends Entity implements Targetable {
 
 	@Override
 	public void tick() {
-		if(!level().isClientSide() && (getCaster() == null || !getCaster().isAlive())) {
-			kill();
+		if(level() instanceof ServerLevel serverLevel && (getCaster() == null || !getCaster().isAlive())) {
+			kill(serverLevel);
 			return;
 		}
 
 		if(level() instanceof ServerLevel serverWorld && tickCount > ArcanusConfig.SpellShapes.RuneShapeProperties.delay) {
-			LivingEntity entity = level().getNearestEntity(LivingEntity.class, TargetingConditions.forNonCombat().selector(MagicRune::isValidTarget), null, getX(), getY(), getZ(), new AABB(-0.5, 0, -0.5, 0.5, 0.2, 0.5).move(position()));
+			LivingEntity entity = serverWorld.getNearestEntity(LivingEntity.class, TargetingConditions.forNonCombat().selector(MagicRune::isValidTarget), null, getX(), getY(), getZ(), new AABB(-0.5, 0, -0.5, 0.5, 0.2, 0.5).move(position()));
 
 			if(entity != null) {
 				for(SpellEffect effect : new HashSet<>(effects))
 					effect.effect(getCaster(), this, level(), new EntityHitResult(entity), effects, stack, potency);
 
 				SpellShape.castNext(getCaster(), position(), this, serverWorld, stack, spellGroups, groupIndex, potency);
-				kill();
+				kill(serverWorld);
 			}
 		}
 
@@ -80,41 +81,42 @@ public class MagicRune extends Entity implements Targetable {
 	}
 
 	@Override
-	protected void readAdditionalSaveData(CompoundTag tag) {
+	protected void readAdditionalSaveData(ValueInput input) {
 		effects.clear();
 		spellGroups.clear();
 
-		casterId = tag.getUUID("CasterId");
-		stack = ItemStack.parseOptional(registryAccess(), tag.getCompound("ItemStack"));
-		groupIndex = tag.getInt("GroupIndex");
-		potency = tag.getDouble("Potency");
+		casterId = input.read("CasterId", UUIDUtil.CODEC).orElse(Util.NIL_UUID);
+		stack = input.read("ItemStack", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+		groupIndex = input.getIntOr("GroupIndex", 0);
+		potency = input.getDoubleOr("Potency", 0);
 
-		ListTag effectList = tag.getList("Effects", Tag.TAG_STRING);
-		ListTag groupsList = tag.getList("SpellGroups", Tag.TAG_COMPOUND);
+		for(String s : input.read("Effects", Codec.STRING.listOf()).orElse(List.of())) {
+			if(ArcanusSpellComponents.REGISTRY.getValue(Identifier.parse(s)) instanceof SpellEffect spellEffect)
+				effects.add(spellEffect);
+		}
 
-		for(int i = 0; i < effectList.size(); i++)
-			effects.add((SpellEffect) ArcanusSpellComponents.REGISTRY.get(ResourceLocation.parse(effectList.getString(i))));
-		for(int i = 0; i < groupsList.size(); i++)
-			spellGroups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
+		spellGroups.addAll(input.read("SpellGroups", SpellGroup.CODEC.listOf()).orElse(List.of()));
 	}
 
 	@Override
-	protected void addAdditionalSaveData(CompoundTag tag) {
-		ListTag effectList = new ListTag();
-		ListTag groupsList = new ListTag();
+	protected void addAdditionalSaveData(ValueOutput output) {
+		List<String> stringEffects = new ArrayList<>();
 
-		tag.putUUID("CasterId", casterId);
-		tag.put("ItemStack", stack.save(registryAccess()));
-		tag.putInt("GroupIndex", groupIndex);
-		tag.putDouble("Potency", potency);
+		output.store("CasterId", UUIDUtil.CODEC, casterId);
+		output.store("ItemStack", ItemStack.CODEC, stack);
+		output.putInt("GroupIndex", groupIndex);
+		output.putDouble("Potency", potency);
 
 		for(SpellEffect effect : effects)
-			effectList.add(StringTag.valueOf(ArcanusSpellComponents.REGISTRY.getKey(effect).toString()));
-		for(SpellGroup group : spellGroups)
-			groupsList.add(group.toNbt());
+			stringEffects.add(ArcanusSpellComponents.REGISTRY.getKey(effect).toString());
 
-		tag.put("Effects", effectList);
-		tag.put("SpellGroups", groupsList);
+		output.store("Effects", Codec.STRING.listOf(), stringEffects);
+		output.store("SpellGroups", SpellGroup.CODEC.listOf(), spellGroups);
+	}
+
+	@Override
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+		return false;
 	}
 
 	public UUID getCasterId() {
@@ -140,11 +142,11 @@ public class MagicRune extends Entity implements Targetable {
 		this.potency = potency;
 	}
 
-	private static boolean isValidTarget(LivingEntity livingEntity) {
+	private static boolean isValidTarget(LivingEntity livingEntity, ServerLevel level) {
 		if(!livingEntity.isAlive() || livingEntity.isSpectator() || livingEntity.isIgnoringBlockTriggers()) {
 			return false;
 		}
 
-		return livingEntity.arcanus$canBeTargeted() && !livingEntity.getType().is(ArcanusEntityTags.RUNE_TRIGGER_IGNORED);
+		return livingEntity.arcanus$canBeTargeted() && !livingEntity.is(ArcanusEntityTags.RUNE_TRIGGER_IGNORED);
 	}
 }

@@ -1,5 +1,6 @@
 package dev.cammiescorner.arcanus.common.entity.magic;
 
+import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.api.entity.Targetable;
 import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
 import dev.cammiescorner.arcanus.api.spell.components.SpellGroup;
@@ -7,15 +8,13 @@ import dev.cammiescorner.arcanus.api.spell.components.SpellShape;
 import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
 import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
 import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import net.minecraft.util.Util;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Util;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,6 +22,8 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -65,8 +66,8 @@ public class StockpileOrb extends ThrowableProjectile implements Targetable {
 
 	@Override
 	public void tick() {
-		if(getCaster() == null || getTarget() == null) {
-			kill();
+		if(level() instanceof ServerLevel serverLevel && (getCaster() == null || getTarget() == null)) {
+			kill(serverLevel);
 			return;
 		}
 
@@ -101,26 +102,26 @@ public class StockpileOrb extends ThrowableProjectile implements Targetable {
 
 	@Override
 	protected void onHitEntity(EntityHitResult entityHitResult) {
-		if(!isBoundToTarget() && !level().isClientSide()) {
+		if(!isBoundToTarget() && level() instanceof ServerLevel serverLevel) {
 			for(SpellEffect effect : new HashSet<>(effects))
 				effect.effect(getCaster(), this, level(), entityHitResult, effects, stack, potency);
 
 			SpellShape.castNext(getCaster(), position(), entityHitResult.getEntity(), (ServerLevel) level(), stack, groups, groupIndex, potency);
 
-			kill();
+			kill(serverLevel);
 		}
 	}
 
 	@Override
 	protected void onHitBlock(BlockHitResult blockHitResult) {
-		if(!isBoundToTarget() && !level().isClientSide()) {
+		if(!isBoundToTarget() && level() instanceof ServerLevel serverLevel) {
 			for(SpellEffect effect : new HashSet<>(effects))
 				effect.effect(getCaster(), this, level(), blockHitResult, effects, stack, potency);
 
 			SpellShape.castNext(getCaster(), position(), this, (ServerLevel) level(), stack, groups, groupIndex, potency);
 
 			super.onHitBlock(blockHitResult);
-			kill();
+			kill(serverLevel);
 		}
 	}
 
@@ -140,7 +141,7 @@ public class StockpileOrb extends ThrowableProjectile implements Targetable {
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float amount) {
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
 		Vec3 dir = getTarget().getEyePosition().subtract(position()).normalize();
 		float pitch = (float) Math.toDegrees(Math.asin(-dir.y()));
 		float yaw = (float) Math.toDegrees(-Math.atan2(dir.x(), dir.z()));
@@ -153,11 +154,11 @@ public class StockpileOrb extends ThrowableProjectile implements Targetable {
 	}
 
 	@Override
-	public void kill() {
-		if(!level().isClientSide() && getTarget() != null)
+	public void kill(final ServerLevel serverLevel) {
+		if(getTarget() != null)
 			ArcanusComponents.removeStockpileOrbFromEntity(getTarget(), getUUID());
 
-		super.kill();
+		super.kill(serverLevel);
 	}
 
 	@Override
@@ -166,45 +167,42 @@ public class StockpileOrb extends ThrowableProjectile implements Targetable {
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag tag) {
+	protected void readAdditionalSaveData(ValueInput input) {
+		super.readAdditionalSaveData(input);
 		effects.clear();
 		groups.clear();
 
-		casterId = tag.getUUID("CasterId");
-		targetId = tag.getUUID("TargetId");
-		stack = ItemStack.parseOptional(registryAccess(), tag.getCompound("ItemStack"));
-		groupIndex = tag.getInt("GroupIndex");
-		potency = tag.getDouble("Potency");
-		boundToTarget = tag.getBoolean("BoundToTarget");
+		casterId = input.read("CasterId", UUIDUtil.CODEC).orElse(Util.NIL_UUID);
+		stack = input.read("ItemStack", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+		groupIndex = input.getIntOr("GroupIndex", 0);
+		potency = input.getDoubleOr("Potency", 0);
+		boundToTarget = input.getBooleanOr("BoundToTarget", false);
 
-		ListTag effectList = tag.getList("Effects", Tag.TAG_STRING);
-		ListTag groupsList = tag.getList("SpellGroups", Tag.TAG_COMPOUND);
+		for(String s : input.read("Effects", Codec.STRING.listOf()).orElse(List.of())) {
+			if(ArcanusSpellComponents.REGISTRY.getValue(Identifier.parse(s)) instanceof SpellEffect spellEffect)
+				effects.add(spellEffect);
+		}
 
-		for(int i = 0; i < effectList.size(); i++)
-			effects.add((SpellEffect) ArcanusSpellComponents.REGISTRY.get(ResourceLocation.parse(effectList.getString(i))));
-		for(int i = 0; i < groupsList.size(); i++)
-			groups.add(SpellGroup.fromNbt(groupsList.getCompound(i)));
+		groups.addAll(input.read("SpellGroups", SpellGroup.CODEC.listOf()).orElse(List.of()));
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
-		ListTag effectList = new ListTag();
-		ListTag groupsList = new ListTag();
+	protected void addAdditionalSaveData(ValueOutput output) {
+		super.addAdditionalSaveData(output);
 
-		tag.putUUID("CasterId", casterId);
-		tag.putUUID("TargetId", targetId);
-		tag.put("ItemStack", stack.save(registryAccess()));
-		tag.putInt("GroupIndex", groupIndex);
-		tag.putDouble("Potency", potency);
-		tag.putBoolean("BoundToTarget", boundToTarget);
+		List<String> stringEffects = new ArrayList<>();
+
+		output.store("CasterId", UUIDUtil.CODEC, casterId);
+		output.store("ItemStack", ItemStack.CODEC, stack);
+		output.putInt("GroupIndex", groupIndex);
+		output.putDouble("Potency", potency);
+		output.putBoolean("BoundToTarget", boundToTarget);
 
 		for(SpellEffect effect : effects)
-			effectList.add(StringTag.valueOf(ArcanusSpellComponents.REGISTRY.getKey(effect).toString()));
-		for(SpellGroup group : groups)
-			groupsList.add(group.toNbt());
+			stringEffects.add(ArcanusSpellComponents.REGISTRY.getKey(effect).toString());
 
-		tag.put("Effects", effectList);
-		tag.put("SpellGroups", groupsList);
+		output.store("Effects", Codec.STRING.listOf(), stringEffects);
+		output.store("SpellGroups", SpellGroup.CODEC.listOf(), groups);
 	}
 
 	@Override
