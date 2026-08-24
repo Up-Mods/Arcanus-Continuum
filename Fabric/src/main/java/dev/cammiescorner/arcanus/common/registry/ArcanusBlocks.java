@@ -1,12 +1,11 @@
 package dev.cammiescorner.arcanus.common.registry;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.block.AlembicBlock;
 import dev.cammiescorner.arcanus.common.block.*;
 import dev.cammiescorner.arcanus.common.world.tree.ArcanusTreeGrower;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
-import net.minecraft.core.registries.Registries;
+import dev.upcraft.sparkweave.api.registry.block.BlockRegistryHandler;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -14,7 +13,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
 public class ArcanusBlocks {
-	public static final RegistryHandler<Block> BLOCKS = RegistryHandler.create(Registries.BLOCK, Arcanus.MOD_ID);
+	public static final BlockRegistryHandler BLOCKS = RegistryHandler.blocks(Arcanus.MOD_ID);
 
 	public static final RegistrySupplier<Block> EBONY_LOG = BLOCKS.register("ebony_log", () -> new RotatedPillarBlock(Blocks.logProperties(MapColor.TERRACOTTA_BLACK, MapColor.COLOR_BLACK, SoundType.WOOD)));
 	public static final RegistrySupplier<Block> EBONY_WOOD = BLOCKS.register("ebony_wood", () -> new RotatedPillarBlock(Blocks.logProperties(MapColor.TERRACOTTA_BLACK, MapColor.COLOR_BLACK, SoundType.WOOD)));

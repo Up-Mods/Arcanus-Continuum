@@ -6,6 +6,7 @@ import dev.cammiescorner.arcanus.common.data_component.StaffCoreComponent;
 import dev.cammiescorner.arcanus.common.item.*;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
+import dev.upcraft.sparkweave.api.registry.item.ItemRegistryHandler;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class ArcanusItems {
-	public static final RegistryHandler<Item> ITEMS = RegistryHandler.create(Registries.ITEM, Arcanus.MOD_ID);
+	public static final ItemRegistryHandler ITEMS = RegistryHandler.items(Arcanus.MOD_ID);
 
 	public static final RegistrySupplier<Item> EBONY_LOG = ITEMS.register("ebony_log", () -> new BlockItem(ArcanusBlocks.EBONY_LOG.get(), new Item.Properties()));
 	public static final RegistrySupplier<Item> EBONY_WOOD = ITEMS.register("ebony_wood", () -> new BlockItem(ArcanusBlocks.EBONY_WOOD.get(), new Item.Properties()));
