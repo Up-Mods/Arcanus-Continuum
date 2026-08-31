@@ -9,17 +9,13 @@ neoform = "26.1.2-1"
 
 # NeoForge
 # https://projects.neoforged.net/neoforged/neoforge
-neoforge = "26.1.2.93"
+neoforge = "26.1.2.100"
 
 # Fabric
 # https://fabricmc.net/develop
-fabric_loom = "1.17.17" # https://maven.fabricmc.net/net/fabricmc/fabric-loom/net.fabricmc.fabric-loom.gradle.plugin/
+fabric_loom = "1.17.20" # https://maven.fabricmc.net/net/fabricmc/fabric-loom/net.fabricmc.fabric-loom.gradle.plugin/
 fabric_loader = "0.19.3"
 fabric_api = "0.155.2+26.1.2"
-
-# Environment stuff
-jetbrains_annotations = "26.0.1"
-autoservice = "1.1.1"
 
 # Misc
 yeetus_experimentus_fabric = "Zp3lJWyj" # [FABRIC][26.1] YeetusExperimentus 99.0.0
@@ -28,32 +24,39 @@ yeetus_experimentus_neoforge = "Vw0Mo4mX" # [NEOFORGE][26.1] YeetusExperimentus 
 # Mods
 # https://beehive.sh/mod/resourcefulconfig/versions
 resourcefulconfig = "4.0.1"
-# https://www.curseforge.com/minecraft/mc-mods/sparkweave/files/all
-sparkweave = "0.600.0-alpha.13"
+# https://modrinth.com/mod/sparkweave/versions
+sparkweave = "0.600.0-alpha.15"
+# https://modrinth.com/mod/cardinal-components-api/versions
 cca = "8.0.1"
+# https://modrinth.com/plugin/common-network/versions
 common_network = "1.0.23-26.1.2"
+# https://maven.uuid.gg/#/releases/dev/upcraft/datasync/datasync-minecraft-26.1-neoforge
 datasync = "0.11.0"
+# https://modrinth.com/mod/trinkets-updated/versions
 trinkets = "4.0.0-rc.1+26.1"
 
 # Compat
 # https://maven.blamejared.com/mezz/jei/jei-26.1.2-common/
-jei = "29.21.0.66"
+jei = "29.34.0.90"
 # https://modrinth.com/mod/modmenu/versions
 modmenu = "18.0.0"
 # https://modrinth.com/mod/first-person-model/versions
-firstperson = "PBg45FeB"
+firstperson_fabric = "PBg45FeB" # 2.7.2-26.1
+firstperson_neoforge = "fm5enNE9" # 2.7.2-26.1.2
+# https://maven.gegy.dev/#/releases/dev/lambdaurora/lambdynamiclights/lambdynamiclights-api
 lambdynamiclights = "4.11.1+26.1.2"
+# https://modrinth.com/mod/explosive-enhancement/versions
 explosive_enhancement = "IFzOg4ts"
-sodium = "0.8.10+mc26.1.2"
-iris = "5H9TsVy4"
+# https://maven.caffeinemc.net/#/releases/net/caffeinemc/sodium-fabric
+sodium = "0.9.1+mc26.1.2"
+# https://modrinth.com/mod/iris/versions # YL57xq9U
+iris_fabric = "5H9TsVy4" # 1.11.3+26.1-fabric
+iris_neoforge = "YuBfnIgK" # 1.11.3+26.1-neoforge
 
 [libraries]
 # Fabric
 fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_loader" }
 fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api" }
-jetbrains_annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains_annotations" }
-autoservice = { module = "com.google.auto.service:auto-service", version.ref = "autoservice" }
-autoservice_annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "autoservice" }
 
 # Minecraft Dependencies
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -84,14 +87,25 @@ cca_scoreboard = { module = "org.ladysnake.cardinal-components-api:cardinal-comp
 datasync_fabric = { module = "dev.upcraft.datasync:datasync-minecraft-26.1-fabric", version.ref = "datasync" }
 datasync_neoforge = { module = "dev.upcraft.datasync:datasync-minecraft-26.1-neoforge", version.ref = "datasync" }
 
+common_network = { module = "mysticdrew:common-networking-common", version.ref = "common_network" }
 common_network_fabric = { module = "mysticdrew:common-networking-fabric", version.ref = "common_network" }
-trinkets = { module = "eu.pb4:trinkets", version.ref = "trinkets" }
+common_network_neoforge = { module = "mysticdrew:common-networking-neoforge", version.ref = "common_network" }
 
-firstperson = { module = "maven.modrinth:first-person-model", version.ref = "firstperson" }
-lambdynamiclights = { module = "dev.lambdaurora.lambdynamiclights:lambdynamiclights-api", version.ref = "lambdynamiclights" }
-explosive_enhancement = { module = "maven.modrinth:explosive-enhancement", version.ref = "explosive_enhancement" }
-sodium = { module = "net.caffeinemc:sodium-fabric", version.ref = "sodium" }
-iris = { module = "maven.modrinth:iris", version.ref = "iris" }
+trinkets_fabric = { module = "eu.pb4:trinkets", version.ref = "trinkets" }
+
+firstperson_fabric = { module = "maven.modrinth:first-person-model", version.ref = "firstperson_fabric" }
+firstperson_neoforge = { module = "maven.modrinth:first-person-model", version.ref = "firstperson_neoforge" }
+
+lambdynamiclights_api_fabric = { module = "dev.lambdaurora.lambdynamiclights:lambdynamiclights-api", version.ref = "lambdynamiclights" }
+lambdynamiclights_runtime_fabric = { module = "dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime", version.ref = "lambdynamiclights" }
+
+explosive_enhancement_fabric = { module = "maven.modrinth:explosive-enhancement", version.ref = "explosive_enhancement" }
+
+sodium_fabric = { module = "net.caffeinemc:sodium-fabric", version.ref = "sodium" }
+sodium_neoforge = { module = "net.caffeinemc:sodium-neoforge", version.ref = "sodium" }
+
+iris_fabric = { module = "maven.modrinth:iris", version.ref = "iris_fabric" }
+iris_neoforge = { module = "maven.modrinth:iris", version.ref = "iris_neoforge" }
 
 yeetus_experimentus_fabric = { module = "maven.modrinth:yeetus-experimentus", version.ref = "yeetus_experimentus_fabric" }
 yeetus_experimentus_neoforge = { module = "maven.modrinth:yeetus-experimentus", version.ref = "yeetus_experimentus_neoforge" }

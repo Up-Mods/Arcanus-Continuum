@@ -1,5 +1,6 @@
 plugins {
     id("dev.upcraft.gradle.multiloader")
+    id("dev.upcraft.gradle.custom")
     id("net.fabricmc.fabric-loom-companion")
     id("net.neoforged.moddev")
 }
@@ -15,19 +16,32 @@ multiLoader {
     applyMetadataReplacements(listOf("pack.mcmeta", "*.mixins.json"))
 }
 
-repositories {
-    maven("https://maven.blamejared.com") {
-        name = "BlameJared"
-    }
-    maven("https://maven.teamresourceful.com/repository/maven-releases") {
-        name = "TeamResourceful"
-    }
-}
-
 dependencies {
     compileOnly(libs.jei.api)
     compileOnly(libs.resourcefulconfig)
+
     compileOnly(libs.sparkweave)
+    "accessTransformers"(libs.sparkweave)
+    "interfaceInjectionData"(libs.sparkweave)
+
+    compileOnly(libs.bundles.cca) // TODO ATs/interfaces
+
+    compileOnly(libs.common.network)
+
+    // TODO datasync common
+    compileOnly(libs.datasync.neoforge)
+//    accessTransformers(libs.datasync.neoforge)
+    interfaceInjectionData(libs.datasync.neoforge)
+
+    // TODO dynamic lights?
+
+    compileOnly(libs.sodium.neoforge)
+
+    compileOnly(libs.iris.neoforge)
+
+    compileOnly(libs.firstperson.neoforge)
+
+    // TODO explosive enhancement
 }
 
 neoForge {

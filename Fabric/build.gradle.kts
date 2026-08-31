@@ -1,5 +1,6 @@
 plugins {
     id("dev.upcraft.gradle.multiloader")
+    id("dev.upcraft.gradle.custom")
     id("net.fabricmc.fabric-loom")
 }
 
@@ -18,49 +19,6 @@ multiLoader {
     ))
 }
 
-repositories {
-    maven("https://maven.blamejared.com") {
-        name = "BlameJared"
-    }
-    maven("https://maven.teamresourceful.com/repository/maven-releases") {
-        name = "TeamResourceful"
-    }
-    // FIXME currently unavailable, using backup
-    // maven("https://maven.terraformersmc.com/releases") {
-    maven("https://maven.gnomecraft.net/releases") {
-        name = "TerraformersMC"
-    }
-	maven("https://maven.ladysnake.org/releases") {
-		name = "Ladysnake"
-	}
-	maven("https://maven.uuid.gg/releases") {
-		name = "Lopa"
-	}
-	maven("https://maven.caffeinemc.net/releases") {
-		name = "CaffeineMC"
-	}
-	// This doesn't work for some reason
-//	exclusiveContent {
-//		forRepository {
-//			maven("https://api.modrinth.com/maven") {
-//				name = "Modrinth"
-//			}
-//		}
-//		filter {
-//			includeGroup("maven.modrinth")
-//		}
-//	}
-	maven("https://api.modrinth.com/maven") {
-		name = "Modrinth"
-	}
-	maven("https://maven.gegy.dev") {
-		name = "Gegy"
-	}
-	maven("https://maven.nucleoid.xyz/releases") {
-		name = "Nucleoid"
-	}
-}
-
 dependencies {
     minecraft(libs.minecraft)
 
@@ -69,11 +27,6 @@ dependencies {
 
     compileOnly(libs.jei.fabric.api)
     localRuntime(libs.jei.fabric)
-
-	compileOnly(libs.jetbrains.annotations)
-	compileOnly(libs.autoservice.annotations)
-
-	annotationProcessor(libs.autoservice)
 
 	implementation(libs.resourcefulconfig.fabric) {
         isTransitive = false
@@ -85,7 +38,7 @@ dependencies {
 
 	implementation(libs.common.network.fabric)
 
-	implementation(libs.trinkets)
+	implementation(libs.trinkets.fabric)
 
 	implementation(libs.datasync.fabric)
 	include(libs.datasync.fabric)
@@ -97,17 +50,20 @@ dependencies {
 		isTransitive = false
 	}
 
-	compileOnly(libs.lambdynamiclights)
+	compileOnly(libs.lambdynamiclights.api.fabric)
+    localRuntime(libs.lambdynamiclights.runtime.fabric)
 
-	compileOnly(libs.sodium)
-	localRuntime(libs.sodium)
+	compileOnly(libs.sodium.fabric)
+	localRuntime(libs.sodium.fabric)
 
-	compileOnly(libs.iris)
-	localRuntime(libs.iris)
+	compileOnly(libs.iris.fabric)
+	localRuntime(libs.iris.fabric)
 
-	compileOnly(libs.firstperson)
+	compileOnly(libs.firstperson.fabric)
+//    localRuntime(libs.firstperson.fabric)
 
-	compileOnly(libs.explosive.enhancement)
+	compileOnly(libs.explosive.enhancement.fabric)
+    localRuntime(libs.explosive.enhancement.fabric)
 
 	localRuntime(libs.yeetus.experimentus.fabric)
 }

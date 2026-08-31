@@ -1,5 +1,6 @@
 plugins {
     id("dev.upcraft.gradle.multiloader")
+    id("dev.upcraft.gradle.custom")
     id("net.neoforged.moddev")
 }
 
@@ -20,15 +21,6 @@ multiLoader {
     ))
 }
 
-repositories {
-    maven("https://maven.blamejared.com") {
-        name = "BlameJared"
-    }
-    maven("https://maven.teamresourceful.com/repository/maven-releases") {
-        name = "TeamResourceful"
-    }
-}
-
 dependencies {
     compileOnly(libs.jei.neoforge.api)
     "localRuntime"(libs.jei.neoforge)
@@ -36,6 +28,32 @@ dependencies {
     implementation(libs.resourcefulconfig.neoforge)
 
     implementation(libs.sparkweave.neoforge)
+    "accessTransformers"(libs.sparkweave)
+    "interfaceInjectionData"(libs.sparkweave)
+
+    // TODO CCA
+
+    implementation(libs.common.network.neoforge)
+
+    // TODO curios
+
+    implementation(libs.datasync.neoforge)
+    jarJar(libs.datasync.neoforge)
+
+    // TODO dynaiclights
+
+    compileOnly(libs.sodium.neoforge)
+    runtimeOnly(libs.sodium.neoforge)
+
+    compileOnly(libs.iris.neoforge)
+    runtimeOnly(libs.iris.neoforge)
+
+    compileOnly(libs.firstperson.neoforge)
+    runtimeOnly(libs.firstperson.neoforge)
+
+    // TODO explosive enhancement
+
+    localRuntime(libs.yeetus.experimentus.neoforge)
 }
 
 neoForge {
@@ -54,7 +72,7 @@ neoForge {
 
             programArguments.addAll(
                 // must be sparkweave so it generates for the library.
-                // actual mod is set below via sparkweave.datagen.mods property
+                // actual mod is set via sparkweave.datagen.mods property
                 "--mod", "sparkweave",
                 "--all",
                 "--flat",
