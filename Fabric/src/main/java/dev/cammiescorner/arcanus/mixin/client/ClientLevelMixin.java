@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.mixin.client;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.registry.ArcanusComponents;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;

@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.client.model.entity.magic;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.entity.magic.StockpileOrb;
+import dev.cammiescorner.arcanus.entity.magic.StockpileOrb;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;

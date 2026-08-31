@@ -1,8 +1,8 @@
 package dev.cammiescorner.arcanus.client.model.item;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.data_component.ArcanaStack;
-import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
+import dev.cammiescorner.arcanus.data_component.ArcanaStack;
+import dev.cammiescorner.arcanus.registry.ArcanusDataComponents;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.client.renderer.block.model.BakedQuad;

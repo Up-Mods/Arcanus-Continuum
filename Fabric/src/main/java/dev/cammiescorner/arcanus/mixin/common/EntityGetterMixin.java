@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.mixin.common;
 
-import dev.cammiescorner.arcanus.common.entity.magic.ManaShield;
+import dev.cammiescorner.arcanus.entity.magic.ManaShield;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.EntityGetter;
 import net.minecraft.world.phys.AABB;

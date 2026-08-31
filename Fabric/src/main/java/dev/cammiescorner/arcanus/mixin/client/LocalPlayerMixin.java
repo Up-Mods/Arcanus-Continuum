@@ -2,8 +2,8 @@ package dev.cammiescorner.arcanus.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.authlib.GameProfile;
-import dev.cammiescorner.arcanus.common.block.WardedJarBlock;
-import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
+import dev.cammiescorner.arcanus.block.WardedJarBlock;
+import dev.cammiescorner.arcanus.registry.ArcanusBlocks;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;

@@ -2,9 +2,9 @@ package dev.cammiescorner.arcanus.client.gui.screens;
 
 import com.mojang.authlib.GameProfile;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.util.StandardColors;
-import dev.cammiescorner.arcanus.common.util.supporters.HaloData;
-import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
+import dev.cammiescorner.arcanus.util.StandardColors;
+import dev.cammiescorner.arcanus.util.supporters.HaloData;
+import dev.cammiescorner.arcanus.util.supporters.WizardData;
 import dev.upcraft.datasync.api.util.Entitlements;
 import dev.upcraft.datasync.api.util.GameProfileHelper;
 import dev.upcraft.sparkweave.api.color.Color;
@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-
-import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 public class SupporterScreen extends Screen {
 	private final Screen parent;

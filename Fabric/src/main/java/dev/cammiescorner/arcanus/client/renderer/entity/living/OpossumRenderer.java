@@ -3,8 +3,8 @@ package dev.cammiescorner.arcanus.client.renderer.entity.living;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.model.entity.living.OpossumModel;
-import dev.cammiescorner.arcanus.common.entity.living.Opossum;
-import dev.cammiescorner.arcanus.common.item.ArcanistRobesItem;
+import dev.cammiescorner.arcanus.entity.living.Opossum;
+import dev.cammiescorner.arcanus.item.ArcanistRobesItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -35,8 +35,8 @@ public class OpossumRenderer extends MobRenderer<Opossum, OpossumModel> {
 
 		super.render(opossum, yaw, tickDelta, poseStack, verteces, i);
 
-		if(hatStack.getItem() instanceof ArcanistRobesItem wizardArmor) {
-			int hexColor = wizardArmor.getColor(hatStack);
+		if(hatStack.getItem() instanceof ArcanistRobesItem) { // TODO replace with component check
+			int hexColor = ArcanistRobesItem.getColor(hatStack);
 
 			if(hatStack.has(DataComponents.CUSTOM_NAME) && hatStack.getHoverName().getString().equals("jeb_")) {
 				int interval = 15;

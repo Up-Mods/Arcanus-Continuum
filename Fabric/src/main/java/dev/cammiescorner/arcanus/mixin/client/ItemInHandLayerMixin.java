@@ -2,8 +2,8 @@ package dev.cammiescorner.arcanus.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import dev.cammiescorner.arcanus.common.item.StaffItem;
-import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.item.StaffItem;
+import dev.cammiescorner.arcanus.registry.ArcanusComponents;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.world.entity.HumanoidArm;

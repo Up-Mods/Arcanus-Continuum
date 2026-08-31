@@ -2,9 +2,9 @@ package dev.cammiescorner.arcanus.datagen.common;
 
 import com.mojang.datafixers.util.Pair;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.data.*;
-import dev.cammiescorner.arcanus.common.world.structure.WizardTowerProcessor;
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
+import dev.cammiescorner.arcanus.data.*;
+import dev.cammiescorner.arcanus.world.structure.WizardTowerProcessor;
+import dev.upcraft.sparkweave.api.datagen.provider.common.dynamic.SparkweaveDynamicRegistryEntryProvider;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.Pools;
@@ -46,7 +46,7 @@ public class ArcanusStructureProvider extends SparkweaveDynamicRegistryEntryProv
 			var pools = context.lookup(Registries.TEMPLATE_POOL);
 
 			context.register(ArcanusStructures.WIZARD_TOWER, new JigsawStructure(
-				new Structure.StructureSettings.Builder(biomes.getOrThrow(ArcanusBiomeTags.HAS_WIZARD_TOWER))
+				new Structure.StructureSettings.Builder(biomes.getOrThrow(ArcanusTags.Biomes.HAS_WIZARD_TOWER))
 					.terrainAdapation(TerrainAdjustment.BEARD_THIN)
 					.build(),
 				pools.getOrThrow(ArcanusStructurePools.WIZARD_TOWER),
@@ -65,6 +65,6 @@ public class ArcanusStructureProvider extends SparkweaveDynamicRegistryEntryProv
 
 	@Override
 	public String getName() {
-		return Arcanus.MOD_ID;
+		return "Structures";
 	}
 }

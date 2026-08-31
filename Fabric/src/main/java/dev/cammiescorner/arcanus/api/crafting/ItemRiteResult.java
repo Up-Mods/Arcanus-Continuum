@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.api.crafting;
 
 import com.mojang.serialization.MapCodec;
-import dev.cammiescorner.arcanus.common.registry.ArcanusRiteResultTypes;
+import dev.cammiescorner.arcanus.registry.ArcanusRiteResultTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;

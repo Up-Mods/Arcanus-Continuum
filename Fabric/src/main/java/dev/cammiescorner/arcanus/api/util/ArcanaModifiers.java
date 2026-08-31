@@ -4,7 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
-import dev.cammiescorner.arcanus.common.util.XtraCodecs;
+import dev.cammiescorner.arcanus.util.XtraCodecs;
 import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
 import net.minecraft.network.RegistryFriendlyByteBuf;

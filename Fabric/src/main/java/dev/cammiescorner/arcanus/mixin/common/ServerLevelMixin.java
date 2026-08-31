@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.mixin.common;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
+import dev.cammiescorner.arcanus.util.ArcanusHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;

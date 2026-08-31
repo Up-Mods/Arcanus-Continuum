@@ -1,8 +1,8 @@
 package dev.cammiescorner.arcanus.client.gui.widgets;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.cammiescorner.arcanus.common.util.TranslationKeys;
-import dev.cammiescorner.arcanus.common.util.WorkbenchMode;
+import dev.cammiescorner.arcanus.util.TranslationKeys;
+import dev.cammiescorner.arcanus.util.WorkbenchMode;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.Tooltip;

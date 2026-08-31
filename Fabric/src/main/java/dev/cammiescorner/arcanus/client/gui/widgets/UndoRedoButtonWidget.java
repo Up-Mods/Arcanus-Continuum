@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.client.gui.widgets;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.cammiescorner.arcanus.client.gui.screens.SpellcraftScreen;
 import dev.cammiescorner.arcanus.client.gui.util.UndoRedoStack;
-import dev.cammiescorner.arcanus.common.util.TranslationKeys;
+import dev.cammiescorner.arcanus.util.TranslationKeys;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.Tooltip;

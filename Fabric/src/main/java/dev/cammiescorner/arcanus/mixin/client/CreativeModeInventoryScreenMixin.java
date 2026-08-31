@@ -2,10 +2,10 @@ package dev.cammiescorner.arcanus.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
-import dev.cammiescorner.arcanus.common.registry.ArcanusCreativeTabs;
-import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
-import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
+import dev.cammiescorner.arcanus.registry.ArcanusCreativeTabs;
+import dev.cammiescorner.arcanus.registry.ArcanusDataComponents;
+import dev.cammiescorner.arcanus.registry.ArcanusItems;
+import dev.cammiescorner.arcanus.registry.ArcanusSpellComponents;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;

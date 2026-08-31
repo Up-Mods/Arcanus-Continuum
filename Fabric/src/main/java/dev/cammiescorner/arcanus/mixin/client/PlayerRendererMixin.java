@@ -4,7 +4,7 @@ import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.renderer.layer.HaloLayerRenderer;
 import dev.cammiescorner.arcanus.client.renderer.layer.SpellBookLayerRenderer;
 import dev.cammiescorner.arcanus.client.renderer.layer.SpellPatternLayerRenderer;
-import dev.cammiescorner.arcanus.common.registry.ArcanusMobEffects;
+import dev.cammiescorner.arcanus.registry.ArcanusMobEffects;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

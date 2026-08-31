@@ -17,14 +17,14 @@ import dev.cammiescorner.arcanus.client.gui.util.Action;
 import dev.cammiescorner.arcanus.client.gui.util.UndoRedoStack;
 import dev.cammiescorner.arcanus.client.gui.widgets.SpellComponentWidget;
 import dev.cammiescorner.arcanus.client.gui.widgets.UndoRedoButtonWidget;
-import dev.cammiescorner.arcanus.common.item.SpellScrollItem;
-import dev.cammiescorner.arcanus.common.menu.SpellcraftMenu;
-import dev.cammiescorner.arcanus.common.networking.serverbound.ServerboundSaveBookDataPacket;
-import dev.cammiescorner.arcanus.common.registry.ArcanusArcana;
-import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
-import dev.cammiescorner.arcanus.common.registry.ArcanusSpellComponents;
-import dev.cammiescorner.arcanus.common.util.TranslationKeys;
+import dev.cammiescorner.arcanus.item.SpellScrollItem;
+import dev.cammiescorner.arcanus.menu.SpellcraftMenu;
+import dev.cammiescorner.arcanus.networking.serverbound.ServerboundSaveBookDataPacket;
+import dev.cammiescorner.arcanus.registry.ArcanusArcana;
+import dev.cammiescorner.arcanus.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.registry.ArcanusDataComponents;
+import dev.cammiescorner.arcanus.registry.ArcanusSpellComponents;
+import dev.cammiescorner.arcanus.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -47,8 +47,6 @@ import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 public class SpellcraftScreen extends AbstractContainerScreen<SpellcraftMenu> {
 	public static final ResourceLocation BOOK_TEXTURE = Arcanus.id("textures/gui/spell_scroll.png");

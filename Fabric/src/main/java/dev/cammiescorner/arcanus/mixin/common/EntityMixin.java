@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.mixin.common;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
+import dev.cammiescorner.arcanus.util.ArcanusHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;

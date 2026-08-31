@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.client.gui.screens;
 
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.util.TranslationKeys;
+import dev.cammiescorner.arcanus.util.TranslationKeys;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;

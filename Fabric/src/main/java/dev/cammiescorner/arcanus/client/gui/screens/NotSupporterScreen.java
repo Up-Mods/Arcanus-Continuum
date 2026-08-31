@@ -17,8 +17,6 @@ import org.apache.http.client.utils.URIBuilder;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
-import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
-
 public class NotSupporterScreen extends Screen {
 	private static final ResourceLocation DEMO_BACKGROUND_LOCATION = ResourceLocation.withDefaultNamespace("textures/gui/demo_background.png");
 	private static final String CAMMIE_KOFI_URL = "https://ko-fi.com/camellias";

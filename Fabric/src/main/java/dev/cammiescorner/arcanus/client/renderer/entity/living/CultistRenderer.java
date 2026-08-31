@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.client.renderer.entity.living;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.cammiescorner.arcanus.common.entity.living.Cultist;
+import dev.cammiescorner.arcanus.entity.living.Cultist;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidArmorModel;
 import net.minecraft.client.model.PlayerModel;

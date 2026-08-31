@@ -3,13 +3,14 @@ package dev.cammiescorner.arcanus;
 import com.google.auto.service.AutoService;
 import com.teamresourceful.resourcefulconfig.api.loader.Configurator;
 import commonnetwork.api.Network;
-import dev.cammiescorner.arcanus.common.data.ArcanusBiomeTags;
-import dev.cammiescorner.arcanus.common.menu.providers.SpellcraftMenuProvider;
-import dev.cammiescorner.arcanus.common.networking.clientbound.*;
-import dev.cammiescorner.arcanus.common.networking.serverbound.*;
-import dev.cammiescorner.arcanus.common.registry.*;
-import dev.cammiescorner.arcanus.common.util.supporters.HaloData;
-import dev.cammiescorner.arcanus.common.util.supporters.WizardData;
+import dev.cammiescorner.arcanus.data.ArcanusPlacedFeatures;
+import dev.cammiescorner.arcanus.data.ArcanusTags;
+import dev.cammiescorner.arcanus.menu.providers.SpellcraftMenuProvider;
+import dev.cammiescorner.arcanus.networking.clientbound.*;
+import dev.cammiescorner.arcanus.networking.serverbound.*;
+import dev.cammiescorner.arcanus.registry.*;
+import dev.cammiescorner.arcanus.util.supporters.HaloData;
+import dev.cammiescorner.arcanus.util.supporters.WizardData;
 import dev.upcraft.datasync.api.DataSyncAPI;
 import dev.upcraft.datasync.api.SyncToken;
 import dev.upcraft.sparkweave.api.color.Color;
@@ -61,7 +62,6 @@ public class Arcanus implements MainEntryPoint {
 		ArcanusArcana.ARCANA.accept(registryService);
 		ArcanusSpellComponents.SPELL_COMPONENTS.accept(registryService);
 		ArcanusEntities.ENTITY_TYPES.accept(registryService);
-		ArcanusArmorMaterials.MATERIALS.accept(registryService);
 		ArcanusDataComponents.DATA_COMPONENTS.accept(registryService);
 		ArcanusItems.ITEMS.accept(registryService);
 		ArcanusCreativeTabs.CREATIVE_TABS.accept(registryService);
@@ -114,7 +114,7 @@ public class Arcanus implements MainEntryPoint {
 			return false;
 		});
 
-		BiomeModifications.addFeature(BiomeSelectors.tag(ArcanusBiomeTags.SUITABLE_FOR_EBONY), GenerationStep.Decoration.VEGETAL_DECORATION, ArcanusFeatures.PLACED_EBONY_TREE);
+		BiomeModifications.addFeature(BiomeSelectors.tag(ArcanusTags.Biomes.SUITABLE_FOR_EBONY), GenerationStep.Decoration.VEGETAL_DECORATION, ArcanusPlacedFeatures.PLACED_EBONY_TREE);
 
 		StrippableBlockRegistry.register(ArcanusBlocks.EBONY_LOG.get(), ArcanusBlocks.STRIPPED_EBONY_LOG.get());
 		StrippableBlockRegistry.register(ArcanusBlocks.EBONY_WOOD.get(), ArcanusBlocks.STRIPPED_EBONY_WOOD.get());

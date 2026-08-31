@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.client.gui.screens;
 import com.teamresourceful.resourcefulconfig.api.types.ResourcefulConfig;
 import com.teamresourceful.resourcefulconfig.client.ConfigScreen;
 import com.teamresourceful.resourcefulconfig.client.components.base.CustomButton;
-import dev.cammiescorner.arcanus.common.util.TranslationKeys;
+import dev.cammiescorner.arcanus.util.TranslationKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.Nullable;

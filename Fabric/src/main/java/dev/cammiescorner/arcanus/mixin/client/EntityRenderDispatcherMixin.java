@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.mixin.client;
 
 import dev.cammiescorner.arcanus.client.ArcanusClient;
-import dev.cammiescorner.arcanus.common.entity.living.Cultist;
+import dev.cammiescorner.arcanus.entity.living.Cultist;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

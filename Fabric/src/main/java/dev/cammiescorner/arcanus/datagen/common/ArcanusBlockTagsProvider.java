@@ -1,58 +1,59 @@
 package dev.cammiescorner.arcanus.datagen.common;
 
-import dev.cammiescorner.arcanus.common.data.ArcanusBlockTags;
-import dev.cammiescorner.arcanus.common.registry.ArcanusBlocks;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
+import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.data.ArcanusTags;
+import dev.cammiescorner.arcanus.data.ConventionalTags;
+import dev.cammiescorner.arcanus.registry.ArcanusBlocks;
+import dev.upcraft.sparkweave.api.datagen.provider.common.SparkweaveBlockTagProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ArcanusBlockTagsProvider extends FabricTagProvider.BlockTagProvider {
-	public ArcanusBlockTagsProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-		super(output, registriesFuture);
+public class ArcanusBlockTagsProvider extends SparkweaveBlockTagProvider {
+
+	public ArcanusBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(output, Arcanus.MOD_ID, lookupProvider);
 	}
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
-		getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_AXE)
-			.add(Blocks.CHISELED_BOOKSHELF)
+		existingTag(BlockTags.MINEABLE_WITH_AXE)
+			.add(net.minecraft.world.level.block.Blocks.CHISELED_BOOKSHELF)
 			.add(ArcanusBlocks.ARCANE_WORKBENCH.get())
 			.add(ArcanusBlocks.MAGIC_DOOR.get());
 
-		getOrCreateTagBuilder(BlockTags.WITHER_IMMUNE)
+		existingTag(BlockTags.WITHER_IMMUNE)
 			.add(ArcanusBlocks.SPATIAL_RIFT_WALL.get())
 			.add(ArcanusBlocks.SPATIAL_RIFT_EXIT.get())
 			.add(ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get());
 
-		getOrCreateTagBuilder(BlockTags.DRAGON_IMMUNE)
+		existingTag(BlockTags.DRAGON_IMMUNE)
 			.add(ArcanusBlocks.SPATIAL_RIFT_WALL.get())
 			.add(ArcanusBlocks.SPATIAL_RIFT_EXIT.get())
 			.add(ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get());
 
 		// Ender Dragon cannot destroy blocks with this tag, but can fly straight through.
-		getOrCreateTagBuilder(BlockTags.DRAGON_TRANSPARENT)
+		existingTag(BlockTags.DRAGON_TRANSPARENT)
 			.add(ArcanusBlocks.MAGIC_BLOCK.get());
 
 		// Blocks in this tag do not let fluids or honey drip through.
-		getOrCreateTagBuilder(BlockTags.IMPERMEABLE)
+		existingTag(BlockTags.IMPERMEABLE)
 			.add(ArcanusBlocks.MAGIC_BLOCK.get())
 			.add(ArcanusBlocks.SPATIAL_RIFT_WALL.get())
 			.add(ArcanusBlocks.SPATIAL_RIFT_EXIT.get())
 			.add(ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get());
 
-		getOrCreateTagBuilder(ConventionalBlockTags.MOVEMENT_RESTRICTED)
+		existingTag(ConventionalTags.Blocks.MOVEMENT_RESTRICTED)
 			.add(ArcanusBlocks.MAGIC_BLOCK.get())
 			.add(ArcanusBlocks.SPATIAL_RIFT_WALL.get())
 			.add(ArcanusBlocks.SPATIAL_RIFT_EXIT.get())
 			.add(ArcanusBlocks.SPATIAL_RIFT_EXIT_EDGE.get());
 
-		getOrCreateTagBuilder(ArcanusBlockTags.WARDING_NOT_ALLOWED)
-			.add(Blocks.PISTON_HEAD)
-			.add(Blocks.MOVING_PISTON)
+		tag(ArcanusTags.Blocks.WARDING_NOT_ALLOWED, "Warding not allowed")
+			.add(net.minecraft.world.level.block.Blocks.PISTON_HEAD)
+			.add(net.minecraft.world.level.block.Blocks.MOVING_PISTON)
 			.add(ArcanusBlocks.MAGIC_BLOCK.get());
 	}
 }

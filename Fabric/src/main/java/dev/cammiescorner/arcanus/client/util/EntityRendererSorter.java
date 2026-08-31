@@ -1,9 +1,9 @@
 package dev.cammiescorner.arcanus.client.util;
 
 import com.google.common.collect.Ordering;
-import dev.cammiescorner.arcanus.common.entity.magic.AreaOfEffect;
-import dev.cammiescorner.arcanus.common.entity.magic.ManaShield;
-import dev.cammiescorner.arcanus.common.entity.magic.Smite;
+import dev.cammiescorner.arcanus.entity.magic.AreaOfEffect;
+import dev.cammiescorner.arcanus.entity.magic.ManaShield;
+import dev.cammiescorner.arcanus.entity.magic.Smite;
 import net.minecraft.world.entity.Entity;
 
 import java.util.List;

@@ -1,22 +1,25 @@
 package dev.cammiescorner.arcanus.datagen.common;
 
-import dev.cammiescorner.arcanus.common.data.ArcanusEnchantmentTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import dev.cammiescorner.arcanus.Arcanus;
+import dev.upcraft.sparkweave.api.datagen.provider.common.SparkweaveTagsProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.enchantment.Enchantment;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ArcanusEnchantmentTagsProvider extends FabricTagProvider.EnchantmentTagProvider {
-	public ArcanusEnchantmentTagsProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
-		super(output, completableFuture);
+public class ArcanusEnchantmentTagsProvider extends SparkweaveTagsProvider<Enchantment> {
+
+	public ArcanusEnchantmentTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(output, Registries.ENCHANTMENT, Arcanus.MOD_ID, lookupProvider);
 	}
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
-		getOrCreateTagBuilder(ArcanusEnchantmentTags.MANA_POOL_COMPATIBLE_WITH)
-			.add(Enchantments.UNBREAKING)
-			.add(Enchantments.MENDING);
+		// FIXME enchantment tags datagen
+//		getOrCreateTagBuilder(ArcanusTags.Enchantments.MANA_POOL_COMPATIBLE_WITH)
+//			.add(Enchantments.UNBREAKING)
+//			.add(Enchantments.MENDING);
 	}
 }

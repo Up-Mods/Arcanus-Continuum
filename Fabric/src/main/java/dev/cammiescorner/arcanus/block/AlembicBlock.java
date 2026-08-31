@@ -1,0 +1,22 @@
+package dev.cammiescorner.arcanus.block;
+
+import dev.cammiescorner.arcanus.block.entities.AlembicBlockEntity;
+import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
+
+public class AlembicBlock extends Block implements EntityBlock, BlockItemProvider {
+
+	public AlembicBlock(Properties properties) {
+		super(properties);
+	}
+
+	@Override
+	public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new AlembicBlockEntity(pos, state);
+	}
+}

@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.client.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.cammiescorner.arcanus.common.entity.living.Arcanist;
+import dev.cammiescorner.arcanus.entity.living.Arcanist;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;

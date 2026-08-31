@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.mixin.client;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.cammiescorner.arcanus.common.registry.ArcanusEntities;
+import dev.cammiescorner.arcanus.registry.ArcanusEntities;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;

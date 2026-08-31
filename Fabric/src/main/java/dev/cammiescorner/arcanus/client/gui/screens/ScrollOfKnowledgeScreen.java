@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.client.gui.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.menu.ScrollOfKnowledgeMenu;
+import dev.cammiescorner.arcanus.menu.ScrollOfKnowledgeMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;

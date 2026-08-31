@@ -1,10 +1,10 @@
 package dev.cammiescorner.arcanus.client.model.item;
 
-import dev.cammiescorner.arcanus.common.data_component.StaffParts;
-import dev.cammiescorner.arcanus.common.item.StaffCapItem;
-import dev.cammiescorner.arcanus.common.item.StaffCoreItem;
-import dev.cammiescorner.arcanus.common.registry.ArcanusDataComponents;
-import dev.cammiescorner.arcanus.common.registry.ArcanusItems;
+import dev.cammiescorner.arcanus.data_component.StaffParts;
+import dev.cammiescorner.arcanus.item.StaffCapItem;
+import dev.cammiescorner.arcanus.item.StaffCoreItem;
+import dev.cammiescorner.arcanus.registry.ArcanusDataComponents;
+import dev.cammiescorner.arcanus.registry.ArcanusItems;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.client.renderer.block.model.BakedQuad;

@@ -1,43 +1,45 @@
 package dev.cammiescorner.arcanus.datagen.common;
 
-import dev.cammiescorner.arcanus.common.data.ArcanusEntityTags;
-import dev.cammiescorner.arcanus.common.registry.ArcanusEntities;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEntityTypeTags;
+import dev.cammiescorner.arcanus.data.ArcanusTags;
+import dev.cammiescorner.arcanus.data.ConventionalTags;
+import dev.cammiescorner.arcanus.registry.ArcanusEntities;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.world.entity.EntityType;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ArcanusEntityTagsProvider extends FabricTagProvider.EntityTypeTagProvider {
-	public ArcanusEntityTagsProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
-		super(output, completableFuture);
+public class ArcanusEntityTagsProvider extends IntrinsicHolderTagsProvider<EntityType<?>> {
+
+	@SuppressWarnings("deprecation")
+	public ArcanusEntityTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(output, Registries.ENTITY_TYPE, lookupProvider, entityType -> entityType.builtInRegistryHolder().key());
 	}
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
+		tag(ArcanusTags.Entities.C_IMMOVABLE)
+			.add(ArcanusEntities.AOE)
+			.add(ArcanusEntities.BEAM)
+			.add(ArcanusEntities.MANA_SHIELD)
+			.add(ArcanusEntities.PORTAL)
+			.add(ArcanusEntities.SMITE);
 
-		getOrCreateTagBuilder(ArcanusEntityTags.C_IMMOVABLE)
-			.add(ArcanusEntities.AOE.get())
-			.add(ArcanusEntities.BEAM.get())
-			.add(ArcanusEntities.MANA_SHIELD.get())
-			.add(ArcanusEntities.PORTAL.get())
-			.add(ArcanusEntities.SMITE.get());
+		tag(ArcanusTags.Entities.DISPELLABLE)
+			.add(ArcanusEntities.STOCKPILE_ORB)
+			.add(ArcanusEntities.AOE)
+			.add(ArcanusEntities.MAGIC_ORB)
+			.add(ArcanusEntities.MAGIC_RUNE)
+			.add(ArcanusEntities.MANA_SHIELD)
+			.add(ArcanusEntities.NECRO_SKELETON)
+			.add(ArcanusEntities.PORTAL)
+			.add(ArcanusEntities.TEMPORAL_DILATION_FIELD);
 
-		getOrCreateTagBuilder(ArcanusEntityTags.DISPELLABLE)
-			.add(ArcanusEntities.STOCKPILE_ORB.get())
-			.add(ArcanusEntities.AOE.get())
-			.add(ArcanusEntities.MAGIC_ORB.get())
-			.add(ArcanusEntities.MAGIC_RUNE.get())
-			.add(ArcanusEntities.MANA_SHIELD.get())
-			.add(ArcanusEntities.NECRO_SKELETON.get())
-			.add(ArcanusEntities.PORTAL.get())
-			.add(ArcanusEntities.TEMPORAL_DILATION_FIELD.getId());
-
-		getOrCreateTagBuilder(ArcanusEntityTags.SPATIAL_RIFT_IMMUNE)
-			.forceAddTag(ConventionalEntityTypeTags.BOSSES)
-			.addOptionalTag(ArcanusEntityTags.C_IMMOVABLE)
+		tag(ArcanusTags.Entities.SPATIAL_RIFT_IMMUNE)
+			.forceAddTag(ConventionalTags.Entities.BOSSES)
+			.addOptionalTag(ArcanusTags.Entities.C_IMMOVABLE)
 			.add(EntityType.AREA_EFFECT_CLOUD)
 			.add(EntityType.BLOCK_DISPLAY)
 			.add(EntityType.END_CRYSTAL)
@@ -52,12 +54,12 @@ public class ArcanusEntityTagsProvider extends FabricTagProvider.EntityTypeTagPr
 			.add(EntityType.MARKER)
 			.add(EntityType.PAINTING)
 			.add(EntityType.TEXT_DISPLAY)
-			.add(ArcanusEntities.PORTAL.get());
+			.add(ArcanusEntities.PORTAL);
 
-		getOrCreateTagBuilder(ArcanusEntityTags.TEMPORAL_DILATION_IMMUNE)
-			.add(ArcanusEntities.TEMPORAL_DILATION_FIELD.get());
+		tag(ArcanusTags.Entities.TEMPORAL_DILATION_IMMUNE)
+			.add(ArcanusEntities.TEMPORAL_DILATION_FIELD);
 
-		getOrCreateTagBuilder(ArcanusEntityTags.RUNE_TRIGGER_IGNORED)
-			.addOptionalTag(ArcanusEntityTags.C_IMMOVABLE);
+		tag(ArcanusTags.Entities.RUNE_TRIGGER_IGNORED)
+			.addOptionalTag(ArcanusTags.Entities.C_IMMOVABLE);
 	}
 }

@@ -4,10 +4,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
-import dev.cammiescorner.arcanus.common.data.ArcanusItemTags;
-import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
-import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import dev.cammiescorner.arcanus.common.util.TranslationKeys;
+import dev.cammiescorner.arcanus.data.ArcanusTags;
+import dev.cammiescorner.arcanus.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.util.ArcanusHelper;
+import dev.cammiescorner.arcanus.util.TranslationKeys;
 import dev.upcraft.sparkweave.api.color.Color;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -53,7 +53,7 @@ public class WardedBlockRenderer {
 				hitTimer -= 1;
 		}
 
-		if(player.getMainHandItem().is(ArcanusItemTags.STAVES) || player.getOffhandItem().is(ArcanusItemTags.STAVES)) {
+		if(player.getMainHandItem().is(ArcanusTags.Items.STAVES) || player.getOffhandItem().is(ArcanusTags.Items.STAVES)) {
 			AtomicReferenceArray<LevelChunk> chunks = player.clientLevel.getChunkSource().storage.chunks;
 			float alpha = Mth.sin(player.clientLevel.getGameTime() * 0.06f) * 0.4f + 0.6f;
 

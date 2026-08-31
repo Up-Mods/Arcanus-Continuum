@@ -1,6 +1,6 @@
 package dev.cammiescorner.arcanus.mixin.client;
 
-import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
+import dev.cammiescorner.arcanus.util.ArcanusHelper;
 import it.unimi.dsi.fastutil.floats.FloatUnaryOperator;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;

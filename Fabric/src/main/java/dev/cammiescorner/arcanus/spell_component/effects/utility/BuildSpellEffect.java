@@ -1,0 +1,48 @@
+package dev.cammiescorner.arcanus.spell_component.effects.utility;
+
+import dev.cammiescorner.arcanus.ArcanusConfig;
+import dev.cammiescorner.arcanus.api.spell.SpellType;
+import dev.cammiescorner.arcanus.api.spell.components.SpellEffect;
+import dev.cammiescorner.arcanus.registry.ArcanusBlockEntities;
+import dev.cammiescorner.arcanus.registry.ArcanusBlocks;
+import dev.cammiescorner.arcanus.util.ArcanusHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+
+public class BuildSpellEffect extends SpellEffect {
+	public BuildSpellEffect() {
+		super(
+			() -> ArcanusConfig.UtilityEffects.BuildEffectProperties.enabled,
+			() -> SpellType.UTILITY,
+			() -> ArcanusConfig.UtilityEffects.BuildEffectProperties.arcanaCosts(),
+			() -> ArcanusConfig.UtilityEffects.BuildEffectProperties.activatesOnce
+		);
+	}
+
+	@Override
+	public void effect(@Nullable LivingEntity caster, @Nullable Entity sourceEntity, Level level, HitResult target, List<SpellEffect> effects, ItemStack stack, double potency) {
+		if(target.getType() == HitResult.Type.BLOCK) {
+			BlockHitResult blockHit = (BlockHitResult) target;
+			BlockPos pos = blockHit.getBlockPos().relative(blockHit.getDirection());
+
+			if(level.getBlockState(pos).canBeReplaced() && (!(caster instanceof Player player) || level.mayInteract(player, pos))) {
+				level.setBlock(pos, ArcanusBlocks.MAGIC_BLOCK.get().defaultBlockState(), Block.UPDATE_CLIENTS);
+				level.scheduleTick(pos, level.getBlockState(pos).getBlock(), (int) (ArcanusConfig.UtilityEffects.BuildEffectProperties.baseLifeSpan * potency));
+
+				if(caster != null) {
+					level.getBlockEntity(pos, ArcanusBlockEntities.MAGIC_BLOCK.get()).ifPresent(blockEntity -> ArcanusHelper.copyMagicColor(blockEntity, caster));
+				}
+			}
+		}
+	}
+}

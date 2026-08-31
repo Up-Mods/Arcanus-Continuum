@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.client.renderer.entity.magic;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.client.ArcanusClient;
-import dev.cammiescorner.arcanus.common.entity.magic.GuidedShot;
+import dev.cammiescorner.arcanus.entity.magic.GuidedShot;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

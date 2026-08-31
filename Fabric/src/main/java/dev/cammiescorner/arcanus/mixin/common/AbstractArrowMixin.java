@@ -1,7 +1,7 @@
 package dev.cammiescorner.arcanus.mixin.common;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import dev.cammiescorner.arcanus.common.entity.magic.Missile;
+import dev.cammiescorner.arcanus.entity.magic.Missile;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;

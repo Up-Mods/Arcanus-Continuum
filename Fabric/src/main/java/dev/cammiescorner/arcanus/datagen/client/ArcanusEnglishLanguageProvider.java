@@ -2,38 +2,28 @@ package dev.cammiescorner.arcanus.datagen.client;
 
 import dev.cammiescorner.arcanus.api.arcana.Arcana;
 import dev.cammiescorner.arcanus.api.spell.components.SpellComponent;
-import dev.cammiescorner.arcanus.common.data.*;
-import dev.cammiescorner.arcanus.common.registry.*;
-import dev.cammiescorner.arcanus.common.util.TranslationKeys;
+import dev.cammiescorner.arcanus.data.ArcanusAdvancements;
+import dev.cammiescorner.arcanus.data.ArcanusBiomes;
+import dev.cammiescorner.arcanus.data.ArcanusTags;
+import dev.cammiescorner.arcanus.registry.*;
+import dev.cammiescorner.arcanus.util.TranslationKeys;
 import dev.upcraft.sparkweave.api.datagen.ContextAwarePackOutput;
 import dev.upcraft.sparkweave.api.datagen.TranslationBuilder;
 import dev.upcraft.sparkweave.api.datagen.provider.client.SparkweaveLanguageProvider;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.locale.Language;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.Util;
-import net.minecraft.world.damagesource.DamageType;
-import net.minecraft.world.damagesource.DeathMessageType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.biome.Biome;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
-import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
-
 public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
-	private final CompletableFuture<HolderLookup.Provider> registriesFuture;
 
 	public ArcanusEnglishLanguageProvider(ContextAwarePackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(dataOutput, registriesFuture, Language.DEFAULT);
-		this.registriesFuture = registriesFuture;
 	}
 
+	@SuppressWarnings("removal")
 	@Override
 	public void generateTranslations(HolderLookup.Provider registerLookup, TranslationBuilder builder) {
 		builder.creativeTab(ArcanusCreativeTabs.ARCANUS, "Arcanus");
@@ -87,10 +77,11 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		arcaneumCap.set(ArcanusDataComponents.STAFF_CAP.get(), arcaneumCap.get(ArcanusDataComponents.STAFF_CAP.get()).withInert(true));
 		voidCap.set(ArcanusDataComponents.STAFF_CAP.get(), voidCap.get(ArcanusDataComponents.STAFF_CAP.get()).withInert(true));
 
-		itemStack(builder, copperCap, "Inert Copper Staff Cap");
-		itemStack(builder, netheriteCap, "Inert Netherite Staff Cap");
-		itemStack(builder, arcaneumCap, "Inert Arcaneum Staff Cap");
-		itemStack(builder, voidCap, "Inert Void Staff Cap");
+		// FIXME next sparkweave update will remove the extra builder parameter
+		builder.itemStack(builder, copperCap, "Inert Copper Staff Cap");
+		builder.itemStack(builder, netheriteCap, "Inert Netherite Staff Cap");
+		builder.itemStack(builder, arcaneumCap, "Inert Arcaneum Staff Cap");
+		builder.itemStack(builder, voidCap, "Inert Void Staff Cap");
 
 		builder.item(ArcanusItems.IRON_STAFF_CAP, "Iron Staff Cap");
 		builder.item(ArcanusItems.GOLDEN_STAFF_CAP, "Golden Staff Cap");
@@ -108,7 +99,7 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(ArcanusItems.BLAZING_STAFF_CORE, "Blazing Staff Core");
 		builder.item(ArcanusItems.HELLISH_STAFF_CORE, "Hellish Staff Core");
 
-		biome(builder, ArcanusBiomes.POCKET_DIMENSION, "Pocket Dimension");
+		builder.biome(ArcanusBiomes.POCKET_DIMENSION, "Pocket Dimension");
 
 		builder.block(ArcanusBlocks.EBONY_LOG, "Ebony Log");
 		builder.block(ArcanusBlocks.EBONY_WOOD, "Ebony Wood");
@@ -167,31 +158,31 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(ArcanusMobEffects.SHRINK.get().getDescriptionId(), "Shrink");
 		builder.add(ArcanusMobEffects.ENLARGE.get().getDescriptionId(), "Enlarge");
 
-		tag(builder, ArcanusBiomeTags.C_HAS_VILLAGE, "Has Village");
-		tag(builder, ArcanusBiomeTags.HAS_WIZARD_TOWER, "Has Arcanist Tower");
-		tag(builder, ArcanusBiomeTags.IS_POCKET_DIMENSION, "Is Pocket Dimension");
+		builder.tag(ArcanusTags.Biomes.C_HAS_VILLAGE, "Has Village");
+		builder.tag(ArcanusTags.Biomes.HAS_WIZARD_TOWER, "Has Arcanist Tower");
+		builder.tag(ArcanusTags.Biomes.IS_POCKET_DIMENSION, "Is Pocket Dimension");
 
-		tag(builder, ArcanusBlockTags.WARDING_NOT_ALLOWED, "Warding Not Allowed");
+		builder.tag(ArcanusTags.Blocks.WARDING_NOT_ALLOWED, "Warding Not Allowed");
 
-		tag(builder, ArcanusDimensionTags.WARDING_NOT_ALLOWED, "Warding Not Allowed");
+		builder.tag(ArcanusTags.Dimensions.WARDING_NOT_ALLOWED, "Warding Not Allowed");
 
-		tag(builder, ArcanusEntityTags.C_IMMOVABLE, "Immovable");
-		tag(builder, ArcanusEntityTags.DISPELLABLE, "Dispellable");
-		tag(builder, ArcanusEntityTags.RUNE_TRIGGER_IGNORED, "Does not trigger Magic Runes");
-		tag(builder, ArcanusEntityTags.SPATIAL_RIFT_IMMUNE, "Immune to Spatial Rifts");
-		tag(builder, ArcanusEntityTags.TEMPORAL_DILATION_IMMUNE, "Immune to Temporal Dilation Fields");
+		builder.tag(ArcanusTags.Entities.C_IMMOVABLE, "Immovable");
+		builder.tag(ArcanusTags.Entities.DISPELLABLE, "Dispellable");
+		builder.tag(ArcanusTags.Entities.RUNE_TRIGGER_IGNORED, "Does not trigger Magic Runes");
+		builder.tag(ArcanusTags.Entities.SPATIAL_RIFT_IMMUNE, "Immune to Spatial Rifts");
+		builder.tag(ArcanusTags.Entities.TEMPORAL_DILATION_IMMUNE, "Immune to Temporal Dilation Fields");
 
-		tag(builder, ArcanusEnchantmentTags.MANA_POOL_COMPATIBLE_WITH, "Compatible enchantments for Mana Pool");
+		builder.tag(ArcanusTags.Enchantments.MANA_POOL_COMPATIBLE_WITH, "Compatible enchantments for Mana Pool");
 
-		tag(builder, ArcanusItemTags.C_FEATHERS, "Feathers");
-		tag(builder, ArcanusItemTags.BRACELET_HAND, "Bracelets");
-		tag(builder, ArcanusItemTags.BRACELET_OFFHAND, "Bracelets");
-		tag(builder, ArcanusItemTags.SPELL_BOOK, "Spell Books");
-		tag(builder, ArcanusItemTags.STAFF_CAPS, "Staff Caps");
-		tag(builder, ArcanusItemTags.STAFF_CORES, "Staff Cores");
-		tag(builder, ArcanusItemTags.STAVES, "Staves");
-		tag(builder, ArcanusItemTags.ARCANIST_ARMOR, "Arcanist Armor");
-		tag(builder, ArcanusItemTags.ARTIFICER_ARMOR, "Artificer Armor");
+		builder.tag(ArcanusTags.Items.C_FEATHERS, "Feathers");
+		builder.tag(ArcanusTags.Items.BRACELET_HAND, "Bracelets");
+		builder.tag(ArcanusTags.Items.BRACELET_OFFHAND, "Bracelets");
+		builder.tag(ArcanusTags.Items.SPELL_BOOK, "Spell Books");
+		builder.tag(ArcanusTags.Items.STAFF_CAPS, "Staff Caps");
+		builder.tag(ArcanusTags.Items.STAFF_CORES, "Staff Cores");
+		builder.tag(ArcanusTags.Items.STAVES, "Staves");
+		builder.tag(ArcanusTags.Items.ARCANIST_ARMOR, "Arcanist Armor");
+		builder.tag(ArcanusTags.Items.ARTIFICER_ARMOR, "Artificer Armor");
 
 		builder.add(SPELL_BOOK_SLOT, "Spell Book");
 		builder.add(BRACELET_HAND_SLOT, "Bracelet");
@@ -240,13 +231,14 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(COMMAND_SPELL_COMPONENT_REVOKE_SUCCESS, "%s has forgotten %s");
 		builder.add(COMMAND_SPELL_COMPONENT_REVOKE_FAIL, "%s doesn't know %s");
 
-		advancement(builder, ArcanusAdvancements.ARCANE_ROOT, "Arcanus", "[insert witty sales pitch for something you're already playing]");
-		advancement(builder, ArcanusAdvancements.A_MAGICAL_CRYSTAL, "A Magical Crystal", "Find an Amethyst Shard");
-		advancement(builder, ArcanusAdvancements.ARCANE_ARTIFICE, "Arcane Artifice", "Craft an Arcane Workbench");
-		advancement(builder, ArcanusAdvancements.MAGICAL_MEET_AND_GREET, "Magical Meet & Greet", "Find an Arcanist Tower and meet the residents");
+		// FIXME next sparkweave update will remove the extra builder parameter
+		builder.advancement(builder, ArcanusAdvancements.ARCANE_ROOT, "Arcanus", "[insert witty sales pitch for something you're already playing]");
+		builder.advancement(builder, ArcanusAdvancements.A_MAGICAL_CRYSTAL, "A Magical Crystal", "Find an Amethyst Shard");
+		builder.advancement(builder, ArcanusAdvancements.ARCANE_ARTIFICE, "Arcane Artifice", "Craft an Arcane Workbench");
+		builder.advancement(builder, ArcanusAdvancements.MAGICAL_MEET_AND_GREET, "Magical Meet & Greet", "Find an Arcanist Tower and meet the residents");
 
-		damageType(builder, ArcanusDamageTypes.MAGIC, "%s was killed by %s using magic", null, "%s was killed by %s using magic with %s");
-		damageType(builder, ArcanusDamageTypes.MAGIC_PROJECTILE, "%s was shot by %s using magic", null, "%s was shot by %s using magic with %s");
+		builder.damageType(ArcanusDamageTypes.MAGIC, "%s was killed by %s using magic", null, "%s was killed by %s using magic with %s");
+		builder.damageType(ArcanusDamageTypes.MAGIC_PROJECTILE, "%s was shot by %s using magic", null, "%s was shot by %s using magic with %s");
 
 		builder.add(ArcanusAttributes.IGNIS_ARCANA.get().getDescriptionId(), "Ignis Arcana");
 		builder.add(ArcanusAttributes.TERRA_ARCANA.get().getDescriptionId(), "Terra Arcana");
@@ -450,46 +442,11 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(CONFIG_TIMES_TO_CAST_NEXT_SHAPE, "Number of Times to Cast Next Spell Shape");
 	}
 
-	private void damageType(TranslationBuilder builder, ResourceKey<DamageType> typeKey, String defaultTranslation, @Nullable String killedByTranslation, @Nullable String killedWithItemTranslation) {
-		registriesFuture.thenAccept(registries -> {
-			var damageTypes = registries.lookupOrThrow(Registries.DAMAGE_TYPE);
-			var type = damageTypes.getOrThrow(typeKey).value();
-
-			if(type.deathMessageType() != DeathMessageType.DEFAULT) {
-				throw new IllegalArgumentException("Death message type not currently supported: " + type.deathMessageType());
-			}
-
-			var translationKey = "death.attack." + type.msgId();
-			builder.add(translationKey, defaultTranslation);
-			builder.add(translationKey + ".player", killedByTranslation != null ? killedByTranslation : defaultTranslation);
-			builder.add(translationKey + ".stack", killedWithItemTranslation != null ? killedWithItemTranslation : defaultTranslation);
-		});
-	}
-
-	private void itemStack(TranslationBuilder builder, ItemStack stack, String translationValue) {
-		builder.add(stack.getItem().getDescriptionId(), translationValue);
-	}
-
-	private void advancement(TranslationBuilder builder, Identifier advancementId, String title, String description) {
-		builder.add(Util.makeDescriptionId("advancements", advancementId.withSuffix(".title")), title);
-		builder.add(Util.makeDescriptionId("advancements", advancementId.withSuffix(".description")), description);
-	}
-
 	private void spell(TranslationBuilder builder, RegistrySupplier<? extends SpellComponent> component, String translation) {
 		builder.add(component.get().translationKey(), translation);
 	}
 
 	private void arcana(TranslationBuilder builder, RegistrySupplier<? extends Arcana> arcana, String translation) {
-		builder.add(arcana.get().translationKey(), translation);
-	}
-
-	private void tag(TranslationBuilder builder, TagKey<?> tag, String translation) {
-		var registryName = tag.registry().identifier().toShortLanguageKey().replace('/', '.');
-		var tagName = Util.makeDescriptionId("tag." + registryName, tag.location());
-		builder.add(tagName, translation);
-	}
-
-	private void biome(TranslationBuilder builder, ResourceKey<Biome> biome, String translation) {
-		builder.add(Util.makeDescriptionId("biome", biome.identifier()), translation);
+		builder.add(arcana.get().getDescriptionId(), translation);
 	}
 }

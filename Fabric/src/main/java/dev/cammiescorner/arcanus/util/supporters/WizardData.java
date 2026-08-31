@@ -1,0 +1,40 @@
+package dev.cammiescorner.arcanus.util.supporters;
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.cammiescorner.arcanus.Arcanus;
+import dev.upcraft.datasync.api.util.Entitlements;
+import dev.upcraft.sparkweave.api.color.Color;
+import net.minecraft.resources.Identifier;
+
+import java.util.UUID;
+
+public record WizardData(Color magicColor, Color pocketDimensionColor) {
+	public static final Identifier ID = Arcanus.id("wizard_data");
+	private static final WizardData EMPTY = new WizardData(Arcanus.DEFAULT_MAGIC_COLOR, Arcanus.DEFAULT_MAGIC_COLOR);
+
+	public static final Codec<WizardData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		Color.CODEC.fieldOf("magic_color").forGetter(WizardData::magicColor),
+		Color.CODEC.optionalFieldOf("pocket_dimension_color", Arcanus.DEFAULT_MAGIC_COLOR).forGetter(WizardData::pocketDimensionColor)
+	).apply(instance, WizardData::new));
+
+	public static WizardData empty() {
+		return EMPTY;
+	}
+
+	public static WizardData getOrEmpty(UUID uuid) {
+		return Arcanus.WIZARD_DATA.getOrDefault(uuid, WizardData.empty());
+	}
+
+	public static boolean isSupporter(UUID uuid) {
+		return Entitlements.getOrEmpty(uuid).keys().contains(ID);
+	}
+
+	public WizardData withColor(Color color) {
+		return new WizardData(color, this.pocketDimensionColor());
+	}
+
+	public WizardData withPocketDimensionColor(Color color) {
+		return new WizardData(this.magicColor(), color);
+	}
+}

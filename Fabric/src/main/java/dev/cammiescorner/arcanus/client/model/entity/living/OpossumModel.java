@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.client.model.entity.living;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.cammiescorner.arcanus.Arcanus;
-import dev.cammiescorner.arcanus.common.entity.living.Opossum;
+import dev.cammiescorner.arcanus.entity.living.Opossum;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;

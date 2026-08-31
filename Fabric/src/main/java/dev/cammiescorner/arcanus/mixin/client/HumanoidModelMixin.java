@@ -1,8 +1,8 @@
 package dev.cammiescorner.arcanus.mixin.client;
 
 import dev.cammiescorner.arcanus.ArcanusConfig;
-import dev.cammiescorner.arcanus.common.item.StaffItem;
-import dev.cammiescorner.arcanus.common.registry.ArcanusComponents;
+import dev.cammiescorner.arcanus.item.StaffItem;
+import dev.cammiescorner.arcanus.registry.ArcanusComponents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.ArmedModel;

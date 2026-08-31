@@ -81,19 +81,19 @@
   },
   "entrypoints": {
     "main": [
-      "dev.cammiescorner.arcanus.entrypoints.FabricMain"
+      "dev.cammiescorner.arcanus.fabric.entrypoints.FabricMain"
     ],
     "client": [
-      "dev.cammiescorner.arcanus.entrypoints.FabricClient"
+      "dev.cammiescorner.arcanus.fabric.entrypoints.FabricClient"
     ],
     "cardinal-components": [
-      "dev.cammiescorner.arcanus.common.registry.ArcanusComponents"
+      "dev.cammiescorner.arcanus.registry.ArcanusComponents"
     ],
     "dynamiclights": [
-      "dev.cammiescorner.arcanus.common.compat.DynamicLightsCompat"
+      "dev.cammiescorner.arcanus.compat.DynamicLightsCompat"
     ],
     "modmenu": [
-      "dev.cammiescorner.arcanus.common.compat.ModMenuCompat"
+      "dev.cammiescorner.arcanus.compat.ModMenuCompat"
     ]
   },
   "mixins": [

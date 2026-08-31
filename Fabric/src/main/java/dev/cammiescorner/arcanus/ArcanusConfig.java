@@ -3,12 +3,10 @@ package dev.cammiescorner.arcanus;
 import com.teamresourceful.resourcefulconfig.api.annotations.*;
 import dev.cammiescorner.arcanus.api.arcana.PrimalArcana;
 import dev.cammiescorner.arcanus.api.spell.Weight;
-import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
-import dev.cammiescorner.arcanus.common.util.MirrorHudElement;
-import dev.cammiescorner.arcanus.common.util.TranslationKeys;
+import dev.cammiescorner.arcanus.util.ArcanusHelper;
+import dev.cammiescorner.arcanus.util.MirrorHudElement;
+import dev.cammiescorner.arcanus.util.TranslationKeys;
 import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
-
-import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 
 @Config(value = Arcanus.MOD_ID, categories = {
 	ArcanusConfig.ClientStuff.class,
@@ -18,7 +16,14 @@ import static dev.cammiescorner.arcanus.common.util.TranslationKeys.*;
 	ArcanusConfig.UtilityEffects.class,
 	ArcanusConfig.MovementEffects.class
 })
-@ConfigInfo(title = "Arcanus")
+@ConfigInfo(
+	title = "Arcanus",
+	titleTranslation = "arcanus.title",
+	links = {
+		@ConfigInfo.Link(value = "https://cammiescorner.dev", icon = "globe", text = "Website", textTranslation = "arcanus.config.links.website"),
+		@ConfigInfo.Link(value = "https://cammiescorner.dev/discord", icon = "gamepad-2", text = "Discord", textTranslation = "arcanus.config.links.discord")
+	}
+)
 public final class ArcanusConfig {
 	@ConfigEntry(id = "castingSpeedHasCoolDown", translation = CONFIG_CASTING_HAS_SPEED_LIMIT)
 	public static boolean castingSpeedHasCoolDown = false;

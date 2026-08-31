@@ -1,23 +1,24 @@
 package dev.cammiescorner.arcanus.datagen.common;
 
-import dev.cammiescorner.arcanus.common.data.ArcanusDimensionTags;
-import dev.cammiescorner.arcanus.common.data.ArcanusDimensionTypes;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import dev.cammiescorner.arcanus.Arcanus;
+import dev.upcraft.sparkweave.api.datagen.provider.common.SparkweaveTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.dimension.DimensionType;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ArcanusDimensionTagsProvider extends FabricTagProvider<DimensionType> {
-	public ArcanusDimensionTagsProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-		super(output, Registries.DIMENSION_TYPE, registriesFuture);
+public class ArcanusDimensionTagsProvider extends SparkweaveTagsProvider<DimensionType> {
+
+	public ArcanusDimensionTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(output, Registries.DIMENSION_TYPE, Arcanus.MOD_ID, lookupProvider);
 	}
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
-		getOrCreateTagBuilder(ArcanusDimensionTags.WARDING_NOT_ALLOWED)
-			.add(ArcanusDimensionTypes.POCKET_DIMENSION);
+		// FIXME dimensiontype tags datagen
+//		getOrCreateTagBuilder(ArcanusTags.Dimensions.WARDING_NOT_ALLOWED)
+//			.add(ArcanusDimensionTypes.POCKET_DIMENSION);
 	}
 }

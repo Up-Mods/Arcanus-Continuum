@@ -2,7 +2,7 @@ package dev.cammiescorner.arcanus.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import dev.cammiescorner.arcanus.common.block.entities.ArcanePlinthBlockEntity;
+import dev.cammiescorner.arcanus.block.entities.ArcanePlinthBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;

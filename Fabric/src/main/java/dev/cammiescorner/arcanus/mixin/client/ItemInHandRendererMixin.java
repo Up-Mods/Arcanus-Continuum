@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.mixin.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dev.cammiescorner.arcanus.client.util.ClientUtils;
-import dev.cammiescorner.arcanus.common.item.StaffItem;
+import dev.cammiescorner.arcanus.item.StaffItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;

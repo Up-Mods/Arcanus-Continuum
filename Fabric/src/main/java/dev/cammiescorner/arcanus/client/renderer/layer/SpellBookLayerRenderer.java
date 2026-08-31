@@ -3,7 +3,7 @@ package dev.cammiescorner.arcanus.client.renderer.layer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.cammiescorner.arcanus.Arcanus;
 import dev.cammiescorner.arcanus.client.model.feature.SpellBookModel;
-import dev.cammiescorner.arcanus.common.util.ArcanusHelper;
+import dev.cammiescorner.arcanus.util.ArcanusHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
