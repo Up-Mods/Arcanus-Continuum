@@ -3,15 +3,14 @@ package dev.cammiescorner.arcanus.datagen.common.loot;
 import dev.cammiescorner.arcanus.registry.ArcanusBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.world.flag.FeatureFlagSet;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.Set;
 
 public class ArcanusBlockLoot extends BlockLootSubProvider {
-	public ArcanusBlockLoot(Set<Item> explosionResistant, FeatureFlagSet enabledFeatures, HolderLookup.Provider registries) {
-		super(explosionResistant, enabledFeatures, registries);
+	public ArcanusBlockLoot(HolderLookup.Provider registries) {
+		super(Set.of(), FeatureFlags.REGISTRY.allFlags(), registries);
 	}
 
 	@Override
