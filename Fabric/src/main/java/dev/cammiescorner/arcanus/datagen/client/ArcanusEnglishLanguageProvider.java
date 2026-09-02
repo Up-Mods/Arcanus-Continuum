@@ -17,6 +17,8 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.concurrent.CompletableFuture;
 
+import static dev.cammiescorner.arcanus.util.TranslationKeys.*;
+
 public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 
 	public ArcanusEnglishLanguageProvider(ContextAwarePackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
@@ -77,11 +79,10 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		arcaneumCap.set(ArcanusDataComponents.STAFF_CAP.get(), arcaneumCap.get(ArcanusDataComponents.STAFF_CAP.get()).withInert(true));
 		voidCap.set(ArcanusDataComponents.STAFF_CAP.get(), voidCap.get(ArcanusDataComponents.STAFF_CAP.get()).withInert(true));
 
-		// FIXME next sparkweave update will remove the extra builder parameter
-		builder.itemStack(builder, copperCap, "Inert Copper Staff Cap");
-		builder.itemStack(builder, netheriteCap, "Inert Netherite Staff Cap");
-		builder.itemStack(builder, arcaneumCap, "Inert Arcaneum Staff Cap");
-		builder.itemStack(builder, voidCap, "Inert Void Staff Cap");
+		builder.itemStack(copperCap, "Inert Copper Staff Cap");
+		builder.itemStack(netheriteCap, "Inert Netherite Staff Cap");
+		builder.itemStack(arcaneumCap, "Inert Arcaneum Staff Cap");
+		builder.itemStack(voidCap, "Inert Void Staff Cap");
 
 		builder.item(ArcanusItems.IRON_STAFF_CAP, "Iron Staff Cap");
 		builder.item(ArcanusItems.GOLDEN_STAFF_CAP, "Golden Staff Cap");
@@ -231,11 +232,10 @@ public class ArcanusEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.add(COMMAND_SPELL_COMPONENT_REVOKE_SUCCESS, "%s has forgotten %s");
 		builder.add(COMMAND_SPELL_COMPONENT_REVOKE_FAIL, "%s doesn't know %s");
 
-		// FIXME next sparkweave update will remove the extra builder parameter
-		builder.advancement(builder, ArcanusAdvancements.ARCANE_ROOT, "Arcanus", "[insert witty sales pitch for something you're already playing]");
-		builder.advancement(builder, ArcanusAdvancements.A_MAGICAL_CRYSTAL, "A Magical Crystal", "Find an Amethyst Shard");
-		builder.advancement(builder, ArcanusAdvancements.ARCANE_ARTIFICE, "Arcane Artifice", "Craft an Arcane Workbench");
-		builder.advancement(builder, ArcanusAdvancements.MAGICAL_MEET_AND_GREET, "Magical Meet & Greet", "Find an Arcanist Tower and meet the residents");
+		builder.advancement(ArcanusAdvancements.ARCANE_ROOT, "Arcanus", "[insert witty sales pitch for something you're already playing]");
+		builder.advancement(ArcanusAdvancements.A_MAGICAL_CRYSTAL, "A Magical Crystal", "Find an Amethyst Shard");
+		builder.advancement(ArcanusAdvancements.ARCANE_ARTIFICE, "Arcane Artifice", "Craft an Arcane Workbench");
+		builder.advancement(ArcanusAdvancements.MAGICAL_MEET_AND_GREET, "Magical Meet & Greet", "Find an Arcanist Tower and meet the residents");
 
 		builder.damageType(ArcanusDamageTypes.MAGIC, "%s was killed by %s using magic", null, "%s was killed by %s using magic with %s");
 		builder.damageType(ArcanusDamageTypes.MAGIC_PROJECTILE, "%s was shot by %s using magic", null, "%s was shot by %s using magic with %s");

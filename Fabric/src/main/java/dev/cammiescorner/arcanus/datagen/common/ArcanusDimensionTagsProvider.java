@@ -1,6 +1,8 @@
 package dev.cammiescorner.arcanus.datagen.common;
 
 import dev.cammiescorner.arcanus.Arcanus;
+import dev.cammiescorner.arcanus.data.ArcanusDimensionTypes;
+import dev.cammiescorner.arcanus.data.ArcanusTags;
 import dev.upcraft.sparkweave.api.datagen.provider.common.SparkweaveTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -17,8 +19,7 @@ public class ArcanusDimensionTagsProvider extends SparkweaveTagsProvider<Dimensi
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
-		// FIXME dimensiontype tags datagen
-//		getOrCreateTagBuilder(ArcanusTags.Dimensions.WARDING_NOT_ALLOWED)
-//			.add(ArcanusDimensionTypes.POCKET_DIMENSION);
+		tag(ArcanusTags.Dimensions.WARDING_NOT_ALLOWED, "Warding not allowed")
+			.add(ArcanusDimensionTypes.POCKET_DIMENSION);
 	}
 }
